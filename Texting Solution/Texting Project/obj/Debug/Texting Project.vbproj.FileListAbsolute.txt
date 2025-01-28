@@ -1,0 +1,12 @@
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\bin\Debug\Texting Project.exe.config
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\bin\Debug\Texting Project.exe
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\bin\Debug\Texting Project.pdb
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\bin\Debug\Texting Project.xml
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\obj\Debug\Texting Project.vbproj.AssemblyReference.cache
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\obj\Debug\Texting_Project.Form1.resources
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\obj\Debug\Texting_Project.Resources.resources
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\obj\Debug\Texting Project.vbproj.GenerateResource.cache
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\obj\Debug\Texting Project.vbproj.CoreCompileInputs.cache
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\obj\Debug\Texting Project.exe
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\obj\Debug\Texting Project.xml
+C:\Users\Justin\source\repos\Texting Solution\Texting Project\obj\Debug\Texting Project.pdb

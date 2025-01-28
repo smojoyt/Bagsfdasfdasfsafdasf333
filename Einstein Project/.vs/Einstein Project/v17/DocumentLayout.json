@@ -1,0 +1,40 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Justin\\source\\repos\\Einstein Project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B317E8EC-0519-4DAE-BD79-C990B52A9934}|Einstein Project\\Einstein Project.vbproj|c:\\users\\justin\\source\\repos\\einstein project\\einstein project\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{B317E8EC-0519-4DAE-BD79-C990B52A9934}|Einstein Project\\Einstein Project.vbproj|solutionrelative:einstein project\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.vb [Design]",
+              "DocumentMoniker": "C:\\Users\\Justin\\source\\repos\\Einstein Project\\Einstein Project\\Form1.vb",
+              "RelativeDocumentMoniker": "Einstein Project\\Form1.vb",
+              "ToolTip": "C:\\Users\\Justin\\source\\repos\\Einstein Project\\Einstein Project\\Form1.vb [Design]",
+              "RelativeToolTip": "Einstein Project\\Form1.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2024-06-01T00:39:47.081Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

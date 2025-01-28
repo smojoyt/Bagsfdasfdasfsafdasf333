@@ -1,0 +1,47 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Justin\\source\\repos\\Texting Solution\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{463CA3B2-A302-4EB8-B182-7737E37341BF}|Texting Project\\Texting Project.vbproj|d:\\smojo\\personal\\life\\schhol\\cist2311\\lesson files\\vb9e\\chap01\\textmessagesymbols\\main form.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{463CA3B2-A302-4EB8-B182-7737E37341BF}|Texting Project\\Texting Project.vbproj|d:\\smojo\\personal\\life\\schhol\\cist2311\\lesson files\\vb9e\\chap01\\textmessagesymbols\\main form.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Main Form.vb",
+              "DocumentMoniker": "D:\\SMOJO\\Personal\\Life\\Schhol\\CIST2311\\Lesson Files\\VB9e\\Chap01\\TextMessageSymbols\\Main Form.vb",
+              "ToolTip": "D:\\SMOJO\\Personal\\Life\\Schhol\\CIST2311\\Lesson Files\\VB9e\\Chap01\\TextMessageSymbols\\Main Form.vb",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2024-06-07T22:30:42.31Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Main Form.vb [Design]",
+              "DocumentMoniker": "D:\\SMOJO\\Personal\\Life\\Schhol\\CIST2311\\Lesson Files\\VB9e\\Chap01\\TextMessageSymbols\\Main Form.vb",
+              "ToolTip": "D:\\SMOJO\\Personal\\Life\\Schhol\\CIST2311\\Lesson Files\\VB9e\\Chap01\\TextMessageSymbols\\Main Form.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2024-06-07T19:24:29.231Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

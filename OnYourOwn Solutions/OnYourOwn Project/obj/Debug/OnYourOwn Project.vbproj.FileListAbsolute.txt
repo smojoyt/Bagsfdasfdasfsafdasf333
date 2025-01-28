@@ -1,0 +1,12 @@
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\bin\Debug\OnYourOwn Project.exe.config
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\bin\Debug\OnYourOwn Project.exe
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\bin\Debug\OnYourOwn Project.pdb
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\bin\Debug\OnYourOwn Project.xml
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\obj\Debug\OnYourOwn Project.vbproj.AssemblyReference.cache
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\obj\Debug\OnYourOwn_Project.Form1.resources
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\obj\Debug\OnYourOwn_Project.Resources.resources
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\obj\Debug\OnYourOwn Project.vbproj.GenerateResource.cache
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\obj\Debug\OnYourOwn Project.vbproj.CoreCompileInputs.cache
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\obj\Debug\OnYourOwn Project.exe
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\obj\Debug\OnYourOwn Project.xml
+C:\Users\Justin\source\repos\OnYourOwn Solutions\OnYourOwn Project\obj\Debug\OnYourOwn Project.pdb
