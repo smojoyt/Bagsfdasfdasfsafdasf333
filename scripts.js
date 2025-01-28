@@ -1,0 +1,2 @@
+(function(){var __sections__={};(function(){for(var i=0,s=document.getElementById("sections-script").getAttribute("data-sections").split(",");i<s.length;i++)__sections__[s[i]]=!0})(),function(){if(__sections__.footer)try{const firstSectionImage=document.querySelector(".main-content > .shopify-section img");firstSectionImage&&(firstSectionImage.setAttribute("loading","eager"),firstSectionImage.setAttribute("fetchpriority","high"))}catch(e){console.error(e)}}()})();
+//# sourceMappingURL=/cdn/shop/t/8/compiled_assets/scripts.js.map?763=
