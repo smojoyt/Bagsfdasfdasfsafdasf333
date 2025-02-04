@@ -22688,7 +22688,7 @@ h2, h2 a, h3, h3 a, h5, h5 a, h6, h6 a, .popout--group .popout__toggle, .popout_
 
 
 @font-face {
-font-family: "Gotham-Medium";
+font-family: "Raleway";
 src: url('/cdn/shop/files/Gotham-Medium.otf?v=1698778693') format('embedded-opentype'),
 url('/cdn/shop/files/Gotham-Medium_7e66fc2a-8e5b-481f-941b-2c4d0cd93a06.woff?v=1698778596') format('woff'),
 url('/cdn/shop/files/Gotham-Medium.woff2?v=1698778596') format('woff2');
@@ -22698,7 +22698,7 @@ font-style: normal;
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: antialiased;
 }
-.btn--text, #nav, div.title a, .headline, .subtitle { font-family: "Gotham-Medium"!important; }
+.btn--text, #nav, div.title a, .headline, .subtitle { font-family: "RailWay"!important; }
 
 :root {
   --font-body-family: ""freight-display-pro", serif;" !important;
