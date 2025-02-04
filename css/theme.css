@@ -88,9 +88,8 @@ Line 22744:1 Unexpected "}"
   --header-overlay-color: transparent;
 }
 .header-shop {
-    font-size:13px;
-    font-weight:900;
-
+    font-size: 13px;
+    font-weight: 900;
 }
 .palette--contrast {
   --text: #000;
