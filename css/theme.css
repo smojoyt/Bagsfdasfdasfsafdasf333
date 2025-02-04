@@ -22684,7 +22684,7 @@ font-style: normal;
 -moz-osx-font-smoothing: antialiased;
 }
 
-h2, h2 a, h3, h3 a, h5, h5 a, h6, h6 a, .popout--group .popout__toggle, .popout__toggle span:not(.filter-count), .announcement__text, .sliderow__title, .navtext, .radio__legend__option-name, .sliderow__title, .popout--sort .popout__toggle, .popout-list__item { font-family: "Gotham-Book"!important; }
+h2, h2 a, h3, h3 a, h5, h5 a, h6, h6 a, .popout--group .popout__toggle, .popout__toggle span:not(.filter-count), .announcement__text, .sliderow__title, .navtext, .radio__legend__option-name, .sliderow__title, .popout--sort .popout__toggle, .popout-list__item { font-family: "Railway"!important; }
 
 
 @font-face {
@@ -22698,7 +22698,7 @@ font-style: normal;
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: antialiased;
 }
-.btn--text, #nav, div.title a, .headline, .subtitle { font-family: "RailWay"!important; }
+.btn--text, #nav, div.title a, .headline, .subtitle { font-family: "RailWay"!important; font-weight:700}
 
 :root {
   --font-body-family: ""freight-display-pro", serif;" !important;
