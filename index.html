@@ -1267,9 +1267,15 @@
                    </div>
                </div>
            </div>
-           <!-- index.php or about.php -->
-           <?php include 'navbar.php'; ?>
-           <!-- Your page content here -->
+           <div id="navbar-container"></div>
+           <script>
+               // Fetch the navbar.html and insert it into the page
+               fetch('navbar.html')
+                   .then(response => response.text())
+                   .then(data => {
+                       document.getElementById('navbar-container').innerHTML = data;
+                   });
+           </script>
        </div>
       </header>
       <nav aria-label="Menu" class="drawer drawer--header caps" data-drawer="hamburger" id="header-menu">
