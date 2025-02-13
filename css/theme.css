@@ -1,3 +1,14 @@
+.disabled {
+display:none !important;
+}
+
+
+
+
+
+
+
+
 /** Shopify CDN: Minification failed
 
 Line 2490:2 Expected identifier but found "*"
