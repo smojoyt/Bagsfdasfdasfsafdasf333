@@ -1065,7 +1065,8 @@
 
                         <div class="header__mobile">
                             <div class="header__mobile__left">
-                                <div class="header__mobile__button">
+                                <!--Disabled Burger Button-->
+                                <div class="header__mobile__button" style="display:none">
                                     <button aria-controls="header-menu" aria-expanded="false" aria-haspopup="true" aria-label="Show menu" class="header__mobile__hamburger caps" data-drawer-toggle="hamburger">
                                         <svg aria-hidden="true" class="icon icon-menu" focusable="false" role="presentation" viewbox="0 0 24 24">
                                             <path d="M3 5h18M3 12h18M3 19h18" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
@@ -1073,7 +1074,8 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div class="header__mobile__button caps">
+                                <!--Disabled Search Button-->
+                                <div class="header__mobile__button caps" style="display:none;">
                                     <header-search-popdown>
                                         <details>
                                             <summary aria-haspopup="dialog" class="navlink navlink--search" data-popdown-toggle="" title="Search">
@@ -1144,7 +1146,8 @@
                                 </a>
                             </div>
                             <div class="header__mobile__right caps">
-                                <div class="header__mobile__button">
+                                <!--Disabled Cart Button-->
+                                <div class="header__mobile__button" style="display:none">
                                     <a class="navlink navlink--cart navlink--cart--icon" data-cart-toggle="" href="/cart">
                                         <div class="navlink__cart__content">
                                             <span class="visually-hidden">
@@ -1193,7 +1196,9 @@
                                 </div>
                                 <div class="header__desktop__bar__r" data-child-takes-space="">
                                     <div class="header__desktop__buttons header__desktop__buttons--icons caps">
-                                        <div class="header__desktop__button">
+
+                                        <!--Disabled Search Button-->
+                                        <div class="header__desktop__button" style="display:none;">
                                             <header-search-popdown>
                                                 <details>
                                                     <summary aria-haspopup="dialog" class="navlink navlink--search" data-popdown-toggle="" title="Search">
@@ -1252,7 +1257,9 @@
                                                 </details>
                                             </header-search-popdown>
                                         </div>
-                                        <div class="header__desktop__button">
+
+                                        <!--Disabled Cart Button-->
+                                        <div class="header__desktop__button" style="display:none">
                                             <a class="navlink navlink--cart navlink--cart--icon" data-cart-toggle="" href="/cart" title="Cart">
                                                 <div class="navlink__cart__content">
                                                     <span class="visually-hidden">
