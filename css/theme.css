@@ -5559,8 +5559,6 @@ form .errors ul,
 
 /* === snippets/image.liquid === */
 .image-wrapper {
-  --aspect-ratio-default: var(--aspect-ratio, 1);
-  --image-aspect-ratio: var(--aspect-ratio-default);
   display: block;
   position: relative;
   width: 100%;
