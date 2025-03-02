@@ -2881,9 +2881,14 @@ dialog[closing] {
  * Grid
  */
 .grid {
-  display: grid;
-  gap: var(--gap);
-  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    justify-content: center;
+    align-content: center;
+    place-items: center; /* Center each item in its cell */
+    min-height: 100vh;
+}
+
 }
 body.has-line-design.grid-compact .grid {
   padding-top: 1px;
