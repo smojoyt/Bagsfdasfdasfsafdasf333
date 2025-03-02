@@ -2881,12 +2881,13 @@ dialog[closing] {
  * Grid
  */
 .grid {
+    gap: 50px;
+    margin: auto 0;
+    max-width: 900px;
+    width: max-content;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     justify-content: center;
-    align-content: center;
-    place-items: center; /* Center each item in its cell */
-    min-height: 100vh;
 }
 
 }
