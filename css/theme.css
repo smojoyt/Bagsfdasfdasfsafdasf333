@@ -18652,7 +18652,7 @@ body.is-focused .subcollection__item:focus-within .image-overlay-bottom {
  */
 
 .footer-logo {
-    padding-top: calc(1 / var(--image-aspect-ratio)* 100%);
+    padding-top: 20px;
 }
 
 .footer-sections {
