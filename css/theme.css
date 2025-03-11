@@ -18650,6 +18650,11 @@ body.is-focused .subcollection__item:focus-within .image-overlay-bottom {
 /**
  * Footer
  */
+
+.footer-logo {
+
+}
+
 .footer-sections {
   --bg: var(--COLOR-FOOTER-BG);
   --text: var(--COLOR-FOOTER-TEXT);
