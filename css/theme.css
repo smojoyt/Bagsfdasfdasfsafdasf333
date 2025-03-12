@@ -2882,7 +2882,7 @@ dialog[closing] {
  */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, max-content)); /* Item size based on content */
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr)); /* Item size based on content */
     justify-content: center;
     gap: 40px;
     max-width: 1300px;
