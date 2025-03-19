@@ -22871,3 +22871,58 @@ p.p1 {
   font-size: 8pt;
   letter-spacing: 0.05em;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Custom Buy now and view more buttons*/
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Space between buttons */
+    height: 100vh; /* Full height for centering */
+}
+
+.btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    border: 2px solid black;
+    transition: 0.3s ease-in-out;
+}
+
+.view-more {
+    background: transparent;
+    color: black;
+    border: 2px solid black;
+}
+
+    .view-more:hover {
+        background: black;
+        color: white;
+    }
+
+.buy-now {
+    background: blue;
+    color: white;
+    border: none;
+}
+
+    .buy-now:hover {
+        background: darkblue;
+    }
