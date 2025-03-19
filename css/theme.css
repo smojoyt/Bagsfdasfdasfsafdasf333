@@ -22893,10 +22893,9 @@ p.p1 {
     justify-content: center;
     align-items: center;
     gap: 20px; /* Space between buttons */
-    height: 100vh; /* Full height for centering */
 }
 
-.btn {
+.pdbtn {
     padding: 12px 24px;
     font-size: 16px;
     border-radius: 5px;
