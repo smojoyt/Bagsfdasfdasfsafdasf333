@@ -6283,7 +6283,7 @@ img.fit-cover {
 
 .theme__header {
   position: absolute;
-  z-index: 2300;
+  z-index: 20;
   width: 100%;
   color: var(--text);
 }
@@ -6771,7 +6771,7 @@ img.fit-cover {
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 5600;
+  z-index: 20;
 }
 
 .js__header__stuck .theme__header::after,
