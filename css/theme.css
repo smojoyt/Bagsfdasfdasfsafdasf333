@@ -22895,15 +22895,7 @@ p.p1 {
     gap: 20px; /* Space between buttons */
 }
 
-.pdbtn {
-    padding: 12px 24px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    border: 2px solid black;
-    transition: 0.3s ease-in-out;
-}
+
 
 .view-more {
     background: transparent;
