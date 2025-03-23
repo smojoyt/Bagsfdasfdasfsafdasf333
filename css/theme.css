@@ -22917,3 +22917,13 @@ p.p1 {
     .buy-now:hover {
         background: darkblue;
     }
+
+
+.best-selling {
+background: #fff494; 
+font-weight:bolder; 
+font-size:12px;
+}
+
+.sold-out {
+}
