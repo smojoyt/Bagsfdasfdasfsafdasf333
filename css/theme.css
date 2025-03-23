@@ -8789,7 +8789,7 @@ body:not(.has-line-design) .sliderule-grid .menu__block:not(:first-child) {
   min-height: 100%;
 }
 .hero__content__wrapper.frame__item {
-  z-index: 20;
+  z-index: 19;
 }
 
 a + .hero__content__wrapper {
