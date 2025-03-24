@@ -5599,7 +5599,7 @@ form .errors, .form-errors {
 
 .image-wrapper {
     width: 75px;
-    height: 75px;
+    height: 100%;
     overflow: hidden;
     display: flex;
     align-items: center;
