@@ -131,7 +131,7 @@
 }
 
 .mtl {
-    margin-bottom: var(--gutter);
+    margin-top: var(--gutter);
     text-align: center;
 }
 .accordion__title {
