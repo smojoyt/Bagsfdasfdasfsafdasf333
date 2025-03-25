@@ -2767,157 +2767,251 @@
                     <div class="tab-content tab-content-0 current tabs__recommendation">
                         <h6 class="tab__title">MORE TO LOVE</h6>
 
-                        <div class="grid-outer">
-                            <div class="grid grid--slider flickity-enabled" id="product-recommendations">
+                        
+                            <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
 
-                                <!-- Example Product Start -->
-                                <!-- Example Product #1-->
-                                <div class="grid-item product-item product-item--centered flickity-cell">
-                                    <div class="product-item__image">
-                                        <a class="product-link" href="#">
-                                            <figure class="image-wrapper">
-                                                <img src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/1.jpg" alt="Product Name" class="fit-cover">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-information">
-                                        <div class="product-item__info">
-                                            <a class="product-link" href="#">
-                                                <p class="product-item__title">Product Name</p>
-                                                <div class="product-item__price__holder">
-                                                    <span class="price">
-                                                        <span class="new-price">$ 1,295</span>
-                                                    </span>
-                                                </div>
-                                            </a>
+                            <style>
+                                * {
+                                    box-sizing: border-box;
+                                }
+
+                                body {
+                                    margin: 0;
+                                    font-family: 'Helvetica Neue', sans-serif;
+                                    background: #fff;
+                                }
+
+                                #loading-screen {
+                                    position: fixed;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100vw;
+                                    height: 100vh;
+                                    background: #fff;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    z-index: 9999;
+                                    font-size: 1.2rem;
+                                    color: #444;
+                                }
+
+                                .carousel-wrapper {
+                                    padding: 40px 0;
+                                    width: 100%;
+                                    position: relative;
+                                    overflow: hidden;
+                                }
+
+                                .carousel {
+                                    width: 100%;
+                                }
+
+                                .carousel-cell {
+                                    width: 25%;
+                                    min-width: 250px;
+                                    margin-right: 10px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: center;
+                                }
+
+                                .product-image-wrapper {
+                                    position: relative;
+                                    width: 100%;
+                                    border-radius: 10px;
+                                    overflow: hidden;
+                                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+                                }
+
+                                    .product-image-wrapper img {
+                                        width: 100%;
+                                        height: auto;
+                                        object-fit: cover;
+                                        transition: opacity 1.5s ease;
+                                        display: block;
+                                    }
+
+                                .hover-img {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    opacity: 0;
+                                }
+
+                                .product-image-wrapper:hover .hover-img {
+                                    opacity: 1;
+                                }
+
+                                .product-image-wrapper:hover .main-img {
+                                    opacity: 0;
+                                }
+
+                                .product-info {
+                                    text-align: center;
+                                    margin-top: 12px;
+                                    padding: 8px 10px;
+                                }
+
+                                .product-title {
+                                    font-size: 15px;
+                                    font-weight: 600;
+                                    text-transform: uppercase;
+                                    letter-spacing: 0.4px;
+                                    color: #222;
+                                    margin-bottom: 4px;
+                                }
+
+                                .product-price {
+                                    font-size: 14px;
+                                    color: #666;
+                                    font-style: italic;
+                                }
+
+                                /* Flickity buttons and dots hidden */
+                                .flickity-button,
+                                .flickity-page-dots {
+                                    display: none !important;
+                                }
+
+                                /* Fade Effect on Left and Right */
+                                .fade-left, .fade-right {
+                                    position: absolute;
+                                    top: 0;
+                                    width: 80px;
+                                    height: 100%;
+                                    z-index: 2;
+                                    pointer-events: none;
+                                }
+
+                                .fade-left {
+                                    left: 0;
+                                    background: linear-gradient(to right, white 0%, transparent 100%);
+                                }
+
+                                .fade-right {
+                                    right: 0;
+                                    background: linear-gradient(to left, white 0%, transparent 100%);
+                                }
+
+                                @media (max-width: 1024px) {
+                                    .carousel-cell {
+                                        width: 50%;
+                                    }
+                                }
+
+                                @media (max-width: 600px) {
+                                    .carousel-cell {
+                                        width: 100%;
+                                    }
+
+                                    .fade-left, .fade-right {
+                                        display: none;
+                                    }
+                                }
+                            </style>
+                   
+
+                            <!-- Loading Screen -->
+                            <div id="loading-screen">Loading products...</div>
+
+                            <div class="carousel-wrapper">
+                                <div class="fade-left"></div>
+                                <div class="fade-right"></div>
+
+                                <div class="carousel js-flickity"
+                                     data-flickity='{
+           "cellAlign": "left",
+           "contain": true,
+           "groupCells": 4,
+           "freeScroll": false,
+           "wrapAround": false,
+           "prevNextButtons": false,
+           "pageDots": false,
+           "dragThreshold": 5
+         }'>
+
+                                    <!-- PRODUCTS -->
+                                    <div class="carousel-cell">
+                                        <div class="product-image-wrapper">
+                                            <img class="main-img" src="https://cdn.shopify.com/s/files/1/0567/3844/7557/files/JW_09_1108bc6a-72cd-47f6-a9c2-ddb0d7cf4cf8.jpg?v=1733804476" alt="Main 1">
+                                            <img class="hover-img" src="https://cdn.shopify.com/s/files/1/0567/3844/7557/files/IMG_9651.jpg?v=1733367655" alt="Hover 1">
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-title">Oval Diamond Choker</div>
+                                            <div class="product-price">$6,510</div>
                                         </div>
                                     </div>
-                                </div>
 
-
-                                <!-- Example Product #2-->
-                                <div class="grid-item product-item product-item--centered flickity-cell">
-                                    <div class="product-item__image">
-                                        <a class="product-link" href="#">
-                                            <figure class="image-wrapper">
-                                                <img src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/1.jpg" alt="Product Name" class="fit-cover">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-information">
-                                        <div class="product-item__info">
-                                            <a class="product-link" href="#">
-                                                <p class="product-item__title">Product Name</p>
-                                                <div class="product-item__price__holder">
-                                                    <span class="price">
-                                                        <span class="new-price">$ 1,295</span>
-                                                    </span>
-                                                </div>
-                                            </a>
+                                    <div class="carousel-cell">
+                                        <div class="product-image-wrapper">
+                                            <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+2" alt="Main 2">
+                                            <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+2" alt="Hover 2">
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-title">Gold Hoop Earrings</div>
+                                            <div class="product-price">$850</div>
                                         </div>
                                     </div>
-                                </div>
 
-
-                                <!-- Example Product #3-->
-                                <div class="grid-item product-item product-item--centered flickity-cell">
-                                    <div class="product-item__image">
-                                        <a class="product-link" href="#">
-                                            <figure class="image-wrapper">
-                                                <img src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/1.jpg" alt="Product Name" class="fit-cover">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-information">
-                                        <div class="product-item__info">
-                                            <a class="product-link" href="#">
-                                                <p class="product-item__title">Product Name</p>
-                                                <div class="product-item__price__holder">
-                                                    <span class="price">
-                                                        <span class="new-price">$ 1,295</span>
-                                                    </span>
-                                                </div>
-                                            </a>
+                                    <div class="carousel-cell">
+                                        <div class="product-image-wrapper">
+                                            <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+3" alt="Main 3">
+                                            <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+3" alt="Hover 3">
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-title">Silk Pendant</div>
+                                            <div class="product-price">$1,120</div>
                                         </div>
                                     </div>
-                                </div>
 
-
-                                <!-- Example Product #4-->
-                                <div class="grid-item product-item product-item--centered flickity-cell">
-                                    <div class="product-item__image">
-                                        <a class="product-link" href="#">
-                                            <figure class="image-wrapper">
-                                                <img src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/1.jpg" alt="Product Name" class="fit-cover">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-information">
-                                        <div class="product-item__info">
-                                            <a class="product-link" href="#">
-                                                <p class="product-item__title">Product Name</p>
-                                                <div class="product-item__price__holder">
-                                                    <span class="price">
-                                                        <span class="new-price">$ 1,295</span>
-                                                    </span>
-                                                </div>
-                                            </a>
+                                    <div class="carousel-cell">
+                                        <div class="product-image-wrapper">
+                                            <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+4" alt="Main 4">
+                                            <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+4" alt="Hover 4">
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-title">Leather Wrap</div>
+                                            <div class="product-price">$975</div>
                                         </div>
                                     </div>
-                                </div>
 
-
-                                <!-- Example Product #5-->
-                                <div class="grid-item product-item product-item--centered flickity-cell">
-                                    <div class="product-item__image">
-                                        <a class="product-link" href="#">
-                                            <figure class="image-wrapper">
-                                                <img src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/1.jpg" alt="Product Name" class="fit-cover">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-information">
-                                        <div class="product-item__info">
-                                            <a class="product-link" href="#">
-                                                <p class="product-item__title">Product Name</p>
-                                                <div class="product-item__price__holder">
-                                                    <span class="price">
-                                                        <span class="new-price">$ 1,295</span>
-                                                    </span>
-                                                </div>
-                                            </a>
+                                    <div class="carousel-cell">
+                                        <div class="product-image-wrapper">
+                                            <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+5" alt="Main 5">
+                                            <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+5" alt="Hover 5">
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-title">Bold Studs</div>
+                                            <div class="product-price">$620</div>
                                         </div>
                                     </div>
-                                </div>
 
-
-                                <!-- Example Product #6-->
-                                <div class="grid-item product-item product-item--centered flickity-cell">
-                                    <div class="product-item__image">
-                                        <a class="product-link" href="#">
-                                            <figure class="image-wrapper">
-                                                <img src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/1.jpg" alt="Product Name" class="fit-cover">
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-information">
-                                        <div class="product-item__info">
-                                            <a class="product-link" href="#">
-                                                <p class="product-item__title">Product Name</p>
-                                                <div class="product-item__price__holder">
-                                                    <span class="price">
-                                                        <span class="new-price">$ 1,295</span>
-                                                    </span>
-                                                </div>
-                                            </a>
+                                    <div class="carousel-cell">
+                                        <div class="product-image-wrapper">
+                                            <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+6" alt="Main 6">
+                                            <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+6" alt="Hover 6">
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-title">Pearl Bracelet</div>
+                                            <div class="product-price">$495</div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Example Product End -->
-                                <!-- Duplicate the block above for additional products -->
 
+                                </div>
                             </div>
-                        </div>
+
+                            <!-- Flickity JS -->
+                            <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+                            <script>
+                                window.addEventListener('load', function () {
+                                    setTimeout(() => {
+                                        document.getElementById('loading-screen').style.display = 'none';
+                                    }, 300);
+                                });
+                            </script>
+                        
+
                     </div>
                 </div>
             </div>
