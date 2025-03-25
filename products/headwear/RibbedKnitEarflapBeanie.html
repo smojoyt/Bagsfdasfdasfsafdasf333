@@ -2763,161 +2763,163 @@
 
 
             <!-- Place this in your main HTML layout or inside a section block -->
-                <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+            <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
 
-                <style>
-                    * {
-                        box-sizing: border-box;
-                    }
+            <style>
+                * {
+                    box-sizing: border-box;
+                }
 
-                    body {
-                        margin: 0;
-                        font-family: 'Helvetica Neue', sans-serif;
-                        background: #fff;
-                    }
+                body {
+                    margin: 0;
+                    font-family: 'Helvetica Neue', sans-serif;
+                    background: #fff;
+                }
 
-                    #loading-screen {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
+                #loading-screen {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 5;
+                    font-size: 1.2rem;
+                    color: #444;
+                }
+
+
+                .carousel-wrapper {
+                    padding: 40px 0;
+                    width: 90%;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .carousel {
+                    width: 100%;
+                }
+
+                .carousel-cell {
+                    width: 25%;
+                    min-width: 250px;
+                    margin-right: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .product-image-wrapper {
+                    position: relative;
+                    width: 100%;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+                }
+
+                    .product-image-wrapper img {
                         width: 100%;
-                        height: 100%;
-                        background: #fff;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        z-index: 5;
-                        font-size: 1.2rem;
-                        color: #444;
+                        height: auto;
+                        object-fit: cover;
+                        transition: opacity 1s ease;
+                        display: block;
                     }
 
+                .hover-img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    opacity: 0;
+                }
 
-                    .carousel-wrapper {
-                        padding: 40px 0;
-                        width: 90%;
-                        position: relative;
-                        overflow: hidden;
-                    }
+                .product-image-wrapper:hover .hover-img {
+                    opacity: 1;
+                }
 
-                    .carousel {
-                        width: 100%;
-                    }
+                .product-image-wrapper:hover .main-img {
+                    opacity: 0;
+                }
 
+                .product-info {
+                    text-align: center;
+                    margin-top: 12px;
+                    padding: 8px 10px;
+                }
+
+                .product-title {
+                    font-size: 15px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.4px;
+                    color: #222;
+                    margin-bottom: 4px;
+                }
+
+                .product-price {
+                    font-size: 14px;
+                    color: #666;
+                    font-style: italic;
+                }
+
+                /* Flickity buttons and dots hidden */
+                .flickity-button,
+                .flickity-page-dots {
+                    display: none !important;
+                }
+
+                /* Fade Effect on Left and Right */
+                .fade-left, .fade-right {
+                    position: absolute;
+                    top: 0;
+                    width: 80px;
+                    height: 100%;
+                    z-index: 2;
+                    pointer-events: none;
+                }
+
+                .fade-left {
+                    left: 0;
+                    background: linear-gradient(to right, white 0%, transparent 100%);
+                }
+
+                .fade-right {
+                    right: 0;
+                    background: linear-gradient(to left, white 0%, transparent 100%);
+                }
+
+                @media (max-width: 1024px) {
                     .carousel-cell {
-                        width: 25%;
-                        min-width: 250px;
-                        margin-right: 10px;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
+                        width: 50%;
                     }
+                }
 
-                    .product-image-wrapper {
-                        position: relative;
+                @media (max-width: 600px) {
+                    .carousel-cell {
                         width: 100%;
-                        border-radius: 10px;
-                        overflow: hidden;
-                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
                     }
 
-                        .product-image-wrapper img {
-                            width: 100%;
-                            height: auto;
-                            object-fit: cover;
-                            transition: opacity 1s ease;
-                            display: block;
-                        }
-
-                    .hover-img {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        opacity: 0;
-                    }
-
-                    .product-image-wrapper:hover .hover-img {
-                        opacity: 1;
-                    }
-
-                    .product-image-wrapper:hover .main-img {
-                        opacity: 0;
-                    }
-
-                    .product-info {
-                        text-align: center;
-                        margin-top: 12px;
-                        padding: 8px 10px;
-                    }
-
-                    .product-title {
-                        font-size: 15px;
-                        font-weight: 600;
-                        text-transform: uppercase;
-                        letter-spacing: 0.4px;
-                        color: #222;
-                        margin-bottom: 4px;
-                    }
-
-                    .product-price {
-                        font-size: 14px;
-                        color: #666;
-                        font-style: italic;
-                    }
-
-                    /* Flickity buttons and dots hidden */
-                    .flickity-button,
-                    .flickity-page-dots {
-                        display: none !important;
-                    }
-
-                    /* Fade Effect on Left and Right */
                     .fade-left, .fade-right {
-                        position: absolute;
-                        top: 0;
-                        width: 80px;
-                        height: 100%;
-                        z-index: 2;
-                        pointer-events: none;
+                        width: 40px;
                     }
-
-                    .fade-left {
-                        left: 0;
-                        background: linear-gradient(to right, white 0%, transparent 100%);
-                    }
-
-                    .fade-right {
-                        right: 0;
-                        background: linear-gradient(to left, white 0%, transparent 100%);
-                    }
-
-                    @media (max-width: 1024px) {
-                        .carousel-cell {
-                            width: 50%;
-                        }
-                    }
-
-                    @media (max-width: 600px) {
-                        .carousel-cell {
-                            width: 100%;
-                        }
-
-                        .fade-left, .fade-right {
-                            width:40px;
-                        }
-                    }
-                </style>
+                }
+            </style>
 
 
-                <!-- Loading Screen -->
-                
+            <!-- Loading Screen -->
 
-                <div class="carousel-wrapper">
-                    <div id="loading-screen">Loading products...</div>
-                    <div class="fade-left"></div>
-                    <div class="fade-right"></div>
+            <h6 class="tab__title aos-animate" data-aos="hero" data-aos-anchor="#RelatedProducts--template--18070872293573__related" data-aos-order="1">
+                MORE TO LOVE
+            </h6>
+            <div class="carousel-wrapper">
+                <div id="loading-screen">Loading products...</div>
+                <div class="fade-left"></div>
+                <div class="fade-right"></div>
 
-                    <div class="carousel js-flickity"
-                         data-flickity='{
+                <div class="carousel js-flickity"
+                     data-flickity='{
            "cellAlign": "left",
            "contain": true,
            "groupCells": 1,
@@ -2928,497 +2930,497 @@
            "dragThreshold": 5
          }'>
 
-                        <!-- PRODUCTS -->
-                        <div class="carousel-cell" href="www.karrykraze.com">
-                            <div class="product-image-wrapper">
-                                <img class="main-img" src="https://cdn.shopify.com/s/files/1/0567/3844/7557/files/JW_09_1108bc6a-72cd-47f6-a9c2-ddb0d7cf4cf8.jpg?v=1733804476" alt="Main 1">
-                                <img class="hover-img" src="https://cdn.shopify.com/s/files/1/0567/3844/7557/files/IMG_9651.jpg?v=1733367655" alt="Hover 1">
-                            </div>
-                            <div class="product-info">
-                                <div class="mtltitle">Oval Diamond Choker</div>
-                                <div class="mtlprice">$6,510</div>
-                            </div>
+                    <!-- PRODUCTS -->
+                    <div class="carousel-cell" href="www.karrykraze.com">
+                        <div class="product-image-wrapper">
+                            <img class="main-img" src="https://cdn.shopify.com/s/files/1/0567/3844/7557/files/JW_09_1108bc6a-72cd-47f6-a9c2-ddb0d7cf4cf8.jpg?v=1733804476" alt="Main 1">
+                            <img class="hover-img" src="https://cdn.shopify.com/s/files/1/0567/3844/7557/files/IMG_9651.jpg?v=1733367655" alt="Hover 1">
                         </div>
-
-                        <div class="carousel-cell">
-                            <div class="product-image-wrapper">
-                                <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+2" alt="Main 2">
-                                <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+2" alt="Hover 2">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-title">Gold Hoop Earrings</div>
-                                <div class="product-price">$850</div>
-                            </div>
+                        <div class="product-info">
+                            <div class="mtltitle">Oval Diamond Choker</div>
+                            <div class="mtlprice">$6,510</div>
                         </div>
-
-                        <div class="carousel-cell">
-                            <div class="product-image-wrapper">
-                                <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+3" alt="Main 3">
-                                <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+3" alt="Hover 3">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-title">Silk Pendant</div>
-                                <div class="product-price">$1,120</div>
-                            </div>
-                        </div>
-
-                        <div class="carousel-cell">
-                            <div class="product-image-wrapper">
-                                <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+4" alt="Main 4">
-                                <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+4" alt="Hover 4">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-title">Leather Wrap</div>
-                                <div class="product-price">$975</div>
-                            </div>
-                        </div>
-
-                        <div class="carousel-cell">
-                            <div class="product-image-wrapper">
-                                <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+5" alt="Main 5">
-                                <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+5" alt="Hover 5">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-title">Bold Studs</div>
-                                <div class="product-price">$620</div>
-                            </div>
-                        </div>
-
-                        <div class="carousel-cell">
-                            <div class="product-image-wrapper">
-                                <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+6" alt="Main 6">
-                                <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+6" alt="Hover 6">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-title">Pearl Bracelet</div>
-                                <div class="product-price">$495</div>
-                            </div>
-                        </div>
-
                     </div>
+
+                    <div class="carousel-cell">
+                        <div class="product-image-wrapper">
+                            <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+2" alt="Main 2">
+                            <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+2" alt="Hover 2">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">Gold Hoop Earrings</div>
+                            <div class="product-price">$850</div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-cell">
+                        <div class="product-image-wrapper">
+                            <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+3" alt="Main 3">
+                            <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+3" alt="Hover 3">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">Silk Pendant</div>
+                            <div class="product-price">$1,120</div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-cell">
+                        <div class="product-image-wrapper">
+                            <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+4" alt="Main 4">
+                            <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+4" alt="Hover 4">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">Leather Wrap</div>
+                            <div class="product-price">$975</div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-cell">
+                        <div class="product-image-wrapper">
+                            <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+5" alt="Main 5">
+                            <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+5" alt="Hover 5">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">Bold Studs</div>
+                            <div class="product-price">$620</div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-cell">
+                        <div class="product-image-wrapper">
+                            <img class="main-img" src="https://via.placeholder.com/240x300?text=Product+6" alt="Main 6">
+                            <img class="hover-img" src="https://via.placeholder.com/240x300/ccc?text=Hover+6" alt="Hover 6">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">Pearl Bracelet</div>
+                            <div class="product-price">$495</div>
+                        </div>
+                    </div>
+
                 </div>
+            </div>
 
-                <!-- Flickity JS -->
-                <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-                <script>
-                    window.addEventListener('load', function () {
-                        setTimeout(() => {
-                            document.getElementById('loading-screen').style.display = 'none';
-                        }, 300);
-                    });
-                </script>
-
-
-
+            <!-- Flickity JS -->
+            <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+            <script>
+                window.addEventListener('load', function () {
+                    setTimeout(() => {
+                        document.getElementById('loading-screen').style.display = 'none';
+                    }, 300);
+                });
+            </script>
 
 
 
-        <!-- BEGIN sections: group-pre-footer -->
-        <!-- END sections: group-pre-footer -->
 
-        <footer class="footer-sections">
-            <!-- BEGIN sections: group-footer -->
-            <div id="shopify-section-sections--18070865215685__footer" class="shopify-section shopify-section-group-group-footer">
-                <!-- /sections/footer.liquid -->
-                <style data-shopify>
-                    .site-footer-wrapper {
-                        --PT: 59px;
-                        --PB: 50px;
-                        --item-count: 4;
-                    }
-                </style><section class="site-footer-wrapper section-padding" data-section-id="sections--18070865215685__footer" data-section-type="footer">
-                    <div class="site-footer wrapper--full-padded">
-                        <div class="footer__blocks">
-                            <div class="footer__block footer__block--text" style="--desktop-width: 26%">
-                                <div class="footer__block__image" style="width: 75px;">
-                                    <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 1.6666666666666667;--aspect-ratio-mobile: 1.6666666666666667;">
-                                        <img src="//jemmawynne.com/cdn/shop/files/JW-wordmark-white_3f95b5e4-6215-404b-a475-824300be7f10.png?crop=center&amp;height=166&amp;v=1697833841&amp;width=100" width="100" height="166" loading="lazy" srcset="//jemmawynne.com/cdn/shop/files/JW-wordmark-white_3f95b5e4-6215-404b-a475-824300be7f10.png?v=1697833841&amp;width=100 100w" sizes="100vw" class=" is-loading ">
-                                    </figure>
-                                </div><div class="rte"><p>Please call or email for any information or to make an appointment at our NYC studio.</p><p><a href="tel:12129808500">+1 (212) 980-8500</a></p><p><a href="mailto:concierge@jemmawynne.com">concierge@jemmawynne.com</a></p></div>
-                            </div><div class="footer__block footer__block--menu" style="--desktop-width: 18%"><h2 class="h5 footer__block__title">ABOUT US</h2><ul class="footer__quicklinks unstyled"><li><a href="/pages/about-us">About</a></li><li><a href="/pages/stockists">Stockists</a></li><li><a href="/pages/press">Press</a></li></ul></div><div class="footer__block footer__block--menu" style="--desktop-width: 20%"><h2 class="h5 footer__block__title">CUSTOMER SERVICE</h2><ul class="footer__quicklinks unstyled"><li><a href="/pages/contact-us">Contact</a></li><li><a href="/pages/orders-and-payments">Orders and Payments</a></li><li><a href="/pages/shipping-and-returns">Shipping and Returns</a></li><li><a href="/pages/repairs">Repairs</a></li></ul></div><div class="footer__block footer__block--newsletter" style="--desktop-width: 36%">
-                                <div class="footer__newsletter__wrapper">
-                                    <h2 class="h5 footer__block__title">JOIN US</h2><div class="rte footer__newsletter__text"><p>Get only the good stuff, including can't-miss new arrivals, exclusive collaborations, and more...</p></div>
-                                    <form method="post" action="/contact#Newsletter--d7dca658-a650-4d0b-b007-93a667f5fe60" id="Newsletter--d7dca658-a650-4d0b-b007-93a667f5fe60" accept-charset="UTF-8" class="newsletter-form" data-newsletter-form="" style="--text: #ffffff;
+
+
+            <!-- BEGIN sections: group-pre-footer -->
+            <!-- END sections: group-pre-footer -->
+
+            <footer class="footer-sections">
+                <!-- BEGIN sections: group-footer -->
+                <div id="shopify-section-sections--18070865215685__footer" class="shopify-section shopify-section-group-group-footer">
+                    <!-- /sections/footer.liquid -->
+                    <style data-shopify>
+                        .site-footer-wrapper {
+                            --PT: 59px;
+                            --PB: 50px;
+                            --item-count: 4;
+                        }
+                    </style><section class="site-footer-wrapper section-padding" data-section-id="sections--18070865215685__footer" data-section-type="footer">
+                        <div class="site-footer wrapper--full-padded">
+                            <div class="footer__blocks">
+                                <div class="footer__block footer__block--text" style="--desktop-width: 26%">
+                                    <div class="footer__block__image" style="width: 75px;">
+                                        <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 1.6666666666666667;--aspect-ratio-mobile: 1.6666666666666667;">
+                                            <img src="//jemmawynne.com/cdn/shop/files/JW-wordmark-white_3f95b5e4-6215-404b-a475-824300be7f10.png?crop=center&amp;height=166&amp;v=1697833841&amp;width=100" width="100" height="166" loading="lazy" srcset="//jemmawynne.com/cdn/shop/files/JW-wordmark-white_3f95b5e4-6215-404b-a475-824300be7f10.png?v=1697833841&amp;width=100 100w" sizes="100vw" class=" is-loading ">
+                                        </figure>
+                                    </div><div class="rte"><p>Please call or email for any information or to make an appointment at our NYC studio.</p><p><a href="tel:12129808500">+1 (212) 980-8500</a></p><p><a href="mailto:concierge@jemmawynne.com">concierge@jemmawynne.com</a></p></div>
+                                </div><div class="footer__block footer__block--menu" style="--desktop-width: 18%"><h2 class="h5 footer__block__title">ABOUT US</h2><ul class="footer__quicklinks unstyled"><li><a href="/pages/about-us">About</a></li><li><a href="/pages/stockists">Stockists</a></li><li><a href="/pages/press">Press</a></li></ul></div><div class="footer__block footer__block--menu" style="--desktop-width: 20%"><h2 class="h5 footer__block__title">CUSTOMER SERVICE</h2><ul class="footer__quicklinks unstyled"><li><a href="/pages/contact-us">Contact</a></li><li><a href="/pages/orders-and-payments">Orders and Payments</a></li><li><a href="/pages/shipping-and-returns">Shipping and Returns</a></li><li><a href="/pages/repairs">Repairs</a></li></ul></div><div class="footer__block footer__block--newsletter" style="--desktop-width: 36%">
+                                    <div class="footer__newsletter__wrapper">
+                                        <h2 class="h5 footer__block__title">JOIN US</h2><div class="rte footer__newsletter__text"><p>Get only the good stuff, including can't-miss new arrivals, exclusive collaborations, and more...</p></div>
+                                        <form method="post" action="/contact#Newsletter--d7dca658-a650-4d0b-b007-93a667f5fe60" id="Newsletter--d7dca658-a650-4d0b-b007-93a667f5fe60" accept-charset="UTF-8" class="newsletter-form" data-newsletter-form="" style="--text: #ffffff;
   --text-dark: #d9d9d9;
   --text-a35: rgba(255, 255, 255, 0.35);
   --text-a70: rgba(255, 255, 255, 0.7);
   --text-a75: rgba(255, 255, 255, 0.75);">
-                                        <input type="hidden" name="form_type" value="customer" /><input type="hidden" name="utf8" value="✓" /><div class="newsletter__message newsletter__message--error errors" id="Newsletter-error--d7dca658-a650-4d0b-b007-93a667f5fe60"><em>This customer is already subscribed!</em></div>
+                                            <input type="hidden" name="form_type" value="customer" /><input type="hidden" name="utf8" value="✓" /><div class="newsletter__message newsletter__message--error errors" id="Newsletter-error--d7dca658-a650-4d0b-b007-93a667f5fe60"><em>This customer is already subscribed!</em></div>
 
-                                        <input type="hidden" name="contact[accepts_marketing]" value="true"><div class="input-row">
-                                            <input type="text"
-                                                   name="contact[first_name]"
-                                                   class="field"
-                                                   aria-label="Name"
-                                                   placeholder="Name"
-                                                   value="">
-                                        </div>
-                                        <div class="input-row">
-                                            <input type="email"
-                                                   id="email-input-d7dca658-a650-4d0b-b007-93a667f5fe60"
-                                                   class="field"
-                                                   placeholder="Email"
-                                                   aria-label="Email"
-                                                   autocorrect="off"
-                                                   autocapitalize="off"
-                                                   name="contact[email]"
-                                                   data-newsletter-field
-                                                   required>
-                                        </div>
-                                        <div class="input-row">
-                                            <button type="submit" class="btn btn--full btn--white  btn--solid newsletter__submit" name="commit" id="subscribe-button-d7dca658-a650-4d0b-b007-93a667f5fe60">
-                                                <span>Join US</span>
-                                            </button>
-                                        </div>
-                                    </form>
+                                            <input type="hidden" name="contact[accepts_marketing]" value="true"><div class="input-row">
+                                                <input type="text"
+                                                       name="contact[first_name]"
+                                                       class="field"
+                                                       aria-label="Name"
+                                                       placeholder="Name"
+                                                       value="">
+                                            </div>
+                                            <div class="input-row">
+                                                <input type="email"
+                                                       id="email-input-d7dca658-a650-4d0b-b007-93a667f5fe60"
+                                                       class="field"
+                                                       placeholder="Email"
+                                                       aria-label="Email"
+                                                       autocorrect="off"
+                                                       autocapitalize="off"
+                                                       name="contact[email]"
+                                                       data-newsletter-field
+                                                       required>
+                                            </div>
+                                            <div class="input-row">
+                                                <button type="submit" class="btn btn--full btn--white  btn--solid newsletter__submit" name="commit" id="subscribe-button-d7dca658-a650-4d0b-b007-93a667f5fe60">
+                                                    <span>Join US</span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </section>
+
+
+                    <style>
+                        #shopify-section-sections--18070865215685__footer h2 {
+                            font-size: 8pt;
+                            letter-spacing: 0.15em;
+                        }
+                    </style>
+                </div><div id="shopify-section-sections--18070865215685__supporting-menu" class="shopify-section shopify-section-group-group-footer">
+                    <!-- /sections/section-supporting-menu.liquid -->
+                    <style data-shopify>
+                        #SupportingMenu--sections--18070865215685__supporting-menu {
+                            --PT: 0px;
+                            --PB: 30px;
+                        }
+                    </style><section id="SupportingMenu--sections--18070865215685__supporting-menu"
+                                     class="supporting-menu section-padding"
+                                     data-section-id="sections--18070865215685__supporting-menu"
+                                     data-section-type="supporting-menu">
+                        <div class="supporting-menu__inner wrapper--full-padded">
+                            <div class="supporting-menu__item supporting-menu__item--copyright">
+                                <ul class="supporting-menu__copyright inline-list">
+                                    <li>
+                                        <a href="https://jemmawynne.com">&copy; Jemma Wynne 2025</a>
+                                    </li>
+
+                                    <li><a href="/pages/terms-and-conditions">Terms & Conditions</a></li>
+
+                                    <li><a href="/pages/privacy-policy">Privacy Policy</a></li>
+
+                                    <li><a href="/pages/terms-of-service">Terms of Service </a></li>
+
+
+                                    <!-- The following lines fix Lighthouse security warnings on the Shopify link.--><!-- Remove the following line to delete 'Powered by Shopify' from your footer -->
+                                    <li data-powered-link><a rel="noopener" target="_blank" href="https://www.shopify.com?utm_campaign=poweredby&amp;utm_medium=shopify&amp;utm_source=onlinestore"> </a></li>
+                                    <!-- Do not delete below this line -->
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+                <!-- END sections: group-footer -->
+            </footer>
+
+            <template data-swatch-template>
+                <div class="swatches swatch__button swatch__button--square" data-swatch-button data-tooltip>
+                    <a class="swatch__link" data-swatch-link></a>
+                </div>
+            </template>
+
+            <!-- Root element of PhotoSwipe. Must have class pswp. -->
+            <div class="pswp pswp--custom-loader" tabindex="-1" role="dialog" aria-hidden="true">
+                <!-- Background of PhotoSwipe.
+        It's a separate element as animating opacity is faster than rgba(). -->
+                <div class="pswp__bg"></div>
+
+                <!-- Slides wrapper with overflow:hidden. -->
+                <div class="pswp__scroll-wrap">
+                    <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+                    <div class="pswp__container">
+                        <div class="pswp__item"></div>
+                        <div class="pswp__item"></div>
+                        <div class="pswp__item"></div>
                     </div>
-                </section>
 
+                    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+                    <div class="pswp__ui pswp__ui--hidden">
+                        <div class="pswp__top-bar">
+                            <!--  Controls are self-explanatory. Order can be changed. -->
 
-                <style>
-                    #shopify-section-sections--18070865215685__footer h2 {
-                        font-size: 8pt;
-                        letter-spacing: 0.15em;
-                    }
-                </style>
-            </div><div id="shopify-section-sections--18070865215685__supporting-menu" class="shopify-section shopify-section-group-group-footer">
-                <!-- /sections/section-supporting-menu.liquid -->
-                <style data-shopify>
-                    #SupportingMenu--sections--18070865215685__supporting-menu {
-                        --PT: 0px;
-                        --PB: 30px;
-                    }
-                </style><section id="SupportingMenu--sections--18070865215685__supporting-menu"
-                                 class="supporting-menu section-padding"
-                                 data-section-id="sections--18070865215685__supporting-menu"
-                                 data-section-type="supporting-menu">
-                    <div class="supporting-menu__inner wrapper--full-padded">
-                        <div class="supporting-menu__item supporting-menu__item--copyright">
-                            <ul class="supporting-menu__copyright inline-list">
-                                <li>
-                                    <a href="https://jemmawynne.com">&copy; Jemma Wynne 2025</a>
-                                </li>
+                            <div class="pswp__counter"></div>
 
-                                <li><a href="/pages/terms-and-conditions">Terms & Conditions</a></li>
+                            <button class="pswp__button pswp__button--close pswp__custom-close pswp__ui-over-close" title="Close (Esc)"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cancel" viewBox="0 0 24 24"><path d="M6.758 17.243 12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
 
-                                <li><a href="/pages/privacy-policy">Privacy Policy</a></li>
+                            <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                            <!-- element will get class pswp__preloader--active when preloader is running -->
+                            <div class="pswp__preloader">
+                                <div class="pswp__preloader__icn">
+                                    <div class="pswp__preloader__cut">
+                                        <div class="pswp__preloader__donut"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                <li><a href="/pages/terms-of-service">Terms of Service </a></li>
+                        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                            <div class="pswp__share-tooltip"></div>
+                        </div>
 
+                        <button class="pswp__button pswp__button--arrow--left" title="Previous">
+                            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-nav-arrow-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="visually-hidden">Previous</span>
+                        </button>
 
-                                <!-- The following lines fix Lighthouse security warnings on the Shopify link.--><!-- Remove the following line to delete 'Powered by Shopify' from your footer -->
-                                <li data-powered-link><a rel="noopener" target="_blank" href="https://www.shopify.com?utm_campaign=poweredby&amp;utm_medium=shopify&amp;utm_source=onlinestore"> </a></li>
-                                <!-- Do not delete below this line -->
-                            </ul>
+                        <button class="pswp__button pswp__button--arrow--right" title="Next">
+                            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-nav-arrow-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" stroke="#000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="visually-hidden">Next</span>
+                        </button>
+
+                        <div class="pswp__thumbs"></div>
+
+                        <div class="pswp__caption">
+                            <div class="pswp__caption__center"></div>
+
+                            <a href="#" class="pswp__caption-close">
+                                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-nav-arrow-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="visually-hidden">Close</span>
+                            </a>
                         </div>
                     </div>
-                </section>
-
-            </div>
-            <!-- END sections: group-footer -->
-        </footer>
-
-        <template data-swatch-template>
-            <div class="swatches swatch__button swatch__button--square" data-swatch-button data-tooltip>
-                <a class="swatch__link" data-swatch-link></a>
-            </div>
-        </template>
-
-        <!-- Root element of PhotoSwipe. Must have class pswp. -->
-        <div class="pswp pswp--custom-loader" tabindex="-1" role="dialog" aria-hidden="true">
-            <!-- Background of PhotoSwipe.
-    It's a separate element as animating opacity is faster than rgba(). -->
-            <div class="pswp__bg"></div>
-
-            <!-- Slides wrapper with overflow:hidden. -->
-            <div class="pswp__scroll-wrap">
-                <!-- Container that holds slides.
-        PhotoSwipe keeps only 3 of them in the DOM to save memory.
-        Don't modify these 3 pswp__item elements, data is added later on. -->
-                <div class="pswp__container">
-                    <div class="pswp__item"></div>
-                    <div class="pswp__item"></div>
-                    <div class="pswp__item"></div>
                 </div>
+            </div>
 
-                <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-                <div class="pswp__ui pswp__ui--hidden">
-                    <div class="pswp__top-bar">
-                        <!--  Controls are self-explanatory. Order can be changed. -->
+            <div class="drawer drawer--cart" id="cart-drawer" data-cart-drawer tabindex="0">
+                <div class="drawer__inner" data-scroll-lock-scrollable>
+                    <header class="drawer__head"
+                            data-animation="cart-items-fade"
+                            data-animation-duration="500"
+                            data-animation-delay="200">
+                        <h3>Cart</h3>
 
-                        <div class="pswp__counter"></div>
+                        <button type="button" class="drawer__close" data-cart-drawer-close aria-label="Close Cart"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cancel" viewBox="0 0 24 24"><path d="M6.758 17.243 12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+                    </header>
 
-                        <button class="pswp__button pswp__button--close pswp__custom-close pswp__ui-over-close" title="Close (Esc)"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cancel" viewBox="0 0 24 24"><path d="M6.758 17.243 12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+                    <div class="drawer__body" data-cart-drawer-body data-scroll-lock-scrollable>
 
-                        <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
-                        <!-- element will get class pswp__preloader--active when preloader is running -->
-                        <div class="pswp__preloader">
-                            <div class="pswp__preloader__icn">
-                                <div class="pswp__preloader__cut">
-                                    <div class="pswp__preloader__donut"></div>
-                                </div>
+                        <div class="cart__errors drawer__errors"
+                             data-cart-errors
+                             data-animation="cart-items-fade"
+                             data-animation-duration="500"
+                             data-animation-delay="300">
+                            <div class="cart__errors__inner">
+                                <h5 class="cart__errors__heading">No more products available for purchase</h5>
+
+                                <p class="cart__errors__content" data-error-message></p>
+
+                                <button class="cart__errors__close" type="button" data-cart-error-close aria-label="Close Cart"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cancel" viewBox="0 0 24 24"><path d="M6.758 17.243 12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+                            </div>
+                        </div>
+
+                        <div class="drawer__items is-hidden"
+                             data-items-holder
+                             style="--base-animation-delay: 300ms"></div>
+
+                        <div class="drawer__empty"
+                             data-cart-empty
+                             style="--base-animation-delay: 300ms">
+
+                            <div class="drawer__empty__inner">
+                                <p class="drawer__empty__message" data-animation="cart-items-fade" data-animation-duration="500" data-animation-delay="0">Your Cart is Empty</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                        <div class="pswp__share-tooltip"></div>
-                    </div>
-
-                    <button class="pswp__button pswp__button--arrow--left" title="Previous">
-                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-nav-arrow-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="visually-hidden">Previous</span>
-                    </button>
-
-                    <button class="pswp__button pswp__button--arrow--right" title="Next">
-                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-nav-arrow-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" stroke="#000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="visually-hidden">Next</span>
-                    </button>
-
-                    <div class="pswp__thumbs"></div>
-
-                    <div class="pswp__caption">
-                        <div class="pswp__caption__center"></div>
-
-                        <a href="#" class="pswp__caption-close">
-                            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-nav-arrow-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="visually-hidden">Close</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="drawer drawer--cart" id="cart-drawer" data-cart-drawer tabindex="0">
-            <div class="drawer__inner" data-scroll-lock-scrollable>
-                <header class="drawer__head"
-                        data-animation="cart-items-fade"
-                        data-animation-duration="500"
-                        data-animation-delay="200">
-                    <h3>Cart</h3>
-
-                    <button type="button" class="drawer__close" data-cart-drawer-close aria-label="Close Cart"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cancel" viewBox="0 0 24 24"><path d="M6.758 17.243 12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
-                </header>
-
-                <div class="drawer__body" data-cart-drawer-body data-scroll-lock-scrollable>
-
-                    <div class="cart__errors drawer__errors"
-                         data-cart-errors
-                         data-animation="cart-items-fade"
-                         data-animation-duration="500"
-                         data-animation-delay="300">
-                        <div class="cart__errors__inner">
-                            <h5 class="cart__errors__heading">No more products available for purchase</h5>
-
-                            <p class="cart__errors__content" data-error-message></p>
-
-                            <button class="cart__errors__close" type="button" data-cart-error-close aria-label="Close Cart"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cancel" viewBox="0 0 24 24"><path d="M6.758 17.243 12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
-                        </div>
-                    </div>
-
-                    <div class="drawer__items is-hidden"
-                         data-items-holder
-                         style="--base-animation-delay: 300ms"></div>
-
-                    <div class="drawer__empty"
-                         data-cart-empty
-                         style="--base-animation-delay: 300ms">
-
-                        <div class="drawer__empty__inner">
-                            <p class="drawer__empty__message" data-animation="cart-items-fade" data-animation-duration="500" data-animation-delay="0">Your Cart is Empty</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="drawer__foot cart__foot is-hidden" data-foot-holder>
-                    <collapsible-elements single="true">
-                        <details class="cart__widget cart__widget--products accordion is-hidden"
-                                 data-collapsible
-                                 data-upsell-widget
-                                 data-animation="cart-items-fade"
-                                 data-animation-duration="500"
-                                 data-animation-delay="300">
-                            <summary class="cart__widget__title" data-collapsible-trigger>Pair with<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg></summary>
-
-                            <div class="cart__widget__content" data-collapsible-body>
-                                <div class="cart__widget__content__inner" data-collapsible-content>
-                                    <div class="cart__widget__products" data-upsell-products></div>
-                                </div>
-                            </div>
-                        </details>
-
-                        <form action="/cart" method="post" novalidate class="cart__form" data-cart-form>
-                            <details class="cart__widget accordion"
+                    <div class="drawer__foot cart__foot is-hidden" data-foot-holder>
+                        <collapsible-elements single="true">
+                            <details class="cart__widget cart__widget--products accordion is-hidden"
                                      data-collapsible
+                                     data-upsell-widget
                                      data-animation="cart-items-fade"
                                      data-animation-duration="500"
                                      data-animation-delay="300">
-                                <summary class="cart__widget__title" data-collapsible-trigger>Add order notes<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg></summary>
+                                <summary class="cart__widget__title" data-collapsible-trigger>Pair with<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg></summary>
 
                                 <div class="cart__widget__content" data-collapsible-body>
                                     <div class="cart__widget__content__inner" data-collapsible-content>
-                                        <label for="note">Leave a note about your order</label>
-                                        <textarea id="note" name="note" class="cart__field cart__field--textarea" aria-label="Leave a note about your order"></textarea>
+                                        <div class="cart__widget__products" data-upsell-products></div>
                                     </div>
                                 </div>
-                            </details><details class="cart__widget accordion"
-                                               data-collapsible
-                                               data-animation="cart-items-fade"
-                                               data-animation-duration="500"
-                                               data-animation-delay="350">
-                                <summary class="cart__widget__title" data-collapsible-trigger>Is this a gift?<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg></summary>
+                            </details>
 
-                                <div class="cart__widget__content" data-collapsible-body>
-                                    <div class="cart__widget__content__inner" data-collapsible-content>
-                                        <label for="gift-note">Leave a note about your order</label>
-                                        <textarea id="gift-note" name="attributes[Gift note]" class="cart__field cart__field--textarea" aria-label="Leave a note about your order"></textarea>
-                                    </div>
-                                </div>
-                            </details><div class="cart__foot__inner"
-                                           data-animation="cart-items-fade"
-                                           data-animation-duration="500"
-                                           data-animation-delay="400">
-
-                                <div class="cart__price__holder" data-cart-price-holder>
-                                    <div class="cart__total is-hidden">
-                                        <span class="cart__total__label">Items</span>
-
-                                        <span class="cart__total__price">
-                                            Inquire
-                                        </span>
-                                    </div>
-
-                                    <div class="cart__total__discount is-hidden"></div>
-
-                                    <div class="cart__total"
+                            <form action="/cart" method="post" novalidate class="cart__form" data-cart-form>
+                                <details class="cart__widget accordion"
+                                         data-collapsible
                                          data-animation="cart-items-fade"
                                          data-animation-duration="500"
-                                         data-animation-delay="400">
-                                        <span class="cart__total__label">Subtotal</span>
+                                         data-animation-delay="300">
+                                    <summary class="cart__widget__title" data-collapsible-trigger>Add order notes<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg></summary>
 
-                                        <span class="cart__total__price cart__total__price--animated" data-cart-total="0">
-                                            Inquire
-                                        </span>
-
-                                        <div class="cart__price__loader loader"><div class="loader-indeterminate"></div></div>
-                                    </div>
-                                </div>
-
-                                <div class="cart__buttons-all"
-                                     data-animation="cart-items-fade"
-                                     data-animation-duration="500"
-                                     data-animation-delay="450">
-
-                                    <div class="cart__buttons-wrapper">
-                                        <div class="cart__buttons" data-cart-checkout-buttons>
-                                            <fieldset class="cart__buttons__fieldset" data-cart-checkout-button>
-                                                <button type="submit" name="checkout" class="btn btn--primary btn--solid btn--full cart__checkout">Check Out</button>
-                                            </fieldset>
+                                    <div class="cart__widget__content" data-collapsible-body>
+                                        <div class="cart__widget__content__inner" data-collapsible-content>
+                                            <label for="note">Leave a note about your order</label>
+                                            <textarea id="note" name="note" class="cart__field cart__field--textarea" aria-label="Leave a note about your order"></textarea>
                                         </div>
-                                    </div><a href="/cart" class="cart__view btn btn--primary btn--outline">View cart</a>
+                                    </div>
+                                </details><details class="cart__widget accordion"
+                                                   data-collapsible
+                                                   data-animation="cart-items-fade"
+                                                   data-animation-duration="500"
+                                                   data-animation-delay="350">
+                                    <summary class="cart__widget__title" data-collapsible-trigger>Is this a gift?<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg></summary>
+
+                                    <div class="cart__widget__content" data-collapsible-body>
+                                        <div class="cart__widget__content__inner" data-collapsible-content>
+                                            <label for="gift-note">Leave a note about your order</label>
+                                            <textarea id="gift-note" name="attributes[Gift note]" class="cart__field cart__field--textarea" aria-label="Leave a note about your order"></textarea>
+                                        </div>
+                                    </div>
+                                </details><div class="cart__foot__inner"
+                                               data-animation="cart-items-fade"
+                                               data-animation-duration="500"
+                                               data-animation-delay="400">
+
+                                    <div class="cart__price__holder" data-cart-price-holder>
+                                        <div class="cart__total is-hidden">
+                                            <span class="cart__total__label">Items</span>
+
+                                            <span class="cart__total__price">
+                                                Inquire
+                                            </span>
+                                        </div>
+
+                                        <div class="cart__total__discount is-hidden"></div>
+
+                                        <div class="cart__total"
+                                             data-animation="cart-items-fade"
+                                             data-animation-duration="500"
+                                             data-animation-delay="400">
+                                            <span class="cart__total__label">Subtotal</span>
+
+                                            <span class="cart__total__price cart__total__price--animated" data-cart-total="0">
+                                                Inquire
+                                            </span>
+
+                                            <div class="cart__price__loader loader"><div class="loader-indeterminate"></div></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="cart__buttons-all"
+                                         data-animation="cart-items-fade"
+                                         data-animation-duration="500"
+                                         data-animation-delay="450">
+
+                                        <div class="cart__buttons-wrapper">
+                                            <div class="cart__buttons" data-cart-checkout-buttons>
+                                                <fieldset class="cart__buttons__fieldset" data-cart-checkout-button>
+                                                    <button type="submit" name="checkout" class="btn btn--primary btn--solid btn--full cart__checkout">Check Out</button>
+                                                </fieldset>
+                                            </div>
+                                        </div><a href="/cart" class="cart__view btn btn--primary btn--outline">View cart</a>
+                                    </div>
+
+                                    <em class="cart__note"
+                                        data-animation="cart-items-fade"
+                                        data-animation-duration="500"
+                                        data-animation-delay="500">Shipping, taxes, and discount codes are calculated at checkout. All sale items are FINAL SALE.</em>
                                 </div>
-
-                                <em class="cart__note"
-                                    data-animation="cart-items-fade"
-                                    data-animation-duration="500"
-                                    data-animation-delay="500">Shipping, taxes, and discount codes are calculated at checkout. All sale items are FINAL SALE.</em>
-                            </div>
-                        </form>
-                    </collapsible-elements>
+                            </form>
+                        </collapsible-elements>
+                    </div>
                 </div>
+
+                <span class="drawer__underlay" data-drawer-underlay></span>
             </div>
+            <!-- Paste marketing code or third party scripts below this comment line ============== -->
+            <!-- And above this comment line ================================================== -->
+            <style>
+                .search-form input[type="search"] {
+                    font-family: freight-display-pro;
+                    font-size: 12pt;
+                    letter-spacing: 0.025em;
+                    font-weight: 500;
+                }
 
-            <span class="drawer__underlay" data-drawer-underlay></span>
-        </div>
-        <!-- Paste marketing code or third party scripts below this comment line ============== -->
-        <!-- And above this comment line ================================================== -->
-        <style>
-            .search-form input[type="search"] {
-                font-family: freight-display-pro;
-                font-size: 12pt;
-                letter-spacing: 0.025em;
-                font-weight: 500;
-            }
+                .cart__widget__title {
+                    font-family: freight-display-pro;
+                    letter-spacing: 0.025em;
+                    font-weight: 400;
+                    font-size: 12pt;
+                }
 
-            .cart__widget__title {
-                font-family: freight-display-pro;
-                letter-spacing: 0.025em;
-                font-weight: 400;
-                font-size: 12pt;
-            }
+                .cart__widget label {
+                    font-family: freight-display-pro;
+                    letter-spacing: 0.025em;
+                    font-weight: 400;
+                }
 
-            .cart__widget label {
-                font-family: freight-display-pro;
-                letter-spacing: 0.025em;
-                font-weight: 400;
-            }
+                .cart__total__label {
+                    font-family: Gotham-Book;
+                    font-size: 9pt;
+                    letter-spacing: 0.025em;
+                    font-weight: 400;
+                }
 
-            .cart__total__label {
-                font-family: Gotham-Book;
-                font-size: 9pt;
-                letter-spacing: 0.025em;
-                font-weight: 400;
-            }
+                .cart__total__price {
+                    font-family: freight-display-pro;
+                    font-size: 12pt;
+                    letter-spacing: 0.025em;
+                    font-weight: 400;
+                }
 
-            .cart__total__price {
-                font-family: freight-display-pro;
-                font-size: 12pt;
-                letter-spacing: 0.025em;
-                font-weight: 400;
-            }
+                .cart__price {
+                    font-family: freight-display-pro;
+                    letter-spacing: 0.025em;
+                    font-weight: 400;
+                }
 
-            .cart__price {
-                font-family: freight-display-pro;
-                letter-spacing: 0.025em;
-                font-weight: 400;
-            }
+                .cart__note {
+                    font-family: freight-display-pro;
+                    letter-spacing: 0.025em;
+                }
 
-            .cart__note {
-                font-family: freight-display-pro;
-                letter-spacing: 0.025em;
-            }
+                .cart__item__content {
+                    font-family: freight-display-pro;
+                    letter-spacing: 0.025em;
+                }
 
-            .cart__item__content {
-                font-family: freight-display-pro;
-                letter-spacing: 0.025em;
-            }
+                .product-tabs ul.tabs > li:last-child {
+                    font-family: Gotham-Book;
+                    font-weight: 400;
+                    letter-spacing: 0.05em;
+                    font-size: 9pt;
+                }
 
-            .product-tabs ul.tabs > li:last-child {
-                font-family: Gotham-Book;
-                font-weight: 400;
-                letter-spacing: 0.05em;
-                font-size: 9pt;
-            }
+                .product-tabs ul.tabs > li {
+                    font-family: Gotham-Book;
+                    font-weight: 400;
+                    font-size: 9pt;
+                    letter-spacing: 0.1em;
+                }
 
-            .product-tabs ul.tabs > li {
-                font-family: Gotham-Book;
-                font-weight: 400;
-                font-size: 9pt;
-                letter-spacing: 0.1em;
-            }
+                .btn--white.btn--solid {
+                    font-family: Gotham-Book;
+                    font-weight: 400;
+                    font-size: 10pt;
+                    letter-spacing: 0.15em;
+                }
 
-            .btn--white.btn--solid {
-                font-family: Gotham-Book;
-                font-weight: 400;
-                font-size: 10pt;
-                letter-spacing: 0.15em;
-            }
+                .drawer__head h3 {
+                    font-family: freight-display-pro !important;
+                    text-transform: none;
+                    font-weight: 300;
+                    letter-spacing: 0.035em;
+                    font-size: 14pt;
+                }
 
-            .drawer__head h3 {
-                font-family: freight-display-pro !important;
-                text-transform: none;
-                font-weight: 300;
-                letter-spacing: 0.035em;
-                font-size: 14pt;
-            }
+                .cart__item__title {
+                    font-family: freight-display-pro !important;
+                }
 
-            .cart__item__title {
-                font-family: freight-display-pro !important;
-            }
-
-            .cart__item__remove {
-                font-family: Gotham-Book;
-            }
-        </style>
+                .cart__item__remove {
+                    font-family: Gotham-Book;
+                }
+            </style>
 </body>
 </html>
