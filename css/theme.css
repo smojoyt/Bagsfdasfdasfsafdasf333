@@ -1,9 +1,15 @@
 
+.mtl {
+text-align:center;
+}
 .accordion__title {
-    font-family: Gotham-Book;
+    font-family: 'Raleway'!important;
     font-weight: 600;
     font-size: 10pt;
     letter-spacing: 0.125em;
+}
+.ppprice {
+color:black;
 }
 .disabled {
     display: none !important;
@@ -16,7 +22,8 @@
     font-weight: 500;
 }
 .mtltitle {
-    font-family: Gotham-Medium;
+    font-family: 'Raleway';
+    font-weight: bolder;
     font-size: 9pt;
     letter-spacing: 0.15em;
     text-transform: uppercase;
