@@ -3,7 +3,13 @@
 .disabled {
     display: none !important;
 }
-
+.price {
+    font-family: freight-display-pro;
+    font-style: normal;
+    font-size: 10pt;
+    letter-spacing: 0.025em;
+    font-weight: 500;
+}
 @charset "UTF-8";
 
 :root {
@@ -12288,6 +12294,10 @@ main-search .input-holder {
 }
 
 .product-item__title {
+    font-family: Raleway;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1.4em;
     position: relative;
     font-weight: var(--FONT-WEIGHT-BODY);
     font-size: calc(1rem * var(--FONT-ADJUST-BODY));
