@@ -9,7 +9,7 @@ text-align:center;
     letter-spacing: 0.125em;
 }
 .ppprice {
-color:black;
+color:black!important;
 }
 .disabled {
     display: none !important;
