@@ -3,12 +3,19 @@
 .disabled {
     display: none !important;
 }
-.price {
+.mtlprice {
     font-family: freight-display-pro;
-    font-style: normal;
-    font-size: 10pt;
+    font-style: italic;
+    font-size: 12pt;
     letter-spacing: 0.025em;
     font-weight: 500;
+}
+.mtltitle {
+    font-family: Gotham-Medium;
+    font-size: 9pt;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1.4em;
 }
 @charset "UTF-8";
 
