@@ -1,6 +1,6 @@
 
 .atcbutton {
-background: #fff494;
+background: #fff494 !important;
 }
 #loading-bar-container {
     position: fixed;
@@ -145,6 +145,7 @@ background: #fff494;
 }
 .ppprice {
 color:black!important;
+opacity:1 !important;
 }
 .disabled {
     display: none !important;
