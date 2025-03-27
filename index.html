@@ -2733,7 +2733,17 @@
 
 
 
-
+            <!-- Place this in your main HTML layout or inside a section block -->
+            <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+            d
+            <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+            <script>
+                window.addEventListener('load', function () {
+                    setTimeout(() => {
+                        document.getElementById('loading-screen').style.display = 'none';
+                    }, 300);
+                });
+            </script>
 
             <div class="carousel-wrapper">
                 <div id="loading-bar-container">
