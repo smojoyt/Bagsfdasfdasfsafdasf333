@@ -13,10 +13,16 @@
     border-radius: 5px;
     counter-increment: carousel-cell;
 }
+    .carousel-cell img {
+        display: block;
+        height: 200px;
+    }
 
     .carousel-cell.is-selected {
         background: #ED2;
-        .atcbutton {
+    }
+        
+.atcbutton {
 background: #fff494 !important;
 }
 #loading-bar-container {
