@@ -1,6 +1,38 @@
 
 /* external css: flickity.css */
 /* categories css */
+.carousel2 {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+}
+
+    .carousel2 .carousel-cell2 {
+        width: calc(100% / 8); /* Divide by 8 for 8 columns */
+        height: 150px; /* Adjust height as needed */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0f0f0;
+        border: 1px solid #ddd;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Grid effect - flex wrap */
+    .carousel2.is-flickity-enabled {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+
+
+
+
+
+
+
+
 .carousel {
     background: #EEE;
 }
