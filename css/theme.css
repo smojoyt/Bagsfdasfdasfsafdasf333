@@ -1,4 +1,45 @@
 
+/* external css: flickity.css */
+/* categories css */
+.carousel {
+    background: #EEE;
+}
+
+.carousel-cell {
+    width: auto;
+    height: auto;
+    margin-right: 10px;
+    background: #8C8;
+    border-radius: 5px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: auto;
+    background-color: dodgerblue;
+    padding: 10px;
+}
+
+.containermain {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: red;
+    padding: 10px;
+}
+
+.container > div {
+    background-color: #f1f1f1;
+    border: 1px solid black;
+    padding-left: 100px;
+    font-size: 30px;
+    text-align: center;
+}
+
+
+
+
+
+
 .atcbutton {
 background: #fff494 !important;
 }
