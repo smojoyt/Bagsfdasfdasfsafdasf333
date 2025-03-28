@@ -55,7 +55,7 @@ background: #fff494 !important;
 }
 
 .carousel-cell {
-    width: auto;
+    width: 15%;
     max-width: 350px;
     margin-right: 10px;
     display: flex;
