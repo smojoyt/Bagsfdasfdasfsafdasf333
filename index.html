@@ -3872,16 +3872,16 @@
 <script src="https://unpkg.com/imagesloaded@4.1.4/imagesloaded.pkgd.min.js"></script>
 
 <script>
-    // Wait for images to load in the carousel
     imagesLoaded('.carousel', function () {
-        // Once images are loaded, initialize Flickity
-        var elem = document.querySelector('.main-img');
+        console.log('Images Loaded!');
+        // Initialize Flickity after images are loaded
+        var elem = document.querySelector('.carousel');
         var flkty = new Flickity(elem, {
-            wrapAround: true, // Example setting, you can adjust it
+            wrapAround: true,
         });
-
-        // Optional: Trigger resizing after images are loaded
         flkty.resize();
+        flkty.reloadCells();
     });
+
 </script>
 
