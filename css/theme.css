@@ -1,13 +1,22 @@
 
 /* external css: flickity.css */
 /* categories css */
+.carousel {
+    background: #EEE;
+}
 
+.carousel-cell {
+    width: 10%;
+    height: 200px;
+    margin-right: 10px;
+    background: #8C8;
+    border-radius: 5px;
+    counter-increment: carousel-cell;
+}
 
-
-
-
-
-.atcbutton {
+    .carousel-cell.is-selected {
+        background: #ED2;
+        .atcbutton {
 background: #fff494 !important;
 }
 #loading-bar-container {
