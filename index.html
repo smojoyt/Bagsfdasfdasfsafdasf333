@@ -2747,8 +2747,8 @@
 
                 
                     <div class="carousel-cell">
-                        
-                            
+                        <div class="container">
+                            <div class="info">
                                 <a href="https://www.karrykraze.com" style="text-decoration: none; color: inherit;">
                                     <div class="product-image-wrapper">
                                         <img class="main-img" src="https://cdn.shopify.com/s/files/1/0567/3844/7557/files/JW_09_1108bc6a-72cd-47f6-a9c2-ddb0d7cf4cf8.jpg?v=1733804476" alt="Main 1">
@@ -2759,11 +2759,12 @@
                                         <div class="mtlprice">$6,510</div>
                                     </div>
                                 </a>
-                           
-                        
+                            </div>
+                        </div>
                     </div>
                     <div class="carousel-cell">
-                        
+                        <div class="container">
+                            <div class="info">
                                 <a href="https://www.karrykraze.com" style="text-decoration: none; color: inherit;">
                                     <div class="product-image-wrapper">
                                         <img class="main-img" src="https://cdn.shopify.com/s/files/1/0567/3844/7557/files/JW_09_1108bc6a-72cd-47f6-a9c2-ddb0d7cf4cf8.jpg?v=1733804476" alt="Main 1">
@@ -2774,7 +2775,8 @@
                                         <div class="mtlprice">$6,510</div>
                                     </div>
                                 </a>
-                         
+                            </div>
+                        </div>
                     </div>
                     <!-- Add more carousel cells as needed -->
                 
@@ -3873,7 +3875,7 @@
     // Wait for images to load in the carousel
     imagesLoaded('.carousel', function () {
         // Once images are loaded, initialize Flickity
-        var elem = document.querySelector('.carousel');
+        var elem = document.querySelector('.main-img');
         var flkty = new Flickity(elem, {
             wrapAround: true, // Example setting, you can adjust it
         });
