@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/theme.css" media="all" type="text/css">
     <link rel="stylesheet" href="https://use.typekit.net/vqj3vud.css" />
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+
     <meta charset="utf-8" />
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -808,7 +809,7 @@
     </script>
     <script>
         window.ShopifyAnalytics.merchantGoogleAnalytics = function () {
-                                                      < !--Google tag(gtag.js)-- >
+                                                              < !--Google tag(gtag.js)-- >
 
 
                 window.dataLayer = window.dataLayer || [];
@@ -3863,15 +3864,16 @@
 </script>
 
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-<script>
-    // Wait for the window to load before initializing Flickity
-    window.onload = function () {
-        // Select the carousel element
-        var elem = document.querySelector('.carousel');
+<script src="https://unpkg.com/imagesloaded@4.1.4/imagesloaded.pkgd.min.js"></script>
 
-        // Initialize Flickity after all images have loaded
+<script>
+    // Wait for all images inside the carousel to load
+    imagesLoaded('.carousel', function () {
+        // Once images are loaded, initialize Flickity
+        var elem = document.querySelector('.carousel');
         var flkty = new Flickity(elem, {
             wrapAround: true,  // Example option, add more if needed
         });
-    };
+    });
 </script>
+
