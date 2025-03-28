@@ -55,7 +55,7 @@ background: #fff494 !important;
 }
 
 .carousel-cell {
-    width: 25%;
+    width: 5%;
     min-width: 250px;
     margin-right: 10px;
     display: flex;
@@ -64,6 +64,7 @@ background: #fff494 !important;
 }
 
 .product-image-wrapper {
+    padding: 0px 10px 10px 10px;
     position: relative;
     width: 100%;
     border-radius: 10px;
