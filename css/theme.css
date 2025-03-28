@@ -7,7 +7,7 @@
 
     .carousel-cell img {
         display: block;
-        height: auto !important;
+        height: 200px !important;
     }
 
     .carousel-cell.is-selected {
