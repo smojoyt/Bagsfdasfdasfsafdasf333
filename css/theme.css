@@ -1,4 +1,6 @@
-
+.cat_title {
+font-size:7pt;
+}
 
 
 
@@ -148,7 +150,7 @@ background: #fff494 !important;
 
 @media (max-width: 600px) {
     .carousel-cell {
-        width: 100%;
+        width: 50%;
     }
 
     .fade-left, .fade-right {
@@ -3431,7 +3433,9 @@ body.has-line-design.grid-compact .grid-item {
         flex-flow: row nowrap;
         justify-content: flex-start;
         gap: 0;
+        margin: 0 !important;
         margin: 0 var(--outer-offset);
+        
         padding-left: var(--outer);
         overflow-x: scroll;
         overflow-y: hidden;
