@@ -15,7 +15,6 @@
 
     .carousel-cell img {
         display: block;
-        height: 400px !important;
     }
 
     .carousel-cell.is-selected {
