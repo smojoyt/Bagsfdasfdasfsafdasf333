@@ -2,6 +2,11 @@
 font-size:7pt;
 }
 
+.cat_align {
+    max-width: var(--content-max);
+    margin:0 auto;
+}
+
 
 
 
