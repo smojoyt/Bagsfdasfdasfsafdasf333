@@ -7,6 +7,11 @@ font-size:7pt;
     margin:0 auto;
 }
 
+.carousel-cell img {
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
 
 
 
@@ -3438,9 +3443,9 @@ body.has-line-design.grid-compact .grid-item {
         flex-flow: row nowrap;
         justify-content: flex-start;
         gap: 0;
-        margin: 0 !important;
+        margin: 0 auto !important;
         margin: 0 var(--outer-offset);
-        
+        padding-left: 0 !important;
         padding-left: var(--outer);
         overflow-x: scroll;
         overflow-y: hidden;
