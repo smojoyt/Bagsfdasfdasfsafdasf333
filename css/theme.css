@@ -14,7 +14,29 @@ font-size:7pt !important;
 }
 
 
+/* Remove or override .hidden if it has display: none */
+.product-item__bg__under {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
 
+/* Show hover image on hover of .product-item__image */
+.product-item__image:hover .product-item__bg__under {
+    display: block;
+    opacity: 1;
+}
+
+/* Optional: Hide the main image when hovering if needed */
+.product-item__image:hover .product-item__bg {
+    opacity: 0;
+}
 
 
 
