@@ -10,16 +10,16 @@
 
 
 .carousel {
-    background: #EEE;
+    background: #ffffff;
 }
 
     .carousel-cell img {
         display: block;
     }
 
-    .carousel-cell.is-selected {
-        background: #ED2;
-    }
+.carousel-cell.is-selected {
+    background: #ffffff;
+}
         
 .atcbutton {
 background: #fff494 !important;
