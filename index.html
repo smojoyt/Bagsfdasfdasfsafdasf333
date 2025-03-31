@@ -2738,200 +2738,185 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <!-- Place this in your main HTML layout or inside a section block -->
 
-            <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-            <script src="https://npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
-            <script>
+        
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+                <style>
+                    .button {
+                        display: inline-block;
+                        padding: 0.5em 1em;
+                        background: #eee;
+                        border: none;
+                        border-radius: 7px;
+                        color: #222;
+                        font-family: sans-serif;
+                        font-size: 16px;
+                        cursor: pointer;
+                    }
 
-                var $grid = $('.grid').isotope({
-                    itemSelector: '.element-item',
-                    layoutMode: 'fitRows',
-                    getSortData: {
-                        name: '.name',
-                        symbol: '.symbol',
-                        number: '.number parseInt',
-                        category: '[data-category]',
-                        weight: function (itemElem) {
-                            var weight = $(itemElem).find('.weight').text();
-                            return parseFloat(weight.replace(/[\(\)]/g, ''));
+                    .grid {
+                        display: flex;
+                        flex-wrap: wrap;
+                    }
+
+                    .element-item {
+                        background: #ccc;
+                        padding: 20px;
+                        margin: 10px;
+                        width: 250px;
+                        height: 400px;
+                        color: #fff;
+                        position: relative;
+                    }
+
+                    .button-group {
+                        margin-bottom: 20px;
+                    }
+
+                    /* Hide the date element from display */
+                    .element-item .date {
+                        display: none;
+                    }
+                </style>
+
+                <h1>Isotope Filtering and Sorting</h1>
+
+                <h2>Filter</h2>
+                <div id="filters" class="button-group">
+                    <button class="button is-checked" data-filter="*">Show All</button>
+                    <button class="button" data-filter=".bags">Bags</button>
+                    <button class="button" data-filter=".metal">Metal</button>
+                    <button class="button" data-filter=".transition">Transition</button>
+                    <button class="button" data-filter="numberGreaterThan50">Number > 50</button>
+                </div>
+
+                <h2>Sort</h2>
+                <div id="sorts" class="button-group">
+                    <button class="button is-checked" data-sort-by="original-order">Original Order</button>
+                    <button class="button" id="price-sort" data-sort-by="price-low">Price Low to High</button>
+                    <button class="button" data-sort-by="new-arrival">New Arrivals</button>
+                </div>
+
+                <div class="grid">
+                    <!-- Product Item (Example Product) -->
+                    <div class="element-item product-item bags transition metal" data-category="bags" data-price="200" data-date="2025-01-01">
+                        <div class="product-item__image double__image">
+                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                                <div class="product-item__bg">
+                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                        <!-- Top Image-->
+                                        <img alt="product image" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Categories/backpack.svg" width="1500" />
+                                    </figure>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="product-information">
+                            <div class="product-item__info">
+                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                    <p class="cat_title product-item__title">
+                                        Ribbed Knit Earflap Beanie
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="price">$200</p>
+                        <p class="date">2025-01-01</p> <!-- New field for date -->
+                        <p class="category">Category: Bags</p> <!-- New field for category -->
+                    </div>
+
+                    <!-- Add More Product Items in similar format -->
+                </div>
+
+                <script>
+                    var $grid = $('.grid').isotope({
+                        itemSelector: '.element-item',
+                        layoutMode: 'fitRows',
+                        getSortData: {
+                            price: '.price parseInt',
+                            'price-low': function (itemElem) {
+                                return parseInt($(itemElem).find('.price').text().replace('$', ''), 10);
+                            },
+                            'price-high': function (itemElem) {
+                                return -parseInt($(itemElem).find('.price').text().replace('$', ''), 10);
+                            },
+                            'new-arrival': function (itemElem) {
+                                return $(itemElem).find('.date').text();
+                            }
                         }
-                    }
-                });
-
-                // filter functions
-                var filterFns = {
-                    // show if number is greater than 50
-                    numberGreaterThan50: function () {
-                        var number = $(this).find('.number').text();
-                        return parseInt(number, 10) > 50;
-                    },
-                    // show if name ends with -ium
-                    ium: function () {
-                        var name = $(this).find('.name').text();
-                        return name.match(/ium$/);
-                    }
-                };
-
-                // bind filter button click
-                $('#filters').on('click', 'button', function () {
-                    var filterValue = $(this).attr('data-filter');
-                    // use filterFn if matches value
-                    filterValue = filterFns[filterValue] || filterValue;
-                    $grid.isotope({ filter: filterValue });
-                });
-
-                // bind sort button click
-                $('#sorts').on('click', 'button', function () {
-                    var sortByValue = $(this).attr('data-sort-by');
-                    $grid.isotope({ sortBy: sortByValue });
-                });
-
-                // change is-checked class on buttons
-                $('.button-group').each(function (i, buttonGroup) {
-                    var $buttonGroup = $(buttonGroup);
-                    $buttonGroup.on('click', 'button', function () {
-                        $buttonGroup.find('.is-checked').removeClass('is-checked');
-                        $(this).addClass('is-checked');
                     });
-                });
 
-            </script>
+                    // Set the default sorting to Low -> High for Price
+                    var isPriceAscending = true;
 
-            <h1>Isotope - filtering &amp; sorting</h1>
-            <h2>Filter</h2>
-            <div id="filters" class="button-group">
-                <button class="button is-checked" data-filter="*">show all</button>
-                <button class="button" data-filter=".metal">metal</button>
-                <button class="button" data-filter=".transition">transition</button>
-                <button class="button" data-filter=".alkali, .alkaline-earth">alkali and alkaline-earth</button>
-                <button class="button" data-filter=":not(.transition)">not transition</button>
-                <button class="button" data-filter=".metal:not(.transition)">metal but not transition</button>
-                <button class="button" data-filter="numberGreaterThan50">number > 50</button>
-                <button class="button" data-filter="ium">name ends with &ndash;ium</button>
-            </div>
+                    // Toggle sorting for Price
+                    $('#price-sort').on('click', function () {
+                        isPriceAscending = !isPriceAscending; // Toggle the sorting direction for Price
+                        var sortByValue = isPriceAscending ? 'price-low' : 'price-high'; // Determine the sort order
+                        $grid.isotope({ sortBy: sortByValue }); // Apply the sorting
+                        // Change the button text to reflect the current sorting state
+                        $(this).text(isPriceAscending ? 'Price Low to High' : 'Price High to Low');
+                    });
 
-            <h2>Sort</h2>
-            <div id="sorts" class="button-group">
-                <button class="button is-checked" data-sort-by="original-order">original order</button>
-                <button class="button" data-sort-by="name">name</button>
-                <button class="button" data-sort-by="symbol">symbol</button>
-                <button class="button" data-sort-by="number">number</button>
-                <button class="button" data-sort-by="weight">weight</button>
-                <button class="button" data-sort-by="category">category</button>
-            </div>
+                    // Filter buttons
+                    $('#filters').on('click', 'button', function () {
+                        var filterValue = $(this).attr('data-filter');
+                        $grid.isotope({ filter: filterValue });
+                    });
 
-            <div class="grid">
-                <div class="element-item transition metal " data-category="transition">
-                    <h3 class="name">Mercury</h3>
-                    <p class="symbol">Hg</p>
-                    <p class="number">80</p>
-                    <p class="weight">200.59</p>
-                </div>
-                <div class="element-item metalloid " data-category="metalloid">
-                    <h3 class="name">Tellurium</h3>
-                    <p class="symbol">Te</p>
-                    <p class="number">52</p>
-                    <p class="weight">127.6</p>
-                </div>
-                <div class="element-item post-transition metal " data-category="post-transition">
-                    <h3 class="name">Bismuth</h3>
-                    <p class="symbol">Bi</p>
-                    <p class="number">83</p>
-                    <p class="weight">208.980</p>
-                </div>
-                <div class="element-item post-transition metal " data-category="post-transition">
-                    <h3 class="name">Lead</h3>
-                    <p class="symbol">Pb</p>
-                    <p class="number">82</p>
-                    <p class="weight">207.2</p>
-                </div>
-                <div class="element-item transition metal " data-category="transition">
-                    <h3 class="name">Gold</h3>
-                    <p class="symbol">Au</p>
-                    <p class="number">79</p>
-                    <p class="weight">196.967</p>
-                </div>
-                <div class="element-item alkali metal " data-category="alkali">
-                    <h3 class="name">Potassium</h3>
-                    <p class="symbol">K</p>
-                    <p class="number">19</p>
-                    <p class="weight">39.0983</p>
-                </div>
-                <div class="element-item alkali metal " data-category="alkali">
-                    <h3 class="name">Sodium</h3>
-                    <p class="symbol">Na</p>
-                    <p class="number">11</p>
-                    <p class="weight">22.99</p>
-                </div>
-                <div class="element-item transition metal " data-category="transition">
-                    <h3 class="name">Cadmium</h3>
-                    <p class="symbol">Cd</p>
-                    <p class="number">48</p>
-                    <p class="weight">112.411</p>
-                </div>
-                <div class="element-item alkaline-earth metal " data-category="alkaline-earth">
-                    <h3 class="name">Calcium</h3>
-                    <p class="symbol">Ca</p>
-                    <p class="number">20</p>
-                    <p class="weight">40.078</p>
-                </div>
-                <div class="element-item transition metal " data-category="transition">
-                    <h3 class="name">Rhenium</h3>
-                    <p class="symbol">Re</p>
-                    <p class="number">75</p>
-                    <p class="weight">186.207</p>
-                </div>
-                <div class="element-item post-transition metal " data-category="post-transition">
-                    <h3 class="name">Thallium</h3>
-                    <p class="symbol">Tl</p>
-                    <p class="number">81</p>
-                    <p class="weight">204.383</p>
-                </div>
-                <div class="element-item metalloid " data-category="metalloid">
-                    <h3 class="name">Antimony</h3>
-                    <p class="symbol">Sb</p>
-                    <p class="number">51</p>
-                    <p class="weight">121.76</p>
-                </div>
-                <div class="element-item transition metal " data-category="transition">
-                    <h3 class="name">Cobalt</h3>
-                    <p class="symbol">Co</p>
-                    <p class="number">27</p>
-                    <p class="weight">58.933</p>
-                </div>
-                <div class="element-item lanthanoid metal inner-transition " data-category="lanthanoid">
-                    <h3 class="name">Ytterbium</h3>
-                    <p class="symbol">Yb</p>
-                    <p class="number">70</p>
-                    <p class="weight">173.054</p>
-                </div>
-                <div class="element-item noble-gas nonmetal " data-category="noble-gas">
-                    <h3 class="name">Argon</h3>
-                    <p class="symbol">Ar</p>
-                    <p class="number">18</p>
-                    <p class="weight">39.948</p>
-                </div>
-                <div class="element-item diatomic nonmetal " data-category="diatomic">
-                    <h3 class="name">Nitrogen</h3>
-                    <p class="symbol">N</p>
-                    <p class="number">7</p>
-                    <p class="weight">14.007</p>
-                </div>
-                <div class="element-item actinoid metal inner-transition " data-category="actinoid">
-                    <h3 class="name">Uranium</h3>
-                    <p class="symbol">U</p>
-                    <p class="number">92</p>
-                    <p class="weight">238.029</p>
-                </div>
-                <div class="element-item actinoid metal inner-transition " data-category="actinoid">
-                    <h3 class="name">Plutonium</h3>
-                    <p class="symbol">Pu</p>
-                    <p class="number">94</p>
-                    <p class="weight">(244)</p>
-                </div>
-            </div>
+                    // Sort buttons (except Price)
+                    $('#sorts').on('click', 'button', function () {
+                        var sortByValue = $(this).attr('data-sort-by');
+                        if (sortByValue !== 'price-low' && sortByValue !== 'price-high') {
+                            $grid.isotope({ sortBy: sortByValue });
+                        }
+                    });
+
+                    // Change is-checked class on buttons
+                    $('.button-group').each(function () {
+                        var $buttonGroup = $(this);
+                        $buttonGroup.on('click', 'button', function () {
+                            $buttonGroup.find('.is-checked').removeClass('is-checked');
+                            $(this).addClass('is-checked');
+                        });
+                    });
+                </script>
 
 
 
@@ -2943,871 +2928,927 @@
 
 
 
-            <div class="cat_align carousel" data-flickity='{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="cat_align carousel" data-flickity='{
   "freeScroll": true,
   "wrapAround": false,
   "contain": true,
   "cellAlign": "left"
 }'>
 
-                <div class="carousel-cell">
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Categories/backpack.svg" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
-                            </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
-
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="cat_title product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
+            <div class="carousel-cell">
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Categories/backpack.svg" width="1500" />
+                                </figure>
                             </div>
-                        </div>
+                            <deferred-image class="product-item__bg__under">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
                     </div>
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="cat_title product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
                             </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
 
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-cell">
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
-                            </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
-
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
                             </div>
-                        </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
                     </div>
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
                             </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
 
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-cell">
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
-                            </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
-
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
+            </div>
+            <div class="carousel-cell">
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
                             </div>
-                        </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
                     </div>
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
                             </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
 
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-cell">
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
-                            </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
-
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
                             </div>
-                        </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
                     </div>
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
                             </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
 
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div><div class="carousel-cell">
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
-                            </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
-
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
-                            </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
-
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div><div class="carousel-cell">
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
-                            </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
-
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="cat_title product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
-                            </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
-
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="cat_title product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div><div class="carousel-cell">
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
-                            </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
-
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="cat_title product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                        <div class="product-item__image double__image" data-product-image="">
-                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                <div class="product-item__bg" data-product-image-default="">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                    </figure>
-                                </div>
-                                <deferred-image class="product-item__bg__under hidden">
-                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
-                                    </figure>
-                                </deferred-image>
-                            </a>
-                            <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                Sold Out
-                            </span>
-                        </div>
-
-                        <div class="product-information" data-product-information="">
-                            <div class="product-item__info">
-                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                    <p class="cat_title product-item__title">
-                                        Ribbed Knit Earflap Beanie
-                                    </p>
-
-
-                                </a>
-
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="carousel-cell">
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
+                            </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
+                    </div>
 
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
+                            </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
+                    </div>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-cell">
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
+                            </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
+                    </div>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
+                            </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
+                    </div>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div><div class="carousel-cell">
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
+                            </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
+                    </div>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
+                            </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
+                    </div>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div><div class="carousel-cell">
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
+                            </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
+                    </div>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="cat_title product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
+                            </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
+                    </div>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="cat_title product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div><div class="carousel-cell">
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
+                            </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
+                    </div>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="cat_title product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                    <div class="product-item__image double__image" data-product-image="">
+                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                            <div class="product-item__bg" data-product-image-default="">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                </figure>
+                            </div>
+                            <deferred-image class="product-item__bg__under hidden">
+                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.jpg" width="1512" />
+                                </figure>
+                            </deferred-image>
+                        </a>
+                        <span class="sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                            Sold Out
+                        </span>
+                    </div>
+
+                    <div class="product-information" data-product-information="">
+                        <div class="product-item__info">
+                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                <p class="cat_title product-item__title">
+                                    Ribbed Knit Earflap Beanie
+                                </p>
+
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
             </div>
 
+        </div>
 
 
 
-            <div class="shopify-section" id="shopify-section-template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae">
-                <!-- /sections/section-divider.liquid -->
-                <section class="divider-section section-padding" data-section-id="template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae" data-section-type="divider" id="Divider--template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae" style="--PT: 26px;
+
+        <div class="shopify-section" id="shopify-section-template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae">
+            <!-- /sections/section-divider.liquid -->
+            <section class="divider-section section-padding" data-section-id="template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae" data-section-type="divider" id="Divider--template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae" style="--PT: 26px;
   --PB: 0px;">
-                    <div class="divider-holder wrapper">
-                    </div>
-                </section>
-            </div>
-            <div class="shopify-section" id="shopify-section-template--18070871834821__section_custom_content_HBMhCm">
-                <style data-shopify="">
-                    #BrickSection--template--18070871834821__section_custom_content_HBMhCm {
-                        --PT: 0px;
-                        --PB: 50px;
-                    }
-                </style>
+                <div class="divider-holder wrapper">
+                </div>
+            </section>
+        </div>
+        <div class="shopify-section" id="shopify-section-template--18070871834821__section_custom_content_HBMhCm">
+            <style data-shopify="">
+                #BrickSection--template--18070871834821__section_custom_content_HBMhCm {
+                    --PT: 0px;
+                    --PB: 50px;
+                }
+            </style>
 
 
 
 
-                <!--2 Box Section-->
-                <section class="section-padding" data-overlay-header="" data-section-id="template--18070871834821__section_custom_content_HBMhCm" data-section-type="custom-content" id="BrickSection--template--18070871834821__section_custom_content_HBMhCm">
-                    <div class="brick__section brick--2 wrapper--full-padded brick--margin frame">
-                        <div class="brick__block frame__item" style="--text: #ffffff;
+            <!--2 Box Section-->
+            <section class="section-padding" data-overlay-header="" data-section-id="template--18070871834821__section_custom_content_HBMhCm" data-section-type="custom-content" id="BrickSection--template--18070871834821__section_custom_content_HBMhCm">
+                <div class="brick__section brick--2 wrapper--full-padded brick--margin frame">
+                    <div class="brick__block frame__item" style="--text: #ffffff;
                 --text-light: #ffffff;
                 --text-dark: #d9d9d9;">
-                            <div class="brick__block__image frame wide-image">
-                                <div class="frame__item">
-                                    <div class="image-overlay" style="--overlay-bg: #000000; --overlay-opacity: 0.0;">
-                                    </div>
-                                    <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 0.8008849557522124;">
-                                        <div class="image__hero__pane">
-                                            <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
-                                                <img alt="" class="is-loading" height="904" loading="lazy" src="imgs/Products/Pouches/LV/Black1/60.jpg" width="724" />
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="brick__block__image frame wide-image">
+                            <div class="frame__item">
+                                <div class="image-overlay" style="--overlay-bg: #000000; --overlay-opacity: 0.0;">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="brick__block frame__item" data-prevent-transparent-header="" style="--bg: #f3ede8;">
-                            <div class="brick__block__text has-padding" data-overflow-frame="">
-                                <div class="brick__block__text__inner" data-overflow-content="">
-                                    <div class="hero__content hero__content--compact text-center">
-                                        <p class="hero__subheading body-size-3" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="1">
-                                            Introducing
-                                        </p>
-                                        <h2 class="hero__title heading-size-7" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="2">
-                                            Heart Mini Tote
-                                        </h2>
-                                        <div class="hero__rte body-size-3 columns--1" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="3">
-                                            <p>
-                                                Indulge in the charm of a stylish and versatile accessory that’s sure to captivate. This handbag features exquisite heart embossments, adding a touch of elegance and personality to its design. With its sturdy handles and a detachable shoulder strap, it offers flexible carrying options to match any occasion. The gold-tone hardware enhances its sophisticated appeal, making this handbag an ideal companion for everything from casual outings to more formal events. A true favorite among fashion enthusiasts, this piece has achieved sold-out status, showcasing its undeniable allure.
-                                            </p>
-                                        </div>
-                                        <div class="hero__button" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="4">
-                                            <a class="btn btn--text btn--primary" href="/collections/forme">
-                                                <span class="disabled">
-                                                    Explore
-                                                </span>
-                                            </a>
+                                <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 0.8008849557522124;">
+                                    <div class="image__hero__pane">
+                                        <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
+                                            <img alt="" class="is-loading" height="904" loading="lazy" src="imgs/Products/Pouches/LV/Black1/60.jpg" width="724" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <style>
-                    #shopify-section-template--18070871834821__section_custom_content_HBMhCm p {
-                        font-family: freight-display-pro;
-                        margin-left: 22%;
-                        margin-right: 22%;
-                        margin-top: 2%;
-                        margin-bottom: 2%;
-                        line-height: 1.4em;
-                    }
-                </style>
-            </div>
-            <div class="shopify-section index-section" id="shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4">
-                <!-- /sections/section-columns.liquid -->
-                <style data-shopify="">
-                    #SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 {
-                        --PT: 70px;
-                        --PB: 70px;
-                    }
-                </style>
-                <div class="disabled section-columns section-padding text-center" data-section-id="template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-section-type="columns" id="SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4">
-                    <div class="wrapper--full-padded">
-                        <div class="grid__heading-holder">
-                            <h2 class="grid__heading heading-size-4" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="1">
-                                DISCOVER MORE
-                            </h2>
-                        </div>
-                        <div class="columns flex-align-top">
-                            <div class="column" style="--desktop-width: 33.333333333333336%;">
-                                <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="3">
-                                    <div class="column__image" data-column-image="">
-                                        <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
-                                            <img class="fit-cover is-loading" height="489" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\Purse\Purse_02.jpg" width="735" />
-                                        </figure>
+                    <div class="brick__block frame__item" data-prevent-transparent-header="" style="--bg: #f3ede8;">
+                        <div class="brick__block__text has-padding" data-overflow-frame="">
+                            <div class="brick__block__text__inner" data-overflow-content="">
+                                <div class="hero__content hero__content--compact text-center">
+                                    <p class="hero__subheading body-size-3" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="1">
+                                        Introducing
+                                    </p>
+                                    <h2 class="hero__title heading-size-7" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="2">
+                                        Heart Mini Tote
+                                    </h2>
+                                    <div class="hero__rte body-size-3 columns--1" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="3">
+                                        <p>
+                                            Indulge in the charm of a stylish and versatile accessory that’s sure to captivate. This handbag features exquisite heart embossments, adding a touch of elegance and personality to its design. With its sturdy handles and a detachable shoulder strap, it offers flexible carrying options to match any occasion. The gold-tone hardware enhances its sophisticated appeal, making this handbag an ideal companion for everything from casual outings to more formal events. A true favorite among fashion enthusiasts, this piece has achieved sold-out status, showcasing its undeniable allure.
+                                        </p>
                                     </div>
-                                    <div class="column__content">
-                                        <h2 class="column__heading heading-size-2">
-                                            HIGHEST RATED
-                                        </h2>
-                                        <div class="column__text rte body-size-6">
-                                            <p>
-                                                Purses
-                                            </p>
-                                        </div>
-                                        <div class="column__btn">
-                                            <a aria-label="SHOP NOW" class="btn btn--text btn--primary" href="/collections/bracelets">
-                                                <span>
-                                                    SHOP NOW
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column" style="--desktop-width: 33.333333333333336%;">
-                                <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="2">
-                                    <div class="column__image" data-column-image="">
-                                        <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
-                                            <img class="fit-cover is-loading" height="590" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\SmallBag\SmallBag_02.jpg" width="886" />
-                                        </figure>
-                                    </div>
-                                    <div class="column__content">
-                                        <h2 class="column__heading heading-size-2">
-                                            MOST POPULAR
-                                        </h2>
-                                        <div class="column__text rte body-size-6">
-                                            <p>
-                                                Small Bags
-                                            </p>
-                                        </div>
-                                        <div class="column__btn">
-                                            <a aria-label="SHOP NOW" class="btn btn--text btn--large btn--primary" href="/collections/two-stone-rings">
-                                                <span>
-                                                    SHOP NOW
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column" style="--desktop-width: 33.333333333333336%;">
-                                <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="4">
-                                    <div class="column__image" data-column-image="">
-                                        <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
-                                            <img class="fit-cover is-loading" height="999" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\Wallet\Wallet_02.jpg" width="1500" />
-                                        </figure>
-                                    </div>
-                                    <div class="column__content">
-                                        <h2 class="column__heading heading-size-2">
-                                            NEW ARRIVALS
-                                        </h2>
-                                        <div class="column__text rte body-size-6">
-                                            <p>
-                                                Coming Soon
-                                            </p>
-                                        </div>
-                                        <div class="column__btn">
-                                            <a aria-label="SHOP NOW" class="btn btn--text btn--primary" href="/collections/new">
-                                                <span>
-                                                    SHOP NOW
-                                                </span>
-                                            </a>
-                                        </div>
+                                    <div class="hero__button" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="4">
+                                        <a class="btn btn--text btn--primary" href="/collections/forme">
+                                            <span class="disabled">
+                                                Explore
+                                            </span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <style>
-                    #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 h2 {
-                        font-size: 14pt;
-                        letter-spacing: 2pt;
-                    }
+            </section>
+            <style>
+                #shopify-section-template--18070871834821__section_custom_content_HBMhCm p {
+                    font-family: freight-display-pro;
+                    margin-left: 22%;
+                    margin-right: 22%;
+                    margin-top: 2%;
+                    margin-bottom: 2%;
+                    line-height: 1.4em;
+                }
+            </style>
+        </div>
+        <div class="shopify-section index-section" id="shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4">
+            <!-- /sections/section-columns.liquid -->
+            <style data-shopify="">
+                #SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 {
+                    --PT: 70px;
+                    --PB: 70px;
+                }
+            </style>
+            <div class="disabled section-columns section-padding text-center" data-section-id="template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-section-type="columns" id="SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4">
+                <div class="wrapper--full-padded">
+                    <div class="grid__heading-holder">
+                        <h2 class="grid__heading heading-size-4" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="1">
+                            DISCOVER MORE
+                        </h2>
+                    </div>
+                    <div class="columns flex-align-top">
+                        <div class="column" style="--desktop-width: 33.333333333333336%;">
+                            <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="3">
+                                <div class="column__image" data-column-image="">
+                                    <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
+                                        <img class="fit-cover is-loading" height="489" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\Purse\Purse_02.jpg" width="735" />
+                                    </figure>
+                                </div>
+                                <div class="column__content">
+                                    <h2 class="column__heading heading-size-2">
+                                        HIGHEST RATED
+                                    </h2>
+                                    <div class="column__text rte body-size-6">
+                                        <p>
+                                            Purses
+                                        </p>
+                                    </div>
+                                    <div class="column__btn">
+                                        <a aria-label="SHOP NOW" class="btn btn--text btn--primary" href="/collections/bracelets">
+                                            <span>
+                                                SHOP NOW
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column" style="--desktop-width: 33.333333333333336%;">
+                            <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="2">
+                                <div class="column__image" data-column-image="">
+                                    <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
+                                        <img class="fit-cover is-loading" height="590" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\SmallBag\SmallBag_02.jpg" width="886" />
+                                    </figure>
+                                </div>
+                                <div class="column__content">
+                                    <h2 class="column__heading heading-size-2">
+                                        MOST POPULAR
+                                    </h2>
+                                    <div class="column__text rte body-size-6">
+                                        <p>
+                                            Small Bags
+                                        </p>
+                                    </div>
+                                    <div class="column__btn">
+                                        <a aria-label="SHOP NOW" class="btn btn--text btn--large btn--primary" href="/collections/two-stone-rings">
+                                            <span>
+                                                SHOP NOW
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column" style="--desktop-width: 33.333333333333336%;">
+                            <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="4">
+                                <div class="column__image" data-column-image="">
+                                    <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
+                                        <img class="fit-cover is-loading" height="999" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\Wallet\Wallet_02.jpg" width="1500" />
+                                    </figure>
+                                </div>
+                                <div class="column__content">
+                                    <h2 class="column__heading heading-size-2">
+                                        NEW ARRIVALS
+                                    </h2>
+                                    <div class="column__text rte body-size-6">
+                                        <p>
+                                            Coming Soon
+                                        </p>
+                                    </div>
+                                    <div class="column__btn">
+                                        <a aria-label="SHOP NOW" class="btn btn--text btn--primary" href="/collections/new">
+                                            <span>
+                                                SHOP NOW
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 h2 {
+                    font-size: 14pt;
+                    letter-spacing: 2pt;
+                }
 
-                    #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 .column__heading {
-                        letter-spacing: 0.1em;
-                        text-transform: uppercase;
-                        font-size: 8.5pt;
-                    }
+                #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 .column__heading {
+                    letter-spacing: 0.1em;
+                    text-transform: uppercase;
+                    font-size: 8.5pt;
+                }
 
-                    #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 p {
-                        font-family: freight-display-pro;
-                        font-size: 28pt;
-                        margin-left: 22%;
-                        margin-right: 22%;
-                        margin-top: 2%;
-                        margin-bottom: 2%;
-                        line-height: 1em;
-                    }
+                #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 p {
+                    font-family: freight-display-pro;
+                    font-size: 28pt;
+                    margin-left: 22%;
+                    margin-right: 22%;
+                    margin-top: 2%;
+                    margin-bottom: 2%;
+                    line-height: 1em;
+                }
 
-                    #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 .btn--text {
-                        letter-spacing: 0.2em;
-                        font-size: 9pt;
-                    }
-                </style>
-            </div>
-            <!-- 2 Box Section
-      <div class="shopify-section" id="shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1">
-       <style data-shopify="">
-        #BrickSection--template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 {
-      --PT: 0px;
-      --PB: 30px;
-    }
-       </style>
-       <section class="section-padding" data-overlay-header="" data-section-id="template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1" data-section-type="custom-content" id="BrickSection--template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1">
-        <div class="brick__section brick--2 wrapper--full-padded brick--margin frame">
-         <div class="brick__block frame__item" style="--text: #ffffff;
-      --text-light: #ffffff;
-      --text-dark: #d9d9d9;">
-          <div class="brick__block__image frame wide-image">
-           <div class="frame__item">
-            <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 1.0513068731848985;">
-             <div class="image__hero__pane">
-              <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
-               <img alt="" class="is-loading" height="4132" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) / 2), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="//jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=4344" srcset="//jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=180 180w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=360 360w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=540 540w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=720 720w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=900 900w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=1080 1080w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=1296 1296w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=1512 1512w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=1728 1728w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=1950 1950w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=2100 2100w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=2260 2260w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=2450 2450w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=2700 2700w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=3000 3000w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=3350 3350w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=3750 3750w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=4100 4100w" width="4344"/>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="brick__block frame__item" style="--bg: #f3ede8;--text: #212121;
-      --text-light: #646464;
-      --text-dark: #000000;">
-          <div class="brick__block__image frame wide-image">
-           <div class="frame__item">
-            <div class="image-overlay" style="--overlay-bg: #000000; --overlay-opacity: 0.0;">
-            </div>
-            <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 1.7777777777777777;">
-             <div class="image__hero__pane">
-              <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
-               <img alt="" class="is-loading" height="1080" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) / 2), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="//jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=1920" srcset="//jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=180 180w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=360 360w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=540 540w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=720 720w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=900 900w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=1080 1080w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=1296 1296w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=1512 1512w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=1728 1728w" width="1920"/>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="hero__content__wrapper frame__item align--middle-center">
-            <div class="hero__content">
-             <h2 class="hero__title heading-size-2" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1" data-aos-order="1">
-              BESPOKE
-             </h2>
-             <p class="hero__description h5--body body-size-4" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1" data-aos-order="2">
-              Our custom design process allows you to create one-of-a-kind fine jewelry pieces handcrafted by our artisans and imagined by you. Whether it’s an original design or a new twist to an existing style, we’ll work with you to create a unique, personal piece that will stay with you for a lifetime.
-             </p>
-             <div class="hero__button" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1" data-aos-order="3">
-              <a class="btn btn--text btn--black" href="/pages/bespoke">
-               <span>
-                LEARN MORE
-               </span>
-              </a>
-             </div>
-            </div>
-           </div>
+                #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 .btn--text {
+                    letter-spacing: 0.2em;
+                    font-size: 9pt;
+                }
+            </style>
+        </div>
+        <!-- 2 Box Section
+  <div class="shopify-section" id="shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1">
+   <style data-shopify="">
+    #BrickSection--template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 {
+  --PT: 0px;
+  --PB: 30px;
+}
+   </style>
+   <section class="section-padding" data-overlay-header="" data-section-id="template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1" data-section-type="custom-content" id="BrickSection--template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1">
+    <div class="brick__section brick--2 wrapper--full-padded brick--margin frame">
+     <div class="brick__block frame__item" style="--text: #ffffff;
+  --text-light: #ffffff;
+  --text-dark: #d9d9d9;">
+      <div class="brick__block__image frame wide-image">
+       <div class="frame__item">
+        <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 1.0513068731848985;">
+         <div class="image__hero__pane">
+          <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
+           <img alt="" class="is-loading" height="4132" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) / 2), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="//jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=4344" srcset="//jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=180 180w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=360 360w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=540 540w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=720 720w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=900 900w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=1080 1080w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=1296 1296w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=1512 1512w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=1728 1728w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=1950 1950w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=2100 2100w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=2260 2260w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=2450 2450w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=2700 2700w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=3000 3000w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=3350 3350w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=3750 3750w, //jemmawynne.com/cdn/shop/files/LER238Y_-_DI_EM_gry_copy_83184fad-4d57-46e7-84c4-5fad07204307.jpg?v=1704425647&amp;width=4100 4100w" width="4344"/>
           </div>
          </div>
         </div>
-       </section>
-       <style>
-        #shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 h2 {font-weight: 600; letter-spacing: 0.15em;} #shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 p {font-family: freight-display-pro; margin-left: 22%; margin-right: 22%; margin-top: 2%; margin-bottom: 2%; line-height: 1.4em;} #shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 .btn--text {letter-spacing: 0.2em; font-size: 8pt;}
-       </style>
-      </div> -->
-            <div class=" shopify-section" id="shopify-section-template--18070871834821__section_custom_content_CwMi3p">
-                <style data-shopify="">
-                    #BrickSection--template--18070871834821__section_custom_content_CwMi3p {
-                        --PT: 10px;
-                        --PB: 30px;
-                    }
-                </style>
-                <section class="section-padding" data-overlay-header="" data-section-id="template--18070871834821__section_custom_content_CwMi3p" data-section-type="custom-content" id="BrickSection--template--18070871834821__section_custom_content_CwMi3p">
-                    <div class="brick__section brick--2 wrapper--full-padded brick--margin frame">
-                        <div class="brick__block frame__item" style="--text: #212121;
+       </div>
+      </div>
+     </div>
+     <div class="brick__block frame__item" style="--bg: #f3ede8;--text: #212121;
+  --text-light: #646464;
+  --text-dark: #000000;">
+      <div class="brick__block__image frame wide-image">
+       <div class="frame__item">
+        <div class="image-overlay" style="--overlay-bg: #000000; --overlay-opacity: 0.0;">
+        </div>
+        <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 1.7777777777777777;">
+         <div class="image__hero__pane">
+          <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
+           <img alt="" class="is-loading" height="1080" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) / 2), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="//jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=1920" srcset="//jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=180 180w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=360 360w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=540 540w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=720 720w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=900 900w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=1080 1080w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=1296 1296w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=1512 1512w, //jemmawynne.com/cdn/shop/files/JW-Brand-color.jpg?v=1694714635&amp;width=1728 1728w" width="1920"/>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="hero__content__wrapper frame__item align--middle-center">
+        <div class="hero__content">
+         <h2 class="hero__title heading-size-2" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1" data-aos-order="1">
+          BESPOKE
+         </h2>
+         <p class="hero__description h5--body body-size-4" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1" data-aos-order="2">
+          Our custom design process allows you to create one-of-a-kind fine jewelry pieces handcrafted by our artisans and imagined by you. Whether it’s an original design or a new twist to an existing style, we’ll work with you to create a unique, personal piece that will stay with you for a lifetime.
+         </p>
+         <div class="hero__button" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1" data-aos-order="3">
+          <a class="btn btn--text btn--black" href="/pages/bespoke">
+           <span>
+            LEARN MORE
+           </span>
+          </a>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <style>
+    #shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 h2 {font-weight: 600; letter-spacing: 0.15em;} #shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 p {font-family: freight-display-pro; margin-left: 22%; margin-right: 22%; margin-top: 2%; margin-bottom: 2%; line-height: 1.4em;} #shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 .btn--text {letter-spacing: 0.2em; font-size: 8pt;}
+   </style>
+  </div> -->
+        <div class=" shopify-section" id="shopify-section-template--18070871834821__section_custom_content_CwMi3p">
+            <style data-shopify="">
+                #BrickSection--template--18070871834821__section_custom_content_CwMi3p {
+                    --PT: 10px;
+                    --PB: 30px;
+                }
+            </style>
+            <section class="section-padding" data-overlay-header="" data-section-id="template--18070871834821__section_custom_content_CwMi3p" data-section-type="custom-content" id="BrickSection--template--18070871834821__section_custom_content_CwMi3p">
+                <div class="brick__section brick--2 wrapper--full-padded brick--margin frame">
+                    <div class="brick__block frame__item" style="--text: #212121;
     --text-light: #646464;
     --text-dark: #000000;">
-                            <div class="brick__block__image frame wide-image">
-                                <div class="frame__item">
-                                    <div class="image-overlay" style="--overlay-bg: #000000; --overlay-opacity: 0.0;">
-                                    </div>
-                                    <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 1.7777777777777777;">
-                                        <div class="image__hero__pane">
-                                            <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
-                                                <img alt="" class="is-loading" height="1080" loading="lazy" src="imgs/Colors/Beige.webp" width="1920" />
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="brick__block__image frame wide-image">
+                            <div class="frame__item">
+                                <div class="image-overlay" style="--overlay-bg: #000000; --overlay-opacity: 0.0;">
                                 </div>
-                                <div class="hero__content__wrapper frame__item align--middle-center">
-                                    <div class="hero__content hero__content--transparent">
-                                        <h2 class="hero__title heading-size-2" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="1">
-                                            ABOUT US
-                                        </h2>
-                                        <p class="hero__description h5--body body-size-4" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="2">
-                                            A dedicated team creating exquisite, timeless luxury handbags with craftsmanship, elegance, and attention to detail for the modern, sophisticated individual.
-                                        </p>
-                                        <div class="hero__button" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="3">
-                                            <a class="btn btn--text btn--black" target="_blank" href="https://www.instagram.com/karrykraze/">
-                                                <span>
-                                                    @karrykrave
-                                                </span>
-                                            </a>
+                                <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 1.7777777777777777;">
+                                    <div class="image__hero__pane">
+                                        <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
+                                            <img alt="" class="is-loading" height="1080" loading="lazy" src="imgs/Colors/Beige.webp" width="1920" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="hero__content__wrapper frame__item align--middle-center">
+                                <div class="hero__content hero__content--transparent">
+                                    <h2 class="hero__title heading-size-2" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="1">
+                                        ABOUT US
+                                    </h2>
+                                    <p class="hero__description h5--body body-size-4" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="2">
+                                        A dedicated team creating exquisite, timeless luxury handbags with craftsmanship, elegance, and attention to detail for the modern, sophisticated individual.
+                                    </p>
+                                    <div class="hero__button" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="3">
+                                        <a class="btn btn--text btn--black" target="_blank" href="https://www.instagram.com/karrykraze/">
+                                            <span>
+                                                @karrykrave
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="brick__block frame__item" style="--text: #ffffff;
+                    </div>
+                    <div class="brick__block frame__item" style="--text: #ffffff;
     --text-light: #ffffff;
     --text-dark: #d9d9d9;">
-                            <div class="brick__block__image frame wide-image">
-                                <div class="frame__item">
-                                    <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 0.6666666666666666;">
-                                        <div class="image__hero__pane">
-                                            <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
-                                                <img alt="" class="is-loading" height="2400" loading="lazy" src="imgs/Misc/Aboutme/1.png" width="1600" />
-                                            </div>
+                        <div class="brick__block__image frame wide-image">
+                            <div class="frame__item">
+                                <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 0.6666666666666666;">
+                                    <div class="image__hero__pane">
+                                        <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
+                                            <img alt="" class="is-loading" height="2400" loading="lazy" src="imgs/Misc/Aboutme/1.png" width="1600" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <style>
-                    #shopify-section-template--18070871834821__section_custom_content_CwMi3p h2 {
-                        font-weight: 600;
-                        letter-spacing: 0.15em;
-                    }
+                </div>
+            </section>
+            <style>
+                #shopify-section-template--18070871834821__section_custom_content_CwMi3p h2 {
+                    font-weight: 600;
+                    letter-spacing: 0.15em;
+                }
 
-                    #shopify-section-template--18070871834821__section_custom_content_CwMi3p p {
-                        font-family: freight-display-pro;
-                        margin-left: 22%;
-                        margin-right: 22%;
-                        margin-top: 2%;
-                        margin-bottom: 2%;
-                        line-height: 1.4em;
-                    }
+                #shopify-section-template--18070871834821__section_custom_content_CwMi3p p {
+                    font-family: freight-display-pro;
+                    margin-left: 22%;
+                    margin-right: 22%;
+                    margin-top: 2%;
+                    margin-bottom: 2%;
+                    line-height: 1.4em;
+                }
 
-                    #shopify-section-template--18070871834821__section_custom_content_CwMi3p .btn--text {
-                        letter-spacing: 0.2em;
-                        font-size: 9pt;
-                    }
-                </style>
-            </div>
-            <div class="shopify-section" id="shopify-section-template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae">
-                <!-- /sections/section-rich-text.liquid -->
-                <style data-shopify="">
-                    #Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae {
-                        --PT: 28px;
-                        --PB: 36px;
-                    }
-                </style>
-                <section class="index-rte section-padding" data-section-id="template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae" data-section-type="rich-text" id="Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae">
-                    <div class="hero__content__wrapper text-center wrapper">
-                        <div class="hero__content hero__content--compact">
-                            <div class="hero__rte body-size-8 font-heading" data-aos="hero" data-aos-anchor="#Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae" data-aos-order="1">
-                                <p>
-                                    Follow us @
-                                    <a href="https://www.instagram.com/karrykraze" target="_blank" title="https://www.instagram.com/karrykraze">
-                                        KarryKraze
-                                    </a>
-                                </p>
-                            </div>
+                #shopify-section-template--18070871834821__section_custom_content_CwMi3p .btn--text {
+                    letter-spacing: 0.2em;
+                    font-size: 9pt;
+                }
+            </style>
+        </div>
+        <div class="shopify-section" id="shopify-section-template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae">
+            <!-- /sections/section-rich-text.liquid -->
+            <style data-shopify="">
+                #Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae {
+                    --PT: 28px;
+                    --PB: 36px;
+                }
+            </style>
+            <section class="index-rte section-padding" data-section-id="template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae" data-section-type="rich-text" id="Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae">
+                <div class="hero__content__wrapper text-center wrapper">
+                    <div class="hero__content hero__content--compact">
+                        <div class="hero__rte body-size-8 font-heading" data-aos="hero" data-aos-anchor="#Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae" data-aos-order="1">
+                            <p>
+                                Follow us @
+                                <a href="https://www.instagram.com/karrykraze" target="_blank" title="https://www.instagram.com/karrykraze">
+                                    KarryKraze
+                                </a>
+                            </p>
                         </div>
-                    </div>
-                </section>
-            </div>
-            <section class="shopify-section" id="shopify-section-template--18070871834821__1697831802faa4e396">
-                <div class="">
-                    <div class="shopify-block shopify-app-block" id="shopify-block-AVFR0b0M3Q2ZpT085Y__bd469f39-6369-4c53-8661-a78ef4b29a29">
-                        <style>
-                            body #insta-feed {
-                                text-align: center;
-                            }
-                        </style>
-                        <div id="insta-feed">
-                        </div>
-                        <script>
-                            if (typeof instafeedLocalTitle === 'undefined') var instafeedLocalTitle = "";
-                        </script>
                     </div>
                 </div>
-                <style>
-                    #shopify-section-template--18070871834821__1697831802faa4e396 {
-                        margin-bottom: 6%;
-                    }
-                </style>
             </section>
+        </div>
+        <section class="shopify-section" id="shopify-section-template--18070871834821__1697831802faa4e396">
+            <div class="">
+                <div class="shopify-block shopify-app-block" id="shopify-block-AVFR0b0M3Q2ZpT085Y__bd469f39-6369-4c53-8661-a78ef4b29a29">
+                    <style>
+                        body #insta-feed {
+                            text-align: center;
+                        }
+                    </style>
+                    <div id="insta-feed">
+                    </div>
+                    <script>
+                        if (typeof instafeedLocalTitle === 'undefined') var instafeedLocalTitle = "";
+                    </script>
+                </div>
+            </div>
+            <style>
+                #shopify-section-template--18070871834821__1697831802faa4e396 {
+                    margin-bottom: 6%;
+                }
+            </style>
+        </section>
         </main>
     </div>
     <!-- BEGIN sections: group-pre-footer -->
