@@ -2691,7 +2691,6 @@
                         <li class="popout-list__item">
                             <a class="popout-list__option"
                                data-value="price-ascending"
-                               
                                data-sort-link>
                                 <span id="price-sort" data-sort-by="price-low">Price, low to high</span>
                             </a>
@@ -2723,7 +2722,13 @@
                                 <span>Date, new to old</span>
                             </a>
                         </li>
+
                     </ul>
+                    <div id="sorts" class="button-group">
+                        <button class="button is-checked" data-sort-by="original-order">Original Order</button>
+                        <button class="button" id="price-sort" data-sort-by="price-low">Price Low to High</button>
+                        <button class="button" data-sort-by="new-arrival">New Arrivals</button>
+                    </div>
                 </popout-select>
             </div>
 
