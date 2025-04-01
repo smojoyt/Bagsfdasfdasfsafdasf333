@@ -2833,6 +2833,9 @@
 
             <script>
                 $(document).ready(function () {
+                    // Log initial height of the .grid before Isotope is initialized
+                    console.log("Initial height of grid:", $('.grid').height());
+
                     var $grid = $('.grid').isotope({
                         itemSelector: '.element-item',
                         layoutMode: 'fitRows',
@@ -2851,6 +2854,13 @@
                             }
                         }
                     });
+
+                    // Log the height of the .grid after Isotope is initialized
+                    console.log("Height of grid after Isotope:", $('.grid').height());
+
+                    // Rest of your code...
+                });
+
 
                     // Set the default sorting to Low -> High for Price
                     var isPriceAscending = true;
