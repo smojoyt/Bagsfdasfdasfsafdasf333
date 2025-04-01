@@ -2833,9 +2833,6 @@
 
             <script>
                 $(document).ready(function () {
-                    // Log initial height of the .grid before Isotope is initialized
-                    console.log("Initial height of grid:", $('.grid').height());
-
                     var $grid = $('.grid').isotope({
                         itemSelector: '.element-item',
                         layoutMode: 'fitRows',
@@ -2855,21 +2852,12 @@
                         }
                     });
 
-                    // Log the height of the .grid after Isotope is initialized
-                    console.log("Height of grid after Isotope:", $('.grid').height());
-
-                    // Rest of your code...
-                });
-
-
-                    // Set the default sorting to Low -> High for Price
+                    // Sort buttons for Price
                     var isPriceAscending = true;
-
-                    // Toggle sorting for Price
                     $('#price-sort').on('click', function () {
-                        isPriceAscending = !isPriceAscending; // Toggle the sorting direction for Price
-                        var sortByValue = isPriceAscending ? 'price-low' : 'price-high'; // Determine the sort order
-                        $grid.isotope({ sortBy: sortByValue }); // Apply the sorting
+                        isPriceAscending = !isPriceAscending;
+                        var sortByValue = isPriceAscending ? 'price-low' : 'price-high';
+                        $grid.isotope({ sortBy: sortByValue });
                         $(this).text(isPriceAscending ? 'Price Low to High' : 'Price High to Low');
                     });
 
@@ -2896,23 +2884,17 @@
                         });
                     });
 
-                    // Check if filter buttons are working
+                    // Log to verify
                     $('#filters').on('click', 'button', function () {
-                        console.log("Button clicked");
-                        var filterValue = $(this).attr('data-filter');
-                        console.log("Filtering by: " + filterValue);
-                        $grid.isotope({ filter: filterValue });
+                        console.log("Button clicked for filter:", $(this).attr('data-filter'));
                     });
 
-                    // Check if sort buttons are working
                     $('#sorts').on('click', 'button', function () {
-                        console.log("Sort button clicked");
-                        var sortByValue = $(this).attr('data-sort-by');
-                        console.log("Sorting by: " + sortByValue);
-                        $grid.isotope({ sortBy: sortByValue });
+                        console.log("Sort button clicked for:", $(this).attr('data-sort-by'));
                     });
                 });
             </script>
+
 
 
 
