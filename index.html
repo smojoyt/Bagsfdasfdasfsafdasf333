@@ -2736,10 +2736,6 @@
 
             <!-- Place this in your main HTML layout or inside a section block -->
 
-
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-
             <section class="index-products section-padding" data-section-id="template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad" data-section-type="product-grid" id="Collection--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad">
                 <div class="grid-container wrapper">
                     <div class="grid__heading-holder text-center">
@@ -2828,11 +2824,18 @@
                 </div>
             </section>
 
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery loaded first -->
+            <script src="https://unpkg.com/isotope-layout@3.0.6/dist/isotope.pkgd.min.js"></script> <!-- Specific Isotope version -->
 
             <script>
                 $(document).ready(function () {
+                    // Check if Isotope is loaded correctly
+                    if (typeof $.fn.isotope !== 'function') {
+                        console.error("Isotope is not loaded properly.");
+                        return;
+                    }
+
+                    // Initialize Isotope
                     var $grid = $('.grid').isotope({
                         itemSelector: '.element-item',
                         layoutMode: 'fitRows',
@@ -2884,7 +2887,7 @@
                         });
                     });
 
-                    // Log to verify
+                    // Log to verify filter and sort button clicks
                     $('#filters').on('click', 'button', function () {
                         console.log("Button clicked for filter:", $(this).attr('data-filter'));
                     });
@@ -2894,6 +2897,7 @@
                     });
                 });
             </script>
+
 
 
 
