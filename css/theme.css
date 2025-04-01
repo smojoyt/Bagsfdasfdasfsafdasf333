@@ -3330,8 +3330,9 @@ dialog {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(var(--columns), minmax(0, 1fr)) justify-content: center;
-    gap: 40px;
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+    justify-content: center;
+    gap: var(--gap);
     max-width: 1300px;
     width: 90%;
     margin: 0 auto;
