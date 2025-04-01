@@ -2880,6 +2880,43 @@
                         $(this).addClass('is-checked');
                     });
                 });
+
+                // Initialize Isotope
+                var $grid = $('.grid').isotope({
+                    itemSelector: '.element-item',
+                    layoutMode: 'fitRows',
+                    getSortData: {
+                        price: '.price parseInt',
+                        'price-low': function (itemElem) {
+                            return parseInt($(itemElem).find('.price').text().replace('$', ''), 10);
+                        },
+                        'price-high': function (itemElem) {
+                            return -parseInt($(itemElem).find('.price').text().replace('$', ''), 10);
+                        },
+                        'new-arrival': function (itemElem) {
+                            return $(itemElem).find('.date').text();
+                        }
+                    }
+                });
+
+                console.log($grid); // Log the Isotope instance to check if it is correctly initialized
+
+                // Check if filter buttons are working
+                $('#filters').on('click', 'button', function () {
+                    console.log("Button clicked"); // Make sure the click is captured
+                    var filterValue = $(this).attr('data-filter');
+                    console.log("Filtering by: " + filterValue); // Log filter value
+                    $grid.isotope({ filter: filterValue });
+                });
+
+                // Check if sort buttons are working
+                $('#sorts').on('click', 'button', function () {
+                    console.log("Sort button clicked");
+                    var sortByValue = $(this).attr('data-sort-by');
+                    console.log("Sorting by: " + sortByValue); // Log sort value
+                    $grid.isotope({ sortBy: sortByValue });
+                });
+
             </script>
 
 
