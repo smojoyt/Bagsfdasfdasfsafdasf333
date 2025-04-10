@@ -792,7 +792,7 @@
         }</script>
     <script>
         window.ShopifyAnalytics.merchantGoogleAnalytics = function () {
-                                  < !--Google tag(gtag.js)-- >
+                                          < !--Google tag(gtag.js)-- >
 
 
                 window.dataLayer = window.dataLayer || [];
@@ -3153,14 +3153,14 @@
             <!-- Root element of PhotoSwipe. Must have class pswp. -->
             <div class="pswp pswp--custom-loader" tabindex="-1" role="dialog" aria-hidden="true">
                 <!-- Background of PhotoSwipe.
-                It's a separate element as animating opacity is faster than rgba(). -->
+        It's a separate element as animating opacity is faster than rgba(). -->
                 <div class="pswp__bg"></div>
 
                 <!-- Slides wrapper with overflow:hidden. -->
                 <div class="pswp__scroll-wrap">
                     <!-- Container that holds slides.
-                    PhotoSwipe keeps only 3 of them in the DOM to save memory.
-                    Don't modify these 3 pswp__item elements, data is added later on. -->
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
                     <div class="pswp__container">
                         <div class="pswp__item"></div>
                         <div class="pswp__item"></div>
@@ -3443,6 +3443,25 @@
                     font-family: Gotham-Book;
                 }
             </style>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const observer = new MutationObserver(() => {
+                        const bodyOverflow = getComputedStyle(document.body).overflow;
+                        const isLocked = document.documentElement.getAttribute("data-scroll-locked");
+
+                        if (bodyOverflow === "hidden" || isLocked === "true") {
+                            console.log("Scroll lock detected. Re-enabling scroll...");
+                            document.body.style.overflow = "auto";
+                            document.body.style.paddingRight = "0px";
+                            document.documentElement.removeAttribute("data-scroll-locked");
+                        }
+                    });
+
+                    observer.observe(document.body, { attributes: true, attributeFilter: ["style"] });
+                    observer.observe(document.documentElement, { attributes: true });
+                });
+            </script>
+
 </body>
 </html>
 <!--Snip Cart-->
@@ -3456,30 +3475,5 @@
     (() => { var c, d; (d = (c = window.SnipcartSettings).version) != null || (c.version = "3.0"); var s, S; (S = (s = window.SnipcartSettings).timeoutDuration) != null || (s.timeoutDuration = 2750); var l, p; (p = (l = window.SnipcartSettings).domain) != null || (l.domain = "cdn.snipcart.com"); var w, u; (u = (w = window.SnipcartSettings).protocol) != null || (w.protocol = "https"); var f = window.SnipcartSettings.version.includes("v3.0.0-ci") || window.SnipcartSettings.version != "3.0" && window.SnipcartSettings.version.localeCompare("3.4.0", void 0, { numeric: !0, sensitivity: "base" }) === -1, m = ["focus", "mouseover", "touchmove", "scroll", "keydown"]; window.LoadSnipcart = o; document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", r) : r(); function r() { window.SnipcartSettings.loadStrategy ? window.SnipcartSettings.loadStrategy === "on-user-interaction" && (m.forEach(t => document.addEventListener(t, o)), setTimeout(o, window.SnipcartSettings.timeoutDuration)) : o() } var a = !1; function o() { if (a) return; a = !0; let t = document.getElementsByTagName("head")[0], e = document.querySelector("#snipcart"), i = document.querySelector(`src[src^="${window.SnipcartSettings.protocol}://${window.SnipcartSettings.domain}"][src$="snipcart.js"]`), n = document.querySelector(`link[href^="${window.SnipcartSettings.protocol}://${window.SnipcartSettings.domain}"][href$="snipcart.css"]`); e || (e = document.createElement("div"), e.id = "snipcart", e.setAttribute("hidden", "true"), document.body.appendChild(e)), v(e), i || (i = document.createElement("script"), i.src = `${window.SnipcartSettings.protocol}://${window.SnipcartSettings.domain}/themes/v${window.SnipcartSettings.version}/default/snipcart.js`, i.async = !0, t.appendChild(i)), n || (n = document.createElement("link"), n.rel = "stylesheet", n.type = "text/css", n.href = `${window.SnipcartSettings.protocol}://${window.SnipcartSettings.domain}/themes/v${window.SnipcartSettings.version}/default/snipcart.css`, t.prepend(n)), m.forEach(g => document.removeEventListener(g, o)) } function v(t) { !f || (t.dataset.apiKey = window.SnipcartSettings.publicApiKey, window.SnipcartSettings.addProductBehavior && (t.dataset.configAddProductBehavior = window.SnipcartSettings.addProductBehavior), window.SnipcartSettings.modalStyle && (t.dataset.configModalStyle = window.SnipcartSettings.modalStyle), window.SnipcartSettings.currency && (t.dataset.currency = window.SnipcartSettings.currency), window.SnipcartSettings.templatesUrl && (t.dataset.templatesUrl = window.SnipcartSettings.templatesUrl)) } })();
 </script>
 
-<script>
-    setInterval(() => {
-        document.body.style.overflow = 'auto';
-    }, 3000);
 
-</script>
 
-<script>
-    // Add this at the bottom of theme.js
-    document.addEventListener("DOMContentLoaded", () => {
-        let restoreScrollTimer = setInterval(() => {
-            const locked = document.documentElement.getAttribute("data-scroll-locked");
-            if (locked) {
-                document.documentElement.removeAttribute("data-scroll-locked");
-                document.body.style.overflow = "auto";
-                document.body.style.paddingRight = "0px";
-                if (typeof t?.enablePageScroll === "function") {
-                    try {
-                        t.clearQueueScrollLocks?.();
-                        t.enablePageScroll?.();
-                    } catch (err) { }
-                }
-            }
-        }, 3000);
-    });
-
-</script>
