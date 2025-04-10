@@ -1,5 +1,9 @@
-
-.
+html, body {
+    overflow-x: hidden;
+    overflow-y: auto !important;
+    overscroll-behavior: auto;
+    touch-action: auto;
+}
 
 .height {
 height:100% !important;

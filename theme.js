@@ -24,3 +24,8 @@
       }
     }, 3000); // Every 3 seconds
   });
+
+setInterval(() => {
+    document.body.style.overflow = 'auto';
+}, 3000);
+
