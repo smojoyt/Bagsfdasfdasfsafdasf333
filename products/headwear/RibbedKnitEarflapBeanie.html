@@ -2824,15 +2824,50 @@
 
 
             <!-- Place this in your main HTML layout or inside a section block -->
-            <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
-
-
             <!-- Loading Screen -->
 
             <h6 class="mtl tab__title aos-animate">
                 MORE TO LOVE
             </h6>
             <div include-html="/page_inserts/productpage_moreitems.html"></div>
+
+            <!-- Load Flickity -->
+            <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+            <!-- Hide loading screen -->
+            <script>
+                window.addEventListener('load', function () {
+                    setTimeout(() => {
+                        const loadingScreen = document.getElementById('loading-screen');
+                        if (loadingScreen) {
+                            loadingScreen.style.display = 'none';
+                        }
+                    }, 300);
+                });
+            </script>
+
+            <!-- Load HTML includes + init Flickity -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.querySelectorAll('[include-html]').forEach(el => {
+                        const file = el.getAttribute('include-html');
+
+                        fetch(file)
+                            .then(res => res.text())
+                            .then(html => {
+                                el.innerHTML = html;
+                                el.removeAttribute('include-html');
+
+                                // ✅ Initialize Flickity after inserting HTML
+                                const flickityEl = el.querySelector('.js-flickity');
+                                if (flickityEl && typeof Flickity !== 'undefined') {
+                                    new Flickity(flickityEl, JSON.parse(flickityEl.getAttribute('data-flickity')));
+                                }
+                            });
+                    });
+                });
+            </script>
+
 
 
 
@@ -2959,14 +2994,14 @@
             <!-- Root element of PhotoSwipe. Must have class pswp. -->
             <div class="pswp pswp--custom-loader" tabindex="-1" role="dialog" aria-hidden="true">
                 <!-- Background of PhotoSwipe.
-                It's a separate element as animating opacity is faster than rgba(). -->
+        It's a separate element as animating opacity is faster than rgba(). -->
                 <div class="pswp__bg"></div>
 
                 <!-- Slides wrapper with overflow:hidden. -->
                 <div class="pswp__scroll-wrap">
                     <!-- Container that holds slides.
-                    PhotoSwipe keeps only 3 of them in the DOM to save memory.
-                    Don't modify these 3 pswp__item elements, data is added later on. -->
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
                     <div class="pswp__container">
                         <div class="pswp__item"></div>
                         <div class="pswp__item"></div>
