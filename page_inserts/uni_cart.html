@@ -1,39 +1,41 @@
-﻿<div hidden id="snipcart"
-     data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"
-     data-config-modal-style="side"
-     data-config-add-product-behavior="none"></div>
-
-<!-- Floating Cart Icon (Always Visible) -->
-<button class="snipcart-checkout" style="background: transparent; border: none; cursor: pointer; position: fixed; top: 20px; right: 20px; z-index: 10; display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 5px;">
-    <img src="https://www.svgrepo.com/show/457269/bag.svg" alt="Cart" style="height: 24px; filter: brightness(0) invert(1);" />
-    <span class="snipcart-items-count" style="color: white; text-decoration: none; text-shadow: none;"></span>
-</button>
-
+﻿<script src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
+<link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
 <style>
+    body {
+        background-color: black;
+        color: white;
+        font-family: sans-serif;
+        padding: 2rem;
+    }
 
-    /* Float the cart icon to the top-right of the screen */
     .snipcart-checkout {
-        position: fixed !important;
-        top: 20px !important;
-        right: 20px !important;
-        z-index: 10 !important;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10;
         display: flex;
         align-items: center;
         gap: 5px;
-        background: transparent !important;
+        background: transparent;
         padding: 5px 10px;
+        border: none;
         border-radius: 5px;
-        text-decoration: none !important;
+        cursor: pointer;
     }
 
-        .snipcart-checkout:hover {
-            text-decoration: none !important;
-        }
-
     .snipcart-items-count {
-        text-decoration: none !important;
-        text-shadow: none !important;
-        color: white !important;
+        color: white;
     }
 </style>
 
+<div hidden id="snipcart"
+     data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"
+     data-config-modal-style="side"
+     data-config-add-product-behavior="none">
+</div>
+
+<!-- Floating Cart Icon -->
+<button class="snipcart-checkout">
+    <img src="https://www.svgrepo.com/show/457269/bag.svg" alt="Cart" style="height: 24px; filter: brightness(0) invert(1);" />
+    <span class="snipcart-items-count"></span>
+</button>
