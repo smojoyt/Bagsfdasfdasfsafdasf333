@@ -1,4 +1,4 @@
-<meta charset="UTF-8">
+﻿<meta charset="UTF-8">
 
 
 
@@ -18,8 +18,7 @@
   "wrapAround": false,
   "prevNextButtons": false,
   "pageDots": false,
-  "dragThreshold": 5,
-         "axis": "y",
+  "dragThreshold": 5
 }'>
 
         <!-- PRODUCTS -->
@@ -96,7 +95,7 @@
                     el.innerHTML = html;
                     el.removeAttribute('include-html');
 
-                    // ? Initialize Flickity after inserting HTML
+                    // ✅ Initialize Flickity after inserting HTML
                     const flickityEl = el.querySelector('.js-flickity');
                     if (flickityEl && typeof Flickity !== 'undefined') {
                         new Flickity(flickityEl, JSON.parse(flickityEl.getAttribute('data-flickity')));

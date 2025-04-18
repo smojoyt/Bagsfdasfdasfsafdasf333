@@ -2858,15 +2858,25 @@
                                 el.innerHTML = html;
                                 el.removeAttribute('include-html');
 
-                                // ✅ Initialize Flickity after inserting HTML
                                 const flickityEl = el.querySelector('.js-flickity');
                                 if (flickityEl && typeof Flickity !== 'undefined') {
-                                    new Flickity(flickityEl, JSON.parse(flickityEl.getAttribute('data-flickity')));
+                                    console.log("Flickity Target:", flickityEl); // Optional debug
+                                    new Flickity(flickityEl, {
+                                        cellAlign: "left",
+                                        contain: true,
+                                        groupCells: 1,
+                                        freeScroll: false,
+                                        wrapAround: false,
+                                        prevNextButtons: false,
+                                        pageDots: false,
+                                        dragThreshold: 5
+                                    });
                                 }
                             });
                     });
                 });
             </script>
+
 
 
 
