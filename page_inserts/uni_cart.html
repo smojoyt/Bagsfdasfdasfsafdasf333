@@ -1,75 +1,73 @@
-﻿<div id="floating-cart-button">
-    <button class="snipcart-checkout" id="cart-button">
-        🛒<span id="cart-count-bubble" class="snipcart-total-items">0</span>
+﻿<div class="snipcart-summary" id="snipcart-summary" style="pointer-events: auto; z-index: 1;">
+    <button class="snipcart-checkout" aria-label="Cart">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24" height="24">
+            <path d="M19 7h-1V6a6 6 0 1 0-12 0v1H5a2 2 0 0 0-2 2v11a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V9a2 2 0 0 0-2-2ZM8 6a4 4 0 1 1 8 0v1H8Zm11 14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9h14Z" />
+        </svg>
+        <span class="snipcart-items-count">0</span>
     </button>
 </div>
 
+<!-- View Cart Hover Text -->
+<div id="hover-cart-text" style="
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 0;
+    background: white;
+    color: black;
+    font-weight: bold;
+    padding: 10px 14px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    font-family: sans-serif;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+  ">View Cart</div>
 <style>
-    #floating-cart-button {
+    .snipcart-summary {
+        z-index: 9998;
         position: fixed;
         top: 20px;
         right: 20px;
         z-index: 9999;
+        transition: opacity 0.3s ease;
     }
 
-    #cart-button {
-        position: relative;
-        background-color: #111;
-        color: white;
-        border: none;
-        border-radius: 50px;
-        padding: 12px 16px;
-        font-size: 18px;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s ease;
-    }
-
-        #cart-button:hover {
-            background-color: #333;
+        .snipcart-summary .snipcart-checkout {
+            background-color: transparent;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: none;
         }
 
-    #cart-count-bubble {
+    .snipcart-items-count {
         background-color: red;
         color: white;
         font-weight: bold;
         border-radius: 50%;
         padding: 2px 7px;
         font-size: 14px;
-        position: absolute;
-        top: -8px;
-        right: -10px;
-        animation: none;
+        display: inline-block;
     }
 
-    @keyframes pop {
-        0% {
-            transform: scale(1);
-        }
-
-        50% {
-            transform: scale(1.5);
-        }
-
-        100% {
-            transform: scale(1);
-        }
-    }
-
-    .pop-animation {
-        animation: pop 0.3s ease;
+    #hover-cart-text {
+        z-index: 0;
+        background: white;
+        color: black;
+        font-weight: bold;
+        padding: 10px 14px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        font-family: sans-serif;
+        transition: opacity 0.3s ease;
     }
 </style>
 
-<script>
-  document.addEventListener('snipcart.ready', () => {
-    Snipcart.events.on('item.added', () => {
-      const bubble = document.getElementById('cart-count-bubble');
-      if (bubble) {
-        bubble.classList.remove('pop-animation'); // reset if already applied
-        void bubble.offsetWidth; // force reflow
-        bubble.classList.add('pop-animation'); // re-apply animation
-      }
-    });
-  });
-</script>

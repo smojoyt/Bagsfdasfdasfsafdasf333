@@ -1192,6 +1192,57 @@
                         <!-- Image Logo Area-->
                         <div include-html="/page_inserts/uni_navbar.html"></div>
                         <div include-html="/page_inserts/uni_cart.html"></div>
+                        <script async src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
+                        <script>
+                            const cartSummary = document.getElementById('snipcart-summary');
+                            const hoverText = document.getElementById('hover-cart-text');
+
+                            let isHovering = false;
+
+                            cartSummary.addEventListener('mouseenter', () => {
+                                isHovering = true;
+                                cartSummary.style.opacity = '0';
+                                cartSummary.style.pointerEvents = 'none';
+                                hoverText.style.display = 'block';
+                            });
+
+                            function resetCart() {
+                                if (!isHovering) {
+                                    cartSummary.style.opacity = '1';
+                                    cartSummary.style.pointerEvents = 'auto';
+                                    hoverText.style.display = 'none';
+                                }
+                            }
+
+                            cartSummary.addEventListener('mouseleave', () => {
+                                isHovering = false;
+                                setTimeout(resetCart, 100);
+                            });
+
+                            hoverText.addEventListener('mouseenter', () => {
+                                isHovering = true;
+                            });
+
+                            hoverText.addEventListener('mouseleave', () => {
+                                isHovering = false;
+                                setTimeout(resetCart, 100);
+                            });
+
+                            hoverText.addEventListener('click', () => {
+                                const checkoutButton = document.querySelector('.snipcart-checkout');
+                                if (checkoutButton) checkoutButton.click();
+
+                                // Hide hover text and bring back the floating cart
+                                hoverText.style.display = 'none';
+                                cartSummary.style.opacity = '1';
+                                cartSummary.style.pointerEvents = 'auto';
+                            });
+                            document.addEventListener('snipcart.ready', () => {
+                                Snipcart.events.on('item.adding', (event) => {
+                                    event.detail.preventDefault();
+                                });
+                            });
+                        </script>
 
                         <script>
                             document.addEventListener("DOMContentLoaded", function () {
