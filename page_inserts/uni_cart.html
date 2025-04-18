@@ -17,8 +17,22 @@
         cursor: pointer;
     }
 
+        .snipcart-checkout img {
+            transition: filter 0.3s;
+            filter: brightness(0) invert(1);
+        }
+
     .snipcart-items-count {
         color: white;
+        transition: color 0.3s;
+    }
+
+    .scrolled .snipcart-checkout img {
+        filter: brightness(0);
+    }
+
+    .scrolled .snipcart-items-count {
+        color: black;
     }
 </style>
 
