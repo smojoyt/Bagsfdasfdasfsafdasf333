@@ -2757,138 +2757,390 @@
 
                 <div class="collection__products collection__products--group-tags">
                     <!--<div class="collection__sidebar__slider" id="filter-groups" data-collection-sidebar="">
-            <!-- /snippets/collection-filters-sidebar.liquid
+                    <!-- /snippets/collection-filters-sidebar.liquid
 
-                    <div class="collection__sidebar" data-active-filters-count="0" data-scroll-lock-scrollable="">
-                        <collection-filters-form>
-                            <form data-collection-filters-form="" class="collection__filters">
-                                <collapsible-elements>
-                                    <div class="filter-group" data-animation="drawer-items-fade" data-animation-duration="500" data-animation-delay="250">
-                                        <details data-collapsible="" open="true">
-                                            <summary class="filter-group__heading" data-collapsible-trigger="">
-                                                <span>Availability </span><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            </summary>
+                            <div class="collection__sidebar" data-active-filters-count="0" data-scroll-lock-scrollable="">
+                                <collection-filters-form>
+                                    <form data-collection-filters-form="" class="collection__filters">
+                                        <collapsible-elements>
+                                            <div class="filter-group" data-animation="drawer-items-fade" data-animation-duration="500" data-animation-delay="250">
+                                                <details data-collapsible="" open="true">
+                                                    <summary class="filter-group__heading" data-collapsible-trigger="">
+                                                        <span>Availability </span><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                                    </summary>
 
-                                            <div class="filter-group__body" data-collapsible-body="" style="height: auto;">
-                                                <div class="filter-group__content" data-collapsible-content="">
-                                                    <ul class="collection-nav">
-                                                        <li class="sidebar__item link--add">
-                                                            <radio-swatch>
-                                                                <input type="checkbox" name="filter.v.availability" value="1" id="filter-Availability-1">
-                                                                <label for="filter-Availability-1">
-                                                                    In stock
-                                                                </label>
-                                                            </radio-swatch>
-                                                        </li>
-                                                        <li class="sidebar__item link--add">
-                                                            <radio-swatch>
-                                                                <input type="checkbox" name="filter.v.availability" value="0" id="filter-Availability-2">
-                                                                <label for="filter-Availability-2">
-                                                                    Out of stock
-                                                                </label>
-                                                            </radio-swatch>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                    <div class="filter-group__body" data-collapsible-body="" style="height: auto;">
+                                                        <div class="filter-group__content" data-collapsible-content="">
+                                                            <ul class="collection-nav">
+                                                                <li class="sidebar__item link--add">
+                                                                    <radio-swatch>
+                                                                        <input type="checkbox" name="filter.v.availability" value="1" id="filter-Availability-1">
+                                                                        <label for="filter-Availability-1">
+                                                                            In stock
+                                                                        </label>
+                                                                    </radio-swatch>
+                                                                </li>
+                                                                <li class="sidebar__item link--add">
+                                                                    <radio-swatch>
+                                                                        <input type="checkbox" name="filter.v.availability" value="0" id="filter-Availability-2">
+                                                                        <label for="filter-Availability-2">
+                                                                            Out of stock
+                                                                        </label>
+                                                                    </radio-swatch>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </details>
                                             </div>
-                                        </details>
-                                    </div>
-                                    <div class="filter-group" data-animation="drawer-items-fade" data-animation-duration="500" data-animation-delay="300">
-                                        <details data-collapsible="" open="true">
-                                            <summary class="filter-group__heading" data-collapsible-trigger="">
-                                                <span>Price </span><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            </summary>
+                                            <div class="filter-group" data-animation="drawer-items-fade" data-animation-duration="500" data-animation-delay="300">
+                                                <details data-collapsible="" open="true">
+                                                    <summary class="filter-group__heading" data-collapsible-trigger="">
+                                                        <span>Price </span><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                                    </summary>
 
-                                            <div class="filter-group__body" data-collapsible-body="" style="height: auto;">
-                                                <div class="filter-group__content" data-collapsible-content="">
-                                                    <div class="filter__price" data-range-holder="">
-                                                        <range-slider class="filter__price__range range is-initialized" data-range-slider="" data-range-filter-update="" data-se-min="0" data-se-step="1" data-se-min-value="0" data-se-max-value="53130" data-se-max="53130">
-                                                            <div class="range__dot range__dot--left" data-range-left="" style="left: 0px;">
-                                                                <span>&nbsp;</span>
-                                                            </div>
-                                                            <div class="range__dot range__dot--right" data-range-right="" style="left: 236px;">
-                                                                <span>&nbsp;</span>
-                                                            </div>
-                                                            <div class="range__line">
-                                                                <span data-range-line="" style="margin-left: 0px; width: 236px;">&nbsp;</span>
-                                                            </div>
-                                                        </range-slider>
+                                                    <div class="filter-group__body" data-collapsible-body="" style="height: auto;">
+                                                        <div class="filter-group__content" data-collapsible-content="">
+                                                            <div class="filter__price" data-range-holder="">
+                                                                <range-slider class="filter__price__range range is-initialized" data-range-slider="" data-range-filter-update="" data-se-min="0" data-se-step="1" data-se-min-value="0" data-se-max-value="53130" data-se-max="53130">
+                                                                    <div class="range__dot range__dot--left" data-range-left="" style="left: 0px;">
+                                                                        <span>&nbsp;</span>
+                                                                    </div>
+                                                                    <div class="range__dot range__dot--right" data-range-right="" style="left: 236px;">
+                                                                        <span>&nbsp;</span>
+                                                                    </div>
+                                                                    <div class="range__line">
+                                                                        <span data-range-line="" style="margin-left: 0px; width: 236px;">&nbsp;</span>
+                                                                    </div>
+                                                                </range-slider>
 
-                                                        <div class="filter__price__fields">
-                                                            <div class="filter__price__field filter__price__from">
-                                                                <span class="filter__price__currency">$</span>
+                                                                <div class="filter__price__fields">
+                                                                    <div class="filter__price__field filter__price__from">
+                                                                        <span class="filter__price__currency">$</span>
 
-                                                                <input data-field-price-min="" class="filter__price__input" name="filter.v.price.gte" id="filter-price-from-Price-2" type="number" placeholder="0" min="0" max="53130">
+                                                                        <input data-field-price-min="" class="filter__price__input" name="filter.v.price.gte" id="filter-price-from-Price-2" type="number" placeholder="0" min="0" max="53130">
 
-                                                                <label for="filter-price-from-Price-2">From</label>
-                                                            </div>
-                                                            <div class="filter__price__spacer">-</div>
-                                                            <div class="filter__price__field filter__price__to">
-                                                                <span class="filter__price__currency">$</span>
+                                                                        <label for="filter-price-from-Price-2">From</label>
+                                                                    </div>
+                                                                    <div class="filter__price__spacer">-</div>
+                                                                    <div class="filter__price__field filter__price__to">
+                                                                        <span class="filter__price__currency">$</span>
 
-                                                                <input data-field-price-max="" class="filter__price__input" name="filter.v.price.lte" id="filter-price-to-Price-2" type="number" placeholder="53130" min="0" max="53130">
+                                                                        <input data-field-price-max="" class="filter__price__input" name="filter.v.price.lte" id="filter-price-to-Price-2" type="number" placeholder="53130" min="0" max="53130">
 
-                                                                <label for="filter-price-to-Price-2">To</label>
+                                                                        <label for="filter-price-to-Price-2">To</label>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </details>
+                                            </div>
+                                            <div class="filter-group" data-animation="drawer-items-fade" data-animation-duration="500" data-animation-delay="350">
+                                                <details data-collapsible="" open="true">
+                                                    <summary class="filter-group__heading" data-collapsible-trigger="">
+                                                        <span>Category </span><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                                    </summary>
+
+                                                    <div class="filter-group__body" data-collapsible-body="" style="height: auto;">
+                                                        <div class="filter-group__content" data-collapsible-content="">
+                                                            <ul class="collection-nav">
+                                                                <li class="sidebar__item link--add">
+                                                                    <radio-swatch>
+                                                                        <input type="checkbox" name="filter.p.t.category" value="aa-6-3" id="filter-Category-1">
+                                                                        <label for="filter-Category-1">
+                                                                            Bracelets
+                                                                        </label>
+                                                                    </radio-swatch>
+                                                                </li>
+                                                                <li class="sidebar__item link--add">
+                                                                    <radio-swatch>
+                                                                        <input type="checkbox" name="filter.p.t.category" value="aa-6-6" id="filter-Category-2">
+                                                                        <label for="filter-Category-2">
+                                                                            Earrings
+                                                                        </label>
+                                                                    </radio-swatch>
+                                                                </li>
+                                                                <li class="sidebar__item link--add">
+                                                                    <radio-swatch>
+                                                                        <input type="checkbox" name="filter.p.t.category" value="aa-6-8" id="filter-Category-3">
+                                                                        <label for="filter-Category-3">
+                                                                            Necklaces
+                                                                        </label>
+                                                                    </radio-swatch>
+                                                                </li>
+                                                                <li class="sidebar__item link--add">
+                                                                    <radio-swatch>
+                                                                        <input type="checkbox" name="filter.p.t.category" value="aa-6-9" id="filter-Category-4">
+                                                                        <label for="filter-Category-4">
+                                                                            Rings
+                                                                        </label>
+                                                                    </radio-swatch>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </details>
+                                            </div>
+                                        </collapsible-elements>
+                                    </form>
+                                </collection-filters-form>
+                            </div>
+
+                            <div class="collection__sidebar__buttons"></div>
+                        </div>-->
+
+
+
+
+
+
+
+
+
+                    <div class="grid-container wrapper">
+                        <div class="grid__heading-holder text-center">
+                            <div class="grid__heading-text">
+                                <h2 class="grid__heading heading-size-5" data-aos="hero" data-aos-anchor="#Collection--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad" data-aos-order="1">
+                                    ALL ITEMS
+                                </h2>
+                                <div class="grid__description" data-aos="hero" data-aos-anchor="#Collection--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad" data-aos-order="2">
+                                    <p>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="drawer__underlay" data-collection-sidebar-close=""></div>
+                        <div class="grid__items-holder">
+                            <div class="grid-outer" data-products-grid="">
+
+                                <div class="grid" id="CollectionLoop">
+                                    <!-- Item 1-->
+                                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                                        <div class="product-item__image double__image" data-product-image="">
+                                            <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
+                                                <div class="product-item__bg" data-product-image-default="">
+                                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
+                                                    </figure>
+                                                </div>
+                                                <deferred-image class="product-item__bg__under hidden">
+                                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/01_02_01.jpg" width="1512" />
+                                                    </figure>
+                                                </deferred-image>
+                                            </a>
+                                            <span class="disabled sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                                                Sold Out
+                                            </span>
+                                        </div>
+
+                                        <div class="product-information" data-product-information="">
+                                            <div class="product-item__info">
+                                                <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                                    <p class="product-item__title">
+                                                        Ribbed Knit Earflap Beanie
+                                                    </p>
+                                                    <div class="product-item__price__holder">
+                                                        <div class="product-item__price" data-product-price="">
+                                                            <span class="price">
+                                                                <span class="sold-out">
+                                                                    $ 39.99
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="button-container">
+
+                                                    </div>
+                                                </a>
+                                                <div class="button-container">
+
+                                                    <button class="snipcart-add-item btn btn--text btn--black"
+                                                            data-item-id="Headwear_EarflapBeanie"
+                                                            data-item-image="imgs/Products/Hats/BunnyEarsRat/1.png"
+                                                            data-item-description=" Ribbed Knit Earflap Beanie"
+                                                            data-item-name=" Ribbed Knit Earflap Beanie"
+                                                            data-item-price="39.99"
+                                                            data-item-url="Products/Hats/BunnyEarsRat"
+                                                            data-item-custom1-name="Color"
+                                                            data-item-custom1-options="Black|Apricot">
+                                                        <span>Add to Cart</span>
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </details>
+                                        </div>
                                     </div>
-                                    <div class="filter-group" data-animation="drawer-items-fade" data-animation-duration="500" data-animation-delay="350">
-                                        <details data-collapsible="" open="true">
-                                            <summary class="filter-group__heading" data-collapsible-trigger="">
-                                                <span>Category </span><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 24 24"><path d="M6 12h6m6 0h-6m0 0V6m0 6v6" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 24 24"><path d="M6 12h12" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                                            </summary>
+                                    <!-- Item 2-->
+                                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                                        <div class="product-item__image double__image" data-product-image="">
+                                            <a aria-label="Bag_BitesIsWeird" class="product-link" href="products/bags/Bag_BitesIsWeird">
+                                                <div class="product-item__bg" data-product-image-default="">
+                                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Pouches/0010_BitchesisWeird/1.png" width="1500" />
+                                                    </figure>
+                                                </div>
+                                                <deferred-image class="product-item__bg__under hidden">
+                                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Pouches/0010_BitchesisWeird/01_01.jpg" width="1512" />
+                                                    </figure>
+                                                </deferred-image>
+                                            </a>
+                                            <span class="disabled sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                                                Sold Out
+                                            </span>
+                                        </div>
 
-                                            <div class="filter-group__body" data-collapsible-body="" style="height: auto;">
-                                                <div class="filter-group__content" data-collapsible-content="">
-                                                    <ul class="collection-nav">
-                                                        <li class="sidebar__item link--add">
-                                                            <radio-swatch>
-                                                                <input type="checkbox" name="filter.p.t.category" value="aa-6-3" id="filter-Category-1">
-                                                                <label for="filter-Category-1">
-                                                                    Bracelets
-                                                                </label>
-                                                            </radio-swatch>
-                                                        </li>
-                                                        <li class="sidebar__item link--add">
-                                                            <radio-swatch>
-                                                                <input type="checkbox" name="filter.p.t.category" value="aa-6-6" id="filter-Category-2">
-                                                                <label for="filter-Category-2">
-                                                                    Earrings
-                                                                </label>
-                                                            </radio-swatch>
-                                                        </li>
-                                                        <li class="sidebar__item link--add">
-                                                            <radio-swatch>
-                                                                <input type="checkbox" name="filter.p.t.category" value="aa-6-8" id="filter-Category-3">
-                                                                <label for="filter-Category-3">
-                                                                    Necklaces
-                                                                </label>
-                                                            </radio-swatch>
-                                                        </li>
-                                                        <li class="sidebar__item link--add">
-                                                            <radio-swatch>
-                                                                <input type="checkbox" name="filter.p.t.category" value="aa-6-9" id="filter-Category-4">
-                                                                <label for="filter-Category-4">
-                                                                    Rings
-                                                                </label>
-                                                            </radio-swatch>
-                                                        </li>
-                                                    </ul>
+                                        <div class="product-information" data-product-information="">
+                                            <div class="product-item__info">
+                                                <a aria-label="Mini Tote – ‘B!TCH#S IS WEIRD’" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                                    <p class="product-item__title">
+                                                        Mini Tote – ‘B!TCH#S IS WEIRD’
+                                                    </p>
+                                                    <div class="product-item__price__holder">
+                                                        <div class="product-item__price" data-product-price="">
+                                                            <span class="price">
+                                                                <span class="sold-out">
+                                                                    $ 49.99
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="button-container">
+
+                                                    </div>
+                                                </a>
+                                                <div class="button-container">
+
+                                                    <button class="snipcart-add-item btn btn--text btn--black"
+                                                            data-item-id="Bag_BitesIsWeird"
+                                                            data-item-image="imgs/Products/Pouches/0010_BitchesisWeird/1.png"
+                                                            data-item-description="Mini Tote – ‘B!TCH#S IS WEIRD’ "
+                                                            data-item-name="Mini Tote – ‘B!TCH#S IS WEIRD’ "
+                                                            data-item-price="49.99"
+                                                            data-item-url="Products/Pouches/0010_BitchesisWeird"
+                                                            data-item-custom1-name="Color"
+                                                            data-item-custom1-options="Pink">
+                                                        <span>Add to Cart</span>
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </details>
+                                        </div>
                                     </div>
-                                </collapsible-elements>
-                            </form>
-                        </collection-filters-form>
-                    </div>
+                                    <!-- Item 3-->
+                                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                                        <div class="product-item__image double__image" data-product-image="">
+                                            <a aria-label="Bag_MiniHeart" class="product-link" href="products/bags/Bag_MiniHeart">
+                                                <div class="product-item__bg" data-product-image-default="">
+                                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Pouches/0011_HeartBag/02_01.png" width="1500" />
+                                                    </figure>
+                                                </div>
+                                                <deferred-image class="product-item__bg__under hidden">
+                                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Pouches/0011_HeartBag/00_01.jpg" width="1512" />
+                                                    </figure>
+                                                </deferred-image>
+                                            </a>
+                                            <span class="disabled sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                                                Sold Out
+                                            </span>
+                                        </div>
 
-                    <div class="collection__sidebar__buttons"></div>
-                </div>-->
+                                        <div class="product-information" data-product-information="">
+                                            <div class="product-item__info">
+                                                <a aria-label="Heart Embossed Edition" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
+                                                    <p class="product-item__title">
+                                                        Mini Tote – Heart Embossed
+                                                    </p>
+                                                    <div class="product-item__price__holder">
+                                                        <div class="product-item__price" data-product-price="">
+                                                            <span class="price">
+                                                                <span class="sold-out">
+                                                                    $ 79.99
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="button-container">
+
+                                                    </div>
+                                                </a>
+                                                <div class="button-container">
+
+                                                    <button class="snipcart-add-item btn btn--text btn--black"
+                                                            data-item-id="Bag_MiniHeart"
+                                                            data-item-image="imgs/Products/Pouches/0011_HeartBag/1.png"
+                                                            data-item-description="Mini Tote – Heart Embossed "
+                                                            data-item-name="Mini Tote – Heart Embossed "
+                                                            data-item-price="78.99"
+                                                            data-item-url="Products/Pouches/0011_HeartBag"
+                                                            data-item-custom1-name="Color"
+                                                            data-item-custom1-options="White|Pink">
+                                                        <span>Add to Cart</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Item 4-->
+                                    <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
+                                        <div class="product-item__image double__image" data-product-image="">
+                                            <a aria-label="bag_TheBucket" class="product-link" href="products/bags/bag_TheBucket">
+                                                <div class="product-item__bg" data-product-image-default="">
+                                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
+                                                        <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Pouches/001_TheBucket/03_01.png" width="1500" />
+                                                    </figure>
+                                                </div>
+                                                <deferred-image class="product-item__bg__under hidden">
+                                                    <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
+                                                        <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Pouches/001_TheBucket/03_04.jpg" width="1512" />
+                                                    </figure>
+                                                </deferred-image>
+                                            </a>
+                                            <span class="disabled sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
+                                                Sold Out
+                                            </span>
+                                        </div>
+
+                                        <div class="product-information" data-product-information="">
+                                            <div class="product-item__info">
+                                                <a aria-label="bag_TheBucket" class="product-link">
+                                                    <p class="product-item__title">
+                                                        The Bucket
+                                                    </p>
+                                                    <div class="product-item__price__holder">
+                                                        <div class="product-item__price" data-product-price="">
+                                                            <span class="price">
+                                                                <span class="sold-out">
+                                                                    $ 49.99
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="button-container">
+
+                                                    </div>
+                                                </a>
+                                                <div class="button-container">
+
+                                                    <button class="snipcart-add-item btn btn--text btn--black"
+                                                            data-item-id="bag_TheBucket"
+                                                            data-item-image="imgs/Products/Pouches/001_TheBucket/02.jpg"
+                                                            data-item-description="The Bucket"
+                                                            data-item-name="The Bucket"
+                                                            data-item-price="49.99"
+                                                            data-item-url="/"
+                                                            data-item-custom1-name="Color"
+                                                            data-item-custom1-options="White">
+                                                        <span>Add to Cart</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Item 5-->
 
 
 
@@ -2898,569 +3150,317 @@
 
 
 
-                <div class="grid-container wrapper">
-                    <div class="grid__heading-holder text-center">
-                        <div class="grid__heading-text">
-                            <h2 class="grid__heading heading-size-5" data-aos="hero" data-aos-anchor="#Collection--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad" data-aos-order="1">
-                                ALL ITEMS
-                            </h2>
-                            <div class="grid__description" data-aos="hero" data-aos-anchor="#Collection--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad" data-aos-order="2">
-                                <p>
 
-                                </p>
+
+
+
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="drawer__underlay" data-collection-sidebar-close=""></div>
-                    <div class="grid__items-holder">
-                        <div class="grid-outer" data-products-grid="">
-
-                            <div class="grid" id="CollectionLoop">
-                                <!-- Item 1-->
-                                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                                    <div class="product-item__image double__image" data-product-image="">
-                                        <a aria-label="Rubbed Knit Earflap Beanie" class="product-link" href="products/headwear/RibbedKnitEarflapBeanie">
-                                            <div class="product-item__bg" data-product-image-default="">
-                                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/1.png" width="1500" />
-                                                </figure>
-                                            </div>
-                                            <deferred-image class="product-item__bg__under hidden">
-                                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/01_02_01.jpg" width="1512" />
-                                                </figure>
-                                            </deferred-image>
-                                        </a>
-                                        <span class="disabled sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                            Sold Out
-                                        </span>
-                                    </div>
-
-                                    <div class="product-information" data-product-information="">
-                                        <div class="product-item__info">
-                                            <a aria-label="Louis Vuitton Shoulder Bag Set" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                                <p class="product-item__title">
-                                                    Ribbed Knit Earflap Beanie
-                                                </p>
-                                                <div class="product-item__price__holder">
-                                                    <div class="product-item__price" data-product-price="">
-                                                        <span class="price">
-                                                            <span class="sold-out">
-                                                                $ 39.99
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="button-container">
-
-                                                </div>
-                                            </a>
-                                            <div class="button-container">
-
-                                                <button class="snipcart-add-item btn btn--text btn--black"
-                                                        data-item-id="Headwear_EarflapBeanie"
-                                                        data-item-image="imgs/Products/Hats/BunnyEarsRat/1.png"
-                                                        data-item-description=" Ribbed Knit Earflap Beanie"
-                                                        data-item-name=" Ribbed Knit Earflap Beanie"
-                                                        data-item-price="39.99"
-                                                        data-item-url="Products/Hats/BunnyEarsRat"
-                                                        data-item-custom1-name="Color"
-                                                        data-item-custom1-options="Black|Apricot">
-                                                    <span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Item 2-->
-                                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                                    <div class="product-item__image double__image" data-product-image="">
-                                        <a aria-label="Bag_BitesIsWeird" class="product-link" href="products/bags/Bag_BitesIsWeird">
-                                            <div class="product-item__bg" data-product-image-default="">
-                                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Pouches/0010_BitchesisWeird/1.png" width="1500" />
-                                                </figure>
-                                            </div>
-                                            <deferred-image class="product-item__bg__under hidden">
-                                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Pouches/0010_BitchesisWeird/01_01.jpg" width="1512" />
-                                                </figure>
-                                            </deferred-image>
-                                        </a>
-                                        <span class="disabled sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                            Sold Out
-                                        </span>
-                                    </div>
-
-                                    <div class="product-information" data-product-information="">
-                                        <div class="product-item__info">
-                                            <a aria-label="Mini Tote – ‘B!TCH#S IS WEIRD’" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                                <p class="product-item__title">
-                                                    Mini Tote – ‘B!TCH#S IS WEIRD’
-                                                </p>
-                                                <div class="product-item__price__holder">
-                                                    <div class="product-item__price" data-product-price="">
-                                                        <span class="price">
-                                                            <span class="sold-out">
-                                                                $ 49.99
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="button-container">
-
-                                                </div>
-                                            </a>
-                                            <div class="button-container">
-
-                                                <button class="snipcart-add-item btn btn--text btn--black"
-                                                        data-item-id="Bag_BitesIsWeird"
-                                                        data-item-image="imgs/Products/Pouches/0010_BitchesisWeird/1.png"
-                                                        data-item-description="Mini Tote – ‘B!TCH#S IS WEIRD’ "
-                                                        data-item-name="Mini Tote – ‘B!TCH#S IS WEIRD’ "
-                                                        data-item-price="49.99"
-                                                        data-item-url="Products/Pouches/0010_BitchesisWeird"
-                                                        data-item-custom1-name="Color"
-                                                        data-item-custom1-options="Pink">
-                                                    <span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Item 3-->
-                                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                                    <div class="product-item__image double__image" data-product-image="">
-                                        <a aria-label="Bag_MiniHeart" class="product-link" href="products/bags/Bag_MiniHeart">
-                                            <div class="product-item__bg" data-product-image-default="">
-                                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Pouches/0011_HeartBag/02_01.png" width="1500" />
-                                                </figure>
-                                            </div>
-                                            <deferred-image class="product-item__bg__under hidden">
-                                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Pouches/0011_HeartBag/00_01.jpg" width="1512" />
-                                                </figure>
-                                            </deferred-image>
-                                        </a>
-                                        <span class="disabled sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                            Sold Out
-                                        </span>
-                                    </div>
-
-                                    <div class="product-information" data-product-information="">
-                                        <div class="product-item__info">
-                                            <a aria-label="Heart Embossed Edition" class="product-link" href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag/manage/">
-                                                <p class="product-item__title">
-                                                    Mini Tote – Heart Embossed
-                                                </p>
-                                                <div class="product-item__price__holder">
-                                                    <div class="product-item__price" data-product-price="">
-                                                        <span class="price">
-                                                            <span class="sold-out">
-                                                                $ 79.99
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="button-container">
-
-                                                </div>
-                                            </a>
-                                            <div class="button-container">
-
-                                                <button class="snipcart-add-item btn btn--text btn--black"
-                                                        data-item-id="Bag_MiniHeart"
-                                                        data-item-image="imgs/Products/Pouches/0011_HeartBag/1.png"
-                                                        data-item-description="Mini Tote – Heart Embossed "
-                                                        data-item-name="Mini Tote – Heart Embossed "
-                                                        data-item-price="78.99"
-                                                        data-item-url="Products/Pouches/0011_HeartBag"
-                                                        data-item-custom1-name="Color"
-                                                        data-item-custom1-options="White|Pink">
-                                                    <span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Item 4-->
-                                <div class=" grid-item product-item product-item--centered product-item--outer-text" data-product-grid-item="" data-slide="0" data-slide-index="0" id="product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757">
-                                    <div class="product-item__image double__image" data-product-image="">
-                                        <a aria-label="bag_TheBucket" class="product-link" href="products/bags/bag_TheBucket">
-                                            <div class="product-item__bg" data-product-image-default="">
-                                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading" data-aos="img-in" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8163268034757" data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out-quart">
-                                                    <!-- Top Image--> <img alt="" class="fit-cover is-loading" height="1363" loading="lazy" src="imgs/Products/Pouches/001_TheBucket/03_01.png" width="1500" />
-                                                </figure>
-                                            </div>
-                                            <deferred-image class="product-item__bg__under hidden">
-                                                <figure class="image-wrapper image-wrapper--cover lazy-image lazy-image--backfill is-loading">
-                                                    <!-- Hover Image--><img alt="" class="fit-cover is-loading" height="1374" loading="lazy" src="imgs/Products/Pouches/001_TheBucket/03_04.jpg" width="1512" />
-                                                </figure>
-                                            </deferred-image>
-                                        </a>
-                                        <span class="disabled sold-out badge-box" data-aos="fade" data-aos-anchor="#product-item--template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad-8151309942981" data-aos-delay="300" data-aos-duration="800">
-                                            Sold Out
-                                        </span>
-                                    </div>
-
-                                    <div class="product-information" data-product-information="">
-                                        <div class="product-item__info">
-                                            <a aria-label="bag_TheBucket" class="product-link">
-                                                <p class="product-item__title">
-                                                    The Bucket
-                                                </p>
-                                                <div class="product-item__price__holder">
-                                                    <div class="product-item__price" data-product-price="">
-                                                        <span class="price">
-                                                            <span class="sold-out">
-                                                                $ 49.99
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="button-container">
-
-                                                </div>
-                                            </a>
-                                            <div class="button-container">
-
-                                                <button class="snipcart-add-item btn btn--text btn--black"
-                                                        data-item-id="bag_TheBucket"
-                                                        data-item-image="imgs/Products/Pouches/001_TheBucket/02.jpg"
-                                                        data-item-description="The Bucket"
-                                                        data-item-name="The Bucket"
-                                                        data-item-price="49.99"
-                                                        data-item-url="/"
-                                                        data-item-custom1-name="Color"
-                                                        data-item-custom1-options="White">
-                                                    <span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Item 5-->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            </div>
-                        </div>
+                    <div class="grid__loader">
+                        <div class="loader grid__loader-line"><div class="loader-indeterminate"></div></div>
                     </div>
                 </div>
 
 
-                <div class="grid__loader">
-                    <div class="loader grid__loader-line"><div class="loader-indeterminate"></div></div>
-                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
 
 
 
 
 
+            <style>
+                #shopify-section-template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad h2 {
+                    font-size: 14pt;
+                    letter-spacing: 0.15em;
+                }
+
+                #shopify-section-template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad .product-item__title {
+                    font-family: Raleway;
+                    font-size: 7pt;
+                    letter-spacing: 0.15em;
+                    text-transform: uppercase;
+                    line-height: 1.4em;
+                }
+
+                #shopify-section-template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad .price {
+                    font-family: freight-display-pro;
+                    font-style: normal;
+                    font-size: 10pt;
+                    letter-spacing: 0.025em;
+                    font-weight: 500;
+                }
+
+                #shopify-section-template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad .product-item__swatches__count {
+                    font-family: freight-display-pro;
+                }
+
+                #shopify-section-template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad .btn--text {
+                    letter-spacing: 0.2em;
+                    font-size: 8pt;
+                }
+            </style>
+    </div>
+
+    <!-- Place this in your main HTML layout or inside a section block -->
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                </div>
-
-
-
-
-
-                <style>
-                    #shopify-section-template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad h2 {
-                        font-size: 14pt;
-                        letter-spacing: 0.15em;
-                    }
-
-                    #shopify-section-template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad .product-item__title {
-                        font-family: Raleway;
-                        font-size: 7pt;
-                        letter-spacing: 0.15em;
-                        text-transform: uppercase;
-                        line-height: 1.4em;
-                    }
-
-                    #shopify-section-template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad .price {
-                        font-family: freight-display-pro;
-                        font-style: normal;
-                        font-size: 10pt;
-                        letter-spacing: 0.025em;
-                        font-weight: 500;
-                    }
-
-                    #shopify-section-template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad .product-item__swatches__count {
-                        font-family: freight-display-pro;
-                    }
-
-                    #shopify-section-template--18070871834821__f66c3564-b967-4a46-8e8d-b2da03e9f3ad .btn--text {
-                        letter-spacing: 0.2em;
-                        font-size: 8pt;
-                    }
-                </style>
-            </div>
-
-            <!-- Place this in your main HTML layout or inside a section block -->
-
-
-
-            <div class="shopify-section" id="shopify-section-template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae">
-                <!-- /sections/section-divider.liquid -->
-                <section class="divider-section section-padding" data-section-id="template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae" data-section-type="divider" id="Divider--template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae" style="--PT: 26px;
+    <div class="shopify-section" id="shopify-section-template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae">
+        <!-- /sections/section-divider.liquid -->
+        <section class="divider-section section-padding" data-section-id="template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae" data-section-type="divider" id="Divider--template--18070871834821__64bb3e75-3e57-4b6d-9808-cede54e1b0ae" style="--PT: 26px;
   --PB: 0px;">
-                    <div class="divider-holder wrapper">
-                    </div>
-                </section>
+            <div class="divider-holder wrapper">
             </div>
-            <div class="shopify-section" id="shopify-section-template--18070871834821__section_custom_content_HBMhCm">
-                <style data-shopify="">
-                    #BrickSection--template--18070871834821__section_custom_content_HBMhCm {
-                        --PT: 0px;
-                        --PB: 50px;
-                    }
-                </style>
+        </section>
+    </div>
+    <div class="shopify-section" id="shopify-section-template--18070871834821__section_custom_content_HBMhCm">
+        <style data-shopify="">
+            #BrickSection--template--18070871834821__section_custom_content_HBMhCm {
+                --PT: 0px;
+                --PB: 50px;
+            }
+        </style>
 
 
 
 
-                <!--2 Box Section-->
-                <section class="section-padding" data-overlay-header="" data-section-id="template--18070871834821__section_custom_content_HBMhCm" data-section-type="custom-content" id="BrickSection--template--18070871834821__section_custom_content_HBMhCm">
-                    <div class="brick__section brick--2 wrapper--full-padded brick--margin frame">
-                        <div class="brick__block frame__item" style="--text: #ffffff;
+        <!--2 Box Section-->
+        <section class="section-padding" data-overlay-header="" data-section-id="template--18070871834821__section_custom_content_HBMhCm" data-section-type="custom-content" id="BrickSection--template--18070871834821__section_custom_content_HBMhCm">
+            <div class="brick__section brick--2 wrapper--full-padded brick--margin frame">
+                <div class="brick__block frame__item" style="--text: #ffffff;
                 --text-light: #ffffff;
                 --text-dark: #d9d9d9;">
-                            <div class="brick__block__image frame wide-image">
-                                <div class="frame__item">
-                                    <div class="image-overlay" style="--overlay-bg: #000000; --overlay-opacity: 0.0;">
-                                    </div>
-                                    <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 0.8008849557522124;">
-                                        <div class="image__hero__pane">
-                                            <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
-                                                <img alt="" class="is-loading" height="904" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/02_03_01.jpg" width="724" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="brick__block__image frame wide-image">
+                        <div class="frame__item">
+                            <div class="image-overlay" style="--overlay-bg: #000000; --overlay-opacity: 0.0;">
                             </div>
-                        </div>
-                        <div class="brick__block frame__item" data-prevent-transparent-header="" style="--bg: #f3ede8;">
-                            <div class="brick__block__text has-padding" data-overflow-frame="">
-                                <div class="brick__block__text__inner" data-overflow-content="">
-                                    <div class="hero__content hero__content--compact text-center">
-                                        <p class="hero__subheading body-size-3" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="1">
-                                            Introducing
-                                        </p>
-                                        <h2 class="hero__title heading-size-7" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="2">
-                                            Ribbed Knit Earflap Beanie
-                                        </h2>
-                                        <div class="hero__rte body-size-3 columns--1" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="3">
-                                            <p>
-                                                Step into streetwear culture with an effortlessly bold statement. This look centers on a standout accessory: a Ribbed Knit LOVERBOY Beanie, designed with playful ear flaps and a soft, cozy texture that blends whimsy with edge. Paired with layered chains, a graphic tee, and a relaxed hoodie, the outfit channels urban cool with an expressive, underground vibe. Set against a moody nighttime backdrop with soft amber lighting and closed-shop signs, the photo captures the energy of solitude and self-expression. A fashion-forward favorite, this beanie isn’t just an accessory—it’s a conversation piece.
-                                            </p>
-                                        </div>
-                                        <div class="hero__button" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="4">
-                                            <a class="btn btn--text btn--primary" href="/collections/forme">
-                                                <span class="disabled">
-                                                    Explore
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <style>
-                    #shopify-section-template--18070871834821__section_custom_content_HBMhCm p {
-                        font-family: freight-display-pro;
-                        margin-left: 22%;
-                        margin-right: 22%;
-                        margin-top: 2%;
-                        margin-bottom: 2%;
-                        line-height: 1.4em;
-                    }
-                </style>
-            </div>
-            <div class="shopify-section index-section" id="shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4">
-                <!-- /sections/section-columns.liquid -->
-                <style data-shopify="">
-                    #SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 {
-                        --PT: 70px;
-                        --PB: 70px;
-                    }
-                </style>
-                <div class="disabled section-columns section-padding text-center" data-section-id="template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-section-type="columns" id="SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4">
-                    <div class="wrapper--full-padded">
-                        <div class="grid__heading-holder">
-                            <h2 class="grid__heading heading-size-4" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="1">
-                                DISCOVER MORE
-                            </h2>
-                        </div>
-                        <div class="columns flex-align-top">
-                            <div class="column" style="--desktop-width: 33.333333333333336%;">
-                                <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="3">
-                                    <div class="column__image" data-column-image="">
-                                        <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
-                                            <img class="fit-cover is-loading" height="489" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\Purse\Purse_02.jpg" width="735" />
-                                        </figure>
-                                    </div>
-                                    <div class="column__content">
-                                        <h2 class="column__heading heading-size-2">
-                                            HIGHEST RATED
-                                        </h2>
-                                        <div class="column__text rte body-size-6">
-                                            <p>
-                                                Purses
-                                            </p>
-                                        </div>
-                                        <div class="column__btn">
-                                            <a aria-label="SHOP NOW" class="btn btn--text btn--primary" href="/collections/bracelets">
-                                                <span>
-                                                    SHOP NOW
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column" style="--desktop-width: 33.333333333333336%;">
-                                <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="2">
-                                    <div class="column__image" data-column-image="">
-                                        <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
-                                            <img class="fit-cover is-loading" height="590" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\SmallBag\SmallBag_02.jpg" width="886" />
-                                        </figure>
-                                    </div>
-                                    <div class="column__content">
-                                        <h2 class="column__heading heading-size-2">
-                                            MOST POPULAR
-                                        </h2>
-                                        <div class="column__text rte body-size-6">
-                                            <p>
-                                                Small Bags
-                                            </p>
-                                        </div>
-                                        <div class="column__btn">
-                                            <a aria-label="SHOP NOW" class="btn btn--text btn--large btn--primary" href="/collections/two-stone-rings">
-                                                <span>
-                                                    SHOP NOW
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column" style="--desktop-width: 33.333333333333336%;">
-                                <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="4">
-                                    <div class="column__image" data-column-image="">
-                                        <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
-                                            <img class="fit-cover is-loading" height="999" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\Wallet\Wallet_02.jpg" width="1500" />
-                                        </figure>
-                                    </div>
-                                    <div class="column__content">
-                                        <h2 class="column__heading heading-size-2">
-                                            NEW ARRIVALS
-                                        </h2>
-                                        <div class="column__text rte body-size-6">
-                                            <p>
-                                                Coming Soon
-                                            </p>
-                                        </div>
-                                        <div class="column__btn">
-                                            <a aria-label="SHOP NOW" class="btn btn--text btn--primary" href="/collections/new">
-                                                <span>
-                                                    SHOP NOW
-                                                </span>
-                                            </a>
-                                        </div>
+                            <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 0.8008849557522124;">
+                                <div class="image__hero__pane">
+                                    <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
+                                        <img alt="" class="is-loading" height="904" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/02_03_01.jpg" width="724" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <style>
-                    #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 h2 {
-                        font-size: 14pt;
-                        letter-spacing: 2pt;
-                    }
-
-                    #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 .column__heading {
-                        letter-spacing: 0.1em;
-                        text-transform: uppercase;
-                        font-size: 8.5pt;
-                    }
-
-                    #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 p {
-                        font-family: freight-display-pro;
-                        font-size: 28pt;
-                        margin-left: 22%;
-                        margin-right: 22%;
-                        margin-top: 2%;
-                        margin-bottom: 2%;
-                        line-height: 1em;
-                    }
-
-                    #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 .btn--text {
-                        letter-spacing: 0.2em;
-                        font-size: 9pt;
-                    }
-                </style>
+                <div class="brick__block frame__item" data-prevent-transparent-header="" style="--bg: #f3ede8;">
+                    <div class="brick__block__text has-padding" data-overflow-frame="">
+                        <div class="brick__block__text__inner" data-overflow-content="">
+                            <div class="hero__content hero__content--compact text-center">
+                                <p class="hero__subheading body-size-3" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="1">
+                                    Introducing
+                                </p>
+                                <h2 class="hero__title heading-size-7" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="2">
+                                    Ribbed Knit Earflap Beanie
+                                </h2>
+                                <div class="hero__rte body-size-3 columns--1" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="3">
+                                    <p>
+                                        Step into streetwear culture with an effortlessly bold statement. This look centers on a standout accessory: a Ribbed Knit LOVERBOY Beanie, designed with playful ear flaps and a soft, cozy texture that blends whimsy with edge. Paired with layered chains, a graphic tee, and a relaxed hoodie, the outfit channels urban cool with an expressive, underground vibe. Set against a moody nighttime backdrop with soft amber lighting and closed-shop signs, the photo captures the energy of solitude and self-expression. A fashion-forward favorite, this beanie isn’t just an accessory—it’s a conversation piece.
+                                    </p>
+                                </div>
+                                <div class="hero__button" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_HBMhCm" data-aos-order="4">
+                                    <a class="btn btn--text btn--primary" href="/collections/forme">
+                                        <span class="disabled">
+                                            Explore
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- 2 Box Section
+        </section>
+        <style>
+            #shopify-section-template--18070871834821__section_custom_content_HBMhCm p {
+                font-family: freight-display-pro;
+                margin-left: 22%;
+                margin-right: 22%;
+                margin-top: 2%;
+                margin-bottom: 2%;
+                line-height: 1.4em;
+            }
+        </style>
+    </div>
+    <div class="shopify-section index-section" id="shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4">
+        <!-- /sections/section-columns.liquid -->
+        <style data-shopify="">
+            #SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 {
+                --PT: 70px;
+                --PB: 70px;
+            }
+        </style>
+        <div class="disabled section-columns section-padding text-center" data-section-id="template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-section-type="columns" id="SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4">
+            <div class="wrapper--full-padded">
+                <div class="grid__heading-holder">
+                    <h2 class="grid__heading heading-size-4" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="1">
+                        DISCOVER MORE
+                    </h2>
+                </div>
+                <div class="columns flex-align-top">
+                    <div class="column" style="--desktop-width: 33.333333333333336%;">
+                        <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="3">
+                            <div class="column__image" data-column-image="">
+                                <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
+                                    <img class="fit-cover is-loading" height="489" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\Purse\Purse_02.jpg" width="735" />
+                                </figure>
+                            </div>
+                            <div class="column__content">
+                                <h2 class="column__heading heading-size-2">
+                                    HIGHEST RATED
+                                </h2>
+                                <div class="column__text rte body-size-6">
+                                    <p>
+                                        Purses
+                                    </p>
+                                </div>
+                                <div class="column__btn">
+                                    <a aria-label="SHOP NOW" class="btn btn--text btn--primary" href="/collections/bracelets">
+                                        <span>
+                                            SHOP NOW
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column" style="--desktop-width: 33.333333333333336%;">
+                        <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="2">
+                            <div class="column__image" data-column-image="">
+                                <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
+                                    <img class="fit-cover is-loading" height="590" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\SmallBag\SmallBag_02.jpg" width="886" />
+                                </figure>
+                            </div>
+                            <div class="column__content">
+                                <h2 class="column__heading heading-size-2">
+                                    MOST POPULAR
+                                </h2>
+                                <div class="column__text rte body-size-6">
+                                    <p>
+                                        Small Bags
+                                    </p>
+                                </div>
+                                <div class="column__btn">
+                                    <a aria-label="SHOP NOW" class="btn btn--text btn--large btn--primary" href="/collections/two-stone-rings">
+                                        <span>
+                                            SHOP NOW
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column" style="--desktop-width: 33.333333333333336%;">
+                        <div class="column__inner" data-aos="hero" data-aos-anchor="#SectionColumns--template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4" data-aos-order="4">
+                            <div class="column__image" data-column-image="">
+                                <figure class="image-wrapper lazy-image lazy-image--backfill is-loading" style="--aspect-ratio: 0.6666666666666666;--aspect-ratio-mobile: 0.6666666666666666;">
+                                    <img class="fit-cover is-loading" height="999" loading="lazy" sizes="(min-width: 990px) calc((100vw - 100px) * 0.33333333333333337), (min-width: 750px) calc((100vw - 60px) / 2), calc(100vw - 32px - 50px)" src="imgs\Products\Wallet\Wallet_02.jpg" width="1500" />
+                                </figure>
+                            </div>
+                            <div class="column__content">
+                                <h2 class="column__heading heading-size-2">
+                                    NEW ARRIVALS
+                                </h2>
+                                <div class="column__text rte body-size-6">
+                                    <p>
+                                        Coming Soon
+                                    </p>
+                                </div>
+                                <div class="column__btn">
+                                    <a aria-label="SHOP NOW" class="btn btn--text btn--primary" href="/collections/new">
+                                        <span>
+                                            SHOP NOW
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 h2 {
+                font-size: 14pt;
+                letter-spacing: 2pt;
+            }
+
+            #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 .column__heading {
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                font-size: 8.5pt;
+            }
+
+            #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 p {
+                font-family: freight-display-pro;
+                font-size: 28pt;
+                margin-left: 22%;
+                margin-right: 22%;
+                margin-top: 2%;
+                margin-bottom: 2%;
+                line-height: 1em;
+            }
+
+            #shopify-section-template--18070871834821__9e267ad5-f2f3-4033-9340-2e5af763d9b4 .btn--text {
+                letter-spacing: 0.2em;
+                font-size: 9pt;
+            }
+        </style>
+    </div>
+    <!-- 2 Box Section
       <div class="shopify-section" id="shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1">
        <style data-shopify="">
         #BrickSection--template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 {
@@ -3525,132 +3525,131 @@
         #shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 h2 {font-weight: 600; letter-spacing: 0.15em;} #shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 p {font-family: freight-display-pro; margin-left: 22%; margin-right: 22%; margin-top: 2%; margin-bottom: 2%; line-height: 1.4em;} #shopify-section-template--18070871834821__92b95cff-dc6c-4da4-a1e4-0b63568ebae1 .btn--text {letter-spacing: 0.2em; font-size: 8pt;}
        </style>
       </div> -->
-            <div class=" shopify-section" id="shopify-section-template--18070871834821__section_custom_content_CwMi3p">
-                <style data-shopify="">
-                    #BrickSection--template--18070871834821__section_custom_content_CwMi3p {
-                        --PT: 10px;
-                        --PB: 30px;
-                    }
-                </style>
-                <section class="section-padding" data-overlay-header="" data-section-id="template--18070871834821__section_custom_content_CwMi3p" data-section-type="custom-content" id="BrickSection--template--18070871834821__section_custom_content_CwMi3p">
-                    <div class="brick__section brick--2 wrapper--full-padded brick--margin frame">
-                        <div class="brick__block frame__item" style="--text: #212121;
+    <div class=" shopify-section" id="shopify-section-template--18070871834821__section_custom_content_CwMi3p">
+        <style data-shopify="">
+            #BrickSection--template--18070871834821__section_custom_content_CwMi3p {
+                --PT: 10px;
+                --PB: 30px;
+            }
+        </style>
+        <section class="section-padding" data-overlay-header="" data-section-id="template--18070871834821__section_custom_content_CwMi3p" data-section-type="custom-content" id="BrickSection--template--18070871834821__section_custom_content_CwMi3p">
+            <div class="brick__section brick--2 wrapper--full-padded brick--margin frame">
+                <div class="brick__block frame__item" style="--text: #212121;
     --text-light: #646464;
     --text-dark: #000000;">
-                            <div class="brick__block__image frame wide-image">
-                                <div class="frame__item">
-                                    <div class="image-overlay" style="--overlay-bg: #000000; --overlay-opacity: 0.0;">
-                                    </div>
-                                    <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 1.7777777777777777;">
-                                        <div class="image__hero__pane">
-                                            <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
-                                                <img alt="" class="is-loading" height="1080" loading="lazy" src="imgs/Colors/Beige.webp" width="1920" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="hero__content__wrapper frame__item align--middle-center">
-                                    <div class="hero__content hero__content--transparent">
-                                        <h2 class="hero__title heading-size-2" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="1">
-                                            
-                                        </h2>
-                                        <p class="hero__description h5--body body-size-4" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="2">
-                                            A cult classic in the making, the LOVERBOY beanie adds an instant touch of individuality to any fit. Its unique design and recognizable label elevate the entire look, turning a quiet moment into a visual statement.
-                                        </p>
-                                        <div class="hero__button" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="3">
-                                            <a class="btn btn--text btn--black" target="_blank" href="https://www.instagram.com/karrykraze/">
-                                                <span>
-                                                    @karrykrave
-                                                </span>
-                                            </a>
-                                        </div>
+                    <div class="brick__block__image frame wide-image">
+                        <div class="frame__item">
+                            <div class="image-overlay" style="--overlay-bg: #000000; --overlay-opacity: 0.0;">
+                            </div>
+                            <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 1.7777777777777777;">
+                                <div class="image__hero__pane">
+                                    <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
+                                        <img alt="" class="is-loading" height="1080" loading="lazy" src="imgs/Colors/Beige.webp" width="1920" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="brick__block frame__item" style="--text: #ffffff;
-    --text-light: #ffffff;
-    --text-dark: #d9d9d9;">
-                            <div class="brick__block__image frame wide-image">
-                                <div class="frame__item">
-                                    <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 0.6666666666666666;">
-                                        <div class="image__hero__pane">
-                                            <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
-                                                <img alt="" class="is-loading" height="2400" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/01_02.jpg" width="1600" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <style>
-                    #shopify-section-template--18070871834821__section_custom_content_CwMi3p h2 {
-                        font-weight: 600;
-                        letter-spacing: 0.15em;
-                    }
-
-                    #shopify-section-template--18070871834821__section_custom_content_CwMi3p p {
-                        font-family: freight-display-pro;
-                        margin-left: 22%;
-                        margin-right: 22%;
-                        margin-top: 2%;
-                        margin-bottom: 2%;
-                        line-height: 1.4em;
-                    }
-
-                    #shopify-section-template--18070871834821__section_custom_content_CwMi3p .btn--text {
-                        letter-spacing: 0.2em;
-                        font-size: 9pt;
-                    }
-                </style>
-            </div>
-            <div class="shopify-section" id="shopify-section-template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae">
-                <!-- /sections/section-rich-text.liquid -->
-                <style data-shopify="">
-                    #Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae {
-                        --PT: 28px;
-                        --PB: 36px;
-                    }
-                </style>
-                <section class="index-rte section-padding" data-section-id="template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae" data-section-type="rich-text" id="Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae">
-                    <div class="hero__content__wrapper text-center wrapper">
-                        <div class="hero__content hero__content--compact">
-                            <div class="hero__rte body-size-8 font-heading" data-aos="hero" data-aos-anchor="#Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae" data-aos-order="1">
-                                <p>
-                                    Follow us @
-                                    <a href="https://www.instagram.com/karrykraze" target="_blank" title="https://www.instagram.com/karrykraze">
-                                        KarryKraze
-                                    </a>
+                        <div class="hero__content__wrapper frame__item align--middle-center">
+                            <div class="hero__content hero__content--transparent">
+                                <h2 class="hero__title heading-size-2" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="1">
+                                </h2>
+                                <p class="hero__description h5--body body-size-4" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="2">
+                                    A cult classic in the making, the LOVERBOY beanie adds an instant touch of individuality to any fit. Its unique design and recognizable label elevate the entire look, turning a quiet moment into a visual statement.
                                 </p>
+                                <div class="hero__button" data-aos="hero" data-aos-anchor="#BrickSection--template--18070871834821__section_custom_content_CwMi3p" data-aos-order="3">
+                                    <a class="btn btn--text btn--black" target="_blank" href="https://www.instagram.com/karrykraze/">
+                                        <span>
+                                            @karrykrave
+                                        </span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-            </div>
-            <section class="shopify-section" id="shopify-section-template--18070871834821__1697831802faa4e396">
-                <div class="">
-                    <div class="shopify-block shopify-app-block" id="shopify-block-AVFR0b0M3Q2ZpT085Y__bd469f39-6369-4c53-8661-a78ef4b29a29">
-                        <style>
-                            body #insta-feed {
-                                text-align: center;
-                            }
-                        </style>
-                        <div id="insta-feed">
-                        </div>
-                        <script>
-                            if (typeof instafeedLocalTitle === 'undefined') var instafeedLocalTitle = "";
-                        </script>
                     </div>
                 </div>
+                <div class="brick__block frame__item" style="--text: #ffffff;
+    --text-light: #ffffff;
+    --text-dark: #d9d9d9;">
+                    <div class="brick__block__image frame wide-image">
+                        <div class="frame__item">
+                            <div class="image__hero__frame seven-fifty-height-hero screen-height-two-thirds--mobile" style="--aspect-ratio: 0.6666666666666666;">
+                                <div class="image__hero__pane">
+                                    <div class="image__hero__scale image__fill lazy-image lazy-image--backfill is-loading">
+                                        <img alt="" class="is-loading" height="2400" loading="lazy" src="imgs/Products/Hats/BunnyEarsRat/01_02.jpg" width="1600" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <style>
+            #shopify-section-template--18070871834821__section_custom_content_CwMi3p h2 {
+                font-weight: 600;
+                letter-spacing: 0.15em;
+            }
+
+            #shopify-section-template--18070871834821__section_custom_content_CwMi3p p {
+                font-family: freight-display-pro;
+                margin-left: 22%;
+                margin-right: 22%;
+                margin-top: 2%;
+                margin-bottom: 2%;
+                line-height: 1.4em;
+            }
+
+            #shopify-section-template--18070871834821__section_custom_content_CwMi3p .btn--text {
+                letter-spacing: 0.2em;
+                font-size: 9pt;
+            }
+        </style>
+    </div>
+    <div class="shopify-section" id="shopify-section-template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae">
+        <!-- /sections/section-rich-text.liquid -->
+        <style data-shopify="">
+            #Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae {
+                --PT: 28px;
+                --PB: 36px;
+            }
+        </style>
+        <section class="index-rte section-padding" data-section-id="template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae" data-section-type="rich-text" id="Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae">
+            <div class="hero__content__wrapper text-center wrapper">
+                <div class="hero__content hero__content--compact">
+                    <div class="hero__rte body-size-8 font-heading" data-aos="hero" data-aos-anchor="#Rte--template--18070871834821__9a4e908e-c6a0-473a-aac5-6c4e3beaf0ae" data-aos-order="1">
+                        <p>
+                            Follow us @
+                            <a href="https://www.instagram.com/karrykraze" target="_blank" title="https://www.instagram.com/karrykraze">
+                                KarryKraze
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <section class="shopify-section" id="shopify-section-template--18070871834821__1697831802faa4e396">
+        <div class="">
+            <div class="shopify-block shopify-app-block" id="shopify-block-AVFR0b0M3Q2ZpT085Y__bd469f39-6369-4c53-8661-a78ef4b29a29">
                 <style>
-                    #shopify-section-template--18070871834821__1697831802faa4e396 {
-                        margin-bottom: 6%;
+                    body #insta-feed {
+                        text-align: center;
                     }
                 </style>
-            </section>
-        </main>
+                <div id="insta-feed">
+                </div>
+                <script>
+                    if (typeof instafeedLocalTitle === 'undefined') var instafeedLocalTitle = "";
+                </script>
+            </div>
+        </div>
+        <style>
+            #shopify-section-template--18070871834821__1697831802faa4e396 {
+                margin-bottom: 6%;
+            }
+        </style>
+    </section>
+    </main>
     </div>
     <!-- BEGIN sections: group-pre-footer -->
     <!-- END sections: group-pre-footer -->
@@ -4178,6 +4177,7 @@
             font-family: Raleway;
         }
     </style>
+    <div include-html="/page_inserts/uni_navbar.html"></div>
 </body>
 </html>
 <!--Snip Cart-->

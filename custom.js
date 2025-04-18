@@ -71,3 +71,36 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('[include-html]').forEach(el => {
+            const file = el.getAttribute('include-html');
+            fetch(file)
+                .then(res => res.text())
+                .then(html => {
+                    el.innerHTML = html;
+                    el.removeAttribute('include-html');
+
+                    // ✅ Step 1: Randomize carousel cells
+                    const carousel = el.querySelector(".carousel");
+                    if (carousel) {
+                        const cells = Array.from(carousel.querySelectorAll(".carousel-cell"));
+
+                        // Shuffle (Fisher-Yates)
+                        for (let i = cells.length - 1; i > 0; i--) {
+                            const j = Math.floor(Math.random() * (i + 1));
+                            [cells[i], cells[j]] = [cells[j], cells[i]];
+                        }
+
+                        // Re-append in shuffled order
+                        cells.forEach(cell => carousel.appendChild(cell));
+                    }
+
+                    // ✅ Step 2: Re-init Flickity
+                    const flickityReady = el.querySelector('.js-flickity');
+                    if (flickityReady && typeof Flickity !== 'undefined') {
+                        new Flickity(flickityReady, JSON.parse(flickityReady.getAttribute('data-flickity')));
+                    }
+                });
+        });
+    });
