@@ -1202,14 +1202,18 @@
                                             el.innerHTML = html;
                                             el.removeAttribute('include-html');
 
-                                            // ✅ After content is injected, trigger Snipcart to rebind buttons/counters
-                                            if (window.Snipcart) {
-                                                Snipcart.api.theme.cart.refresh();
-                                            }
+                                            // ✅ Refresh cart counters after the Snipcart cart is ready
+                                            document.addEventListener('snipcart.ready', () => {
+                                                if (typeof Snipcart !== 'undefined') {
+                                                    // Trigger refresh of Snipcart DOM bindings (safe way)
+                                                    Snipcart.events.emit('theme.routechanged');
+                                                }
+                                            });
                                         });
                                 });
                             });
                         </script>
+
 
 
                         <script>
