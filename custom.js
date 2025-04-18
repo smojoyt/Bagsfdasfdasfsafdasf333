@@ -47,3 +47,27 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     }
 });
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const carousel = document.querySelector(".carousel");
+
+    if (carousel) {
+      // Get all the product slides
+      const cells = Array.from(carousel.querySelectorAll(".carousel-cell"));
+
+      // Shuffle function (Fisher-Yates)
+      for (let i = cells.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+    [cells[i], cells[j]] = [cells[j], cells[i]];
+      }
+
+      // Remove old items
+      cells.forEach(cell => carousel.removeChild(cell));
+
+      // Append shuffled items back in
+      cells.forEach(cell => carousel.appendChild(cell));
+    }
+  });
+
