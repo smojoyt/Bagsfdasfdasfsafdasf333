@@ -1,3 +1,7 @@
+.no-zoom {
+    pointer-events: none;
+}
+
 html, body {
     overflow-x: hidden;
     overflow-y: auto !important;
