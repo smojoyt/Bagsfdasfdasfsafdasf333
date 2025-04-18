@@ -1195,22 +1195,9 @@
                         <div include-html="/page_inserts/uni_cart.html"></div>
                         <script>
                             document.addEventListener("DOMContentLoaded", function () {
-                                document.querySelectorAll('[include-html]').forEach(el => {
-                                    const file = el.getAttribute('include-html');
-                                    fetch(file)
-                                        .then(res => res.text())
-                                        .then(html => {
-                                            el.innerHTML = html;
-                                            el.removeAttribute('include-html');
-
-                                            // ✅ RE-INIT SNIPCART after HTML is inserted
-                                            if (window.Snipcart && window.Snipcart.api) {
-                                                window.Snipcart.api.theme.reload();
-                                            }
-
-                                            // Optional: Carousel logic...
-                                        });
-                                });
+                                if (window.Snipcart && window.Snipcart.api) {
+                                    window.Snipcart.api.theme.reload();
+                                }
                             });
                         </script>
 
