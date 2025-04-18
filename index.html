@@ -1201,10 +1201,17 @@
                                         .then(html => {
                                             el.innerHTML = html;
                                             el.removeAttribute('include-html');
+
+                                            // ✅ After content is injected, trigger Snipcart to rebind buttons/counters
+                                            if (window.Snipcart) {
+                                                Snipcart.api.theme.cart.refresh();
+                                            }
                                         });
                                 });
                             });
                         </script>
+
+
                         <script>
                             document.addEventListener('snipcart.ready', () => {
                                 Snipcart.events.on('item.added', () => {
