@@ -1203,12 +1203,22 @@
                                             el.innerHTML = html;
                                             el.removeAttribute('include-html');
 
+                                            // Wait for Snipcart to be fully ready
                                             document.addEventListener('snipcart.ready', () => {
                                                 if (typeof Snipcart !== 'undefined') {
-                                                    // 🔁 Refresh Snipcart bindings
+                                                    // ✅ Re-insert the item counter so Snipcart notices it
+                                                    const bubble = document.getElementById('cart-count-bubble');
+                                                    if (bubble) {
+                                                        const parent = bubble.parentElement;
+                                                        const clone = bubble.cloneNode(true);
+                                                        bubble.remove(); // remove old one
+                                                        parent.appendChild(clone); // re-append to trigger binding
+                                                    }
+
+                                                    // ✅ Re-bind buttons/counters
                                                     Snipcart.events.emit('theme.routechanged');
 
-                                                    // 💥 Pop animation on item added
+                                                    // ✅ Pop animation on add
                                                     Snipcart.events.on('item.added', () => {
                                                         const bubble = document.getElementById('cart-count-bubble');
                                                         if (bubble) {
@@ -1223,6 +1233,7 @@
                                 });
                             });
                         </script>
+
 
 
 
