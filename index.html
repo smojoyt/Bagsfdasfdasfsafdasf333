@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/theme.css" media="all" type="text/css">
     <link rel="stylesheet" href="https://use.typekit.net/vqj3vud.css" />
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
 
     <meta charset="utf-8" />
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
@@ -809,7 +810,7 @@
     </script>
     <script>
         window.ShopifyAnalytics.merchantGoogleAnalytics = function () {
-                                                                              < !--Google tag(gtag.js)-- >
+                                                                                  < !--Google tag(gtag.js)-- >
 
 
                 window.dataLayer = window.dataLayer || [];
@@ -3754,112 +3755,67 @@
 
 
     <div include-html="/page_inserts/uni_cart.html"></div>
-    <script async src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
+
+
+
+    <script>
+        window.SnipcartSettings = {
+            publicApiKey: 'OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz',
+            loadStrategy: 'on-user-interaction',
+            modalStyle: "side",
+            addProductBehavior: "none"
+        };
+
+        (() => {
+            /* your script logic here is correct */
+        })();
+    </script>
+
+
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2.2.2/dist/flickity.min.css">
+    <script src="https://unpkg.com/flickity@2.2.2/dist/flickity.pkgd.min.js"></script>
+
+    <!-- Include Flickity JS -->
+    <!-- Include imagesLoaded JS -->
+    <script src="https://unpkg.com/imagesloaded@4.1.4/imagesloaded.pkgd.min.js"></script>
+
+    <script>
+        imagesLoaded('.carousel', function () {
+            console.log('Images Loaded!');
+
+            var elem = document.querySelector('.carousel');
+
+            if (elem) {
+                var flkty = new Flickity(elem, {
+                    freeScroll: true,
+                    wrapAround: false,      // optional: you can change this to true
+                    contain: true,          // keeps cells inside the visible width
+                    cellAlign: 'left',      // aligns items left instead of center
+                    pageDots: false,        // optional: cleaner look
+                    prevNextButtons: false   // optional: you can toggle arrows
+                });
+
+                flkty.resize();       // ensure layout adjusts
+                flkty.reloadCells();  // recalculate cells
+            } else {
+                console.error('Carousel element not found!');
+            }
+        });
+    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const wrapper = document.getElementById('cart-hover-wrapper');
-            const cartSummary = document.getElementById('snipcart-summary');
-            const hoverText = document.getElementById('hover-cart-text');
-
-            if (wrapper && cartSummary && hoverText) {
-                wrapper.addEventListener('mouseenter', () => {
-                    cartSummary.style.display = 'none';
-                    hoverText.style.display = 'inline-block';
-                });
-
-                wrapper.addEventListener('mouseleave', () => {
-                    cartSummary.style.display = 'block';
-                    hoverText.style.display = 'none';
-                });
-
-                hoverText.addEventListener('click', () => {
-                    const checkoutButton = document.querySelector('.snipcart-checkout');
-                    if (checkoutButton) checkoutButton.click();
-                    cartSummary.style.display = 'block';
-                    hoverText.style.display = 'none';
-                });
-            }
-
-            document.addEventListener('snipcart.ready', () => {
-                if (typeof Snipcart !== 'undefined') {
-                    const bubble = document.getElementById('cart-count-bubble');
-                    if (bubble) {
-                        const parent = bubble.parentElement;
-                        const clone = bubble.cloneNode(true);
-                        bubble.remove();
-                        parent.appendChild(clone);
-                    }
-
-                    Snipcart.events.emit('theme.routechanged');
-
-                    Snipcart.events.on('item.added', () => {
-                        const bubble = document.getElementById('cart-count-bubble');
-                        if (bubble) {
-                            bubble.classList.remove('pop-animation');
-                            void bubble.offsetWidth;
-                            bubble.classList.add('pop-animation');
-                        }
+            document.querySelectorAll('[include-html]').forEach(el => {
+                const file = el.getAttribute('include-html');
+                fetch(file)
+                    .then(res => res.text())
+                    .then(html => {
+                        el.innerHTML = html;
+                        el.removeAttribute('include-html');
                     });
-                }
-            });
-        });
     </script>
-</body>
-</html>
-<!--Snip Cart-->
-<script>
-    window.SnipcartSettings = {
-        publicApiKey: 'OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz',
-        loadStrategy: 'on-user-interaction',
-        modalStyle: "side",
-    };
 
-    (() => { var c, d; (d = (c = window.SnipcartSettings).version) != null || (c.version = "3.0"); var s, S; (S = (s = window.SnipcartSettings).timeoutDuration) != null || (s.timeoutDuration = 2750); var l, p; (p = (l = window.SnipcartSettings).domain) != null || (l.domain = "cdn.snipcart.com"); var w, u; (u = (w = window.SnipcartSettings).protocol) != null || (w.protocol = "https"); var f = window.SnipcartSettings.version.includes("v3.0.0-ci") || window.SnipcartSettings.version != "3.0" && window.SnipcartSettings.version.localeCompare("3.4.0", void 0, { numeric: !0, sensitivity: "base" }) === -1, m = ["focus", "mouseover", "touchmove", "scroll", "keydown"]; window.LoadSnipcart = o; document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", r) : r(); function r() { window.SnipcartSettings.loadStrategy ? window.SnipcartSettings.loadStrategy === "on-user-interaction" && (m.forEach(t => document.addEventListener(t, o)), setTimeout(o, window.SnipcartSettings.timeoutDuration)) : o() } var a = !1; function o() { if (a) return; a = !0; let t = document.getElementsByTagName("head")[0], e = document.querySelector("#snipcart"), i = document.querySelector(`src[src^="${window.SnipcartSettings.protocol}://${window.SnipcartSettings.domain}"][src$="snipcart.js"]`), n = document.querySelector(`link[href^="${window.SnipcartSettings.protocol}://${window.SnipcartSettings.domain}"][href$="snipcart.css"]`); e || (e = document.createElement("div"), e.id = "snipcart", e.setAttribute("hidden", "true"), document.body.appendChild(e)), v(e), i || (i = document.createElement("script"), i.src = `${window.SnipcartSettings.protocol}://${window.SnipcartSettings.domain}/themes/v${window.SnipcartSettings.version}/default/snipcart.js`, i.async = !0, t.appendChild(i)), n || (n = document.createElement("link"), n.rel = "stylesheet", n.type = "text/css", n.href = `${window.SnipcartSettings.protocol}://${window.SnipcartSettings.domain}/themes/v${window.SnipcartSettings.version}/default/snipcart.css`, t.prepend(n)), m.forEach(g => document.removeEventListener(g, o)) } function v(t) { !f || (t.dataset.apiKey = window.SnipcartSettings.publicApiKey, window.SnipcartSettings.addProductBehavior && (t.dataset.configAddProductBehavior = window.SnipcartSettings.addProductBehavior), window.SnipcartSettings.modalStyle && (t.dataset.configModalStyle = window.SnipcartSettings.modalStyle), window.SnipcartSettings.currency && (t.dataset.currency = window.SnipcartSettings.currency), window.SnipcartSettings.templatesUrl && (t.dataset.templatesUrl = window.SnipcartSettings.templatesUrl)) } })();
-</script>
-
-<link rel="stylesheet" href="https://unpkg.com/flickity@2.2.2/dist/flickity.min.css">
-<script src="https://unpkg.com/flickity@2.2.2/dist/flickity.pkgd.min.js"></script>
-
-<!-- Include Flickity JS -->
-<!-- Include imagesLoaded JS -->
-<script src="https://unpkg.com/imagesloaded@4.1.4/imagesloaded.pkgd.min.js"></script>
-
-<script>
-    imagesLoaded('.carousel', function () {
-        console.log('Images Loaded!');
-
-        var elem = document.querySelector('.carousel');
-
-        if (elem) {
-            var flkty = new Flickity(elem, {
-                freeScroll: true,
-                wrapAround: false,      // optional: you can change this to true
-                contain: true,          // keeps cells inside the visible width
-                cellAlign: 'left',      // aligns items left instead of center
-                pageDots: false,        // optional: cleaner look
-                prevNextButtons: false   // optional: you can toggle arrows
-            });
-
-            flkty.resize();       // ensure layout adjusts
-            flkty.reloadCells();  // recalculate cells
-        } else {
-            console.error('Carousel element not found!');
-        }
-    });
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('[include-html]').forEach(el => {
-            const file = el.getAttribute('include-html');
-            fetch(file)
-                .then(res => res.text())
-                .then(html => {
-                    el.innerHTML = html;
-                    el.removeAttribute('include-html');
-    });
-</script>
+    <script async src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
 
 
 

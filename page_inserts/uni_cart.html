@@ -1,53 +1,33 @@
-﻿<!-- Cart Hover HTML -->
-<div id="cart-hover-wrapper" style="position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; align-items: center;">
-    <!-- Cart Summary Button -->
-    <div class="snipcart-summary" id="snipcart-summary" style="pointer-events: auto;">
-        <button class="snipcart-checkout" aria-label="Cart">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24" height="24">
-                <path d="M19 7h-1V6a6 6 0 1 0-12 0v1H5a2 2 0 0 0-2 2v11a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V9a2 2 0 0 0-2-2ZM8 6a4 4 0 1 1 8 0v1H8Zm11 14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9h14Z" />
-            </svg>
-            <span class="snipcart-items-count" id="cart-count-bubble">0</span>
-        </button>
-    </div>
-
-    <!-- View Cart Hover Text -->
-    <div id="hover-cart-text" style="
-    display: none;
-    margin-left: 10px;
-    background: white;
-    color: black;
-    font-weight: bold;
-    padding: 10px 14px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    font-family: sans-serif;
-    transition: opacity 0.3s ease;
-    cursor: pointer;
-  ">View Cart</div>
-</div>
+﻿<!-- Floating Cart Icon (Always Visible) -->
+<a href="#" class="snipcart-checkout">
+    <img src="https://www.svgrepo.com/show/457269/bag.svg" alt="Cart" style="height: 24px; filter: brightness(0) invert(1);" />
+    <span class="snipcart-items-count"></span>
+</a>
 
 <style>
-    .snipcart-summary .snipcart-checkout {
-        background-color: transparent;
-        color: white;
-        border: none;
-        border-radius: 50px;
-        padding: 10px 16px;
-        font-size: 16px;
-        cursor: pointer;
+
+    /* Float the cart icon to the top-right of the screen */
+    .snipcart-checkout {
+        position: fixed !important;
+        top: 20px !important;
+        right: 20px !important;
+        z-index: 10 !important;
         display: flex;
         align-items: center;
-        gap: 8px;
-        box-shadow: none;
+        gap: 5px;
+        background: transparent !important;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-decoration: none !important;
     }
 
+        .snipcart-checkout:hover {
+            text-decoration: none !important;
+        }
+
     .snipcart-items-count {
-        background-color: red;
-        color: white;
-        font-weight: bold;
-        border-radius: 50%;
-        padding: 2px 7px;
-        font-size: 14px;
-        display: inline-block;
+        text-decoration: none !important;
+        text-shadow: none !important;
+        color: white !important;
     }
 </style>
