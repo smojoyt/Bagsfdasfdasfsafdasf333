@@ -3294,6 +3294,14 @@
             .then(html => {
                 el.innerHTML = html;
                 el.removeAttribute('include-html');
+
+                // ✅ Check if we just loaded a Flickity carousel
+                const newCarousel = el.querySelector('.js-flickity');
+                if (newCarousel && typeof Flickity !== 'undefined') {
+                    new Flickity(newCarousel, JSON.parse(newCarousel.getAttribute('data-flickity')));
+                }
+            });
+
             });
     });
 </script>
