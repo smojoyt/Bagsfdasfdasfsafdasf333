@@ -1192,6 +1192,7 @@
                         <!-- Image Logo Area-->
                         <div include-html="/page_inserts/uni_navbar.html"></div>
                         <div include-html="/page_inserts/uni_cart.html"></div>
+
                         <script>
                             document.addEventListener("DOMContentLoaded", function () {
                                 document.querySelectorAll('[include-html]').forEach(el => {
@@ -1202,11 +1203,20 @@
                                             el.innerHTML = html;
                                             el.removeAttribute('include-html');
 
-                                            // ✅ Refresh cart counters after the Snipcart cart is ready
                                             document.addEventListener('snipcart.ready', () => {
                                                 if (typeof Snipcart !== 'undefined') {
-                                                    // Trigger refresh of Snipcart DOM bindings (safe way)
+                                                    // 🔁 Refresh Snipcart bindings
                                                     Snipcart.events.emit('theme.routechanged');
+
+                                                    // 💥 Pop animation on item added
+                                                    Snipcart.events.on('item.added', () => {
+                                                        const bubble = document.getElementById('cart-count-bubble');
+                                                        if (bubble) {
+                                                            bubble.classList.remove('pop-animation');
+                                                            void bubble.offsetWidth;
+                                                            bubble.classList.add('pop-animation');
+                                                        }
+                                                    });
                                                 }
                                             });
                                         });
@@ -1214,20 +1224,6 @@
                             });
                         </script>
 
-
-
-                        <script>
-                            document.addEventListener('snipcart.ready', () => {
-                                Snipcart.events.on('item.added', () => {
-                                    const bubble = document.getElementById('cart-count-bubble');
-                                    if (bubble) {
-                                        bubble.classList.remove('pop-animation'); // reset
-                                        void bubble.offsetWidth; // force reflow
-                                        bubble.classList.add('pop-animation'); // re-apply
-                                    }
-                                });
-                            });
-                        </script>
 
 
 
