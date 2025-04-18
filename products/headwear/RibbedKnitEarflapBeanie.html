@@ -792,7 +792,7 @@
         }</script>
     <script>
         window.ShopifyAnalytics.merchantGoogleAnalytics = function () {
-                                          < !--Google tag(gtag.js)-- >
+                                                  < !--Google tag(gtag.js)-- >
 
 
                 window.dataLayer = window.dataLayer || [];
@@ -2405,7 +2405,6 @@
         </div>
 
         <!-- BEGIN sections: group-overlay -->
-        
         <!-- END sections: group-overlay -->
         <!-- CONTENT -->
         <main role="main" id="MainContent" class="main-content">
@@ -2834,9 +2833,9 @@
                 MORE TO LOVE
             </h6>
             <div include-html="/page_inserts/productpage_moreitems.html"></div>
-            
 
-            
+
+
 
 
 
@@ -2960,14 +2959,14 @@
             <!-- Root element of PhotoSwipe. Must have class pswp. -->
             <div class="pswp pswp--custom-loader" tabindex="-1" role="dialog" aria-hidden="true">
                 <!-- Background of PhotoSwipe.
-        It's a separate element as animating opacity is faster than rgba(). -->
+                It's a separate element as animating opacity is faster than rgba(). -->
                 <div class="pswp__bg"></div>
 
                 <!-- Slides wrapper with overflow:hidden. -->
                 <div class="pswp__scroll-wrap">
                     <!-- Container that holds slides.
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
+                    PhotoSwipe keeps only 3 of them in the DOM to save memory.
+                    Don't modify these 3 pswp__item elements, data is added later on. -->
                     <div class="pswp__container">
                         <div class="pswp__item"></div>
                         <div class="pswp__item"></div>
@@ -3286,25 +3285,41 @@
 </script>
 
 <script>
-    // HTML include loader
-    document.querySelectorAll('[include-html]').forEach(el => {
-        const file = el.getAttribute('include-html');
-        fetch(file)
-            .then(res => res.text())
-            .then(html => {
-                el.innerHTML = html;
-                el.removeAttribute('include-html');
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('[include-html]').forEach(el => {
+            const file = el.getAttribute('include-html');
+            fetch(file)
+                .then(res => res.text())
+                .then(html => {
+                    el.innerHTML = html;
+                    el.removeAttribute('include-html');
 
-                // ✅ Check if we just loaded a Flickity carousel
-                const newCarousel = el.querySelector('.js-flickity');
-                if (newCarousel && typeof Flickity !== 'undefined') {
-                    new Flickity(newCarousel, JSON.parse(newCarousel.getAttribute('data-flickity')));
-                }
-            });
+                    // ✅ Step 1: Randomize carousel cells
+                    const carousel = el.querySelector(".carousel");
+                    if (carousel) {
+                        const cells = Array.from(carousel.querySelectorAll(".carousel-cell"));
 
-            });
+                        // Shuffle (Fisher-Yates)
+                        for (let i = cells.length - 1; i > 0; i--) {
+                            const j = Math.floor(Math.random() * (i + 1));
+                            [cells[i], cells[j]] = [cells[j], cells[i]];
+                        }
+
+                        // Re-append in shuffled order
+                        cells.forEach(cell => carousel.appendChild(cell));
+                    }
+
+                    // ✅ Step 2: Re-init Flickity
+                    const flickityReady = el.querySelector('.js-flickity');
+                    if (flickityReady && typeof Flickity !== 'undefined') {
+                        new Flickity(flickityReady, JSON.parse(flickityReady.getAttribute('data-flickity')));
+                    }
+                });
+        });
     });
 </script>
+
+
 
 
 
