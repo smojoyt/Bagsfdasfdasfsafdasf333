@@ -3755,66 +3755,53 @@
 
     <div include-html="/page_inserts/uni_cart.html"></div>
     <script async src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
-    <script>
-        const wrapper = document.getElementById('cart-hover-wrapper');
-        const cartSummary = document.getElementById('snipcart-summary');
-        const hoverText = document.getElementById('hover-cart-text');
-
-        wrapper.addEventListener('mouseenter', () => {
-            cartSummary.style.display = 'none';
-            hoverText.style.display = 'block';
-        });
-
-        wrapper.addEventListener('mouseleave', () => {
-            cartSummary.style.display = 'block';
-            hoverText.style.display = 'none';
-        });
-
-        hoverText.addEventListener('click', () => {
-            const checkoutButton = document.querySelector('.snipcart-checkout');
-            if (checkoutButton) checkoutButton.click();
-            cartSummary.style.display = 'block';
-            hoverText.style.display = 'none';
-        });
-    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll('[include-html]').forEach(el => {
-                const file = el.getAttribute('include-html');
-                fetch(file)
-                    .then(res => res.text())
-                    .then(html => {
-                        el.innerHTML = html;
-                        el.removeAttribute('include-html');
+            const wrapper = document.getElementById('cart-hover-wrapper');
+            const cartSummary = document.getElementById('snipcart-summary');
+            const hoverText = document.getElementById('hover-cart-text');
 
-                        // Wait for Snipcart to be fully ready
-                        document.addEventListener('snipcart.ready', () => {
-                            if (typeof Snipcart !== 'undefined') {
-                                // ✅ Re-insert the item counter so Snipcart notices it
-                                const bubble = document.getElementById('cart-count-bubble');
-                                if (bubble) {
-                                    const parent = bubble.parentElement;
-                                    const clone = bubble.cloneNode(true);
-                                    bubble.remove(); // remove old one
-                                    parent.appendChild(clone); // re-append to trigger binding
-                                }
+            if (wrapper && cartSummary && hoverText) {
+                wrapper.addEventListener('mouseenter', () => {
+                    cartSummary.style.display = 'none';
+                    hoverText.style.display = 'inline-block';
+                });
 
-                                // ✅ Re-bind buttons/counters
-                                Snipcart.events.emit('theme.routechanged');
+                wrapper.addEventListener('mouseleave', () => {
+                    cartSummary.style.display = 'block';
+                    hoverText.style.display = 'none';
+                });
 
-                                // ✅ Pop animation on add
-                                Snipcart.events.on('item.added', () => {
-                                    const bubble = document.getElementById('cart-count-bubble');
-                                    if (bubble) {
-                                        bubble.classList.remove('pop-animation');
-                                        void bubble.offsetWidth;
-                                        bubble.classList.add('pop-animation');
-                                    }
-                                });
-                            }
-                        });
+                hoverText.addEventListener('click', () => {
+                    const checkoutButton = document.querySelector('.snipcart-checkout');
+                    if (checkoutButton) checkoutButton.click();
+                    cartSummary.style.display = 'block';
+                    hoverText.style.display = 'none';
+                });
+            }
+
+            document.addEventListener('snipcart.ready', () => {
+                if (typeof Snipcart !== 'undefined') {
+                    const bubble = document.getElementById('cart-count-bubble');
+                    if (bubble) {
+                        const parent = bubble.parentElement;
+                        const clone = bubble.cloneNode(true);
+                        bubble.remove();
+                        parent.appendChild(clone);
+                    }
+
+                    Snipcart.events.emit('theme.routechanged');
+
+                    Snipcart.events.on('item.added', () => {
+                        const bubble = document.getElementById('cart-count-bubble');
+                        if (bubble) {
+                            bubble.classList.remove('pop-animation');
+                            void bubble.offsetWidth;
+                            bubble.classList.add('pop-animation');
+                        }
                     });
+                }
             });
         });
     </script>
