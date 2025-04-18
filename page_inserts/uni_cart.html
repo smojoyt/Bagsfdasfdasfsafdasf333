@@ -60,3 +60,16 @@
         animation: pop 0.3s ease;
     }
 </style>
+
+<script>
+  document.addEventListener('snipcart.ready', () => {
+    Snipcart.events.on('item.added', () => {
+      const bubble = document.getElementById('cart-count-bubble');
+      if (bubble) {
+        bubble.classList.remove('pop-animation'); // reset if already applied
+        void bubble.offsetWidth; // force reflow
+        bubble.classList.add('pop-animation'); // re-apply animation
+      }
+    });
+  });
+</script>

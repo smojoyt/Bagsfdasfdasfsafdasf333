@@ -1191,6 +1191,35 @@
                         <!-- Desktop Header-->
                         <!-- Image Logo Area-->
                         <div include-html="/page_inserts/uni_navbar.html"></div>
+                        <div include-html="/page_inserts/uni_cart.html"></div>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                document.querySelectorAll('[include-html]').forEach(el => {
+                                    const file = el.getAttribute('include-html');
+                                    fetch(file)
+                                        .then(res => res.text())
+                                        .then(html => {
+                                            el.innerHTML = html;
+                                            el.removeAttribute('include-html');
+                                        });
+                                });
+                            });
+                        </script>
+                        <script>
+                            document.addEventListener('snipcart.ready', () => {
+                                Snipcart.events.on('item.added', () => {
+                                    const bubble = document.getElementById('cart-count-bubble');
+                                    if (bubble) {
+                                        bubble.classList.remove('pop-animation'); // reset
+                                        void bubble.offsetWidth; // force reflow
+                                        bubble.classList.add('pop-animation'); // re-apply
+                                    }
+                                });
+                            });
+                        </script>
+
+
+
                         <!-- Navigation Area End-->
 
 
@@ -3668,7 +3697,6 @@
             font-family: Raleway;
         }
     </style>
-    <div include-html="/page_inserts/uni_cart.html"></div>
 </body>
 </html>
 <!--Snip Cart-->
