@@ -1193,13 +1193,26 @@
                         <!-- Image Logo Area-->
                         <div include-html="/page_inserts/uni_navbar.html"></div>
                         <div include-html="/page_inserts/uni_cart.html"></div>
+
                         <script>
                             document.addEventListener("DOMContentLoaded", function () {
-                                if (window.Snipcart && window.Snipcart.api) {
-                                    window.Snipcart.api.theme.reload();
-                                }
+                                document.querySelectorAll('[include-html]').forEach(el => {
+                                    const file = el.getAttribute('include-html');
+                                    fetch(file)
+                                        .then(res => res.text())
+                                        .then(html => {
+                                            el.innerHTML = html;
+                                            el.removeAttribute('include-html');
+
+                                            // ✅ Snipcart is now in the DOM — re-initialize it
+                                            if (window.Snipcart && window.Snipcart.api) {
+                                                window.Snipcart.api.theme.reload();
+                                            }
+                                        });
+                                });
                             });
                         </script>
+
 
 
 
