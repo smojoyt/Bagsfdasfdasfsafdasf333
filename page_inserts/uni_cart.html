@@ -48,3 +48,13 @@
     <img src="https://www.svgrepo.com/show/457269/bag.svg" alt="Cart" style="height: 24px;" />
     <span class="snipcart-items-count"></span>
 </button>
+
+<script>
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 0) {
+            document.body.classList.add('scrolled');
+        } else {
+            document.body.classList.remove('scrolled');
+        }
+    });
+</script>
