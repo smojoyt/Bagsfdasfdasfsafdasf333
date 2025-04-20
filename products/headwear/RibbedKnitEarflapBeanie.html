@@ -1057,116 +1057,118 @@
                              data-section-type="header"
                              style="--highlight: #601919;">
 
-                    <header class="theme__header section-padding" role="banner" data-header-height>
-                        <!-- Navigation Area Start-->
-                        <!-- Mobile Header-->
-                        <div class="disabled header__mobile">
-                            <div class="header__mobile__left">
-                                <div class="header__mobile__button">
-                                    <button class="header__mobile__hamburger caps"
-                                            data-drawer-toggle="hamburger"
-                                            aria-label="Show menu"
-                                            aria-haspopup="true"
-                                            aria-expanded="false"
-                                            aria-controls="header-menu">
-                                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-menu" viewBox="0 0 24 24"><path d="M3 5h18M3 12h18M3 19h18" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                                    </button>
-                                </div>
-                                <!--Disabled Search Button-->
-                                <div class="header__mobile__button caps" style="display:none;">
-                                    <header-search-popdown>
-                                        <details>
-                                            <summary class="navlink navlink--search" aria-haspopup="dialog" data-popdown-toggle title="Search">
-                                                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 24 24"><g stroke="currentColor"><path d="M10.85 2c2.444 0 4.657.99 6.258 2.592A8.85 8.85 0 1 1 10.85 2ZM17.122 17.122 22 22" /></g></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cancel" viewBox="0 0 24 24"><path d="M6.758 17.243 12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="visually-hidden">Search</span>
-                                            </summary><div class="search-popdown" role="dialog" aria-modal="true" aria-label="Search" data-popdown>
-                                                <div class="wrapper">
-                                                    <div class="search-popdown__main">
-                                                        <header-search-form>
-                                                            <form class="search-form"
-                                                                  action="/search"
-                                                                  method="get"
-                                                                  role="search">
-                                                                <input name="options[prefix]" type="hidden" value="last">
+                            <header class="theme__header section-padding" role="banner" data-header-height>
+                                <!-- Navigation Area Start-->
+                                <!-- Mobile Header-->
+                                <div class="disabled header__mobile">
+                                    <div class="header__mobile__left">
+                                        <div class="header__mobile__button">
+                                            <button class="header__mobile__hamburger caps"
+                                                    data-drawer-toggle="hamburger"
+                                                    aria-label="Show menu"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
+                                                    aria-controls="header-menu">
+                                                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-menu" viewBox="0 0 24 24"><path d="M3 5h18M3 12h18M3 19h18" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                                            </button>
+                                        </div>
+                                        <!--Disabled Search Button-->
+                                        <div class="header__mobile__button caps" style="display:none;">
+                                            <header-search-popdown>
+                                                <details>
+                                                    <summary class="navlink navlink--search" aria-haspopup="dialog" data-popdown-toggle title="Search">
+                                                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 24 24"><g stroke="currentColor"><path d="M10.85 2c2.444 0 4.657.99 6.258 2.592A8.85 8.85 0 1 1 10.85 2ZM17.122 17.122 22 22" /></g></svg><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cancel" viewBox="0 0 24 24"><path d="M6.758 17.243 12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="visually-hidden">Search</span>
+                                                    </summary><div class="search-popdown" role="dialog" aria-modal="true" aria-label="Search" data-popdown>
+                                                        <div class="wrapper">
+                                                            <div class="search-popdown__main">
+                                                                <header-search-form>
+                                                                    <form class="search-form"
+                                                                          action="/search"
+                                                                          method="get"
+                                                                          role="search">
+                                                                        <input name="options[prefix]" type="hidden" value="last">
 
-                                                                <button class="search-popdown__submit" type="submit" aria-label="Search"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 24 24"><g stroke="currentColor"><path d="M10.85 2c2.444 0 4.657.99 6.258 2.592A8.85 8.85 0 1 1 10.85 2ZM17.122 17.122 22 22" /></g></svg></button>
+                                                                        <button class="search-popdown__submit" type="submit" aria-label="Search"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 24 24"><g stroke="currentColor"><path d="M10.85 2c2.444 0 4.657.99 6.258 2.592A8.85 8.85 0 1 1 10.85 2ZM17.122 17.122 22 22" /></g></svg></button>
 
-                                                                <div class="input-holder">
-                                                                    <label for="SearchInput--mobile" class="visually-hidden">Search</label>
-                                                                    <input type="search"
-                                                                           id="SearchInput--mobile"
-                                                                           data-predictive-search-input="search-popdown-results"
-                                                                           name="q"
-                                                                           value=""
-                                                                           placeholder="Search"
-                                                                           role="combobox"
-                                                                           aria-label="Search our store"
-                                                                           aria-owns="predictive-search-results"
-                                                                           aria-controls="predictive-search-results"
-                                                                           aria-expanded="false"
-                                                                           aria-haspopup="listbox"
-                                                                           aria-autocomplete="list"
-                                                                           autocorrect="off"
-                                                                           autocomplete="off"
-                                                                           autocapitalize="off"
-                                                                           spellcheck="false">
+                                                                        <div class="input-holder">
+                                                                            <label for="SearchInput--mobile" class="visually-hidden">Search</label>
+                                                                            <input type="search"
+                                                                                   id="SearchInput--mobile"
+                                                                                   data-predictive-search-input="search-popdown-results"
+                                                                                   name="q"
+                                                                                   value=""
+                                                                                   placeholder="Search"
+                                                                                   role="combobox"
+                                                                                   aria-label="Search our store"
+                                                                                   aria-owns="predictive-search-results"
+                                                                                   aria-controls="predictive-search-results"
+                                                                                   aria-expanded="false"
+                                                                                   aria-haspopup="listbox"
+                                                                                   aria-autocomplete="list"
+                                                                                   autocorrect="off"
+                                                                                   autocomplete="off"
+                                                                                   autocapitalize="off"
+                                                                                   spellcheck="false">
 
-                                                                    <button type="reset" class="search-reset hidden" aria-label="Reset">Clear</button>
+                                                                            <button type="reset" class="search-reset hidden" aria-label="Reset">Clear</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </header-search-form><div class="search-popdown__close">
+                                                                    <button type="button" class="search-popdown__close__button" title="Close" data-popdown-close><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cancel" viewBox="0 0 24 24"><path d="M6.758 17.243 12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
                                                                 </div>
-                                                            </form>
-                                                        </header-search-form><div class="search-popdown__close">
-                                                            <button type="button" class="search-popdown__close__button" title="Close" data-popdown-close><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cancel" viewBox="0 0 24 24"><path d="M6.758 17.243 12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <span class="drawer__underlay" data-popdown-underlay></span>
-                                        </details>
-                                    </header-search-popdown>
-                                </div>
-                            </div>
-
-                            <div class="header__logo header__logo--image">
-                                <a class="header__logo__link"
-                                   href="/">
-                                    <figure class="logo__img logo__img--color image-wrapper lazy-image is-loading" style="--aspect-ratio: 13.319148936170214;--aspect-ratio-mobile: 13.319148936170214;">
-                                        <img src="//jemmawynne.com/cdn/shop/files/JW_Logo_Type_d9ffec63-5baf-4949-abe7-fcee7557665d.png?crop=center&amp;height=5760&amp;v=1696517617&amp;width=626" alt="Jemma Wynne" width="626" height="8337" loading="eager" srcset="//jemmawynne.com/cdn/shop/files/JW_Logo_Type_d9ffec63-5baf-4949-abe7-fcee7557665d.png?crop=center&amp;height=26&amp;v=1696517617&amp;width=350 350w, //jemmawynne.com/cdn/shop/files/JW_Logo_Type_d9ffec63-5baf-4949-abe7-fcee7557665d.png?crop=center&amp;height=18&amp;v=1696517617&amp;width=250 250w, //jemmawynne.com/cdn/shop/files/JW_Logo_Type_d9ffec63-5baf-4949-abe7-fcee7557665d.png?crop=center&amp;height=37&amp;v=1696517617&amp;width=500 500w, //jemmawynne.com/cdn/shop/files/JW_Logo_Type_d9ffec63-5baf-4949-abe7-fcee7557665d.png?v=1696517617&amp;width=626 626w" sizes="350px" fetchpriority="high" class=" is-loading ">
-                                    </figure>
-                                </a>
-                            </div>
-
-                            <div class="header__mobile__right caps">
-                                <!--Disabled Cart Buttons-->
-                                <div class="header__mobile__button" style="display:none">
-                                    <a href="/cart" class="navlink navlink--cart navlink--cart--icon" data-cart-toggle>
-                                        <div class="navlink__cart__content">
-                                            <span class="visually-hidden">Cart</span>
-
-                                            <span class="header__cart__status__holder">
-                                                <span class="header__cart__status" data-status-separator=": " data-cart-count="0">
-                                                    0
-                                                </span><!-- /snippets/social-icon.liquid -->
-
-
-                                                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-bag" viewBox="0 0 24 24"><path d="m19.26 9.696 1.385 9A2 2 0 0 1 18.67 21H5.33a2 2 0 0 1-1.977-2.304l1.385-9A2 2 0 0 1 6.716 8h10.568a2 2 0 0 1 1.977 1.696zM14 5a2 2 0 1 0-4 0" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                                            </span>
+                                                    <span class="drawer__underlay" data-popdown-underlay></span>
+                                                </details>
+                                            </header-search-popdown>
                                         </div>
-                                    </a>
+                                    </div>
+
+                                    <div class="header__logo header__logo--image">
+                                        <a class="header__logo__link"
+                                           href="/">
+                                            <figure class="logo__img logo__img--color image-wrapper lazy-image is-loading" style="--aspect-ratio: 13.319148936170214;--aspect-ratio-mobile: 13.319148936170214;">
+                                                <img src="//jemmawynne.com/cdn/shop/files/JW_Logo_Type_d9ffec63-5baf-4949-abe7-fcee7557665d.png?crop=center&amp;height=5760&amp;v=1696517617&amp;width=626" alt="Jemma Wynne" width="626" height="8337" loading="eager" srcset="//jemmawynne.com/cdn/shop/files/JW_Logo_Type_d9ffec63-5baf-4949-abe7-fcee7557665d.png?crop=center&amp;height=26&amp;v=1696517617&amp;width=350 350w, //jemmawynne.com/cdn/shop/files/JW_Logo_Type_d9ffec63-5baf-4949-abe7-fcee7557665d.png?crop=center&amp;height=18&amp;v=1696517617&amp;width=250 250w, //jemmawynne.com/cdn/shop/files/JW_Logo_Type_d9ffec63-5baf-4949-abe7-fcee7557665d.png?crop=center&amp;height=37&amp;v=1696517617&amp;width=500 500w, //jemmawynne.com/cdn/shop/files/JW_Logo_Type_d9ffec63-5baf-4949-abe7-fcee7557665d.png?v=1696517617&amp;width=626 626w" sizes="350px" fetchpriority="high" class=" is-loading ">
+                                            </figure>
+                                        </a>
+                                    </div>
+
+                                    <div class="header__mobile__right caps">
+                                        <!--Disabled Cart Buttons-->
+                                        <div class="header__mobile__button" style="display:none">
+                                            <a href="/cart" class="navlink navlink--cart navlink--cart--icon" data-cart-toggle>
+                                                <div class="navlink__cart__content">
+                                                    <span class="visually-hidden">Cart</span>
+
+                                                    <span class="header__cart__status__holder">
+                                                        <span class="header__cart__status" data-status-separator=": " data-cart-count="0">
+                                                            0
+                                                        </span><!-- /snippets/social-icon.liquid -->
+
+
+                                                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-bag" viewBox="0 0 24 24"><path d="m19.26 9.696 1.385 9A2 2 0 0 1 18.67 21H5.33a2 2 0 0 1-1.977-2.304l1.385-9A2 2 0 0 1 6.716 8h10.568a2 2 0 0 1 1.977 1.696zM14 5a2 2 0 1 0-4 0" stroke="#000" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Desktop Header-->
-                        <!-- Image Logo Area-->
-                        <div include-html="/page_inserts/uni_navbar.html"></div>
-                        <!-- Navigation Area End-->
-
-
+                                <!-- Desktop Header-->
+                                <!-- Image Logo Area-->
+                                <div include-html="/page_inserts/uni_navbar.html"></div>
+                                <div include-html="/page_inserts/uni_navmobile.html"></div>
+                                <div include-html="/page_inserts/uni_cart.html"></div>
+                                <!-- Navigation Area End-->
 
 
 
 
 
-                    </header>
+
+
+                            </header>
 
                     <nav class="drawer drawer--header caps"
                          data-drawer="hamburger"
@@ -2234,20 +2236,20 @@
                                             <div class="product__block product__custom-code" style="--block-padding-bottom: 16px;">
                                                 <button class="atcbutton snipcart-add-item btn btn--primary btn--solid product__submit__inquire "
                                                         style="width: 100%;"
-                                                        data-item-id="oval-choker"
+                                                        data-item-id="Headwear_EarflapBeanie"
                                                         data-item-price="39.99"
                                                         data-item-url="https://www.karrykraze.com/products/headwear/RibbedKnitEarflapBeanie"
                                                         data-item-description="Ribbed Knit Acrylic Blend
-                                                        Oversized earflap design
-                                                        Signature “LOVER BOY” front patch
-                                                        One size fits most
-                                                        Lightweight & breathable
-                                                        Color: Jet Black | Apricrot
-                                                        Hand wash cold, dry flat"
+Oversized earflap design
+Signature “LOVER BOY” front patch
+One size fits most
+Lightweight & breathable
+Color: Jet Black | Apricrot
+Hand wash cold, dry flat"
                                                         data-item-image="/imgs/Products/Hats/BunnyEarsRat/1.png"
                                                         data-item-name="Ribbed Knit Earflap Beanie"
                                                         data-item-custom1-name="Color"
-data-item-custom1-options="Black | Apricrot">
+                                                        data-item-custom1-options="Black | Apricrot">
                                                     Add to Cart
                                                 </button>
                                             </div>
