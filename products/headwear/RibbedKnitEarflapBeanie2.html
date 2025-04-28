@@ -208,11 +208,25 @@
     }
 
     function goToCheckout() {
-      const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
-      if (savedCart.length === 0) return;
-      const skuList = savedCart.map(item => item.sku);
-      const skuParam = encodeURIComponent(skuList.join(","));
-      window.location.href = `https://checkout.karrykraze.com?autocart=${skuParam}`;
+      const savedCart = JSON.parse(localStorage.getItem('savedCart')) || [];
+
+const skuList = savedCart.map(item => {
+  let sku = item.sku;
+  if (item.variant) {
+    sku += `:${item.variant}`; // append variant if it exists
+  }
+  if (item.qty && item.qty > 1) {
+    return Array(item.qty).fill(sku).join(","); // duplicate SKU for qty
+  } else {
+    return sku;
+  }
+});
+
+const finalSkuString = encodeURIComponent(skuList.join(","));
+const checkoutUrl = `https://checkout.karrykraze.com/?autocart=${finalSkuString}`;
+
+console.log("✅ Final Checkout URL:", checkoutUrl);
+
     }
     </script>
 </body>
