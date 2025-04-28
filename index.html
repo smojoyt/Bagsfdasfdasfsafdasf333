@@ -2081,12 +2081,18 @@
                                                 </a>
                                                 <div class="button-container">
 
-                                                    
-                                                        <a href="https://checkout.karrykraze.com?autocart=Headwear_EarflapBeanie" class="btn btn--text btn--black">
-                                                            <span>Add to Carts</span>
-                                                        </a>
 
-                                                    
+
+                                                    <button class="btn btn--text btn--black" onclick="addItemToCart('Headwear_EarflapBeanie')">
+                                                        Add to Cart
+                                                    </button>
+                                                    <button onclick="goToCheckout()">Checkout</button>
+                                                    <button onclick="localStorage.removeItem('savedCart'); alert('Cart cleared');">Clear Cart</button>
+
+
+
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -2147,7 +2153,7 @@ One size – Compact yet spacious for essentials"
                                                             data-item-image="/imgs/Products/Pouches/0010_BitchesisWeird/BMain.png"
                                                             data-item-name=" Mini Tote – ‘B!TCH#S IS WEIRD’"
                                                             data-item-custom1-name="Color"
-                                                        data-item-custom1-options="Pink">
+                                                            data-item-custom1-options="Pink">
                                                         <span>Add to Cart</span>
                                                     </button>
                                                 </div>
@@ -2577,7 +2583,7 @@ One size – Compact yet spacious for essentials"
                                                             data-item-image="/imgs/Products/Pouches/0010_BitchesisWeird/BMain.png"
                                                             data-item-name=" Mini Tote – ‘B!TCH#S IS WEIRD’"
                                                             data-item-custom1-name="Color"
-                                                        data-item-custom1-options="Pink">
+                                                            data-item-custom1-options="Pink">
                                                         <span>Add to Cart</span>
                                                     </button>
                                                 </div>
@@ -3895,6 +3901,32 @@ One size – Ideal for on-the-go essentials or statement styling"
     </script>
 
     <script async src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
+
+    <script>
+function addItemToCart(sku) {
+  let savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
+  if (!savedCart.includes(sku)) {
+    savedCart.push(sku);
+    localStorage.setItem("savedCart", JSON.stringify(savedCart));
+    alert("Item added to cart!");
+  } else {
+    alert("Item already in cart.");
+  }
+}
+
+function goToCheckout() {
+  const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
+  if (savedCart.length === 0) {
+    alert("No items in cart.");
+    return;
+  }
+
+  const skuParam = encodeURIComponent(savedCart.join(","));
+  // Redirect to your custom checkout
+  window.location.href = `https://checkout.karrykraze.com?autocart=${skuParam}`;
+}
+    </script>
+
 
 
 
