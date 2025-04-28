@@ -14,7 +14,6 @@
 
         <!-- Product Container -->
         <div class="flex flex-col md:flex-row gap-6">
-
             <!-- Images -->
             <div class="flex-1">
                 <img id="mainImage" src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png" alt="Ribbed Knit Earflap Beanie" class="w-full rounded-xl border" />
@@ -45,17 +44,21 @@
             </div>
         </div>
     </div>
+
+    <!-- Cart Sidebar Container -->
     <div id="sidecart-container"></div>
 
+    <!-- Inject sidecart markup -->
     <script>
-  fetch("/page_inserts/sidecart.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("sidecart-container").innerHTML = html;
-    });
+    fetch("/page_inserts/sidecart.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("sidecart-container").innerHTML = html;
+        renderCart();
+      });
     </script>
 
-
+    <!-- Main Scripts -->
     <script>
     let productCatalog = {};
     let activeProduct = null;
@@ -90,23 +93,72 @@
     }
 
     function addProductToCart() {
-  const selectedVariant = document.getElementById("variant").value;
-  const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+      const selectedVariant = document.getElementById("variant").value;
+      const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+      const existingIndex = cart.findIndex(item => item.sku === productSKU && item.variant === selectedVariant);
 
-  const existingIndex = cart.findIndex(item => item.sku === productSKU && item.variant === selectedVariant);
+      if (existingIndex > -1) {
+        cart[existingIndex].qty += 1;
+      } else {
+        cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
+      }
 
-  if (existingIndex > -1) {
-    cart[existingIndex].qty += 1;
-  } else {
-    cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
-  }
+      localStorage.setItem("savedCart", JSON.stringify(cart));
+      renderCart();
+      toggleCart();
+    }
 
-  localStorage.setItem("savedCart", JSON.stringify(cart));
-  renderCart(); // update sidebar contents
-  toggleCart(); // open the sidebar
-}
+    function renderCart() {
+      const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
 
+      if (!cartItems || !cartTotal || !productCatalog) return;
+
+      cartItems.innerHTML = "";
+      let total = 0;
+
+      savedCart.forEach(item => {
+        const data = productCatalog[item.sku];
+        if (!data) return;
+
+        const lineTotal = data.price * item.qty;
+        total += lineTotal;
+
+        cartItems.innerHTML += `
+          <div class="flex items-start gap-3">
+            <img src="${data.image}" alt="${data.name}" class="w-16 h-16 rounded border" />
+            <div class="flex-1 text-sm">
+              <strong>${data.name}</strong><br>
+              Variant: ${item.variant}<br>
+              Qty: ${item.qty} x $${data.price.toFixed(2)}<br>
+              <button onclick="removeFromCart('${item.sku}', '${item.variant}')" class="text-red-500 mt-1">Remove</button>
+            </div>
+          </div>
+        `;
+      });
+
+      cartTotal.innerText = "Subtotal: $" + total.toFixed(2);
+    }
+
+    function toggleCart() {
+      document.getElementById("cartSidebar").classList.toggle("translate-x-full");
+    }
+
+    function removeFromCart(sku, variant) {
+      let savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
+      savedCart = savedCart.filter(item => !(item.sku === sku && item.variant === variant));
+      localStorage.setItem("savedCart", JSON.stringify(savedCart));
+      renderCart();
+    }
+
+    function goToCheckout() {
+      const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
+      if (savedCart.length === 0) return;
+      const skuList = savedCart.map(item => item.sku);
+      const skuParam = encodeURIComponent(skuList.join(","));
+      window.location.href = `https://checkout.karrykraze.com?autocart=${skuParam}`;
+    }
     </script>
-
 </body>
 </html>
