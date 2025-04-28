@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ribbed Knit Earflap Beanie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
+    <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
+</head>
+<body class="bg-white text-gray-800">
+
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Back to Shop -->
+        <a href="/" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to Shop</a>
+
+        <!-- Product Container -->
+        <div class="flex flex-col md:flex-row gap-6">
+
+            <!-- Images -->
+            <div class="flex-1">
+                <img id="mainImage" src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png" alt="Ribbed Knit Earflap Beanie" class="w-full rounded-xl border" />
+                <div class="flex gap-2 mt-4">
+                    <img onclick="swapImage(this.src)" src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png" class="w-20 h-20 object-cover rounded-lg cursor-pointer border" />
+                    <img onclick="swapImage(this.src)" src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_02.jpg" class="w-20 h-20 object-cover rounded-lg cursor-pointer border" />
+                </div>
+            </div>
+
+            <!-- Info -->
+            <div class="flex-1">
+                <h1 id="product-name" class="text-2xl font-bold mb-2">Loading...</h1>
+                <p id="product-description" class="mb-4 text-sm"></p>
+                <p class="text-lg font-semibold">$<span id="product-price">0.00</span></p>
+
+                <!-- Variant -->
+                <div class="mt-4">
+                    <label for="variant" class="block text-sm font-medium text-gray-700">Choose a Color</label>
+                    <select id="variant" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        <option>Loading...</option>
+                    </select>
+                </div>
+
+                <!-- Add to Cart -->
+                <button onclick="addProductToCart()" class="mt-6 bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Snipcart root -->
+    <div hidden id="snipcart" data-api-key="YOUR_SNIPCART_API_KEY"></div>
+
+    <script>
+    let productCatalog = {};
+    let activeProduct = null;
+    const productSKU = "Headwear_EarflapBeanie";
+
+    fetch("https://www.karrykraze.com/products/products.json")
+      .then(res => res.json())
+      .then(data => {
+        productCatalog = data;
+        activeProduct = productCatalog[productSKU];
+        renderProductDetails();
+      });
+
+    function renderProductDetails() {
+      if (!activeProduct) return;
+      document.getElementById("product-name").textContent = activeProduct.name;
+      document.getElementById("product-description").textContent = activeProduct.description;
+      document.getElementById("product-price").textContent = activeProduct.price.toFixed(2);
+
+      const variantSelect = document.getElementById("variant");
+      variantSelect.innerHTML = "";
+      activeProduct.custom1Options.split("|").map(opt => opt.trim()).forEach(option => {
+        const el = document.createElement("option");
+        el.value = option;
+        el.textContent = option;
+        variantSelect.appendChild(el);
+      });
+    }
+
+    function swapImage(src) {
+      document.getElementById("mainImage").src = src;
+    }
+
+    function addProductToCart() {
+      const selectedVariant = document.getElementById("variant").value;
+      const btn = document.createElement("button");
+      btn.className = "snipcart-add-item";
+      btn.style.display = "none";
+      btn.setAttribute("data-item-id", productSKU);
+      btn.setAttribute("data-item-name", activeProduct.name);
+      btn.setAttribute("data-item-price", activeProduct.price);
+      btn.setAttribute("data-item-url", window.location.href);
+      btn.setAttribute("data-item-description", activeProduct.description);
+      btn.setAttribute("data-item-image", activeProduct.image);
+      btn.setAttribute("data-item-custom1-name", activeProduct.custom1Name);
+      btn.setAttribute("data-item-custom1-options", activeProduct.custom1Options);
+      btn.setAttribute("data-item-custom1-value", selectedVariant);
+      document.body.appendChild(btn);
+      btn.click();
+    }
+    </script>
+
+</body>
+</html>
