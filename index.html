@@ -4034,14 +4034,18 @@ function changeQty(sku, change) {
 
 function goToCheckout() {
   const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
-
   if (savedCart.length === 0) return;
 
-  const skuList = savedCart.flatMap(item => Array(item.qty).fill(item.sku));
+  // Send each SKU once
+  const skuList = savedCart.map(item => item.sku);
   const skuParam = encodeURIComponent(skuList.join(","));
+
+  // Optional: clear cart after redirect (safer)
+  localStorage.setItem("checkoutInitiated", "true");
 
   window.location.href = `https://checkout.karrykraze.com?autocart=${skuParam}`;
 }
+
 
 function toggleCart() {
   document.getElementById("cartSidebar").classList.toggle("open");
