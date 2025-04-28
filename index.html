@@ -3907,6 +3907,17 @@ One size – Ideal for on-the-go essentials or statement styling"
     <script async src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
 
     <script>
+let productCatalog = {};
+
+// 1. Load product catalog from external JSON
+fetch("https://www.karrykraze.com/products.json")
+  .then(res => res.json())
+  .then(data => {
+    productCatalog = data;
+    renderCart(); // only call this AFTER productCatalog is ready
+  });
+
+// 2. Add item to savedCart and update localStorage
 function addItemToCart(sku) {
   let savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
   if (!savedCart.includes(sku)) {
@@ -3916,40 +3927,18 @@ function addItemToCart(sku) {
   } else {
     alert("Item already in cart.");
   }
+  renderCart(); // update cart sidebar live
+  toggleCart(); // open the cart after adding
 }
 
-function goToCheckout() {
-  const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
-  if (savedCart.length === 0) {
-    alert("No items in cart.");
-    return;
-  }
-
-  const skuParam = encodeURIComponent(savedCart.join(","));
-  // Redirect to your custom checkout
-  window.location.href = `https://checkout.karrykraze.com?autocart=${skuParam}`;
-}
-    </script>
-
-    <script>
-const productCatalog = {
-  Headwear_EarflapBeanie: {
-    name: "Ribbed Knit Earflap Beanie",
-    price: 49.97,
-    image: "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png"
-  },
-  // Add more SKUs here like:
-  // "Camera001": { name: "Canon DSLR", price: 429, image: "..." }
-};
-
-function toggleCart() {
-  document.getElementById("cartSidebar").classList.toggle("open");
-}
-
+// 3. Build custom side cart UI
 function renderCart() {
   const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
   const cartItems = document.getElementById("cartItems");
   const cartTotal = document.getElementById("cartTotal");
+
+  if (!cartItems || !cartTotal) return;
+
   cartItems.innerHTML = "";
   let total = 0;
 
@@ -3972,14 +3961,35 @@ function renderCart() {
   cartTotal.innerText = "Subtotal: $" + total.toFixed(2);
 }
 
+// 4. Remove from cart
 function removeFromCart(sku) {
   let savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
   savedCart = savedCart.filter(id => id !== sku);
   localStorage.setItem("savedCart", JSON.stringify(savedCart));
   renderCart();
 }
-window.onload = renderCart;
+
+// 5. Show/hide the cart drawer
+function toggleCart() {
+  const cartSidebar = document.getElementById("cartSidebar");
+  if (cartSidebar) {
+    cartSidebar.classList.toggle("open");
+  }
+}
+
+// 6. Go to checkout with all saved SKUs
+function goToCheckout() {
+  const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
+  if (savedCart.length === 0) {
+    alert("No items in cart.");
+    return;
+  }
+
+  const skuParam = encodeURIComponent(savedCart.join(","));
+  window.location.href = `https://checkout.karrykraze.com?autocart=${skuParam}`;
+}
     </script>
+
 
 
 
