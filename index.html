@@ -2080,11 +2080,27 @@
                                                     </div>
                                                 </a>
                                                 <div class="button-container">
-                                                    <button class="btn btn--text btn--black" onclick="addItemToCart('Headwear_EarflapBeanie')">Add to Cart</button>
-                                                    <button onclick="goToCheckout()">Checkout</button>
-                                                    <button onclick="localStorage.removeItem('savedCart'); renderCart(); alert('Cart cleared');">Clear Cart</button>
-                                                    <button class="open-cart-btn" onclick="toggleCart()">🛒</button>
+                                                    <!-- Add to Cart Button -->
+                                                    <button class="btn btn--text btn--black" onclick="addItemToCart('Headwear_EarflapBeanie')">
+                                                        Add to Cart
+                                                    </button>
+
+                                                    <!-- Go to Checkout (redirect with all SKUs) -->
+                                                    <button onclick="goToCheckout()">
+                                                        Checkout
+                                                    </button>
+
+                                                    <!-- Clear Local Cart and Refresh Display -->
+                                                    <button onclick="localStorage.removeItem('savedCart'); renderCart(); alert('Cart cleared');">
+                                                        Clear Cart
+                                                    </button>
+
+                                                    <!-- Open/Toggle Cart Sidebar -->
+                                                    <button class="open-cart-btn" onclick="toggleCart()">
+                                                        🛒
+                                                    </button>
                                                 </div>
+
 
                                                 <!-- Cart Sidebar -->
                                                 <div id="cartSidebar">
@@ -3910,7 +3926,7 @@ One size – Ideal for on-the-go essentials or statement styling"
 let productCatalog = {};
 
 // 1. Load product catalog from external JSON
-fetch("https://www.karrykraze.com/products.json")
+fetch("https://www.karrykraze.com/products/products.json")
   .then(res => res.json())
   .then(data => {
     productCatalog = data;
@@ -3937,14 +3953,18 @@ function renderCart() {
   const cartItems = document.getElementById("cartItems");
   const cartTotal = document.getElementById("cartTotal");
 
-  if (!cartItems || !cartTotal) return;
+  if (!cartItems || !cartTotal || !productCatalog) return;
 
   cartItems.innerHTML = "";
   let total = 0;
 
   savedCart.forEach(sku => {
     const item = productCatalog[sku];
+    console.log("Rendering SKU:", sku);
+    console.log("Item Data:", item);
+
     if (!item) return;
+
     total += item.price;
     cartItems.innerHTML += `
       <div class="cart-item">
@@ -3960,6 +3980,7 @@ function renderCart() {
 
   cartTotal.innerText = "Subtotal: $" + total.toFixed(2);
 }
+
 
 // 4. Remove from cart
 function removeFromCart(sku) {
