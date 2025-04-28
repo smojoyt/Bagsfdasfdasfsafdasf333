@@ -182,5 +182,22 @@ function toggleCart() {
       window.location.href = `https://checkout.karrykraze.com?autocart=${skuParam}`;
     }
     </script>
+
+    <script>// Toggle mobile menu
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleBtn = document.getElementById("mobile-menu-button");
+    const menu = document.getElementById("mobile-menu");
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
+    }
+
+    // Update cart icon count if available
+    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+    const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+    const countElem = document.getElementById("cart-count");
+    if (countElem) countElem.textContent = totalQty;
+  });</script>
 </body>
 </html>
