@@ -45,6 +45,16 @@
             </div>
         </div>
     </div>
+    <div id="sidecart-container"></div>
+
+    <script>
+  fetch("/page_inserts/sidecart.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("sidecart-container").innerHTML = html;
+    });
+    </script>
+
 
     <script>
     let productCatalog = {};
