@@ -26,12 +26,6 @@
         <a href="/contact" class="text-gray-600 hover:text-black">Contact</a>
       </div>
 
-      <!-- Cart Icon -->
-      <button onclick="toggleCart()" class="relative text-black">
-        🛒
-        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
-      </button>
-
       <!-- Mobile Menu Button -->
       <button id="mobile-menu-button" class="md:hidden text-gray-800 ml-4 focus:outline-none">
         ☰
@@ -47,25 +41,6 @@
     <a href="/contact" class="block py-2 text-gray-600 hover:text-black">Contact</a>
   </div>
 </nav>
-
-<script>
-  // Toggle mobile menu
-  document.addEventListener('DOMContentLoaded', function () {
-    const toggleBtn = document.getElementById("mobile-menu-button");
-    const menu = document.getElementById("mobile-menu");
-    if (toggleBtn) {
-      toggleBtn.addEventListener("click", () => {
-        menu.classList.toggle("hidden");
-      });
-    }
-
-    // Update cart icon count if available
-    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-    const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-    const countElem = document.getElementById("cart-count");
-    if (countElem) countElem.textContent = totalQty;
-  });
-</script>
 
 </body>
 </html>
