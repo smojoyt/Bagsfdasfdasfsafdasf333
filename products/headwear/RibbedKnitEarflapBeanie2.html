@@ -6,7 +6,7 @@
     <title>Ribbed Knit Earflap Beanie</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-white text-gray-800 pt-16">
 
     <div class="max-w-4xl mx-auto px-4 py-8">
         <!-- Back to Shop -->
@@ -182,7 +182,8 @@ function toggleCart() {
     }
     </script>
 
-    <script>// Toggle mobile menu
+    <script>
+// Toggle mobile menu
   document.addEventListener('DOMContentLoaded', function () {
     const toggleBtn = document.getElementById("mobile-menu-button");
     const menu = document.getElementById("mobile-menu");
@@ -198,5 +199,26 @@ function toggleCart() {
     const countElem = document.getElementById("cart-count");
     if (countElem) countElem.textContent = totalQty;
   });</script>
+
+    <script>
+  let lastScrollY = window.scrollY;
+  const navbar = document.getElementById('mainNavbar');
+
+  window.addEventListener('scroll', () => {
+    if (!navbar) return;
+
+    if (window.scrollY > lastScrollY && window.scrollY > 50) {
+      // Scrolling down
+      navbar.classList.remove('navbar-show');
+      navbar.classList.add('navbar-hide');
+    } else {
+      // Scrolling up
+      navbar.classList.remove('navbar-hide');
+      navbar.classList.add('navbar-show');
+    }
+    lastScrollY = window.scrollY;
+  });
+    </script>
+
 </body>
 </html>
