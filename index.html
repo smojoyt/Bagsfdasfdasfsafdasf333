@@ -2080,19 +2080,23 @@
                                                     </div>
                                                 </a>
                                                 <div class="button-container">
-
-
-
-                                                    <button class="btn btn--text btn--black" onclick="addItemToCart('Headwear_EarflapBeanie')">
-                                                        Add to Cart
-                                                    </button>
+                                                    <button class="btn btn--text btn--black" onclick="addItemToCart('Headwear_EarflapBeanie')">Add to Cart</button>
                                                     <button onclick="goToCheckout()">Checkout</button>
-                                                    <button onclick="localStorage.removeItem('savedCart'); alert('Cart cleared');">Clear Cart</button>
+                                                    <button onclick="localStorage.removeItem('savedCart'); renderCart(); alert('Cart cleared');">Clear Cart</button>
+                                                    <button class="open-cart-btn" onclick="toggleCart()">🛒</button>
+                                                </div>
 
-
-
-
-
+                                                <!-- Cart Sidebar -->
+                                                <div id="cartSidebar">
+                                                    <div class="cart-header">
+                                                        <h3>Your Cart</h3>
+                                                        <button onclick="toggleCart()">Close</button>
+                                                    </div>
+                                                    <div id="cartItems"></div>
+                                                    <div class="cart-footer">
+                                                        <div id="cartTotal"></div>
+                                                        <button onclick="goToCheckout()">Checkout</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -3926,6 +3930,57 @@ function goToCheckout() {
   window.location.href = `https://checkout.karrykraze.com?autocart=${skuParam}`;
 }
     </script>
+
+    <script>
+const productCatalog = {
+  Headwear_EarflapBeanie: {
+    name: "Ribbed Knit Earflap Beanie",
+    price: 49.97,
+    image: "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png"
+  },
+  // Add more SKUs here like:
+  // "Camera001": { name: "Canon DSLR", price: 429, image: "..." }
+};
+
+function toggleCart() {
+  document.getElementById("cartSidebar").classList.toggle("open");
+}
+
+function renderCart() {
+  const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
+  const cartItems = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+  cartItems.innerHTML = "";
+  let total = 0;
+
+  savedCart.forEach(sku => {
+    const item = productCatalog[sku];
+    if (!item) return;
+    total += item.price;
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.image}">
+        <div class="cart-item-details">
+          <strong>${item.name}</strong><br>
+          $${item.price.toFixed(2)}
+        </div>
+        <button onclick="removeFromCart('${sku}')">🗑️</button>
+      </div>
+    `;
+  });
+
+  cartTotal.innerText = "Subtotal: $" + total.toFixed(2);
+}
+
+function removeFromCart(sku) {
+  let savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
+  savedCart = savedCart.filter(id => id !== sku);
+  localStorage.setItem("savedCart", JSON.stringify(savedCart));
+  renderCart();
+}
+window.onload = renderCart;
+    </script>
+
 
 
 
