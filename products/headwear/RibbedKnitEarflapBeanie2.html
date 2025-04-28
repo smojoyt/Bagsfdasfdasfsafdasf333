@@ -63,7 +63,12 @@
   }
 
   // Load each component
-  includeHTML("sidecart-container", "/page_inserts/sidecart.html", renderCart); // renderCart after load
+  // Load each component
+includeHTML("sidecart-container", "/page_inserts/sidecart.html", () => {
+  // Only call renderCart if #cartItems exists
+  if (document.getElementById("cartItems")) renderCart();
+});
+
   includeHTML("navbar-container", "/page_inserts/uni_navbar.html");
   includeHTML("navmobile-container", "/page_inserts/uni_navmobile.html");
   includeHTML("cartui-container", "/page_inserts/uni_cart.html");
@@ -105,20 +110,23 @@
     }
 
     function addProductToCart() {
-      const selectedVariant = document.getElementById("variant").value;
-      const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-      const existingIndex = cart.findIndex(item => item.sku === productSKU && item.variant === selectedVariant);
+  if (!activeProduct) return;
 
-      if (existingIndex > -1) {
-        cart[existingIndex].qty += 1;
-      } else {
-        cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
-      }
+  const selectedVariant = document.getElementById("variant").value;
+  const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+  const existingIndex = cart.findIndex(item => item.sku === productSKU && item.variant === selectedVariant);
 
-      localStorage.setItem("savedCart", JSON.stringify(cart));
-      renderCart();
-      toggleCart();
-    }
+  if (existingIndex > -1) {
+    cart[existingIndex].qty += 1;
+  } else {
+    cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
+  }
+
+  localStorage.setItem("savedCart", JSON.stringify(cart));
+  renderCart();
+  toggleCart();
+}
+
 
     function renderCart() {
       const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
@@ -153,9 +161,12 @@
       cartTotal.innerText = "Subtotal: $" + total.toFixed(2);
     }
 
-    function toggleCart() {
-      document.getElementById("cartSidebar").classList.toggle("translate-x-full");
-    }
+function toggleCart() {
+  const cartSidebar = document.getElementById("cartSidebar");
+  if (!cartSidebar) return;
+  cartSidebar.classList.toggle("translate-x-full");
+}
+
 
     function removeFromCart(sku, variant) {
       let savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
