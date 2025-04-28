@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ribbed Knit Earflap Beanie</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
-    <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
 </head>
 <body class="bg-white text-gray-800">
 
@@ -48,9 +46,6 @@
         </div>
     </div>
 
-    <!-- Snipcart root -->
-    <div hidden id="snipcart" data-api-key="YOUR_SNIPCART_API_KEY"></div>
-
     <script>
     let productCatalog = {};
     let activeProduct = null;
@@ -86,20 +81,18 @@
 
     function addProductToCart() {
       const selectedVariant = document.getElementById("variant").value;
-      const btn = document.createElement("button");
-      btn.className = "snipcart-add-item";
-      btn.style.display = "none";
-      btn.setAttribute("data-item-id", productSKU);
-      btn.setAttribute("data-item-name", activeProduct.name);
-      btn.setAttribute("data-item-price", activeProduct.price);
-      btn.setAttribute("data-item-url", window.location.href);
-      btn.setAttribute("data-item-description", activeProduct.description);
-      btn.setAttribute("data-item-image", activeProduct.image);
-      btn.setAttribute("data-item-custom1-name", activeProduct.custom1Name);
-      btn.setAttribute("data-item-custom1-options", activeProduct.custom1Options);
-      btn.setAttribute("data-item-custom1-value", selectedVariant);
-      document.body.appendChild(btn);
-      btn.click();
+      const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+
+      const existingIndex = cart.findIndex(item => item.sku === productSKU && item.variant === selectedVariant);
+
+      if (existingIndex > -1) {
+        cart[existingIndex].qty += 1;
+      } else {
+        cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
+      }
+
+      localStorage.setItem("savedCart", JSON.stringify(cart));
+      alert("Item added to cart!");
     }
     </script>
 
