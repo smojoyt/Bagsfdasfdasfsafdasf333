@@ -4,7 +4,16 @@
 		"price": 49.97,
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png",
 		"url": "/products/headwear/RibbedKnitEarflapBeanie",
-		"description": "Acrylic Blend · Oversized Earflap · Signature Patch",
+		"descriptionList": [
+			"Ribbed Knit Acrylic Blend",
+			"Oversized earflap design",
+			"Signature “LOVER BOY” front patch",
+			"One size fits most",
+			"Lightweight & breathable",
+			"Color: Jet Black | Apricot",
+			"Hand wash cold, dry flat"
+		],
+
 		"custom1Name": "Color",
 		"custom1Options": "Black | Apricot"
 	}

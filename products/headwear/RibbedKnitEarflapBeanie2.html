@@ -90,20 +90,22 @@
     }
 
     function addProductToCart() {
-      const selectedVariant = document.getElementById("variant").value;
-      const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+  const selectedVariant = document.getElementById("variant").value;
+  const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
-      const existingIndex = cart.findIndex(item => item.sku === productSKU && item.variant === selectedVariant);
+  const existingIndex = cart.findIndex(item => item.sku === productSKU && item.variant === selectedVariant);
 
-      if (existingIndex > -1) {
-        cart[existingIndex].qty += 1;
-      } else {
-        cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
-      }
+  if (existingIndex > -1) {
+    cart[existingIndex].qty += 1;
+  } else {
+    cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
+  }
 
-      localStorage.setItem("savedCart", JSON.stringify(cart));
-      alert("Item added to cart!");
-    }
+  localStorage.setItem("savedCart", JSON.stringify(cart));
+  renderCart(); // update sidebar contents
+  toggleCart(); // open the sidebar
+}
+
     </script>
 
 </body>
