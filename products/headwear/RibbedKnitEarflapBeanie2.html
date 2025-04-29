@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ribbed Knit Earflap Beanie</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -15,17 +15,34 @@
             transform: translateY(0);
             transition: transform 0.3s ease;
         }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.5s, bottom 0.5s;
+            z-index: 9999;
+        }
+
+            .toast.show {
+                opacity: 1;
+                bottom: 50px;
+            }
     </style>
 </head>
 <body class="bg-white text-gray-800 pt-16">
 
     <div class="max-w-4xl mx-auto px-4 py-8">
-        <!-- Back to Shop -->
         <a href="/" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to Shop</a>
 
-        <!-- Product Container -->
         <div class="flex flex-col md:flex-row gap-6">
-            <!-- Images -->
             <div class="flex-1">
                 <img id="mainImage" src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png" alt="Ribbed Knit Earflap Beanie" class="w-full rounded-xl border" />
                 <div class="flex gap-2 mt-4">
@@ -34,13 +51,11 @@
                 </div>
             </div>
 
-            <!-- Info -->
             <div class="flex-1">
                 <h1 id="product-name" class="text-2xl font-bold mb-2">Loading...</h1>
                 <p id="product-description" class="mb-4 text-sm"></p>
                 <p class="text-lg font-semibold">$<span id="product-price">0.00</span></p>
 
-                <!-- Variant -->
                 <div class="mt-4">
                     <label for="variant" class="block text-sm font-medium text-gray-700">Choose a Color</label>
                     <select id="variant" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
@@ -48,7 +63,6 @@
                     </select>
                 </div>
 
-                <!-- Add to Cart -->
                 <button onclick="addProductToCart()" class="mt-6 bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition">
                     Add to Cart
                 </button>
@@ -56,7 +70,6 @@
         </div>
     </div>
 
-    <!-- Dynamic HTML Inserts -->
     <div id="sidecart-container"></div>
     <div id="navbar-container"></div>
     <div id="unicart-container"></div>
@@ -74,7 +87,6 @@
     includeHTML("sidecart-container", "/page_inserts/sidecart.html", () => {
       if (document.getElementById("cartItems")) renderCart();
     });
-
     includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
     includeHTML("unicart-container", "/page_inserts/uni_cart.html");
 
@@ -82,9 +94,7 @@
       const toggleBtn = document.getElementById("mobile-menu-button");
       const menu = document.getElementById("mobile-menu");
       if (toggleBtn && menu) {
-        toggleBtn.addEventListener("click", () => {
-          menu.classList.toggle("hidden");
-        });
+        toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
       }
 
       const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
@@ -97,7 +107,6 @@
 
       window.addEventListener('scroll', () => {
         if (!navbar) return;
-
         if (window.scrollY > lastScrollY && window.scrollY > 50) {
           navbar.classList.remove('navbar-show');
           navbar.classList.add('navbar-hide');
@@ -107,6 +116,19 @@
         }
         lastScrollY = window.scrollY;
       });
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerText = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => toast.classList.add('show'), 10);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => document.body.removeChild(toast), 500);
+      }, 3000);
     }
     </script>
 
@@ -144,19 +166,21 @@
     }
 
     function addProductToCart() {
-  if (!activeProduct) return;
+      if (!activeProduct) return;
+      const selectedVariant = document.getElementById("variant").value;
+      const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+      const existingIndex = cart.findIndex(item => item.sku === productSKU && item.variant === selectedVariant);
 
-  const selectedVariant = document.getElementById("variant").value;
-  const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+      if (existingIndex > -1) {
+        showToast("Item already in cart!");
+        return;
+      }
 
-  // Always add fresh, no quantity stacking
-  cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
-
-  localStorage.setItem("savedCart", JSON.stringify(cart));
-  renderCart();
-  toggleCart();
-}
-
+      cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
+      localStorage.setItem("savedCart", JSON.stringify(cart));
+      renderCart();
+      toggleCart();
+    }
 
     function renderCart() {
       const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
@@ -164,7 +188,6 @@
       const cartTotal = document.getElementById("cartTotal");
 
       if (!cartItems || !cartTotal || !productCatalog) return;
-
       cartItems.innerHTML = "";
       let total = 0;
 
@@ -181,7 +204,6 @@
             <div class="flex-1 text-sm">
               <strong>${data.name}</strong><br>
               Variant: ${item.variant}<br>
-              Qty: ${item.qty} x $${data.price.toFixed(2)}<br>
               <button onclick="removeFromCart('${item.sku}', '${item.variant}')" class="text-red-500 mt-1">Remove</button>
             </div>
           </div>
@@ -206,24 +228,18 @@
 
     function goToCheckout() {
       const savedCart = JSON.parse(localStorage.getItem('savedCart')) || [];
-
-const skuList = savedCart.map(item => {
-  let sku = item.sku;
-  if (item.variant) {
-    sku += `:${item.variant}`; // append variant if it exists
-  }
-  if (item.qty && item.qty > 1) {
-    return Array(item.qty).fill(sku).join(","); // duplicate SKU for qty
-  } else {
-    return sku;
-  }
-});
-
-const finalSkuString = encodeURIComponent(skuList.join(","));
-const checkoutUrl = `https://checkout.karrykraze.com/?autocart=${finalSkuString}`;
-
-console.log("✅ Final Checkout URL:", checkoutUrl);
-
+      const skuList = savedCart.map(item => {
+        let sku = item.sku;
+        if (item.variant) sku += `:${item.variant}`;
+        if (item.qty && item.qty > 1) {
+          return Array(item.qty).fill(sku).join(",");
+        } else {
+          return sku;
+        }
+      });
+      const finalSkuString = encodeURIComponent(skuList.join(","));
+      const checkoutUrl = `https://checkout.karrykraze.com/?autocart=${finalSkuString}`;
+      console.log("✅ Final Checkout URL:", checkoutUrl);
     }
     </script>
 </body>
