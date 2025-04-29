@@ -86,7 +86,9 @@
     <div id="navbar-container"></div>
     <div id="unicart-container"></div>
 
-    <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"></div>
+    <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"
+         data-config-modal-style="side"
+         ></div>
 
     <script>
     const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
@@ -274,6 +276,9 @@ function initMoreItemsCarousel() {
         lastScrollY = window.scrollY;
       });
     }
+
+
+
     </script>
 </body>
 </html>
