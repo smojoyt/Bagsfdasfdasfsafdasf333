@@ -144,22 +144,19 @@
     }
 
     function addProductToCart() {
-      if (!activeProduct) return;
+  if (!activeProduct) return;
 
-      const selectedVariant = document.getElementById("variant").value;
-      const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-      const existingIndex = cart.findIndex(item => item.sku === productSKU && item.variant === selectedVariant);
+  const selectedVariant = document.getElementById("variant").value;
+  const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
-      if (existingIndex > -1) {
-        cart[existingIndex].qty += 1;
-      } else {
-        cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
-      }
+  // Always add fresh, no quantity stacking
+  cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
 
-      localStorage.setItem("savedCart", JSON.stringify(cart));
-      renderCart();
-      toggleCart();
-    }
+  localStorage.setItem("savedCart", JSON.stringify(cart));
+  renderCart();
+  toggleCart();
+}
+
 
     function renderCart() {
       const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
