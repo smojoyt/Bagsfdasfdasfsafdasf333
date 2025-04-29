@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ribbed Knit Earflap Beanie</title>
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
+    <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .navbar-hide {
@@ -15,33 +17,11 @@
             transform: translateY(0);
             transition: transform 0.3s ease;
         }
-
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.5s, bottom 0.5s;
-            z-index: 9999;
-        }
-
-            .toast.show {
-                opacity: 1;
-                bottom: 50px;
-            }
     </style>
 </head>
 <body class="bg-white text-gray-800 pt-16">
-
     <div class="max-w-4xl mx-auto px-4 py-8">
         <a href="/" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to Shop</a>
-
         <div class="flex flex-col md:flex-row gap-6">
             <div class="flex-1">
                 <img id="mainImage" src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png" alt="Ribbed Knit Earflap Beanie" class="w-full rounded-xl border" />
@@ -50,197 +30,63 @@
                     <img onclick="swapImage(this.src)" src="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_02.jpg" class="w-20 h-20 object-cover rounded-lg cursor-pointer border" />
                 </div>
             </div>
-
             <div class="flex-1">
                 <h1 id="product-name" class="text-2xl font-bold mb-2">Loading...</h1>
                 <p id="product-description" class="mb-4 text-sm"></p>
                 <p class="text-lg font-semibold">$<span id="product-price">0.00</span></p>
-
                 <div class="mt-4">
-                    <label for="variant" class="block text-sm font-medium text-gray-700">Choose a Color</label>
-                    <select id="variant" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                        <option>Loading...</option>
-                    </select>
+                    <label for="variant-select" class="block text-sm font-medium text-gray-700">Choose a Color</label>
+                    <select id="variant-select" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></select>
                 </div>
-
-                <button onclick="addProductToCart()" class="mt-6 bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition">
+                <button id="add-to-cart-btn"
+                        class="snipcart-add-item bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition mt-6"
+                        data-item-id="Headwear_EarflapBeanie"
+                        data-item-name="Ribbed Knit Earflap Beanie"
+                        data-item-price="49.97"
+                        data-item-url="/products/headwear/RibbedKnitEarflapBeanie"
+                        data-item-description="Ribbed Knit Acrylic Blend. Oversized earflap design. Signature patch. Lightweight & breathable."
+                        data-item-image="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png"
+                        data-item-custom1-name="Color"
+                        data-item-custom1-options="Black|Apricot"
+                        data-item-custom1-value="Black">
                     Add to Cart
                 </button>
             </div>
         </div>
     </div>
+    <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"></div>
 
-    <div id="sidecart-container"></div>
-    <div id="navbar-container"></div>
-    <div id="unicart-container"></div>
-
-    <script>
-    function includeHTML(id, filePath, callback = null) {
-      fetch(filePath)
-        .then(res => res.text())
-        .then(html => {
-          document.getElementById(id).innerHTML = html;
-          if (callback) callback();
-        });
+    <script>function swapImage(src) {
+      document.getElementById("mainImage").src = src;
     }
 
-    includeHTML("sidecart-container", "/page_inserts/sidecart.html", () => {
-      if (document.getElementById("cartItems")) renderCart();
-    });
-    includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
-    includeHTML("unicart-container", "/page_inserts/uni_cart.html");
-
-    function initNavbar() {
-      const toggleBtn = document.getElementById("mobile-menu-button");
-      const menu = document.getElementById("mobile-menu");
-      if (toggleBtn && menu) {
-        toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
-      }
-
-      const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-      const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-      const countElem = document.getElementById("cart-count");
-      if (countElem) countElem.textContent = totalQty;
-
-      let lastScrollY = window.scrollY;
-      const navbar = document.getElementById('mainNavbar');
-
-      window.addEventListener('scroll', () => {
-        if (!navbar) return;
-        if (window.scrollY > lastScrollY && window.scrollY > 50) {
-          navbar.classList.remove('navbar-show');
-          navbar.classList.add('navbar-hide');
-        } else {
-          navbar.classList.remove('navbar-hide');
-          navbar.classList.add('navbar-show');
-        }
-        lastScrollY = window.scrollY;
-      });
+    function updateVariant(select) {
+      const button = document.getElementById('add-to-cart-btn');
+      button.setAttribute('data-item-custom1-value', select.value);
     }
-
-    function showToast(message) {
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.innerText = message;
-      document.body.appendChild(toast);
-
-      setTimeout(() => toast.classList.add('show'), 10);
-      setTimeout(() => {
-        toast.classList.remove('show');
-        setTimeout(() => document.body.removeChild(toast), 500);
-      }, 3000);
-    }
-    </script>
-
-    <script>
-    let productCatalog = {};
-    let activeProduct = null;
-    const productSKU = "Headwear_EarflapBeanie";
 
     fetch("https://www.karrykraze.com/products/products.json")
       .then(res => res.json())
       .then(data => {
-        productCatalog = data;
-        activeProduct = productCatalog[productSKU];
-        renderProductDetails();
-      });
+        const activeProduct = data["Headwear_EarflapBeanie"];
+        if (!activeProduct) return;
 
-    function renderProductDetails() {
-      if (!activeProduct) return;
-      document.getElementById("product-name").textContent = activeProduct.name;
-      document.getElementById("product-description").textContent = activeProduct.description;
-      document.getElementById("product-price").textContent = activeProduct.price.toFixed(2);
+        document.getElementById("product-name").textContent = activeProduct.name;
+        document.getElementById("product-description").textContent = activeProduct.description;
+        document.getElementById("product-price").textContent = activeProduct.price.toFixed(2);
 
-      const variantSelect = document.getElementById("variant");
-      variantSelect.innerHTML = "";
-      activeProduct.custom1Options.split("|").map(opt => opt.trim()).forEach(option => {
-        const el = document.createElement("option");
-        el.value = option;
-        el.textContent = option;
-        variantSelect.appendChild(el);
-      });
-    }
+        const variantSelect = document.getElementById("variant-select");
+        variantSelect.innerHTML = "";
+        activeProduct.custom1Options.split("|").map(opt => opt.trim()).forEach(option => {
+          const el = document.createElement("option");
+          el.value = option;
+          el.textContent = option;
+          variantSelect.appendChild(el);
+        });
 
-    function swapImage(src) {
-      document.getElementById("mainImage").src = src;
-    }
-
-    function addProductToCart() {
-      if (!activeProduct) return;
-      const selectedVariant = document.getElementById("variant").value;
-      const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-      const existingIndex = cart.findIndex(item => item.sku === productSKU && item.variant === selectedVariant);
-
-      if (existingIndex > -1) {
-        showToast("Item already in cart!");
-        return;
-      }
-
-      cart.push({ sku: productSKU, variant: selectedVariant, qty: 1 });
-      localStorage.setItem("savedCart", JSON.stringify(cart));
-      renderCart();
-      toggleCart();
-    }
-
-    function renderCart() {
-      const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
-      const cartItems = document.getElementById("cartItems");
-      const cartTotal = document.getElementById("cartTotal");
-
-      if (!cartItems || !cartTotal || !productCatalog) return;
-      cartItems.innerHTML = "";
-      let total = 0;
-
-      savedCart.forEach(item => {
-        const data = productCatalog[item.sku];
-        if (!data) return;
-
-        const lineTotal = data.price * item.qty;
-        total += lineTotal;
-
-        cartItems.innerHTML += `
-          <div class="flex items-start gap-3">
-            <img src="${data.image}" alt="${data.name}" class="w-16 h-16 rounded border" />
-            <div class="flex-1 text-sm">
-              <strong>${data.name}</strong><br>
-              Variant: ${item.variant}<br>
-              <button onclick="removeFromCart('${item.sku}', '${item.variant}')" class="text-red-500 mt-1">Remove</button>
-            </div>
-          </div>
-        `;
-      });
-
-      cartTotal.innerText = "Subtotal: $" + total.toFixed(2);
-    }
-
-    function toggleCart() {
-      const cartSidebar = document.getElementById("cartSidebar");
-      if (!cartSidebar) return;
-      cartSidebar.classList.toggle("translate-x-full");
-    }
-
-    function removeFromCart(sku, variant) {
-      let savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
-      savedCart = savedCart.filter(item => !(item.sku === sku && item.variant === variant));
-      localStorage.setItem("savedCart", JSON.stringify(savedCart));
-      renderCart();
-    }
-
-    function goToCheckout() {
-      const savedCart = JSON.parse(localStorage.getItem('savedCart')) || [];
-      const skuList = savedCart.map(item => {
-        let sku = item.sku;
-        if (item.variant) sku += `:${item.variant}`;
-        if (item.qty && item.qty > 1) {
-          return Array(item.qty).fill(sku).join(",");
-        } else {
-          return sku;
-        }
-      });
-      const finalSkuString = encodeURIComponent(skuList.join(","));
-      const checkoutUrl = `https://checkout.karrykraze.com/?autocart=${finalSkuString}`;
-      console.log("✅ Final Checkout URL:", checkoutUrl);
-    }
-    </script>
+        variantSelect.addEventListener("change", function() {
+          updateVariant(this);
+        });
+      });</script>
 </body>
 </html>
