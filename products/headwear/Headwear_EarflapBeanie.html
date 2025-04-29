@@ -80,9 +80,8 @@
         </div>
     </div>
 
-    <div id="sidecart-container"></div>
     <div id="navbar-container"></div>
-    <div id="unicart-container"></div>
+    <div id="pp_moreitems"></div>
 
     <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"></div>
 
@@ -173,11 +172,8 @@
         });
     }
 
-    includeHTML("sidecart-container", "/page_inserts/sidecart.html", () => {
-      if (document.getElementById("cartItems")) renderCart();
-    });
     includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
-    includeHTML("unicart-container", "/page_inserts/uni_cart.html");
+    includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html");
 
     function initNavbar() {
       const toggleBtn = document.getElementById("mobile-menu-button");
