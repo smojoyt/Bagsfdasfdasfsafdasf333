@@ -180,7 +180,26 @@
 
     includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
     includeHTML("unicart-container", "/page_inserts/uni_cart.html");
-    includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html");
+    // Updated productpage_moreitems import
+includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+
+function initMoreItemsCarousel() {
+  const carousel = document.querySelector('.carousel');
+  if (carousel) {
+    new Flickity(carousel, {
+      cellAlign: 'left',
+      contain: true,
+      groupCells: 1,
+      freeScroll: false,
+      wrapAround: false,
+      prevNextButtons: false,
+      pageDots: false,
+      dragThreshold: 5
+    });
+  }
+}
+
+
 
     function initNavbar() {
       const toggleBtn = document.getElementById("mobile-menu-button");
