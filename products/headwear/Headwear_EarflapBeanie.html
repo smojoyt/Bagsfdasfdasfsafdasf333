@@ -86,11 +86,7 @@
     <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"></div>
 
     <script>
-    function getSkuFromUrl() {
-      const path = window.location.pathname;
-      const filename = path.substring(path.lastIndexOf('/') + 1);
-      return "Headwear_" + filename.replace(/[^a-zA-Z0-9]/g, '');
-    }
+    const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
 
     function swapImage(src) {
       document.getElementById("mainImage").src = src;
@@ -104,10 +100,9 @@
     fetch("https://www.karrykraze.com/products/products.json")
       .then(res => res.json())
       .then(data => {
-        const sku = getSkuFromUrl();
-        const activeProduct = data[sku];
+        const activeProduct = data[skuFromURL];
         if (!activeProduct) {
-          console.error(`Product not found for SKU: ${sku}`);
+          console.error(`Product not found for SKU: ${skuFromURL}`);
           return;
         }
 
@@ -121,7 +116,7 @@
         }
 
         const addToCartBtn = document.getElementById("add-to-cart-btn");
-        addToCartBtn.dataset.itemId = sku;
+        addToCartBtn.dataset.itemId = skuFromURL;
         addToCartBtn.dataset.itemName = activeProduct.name;
         addToCartBtn.dataset.itemPrice = activeProduct.price;
         addToCartBtn.dataset.itemUrl = window.location.pathname;
