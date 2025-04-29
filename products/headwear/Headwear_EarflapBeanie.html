@@ -9,8 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
     <style>
-        <style >
         /* All custom styles stay inside Snipcart area only */
         .snipcart .snipcart-cart__content {
             background: #ffffff !important;
@@ -67,6 +67,61 @@
 
         .snipcart .snipcart-item-line {
             border-bottom: 1px solid #f3f4f6 !important;
+        }
+
+
+        /* Improve footer padding and layout */
+        .snipcart .snipcart-cart__footer {
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
+            background: transparent !important;
+            border-top: 1px solid #e5e7eb !important;
+            text-align: center !important;
+        }
+
+        /* Add spacing between shipping statement and discounts */
+        .snipcart .snipcart-cart__footer .snipcart-cart__footer-discounts {
+            margin-top: 1rem !important;
+        }
+
+        /* Style the subtotal and taxes info cleaner */
+        .snipcart .snipcart-cart__footer .snipcart-cart__totals {
+            margin-top: 1rem !important;
+            font-size: 0.95rem !important;
+            color: #374151 !important;
+            text-align: left !important;
+        }
+
+        /* Style the total amount */
+        .snipcart .snipcart-cart__footer .snipcart-cart__total {
+            font-size: 1.2rem !important;
+            font-weight: 600 !important;
+            color: #111827 !important;
+        }
+
+        /* Style the Checkout button like your Add to Cart button */
+        .snipcart .snipcart-cart__footer .snipcart-button-primary {
+            background: #111827 !important;
+            color: white !important;
+            border-radius: 6px !important;
+            font-size: 1rem !important;
+            font-weight: 500 !important;
+            padding: 0.75rem 1.5rem !important;
+            margin-top: 1.5rem !important;
+            transition: background 0.3s;
+        }
+
+            .snipcart .snipcart-cart__footer .snipcart-button-primary:hover {
+                background: #000000 !important;
+            }
+
+        /* Tidy the "View detailed cart" link */
+        .snipcart .snipcart-cart__footer a {
+            font-size: 0.85rem !important;
+            color: #6b7280 !important;
+            text-decoration: underline !important;
+            margin-top: 0.75rem !important;
+            display: inline-block !important;
         }
 
 
