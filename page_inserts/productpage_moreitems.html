@@ -1,81 +1,85 @@
 ﻿<meta charset="UTF-8">
 
-
-
-<div class="carousel-wrapper">
-    <div id="loading-bar-container">
-        <div id="loading-bar"></div>
+<div class="carousel-wrapper relative overflow-hidden">
+    <div id="loading-bar-container" class="absolute top-0 left-0 w-full h-1 bg-gray-200">
+        <div id="loading-bar" class="h-full bg-black transition-all"></div>
     </div>
-    <div class="fade-left"></div>
-    <div class="fade-right"></div>
+
+    <div class="fade-left absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white z-10"></div>
+    <div class="fade-right absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white z-10"></div>
 
     <div class="carousel js-flickity"
          data-flickity='{
-  "cellAlign": "left",
-  "contain": true,
-  "groupCells": 1,
-  "freeScroll": false,
-  "wrapAround": false,
-  "prevNextButtons": false,
-  "pageDots": false,
-  "dragThreshold": 5
-}'>
+            "cellAlign": "left",
+            "contain": true,
+            "groupCells": 1,
+            "freeScroll": false,
+            "wrapAround": false,
+            "prevNextButtons": false,
+            "pageDots": false,
+            "dragThreshold": 5
+         }'>
 
         <!-- PRODUCTS -->
-        <div class="carousel-cell">
-            <a href="/products/bags/Bag_BitesIsWeird" style="text-decoration: none; color: inherit;">
-                <div class="product-image-wrapper">
-                    <img class="main-img" src="/imgs/Products/Pouches/0010_BitchesisWeird/BMain.png" alt="Main 1">
-                    <img class="hover-img" src="/imgs/Products/Pouches/0010_BitchesisWeird/01_01.jpg" alt="Hover 1">
+        <div class="carousel-cell px-2">
+            <a href="/products/bags/Bag_BitesIsWeird" class="block text-gray-800 hover:text-black transition-all">
+                <div class="relative overflow-hidden rounded-lg border shadow-sm group">
+                    <img class="main-img w-full object-cover rounded-t-lg transition-opacity duration-300 group-hover:opacity-0"
+                         src="/imgs/Products/Pouches/0010_BitchesisWeird/BMain.png" alt="Main 1">
+                    <img class="hover-img w-full object-cover absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                         src="/imgs/Products/Pouches/0010_BitchesisWeird/01_01.jpg" alt="Hover 1">
                 </div>
-                <div class="product-info">
-                    <div class="mtltitle">Mini Tote &ndash; &lsquo;B!TCH#S IS WEIRD&rsquo;r</div>
-                    <div class="mtlprice">$39.99</div>
-                </div>
-            </a>
-        </div>
-
-
-        <div class="carousel-cell">
-            <a href="/products/bags/Bag_MiniHeart" style="text-decoration: none; color: inherit;">
-                <div class="product-image-wrapper">
-                    <img class="main-img" src="/imgs/Products/Pouches/0011_HeartBag/HEMain.png" alt="Main 1">
-                    <img class="hover-img" src="/imgs/Products/Pouches/0011_HeartBag/00_01.jpg" alt="Hover 1">
-                </div>
-                <div class="product-info">
-                    <div class="mtltitle">Mini Tote &ndash; &lsquo; Heart Embossed </div>
-                    <div class="mtlprice">$34.99</div>
-                </div>
-            </a>
-        </div>
-        <div class="carousel-cell">
-            <a href="/products/bags/bag_TheBucket" style="text-decoration: none; color: inherit;">
-                <div class="product-image-wrapper">
-                    <img class="main-img" src="/imgs/Products/Pouches/001_TheBucket/TBMain.png" alt="Main 1">
-                    <img class="hover-img" src="/imgs/Products/Pouches/001_TheBucket/03_04.jpg" alt="Hover 1">
-                </div>
-                <div class="product-info">
-                    <div class="mtltitle">The Bucket </div>
-                    <div class="mtlprice">$24.99</div>
-                </div>
-            </a>
-        </div>
-        <div class="carousel-cell">
-            <a href="/products/headwear/RibbedKnitEarflapBeanie" style="text-decoration: none; color: inherit;">
-                <div class="product-image-wrapper">
-                    <img class="main-img" src="/imgs/Products/Hats/BunnyEarsRat/01_03.png" alt="Main 1">
-                    <img class="hover-img" src="/imgs/Products/Hats/BunnyEarsRat/01_02.jpg" alt="Hover 1">
-                </div>
-                <div class="product-info">
-                    <div class="mtltitle">Ribbed Knit Earflap Beanie </div>
-                    <div class="mtlprice">$49.97</div>
+                <div class="text-center mt-3">
+                    <div class="text-sm font-semibold truncate">Mini Tote – ‘B!TCH#S IS WEIRD’</div>
+                    <div class="text-sm text-gray-600">$39.99</div>
                 </div>
             </a>
         </div>
 
+        <div class="carousel-cell px-2">
+            <a href="/products/bags/Bag_MiniHeart" class="block text-gray-800 hover:text-black transition-all">
+                <div class="relative overflow-hidden rounded-lg border shadow-sm group">
+                    <img class="main-img w-full object-cover rounded-t-lg transition-opacity duration-300 group-hover:opacity-0"
+                         src="/imgs/Products/Pouches/0011_HeartBag/HEMain.png" alt="Main 1">
+                    <img class="hover-img w-full object-cover absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                         src="/imgs/Products/Pouches/0011_HeartBag/00_01.jpg" alt="Hover 1">
+                </div>
+                <div class="text-center mt-3">
+                    <div class="text-sm font-semibold truncate">Mini Tote – Heart Embossed</div>
+                    <div class="text-sm text-gray-600">$34.99</div>
+                </div>
+            </a>
+        </div>
 
+        <div class="carousel-cell px-2">
+            <a href="/products/bags/bag_TheBucket" class="block text-gray-800 hover:text-black transition-all">
+                <div class="relative overflow-hidden rounded-lg border shadow-sm group">
+                    <img class="main-img w-full object-cover rounded-t-lg transition-opacity duration-300 group-hover:opacity-0"
+                         src="/imgs/Products/Pouches/001_TheBucket/TBMain.png" alt="Main 1">
+                    <img class="hover-img w-full object-cover absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                         src="/imgs/Products/Pouches/001_TheBucket/03_04.jpg" alt="Hover 1">
+                </div>
+                <div class="text-center mt-3">
+                    <div class="text-sm font-semibold truncate">The Bucket</div>
+                    <div class="text-sm text-gray-600">$24.99</div>
+                </div>
+            </a>
+        </div>
 
-
+        <div class="carousel-cell px-2">
+            <a href="/products/headwear/RibbedKnitEarflapBeanie" class="block text-gray-800 hover:text-black transition-all">
+                <div class="relative overflow-hidden rounded-lg border shadow-sm group">
+                    <img class="main-img w-full object-cover rounded-t-lg transition-opacity duration-300 group-hover:opacity-0"
+                         src="/imgs/Products/Hats/BunnyEarsRat/01_03.png" alt="Main 1">
+                    <img class="hover-img w-full object-cover absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                         src="/imgs/Products/Hats/BunnyEarsRat/01_02.jpg" alt="Hover 1">
+                </div>
+                <div class="text-center mt-3">
+                    <div class="text-sm font-semibold truncate">Ribbed Knit Earflap Beanie</div>
+                    <div class="text-sm text-gray-600">$49.97</div>
+                </div>
+            </a>
+        </div>
 
     </div>
 </div>
