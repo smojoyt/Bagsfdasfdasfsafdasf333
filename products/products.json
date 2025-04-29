@@ -13,8 +13,11 @@
 			"Color: Jet Black | Apricot",
 			"Hand wash cold, dry flat"
 		],
-
 		"custom1Name": "Color",
-		"custom1Options": "Black | Apricot"
+		"custom1Options": "Black | Apricot",
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png",
+			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_02.jpg"
+		]
 	}
 }
