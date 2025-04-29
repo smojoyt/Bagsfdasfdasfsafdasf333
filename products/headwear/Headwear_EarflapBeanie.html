@@ -82,7 +82,7 @@
         </div>
     </div>
 
-    <div id="sidecart-container"></div>
+    <div id="pp_moreitems"></div>
     <div id="navbar-container"></div>
     <div id="unicart-container"></div>
 
@@ -177,11 +177,10 @@
         });
     }
 
-    includeHTML("sidecart-container", "/page_inserts/sidecart.html", () => {
-      if (document.getElementById("cartItems")) renderCart();
-    });
+
     includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
     includeHTML("unicart-container", "/page_inserts/uni_cart.html");
+    includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html");
 
     function initNavbar() {
       const toggleBtn = document.getElementById("mobile-menu-button");
