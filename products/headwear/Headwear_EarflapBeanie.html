@@ -186,18 +186,47 @@ includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMore
 function initMoreItemsCarousel() {
   const carousel = document.querySelector('.carousel');
   if (carousel) {
-    new Flickity(carousel, {
-      cellAlign: 'left',
-      contain: true,
-      groupCells: 1,
-      freeScroll: false,
-      wrapAround: false,
-      prevNextButtons: false,
-      pageDots: false,
-      dragThreshold: 5
+    const images = carousel.querySelectorAll('img');
+    let loadedImages = 0;
+
+    images.forEach(img => {
+      if (img.complete) {
+        loadedImages++;
+      } else {
+        img.addEventListener('load', () => {
+          loadedImages++;
+          if (loadedImages === images.length) {
+            initializeFlickity(carousel);
+          }
+        });
+        img.addEventListener('error', () => {
+          loadedImages++;
+          if (loadedImages === images.length) {
+            initializeFlickity(carousel);
+          }
+        });
+      }
     });
+
+    if (loadedImages === images.length) {
+      initializeFlickity(carousel);
+    }
   }
 }
+
+function initializeFlickity(carousel) {
+  new Flickity(carousel, {
+    cellAlign: 'left',
+    contain: true,
+    groupCells: 1,
+    freeScroll: false,
+    wrapAround: false,
+    prevNextButtons: false,
+    pageDots: false,
+    dragThreshold: 5
+  });
+}
+
 
 
 
