@@ -21,5 +21,28 @@
 			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_02_01.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_03_01.jpg"
 		]
+	},
+
+	"Bag_MiniHeart": {
+		"name": "Mini Tote - Heart Embossed",
+		"price": 34.97,
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02.png",
+		"url": "https://www.karrykraze.com/products/bags/Bag_MiniHeart",
+		"descriptionList": [
+			"Mini tote silhouette with top handles",
+			"Includes detachable heart charm keychain",
+			"Lightweight and compact – fits phone, cards, & gloss",
+			"Wipe clean with damp cloth",
+			"One size – Perfect for daily essentials or gifting"
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Pink | White",
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02.png",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/00_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_03.jpg"
+		]
 	}
 }

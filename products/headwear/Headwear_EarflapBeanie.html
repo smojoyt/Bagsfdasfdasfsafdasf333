@@ -11,7 +11,16 @@
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
     <style>
-       
+        .dimmed-background {
+            pointer-events: none;
+            background-color: rgba(0, 0, 0, 0.25);
+            transition: background-color 0.3s ease;
+        }
+        .blurred {
+            filter: blur(4px);
+            transition: filter 0.3s ease;
+        }
+
     .navbar-hide {
     transform: translateY(-100%);
     transition: transform 0.3s ease;
@@ -252,54 +261,68 @@ function initMoreItemsCarousel() {
 
 
 
-    function initNavbar() {
-      const toggleBtn = document.getElementById("mobile-menu-button");
-      const menu = document.getElementById("mobile-menu");
-      if (toggleBtn && menu) {
-        toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
-      }
 
-      const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-      const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-      const countElem = document.getElementById("cart-count");
-      if (countElem) countElem.textContent = totalQty;
+function initNavbar() {
+  const toggleBtn = document.getElementById("mobile-menu-button");
+  const menu = document.getElementById("mobile-menu");
+  if (toggleBtn && menu) {
+    toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+  }
 
-      let lastScrollY = window.scrollY;
-      const navbar = document.getElementById('mainNavbar');
+  const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+  const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+  const countElem = document.getElementById("cart-count");
+  if (countElem) countElem.textContent = totalQty;
 
-      window.addEventListener('scroll', () => {
-        if (!navbar) return;
-        if (window.scrollY > lastScrollY && window.scrollY > 50) {
-          navbar.classList.remove('navbar-show');
-          navbar.classList.add('navbar-hide');
-        } else {
-          navbar.classList.remove('navbar-hide');
-          navbar.classList.add('navbar-show');
-        }
-        lastScrollY = window.scrollY;
-      });
+  let lastScrollY = window.scrollY;
+  const navbar = document.getElementById('mainNavbar');
+
+  window.addEventListener('scroll', () => {
+    if (!navbar) return;
+    if (window.scrollY > lastScrollY && window.scrollY > 50) {
+      navbar.classList.remove('navbar-show');
+      navbar.classList.add('navbar-hide');
+    } else {
+      navbar.classList.remove('navbar-hide');
+      navbar.classList.add('navbar-show');
     }
+    lastScrollY = window.scrollY;
+  });
+}
 
-    function initNavbar() {
-      // your existing code
-    }
+// Unified Snipcart event listener
+document.addEventListener('snipcart.ready', () => {
+  const navbar = document.getElementById('mainNavbar');
+  const body = document.body;
+  const pageContent = document.getElementById('pageContent');
 
-    document.addEventListener('snipcart.ready', () => {
-      const navbar = document.getElementById('mainNavbar');
+  if (!navbar || !pageContent) return;
 
-      if (!navbar) return;
+  Snipcart.events.on('cart.opened', () => {
+    // Navbar hide
+    navbar.classList.add('navbar-hide');
+    navbar.classList.add('relative'); // unsticks navbar
+    navbar.classList.remove('fixed', 'top-0');
 
-      Snipcart.events.on('cart.opened', () => {
-        navbar.classList.add('navbar-hide');
-      });
+    // Background dim and blur
+    body.classList.add('dimmed-background');
+    pageContent.classList.add('blurred');
+  });
 
-      Snipcart.events.on('cart.closed', () => {
-        navbar.classList.remove('navbar-hide');
-        navbar.classList.add('navbar-show');
-      });
-    });
+  Snipcart.events.on('cart.closed', () => {
+    // Navbar show
+    navbar.classList.remove('navbar-hide');
+    navbar.classList.add('navbar-show');
+    navbar.classList.remove('relative');
+    navbar.classList.add('fixed', 'top-0');
 
+    // Remove background dim and blur
+    body.classList.remove('dimmed-background');
+    pageContent.classList.remove('blurred');
+  });
+});
     </script>
+
 
 </body>
 </html>
