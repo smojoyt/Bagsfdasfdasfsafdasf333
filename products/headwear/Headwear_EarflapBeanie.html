@@ -80,8 +80,9 @@
         </div>
     </div>
 
+    <div id="sidecart-container"></div>
     <div id="navbar-container"></div>
-    <div id="pp_moreitems"></div>
+    <div id="unicart-container"></div>
 
     <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"></div>
 
@@ -148,7 +149,7 @@
         });
 
         const thumbnailContainer = document.getElementById("thumbnailContainer");
-        if (Array.isArray(activeProduct.thumbnails)) {
+        if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length > 0) {
           thumbnailContainer.innerHTML = "";
           activeProduct.thumbnails.forEach(img => {
             const thumb = document.createElement("img");
@@ -157,6 +158,8 @@
             thumb.onclick = () => swapImage(img);
             thumbnailContainer.appendChild(thumb);
           });
+        } else {
+          thumbnailContainer.style.display = "none";
         }
 
         document.getElementById('loader').style.display = 'none';
@@ -172,8 +175,11 @@
         });
     }
 
+    includeHTML("sidecart-container", "/page_inserts/sidecart.html", () => {
+      if (document.getElementById("cartItems")) renderCart();
+    });
     includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
-    includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html");
+    includeHTML("unicart-container", "/page_inserts/uni_cart.html");
 
     function initNavbar() {
       const toggleBtn = document.getElementById("mobile-menu-button");
