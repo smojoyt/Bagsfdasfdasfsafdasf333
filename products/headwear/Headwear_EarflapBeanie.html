@@ -188,7 +188,7 @@ if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length >
     const thumb = document.createElement("img");
     thumb.src = img;
     thumb.alt = `${activeProduct.name} thumbnail ${i + 1}`;
-    thumb.className = "w-20 h-20 object-cover rounded-lg cursor-pointer border";
+    thumb.className = "w-16 h-16 object-contain rounded-lg cursor-pointer border";
     thumb.onclick = () => swapImage(img);
 
     cell.appendChild(thumb);
