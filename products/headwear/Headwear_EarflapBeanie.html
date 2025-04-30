@@ -211,7 +211,7 @@ fetch("https://www.karrykraze.com/products/products.json")
 
       activeProduct.thumbnails.forEach((img, i) => {
         const cell = document.createElement("div");
-        cell.className = "carousel-cell w-[80px] flex-shrink-0";
+        cell.className = "carousel-cell w-[202px] flex-shrink-0";
         const thumb = document.createElement("img");
         thumb.src = img;
         thumb.alt = `${activeProduct.name} thumbnail ${i + 1}`;
