@@ -119,17 +119,20 @@
             <span class="font-semibold text-sm tracking-widest uppercase text-gray-900">
                 Shipping and Returns
             </span>
-            <svg id="accordion-icon" class="w-4 h-4 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            <svg id="accordion-icon" class="w-4 h-4 transform transition-transform duration-300 ease-in-out"
+                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 4v16m8-8H4" />
             </svg>
         </button>
 
-        <div id="accordion-content" class="overflow-hidden transition-all duration-300 max-h-0 text-sm text-gray-700">
-            <div class="py-4 border-t">
+        <div id="accordion-content" class="overflow-hidden transition-[height] duration-500 ease-in-out h-0">
+            <div class="py-4">
                 hi
             </div>
         </div>
     </div>
+
 
 
     <div class="mt-12 px-4 text-center">
@@ -348,18 +351,22 @@ if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length >
     function toggleAccordion() {
   const content = document.getElementById('accordion-content');
   const icon = document.getElementById('accordion-icon');
-  const isOpen = content.classList.contains('max-h-0');
 
-  if (isOpen) {
-    content.classList.remove('max-h-0');
-    content.classList.add('max-h-40'); // adjust height as needed
-    icon.classList.add('rotate-45');   // rotates + into ×
+  // Temporarily show the content to measure its scrollHeight
+  const isOpen = content.style.height && content.style.height !== '0px';
+
+  if (!isOpen) {
+    content.style.height = content.scrollHeight + "px";
+    icon.classList.add('rotate-45');
   } else {
-    content.classList.add('max-h-0');
-    content.classList.remove('max-h-40');
+    content.style.height = content.scrollHeight + "px"; // set current height before collapsing
+    requestAnimationFrame(() => {
+      content.style.height = "0px";
+    });
     icon.classList.remove('rotate-45');
   }
 }
+
 
 
     </script>
