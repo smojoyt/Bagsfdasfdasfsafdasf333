@@ -19,7 +19,7 @@
         }
 
         .carousel-cell {
-            width: 220px;
+            width: auto;
             margin-right: 16px;
             flex-shrink: 0;
         }
@@ -64,7 +64,7 @@
             <div class="flex flex-col md:flex-row gap-8">
                 <div class="flex-1">
                     <img id="mainImage" src="" alt="Product Image" class="w-full rounded-xl border" />
-                    <div id="thumbnailContainer" class="js-flickity mt-4 p-2 rounded-lg border shadow-sm bg-gray-50"></div>
+                    <div id="thumbnailContainer" class="js-flickity flex items-center gap-2 overflow-x-auto"></div>
                 </div>
 
                 <div class="flex-1">
