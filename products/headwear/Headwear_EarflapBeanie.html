@@ -36,44 +36,45 @@
             background-color: rgba(0, 0, 0, 0.25);
             transition: background-color 0.3s ease;
         }
+
         .blurred {
             filter: blur(4px);
             transition: filter 0.3s ease;
         }
 
-    .navbar-hide {
-    transform: translateY(-100%);
-    transition: transform 0.3s ease;
-    }
+        .navbar-hide {
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
 
-    .navbar-show {
-    transform: translateY(0);
-    transition: transform 0.3s ease;
-    }
+        .navbar-show {
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
 
-    .loader {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #333;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    z-index: 9999;
-    }
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #333;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            z-index: 9999;
+        }
 
-    @keyframes spin {
-    0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-    }
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
 
-    100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-    }
-    }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
     </style>
 
 
@@ -89,7 +90,7 @@
             <div class="flex flex-col md:flex-row gap-6">
                 <div class="flex-1">
                     <img id="mainImage" src="" alt="Product Image" class="w-full rounded-xl border" />
-                    <div id="thumbnailContainer" class="w-20 h-20 object-cover rounded-lg cursor-pointer border flex-shrink-0"></div>
+                    <div id="thumbnailContainer" class="flex overflow-x-auto space-x-2 mt-4 p-2 rounded-lg border shadow-sm bg-gray-50 max-w-full scrollbar-thin scrollbar-thumb-gray-300"></div>
                 </div>
                 <div class="flex-1">
                     <h1 id="product-name" class="text-3xl font-bold mb-2">Loading...</h1>
