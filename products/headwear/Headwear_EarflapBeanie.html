@@ -14,6 +14,11 @@
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 
     <style>
+        .carousel.thumbnail .carousel-cell {
+            margin-right: 12px;
+            width: auto;
+        }
+
         .carousel {
             margin-left: 1rem;
         }
@@ -65,18 +70,9 @@
                 <div class="flex-1">
                     <img id="mainImage" src="" alt="Product Image" class="w-full rounded-xl border" />
                     <div id="thumbnailContainer"
-                         class="carousel js-flickity mt-4 p-2 rounded-lg border shadow-sm bg-gray-50"
-                         data-flickity='{
-       "cellAlign": "left",
-       "contain": true,
-       "groupCells": false,
-       "freeScroll": true,
-       "wrapAround": false,
-       "prevNextButtons": false,
-       "pageDots": false,
-       "dragThreshold": 3
-     }'>
+                         class="carousel thumbnail mt-4 p-2 rounded-lg border shadow-sm bg-gray-50">
                     </div>
+
 
                 </div>
 
@@ -244,7 +240,7 @@ if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length >
     }
 
     function initMoreItemsCarousel() {
-      const carouselWrapper = document.querySelector('.carousel');
+      const carouselWrapper = document.querySelector('#pp_moreitems .carousel');
       if (!carouselWrapper) return;
 
       fetch('https://www.karrykraze.com/products/products.json')
