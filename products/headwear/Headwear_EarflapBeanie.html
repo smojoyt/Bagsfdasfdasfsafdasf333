@@ -128,11 +128,11 @@
 
         <div id="accordion-content" class="overflow-hidden transition-[height] duration-500 ease-in-out h-0">
             <div class="py-4">
-                hi
+                To qualify for a full refund, a return request must be submitted within 24 hours of receiving your order. Requests made after this window will not be eligible for a refund. All returned items must be in their original packaging and condition.
             </div>
         </div>
     </div>
-
+    <div id="productpage_shipandret"></div>
 
 
     <div class="mt-12 px-4 text-center">
@@ -173,6 +173,8 @@
     includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
     includeHTML("unicart-container", "/page_inserts/uni_cart.html");
     includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+    includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+    
 
     fetch("https://www.karrykraze.com/products/products.json")
       .then(res => res.json())
