@@ -212,11 +212,10 @@ if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length >
   activeProduct.thumbnails.forEach((img, i) => {
     const cell = document.createElement("div");
     cell.className = "carousel-cell";
-
     const thumb = document.createElement("img");
     thumb.src = img;
     thumb.alt = `${activeProduct.name} thumbnail ${i + 1}`;
-    thumb.className = "w-16 h-16 object-contain rounded-lg cursor-pointer ";
+    thumb.className = "w-16 h-16 object-contain rounded-lg cursor-pointer";
     thumb.onclick = () => swapImage(img);
 
     cell.appendChild(thumb);
@@ -224,7 +223,7 @@ if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length >
   });
 
   imagesLoaded(thumbnailContainer, () => {
-    new Flickity(thumbnailContainer, {
+    const flickity = new Flickity(thumbnailContainer, {
       cellAlign: 'left',
       contain: true,
       groupCells: false,
@@ -234,10 +233,12 @@ if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length >
       pageDots: false,
       dragThreshold: 3
     });
+    flickity.resize(); // ✅ fixes mobile layout
   });
 } else {
-  thumbnailContainer.style.display = "none";
+  thumbnailContainer.style.display = "none"; // ✅ hides empty container
 }
+
 
 
         document.getElementById('loader').style.display = 'none';
@@ -296,22 +297,23 @@ if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length >
             carouselWrapper.appendChild(cell);
           });
 
-          imagesLoaded(carouselWrapper, () => {
-            new Flickity(carouselWrapper, {
-              cellAlign: 'left',
-              contain: true,
-              groupCells: 1,
-              freeScroll: false,
-              wrapAround: false,
-              prevNextButtons: false,
-              pageDots: false,
-              dragThreshold: 5,
-              autoPlay: 3000,
-              pauseAutoPlayOnHover: true
-            });
-          });
-        });
-    }
+ imagesLoaded(carouselWrapper, () => {
+  const flickity = new Flickity(carouselWrapper, {
+    cellAlign: 'left',
+    contain: true,
+    groupCells: 1,
+    freeScroll: false,
+    wrapAround: false,
+    prevNextButtons: false,
+    pageDots: false,
+    dragThreshold: 5,
+    autoPlay: 3000,
+    pauseAutoPlayOnHover: true
+  });
+
+  flickity.resize(); // ✅ Ensures proper rendering on mobile and after lazy loads
+});
+
 
     document.addEventListener('snipcart.ready', () => {
       const navbar = document.getElementById('mainNavbar');
