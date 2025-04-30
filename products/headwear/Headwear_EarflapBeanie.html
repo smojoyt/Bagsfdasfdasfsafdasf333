@@ -129,57 +129,164 @@
          data-config-modal-style="side"></div>
 
     <script>
-const sku = window.location.pathname.split("/").pop().replace(".html", "");
+    const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
 
-function swapImage(src) {
-  document.getElementById("mainImage").src = src;
-}
+    function swapImage(src) {
+      document.getElementById("mainImage").src = src;
+    }
 
-function updateVariant(select) {
-  const button = document.getElementById("add-to-cart-btn");
-  button.setAttribute("data-item-custom1-value", select.value);
-}
+    function updateVariant(select) {
+      const button = document.getElementById('add-to-cart-btn');
+      button.setAttribute('data-item-custom1-value', select.value);
+    }
 
-function includeHTML(id, filePath, callback = null) {
-  fetch(filePath)
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById(id).innerHTML = html;
-      if (callback) callback();
-    });
-}
+    fetch("https://www.karrykraze.com/products/products.json")
+      .then(res => res.json())
+      .then(data => {
+        const activeProduct = data[skuFromURL];
+        if (!activeProduct) {
+          console.error(`Product not found for SKU: ${skuFromURL}`);
+          return;
+        }
 
-function setupThumbnailCarousel(container, thumbnails) {
-  container.innerHTML = "";
-  thumbnails.forEach((img, index) => {
-    const thumb = document.createElement("img");
-    thumb.src = img;
-    thumb.className = `w-20 h-20 object-cover rounded-lg cursor-pointer border flex-shrink-0 ${index === 0 ? 'thumbnail-selected' : ''}`;
-    thumb.onclick = () => swapImage(img);
-    const cell = document.createElement("div");
-    cell.className = "carousel-cell";
-    cell.appendChild(thumb);
-    container.appendChild(cell);
-  });
+        document.getElementById("product-name").textContent = activeProduct.name;
+        document.getElementById("product-price").textContent = activeProduct.price.toFixed(2);
 
-  imagesLoaded(container, function () {
-    new Flickity(container, {
-      cellAlign: 'left',
-      contain: true,
-      groupCells: false,
-      freeScroll: true,
-      wrapAround: false,
-      prevNextButtons: false,
-      pageDots: false,
-      dragThreshold: 3
-    });
-  });
-}
+        const descriptionContainer = document.getElementById("product-description");
+        if (Array.isArray(activeProduct.descriptionList)) {
+          descriptionContainer.innerHTML = activeProduct.descriptionList.map(d => `<li>${d}</li>`).join("");
+        } else {
+          descriptionContainer.innerHTML = `<li>${activeProduct.description}</li>`;
+        }
+
+        const mainImage = document.getElementById("mainImage");
+        if (mainImage && activeProduct.image) {
+          mainImage.src = activeProduct.image;
+        }
+
+        const addToCartBtn = document.getElementById("add-to-cart-btn");
+        addToCartBtn.dataset.itemId = skuFromURL;
+        addToCartBtn.dataset.itemName = activeProduct.name;
+        addToCartBtn.dataset.itemPrice = activeProduct.price;
+        addToCartBtn.dataset.itemUrl = window.location.pathname;
+        addToCartBtn.dataset.itemImage = activeProduct.image;
+        addToCartBtn.dataset.itemDescription = activeProduct.descriptionList ? activeProduct.descriptionList.join(" | ") : activeProduct.description;
+
+        if (activeProduct.custom1Name && activeProduct.custom1Options) {
+          addToCartBtn.dataset.itemCustom1Name = activeProduct.custom1Name;
+          addToCartBtn.dataset.itemCustom1Options = activeProduct.custom1Options;
+        }
+
+        const variantSelect = document.getElementById("variant-select");
+        variantSelect.innerHTML = "";
+        activeProduct.custom1Options.split("|").map(opt => opt.trim()).forEach(option => {
+          const el = document.createElement("option");
+          el.value = option;
+          el.textContent = option;
+          variantSelect.appendChild(el);
+        });
+
+        variantSelect.addEventListener("change", function() {
+          updateVariant(this);
+        });
+
+        const thumbnailContainer = document.getElementById("thumbnailContainer");
+        if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length > 0) {
+          thumbnailContainer.innerHTML = "";
+          activeProduct.thumbnails.forEach(img => {
+            const thumb = document.createElement("img");
+            thumb.src = img;
+            thumb.className = "w-20 h-20 object-cover rounded-lg cursor-pointer border";
+            thumb.onclick = () => swapImage(img);
+            thumbnailContainer.appendChild(thumb);
+          });
+        } else {
+          thumbnailContainer.style.display = "none";
+        }
+
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('pageContent').style.display = 'block';
+      });
+
+    function includeHTML(id, filePath, callback = null) {
+      fetch(filePath)
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById(id).innerHTML = html;
+          if (callback) callback();
+        });
+    }
+
+
+    includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
+    includeHTML("unicart-container", "/page_inserts/uni_cart.html");
+    // Updated productpage_moreitems import
+includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+
+function initMoreItemsCarousel() {
+      const carouselWrapper = document.querySelector('.carousel');
+      if (!carouselWrapper) return;
+
+      fetch('https://www.karrykraze.com/products/products.json')
+        .then(res => res.json())
+        .then(products => {
+          const productKeys = Object.keys(products);
+
+          productKeys.forEach(sku => {
+            const product = products[sku];
+            if (!product || !product.image) return;
+
+            const cell = document.createElement('div');
+            cell.className = 'carousel-cell p-2';
+
+            cell.innerHTML = `
+              <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black swift-fade">
+                <div class="relative overflow-hidden rounded-lg border shadow-md group transform hover:scale-105 swift-zoom">
+                  <img class="main-img w-full object-contain rounded-t-lg group-hover:opacity-0 swift-fade"
+                       src="${product.image}" alt="${product.name}">
+                  ${product.thumbnails && product.thumbnails.length > 0 ? `
+                  <img class="hover-img w-full object-contain absolute top-0 left-0 opacity-0 group-hover:opacity-100 swift-fade"
+                       src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+                </div>
+                <div class="text-center mt-3">
+                  <div class="text-sm font-semibold truncate">${product.name}</div>
+                  <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
+                </div>
+              </a>
+            `;
+            carouselWrapper.appendChild(cell);
+          });
+
+          imagesLoaded(carouselWrapper, function () {
+            new Flickity(carouselWrapper, {
+              cellAlign: 'left',
+              contain: true,
+              groupCells: 1,
+              freeScroll: false,
+              wrapAround: false,
+              prevNextButtons: false,
+              pageDots: false,
+              dragThreshold: 5,
+              autoPlay: 3000,
+              pauseAutoPlayOnHover: true
+            });
+          });
+        })
+        .catch(err => {
+          console.error('Failed to load products:', err);
+        });
+    }
+
+    initMoreItemsCarousel();
+
+
+
+
+
 
 function initNavbar() {
   const toggleBtn = document.getElementById("mobile-menu-button");
   const menu = document.getElementById("mobile-menu");
-
   if (toggleBtn && menu) {
     toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
   }
@@ -204,129 +311,38 @@ function initNavbar() {
     lastScrollY = window.scrollY;
   });
 }
+ const thumbnailContainer = document.getElementById("thumbnailContainer");
+            if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length > 0) {
+                thumbnailContainer.innerHTML = "";
+                activeProduct.thumbnails.forEach((img, index) => {
+                    const thumb = document.createElement("img");
+                    thumb.src = img;
+                    thumb.className = `w-20 h-20 object-cover rounded-lg cursor-pointer border flex-shrink-0 ${index === 0 ? 'thumbnail-selected' : ''}`;
+                    thumb.onclick = () => swapImage(img, thumb);
+                    const cell = document.createElement("div");
+                    cell.className = "carousel-cell";
+                    cell.appendChild(thumb);
+                    thumbnailContainer.appendChild(cell);
+                });
+                imagesLoaded(thumbnailContainer, function () {
+                    new Flickity(thumbnailContainer, {
+                        cellAlign: 'left',
+                        contain: true,
+                        groupCells: false,
+                        freeScroll: true,
+                        wrapAround: false,
+                        prevNextButtons: false,
+                        pageDots: false,
+                        dragThreshold: 3
+                    });
+                });
+            } else {
+                thumbnailContainer.style.display = "none";
+            }
 
-function initMoreItemsCarousel() {
-  const carouselWrapper = document.querySelector('.carousel');
-  if (!carouselWrapper) return;
 
-  fetch('https://www.karrykraze.com/products/products.json')
-    .then(res => res.json())
-    .then(products => {
-      const productKeys = Object.keys(products);
-      productKeys.forEach(sku => {
-        const product = products[sku];
-        if (!product || !product.image) return;
 
-        const cell = document.createElement('div');
-        cell.className = 'carousel-cell p-2';
-
-        cell.innerHTML = `
-          <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black swift-fade">
-            <div class="relative overflow-hidden rounded-lg border shadow-md group transform hover:scale-105 swift-zoom">
-              <img class="main-img w-full object-contain rounded-t-lg group-hover:opacity-0 swift-fade"
-                   src="${product.image}" alt="${product.name}">
-              ${product.thumbnails && product.thumbnails[1] ? `
-              <img class="hover-img w-full object-contain absolute top-0 left-0 opacity-0 group-hover:opacity-100 swift-fade"
-                   src="${product.thumbnails[1]}" alt="Hover image">` : ''}
-            </div>
-            <div class="text-center mt-3">
-              <div class="text-sm font-semibold truncate">${product.name}</div>
-              <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
-            </div>
-          </a>
-        `;
-        carouselWrapper.appendChild(cell);
-      });
-
-      imagesLoaded(carouselWrapper, function () {
-        new Flickity(carouselWrapper, {
-          cellAlign: 'left',
-          contain: true,
-          groupCells: 1,
-          freeScroll: false,
-          wrapAround: false,
-          prevNextButtons: false,
-          pageDots: false,
-          dragThreshold: 5,
-          autoPlay: 3000,
-          pauseAutoPlayOnHover: true
-        });
-      });
-    })
-    .catch(err => {
-      console.error('Failed to load products:', err);
-    });
-}
-
-// Load product data and render content
-fetch("https://www.karrykraze.com/products/products.json")
-  .then(res => res.json())
-  .then(data => {
-    const activeProduct = data[sku];
-    if (!activeProduct) {
-      console.error(`Product not found for SKU: ${sku}`);
-      return;
-    }
-
-    document.getElementById("product-name").textContent = activeProduct.name;
-    document.getElementById("product-price").textContent = activeProduct.price.toFixed(2);
-
-    const descriptionContainer = document.getElementById("product-description");
-    descriptionContainer.innerHTML = Array.isArray(activeProduct.descriptionList)
-      ? activeProduct.descriptionList.map(d => `<li>${d}</li>`).join("")
-      : `<li>${activeProduct.description}</li>`;
-
-    const mainImage = document.getElementById("mainImage");
-    if (mainImage && activeProduct.image) {
-      mainImage.src = activeProduct.image;
-    }
-
-    const addToCartBtn = document.getElementById("add-to-cart-btn");
-    addToCartBtn.dataset.itemId = sku;
-    addToCartBtn.dataset.itemName = activeProduct.name;
-    addToCartBtn.dataset.itemPrice = activeProduct.price;
-    addToCartBtn.dataset.itemUrl = window.location.pathname;
-    addToCartBtn.dataset.itemImage = activeProduct.image;
-    addToCartBtn.dataset.itemDescription = activeProduct.descriptionList
-      ? activeProduct.descriptionList.join(" | ")
-      : activeProduct.description;
-
-    if (activeProduct.custom1Name && activeProduct.custom1Options) {
-      addToCartBtn.dataset.itemCustom1Name = activeProduct.custom1Name;
-      addToCartBtn.dataset.itemCustom1Options = activeProduct.custom1Options;
-    }
-
-    const variantSelect = document.getElementById("variant-select");
-    variantSelect.innerHTML = "";
-    activeProduct.custom1Options.split("|").map(opt => opt.trim()).forEach(option => {
-      const el = document.createElement("option");
-      el.value = option;
-      el.textContent = option;
-      variantSelect.appendChild(el);
-    });
-
-    variantSelect.addEventListener("change", function () {
-      updateVariant(this);
-    });
-
-    const thumbnailContainer = document.getElementById("thumbnailContainer");
-    if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length > 0) {
-      setupThumbnailCarousel(thumbnailContainer, activeProduct.thumbnails);
-      thumbnailContainer.style.display = "flex";
-    } else {
-      thumbnailContainer.style.display = "none";
-    }
-
-    document.getElementById('loader').style.display = 'none';
-    document.getElementById('pageContent').style.display = 'block';
-  });
-
-// Include external inserts
-includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
-includeHTML("unicart-container", "/page_inserts/uni_cart.html");
-includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-
-// Snipcart overlay effects
+// Unified Snipcart event listener
 document.addEventListener('snipcart.ready', () => {
   const navbar = document.getElementById('mainNavbar');
   const body = document.body;
@@ -335,21 +351,29 @@ document.addEventListener('snipcart.ready', () => {
   if (!navbar || !pageContent) return;
 
   Snipcart.events.on('cart.opened', () => {
-    navbar.classList.add('navbar-hide', 'relative');
+    // Navbar hide
+    navbar.classList.add('navbar-hide');
+    navbar.classList.add('relative'); // unsticks navbar
     navbar.classList.remove('fixed', 'top-0');
+
+    // Background dim and blur
     body.classList.add('dimmed-background');
     pageContent.classList.add('blurred');
   });
 
   Snipcart.events.on('cart.closed', () => {
-    navbar.classList.remove('navbar-hide', 'relative');
-    navbar.classList.add('navbar-show', 'fixed', 'top-0');
+    // Navbar show
+    navbar.classList.remove('navbar-hide');
+    navbar.classList.add('navbar-show');
+    navbar.classList.remove('relative');
+    navbar.classList.add('fixed', 'top-0');
+
+    // Remove background dim and blur
     body.classList.remove('dimmed-background');
     pageContent.classList.remove('blurred');
   });
 });
     </script>
-
 
 
 </body>
