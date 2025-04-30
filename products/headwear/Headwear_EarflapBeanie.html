@@ -80,7 +80,7 @@
                         <div class="fade-right absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white z-10"></div>
 
                         <div id="thumbnailContainer"
-                             class="carousel thumbnail p-2 rounded-lg border shadow-sm bg-gray-50 overflow-hidden">
+                             class="carousel thumbnail p-2 rounded-lg overflow-hidden">
                         </div>
                     </div>
 
@@ -267,7 +267,7 @@ if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length >
             cell.className = 'carousel-cell p-2';
             cell.innerHTML = `
               <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-                <div class="relative overflow-hidden rounded-lg border shadow-md group hover:scale-105 transition">
+                <div class="relative overflow-hidden rounded-lg group hover:scale-105 transition">
                   <img class="w-full object-contain rounded-t-lg group-hover:opacity-0 transition" src="${product.image}" alt="${product.name}">
                   ${product.thumbnails?.[1] ? `
                     <img class="w-full object-contain absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition"
