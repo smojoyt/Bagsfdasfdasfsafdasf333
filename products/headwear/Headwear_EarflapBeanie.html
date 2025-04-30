@@ -40,6 +40,7 @@
         .carousel img {
             height: 202px;
             object-fit: contain;
+            width:100%;
         }
 
         .dimmed-background {
@@ -276,7 +277,7 @@ function initMoreItemsCarousel() {
         if (!product || !product.image) return;
 
         const cell = document.createElement('div');
-        cell.className = "carousel-cell w-[202px] flex-shrink-0 p2";
+        cell.className = "carousel-cell w-[80px] flex-shrink-0 p2";
 
         cell.innerHTML = `
           <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
