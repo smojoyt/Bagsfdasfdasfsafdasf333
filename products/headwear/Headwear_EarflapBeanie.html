@@ -76,8 +76,8 @@
                 <div class="flex-1">
                     <img id="mainImage" src="" alt="Product Image" class="w-full rounded-xl border" />
                     <div class="relative mt-4">
-                        <div class="fade-left absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white z-10"></div>
-                        <div class="fade-right absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white z-10"></div>
+                        <div class="fade-left absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white z-10 pointer-events-none"></div>
+                        <div class="fade-right absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white z-10 pointer-events-none"></div>
 
                         <div id="thumbnailContainer"
                              class="carousel thumbnail p-2 rounded-lg overflow-hidden">
@@ -115,7 +115,7 @@
     <div class="mt-12 px-4 text-center">
         <h2 class="text-2xl font-bold text-gray-800">More Items</h2>
         <div class="w-24 h-1 bg-gradient-to-r from-pink-400 to-red-400 mx-auto rounded"></div>
-        <div id="pp_moreitems"></div>
+        <div id="pp_moreitems" class="mt-12"></div>
     </div>
 
     <div id="navbar-container"></div>

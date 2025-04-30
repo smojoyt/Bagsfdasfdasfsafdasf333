@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Product page for Karry Kraze" />
     <title>Product - Karry Kraze</title>
+
     <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
     <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 
     <style>
+        .carousel.thumbnail {
+            margin-left: 0px
+        }
+
+            .carousel.thumbnail .carousel-cell {
+                margin-right: 12px;
+                width: auto;
+            }
+
+            .carousel.thumbnail img {
+                height: 100px;
+            }
+
+        .carousel {
+            margin-left: 1rem;
+        }
+
+        .carousel-cell {
+            width: auto;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .carousel img {
+            height: 202px;
+            object-fit: contain;
+            width: 100%;
+        }
+
         .dimmed-background {
             pointer-events: none;
             background-color: rgba(0, 0, 0, 0.25);
@@ -31,64 +63,50 @@
             transform: translateY(0);
             transition: transform 0.3s ease;
         }
-
-        .loader {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #333;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            z-index: 9999;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-
-            100% {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
-        }
     </style>
-
-
 </head>
-<body class="bg-white text-gray-800 pt-16">
-    <div id="loader" class="loader"></div>
-    <div id="pageContent" style="display:none;">
-        <div class="max-w-4xl mx-auto px-4 py-8">
+
+<body class="bg-white text-gray-800">
+    <div id="loader" class="fixed inset-0 flex items-center justify-center z-50">
+        <div class="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>
+    </div>
+
+    <div id="pageContent" class="hidden">
+        <div class="max-w-7xl mx-auto px-4 py-20">
             <a href="/" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to Shop</a>
-            <div class="flex flex-col md:flex-row gap-6">
+            <div class="flex flex-col md:flex-row gap-8">
                 <div class="flex-1">
                     <img id="mainImage" src="" alt="Product Image" class="w-full rounded-xl border" />
-                    <div id="thumbnailContainer" class="flex gap-2 mt-4"></div>
+                    <div class="relative mt-4">
+                        <div class="fade-left absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white z-10 pointer-events-none"></div>
+                        <div class="fade-right absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white z-10 pointer-events-none"></div>
+
+                        <div id="thumbnailContainer"
+                             class="carousel thumbnail p-2 rounded-lg overflow-hidden">
+                        </div>
+                    </div>
+
+
+
+
                 </div>
+
                 <div class="flex-1">
-                    <h1 id="product-name" class="text-2xl font-bold mb-2">Loading...</h1>
-                    <p class="text-lg font-semibold">$<span id="product-price">0.00</span></p>
-                    <h2 class="text-md font-bold mt-6">Details</h2>
-                    <ul id="product-description" class="mb-4 text-sm list-disc list-inside"></ul>
+                    <h1 id="product-name" class="text-3xl font-bold mb-2">Loading...</h1>
+                    <p class="text-xl font-semibold mb-4">$<span id="product-price">0.00</span></p>
+
+                    <h2 class="text-lg font-bold mt-6">Details</h2>
+                    <ul id="product-description" class="mb-4 text-base list-disc list-inside"></ul>
+
                     <div class="mt-4">
                         <label for="variant-select" class="block text-sm font-medium text-gray-700">Choose a Color</label>
                         <select id="variant-select" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></select>
                     </div>
+
                     <button id="add-to-cart-btn"
-                            class="snipcart-add-item bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition mt-6"
-                            data-item-id=""
-                            data-item-name=""
-                            data-item-price=""
-                            data-item-url=""
-                            data-item-description=""
-                            data-item-image=""
-                            data-item-custom1-name=""
-                            data-item-custom1-options=""
-                            data-item-custom1-value="">
+                            class="snipcart-add-item w-full bg-yellow-200 text-black tracking-widest py-3 px-4 rounded hover:bg-yellow-300 transition mt-6 text-center uppercase"
+                            data-item-id="" data-item-name="" data-item-price="" data-item-url="" data-item-description=""
+                            data-item-image="" data-item-custom1-name="" data-item-custom1-options="" data-item-custom1-value="">
                         Add to Cart
                     </button>
                 </div>
@@ -96,11 +114,17 @@
         </div>
     </div>
 
-    <div id="pp_moreitems"></div>
+    <div class="mt-12 px-4 text-center">
+        <h2 class="text-2xl font-bold text-gray-800">More Items</h2>
+        <div class="w-24 h-1 bg-gradient-to-r from-pink-400 to-red-400 mx-auto rounded"></div>
+        <div id="pp_moreitems"></div>
+    </div>
+
     <div id="navbar-container"></div>
     <div id="unicart-container"></div>
 
-    <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"
+    <div hidden id="snipcart"
+         data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"
          data-config-modal-style="side"></div>
 
     <script>
@@ -111,9 +135,21 @@
     }
 
     function updateVariant(select) {
-      const button = document.getElementById('add-to-cart-btn');
-      button.setAttribute('data-item-custom1-value', select.value);
+      document.getElementById('add-to-cart-btn').setAttribute('data-item-custom1-value', select.value);
     }
+
+    function includeHTML(id, filePath, callback = null) {
+      fetch(filePath)
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById(id).innerHTML = html;
+          if (callback) callback();
+        });
+    }
+
+    includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
+    includeHTML("unicart-container", "/page_inserts/uni_cart.html");
+    includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
 
     fetch("https://www.karrykraze.com/products/products.json")
       .then(res => res.json())
@@ -128,202 +164,166 @@
         document.getElementById("product-price").textContent = activeProduct.price.toFixed(2);
 
         const descriptionContainer = document.getElementById("product-description");
-        if (Array.isArray(activeProduct.descriptionList)) {
-          descriptionContainer.innerHTML = activeProduct.descriptionList.map(d => `<li>${d}</li>`).join("");
-        } else {
-          descriptionContainer.innerHTML = `<li>${activeProduct.description}</li>`;
-        }
+        descriptionContainer.innerHTML = Array.isArray(activeProduct.descriptionList)
+          ? activeProduct.descriptionList.map(d => `<li>${d}</li>`).join("")
+          : `<li>${activeProduct.description}</li>`;
 
         const mainImage = document.getElementById("mainImage");
         if (mainImage && activeProduct.image) {
           mainImage.src = activeProduct.image;
+          mainImage.alt = activeProduct.name;
         }
 
         const addToCartBtn = document.getElementById("add-to-cart-btn");
-        addToCartBtn.dataset.itemId = skuFromURL;
-        addToCartBtn.dataset.itemName = activeProduct.name;
-        addToCartBtn.dataset.itemPrice = activeProduct.price;
-        addToCartBtn.dataset.itemUrl = window.location.pathname;
-        addToCartBtn.dataset.itemImage = activeProduct.image;
-        addToCartBtn.dataset.itemDescription = activeProduct.descriptionList ? activeProduct.descriptionList.join(" | ") : activeProduct.description;
-
-        if (activeProduct.custom1Name && activeProduct.custom1Options) {
-          addToCartBtn.dataset.itemCustom1Name = activeProduct.custom1Name;
-          addToCartBtn.dataset.itemCustom1Options = activeProduct.custom1Options;
-        }
+        Object.assign(addToCartBtn.dataset, {
+          itemId: skuFromURL,
+          itemName: activeProduct.name,
+          itemPrice: activeProduct.price,
+          itemUrl: window.location.pathname,
+          itemImage: activeProduct.image,
+          itemDescription: activeProduct.descriptionList ? activeProduct.descriptionList.join(" | ") : activeProduct.description,
+          itemCustom1Name: activeProduct.custom1Name || "",
+          itemCustom1Options: activeProduct.custom1Options || ""
+        });
 
         const variantSelect = document.getElementById("variant-select");
         variantSelect.innerHTML = "";
-        activeProduct.custom1Options.split("|").map(opt => opt.trim()).forEach(option => {
-          const el = document.createElement("option");
-          el.value = option;
-          el.textContent = option;
-          variantSelect.appendChild(el);
+        activeProduct.custom1Options.split("|").forEach(opt => {
+          const option = document.createElement("option");
+          option.value = opt.trim();
+          option.textContent = opt.trim();
+          variantSelect.appendChild(option);
         });
-
-        variantSelect.addEventListener("change", function() {
-          updateVariant(this);
-        });
+        variantSelect.addEventListener("change", () => updateVariant(variantSelect));
 
         const thumbnailContainer = document.getElementById("thumbnailContainer");
-        if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length > 0) {
-          thumbnailContainer.innerHTML = "";
-          activeProduct.thumbnails.forEach(img => {
-            const thumb = document.createElement("img");
-            thumb.src = img;
-            thumb.className = "w-20 h-20 object-cover rounded-lg cursor-pointer border";
-            thumb.onclick = () => swapImage(img);
-            thumbnailContainer.appendChild(thumb);
-          });
-        } else {
-          thumbnailContainer.style.display = "none";
-        }
+
+if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length > 0) {
+  thumbnailContainer.innerHTML = "";
+
+  activeProduct.thumbnails.forEach((img, i) => {
+    const cell = document.createElement("div");
+    cell.className = "carousel-cell";
+
+    const thumb = document.createElement("img");
+    thumb.src = img;
+    thumb.alt = `${activeProduct.name} thumbnail ${i + 1}`;
+    thumb.className = "w-16 h-16 object-contain rounded-lg cursor-pointer ";
+    thumb.onclick = () => swapImage(img);
+
+    cell.appendChild(thumb);
+    thumbnailContainer.appendChild(cell);
+  });
+
+  imagesLoaded(thumbnailContainer, () => {
+    new Flickity(thumbnailContainer, {
+      cellAlign: 'left',
+      contain: true,
+      groupCells: false,
+      freeScroll: true,
+      wrapAround: false,
+      prevNextButtons: false,
+      pageDots: false,
+      dragThreshold: 3
+    });
+  });
+} else {
+  thumbnailContainer.style.display = "none";
+}
+
 
         document.getElementById('loader').style.display = 'none';
-        document.getElementById('pageContent').style.display = 'block';
+        document.getElementById('pageContent').classList.remove('hidden');
       });
 
-    function includeHTML(id, filePath, callback = null) {
-      fetch(filePath)
-        .then(res => res.text())
-        .then(html => {
-          document.getElementById(id).innerHTML = html;
-          if (callback) callback();
+    function initNavbar() {
+      const toggleBtn = document.getElementById("mobile-menu-button");
+      const menu = document.getElementById("mobile-menu");
+      if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+      const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+      const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      const countElem = document.getElementById("cart-count");
+      if (countElem) countElem.textContent = totalQty;
+
+      const navbar = document.getElementById('mainNavbar');
+      let lastScrollY = window.scrollY;
+      window.addEventListener('scroll', () => {
+        if (!navbar) return;
+        if (window.scrollY > lastScrollY && window.scrollY > 50) {
+          navbar.classList.replace('navbar-show', 'navbar-hide');
+        } else {
+          navbar.classList.replace('navbar-hide', 'navbar-show');
+        }
+        lastScrollY = window.scrollY;
+      });
+    }
+
+    function initMoreItemsCarousel() {
+      const carouselWrapper = document.querySelector('#pp_moreitems .carousel');
+      if (!carouselWrapper) return;
+
+      fetch('https://www.karrykraze.com/products/products.json')
+        .then(res => res.json())
+        .then(products => {
+          Object.keys(products).forEach(sku => {
+            const product = products[sku];
+            if (!product || !product.image) return;
+
+            const cell = document.createElement('div');
+            cell.className = 'carousel-cell p-2';
+            cell.innerHTML = `
+              <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
+                <div class="relative overflow-hidden rounded-lg group hover:scale-105 transition">
+                  <img class="w-full object-contain rounded-t-lg group-hover:opacity-0 transition" src="${product.image}" alt="${product.name}">
+                  ${product.thumbnails?.[1] ? `
+                    <img class="w-full object-contain absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition"
+                      src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+                </div>
+                <div class="text-center mt-3">
+                  <div class="text-sm font-semibold truncate">${product.name}</div>
+                  <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
+                </div>
+              </a>`;
+            carouselWrapper.appendChild(cell);
+          });
+
+          imagesLoaded(carouselWrapper, () => {
+            new Flickity(carouselWrapper, {
+              cellAlign: 'left',
+              contain: true,
+              groupCells: 1,
+              freeScroll: false,
+              wrapAround: false,
+              prevNextButtons: false,
+              pageDots: false,
+              dragThreshold: 5,
+              autoPlay: 3000,
+              pauseAutoPlayOnHover: true
+            });
+          });
         });
     }
 
+    document.addEventListener('snipcart.ready', () => {
+      const navbar = document.getElementById('mainNavbar');
+      const body = document.body;
+      const pageContent = document.getElementById('pageContent');
 
-    includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
-    includeHTML("unicart-container", "/page_inserts/uni_cart.html");
-    // Updated productpage_moreitems import
-includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-
-function initMoreItemsCarousel() {
-  const carouselWrapper = document.querySelector('.carousel');
-
-  if (!carouselWrapper) return;
-
-  fetch('https://www.karrykraze.com/products/products.json')
-    .then(res => res.json())
-    .then(products => {
-      // Filter which products you want to show (example: all)
-      const productKeys = Object.keys(products);
-
-      productKeys.forEach(sku => {
-        const product = products[sku];
-
-        // Skip if product is missing basic info
-        if (!product || !product.image) return;
-
-        // Create the carousel-cell element
-        const cell = document.createElement('div');
-        cell.className = 'carousel-cell px-2';
-
-        cell.innerHTML = `
-          <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black transition-all">
-            <div class="relative overflow-hidden rounded-lg border shadow-sm group transform transition-transform duration-300 hover:scale-105">
-              <img class="main-img w-full h-64 object-contain rounded-t-lg transition-opacity duration-300 group-hover:opacity-0"
-                   src="${product.image}" alt="${product.name}">
-              ${product.thumbnails && product.thumbnails.length > 0 ? `
-              <img class="hover-img w-full h-64 object-contain absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-                   src="${product.thumbnails[0]}" alt="Hover image">` : ''}
-            </div>
-            <div class="text-center mt-3">
-              <div class="text-sm font-semibold truncate">${product.name}</div>
-              <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
-            </div>
-          </a>
-        `;
-
-        carouselWrapper.appendChild(cell);
+      Snipcart.events.on('cart.opened', () => {
+        navbar?.classList.add('navbar-hide', 'relative');
+        navbar?.classList.remove('fixed', 'top-0');
+        body.classList.add('dimmed-background');
+        pageContent.classList.add('blurred');
       });
 
-      // After all items are added, initialize Flickity
-      new Flickity(carouselWrapper, {
-        cellAlign: 'left',
-        contain: true,
-        groupCells: 1,
-        freeScroll: false,
-        wrapAround: false,
-        prevNextButtons: false,
-        pageDots: false,
-        dragThreshold: 5,
-        autoPlay: 3000,
-        pauseAutoPlayOnHover: true
+      Snipcart.events.on('cart.closed', () => {
+        navbar?.classList.remove('navbar-hide', 'relative');
+        navbar?.classList.add('navbar-show', 'fixed', 'top-0');
+        body.classList.remove('dimmed-background');
+        pageContent.classList.remove('blurred');
       });
-    })
-    .catch(err => {
-      console.error('Failed to load products:', err);
     });
-}
-
-
-
-
-
-
-
-function initNavbar() {
-  const toggleBtn = document.getElementById("mobile-menu-button");
-  const menu = document.getElementById("mobile-menu");
-  if (toggleBtn && menu) {
-    toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
-  }
-
-  const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-  const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-  const countElem = document.getElementById("cart-count");
-  if (countElem) countElem.textContent = totalQty;
-
-  let lastScrollY = window.scrollY;
-  const navbar = document.getElementById('mainNavbar');
-
-  window.addEventListener('scroll', () => {
-    if (!navbar) return;
-    if (window.scrollY > lastScrollY && window.scrollY > 50) {
-      navbar.classList.remove('navbar-show');
-      navbar.classList.add('navbar-hide');
-    } else {
-      navbar.classList.remove('navbar-hide');
-      navbar.classList.add('navbar-show');
-    }
-    lastScrollY = window.scrollY;
-  });
-}
-
-// Unified Snipcart event listener
-document.addEventListener('snipcart.ready', () => {
-  const navbar = document.getElementById('mainNavbar');
-  const body = document.body;
-  const pageContent = document.getElementById('pageContent');
-
-  if (!navbar || !pageContent) return;
-
-  Snipcart.events.on('cart.opened', () => {
-    // Navbar hide
-    navbar.classList.add('navbar-hide');
-    navbar.classList.add('relative'); // unsticks navbar
-    navbar.classList.remove('fixed', 'top-0');
-
-    // Background dim and blur
-    body.classList.add('dimmed-background');
-    pageContent.classList.add('blurred');
-  });
-
-  Snipcart.events.on('cart.closed', () => {
-    // Navbar show
-    navbar.classList.remove('navbar-hide');
-    navbar.classList.add('navbar-show');
-    navbar.classList.remove('relative');
-    navbar.classList.add('fixed', 'top-0');
-
-    // Remove background dim and blur
-    body.classList.remove('dimmed-background');
-    pageContent.classList.remove('blurred');
-  });
-});
     </script>
-
-
 </body>
 </html>
