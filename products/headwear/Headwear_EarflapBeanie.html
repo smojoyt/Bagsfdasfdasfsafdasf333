@@ -21,6 +21,7 @@
             .carousel.thumbnail .carousel-cell {
                 margin-right: 12px;
                 width: auto;
+                flex-shrink: 0;
             }
 
             .carousel.thumbnail img {
@@ -210,7 +211,7 @@ fetch("https://www.karrykraze.com/products/products.json")
 
       activeProduct.thumbnails.forEach((img, i) => {
         const cell = document.createElement("div");
-        cell.className = "carousel-cell";
+        cell.className = "carousel-cell w-[80px] flex-shrink-0";
         const thumb = document.createElement("img");
         thumb.src = img;
         thumb.alt = `${activeProduct.name} thumbnail ${i + 1}`;
@@ -277,7 +278,8 @@ function initMoreItemsCarousel() {
         if (!product || !product.image) return;
 
         const cell = document.createElement('div');
-        cell.className = 'carousel-cell p-2';
+        cell.className = "carousel-cell w-[80px] flex-shrink-0 p2";
+
         cell.innerHTML = `
           <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
             <div class="relative overflow-hidden rounded-lg group hover:scale-105 transition">
