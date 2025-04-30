@@ -11,6 +11,26 @@
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
     <style>
+        .carousel {
+            margin-left: 1rem;
+        }
+
+        .carousel-cell {
+            width: 220px;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .carousel img {
+            height: 250px;
+            object-fit: contain;
+            width: 100%;
+        }
+
+        .carousel .text-center {
+            white-space: normal;
+        }
+
         .dimmed-background {
             pointer-events: none;
             background-color: rgba(0, 0, 0, 0.25);
@@ -198,64 +218,60 @@
 includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
 
 function initMoreItemsCarousel() {
-  const carouselWrapper = document.querySelector('.carousel');
+      const carouselWrapper = document.querySelector('.carousel');
+      if (!carouselWrapper) return;
 
-  if (!carouselWrapper) return;
+      fetch('https://www.karrykraze.com/products/products.json')
+        .then(res => res.json())
+        .then(products => {
+          const productKeys = Object.keys(products);
 
-  fetch('https://www.karrykraze.com/products/products.json')
-    .then(res => res.json())
-    .then(products => {
-      // Filter which products you want to show (example: all)
-      const productKeys = Object.keys(products);
+          productKeys.forEach(sku => {
+            const product = products[sku];
+            if (!product || !product.image) return;
 
-      productKeys.forEach(sku => {
-        const product = products[sku];
+            const cell = document.createElement('div');
+            cell.className = 'carousel-cell p-2';
 
-        // Skip if product is missing basic info
-        if (!product || !product.image) return;
+            cell.innerHTML = `
+              <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black swift-fade">
+                <div class="relative overflow-hidden rounded-lg border shadow-md group transform hover:scale-105 swift-zoom">
+                  <img class="main-img w-full object-contain rounded-t-lg group-hover:opacity-0 swift-fade"
+                       src="${product.image}" alt="${product.name}">
+                  ${product.thumbnails && product.thumbnails.length > 0 ? `
+                  <img class="hover-img w-full object-contain absolute top-0 left-0 opacity-0 group-hover:opacity-100 swift-fade"
+                       src="${product.thumbnails[0]}" alt="Hover image">` : ''}
+                </div>
+                <div class="text-center mt-3">
+                  <div class="text-sm font-semibold truncate">${product.name}</div>
+                  <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
+                </div>
+              </a>
+            `;
+            carouselWrapper.appendChild(cell);
+          });
 
-        // Create the carousel-cell element
-        const cell = document.createElement('div');
-        cell.className = 'carousel-cell px-2';
+          imagesLoaded(carouselWrapper, function () {
+            new Flickity(carouselWrapper, {
+              cellAlign: 'left',
+              contain: true,
+              groupCells: 1,
+              freeScroll: false,
+              wrapAround: false,
+              prevNextButtons: false,
+              pageDots: false,
+              dragThreshold: 5,
+              autoPlay: 3000,
+              pauseAutoPlayOnHover: true
+            });
+          });
+        })
+        .catch(err => {
+          console.error('Failed to load products:', err);
+        });
+    }
 
-        cell.innerHTML = `
-          <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black transition-all">
-            <div class="relative overflow-hidden rounded-lg border shadow-sm group transform transition-transform duration-300 hover:scale-105">
-              <img class="main-img w-full h-64 object-contain rounded-t-lg transition-opacity duration-300 group-hover:opacity-0"
-                   src="${product.image}" alt="${product.name}">
-              ${product.thumbnails && product.thumbnails.length > 0 ? `
-              <img class="hover-img w-full h-64 object-contain absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-                   src="${product.thumbnails[0]}" alt="Hover image">` : ''}
-            </div>
-            <div class="text-center mt-3">
-              <div class="text-sm font-semibold truncate">${product.name}</div>
-              <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
-            </div>
-          </a>
-        `;
-
-        carouselWrapper.appendChild(cell);
-      });
-
-      // After all items are added, initialize Flickity
-      new Flickity(carouselWrapper, {
-        cellAlign: 'left',
-        contain: true,
-        groupCells: 1,
-        freeScroll: false,
-        wrapAround: false,
-        prevNextButtons: false,
-        pageDots: false,
-        dragThreshold: 5,
-        autoPlay: 3000,
-        pauseAutoPlayOnHover: true
-      });
-    })
-    .catch(err => {
-      console.error('Failed to load products:', err);
-    });
-}
-
+    initMoreItemsCarousel();
 
 
 
