@@ -114,17 +114,16 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 mt-12">
-        <button onclick="toggleAccordion()" class="w-full flex justify-between items-center py-4 border-t border-b text-left">
-            <span class="font-semibold text-sm tracking-widest uppercase text-gray-900">Shipping and Returns</span>
-            <span id="accordion-icon" class="text-lg transition-transform">+</span>
-        </button>
-        <div id="accordion-content" class="overflow-hidden transition-all max-h-0 text-sm text-gray-700">
-            <div class="py-4">
-                hi
-            </div>
-        </div>
+
+    <div id="productpage_shipandret"></div>
+
+
+    <div class="mt-12 px-4 text-center">
+        <h2 class="text-2xl font-bold text-gray-800">MORE TO LOVE</h2>
+        <div class="mt-2 mb-4 w-24 h-1 bg-gray-300 mx-auto rounded"></div>
+        <div id="pp_moreitems"></div>
     </div>
+
 
 
     <div id="navbar-container"></div>
@@ -157,6 +156,8 @@
     includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
     includeHTML("unicart-container", "/page_inserts/uni_cart.html");
     includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+    includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+
 
     fetch("https://www.karrykraze.com/products/products.json")
       .then(res => res.json())
@@ -336,18 +337,28 @@ if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length >
   const content = document.getElementById('accordion-content');
   const icon = document.getElementById('accordion-icon');
 
-  const isOpen = content.classList.contains('max-h-0');
+  // Temporarily show the content to measure its scrollHeight
+  const isOpen = content.style.height && content.style.height !== '0px';
 
-  if (isOpen) {
-    content.classList.remove('max-h-0');
-    content.classList.add('max-h-40'); // you can adjust the height if needed
-    icon.textContent = '−';
+  if (!isOpen) {
+    content.style.height = content.scrollHeight + "px";
+    icon.classList.add('rotate-45');
   } else {
-    content.classList.add('max-h-0');
-    content.classList.remove('max-h-40');
-    icon.textContent = '+';
+    content.style.height = content.scrollHeight + "px"; // set current height before collapsing
+    requestAnimationFrame(() => {
+      content.style.height = "0px";
+    });
+    icon.classList.remove('rotate-45');
   }
 }
+
+content.addEventListener('transitionend', () => {
+  if (content.style.height !== '0px') {
+    content.style.height = 'auto';
+  }
+});
+
+
 
     </script>
 </body>
