@@ -168,19 +168,21 @@
         variantSelect.addEventListener("change", () => updateVariant(variantSelect));
 
         const thumbnailContainer = document.getElementById("thumbnailContainer");
-        if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length > 0) {
-          thumbnailContainer.innerHTML = "";
-          activeProduct.thumbnails.forEach((img, i) => {
-            const thumb = document.createElement("img");
-            thumb.src = img;
-            thumb.alt = `${activeProduct.name} thumbnail ${i + 1}`;
-            thumb.className = "w-20 h-20 object-cover rounded-lg cursor-pointer border flex-shrink-0";
-            thumb.onclick = () => swapImage(img);
-            const cell = document.createElement("div");
-            cell.className = "carousel-cell";
-            cell.appendChild(thumb);
-            thumbnailContainer.appendChild(cell);
-          });
+if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length > 0) {
+  thumbnailContainer.innerHTML = "";
+
+  activeProduct.thumbnails.forEach((img, i) => {
+    const thumb = document.createElement("img");
+    thumb.src = img;
+    thumb.alt = `${activeProduct.name} thumbnail ${i + 1}`;
+    thumb.className = "w-20 h-20 object-cover rounded-lg cursor-pointer border flex-shrink-0";
+    thumb.onclick = () => swapImage(img);
+    thumbnailContainer.appendChild(thumb);
+  });
+} else {
+  thumbnailContainer.style.display = "none";
+}
+
 
           imagesLoaded(thumbnailContainer, () => {
             new Flickity(thumbnailContainer, {
