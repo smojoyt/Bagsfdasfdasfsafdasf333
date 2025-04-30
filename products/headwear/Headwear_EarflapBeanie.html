@@ -367,6 +367,12 @@ if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length >
   }
 }
 
+content.addEventListener('transitionend', () => {
+  if (content.style.height !== '0px') {
+    content.style.height = 'auto';
+  }
+});
+
 
 
     </script>
