@@ -15,15 +15,17 @@
 
     <style>
         .carousel.thumbnail {
-        margin-left:0px
+            margin-left: 0px
         }
-        .carousel.thumbnail .carousel-cell {
-            margin-right: 12px;
-            width: auto;
-        }
-        .carousel.thumbnail img {
-            height: 100px;
-        }
+
+            .carousel.thumbnail .carousel-cell {
+                margin-right: 12px;
+                width: auto;
+            }
+
+            .carousel.thumbnail img {
+                height: 100px;
+            }
 
         .carousel {
             margin-left: 1rem;
@@ -112,11 +114,18 @@
         </div>
     </div>
 
-    <div class="mt-12 px-4 text-center">
-        <h2 class="text-2xl font-bold text-gray-800">More Items</h2>
-        <div class="w-24 h-1 bg-gradient-to-r from-pink-400 to-red-400 mx-auto rounded"></div>
-        <div id="pp_moreitems" class="mt-12"></div>
+    <div class="max-w-7xl mx-auto px-4 mt-12">
+        <button onclick="toggleAccordion()" class="w-full flex justify-between items-center py-4 border-t border-b text-left">
+            <span class="font-semibold text-sm tracking-widest uppercase text-gray-900">Shipping and Returns</span>
+            <span id="accordion-icon" class="text-lg transition-transform">+</span>
+        </button>
+        <div id="accordion-content" class="overflow-hidden transition-all max-h-0 text-sm text-gray-700">
+            <div class="py-4">
+                hi
+            </div>
+        </div>
     </div>
+
 
     <div id="navbar-container"></div>
     <div id="unicart-container"></div>
@@ -322,6 +331,24 @@ if (Array.isArray(activeProduct.thumbnails) && activeProduct.thumbnails.length >
         pageContent.classList.remove('blurred');
       });
     });
+
+    function toggleAccordion() {
+  const content = document.getElementById('accordion-content');
+  const icon = document.getElementById('accordion-icon');
+
+  const isOpen = content.classList.contains('max-h-0');
+
+  if (isOpen) {
+    content.classList.remove('max-h-0');
+    content.classList.add('max-h-40'); // you can adjust the height if needed
+    icon.textContent = '−';
+  } else {
+    content.classList.add('max-h-0');
+    content.classList.remove('max-h-40');
+    icon.textContent = '+';
+  }
+}
+
     </script>
 </body>
 </html>
