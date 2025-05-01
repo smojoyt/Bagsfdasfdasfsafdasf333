@@ -15,14 +15,32 @@
 </head>
 <body class="bg-white text-gray-800">
 
-    <!-- Navbar -->
-    <div id="navbar-container"></div>
+    <!-- Transparent Custom Navbar -->
+    <nav class="absolute top-0 left-0 w-full z-50 text-white">
+        <div class="max-w-6xl mx-auto px-4 pt-4">
+            <div class="text-center">
+                <img src="/imgs/logo.png" alt="Karry Kraze Logo" class="h-16 mx-auto">
+                <ul class="flex justify-center gap-6 mt-4 text-sm uppercase font-medium">
+                    <li><a href="/" class="hover:underline">Home</a></li>
+                    <li><a href="/products/bags" class="hover:underline">Bags</a></li>
+                    <li><a href="/products/headwear" class="hover:underline">Headwear</a></li>
+                    <li><a href="/shop.html" class="hover:underline">Shop All</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <!-- Hero Banner -->
-    <section class="text-center py-20 bg-gray-100">
-        <h1 class="text-4xl font-bold">Welcome to Karry Kraze</h1>
-        <p class="mt-4 text-gray-600 text-lg">Bags & Headwear That Define Your Style</p>
-        <a href="/shop.html" class="inline-block mt-6 px-6 py-3 bg-black text-white rounded-full hover:bg-gray-800">Shop Now</a>
+    <!-- Hero Banner with Video Background -->
+    <section class="relative h-screen w-full flex items-center justify-center text-center text-white overflow-hidden">
+        <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
+            <source src="/videos/hero-background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="relative z-10 bg-black bg-opacity-40 px-4 py-8 rounded">
+            <h1 class="text-4xl font-bold">Welcome to Karry Kraze</h1>
+            <p class="mt-4 text-lg">Bags & Headwear That Define Your Style</p>
+            <a href="/shop.html" class="inline-block mt-6 px-6 py-3 bg-white text-black rounded-full hover:bg-gray-200">Shop Now</a>
+        </div>
     </section>
 
     <!-- Featured Products -->
@@ -47,7 +65,7 @@
     <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz" data-config-modal-style="side"></div>
 
     <script>
-        // Load Navbar and Carousel Insert
+        // Load Carousel Insert
         function includeHTML(id, filePath, callback = null) {
             fetch(filePath)
                 .then(res => res.text())
@@ -57,7 +75,6 @@
                 });
         }
 
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html");
         includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
 
         // Load Featured Products
