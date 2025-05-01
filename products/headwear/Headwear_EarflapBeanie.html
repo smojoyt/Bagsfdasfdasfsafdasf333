@@ -76,7 +76,7 @@
             <a href="/" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to Shop</a>
             <div class="flex flex-col md:flex-row gap-8">
                 <div class="flex-1">
-                    <img id="mainImage" src="" alt="Product Image" class="w-full rounded-xl border" />
+                    <img id="mainImage" src="" alt="Product Image" class="w-full rounded-xl border transition-opacity duration-300 opacity-100" />
                     <div class="relative mt-4">
                         <div class="fade-left absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white z-10 pointer-events-none"></div>
                         <div class="fade-right absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white z-10 pointer-events-none"></div>
@@ -147,9 +147,23 @@
     <script>
 const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
 
-function swapImage(src) {
-  document.getElementById("mainImage").src = src;
+function swapImage(newSrc) {
+  const mainImage = document.getElementById("mainImage");
+
+  // Start fade out
+  mainImage.classList.add("opacity-0");
+
+  // Wait for transition, then swap src and fade back in
+  setTimeout(() => {
+    mainImage.src = newSrc;
+
+    // Once image loads, fade back in
+    mainImage.onload = () => {
+      mainImage.classList.remove("opacity-0");
+    };
+  }, 150); // Wait for half of the duration (150ms of 300ms)
 }
+
 
 function updateVariant(select) {
   document.getElementById('add-to-cart-btn').setAttribute('data-item-custom1-value', select.value);
@@ -301,10 +315,10 @@ function initMoreItemsCarousel() {
 
         cell.innerHTML = `
           <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-            <div class="relative overflow-hidden rounded-lg group hover:scale-105 transition">
-              <img class="w-[80px] object-contain rounded-t-lg group-hover:opacity-0 transition" src="${product.image}" alt="${product.name}">
+            <div class="relative overflow-hidden rounded-lg group hover:scale-105 transition md:group-hover:opacity-0">
+              <img class="w-[80px] object-contain rounded-t-lg group-hover:opacity-0 transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
               ${product.thumbnails?.[1] ? `
-                <img class="w-full object-contain absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition"
+                <img class="w-full object-contain absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition md:group-hover:opacity-0"
                   src="${product.thumbnails[1]}" alt="Hover image">` : ''}
             </div>
             <div class="text-center mt-3">
