@@ -2,6 +2,7 @@
 	"Headwear_EarflapBeanie": {
 		"name": "Ribbed Knit Earflap Beanie",
 		"category": "headwear",
+		"product_id": "KK-1001",
 		"price": 49.97,
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png",
 		"url": "https://www.karrykraze.com/products/headwear/RibbedKnitEarflapBeanie2",
@@ -34,6 +35,7 @@
 	"Bag_MiniHeart": {
 		"name": "Mini Tote - Heart Embossed",
 		"category": "bags",
+		"product_id": "KK-1002",
 		"price": 34.97,
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_MiniHeart",
