@@ -49,8 +49,8 @@
 		"custom1Name": "Color",
 		"custom1Options": "Pink | White",
 		"variantImages": {
-			"Pink": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.jpg",
-			"White": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_01.jpg"
+			"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_03.jpg",
+			"White": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_01.jpg"
 		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg",
@@ -65,7 +65,7 @@
 	"Bag_TheBucket": {
 		"name": "The Bucket White Drawstring Bag",
 		"category": "bags",
-		"product_id": "KK-1004",
+		"product_id": "KK-1003",
 		"price": 24.97,
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_TheBucket",
