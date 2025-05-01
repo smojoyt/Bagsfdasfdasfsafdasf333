@@ -1,15 +1,26 @@
 <nav class="fixed top-0 left-0 w-full z-40 transition-all duration-300 bg-transparent text-white" id="mainNavbar">
     <div class="max-w-6xl mx-auto px-4 pt-4">
         <div class="relative flex items-center justify-center">
-            <img src="/imgs/Logo/Long/LL_White_02.png" alt="Karry Kraze Logo" class="h-16" id="logo">
-            <button class="snipcart-checkout absolute right-0 top-1/2 -translate-y-1/2 mr-2">
+            <img src="/imgs/Logo/Long/LL_White_02.png" alt="Karry Kraze Logo" class="h-16 mx-auto" id="logo">
+            <button class="snipcart-checkout absolute right-4 top-4">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.293 2.293A1 1 0 007 17h10a1 1 0 00.894-.553L20 13M9 21h.01M15 21h.01" />
                 </svg>
                 <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5">0</span>
             </button>
         </div>
-        <ul class="flex justify-center items-center gap-4 mt-2 text-sm uppercase font-medium">
+
+        <div class="block md:hidden mt-2 text-center">
+            <button id="mobile-menu-toggle" class="text-sm uppercase font-semibold">Menu</button>
+            <ul id="mobile-menu" class="hidden flex-col gap-2 mt-2 text-sm uppercase font-medium">
+                <li><a href="/" class="hover:underline">Home</a></li>
+                <li><a href="/products/bags" class="hover:underline">Bags</a></li>
+                <li><a href="/products/headwear" class="hover:underline">Headwear</a></li>
+                <li><a href="/shop.html" class="hover:underline">Shop All</a></li>
+            </ul>
+        </div>
+
+        <ul class="hidden md:flex justify-center items-center gap-4 mt-2 text-sm uppercase font-medium">
             <li><a href="/" class="hover:underline">Home</a></li>
             <li><a href="/products/bags" class="hover:underline">Bags</a></li>
             <li><a href="/products/headwear" class="hover:underline">Headwear</a></li>
