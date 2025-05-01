@@ -136,6 +136,13 @@ fetch("https://www.karrykraze.com/products/products.json")
       return;
     }
 
+    // Add this safely inside here
+    const productIdElement = document.getElementById("product-id");
+    if (productIdElement && activeProduct.product_id) {
+      productIdElement.textContent = activeProduct.product_id;
+    }
+
+
     document.getElementById("product-name").textContent = activeProduct.name;
     document.getElementById("product-price").textContent = activeProduct.price.toFixed(2);
 
