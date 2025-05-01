@@ -15,6 +15,10 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Black | Apricot",
+		"variantImages": {
+			"Black": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_03.jpg",
+			"Apricot": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_06.jpg"
+		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_05.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_01.jpg",
