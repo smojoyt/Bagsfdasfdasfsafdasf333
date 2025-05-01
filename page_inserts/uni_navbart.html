@@ -1,62 +1,63 @@
-﻿<div class="w-full bg-yellow-100 text-center text-sm font-semibold text-gray-800 py-2 px-4">
-    🎉 FREE SHIPPING on all U.S. orders over $50! Limited time only.
-</div>
-<nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent text-white" id="mainNavbar">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16 relative">
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karry Kraze Navbar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="pt-16">
 
-            <!-- Center Logo -->
-            <div class="flex flex-col items-center justify-center w-full">
-                <a href="/" class="flex items-center">
-                    <img src="/imgs/Logo/Long/LL_White_02.png" alt="Karry Kraze Logo" class="h-10 w-auto" id="logo">
-                </a>
-                <ul class="hidden md:flex justify-center items-center gap-6 mt-2 text-sm uppercase font-medium">
-                    <li><a href="/" class="text-gray-600 hover:text-black">Home</a></li>
-                    <li><a href="/shop.html" class="text-gray-600 hover:text-black">Catalog</a></li>
-                    <li><a href="https://www.instagram.com/karrykraze/" target="_blank" class="text-gray-600 hover:text-black">Instagram</a></li>
-                    <li><a href="/contact" class="text-gray-600 hover:text-black">Contact</a></li>
-                </ul>
-            </div>
+    <!-- Universal Nav Bar - Tailwind CSS with Mobile Menu + Cart Icon -->
+    <div class="w-full bg-yellow-100 text-center text-sm font-semibold text-gray-800 py-2 px-4">
+        🎉 FREE SHIPPING on all U.S. orders over $50! Limited time only.
+    </div>
+    <nav class="bg-white shadow-md fixed top-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 relative">
 
-            <!-- Cart + Mobile Menu Button -->
-            <div class="absolute right-4 flex items-center gap-4 md:gap-6">
-                <!-- Snipcart Cart -->
-                <button class="snipcart-checkout relative">
-                    🛒
-                    <span id="cart-count" class="absolute -top-2 -right-3 bg-black text-white text-xs rounded-full px-1">0</span>
-                </button>
+                <!-- Left Nav (Desktop) -->
+                <div class="hidden md:flex items-center space-x-6 absolute left-0">
+                    <a href="/" class="text-gray-600 hover:text-black">Home</a>
+                    <a href="https://catalog.karrykraze.com" target="_blank" class="text-gray-600 hover:text-black">Catalog</a>
+                    <a href="https://www.instagram.com/karrykraze/" target="_blank" class="text-gray-600 hover:text-black">Instagram</a>
+                    <a href="/contact" target="_blank" class="text-gray-600 hover:text-black">Contact</a>
+                </div>
 
-                <!-- Mobile Toggle Button -->
-                <button id="mobile-menu-button" class="md:hidden text-gray-800 text-2xl">
-                    ☰
-                </button>
+                <!-- Center Logo -->
+                <div class="absolute left-1/2 transform -translate-x-1/2">
+                    <a href="/" class="flex items-center">
+                        <img src="/imgs/Logo/Long/LL_Black_01.png" alt="Karry Kraze Logo" class="h-10 w-auto" />
+                    </a>
+                </div>
+
+                <!-- Cart + Mobile Menu Button -->
+                <!-- Cart + Mobile Menu Button (Fixed Overlap) -->
+                <div class="absolute left-4 flex items-center gap-4 md:gap-6">
+                    <!-- Snipcart Cart -->
+                    <button class="snipcart-checkout relative">
+                        🛒
+                        <span class="snipcart-items-count absolute -top-2 -right-3 bg-black text-white text-xs rounded-full px-1">0</span>
+                    </button>
+
+                    <!-- Mobile Toggle Button -->
+                    <button id="mobile-menu-button" class="md:hidden text-gray-800 text-2xl">
+                        ☰
+                    </button>
+                </div>
+
             </div>
         </div>
-    </div>
 
-    <!-- Mobile Dropdown Menu -->
-    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 absolute top-16 left-0 w-3/4 bg-white shadow-md z-50">
-        <a href="/" class="block text-gray-600 hover:text-black">Home</a>
-        <a href="/shop.html" class="block text-gray-600 hover:text-black">Catalog</a>
-        <a href="https://www.instagram.com/karrykraze/" target="_blank" class="block text-gray-600 hover:text-black">Instagram</a>
-        <a href="/contact" class="block text-gray-600 hover:text-black">Contact</a>
-    </div>
-</nav>
-<script>document.addEventListener('DOMContentLoaded', () => {
-    const toggle = document.getElementById('mobile-menu-button');
-    const menu = document.getElementById('mobile-menu');
-    if (toggle && menu) {
-      toggle.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
-      });
-    }
-  });</script>
-<script>document.addEventListener('DOMContentLoaded', () => {
-    const toggle = document.getElementById('mobile-menu-toggle');
-    const menu = document.getElementById('mobile-menu');
-    if (toggle && menu) {
-      toggle.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
-      });
-    }
-  });</script>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 absolute top-16 left-0 w-3/4 bg-white shadow-md z-50">
+            <a href="/" class="block text-gray-600 hover:text-black">Home</a>
+            <a href="https://catalog.karrykraze.com" target="_blank" class="block text-gray-600 hover:text-black">Catalog</a>
+            <a href="https://www.instagram.com/karrykraze/" target="_blank" class="block text-gray-600 hover:text-black">Instagram</a>
+            <a href="/contact" target="_blank" class="block text-gray-600 hover:text-black">Contact</a>
+        </div>
+    </nav>
+
+
+</body>
+</html>
