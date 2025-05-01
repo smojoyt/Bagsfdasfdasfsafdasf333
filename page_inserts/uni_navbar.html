@@ -27,21 +27,26 @@
       </a>
 
       <!-- Right: Icons -->
-      <div class="flex items-center space-x-4">
-        <a href="/cart" class="relative">
-          <svg class="w-6 h-6 text-gray-700 hover:text-black transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7h13L17 13M6 21h0m12 0h0" />
-          </svg>
-          <span id="cart-count" class="absolute -top-1 -right-2 text-xs bg-black text-white rounded-full w-5 h-5 flex items-center justify-center">0</span>
-        </a>
+      <!-- Right: Icons (including Snipcart cart button) -->
+<div class="flex items-center space-x-4">
+  <!-- Snipcart Cart -->
+  <button class="snipcart-checkout relative focus:outline-none">
+    <svg class="w-6 h-6 text-gray-700 hover:text-black transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7h13L17 13M6 21h0m12 0h0" />
+    </svg>
+    <span class="snipcart-items-count absolute -top-1 -right-2 text-xs bg-black text-white rounded-full w-5 h-5 flex items-center justify-center"></span>
+  </button>
 
-        <!-- Mobile Button -->
-        <button id="mobile-menu-button" class="md:hidden focus:outline-none text-gray-800">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
+  <!-- Mobile Toggle -->
+  <button id="mobile-menu-button" class="md:hidden focus:outline-none text-gray-800">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+</div>
+
     </div>
   </div>
 
