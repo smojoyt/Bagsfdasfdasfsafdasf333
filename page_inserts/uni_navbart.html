@@ -1,12 +1,20 @@
-<nav class="absolute top-0 left-0 w-full z-50 text-white">
+<nav class="fixed top-0 left-0 w-full z-50 text-white bg-transparent backdrop-blur-sm"
     <div class="max-w-6xl mx-auto px-4 pt-4">
-        <div class="text-center">
+      <div class="text-center">
             <img src="/imgs/Logo/Long/LL_White_02.png" alt="Karry Kraze Logo" class="h-16 mx-auto">
-            <ul class="flex justify-center gap-4 mt-2 text-sm uppercase font-medium">
+            <ul class="flex justify-center items-center gap-4 mt-2 text-sm uppercase font-medium">
                 <li><a href="/" class="hover:underline">Home</a></li>
                 <li><a href="/products/bags" class="hover:underline">Bags</a></li>
                 <li><a href="/products/headwear" class="hover:underline">Headwear</a></li>
                 <li><a href="/shop.html" class="hover:underline">Shop All</a></li>
+                <li>
+                    <button class="snipcart-checkout relative">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.293 2.293A1 1 0 007 17h10a1 1 0 00.894-.553L20 13M9 21h.01M15 21h.01" />
+                        </svg>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5">0</span>
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
