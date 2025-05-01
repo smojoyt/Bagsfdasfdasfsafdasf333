@@ -1,94 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="description" content="Product page for Karry Kraze" />
-	<title>Product - Karry Kraze</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Product page for Karry Kraze" />
+    <title>Product - Karry Kraze</title>
 
-	<link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
-	<script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
-	<script src="https://cdn.tailwindcss.com"></script>
-	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
-	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-	<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
+    <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 
-	<style>
-		.carousel.thumbnail {
-			margin-left: 0px
-		}
+    <style>
+        .carousel.thumbnail {
+            margin-left: 0px
+        }
 
-			.carousel.thumbnail .carousel-cell {
-				margin-right: 12px;
-				flex-shrink: 0;
-			}
+            .carousel.thumbnail .carousel-cell {
+                margin-right: 12px;
+                flex-shrink: 0;
+            }
 
-			.carousel.thumbnail img {
-				height: 100px;
-			}
+            .carousel.thumbnail img {
+                height: 100px;
+            }
 
-		.carousel {
-			margin-left: 1rem;
-		}
+        .carousel {
+            margin-left: 1rem;
+        }
 
-		.carousel-cell {
-			width: auto;
-			margin-right: 16px;
-			flex-shrink: 0;
-		}
+        .carousel-cell {
+            width: auto;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
 
-		.carousel img {
-			height: 202px;
-			object-fit: contain;
-			width: 100%;
-		}
+        .carousel img {
+            height: 202px;
+            object-fit: contain;
+            width: 100%;
+        }
 
-		.dimmed-background {
-			pointer-events: none;
-			background-color: rgba(0, 0, 0, 0.25);
-			transition: background-color 0.3s ease;
-		}
+        .dimmed-background {
+            pointer-events: none;
+            background-color: rgba(0, 0, 0, 0.25);
+            transition: background-color 0.3s ease;
+        }
 
-		.blurred {
-			filter: blur(4px);
-			transition: filter 0.3s ease;
-		}
+        .blurred {
+            filter: blur(4px);
+            transition: filter 0.3s ease;
+        }
 
-		.navbar-hide {
-			transform: translateY(-100%);
-			transition: transform 0.3s ease;
-		}
+        .navbar-hide {
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
 
-		.navbar-show {
-			transform: translateY(0);
-			transition: transform 0.3s ease;
-		}
-	</style>
+        .navbar-show {
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+    </style>
 </head>
 
 <body class="bg-white text-gray-800">
 
 
-	<div id="productpage"></div>
-	<div id="productpage_shipandret"></div>
+    <div id="productpage"></div>
+    <div id="productpage_shipandret"></div>
 
 
-	<div class="mt-12 px-4 text-center">
-		<h2 class="text-2xl font-bold text-gray-800">MORE TO LOVE</h2>
-		<div class="mt-2 mb-4 w-24 h-1 bg-gray-300 mx-auto rounded"></div>
-		<div id="pp_moreitems"></div>
-	</div>
+    <div class="mt-12 px-4 text-center">
+        <h2 class="text-2xl font-bold text-gray-800">MORE TO LOVE</h2>
+        <div class="mt-2 mb-4 w-24 h-1 bg-gray-300 mx-auto rounded"></div>
+        <div id="pp_moreitems"></div>
+    </div>
 
 
 
-	<div id="navbar-container"></div>
-	<div id="unicart-container"></div>
+    <div id="navbar-container"></div>
+    <div id="unicart-container"></div>
 
-	<div hidden id="snipcart"
-		 data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"
-		 data-config-modal-style="side"></div>
+    <div hidden id="snipcart"
+         data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"
+         data-config-modal-style="side"></div>
 
-	<script>
+    <script>
 const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
 
 function swapImage(newSrc) {
@@ -351,8 +351,8 @@ function toggleAccordion() {
   }, { once: true }); // prevent multiple listeners
 }
 
-document.getElementById("product-id").textContent = activeProduct.product_id;
-	</script>
+
+    </script>
 
 </body>
 </html>
