@@ -29,15 +29,20 @@
       </div>
 
       <!-- Cart + Mobile Menu Button -->
-      <div class="absolute right-0 flex items-center space-x-4">
-        <button class="snipcart-checkout relative">
-          🛒
-          <span class="snipcart-items-count absolute -top-2 -right-3 bg-black text-white text-xs rounded-full px-1">0</span>
-        </button>
-        <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none text-2xl">
-          ☰
-        </button>
-      </div>
+      <!-- Cart + Mobile Menu Button (Fixed Overlap) -->
+<div class="absolute right-4 flex items-center gap-4 md:gap-6">
+  <!-- Snipcart Cart -->
+  <button class="snipcart-checkout relative">
+    🛒
+    <span class="snipcart-items-count absolute -top-2 -right-3 bg-black text-white text-xs rounded-full px-1">0</span>
+  </button>
+
+  <!-- Mobile Toggle Button -->
+  <button id="mobile-menu-button" class="md:hidden text-gray-800 text-2xl">
+    ☰
+  </button>
+</div>
+
     </div>
   </div>
 
