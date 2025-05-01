@@ -12,7 +12,29 @@
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('mainNavbar');
+            const logo = document.getElementById('logo');
+            const scrolled = window.scrollY > 10;
+
+            if (navbar) {
+                if (scrolled) {
+                    navbar.classList.remove('bg-transparent', 'text-white');
+                    navbar.classList.add('bg-white', 'text-black', 'shadow-md');
+                    if (logo) logo.src = '/imgs/Logo/Long/LL_Black_02.png';
+                } else {
+                    navbar.classList.remove('bg-white', 'text-black', 'shadow-md');
+                    navbar.classList.add('bg-transparent', 'text-white');
+                    if (logo) logo.src = '/imgs/Logo/Long/LL_White_02.png';
+                }
+            }
+        });
+    </script>
 </head>
+
+
 <body class="bg-white text-gray-800">
 
     <!-- Transparent Custom Navbar -->
@@ -32,6 +54,7 @@
     <!-- Featured Products -->
     <section class="max-w-6xl mx-auto px-4 py-12">
         <h2 class="text-2xl font-bold mb-4 text-center">Featured Picks</h2>
+        <div class="mt-2 mb-4 w-24 h-1 bg-gray-300 mx-auto rounded"></div>
         <div id="featured-products" class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
     </section>
 
@@ -81,12 +104,12 @@
                     card.className = "border rounded-lg overflow-hidden shadow hover:shadow-lg transition block";
 
                     card.innerHTML = `
-                    <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain bg-white p-4">
-                    <div class="p-4">
-                      <h3 class="text-lg font-semibold truncate">${p.name}</h3>
-                      <p class="text-gray-600 mt-1">$${p.price.toFixed(2)}</p>
-                    </div>
-                  `;
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain bg-white p-4">
+                        <div class="p-4">
+                          <h3 class="text-lg font-semibold truncate">${p.name}</h3>
+                          <p class="text-gray-600 mt-1">$${p.price.toFixed(2)}</p>
+                        </div>
+                      `;
 
                     container.appendChild(card);
                 });
@@ -112,18 +135,18 @@
                         const cell = document.createElement('div');
                         cell.className = "carousel-cell p-2";
                         cell.innerHTML = `
-                      <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-                        <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-                          <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-                          ${product.thumbnails?.[1] ? `
-                            <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-                              src="${product.thumbnails[1]}" alt="Hover image">` : ''}
-                        </div>
-                        <div class="text-center mt-3">
-                          <div class="text-sm font-semibold truncate">${product.name}</div>
-                          <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
-                        </div>
-                      </a>`;
+                          <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
+                            <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
+                              <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+                              ${product.thumbnails?.[1] ? `
+                                <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+                                  src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+                            </div>
+                            <div class="text-center mt-3">
+                              <div class="text-sm font-semibold truncate">${product.name}</div>
+                              <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
+                            </div>
+                          </a>`;
                         carouselWrapper.appendChild(cell);
                     });
 
