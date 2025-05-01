@@ -48,12 +48,45 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Pink | White",
+		"variantImages": {
+			"Pink": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.jpg",
+			"White": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_01.jpg"
+		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_03.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_06.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_01.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_02.jpg"
+		]
+	}
+
+
+	"Bag_TheBucket": {
+		"name": "The Bucket White Drawstring Bag",
+		"category": "bags",
+		"product_id": "KK-1004",
+		"price": 24.97,
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg",
+		"url": "https://www.karrykraze.com/products/bags/Bag_TheBucket",
+		"descriptionList": [
+			"Soft white faux leather with bold THE BUCKET text",
+			"Gold-tone hardware + durable drawstring closure",
+			"Compact & roomy – fits your phone, wallet, and gloss",
+			"Lightweight, stylish, and ready to go wherever you do",
+			"Sling it over your shoulder and own the look."
+		],
+		"custom1Name": "Color",
+		"custom1Options": "White",
+		"variantImages": {
+			"White": "https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucketBag/03_07.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucketBag/03_07.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucketBag/03_06.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucketBag/03_05.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucketBag/03_04.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucketBag/03_08.jpg"
 		]
 	}
 }

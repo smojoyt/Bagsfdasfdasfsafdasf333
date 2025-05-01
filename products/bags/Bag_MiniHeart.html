@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Product page for Karry Kraze" />
     <title>Product - Karry Kraze</title>
-    <link rel="icon" href="/imgs/Logo/Short/SL_White_01.png" type="image/png" />
+
     <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
     <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -71,11 +71,16 @@
 
     <div id="productpage"></div>
     <div id="productpage_shipandret"></div>
+
+
     <div class="mt-12 px-4 text-center">
         <h2 class="text-2xl font-bold text-gray-800">MORE TO LOVE</h2>
         <div class="mt-2 mb-4 w-24 h-1 bg-gray-300 mx-auto rounded"></div>
         <div id="pp_moreitems"></div>
     </div>
+
+
+
     <div id="navbar-container"></div>
     <div id="unicart-container"></div>
 
@@ -130,6 +135,13 @@ fetch("https://www.karrykraze.com/products/products.json")
       console.error(`Product not found for SKU: ${skuFromURL}`);
       return;
     }
+
+    // Add this safely inside here
+    const productIdElement = document.getElementById("product-id");
+    if (productIdElement && activeProduct.product_id) {
+      productIdElement.textContent = activeProduct.product_id;
+    }
+
 
     document.getElementById("product-name").textContent = activeProduct.name;
     document.getElementById("product-price").textContent = activeProduct.price.toFixed(2);
@@ -338,6 +350,8 @@ function toggleAccordion() {
     }
   }, { once: true }); // prevent multiple listeners
 }
+
+document.getElementById("product-id").textContent = activeProduct.product_id;
     </script>
 
 </body>
