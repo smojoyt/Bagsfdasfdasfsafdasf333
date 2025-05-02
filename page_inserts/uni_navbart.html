@@ -27,38 +27,37 @@
     <!-- Navbar -->
     <nav id="mainNavbar" class="navbar-show bg-white shadow-md fixed top-0 w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 relative">
+            <div class="flex items-center justify-between h-16">
 
-                <!-- Hamburger (mobile only) -->
+                <!-- Left: Hamburger for mobile -->
                 <div class="flex items-center md:hidden">
                     <button id="mobile-menu-button" class="text-gray-800 text-2xl focus:outline-none">
                         ☰
                     </button>
                 </div>
 
-                <!-- Logo centered -->
-                <div class="absolute left-1/2 transform -translate-x-1/2">
+                <!-- Center: Logo -->
+                <div class="flex-1 flex justify-center">
                     <a href="/" class="flex items-center">
                         <img src="/imgs/Logo/Long/LL_Black_01.png" alt="Karry Kraze Logo" class="h-10 w-auto" />
                     </a>
                 </div>
 
-                <!-- Cart icon -->
+                <!-- Right: Cart icon -->
                 <div class="flex items-center">
-                    <button class="snipcart-checkout relative">
+                    <button class="snipcart-checkout relative text-xl">
                         🛒
                         <span id="cart-count" class="absolute -top-2 -right-3 bg-black text-white text-xs rounded-full px-1">0</span>
                     </button>
                 </div>
+            </div>
 
-                <!-- Desktop Nav -->
-                <div class="hidden md:flex absolute left-0 space-x-6 items-center">
-                    <a href="/" class="text-gray-600 hover:text-black">Home</a>
-                    <a href="https://catalog.karrykraze.com" target="_blank" class="text-gray-600 hover:text-black">Catalog</a>
-                    <a href="https://www.instagram.com/karrykraze/" target="_blank" class="text-gray-600 hover:text-black">Instagram</a>
-                    <a href="/contact" target="_blank" class="text-gray-600 hover:text-black">Contact</a>
-                </div>
-
+            <!-- Desktop Nav (below logo for clarity & layout) -->
+            <div class="hidden md:flex justify-center space-x-6 items-center py-2">
+                <a href="/" class="text-gray-600 hover:text-black">Home</a>
+                <a href="https://catalog.karrykraze.com" target="_blank" class="text-gray-600 hover:text-black">Catalog</a>
+                <a href="https://www.instagram.com/karrykraze/" target="_blank" class="text-gray-600 hover:text-black">Instagram</a>
+                <a href="/contact" target="_blank" class="text-gray-600 hover:text-black">Contact</a>
             </div>
         </div>
 
@@ -70,6 +69,7 @@
             <a href="/contact" target="_blank" class="text-gray-600 hover:text-black">Contact</a>
         </div>
     </nav>
+
 
     <!-- Script for Navbar Behavior -->
     <script>
