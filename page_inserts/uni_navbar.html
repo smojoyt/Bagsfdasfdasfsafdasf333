@@ -1,12 +1,4 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Karry Kraze Navbar</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="pt-16">
+﻿
 
 <!-- Universal Nav Bar - Tailwind CSS with Mobile Menu + Cart Icon -->
     <div class="fixed bottom-0 w-full bg-yellow-100 text-center text-sm font-semibold text-gray-800 py-2 px-4 z-50">
@@ -58,6 +50,37 @@
   </div>
 </nav>
 
+  <style>
+    #snipcart {
+        z-index: 2147483647 !important;
+        position: relative !important;
+    }
 
-</body>
-</html>
+    body.dimmed-background {
+        overflow: hidden; /* Optional: disables scroll behind cart */
+    }
+
+    .blurred {
+        opacity: 0.3; /* Avoid transform, blur, or filter */
+    }
+
+    .navbar-hide {
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .navbar-show {
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+    }
+
+    .nav-link {
+        transition: color 0.3s ease;
+    }
+
+    .bg-white #mobile-menu-button {
+        color: black !important;
+    }
+</style>
+
+

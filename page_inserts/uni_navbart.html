@@ -54,6 +54,15 @@
         z-index: 2147483647 !important;
         position: relative !important;
     }
+
+    body.dimmed-background {
+        overflow: hidden; /* Optional: disables scroll behind cart */
+    }
+
+    .blurred {
+        opacity: 0.3; /* Avoid transform, blur, or filter */
+    }
+
     .navbar-hide {
         transform: translateY(-100%);
         transition: transform 0.3s ease;
