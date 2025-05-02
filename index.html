@@ -289,10 +289,13 @@
         }
 
         // After HTML is inserted, trigger JS
-        includeHTML("navbar-container", "/page_inserts/uni_navbart.html", () => {
-            initNavbar();
-            setupScrollNavbarColorChange();
+        document.addEventListener("DOMContentLoaded", () => {
+            includeHTML("navbar-container", "/page_inserts/uni_navbart.html", () => {
+                initNavbar();
+                setupScrollNavbarColorChange();
+            });
         });
+
 
     </script>
 
