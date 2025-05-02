@@ -123,7 +123,16 @@
                         burger.classList.remove("text-white");
                         burger.classList.add("text-black");
                     }
-                    if (logo) logo.src = "/imgs/Logo/Long/LL_Black_02.png";
+                    if (logo) {
+                        logo.classList.add('opacity-0');
+                        setTimeout(() => {
+                            logo.src = scrolled
+                                ? "/imgs/Logo/Long/LL_Black_02.png"
+                                : "/imgs/Logo/Long/LL_White_02.png";
+                            logo.classList.remove('opacity-0');
+                        }, 150);
+                    }
+
                 } else {
                     navbar.classList.remove("bg-white", "text-black", "shadow-md");
                     navbar.classList.add("bg-transparent", "text-white");
