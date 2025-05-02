@@ -179,6 +179,49 @@
                     });
                 });
         }
+
+        function initNavbar() {
+            const toggleBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+
+            const navbar = document.getElementById('mainNavbar');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (!navbar) return;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace('navbar-show', 'navbar-hide');
+                } else {
+                    navbar.classList.replace('navbar-hide', 'navbar-show');
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
+
+        document.addEventListener('snipcart.ready', () => {
+            const navbar = document.getElementById('mainNavbar');
+            const body = document.body;
+            const pageContent = document.getElementById('pageContent');
+
+            Snipcart.events.on('cart.opened', () => {
+                navbar?.classList.add('navbar-hide', 'relative');
+                navbar?.classList.remove('fixed', 'top-0');
+                body.classList.add('dimmed-background');
+                pageContent.classList.add('blurred');
+            });
+
+            Snipcart.events.on('cart.closed', () => {
+                navbar?.classList.remove('navbar-hide', 'relative');
+                navbar?.classList.add('navbar-show', 'fixed', 'top-0');
+                body.classList.remove('dimmed-background');
+                pageContent.classList.remove('blurred');
+            });
+        });
     </script>
 </body>
 </html>
