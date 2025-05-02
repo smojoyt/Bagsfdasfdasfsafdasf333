@@ -18,7 +18,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 relative">
 
-                <!-- Left Navigation Links -->
+                <!-- Left (Hamburger for mobile) -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-800 text-2xl">
+                        ☰
+                    </button>
+                </div>
+
+                <!-- Left Nav Links (Desktop Only) -->
                 <div class="hidden md:flex items-center space-x-6">
                     <a href="/" class="text-gray-600 hover:text-black">Home</a>
                     <a href="https://catalog.karrykraze.com" target="_blank" class="text-gray-600 hover:text-black">Catalog</a>
@@ -33,20 +40,13 @@
                     </a>
                 </div>
 
-                <!-- Cart and Mobile Menu aligned to right on mobile -->
-                <div class="flex items-center space-x-4 md:space-x-6 absolute right-4 md:static">
-                    <!-- Snipcart Cart -->
+                <!-- Right (Cart) -->
+                <div class="flex items-center">
                     <button class="snipcart-checkout relative">
                         🛒
                         <span class="snipcart-items-count absolute -top-2 -right-3 bg-black text-white text-xs rounded-full px-1">0</span>
                     </button>
-
-                    <!-- Mobile Menu Toggle -->
-                    <button id="mobile-menu-button" class="md:hidden text-gray-800 text-2xl">
-                        ☰
-                    </button>
                 </div>
-
 
             </div>
         </div>
