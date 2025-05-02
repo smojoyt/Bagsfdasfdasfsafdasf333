@@ -6,53 +6,21 @@
     <meta name="description" content="Homepage for Karry Kraze" />
     <title>Karry Kraze - Home</title>
 
+    <!-- Styles & Scripts -->
     <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
     <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-
-    <script>
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('mainNavbar');
-            const logo = document.getElementById('logo');
-            const scrolled = window.scrollY > 10;
-
-            if (navbar) {
-                if (scrolled) {
-                    navbar.classList.remove('bg-transparent', 'text-white');
-                    navbar.classList.add('bg-white', 'text-black', 'shadow-md');
-                    if (logo) logo.src = '/imgs/Logo/Long/LL_Black_02.png';
-                } else {
-                    navbar.classList.remove('bg-white', 'text-black', 'shadow-md');
-                    navbar.classList.add('bg-transparent', 'text-white');
-                    if (logo) logo.src = '/imgs/Logo/Long/LL_White_02.png';
-                }
-            }
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const toggle = document.getElementById('mobile-menu-toggle');
-            const menu = document.getElementById('mobile-menu');
-            if (toggle && menu) {
-                toggle.addEventListener('click', () => {
-                    menu.classList.toggle('hidden');
-                });
-            }
-        });
-    </script>
 </head>
-
 
 <body class="bg-white text-gray-800">
 
-    <!-- Transparent Custom Navbar -->
+    <!-- Transparent Navbar Placeholder -->
     <div id="navbar-container"></div>
 
-    <!-- Hero Banner with Video Background -->
+    <!-- Hero Banner with Video -->
     <section class="relative h-[35vh] w-full flex items-center justify-center text-center text-white overflow-hidden">
         <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
             <source src="/imgs/Banner/BagPreview_06.mp4" type="video/mp4">
@@ -70,7 +38,7 @@
         <div id="featured-products" class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
     </section>
 
-    <!-- More To Love Carousel -->
+    <!-- More To Love -->
     <div class="mt-12 px-4 text-center">
         <h2 class="text-2xl font-bold text-gray-800">MORE TO LOVE</h2>
         <div class="mt-2 mb-4 w-24 h-1 bg-gray-300 mx-auto rounded"></div>
@@ -85,8 +53,9 @@
     <!-- Snipcart -->
     <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz" data-config-modal-style="side"></div>
 
+    <!-- JS Scripts -->
     <script>
-        // Load Carousel Insert
+        // Load HTML sections dynamically
         function includeHTML(id, filePath, callback = null) {
             fetch(filePath)
                 .then(res => res.text())
@@ -96,38 +65,47 @@
                 });
         }
 
-        includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-        includeHTML("navbar-container", "/page_inserts/uni_navbart.html", initNavbar);
-
-
-        // Load Featured Products
-        fetch("https://www.karrykraze.com/products/products.json")
-            .then(res => res.json())
-            .then(data => {
-                const featured = ["Bag_TheBucket", "Bag_MiniHeart", "Headwear_EarflapBeanie"];
-                const container = document.getElementById("featured-products");
-
-                featured.forEach(sku => {
-                    const p = data[sku];
-                    if (!p) return;
-
-                    const card = document.createElement("a");
-                    card.href = p.url;
-                    card.className = "border rounded-lg overflow-hidden shadow hover:shadow-lg transition block";
-
-                    card.innerHTML = `
-                            <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain bg-white p-4">
-                            <div class="p-4">
-                              <h3 class="text-lg font-semibold truncate">${p.name}</h3>
-                              <p class="text-gray-600 mt-1">$${p.price.toFixed(2)}</p>
-                            </div>
-                          `;
-
-                    container.appendChild(card);
+        // Init Mobile Menu + Cart Count
+        function initNavbar() {
+            const toggleBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+            if (toggleBtn && menu) {
+                toggleBtn.addEventListener("click", () => {
+                    menu.classList.toggle("hidden");
                 });
-            });
+            }
 
-        // More Items Carousel
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+        }
+
+        // Scroll-based navbar style swap
+        function setupScrollNavbarColorChange() {
+            const navbar = document.getElementById('mainNavbar');
+            const logo = document.getElementById('logo');
+
+            function updateNavbarStyles() {
+                const scrolled = window.scrollY > 10;
+                if (!navbar) return;
+
+                if (scrolled) {
+                    navbar.classList.remove('bg-transparent', 'text-white');
+                    navbar.classList.add('bg-white', 'text-black', 'shadow-md');
+                    if (logo) logo.src = '/imgs/Logo/Long/LL_Black_02.png';
+                } else {
+                    navbar.classList.remove('bg-white', 'text-black', 'shadow-md');
+                    navbar.classList.add('bg-transparent', 'text-white');
+                    if (logo) logo.src = '/imgs/Logo/Long/LL_White_02.png';
+                }
+            }
+
+            updateNavbarStyles();
+            window.addEventListener('scroll', updateNavbarStyles);
+        }
+
+        // Load More Items Carousel
         function initMoreItemsCarousel() {
             const carouselWrapper = document.querySelector('#pp_moreitems .carousel');
             if (!carouselWrapper) return;
@@ -140,6 +118,7 @@
                         const j = Math.floor(Math.random() * (i + 1));
                         [productKeys[i], productKeys[j]] = [productKeys[j], productKeys[i]];
                     }
+
                     productKeys.forEach(sku => {
                         const product = products[sku];
                         if (!product || !product.image) return;
@@ -147,18 +126,18 @@
                         const cell = document.createElement('div');
                         cell.className = "carousel-cell p-2";
                         cell.innerHTML = `
-                              <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-                                <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-                                  <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-                                  ${product.thumbnails?.[1] ? `
-                                    <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-                                      src="${product.thumbnails[1]}" alt="Hover image">` : ''}
-                                </div>
-                                <div class="text-center mt-3">
-                                  <div class="text-sm font-semibold truncate">${product.name}</div>
-                                  <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
-                                </div>
-                              </a>`;
+                  <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
+                    <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
+                      <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+                      ${product.thumbnails?.[1] ? `
+                        <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+                          src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+                    </div>
+                    <div class="text-center mt-3">
+                      <div class="text-sm font-semibold truncate">${product.name}</div>
+                      <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
+                    </div>
+                  </a>`;
                         carouselWrapper.appendChild(cell);
                     });
 
@@ -180,39 +159,7 @@
                 });
         }
 
-        function initNavbar() {
-            // Mobile menu toggle
-            const toggleBtn = document.getElementById("mobile-menu-button");
-            const menu = document.getElementById("mobile-menu");
-            if (toggleBtn && menu) {
-                toggleBtn.addEventListener("click", () => {
-                    menu.classList.toggle("hidden");
-                });
-            }
-
-            // Update cart count from localStorage
-            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-            const countElem = document.getElementById("cart-count");
-            if (countElem) countElem.textContent = totalQty;
-
-            // Auto-hide navbar on scroll down
-            const navbar = document.getElementById("mainNavbar");
-            let lastScrollY = window.scrollY;
-            window.addEventListener("scroll", () => {
-                if (!navbar) return;
-                if (window.scrollY > lastScrollY && window.scrollY > 50) {
-                    navbar.classList.replace("navbar-show", "navbar-hide");
-                } else {
-                    navbar.classList.replace("navbar-hide", "navbar-show");
-                }
-                lastScrollY = window.scrollY;
-            });
-        }
-
-        // Run navbar setup
-        window.addEventListener("DOMContentLoaded", initNavbar);
-
+        // Snipcart Events: Hide navbar on cart open
         document.addEventListener('snipcart.ready', () => {
             const navbar = document.getElementById('mainNavbar');
             const body = document.body;
@@ -222,17 +169,48 @@
                 navbar?.classList.add('navbar-hide', 'relative');
                 navbar?.classList.remove('fixed', 'top-0');
                 body.classList.add('dimmed-background');
-                pageContent.classList.add('blurred');
+                pageContent?.classList.add('blurred');
             });
 
             Snipcart.events.on('cart.closed', () => {
                 navbar?.classList.remove('navbar-hide', 'relative');
                 navbar?.classList.add('navbar-show', 'fixed', 'top-0');
                 body.classList.remove('dimmed-background');
-                pageContent.classList.remove('blurred');
+                pageContent?.classList.remove('blurred');
             });
         });
 
+        // Load all inserts
+        includeHTML("navbar-container", "/page_inserts/uni_navbart.html", () => {
+            initNavbar();
+            setupScrollNavbarColorChange();
+        });
+        includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+
+        // Load featured products
+        fetch("https://www.karrykraze.com/products/products.json")
+            .then(res => res.json())
+            .then(data => {
+                const featured = ["Bag_TheBucket", "Bag_MiniHeart", "Headwear_EarflapBeanie"];
+                const container = document.getElementById("featured-products");
+
+                featured.forEach(sku => {
+                    const p = data[sku];
+                    if (!p) return;
+
+                    const card = document.createElement("a");
+                    card.href = p.url;
+                    card.className = "border rounded-lg overflow-hidden shadow hover:shadow-lg transition block";
+
+                    card.innerHTML = `
+                <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain bg-white p-4">
+                <div class="p-4">
+                  <h3 class="text-lg font-semibold truncate">${p.name}</h3>
+                  <p class="text-gray-600 mt-1">$${p.price.toFixed(2)}</p>
+                </div>`;
+                    container.appendChild(card);
+                });
+            });
     </script>
 </body>
 </html>
