@@ -275,18 +275,18 @@
                         cell.className = "carousel-cell p2";
 
                         cell.innerHTML = `
-                        <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-                          <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-                            <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-                            ${product.thumbnails?.[1] ? `
-                              <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-                                src="${product.thumbnails[1]}" alt="Hover image">` : ''}
-                          </div>
-                          <div class="text-center mt-3">
-                            <div class="text-sm font-semibold truncate">${product.name}</div>
-                            <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
-                          </div>
-                        </a>`;
+                            <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
+                              <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
+                                <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+                                ${product.thumbnails?.[1] ? `
+                                  <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+                                    src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+                              </div>
+                              <div class="text-center mt-3">
+                                <div class="text-sm font-semibold truncate">${product.name}</div>
+                                <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
+                              </div>
+                            </a>`;
                         carouselWrapper.appendChild(cell);
                     });
 
@@ -339,6 +339,67 @@
         includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
         includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
     </script>
+
+    <script>
+        (function () {
+            const sku = window.location.pathname.split("/").pop().replace(".html", "");
+
+            fetch("https://www.karrykraze.com/products/products.json")
+                .then(res => res.json())
+                .then(data => {
+                    const product = data[sku];
+                    if (!product) return;
+
+                    const title = `${product.name} – Karry Kraze`;
+                    const description = (product.descriptionList || []).slice(0, 2).join(" ");
+                    const image = product.image;
+                    const url = product.url;
+
+                    // Meta tags to inject
+                    const metas = [
+                        ["title", null, title],
+                        ["meta", "name=description", description],
+                        ["meta", "property=og:title", title],
+                        ["meta", "property=og:description", description],
+                        ["meta", "property=og:image", image],
+                        ["meta", "property=og:url", url],
+                        ["meta", "property=og:type", "product"],
+                        ["meta", "name=twitter:card", "summary_large_image"],
+                        ["meta", "name=twitter:title", title],
+                        ["meta", "name=twitter:description", description],
+                        ["meta", "name=twitter:image", image]
+                    ];
+
+                    const head = document.head;
+
+                    metas.forEach(([tag, selector, content]) => {
+                        let el;
+
+                        if (tag === "title") {
+                            el = document.querySelector("title") || document.createElement("title");
+                            el.textContent = content;
+                        } else {
+                            el = selector
+                                ? document.querySelector(`${tag}[${selector}]`)
+                                : null;
+
+                            if (!el) {
+                                el = document.createElement(tag);
+                                if (selector) {
+                                    const [attr, val] = selector.split("=");
+                                    el.setAttribute(attr, val);
+                                }
+                            }
+
+                            el.setAttribute("content", content);
+                        }
+
+                        head.appendChild(el);
+                    });
+                });
+        })();
+    </script>
+
 
 
 </body>
