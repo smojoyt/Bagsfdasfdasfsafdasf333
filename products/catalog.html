@@ -2,165 +2,117 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KarryKraze - Catalog</title>
-    <link rel="icon" href="Branding/LL_Black_01.png" type="image/x-icon">
-
-    <link rel="stylesheet" href="https://unpkg.com/muicss@0.9.43/dist/css/mui.min.css">
-    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
-    <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
+    <title>Karry Kraze Catalog</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-</head>
-
-<body>
-
-    
-
-    <div class="text-center p-4 text-black space-y-2">
-        <div class="flex flex-wrap justify-center gap-2">
-            <button class="bg-gray-200 rounded-full px-4 py-2 font-bold" data-filter=".nb">Non Branded</button>
-            <button class="bg-gray-200 rounded-full px-4 py-2 font-bold" data-filter=".lv">Louis Vuitton</button>
-            <button class="bg-gray-200 rounded-full px-4 py-2 font-bold" data-filter=".dior">Dior</button>
-            <button class="bg-gray-200 rounded-full px-4 py-2 font-bold" data-filter=".chanel">Chanel</button>
-            <button class="bg-gray-200 rounded-full px-4 py-2 font-bold" data-filter=".telfar">Telfar</button>
-            <button class="bg-gray-200 rounded-full px-4 py-2 font-bold" data-filter=".marcj">Marc Jacobs</button>
-            <button class="bg-gray-200 rounded-full px-4 py-2 font-bold" data-filter=".acc">Accessories</button>
-        </div>
-        <div class="flex flex-wrap justify-center gap-2">
-            <button class="bg-gray-200 rounded-full px-4 py-2 font-bold" data-filter=".bestseller">Best Seller</button>
-            <button class="bg-gray-200 rounded-full px-4 py-2 font-bold" data-filter=".sale">On Sale</button>
-            <button class="bg-gray-200 rounded-full px-4 py-2 font-bold" data-filter=":not(.out-of-stock)">In Stock</button>
-            <button id="toggle-price-sort" class="bg-gray-200 rounded-full px-4 py-2 font-bold" data-sort="default">
-                Price <span id="price-sort-indicator">─</span>
-            </button>
-        </div>
-        <div class="mt-2">
-            <button id="clear-filters" class="underline font-bold text-black">Clear all</button>
-        </div>
-    </div>
-
-    <div class="grid-wrapper">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-8" id="gridBox">
-            <div class="relative" data-price="144">
-                <a href="https://www.depop.com/products/smojoyt-luxury-monogram-crossbody-bag-5f9f/manage/" class="block text-black no-underline">
-                    <div class="relative">
-                        <span class="absolute top-2 left-2 bg-gray-600 text-white text-xs font-bold uppercase rounded px-2 py-1 z-10">Out</span>
-                        <span class="absolute top-2 right-2 bg-yellow-500 text-white text-xs font-bold uppercase rounded px-2 py-1 z-10">Best Seller</span>
-                        <img src="Products/Bags/LV/CrossBody1/CB1Main.png" class="w-full h-72 object-cover transition-opacity duration-300 default-image" />
-                        <img src="Products/Bags/LV/CrossBody1/CB1Hover.jpg" class="w-full h-72 object-cover absolute top-0 left-0 opacity-0 hover:opacity-100 transition-opacity duration-300 hover-image" />
-                    </div>
-                    <div class="flex flex-wrap items-end gap-1 mt-2 text-left">
-                        <span class="flex items-start font-bold text-black text-2xl leading-none">
-                            <span class="text-sm align-top pt-1">$</span>
-                            <span class="text-3xl">144</span>
-                            <span class="text-sm pt-1">99</span>
-                        </span>
-                    </div>
-                    <div class="mt-1 text-sm text-gray-600">Louis Vuitton Duo Messenger Bag</div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+</head>
+<body class="bg-white text-gray-900">
+
+    <div class="p-4 flex flex-wrap items-center justify-center gap-4">
+
+        <!-- Category filters -->
+        <div data-filter-group="category">
+            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter="">All</button>
+            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter=".bags">Bags</button>
+            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter=".headwear">Headwear</button>
+        </div>
+
+        <!-- Tag filters -->
+        <div data-filter-group="tags">
+            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter="">All</button>
+            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter=".bestseller">Bestsellers</button>
+            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter=".onsale">On Sale</button>
+            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter=".outofstock">Out of Stock</button>
+        </div>
+
+        <!-- Sort Dropdown -->
+        <select id="sort-select" class="ml-4 border p-2 rounded">
+            <option value="original-order">Default</option>
+            <option value="name">Name A–Z</option>
+            <option value="price-low">Price Low–High</option>
+            <option value="price-high">Price High–Low</option>
+        </select>
+    </div>
+
+
+    <!-- Product Grid -->
+    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4"></div>
+
+    <!-- Script to Load and Activate -->
     <script>
-        var $grid = $('.grid').isotope({
-            itemSelector: '.grid-item',
-            layoutMode: 'masonry',
-            masonry: {
-                columnWidth: 150,
-                isFitWidth: true
-            },
-            transitionDuration: '0.5s',
-            stagger: 100,
-            getSortData: {
-                price: '[data-price] parseFloat'
-            }
-        });
+        let filters = {}; // stores selected filters by group
 
-        imagesLoaded(document.querySelector('.grid'), function () {
-            $grid.isotope('layout');
-        });
+        function concatFilters(obj) {
+            return Object.values(obj).filter(Boolean).join('');
+        }
 
-        const filterButtons = document.querySelectorAll('.filters button[data-filter]');
+        // Fetch + render products
+        fetch("https://www.karrykraze.com/products/products.json")
+            .then(res => res.json())
+            .then(products => {
+                const container = document.getElementById("product-grid");
+                let html = "";
 
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                button.classList.toggle('active');
-                const activeButtons = Array.from(filterButtons).filter(btn => btn.classList.contains('active'));
-                const sizeFilters = activeButtons.filter(btn => ['.lv', '.dior', '.chanel', '.telfar', '.marcj', '.nb', '.acc'].includes(btn.getAttribute('data-filter'))).map(btn => btn.getAttribute('data-filter'));
-                const tagFilters = activeButtons.filter(btn => !['.lv', '.dior', '.chanel', '.telfar', '.marcj', '.nb', '.acc'].includes(btn.getAttribute('data-filter'))).map(btn => btn.getAttribute('data-filter'));
+                Object.entries(products).forEach(([sku, p]) => {
+                    const tagClasses = p.tags ? p.tags.map(t => t.toLowerCase()).join(" ") : "";
+                    html += `
+                  <div class="item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
+                    <a href="${p.url}" class="block bg-white shadow-sm border hover:shadow-md transition rounded-lg overflow-hidden">
+                      <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-cover" />
+                      <div class="p-4 text-left">
+                        <h2 class="text-lg font-bold">${p.name}</h2>
+                        <p class="text-sm text-gray-500">$${p.price.toFixed(2)}</p>
+                        ${p.tags?.includes("Onsale") ? '<span class="inline-block text-xs mt-1 text-red-500 bg-red-100 px-2 py-1 rounded">On Sale</span>' : ""}
+                        ${p.tags?.includes("Outofstock") ? '<span class="inline-block text-xs mt-1 text-yellow-600 bg-yellow-100 px-2 py-1 rounded">Out of Stock</span>' : ""}
+                        ${p.tags?.includes("Bestseller") ? '<span class="inline-block text-xs mt-1 text-green-600 bg-green-100 px-2 py-1 rounded">Bestseller</span>' : ""}
+                      </div>
+                    </a>
+                  </div>
+                `;
+                });
 
-                let filterValue = '*';
-                if (sizeFilters.length && tagFilters.length) {
-                    filterValue = sizeFilters.map(size => tagFilters.map(tag => size + tag).join(',')).join(',');
-                } else if (tagFilters.length) {
-                    filterValue = tagFilters.join(',');
-                } else if (sizeFilters.length) {
-                    filterValue = sizeFilters.join(',');
-                }
-                $grid.isotope({ filter: filterValue });
+                container.innerHTML = html;
+
+                const iso = new Isotope(container, {
+                    itemSelector: '.item',
+                    layoutMode: 'fitRows',
+                    getSortData: {
+                        name: '[data-name]',
+                        'price-low': '[data-price] parseFloat',
+                        'price-high': '[data-price] parseFloat'
+                    }
+                });
+
+                // Filtering logic
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', e => {
+                        const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
+                        const filter = btn.getAttribute('data-filter');
+
+                        // Update filter for the group
+                        filters[group] = filter;
+
+                        // Apply combined filter
+                        iso.arrange({ filter: concatFilters(filters) });
+                    });
+                });
+
+                // Sort logic
+                document.getElementById('sort-select').addEventListener('change', e => {
+                    const val = e.target.value;
+                    if (val === 'price-high') {
+                        iso.updateSortData();
+                        iso.arrange({ sortBy: 'price-low', sortAscending: false });
+                    } else if (val === 'price-low') {
+                        iso.updateSortData();
+                        iso.arrange({ sortBy: 'price-low', sortAscending: true });
+                    } else {
+                        iso.arrange({ sortBy: val });
+                    }
+                });
             });
-        });
-
-        document.getElementById('clear-filters').addEventListener('click', function () {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            document.getElementById('price-sort-indicator').textContent = '─';
-            document.getElementById('toggle-price-sort').setAttribute('data-sort', 'default');
-            $grid.isotope({ filter: '*', sortBy: 'original-order' });
-        });
-
-        const grid = document.getElementById('gridBox');
-        let previousHeight = grid.offsetHeight;
-        let previousWidth = grid.offsetWidth;
-
-        const observer = new ResizeObserver(entries => {
-            for (let entry of entries) {
-                const newHeight = entry.contentRect.height;
-                const newWidth = entry.contentRect.width;
-
-                if (newHeight > previousHeight || newWidth > previousWidth) {
-                    grid.classList.add('shrinking');
-                } else {
-                    grid.classList.remove('shrinking');
-                }
-
-                previousHeight = newHeight;
-                previousWidth = newWidth;
-            }
-        });
-
-        observer.observe(grid);
-
-
-
-
-        document.getElementById('toggle-price-sort').addEventListener('click', function () {
-            const btn = this;
-            const current = btn.getAttribute('data-sort');
-            const sortIndicator = document.getElementById('price-sort-indicator');
-            let next;
-
-            if (current === 'default') {
-                next = 'asc';
-                sortIndicator.textContent = '↑';
-                $grid.isotope({ sortBy: 'price', sortAscending: true });
-            } else if (current === 'asc') {
-                next = 'desc';
-                sortIndicator.textContent = '↓';
-                $grid.isotope({ sortBy: 'price', sortAscending: false });
-            } else {
-                next = 'default';
-                sortIndicator.textContent = '─';
-                $grid.isotope({ sortBy: 'original-order' });
-            }
-            btn.setAttribute('data-sort', next);
-        });
     </script>
+
+
 </body>
 </html>
