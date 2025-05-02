@@ -8,28 +8,30 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
 
-            <!-- Hamburger (mobile only) -->
-            <div class="flex items-center md:hidden">
+            <!-- Left: Hamburger (mobile only) -->
+            <div class="w-12 flex items-center md:hidden">
                 <button id="mobile-menu-button" class="text-white text-2xl focus:outline-none">
                     ☰
                 </button>
             </div>
 
             <!-- Center: Logo -->
-            <div class="flex-1 flex justify-center">
+            <div class="flex justify-center flex-grow overflow-hidden">
                 <a href="/" class="flex items-center">
-                    <img id="logo" src="/imgs/Logo/Long/LL_White_02.png" alt="Karry Kraze Logo" class="h-10 w-auto" />
+                    <img id="logo" src="/imgs/Logo/Long/LL_White_02.png" alt="Karry Kraze Logo" class="h-10 w-auto mx-auto" />
                 </a>
             </div>
 
-            <!-- Cart -->
-            <div class="flex items-center">
+            <!-- Right: Cart -->
+            <div class="w-12 flex items-center justify-end">
                 <button class="snipcart-checkout relative text-xl">
                     🛒
                     <span id="cart-count" class="snipcart-items-count absolute -top-2 -right-3 bg-black text-white text-xs rounded-full px-1">0</span>
                 </button>
             </div>
+
         </div>
+
 
         <!-- Desktop Nav -->
         <div class="hidden md:flex justify-center space-x-6 items-center py-2">
