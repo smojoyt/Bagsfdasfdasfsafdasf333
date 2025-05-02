@@ -1,23 +1,25 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Karry Kraze Navbar</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="pt-16">
 
-    <!-- Universal Nav Bar - Tailwind CSS with Mobile Menu + Cart Icon -->
+    <!-- Announcement Bar -->
     <div class="w-full bg-yellow-100 text-center text-sm font-semibold text-gray-800 py-2 px-4">
         🎉 FREE SHIPPING on all U.S. orders over $50! Limited time only.
     </div>
+
+    <!-- Navbar -->
     <nav class="bg-white shadow-md fixed top-0 w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16 relative">
+            <div class="flex items-center justify-between h-16 relative">
 
-                <!-- Left Nav (Desktop) -->
-                <div class="hidden md:flex items-center space-x-6 absolute left-0">
+                <!-- Left Navigation Links -->
+                <div class="hidden md:flex items-center space-x-6">
                     <a href="/" class="text-gray-600 hover:text-black">Home</a>
                     <a href="https://catalog.karrykraze.com" target="_blank" class="text-gray-600 hover:text-black">Catalog</a>
                     <a href="https://www.instagram.com/karrykraze/" target="_blank" class="text-gray-600 hover:text-black">Instagram</a>
@@ -31,16 +33,15 @@
                     </a>
                 </div>
 
-                <!-- Cart + Mobile Menu Button -->
-                <!-- Cart + Mobile Menu Button (Fixed Overlap) -->
-                <div class="absolute left-4 flex items-center gap-4 md:gap-6">
+                <!-- Cart and Mobile Menu -->
+                <div class="flex items-center space-x-4 md:space-x-6">
                     <!-- Snipcart Cart -->
                     <button class="snipcart-checkout relative">
                         🛒
                         <span class="snipcart-items-count absolute -top-2 -right-3 bg-black text-white text-xs rounded-full px-1">0</span>
                     </button>
 
-                    <!-- Mobile Toggle Button -->
+                    <!-- Mobile Menu Toggle -->
                     <button id="mobile-menu-button" class="md:hidden text-gray-800 text-2xl">
                         ☰
                     </button>
@@ -49,7 +50,7 @@
             </div>
         </div>
 
-        <!-- Mobile Dropdown Menu -->
+        <!-- Mobile Dropdown -->
         <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 absolute top-16 left-0 w-3/4 bg-white shadow-md z-50">
             <a href="/" class="block text-gray-600 hover:text-black">Home</a>
             <a href="https://catalog.karrykraze.com" target="_blank" class="block text-gray-600 hover:text-black">Catalog</a>
@@ -57,7 +58,6 @@
             <a href="/contact" target="_blank" class="block text-gray-600 hover:text-black">Contact</a>
         </div>
     </nav>
-
 
 </body>
 </html>
