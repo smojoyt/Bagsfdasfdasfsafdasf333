@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- SEO + Social Meta Tags -->
+    <title>The Bucket White Drawstring Bag – Karry Kraze</title>
+    <meta name="description" content="Soft white faux leather with bold THE BUCKET text Gold-tone hardware + durable drawstring closure" />
+    <meta property="og:title" content="The Bucket White Drawstring Bag – Karry Kraze" />
+    <meta property="og:description" content="Soft white faux leather with bold THE BUCKET text Gold-tone hardware + durable drawstring closure" />
+    <meta property="og:image" content="https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg" />
+    <meta property="og:url" content="https://www.karrykraze.com/products/bags/Bag_TheBucket" />
+    <meta property="og:type" content="product" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Bucket White Drawstring Bag – Karry Kraze" />
+    <meta name="twitter:description" content="Soft white faux leather with bold THE BUCKET text Gold-tone hardware + durable drawstring closure" />
+    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Product page for Karry Kraze" />
-    <title>Product - Karry Kraze</title>
+
 
     <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
     <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
@@ -340,65 +351,7 @@
         includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
     </script>
 
-    <script>
-        (function () {
-            const sku = window.location.pathname.split("/").pop().replace(".html", "");
-
-            fetch("https://www.karrykraze.com/products/products.json")
-                .then(res => res.json())
-                .then(data => {
-                    const product = data[sku];
-                    if (!product) return;
-
-                    const title = `${product.name} – Karry Kraze`;
-                    const description = (product.descriptionList || []).slice(0, 2).join(" ");
-                    const image = product.image;
-                    const url = product.url;
-
-                    // Meta tags to inject
-                    const metas = [
-                        ["title", null, title],
-                        ["meta", "name=description", description],
-                        ["meta", "property=og:title", title],
-                        ["meta", "property=og:description", description],
-                        ["meta", "property=og:image", image],
-                        ["meta", "property=og:url", url],
-                        ["meta", "property=og:type", "product"],
-                        ["meta", "name=twitter:card", "summary_large_image"],
-                        ["meta", "name=twitter:title", title],
-                        ["meta", "name=twitter:description", description],
-                        ["meta", "name=twitter:image", image]
-                    ];
-
-                    const head = document.head;
-
-                    metas.forEach(([tag, selector, content]) => {
-                        let el;
-
-                        if (tag === "title") {
-                            el = document.querySelector("title") || document.createElement("title");
-                            el.textContent = content;
-                        } else {
-                            el = selector
-                                ? document.querySelector(`${tag}[${selector}]`)
-                                : null;
-
-                            if (!el) {
-                                el = document.createElement(tag);
-                                if (selector) {
-                                    const [attr, val] = selector.split("=");
-                                    el.setAttribute(attr, val);
-                                }
-                            }
-
-                            el.setAttribute("content", content);
-                        }
-
-                        head.appendChild(el);
-                    });
-                });
-        })();
-    </script>
+    
 
 </body>
 </html>
