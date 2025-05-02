@@ -73,6 +73,11 @@
     <!-- Snipcart -->
     <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz" data-config-modal-style="side"></div>
 
+
+
+
+
+
     <!-- JS Scripts -->
     <script>
         // Load HTML sections dynamically
@@ -103,26 +108,35 @@
 
         // Scroll-based navbar style swap
         function setupScrollNavbarColorChange() {
-            const navbar = document.getElementById('mainNavbar');
-            const logo = document.getElementById('logo');
+            const navbar = document.getElementById("mainNavbar");
+            const logo = document.getElementById("logo");
+            const burger = document.getElementById("mobile-menu-button");
 
             function updateNavbarStyles() {
                 const scrolled = window.scrollY > 10;
                 if (!navbar) return;
 
                 if (scrolled) {
-                    navbar.classList.remove('bg-transparent', 'text-white');
-                    navbar.classList.add('bg-white', 'text-black', 'shadow-md');
-                    if (logo) logo.src = '/imgs/Logo/Long/LL_Black_02.png';
+                    navbar.classList.remove("bg-transparent", "text-white");
+                    navbar.classList.add("bg-white", "text-black", "shadow-md");
+                    if (burger) {
+                        burger.classList.remove("text-white");
+                        burger.classList.add("text-black");
+                    }
+                    if (logo) logo.src = "/imgs/Logo/Long/LL_Black_02.png";
                 } else {
-                    navbar.classList.remove('bg-white', 'text-black', 'shadow-md');
-                    navbar.classList.add('bg-transparent', 'text-white');
-                    if (logo) logo.src = '/imgs/Logo/Long/LL_White_02.png';
+                    navbar.classList.remove("bg-white", "text-black", "shadow-md");
+                    navbar.classList.add("bg-transparent", "text-white");
+                    if (burger) {
+                        burger.classList.remove("text-black");
+                        burger.classList.add("text-white");
+                    }
+                    if (logo) logo.src = "/imgs/Logo/Long/LL_White_02.png";
                 }
             }
 
             updateNavbarStyles();
-            window.addEventListener('scroll', updateNavbarStyles);
+            window.addEventListener("scroll", updateNavbarStyles);
         }
 
         // Load More Items Carousel
@@ -146,18 +160,18 @@
                         const cell = document.createElement('div');
                         cell.className = "carousel-cell p-2";
                         cell.innerHTML = `
-                  <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-                    <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-                      <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-                      ${product.thumbnails?.[1] ? `
-                        <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-                          src="${product.thumbnails[1]}" alt="Hover image">` : ''}
-                    </div>
-                    <div class="text-center mt-6">
-                      <div class="text-sm font-semibold truncate">${product.name}</div>
-                      <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
-                    </div>
-                  </a>`;
+                            <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
+                                <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
+                                    <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+                                    ${product.thumbnails?.[1] ? `
+                                        <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+                                            src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+                                </div>
+                                <div class="text-center mt-6">
+                                    <div class="text-sm font-semibold truncate">${product.name}</div>
+                                    <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
+                                </div>
+                            </a>`;
                         carouselWrapper.appendChild(cell);
                     });
 
@@ -179,7 +193,7 @@
                 });
         }
 
-        // Snipcart Events: Hide navbar on cart open
+        // Snipcart navbar interaction
         document.addEventListener('snipcart.ready', () => {
             const navbar = document.getElementById('mainNavbar');
             const body = document.body;
@@ -200,104 +214,45 @@
             });
         });
 
-        // Load all inserts
-        includeHTML("navbar-container", "/page_inserts/uni_navbart.html", () => {
-            initNavbar();
-            setupScrollNavbarColorChange();
-        });
-        includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+        // Featured product loader
+        function loadFeaturedProducts() {
+            fetch("https://www.karrykraze.com/products/products.json")
+                .then(res => res.json())
+                .then(data => {
+                    const featured = ["Bag_TheBucket", "Bag_MiniHeart", "Headwear_EarflapBeanie"];
+                    const container = document.getElementById("featured-products");
 
-        // Load featured products
-        fetch("https://www.karrykraze.com/products/products.json")
-            .then(res => res.json())
-            .then(data => {
-                const featured = ["Bag_TheBucket", "Bag_MiniHeart", "Headwear_EarflapBeanie"];
-                const container = document.getElementById("featured-products");
+                    featured.forEach(sku => {
+                        const p = data[sku];
+                        if (!p) return;
 
-                featured.forEach(sku => {
-                    const p = data[sku];
-                    if (!p) return;
-
-                    const card = document.createElement("a");
-                    card.href = p.url;
-                    card.className = "border rounded-lg overflow-hidden shadow hover:shadow-lg transition block";
-
-                    card.innerHTML = `
-                <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain bg-white p-4">
-                <div class="p-4">
-                  <h3 class="text-lg font-semibold truncate">${p.name}</h3>
-                  <p class="text-gray-600 mt-1">$${p.price.toFixed(2)}</p>
-                </div>`;
-                    container.appendChild(card);
-                });
-            });
-
-
-        // Dynamically load HTML
-        function includeHTML(id, filePath, callback = null) {
-            fetch(filePath)
-                .then(res => res.text())
-                .then(html => {
-                    document.getElementById(id).innerHTML = html;
-                    if (callback) callback();
+                        const card = document.createElement("a");
+                        card.href = p.url;
+                        card.className = "border rounded-lg overflow-hidden shadow hover:shadow-lg transition block";
+                        card.innerHTML = `
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain bg-white p-4">
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold truncate">${p.name}</h3>
+                                <p class="text-gray-600 mt-1">$${p.price.toFixed(2)}</p>
+                            </div>`;
+                        container.appendChild(card);
+                    });
                 });
         }
 
-        // Toggle + Cart Count
-        function initNavbar() {
-            const toggleBtn = document.getElementById("mobile-menu-button");
-            const menu = document.getElementById("mobile-menu");
-            if (toggleBtn && menu) {
-                toggleBtn.addEventListener("click", () => {
-                    menu.classList.toggle("hidden");
-                });
-            }
-
-            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-            const countElem = document.getElementById("cart-count");
-            if (countElem) countElem.textContent = totalQty;
-        }
-
-        // Scroll style change
-        function setupScrollNavbarColorChange() {
-            const navbar = document.getElementById("mainNavbar");
-            const logo = document.getElementById("logo");
-            const burger = document.getElementById("mobile-menu-button")
-
-            function updateNavbarStyles() {
-                const scrolled = window.scrollY > 10;
-                if (!navbar) return;
-
-                if (scrolled) {
-                    navbar.classList.remove("bg-transparent", "text-white");
-                    burger.classList.remove("text-white")
-                    burger.classList.add("text-black")
-                    navbar.classList.add("bg-white", "text-black", "shadow-md");
-                    if (logo) logo.src = "/imgs/Logo/Long/LL_Black_02.png";
-                } else {
-                    navbar.classList.remove("bg-white", "text-black", "shadow-md");
-                    navbar.classList.add("bg-transparent", "text-white");
-                    burger.classList.remove("text-black")
-                    burger.classList.add("text-white")
-                    if (logo) logo.src = "/imgs/Logo/Long/LL_White_02.png";
-                }
-            }
-
-            updateNavbarStyles();
-            window.addEventListener("scroll", updateNavbarStyles);
-        }
-
-        // After HTML is inserted, trigger JS
+        // Master loader
         document.addEventListener("DOMContentLoaded", () => {
             includeHTML("navbar-container", "/page_inserts/uni_navbart.html", () => {
                 initNavbar();
                 setupScrollNavbarColorChange();
             });
+
+            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+
+            loadFeaturedProducts();
         });
-
-
     </script>
+
 
 
 </body>
