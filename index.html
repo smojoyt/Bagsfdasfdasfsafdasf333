@@ -181,27 +181,37 @@
         }
 
         function initNavbar() {
+            // Mobile menu toggle
             const toggleBtn = document.getElementById("mobile-menu-button");
             const menu = document.getElementById("mobile-menu");
-            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+            if (toggleBtn && menu) {
+                toggleBtn.addEventListener("click", () => {
+                    menu.classList.toggle("hidden");
+                });
+            }
 
+            // Update cart count from localStorage
             const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
             const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
             const countElem = document.getElementById("cart-count");
             if (countElem) countElem.textContent = totalQty;
 
-            const navbar = document.getElementById('mainNavbar');
+            // Auto-hide navbar on scroll down
+            const navbar = document.getElementById("mainNavbar");
             let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
+            window.addEventListener("scroll", () => {
                 if (!navbar) return;
                 if (window.scrollY > lastScrollY && window.scrollY > 50) {
-                    navbar.classList.replace('navbar-show', 'navbar-hide');
+                    navbar.classList.replace("navbar-show", "navbar-hide");
                 } else {
-                    navbar.classList.replace('navbar-hide', 'navbar-show');
+                    navbar.classList.replace("navbar-hide", "navbar-show");
                 }
                 lastScrollY = window.scrollY;
             });
         }
+
+        // Run navbar setup
+        window.addEventListener("DOMContentLoaded", initNavbar);
 
         document.addEventListener('snipcart.ready', () => {
             const navbar = document.getElementById('mainNavbar');

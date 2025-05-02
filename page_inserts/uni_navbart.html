@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Karry Kraze Navbar</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .navbar-hide {
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-show {
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+    </style>
 </head>
 <body class="pt-16">
 
@@ -14,33 +25,33 @@
     </div>
 
     <!-- Navbar -->
-    <nav class="bg-white shadow-md fixed top-0 w-full z-50">
+    <nav id="mainNavbar" class="navbar-show bg-white shadow-md fixed top-0 w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 relative">
 
-                <!-- Left: Hamburger Menu -->
+                <!-- Hamburger (mobile only) -->
                 <div class="flex items-center md:hidden">
                     <button id="mobile-menu-button" class="text-gray-800 text-2xl focus:outline-none">
                         ☰
                     </button>
                 </div>
 
-                <!-- Center: Logo -->
+                <!-- Logo centered -->
                 <div class="absolute left-1/2 transform -translate-x-1/2">
                     <a href="/" class="flex items-center">
                         <img src="/imgs/Logo/Long/LL_Black_01.png" alt="Karry Kraze Logo" class="h-10 w-auto" />
                     </a>
                 </div>
 
-                <!-- Right: Cart Icon -->
+                <!-- Cart icon -->
                 <div class="flex items-center">
                     <button class="snipcart-checkout relative">
                         🛒
-                        <span class="snipcart-items-count absolute -top-2 -right-3 bg-black text-white text-xs rounded-full px-1">0</span>
+                        <span id="cart-count" class="absolute -top-2 -right-3 bg-black text-white text-xs rounded-full px-1">0</span>
                     </button>
                 </div>
 
-                <!-- Desktop Links -->
+                <!-- Desktop Nav -->
                 <div class="hidden md:flex absolute left-0 space-x-6 items-center">
                     <a href="/" class="text-gray-600 hover:text-black">Home</a>
                     <a href="https://catalog.karrykraze.com" target="_blank" class="text-gray-600 hover:text-black">Catalog</a>
@@ -51,7 +62,7 @@
             </div>
         </div>
 
-        <!-- Mobile Dropdown Menu -->
+        <!-- Mobile Dropdown -->
         <div id="mobile-menu" class="md:hidden hidden flex flex-col gap-2 px-4 pb-4 pt-2 bg-white shadow-md z-40 w-full">
             <a href="/" class="text-gray-600 hover:text-black">Home</a>
             <a href="https://catalog.karrykraze.com" target="_blank" class="text-gray-600 hover:text-black">Catalog</a>
@@ -60,14 +71,40 @@
         </div>
     </nav>
 
-    <!-- Toggle Script -->
+    <!-- Script for Navbar Behavior -->
     <script>
-        const btn = document.getElementById('mobile-menu-button');
-        const menu = document.getElementById('mobile-menu');
+        function initNavbar() {
+            // Mobile menu toggle
+            const toggleBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+            if (toggleBtn && menu) {
+                toggleBtn.addEventListener("click", () => {
+                    menu.classList.toggle("hidden");
+                });
+            }
 
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
+            // Update cart count from localStorage
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+
+            // Auto-hide navbar on scroll down
+            const navbar = document.getElementById("mainNavbar");
+            let lastScrollY = window.scrollY;
+            window.addEventListener("scroll", () => {
+                if (!navbar) return;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace("navbar-show", "navbar-hide");
+                } else {
+                    navbar.classList.replace("navbar-hide", "navbar-show");
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
+
+        // Run navbar setup
+        window.addEventListener("DOMContentLoaded", initNavbar);
     </script>
 
 </body>
