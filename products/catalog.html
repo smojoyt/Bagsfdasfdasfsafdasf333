@@ -94,17 +94,17 @@
     <!-- Filters -->
     <div class="filters text-black px-4">
         <div class="top-sort mb-4">
-            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1">Non Branded</button>
-            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1">Louis Vuitton</button>
-            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1">Dior</button>
-            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1">Chanel</button>
-            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1">Telfar</button>
-            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1">Marc Jacobs</button>
-            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1">Accessories</button>
+            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1" data-filter=".nb">Non Branded</button>
+            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1" data-filter=".lv">Louis Vuitton</button>
+            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1" data-filter=".dior">Dior</button>
+            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1" data-filter=".chanel">Chanel</button>
+            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1" data-filter=".telfar">Telfar</button>
+            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1" data-filter=".marcj">Marc Jacobs</button>
+            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1" data-filter=".acc">Accessories</button>
         </div>
         <div>
-            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1">Best Seller</button>
-            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1">On Sale</button>
+            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1" data-filter=".bestseller">Best Seller</button>
+            <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1" data-filter=".sale">On Sale</button>
             <button class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1">In Stock</button>
             <button id="toggle-price-sort" data-sort="default" class="bg-gray-100 rounded-full font-bold px-4 py-2 m-1">Price <span id="price-sort-indicator">─</span></button>
         </div>
@@ -117,7 +117,7 @@
     <div class="grid-wrapper px-8">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center" id="gridBox">
             <!-- Example Item -->
-            <div class="grid-item relative max-w-xs mx-auto">
+            <div class="grid-item lv bestseller out" data-price="144.99">
                 <a href="#" class="item-inner block text-black no-underline">
                     <div class="item-img relative">
                         <span class="outofstock-badge absolute top-2 left-2 bg-gray-500 text-white px-2 py-1 text-xs font-bold uppercase rounded">Out</span>
