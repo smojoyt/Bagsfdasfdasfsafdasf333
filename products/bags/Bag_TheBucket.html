@@ -25,6 +25,10 @@
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 
     <style>
+        .rotate-45 {
+            transform: rotate(45deg);
+        }
+
         .carousel.thumbnail {
             margin-left: 0px
         }
@@ -344,6 +348,24 @@
                 pageContent?.classList.remove('blurred');
             });
         });
+
+        function toggleAccordion() {
+            const content = document.getElementById("accordion-content");
+            const icon = document.getElementById("accordion-icon");
+
+            if (!content || !icon) return;
+
+            const isOpen = content.style.height && content.style.height !== "0px";
+
+            if (isOpen) {
+                content.style.height = "0px";
+                icon.classList.remove("rotate-45");
+            } else {
+                content.style.height = content.scrollHeight + "px";
+                icon.classList.add("rotate-45");
+            }
+        }
+
 
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
             initNavbar(); // ✅ safe - navbar is now present
