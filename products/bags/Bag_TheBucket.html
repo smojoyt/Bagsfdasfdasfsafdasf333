@@ -345,21 +345,18 @@
             });
         });
 
-        // Inject sections, then load product data
-        includeHTML("productpage", "/page_inserts/productpage.html", () => {
-            initNavbar();
-            loadProductData(); // Wait until productpage.html is loaded
-        });
-        // Inject navbar, then initialize behavior
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-            initNavbar(); // Ensures #mobile-menu-button and #mainNavbar exist before this runs
+            initNavbar(); // ✅ safe - navbar is now present
+
+            includeHTML("productpage", "/page_inserts/productpage.html", () => {
+                loadProductData(); // ✅ safe - product section is present
+            });
+
+            includeHTML("unicart-container", "/page_inserts/uni_cart.html");
+            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
         });
 
-
-       
-        includeHTML("unicart-container", "/page_inserts/uni_cart.html");
-        includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-        includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
     </script>
 
 
