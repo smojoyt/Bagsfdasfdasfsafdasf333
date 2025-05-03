@@ -350,8 +350,13 @@
             initNavbar();
             loadProductData(); // Wait until productpage.html is loaded
         });
+        // Inject navbar, then initialize behavior
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar(); // Ensures #mobile-menu-button and #mainNavbar exist before this runs
+        });
 
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
+
+       
         includeHTML("unicart-container", "/page_inserts/uni_cart.html");
         includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
         includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
