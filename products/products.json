@@ -69,7 +69,8 @@
 		"category": "bags",
 		"product_id": "KK-1003",
 		"price": 34.47,
-		"tags": [ "Outofstock" ],
+		"sale_price": 20.00,
+		"tags": [ "Bestseller", "Onsale" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_TheBucket",
 		"descriptionList": [
