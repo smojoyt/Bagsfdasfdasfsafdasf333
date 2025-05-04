@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <!-- SEO + Social Meta Tags -->
-    <title>Ribbed Knit Earflap Beanie – Karry Kraze</title>
-    <meta name="description" content="Ribbed Knit Acrylic Blend Oversized earflap design" />
-    <meta property="og:title" content="Ribbed Knit Earflap Beanie – Karry Kraze" />
-    <meta property="og:description" content="Ribbed Knit Acrylic Blend Oversized earflap design" />
-    <meta property="og:image" content="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png" />
-    <meta property="og:url" content="https://www.karrykraze.com/products/headwear/Headwear_EarflapBeanie" />
+    <title>The Bucket White Drawstring Bag – Karry Kraze</title>
+    <meta name="description" content="Soft white faux leather with bold THE BUCKET text Gold-tone hardware + durable drawstring closure" />
+    <meta property="og:title" content="The Bucket White Drawstring Bag – Karry Kraze" />
+    <meta property="og:description" content="Soft white faux leather with bold THE BUCKET text Gold-tone hardware + durable drawstring closure" />
+    <meta property="og:image" content="https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg" />
+    <meta property="og:url" content="https://www.karrykraze.com/products/bags/Bag_TheBucket" />
     <meta property="og:type" content="product" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Ribbed Knit Earflap Beanie – Karry Kraze" />
-    <meta name="twitter:description" content="Ribbed Knit Acrylic Blend Oversized earflap design" />
-    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png" />
+    <meta name="twitter:title" content="The Bucket White Drawstring Bag – Karry Kraze" />
+    <meta name="twitter:description" content="Soft white faux leather with bold THE BUCKET text Gold-tone hardware + durable drawstring closure" />
+    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -26,6 +25,10 @@
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 
     <style>
+        .rotate-45 {
+            transform: rotate(45deg);
+        }
+
         .carousel.thumbnail {
             margin-left: 0px
         }
@@ -99,9 +102,8 @@
     <div id="navbar-container"></div>
     <div id="unicart-container"></div>
 
-    <div hidden id="snipcart"
-         data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz"
-         data-config-modal-style="side"></div>
+    <!-- Snipcart -->
+    <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz" data-config-modal-style="side"></div>
 
 
 
@@ -154,8 +156,6 @@
                     if (productIdEl && activeProduct.product_id) {
                         productIdEl.textContent = activeProduct.product_id;
                     }
-
-
 
 
                     const priceEl = document.getElementById("product-price");
@@ -295,18 +295,18 @@
                         cell.className = "carousel-cell p2";
 
                         cell.innerHTML = `
-                            <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-                              <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-                                <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-                                ${product.thumbnails?.[1] ? `
-                                  <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-                                    src="${product.thumbnails[1]}" alt="Hover image">` : ''}
-                              </div>
-                              <div class="text-center mt-3">
-                                <div class="text-sm font-semibold truncate">${product.name}</div>
-                                <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
-                              </div>
-                            </a>`;
+                                        <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
+                                          <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
+                                            <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+                                            ${product.thumbnails?.[1] ? `
+                                              <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+                                                src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+                                          </div>
+                                          <div class="text-center mt-3">
+                                            <div class="text-sm font-semibold truncate">${product.name}</div>
+                                            <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
+                                          </div>
+                                        </a>`;
                         carouselWrapper.appendChild(cell);
                     });
 
@@ -348,19 +348,38 @@
             });
         });
 
-        // Inject sections, then load product data
-        includeHTML("productpage", "/page_inserts/productpage.html", () => {
-            initNavbar();
-            loadProductData(); // Wait until productpage.html is loaded
+        function toggleAccordion() {
+            const content = document.getElementById("accordion-content");
+            const icon = document.getElementById("accordion-icon");
+
+            if (!content || !icon) return;
+
+            const isOpen = content.style.height && content.style.height !== "0px";
+
+            if (isOpen) {
+                content.style.height = "0px";
+                icon.classList.remove("rotate-45");
+            } else {
+                content.style.height = content.scrollHeight + "px";
+                icon.classList.add("rotate-45");
+            }
+        }
+
+
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar(); // ✅ safe - navbar is now present
+
+            includeHTML("productpage", "/page_inserts/productpage.html", () => {
+                loadProductData(); // ✅ safe - product section is present
+            });
+
+            includeHTML("unicart-container", "/page_inserts/uni_cart.html");
+            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
         });
 
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
-        includeHTML("unicart-container", "/page_inserts/uni_cart.html");
-        includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-        includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
     </script>
 
-    
 
 
 

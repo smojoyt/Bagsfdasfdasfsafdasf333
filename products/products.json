@@ -4,6 +4,7 @@
 		"category": "headwear",
 		"product_id": "KK-1001",
 		"price": 43.97,
+		"sale_price": 20.00,
 		"tags": [ "Bestseller", "Onsale" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.png",
 		"url": "https://www.karrykraze.com/products/headwear/RibbedKnitEarflapBeanie2",
@@ -51,14 +52,14 @@
 		"custom1Options": "Pink | White",
 		"variantImages": {
 			"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_03.jpg",
-			"White": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_01.jpg"
+			"White": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_03.jpg"
 		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_03.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_06.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_01.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_02.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_03.jpg"
 		]
 	},
 
