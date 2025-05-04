@@ -202,21 +202,24 @@
                         imgEl.alt = activeProduct.name;
                     }
 
-                    const btn = document.getElementById("add-to-cart-btn");
-                    if (btn) {
-                        Object.assign(btn.dataset, {
-                            itemId: skuFromURL,
-                            itemName: activeProduct.name,
-                            itemPrice: activeProduct.price,
-                            itemUrl: window.location.pathname,
-                            itemImage: activeProduct.image,
-                            itemDescription: activeProduct.descriptionList
-                                ? activeProduct.descriptionList.join(" | ")
-                                : activeProduct.description,
-                            itemCustom1Name: activeProduct.custom1Name || "",
-                            itemCustom1Options: activeProduct.custom1Options || ""
-                        });
-                    }
+                    Object.assign(btn.dataset, {
+                        itemId: skuFromURL,
+                        itemName: activeProduct.name,
+                        itemPrice: (activeProduct.tags?.includes("Onsale") && activeProduct.sale_price < activeProduct.price)
+                            ? activeProduct.sale_price
+                            : activeProduct.price,
+                        itemUrl: window.location.pathname,
+                        itemImage: activeProduct.image,
+                        itemDescription: activeProduct.descriptionList
+                            ? activeProduct.descriptionList.join(" | ")
+                            : activeProduct.description,
+                        itemCustom1Name: activeProduct.custom1Name || "",
+                        itemCustom1Options: activeProduct.custom1Options || "",
+                        // NEW 👇
+                        itemCustom2Name: "Original Price",
+                        itemCustom2Value: `$${activeProduct.price.toFixed(2)}`
+                    });
+
 
                     const variantSelect = document.getElementById("variant-select");
                     if (variantSelect && activeProduct.custom1Options) {
