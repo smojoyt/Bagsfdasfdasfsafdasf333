@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Karry Kraze Catalog Test</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
@@ -21,7 +22,7 @@
 
         <!-- Sidebar -->
         <aside id="filter-sidebar"
-               class="fixed top-0 left-0 w-full sm:w-80 h-full bg-white border-r border-gray-200 shadow-lg z-40
+               class="fixed top-0 left-0 w-full sm:w-80 md:w-64 h-full bg-white border-r border-gray-200 shadow-lg z-40
              transform -translate-x-full transition-transform duration-300 ease-in-out">
             <div class="p-4 h-full overflow-y-auto">
                 <div class="flex justify-between items-center mb-4">
@@ -79,19 +80,32 @@
         const sidebar = document.getElementById("filter-sidebar");
         const backdrop = document.getElementById("filter-backdrop");
         const closeBtn = document.getElementById("close-filters");
+        const catalogMain = document.getElementById("catalog-main");
 
         let sidebarOpen = false;
 
+        function isMobile() {
+            return window.matchMedia("(max-width: 767px)").matches;
+        }
+
         function openSidebar() {
             sidebar.classList.remove("-translate-x-full");
-            backdrop.classList.remove("hidden");
             sidebarOpen = true;
+            if (isMobile()) {
+                backdrop.classList.remove("hidden");
+            } else {
+                catalogMain.classList.add("ml-64");
+            }
         }
 
         function closeSidebar() {
             sidebar.classList.add("-translate-x-full");
-            backdrop.classList.add("hidden");
             sidebarOpen = false;
+            if (isMobile()) {
+                backdrop.classList.add("hidden");
+            } else {
+                catalogMain.classList.remove("ml-64");
+            }
         }
 
         toggleBtn.addEventListener("click", () => {
