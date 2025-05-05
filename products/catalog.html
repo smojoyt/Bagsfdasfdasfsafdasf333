@@ -184,11 +184,11 @@
 `;
 
 
-                        const card = `
+            const card = `
   <div class="p-2 item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}" data-discount="${Math.round(((p.regular - p.sale) / p.regular) * 100) || 0}">
     <a href="${p.url}" class="flex flex-col justify-between bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
       <div class="bg-white aspect-[4/3] flex items-center justify-center">
-        <img src="${p.image}" alt="${p.name}" class=" w-auto object-contain mx-auto">
+        <img src="${p.image}" alt="${p.name}" class="max-h-48 w-auto object-contain mx-auto">
       </div>
       <div class="min-h-[150px] max-w-[192px] p-2">
         <h2 class="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
@@ -201,20 +201,20 @@
   </div>
 `;
 
-                        container.insertAdjacentHTML("beforeend", card);
+container.insertAdjacentHTML("beforeend", card);
 
-                        imagesLoaded(container, () => {
-                            const iso = new Isotope(container, {
-                                itemSelector: '.item',
-                                layoutMode: 'fitRows',
-                                getSortData: {
-                                    name: '[data-name]',
-                                    'price-low': '[data-price] parseFloat',
-                                    'price-high': '[data-price] parseFloat',
-                                    'best-deals': '[data-discount] parseInt'
-                                }
-                            });
-                        });
+imagesLoaded(container, () => {
+  const iso = new Isotope(container, {
+    itemSelector: '.item',
+    layoutMode: 'fitRows',
+    getSortData: {
+      name: '[data-name]',
+      'price-low': '[data-price] parseFloat',
+      'price-high': '[data-price] parseFloat',
+      'best-deals': '[data-discount] parseInt'
+    }
+  });
+});
 
 
             document.querySelectorAll('.filter-btn').forEach(btn => {
