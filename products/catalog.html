@@ -18,16 +18,14 @@
 </head>
 
 <body class="bg-white text-gray-900">
-
-    <!-- Layout Container -->
+    <!-- Layout -->
     <div id="catalog-layout" class="flex relative transition-all duration-300 ease-in-out">
 
         <!-- Sidebar -->
         <aside id="filter-sidebar"
                class="fixed top-0 left-0 w-64 h-full bg-white border-r border-gray-200 shadow-lg z-40
-         transform -translate-x-full transition-transform duration-300 ease-in-out
-         md:translate-x-0 md:relative">
-
+             transform -translate-x-full transition-transform duration-300 ease-in-out
+             md:translate-x-0 md:relative">
             <div class="p-4">
                 <!-- Header -->
                 <div class="flex justify-between items-center mb-4">
@@ -65,14 +63,14 @@
             </div>
         </aside>
 
+        <!-- Mobile Backdrop -->
+        <div id="filter-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
+
         <!-- Main Catalog -->
         <main id="catalog-main" class="flex-1 transition-all duration-300 ease-in-out">
-            <!-- Filter Toggle Button -->
             <div class="flex justify-between items-center p-4">
                 <button id="toggle-filters" class="bg-gray-800 text-white px-4 py-2 rounded z-50">Filters</button>
             </div>
-
-            <!-- Product Grid -->
             <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4"></div>
         </main>
     </div>
@@ -82,34 +80,39 @@
         const toggleBtn = document.getElementById("toggle-filters");
         const sidebar = document.getElementById("filter-sidebar");
         const closeBtn = document.getElementById("close-filters");
+        const backdrop = document.getElementById("filter-backdrop");
         const catalogMain = document.getElementById("catalog-main");
 
         let sidebarOpen = false;
 
         function openSidebar() {
             sidebar.classList.remove("-translate-x-full");
+            sidebarOpen = true;
 
-            if (window.innerWidth >= 768) {
+            if (window.innerWidth < 768) {
+                backdrop.classList.remove("hidden");
+            } else {
                 catalogMain.classList.add("ml-[15%]");
             }
         }
 
         function closeSidebar() {
             sidebar.classList.add("-translate-x-full");
+            sidebarOpen = false;
 
-            if (window.innerWidth >= 768) {
+            if (window.innerWidth < 768) {
+                backdrop.classList.add("hidden");
+            } else {
                 catalogMain.classList.remove("ml-[15%]");
             }
         }
-
 
         toggleBtn.addEventListener("click", () => {
             sidebarOpen ? closeSidebar() : openSidebar();
         });
 
-        if (closeBtn) {
-            closeBtn.addEventListener("click", closeSidebar);
-        }
+        closeBtn?.addEventListener("click", closeSidebar);
+        backdrop?.addEventListener("click", closeSidebar);
 
         // Filtering logic
         let filters = {};
