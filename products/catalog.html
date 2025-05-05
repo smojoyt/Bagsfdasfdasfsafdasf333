@@ -116,6 +116,9 @@
 
         window.addEventListener("DOMContentLoaded", () => {
             sidebar.classList.add("-translate-x-full");
+            if (!isMobileView()) {
+                catalogMain.classList.remove("ml-64");
+            }
         });
     </script>
 </body>
