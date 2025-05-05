@@ -139,6 +139,18 @@
             if (btn) btn.setAttribute('data-item-custom1-value', select.value);
         }
 
+        const colorMap = {
+            Black: "#000000",
+            White: "#ffffff",
+            Red: "#e3342f",
+            Navy: "#1e3a8a",
+            Beige: "#f5f5dc",
+            Brown: "#8b4513",
+            Gray: "#6b7280",
+            Cream: "#fffdd0",
+            // Add more as needed
+        };
+
         function loadProductData() {
             fetch("https://www.karrykraze.com/products/products.json")
                 .then(res => res.json())
@@ -228,22 +240,41 @@
                     const variantSelect = document.getElementById("variant-select");
                     if (variantSelect && activeProduct.custom1Options) {
                         variantSelect.innerHTML = "";
-                        activeProduct.custom1Options.split("|").forEach(opt => {
-                            const option = document.createElement("option");
-                            option.value = opt.trim();
-                            option.textContent = opt.trim();
-                            variantSelect.appendChild(option);
+                        const options = activeProduct.custom1Options.split("|").map(opt => opt.trim());
+
+                        options.forEach(color => {
+                            const swatch = document.createElement("button");
+                            swatch.className = `
+            flex flex-col items-center group cursor-pointer
+            focus:outline-none
+        `;
+                            swatch.innerHTML = `
+            <div class="w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black" style="background-color: ${colorMap[color] || color.toLowerCase()};"></div>
+            <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
+        `;
+
+                            swatch.addEventListener("click", () => {
+                                updateVariant({ value: color });
+
+                                // update selected style
+                                Array.from(variantSelect.children).forEach(btn =>
+                                    btn.querySelector("div").classList.remove("ring", "ring-black", "ring-offset-2")
+                                );
+                                swatch.querySelector("div").classList.add("ring", "ring-black", "ring-offset-2");
+
+                                if (activeProduct.variantImages?.[color]) {
+                                    const img = document.getElementById("mainImage");
+                                    if (img) img.src = activeProduct.variantImages[color];
+                                }
+                            });
+
+                            variantSelect.appendChild(swatch);
                         });
 
-                        variantSelect.addEventListener("change", () => {
-                            const selected = variantSelect.value.trim();
-                            updateVariant(variantSelect);
-                            if (activeProduct.variantImages?.[selected]) {
-                                const img = document.getElementById("mainImage");
-                                if (img) img.src = activeProduct.variantImages[selected];
-                            }
-                        });
+                        // trigger default selection
+                        variantSelect.firstChild?.click();
                     }
+
 
                     const thumbnailContainer = document.getElementById("thumbnailContainer");
                     if (thumbnailContainer && Array.isArray(activeProduct.thumbnails)) {
