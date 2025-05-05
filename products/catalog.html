@@ -62,7 +62,7 @@
                     <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
                     <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".bestseller">Best Sellers</button>
                     <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".onsale">On Sale</button>
-                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".outofstock">Out of Stock</button>
+                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".outofstock">In Stock</button>
                 </div>
 
                 <div>
@@ -178,7 +178,7 @@
 
                         const tagBadges = `
                               ${p.tags?.includes("Bestseller") ? `<span class="text-[10px] sm:text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
-                              ${p.tags?.includes("Outofstock") ? `<span class="text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
+                              ${!p.tags?.includes("Outofstock") ? `<span class="text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
                               ${hasVariants ? `<span class="text-[10px] sm:text-xs text-gray-500 ml-2">More colors available</span>` : ""}
                             `;
 
