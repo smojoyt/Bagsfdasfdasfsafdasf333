@@ -80,7 +80,7 @@
 
         <!-- Main -->
         <main id="catalog-main" class="flex-1 transition-all duration-300 ease-in-out">
-            <div class="flex justify-between items-center p-4">
+            <div class="flex justify-between items-center p-2">
                 <button id="toggle-filters" class="bg-gray-800 text-white px-4 py-2 rounded z-50">Filters</button>
             </div>
             <div class="overflow-x-auto">
@@ -177,7 +177,7 @@
                     `;
 
                         const card = `
-                      <div class="p-4 item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
+                      <div class="p-2 item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
                         <a href="${p.url}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
                           <div class="bg-white aspect-[4/3] flex items-center justify-center">
                             <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain mx-auto">
