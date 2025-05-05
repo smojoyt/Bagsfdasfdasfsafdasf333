@@ -285,24 +285,6 @@
                         });
 
 
-                            swatch.addEventListener("click", () => {
-                                updateVariant({ value: color });
-
-                                // update selected style
-                                Array.from(variantSelect.children).forEach(btn =>
-                                    btn.querySelector("div").classList.remove("ring", "ring-black", "ring-offset-2")
-                                );
-                                swatch.querySelector("div").classList.add("ring", "ring-black", "ring-offset-2");
-
-                                if (activeProduct.variantImages?.[color]) {
-                                    const img = document.getElementById("mainImage");
-                                    if (img) img.src = activeProduct.variantImages[color];
-                                }
-                            });
-
-                            variantSelect.appendChild(swatch);
-                        });
-
                         // trigger default selection
                         variantSelect.firstChild?.click();
                     }
