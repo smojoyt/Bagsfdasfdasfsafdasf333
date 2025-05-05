@@ -79,30 +79,38 @@
     <script>
         const toggleBtn = document.getElementById("toggle-filters");
         const sidebar = document.getElementById("filter-sidebar");
-        const closeBtn = document.getElementById("close-filters");
-        const backdrop = document.getElementById("filter-backdrop");
         const catalogMain = document.getElementById("catalog-main");
+
+        let sidebarOpen = false;
 
         function openSidebar() {
             sidebar.classList.remove("-translate-x-full");
-            backdrop.classList.remove("hidden");
-
+            sidebarOpen = true;
             if (window.innerWidth >= 768) {
                 catalogMain.classList.add("ml-[15%]");
             }
         }
 
-
         function closeSidebar() {
             sidebar.classList.add("-translate-x-full");
-            backdrop.classList.add("hidden");
-            catalogMain.classList.remove("ml-[15%]");
+            sidebarOpen = false;
+            if (window.innerWidth >= 768) {
+                catalogMain.classList.remove("ml-[15%]");
+            }
         }
 
+        toggleBtn.addEventListener("click", () => {
+            sidebarOpen ? closeSidebar() : openSidebar();
+        });
 
-        toggleBtn.addEventListener("click", openSidebar);
-        closeBtn.addEventListener("click", closeSidebar);
-        backdrop.addEventListener("click", closeSidebar);
+        // Optional: close on ESC
+        document.addEventListener("keydown", e => {
+            if (e.key === "Escape" && sidebarOpen) {
+                closeSidebar();
+            }
+        });
+
+
 
         // Filters and Product Grid
         let filters = {};
