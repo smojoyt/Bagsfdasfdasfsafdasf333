@@ -50,41 +50,40 @@ function getFullPriceHTML(product) {
 }
 
 // Product card renderer for catalog
-function renderCatalogCard(product) {
-    const regular = product.price;
-    const sale = product.sale_price ?? regular;
-    const isOnSale = product.tags?.includes("Onsale") && sale < regular;
-    const hasMultipleColors = product.custom1Options && product.custom1Options.split("|").length > 1;
+function renderCatalogCard(p) {
+    const tagClasses = p.tags ? p.tags.map(t => t.toLowerCase()).join(" ") : "";
+    const hasVariants = p.custom1Options && p.custom1Options.split("|").length > 1;
+    const regular = p.price;
+    const sale = p.sale_price ?? regular;
+    const isOnSale = p.tags?.includes("Onsale") && sale < regular;
 
-    const priceHTML = isOnSale
-        ? `
-        <div class="text-red-600 font-semibold text-sm">
-            $${sale.toFixed(2)}
-            <span class="text-xs text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
-        </div>`
-        : `<div class="text-gray-700 text-sm font-medium">$${regular.toFixed(2)}</div>`;
-
-    const badges = [];
-    if (isOnSale) badges.push('<span class="bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">On Sale</span>');
-    if (product.tags?.includes("Bestseller")) badges.push('<span class="bg-green-100 text-green-600 text-xs font-semibold px-2 py-0.5 rounded">Bestseller</span>');
-    if (product.tags?.includes("Outofstock")) badges.push('<span class="bg-yellow-100 text-yellow-600 text-xs font-semibold px-2 py-0.5 rounded">Out of Stock</span>');
-    if (hasMultipleColors) badges.push('<span class="text-gray-500 text-[11px] mt-1 block">More colors available</span>');
+    const tagBadges = `
+        ${isOnSale ? `<span class="text-xs text-red-600 bg-red-100 px-2 py-0.5 rounded-full">On Sale</span>` : ""}
+        ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
+        ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
+        ${hasVariants ? `<span class="text-xs text-gray-500 ml-2">More colors available</span>` : ""}
+    `;
 
     return `
-        <div class="item ${product.category} ${product.tags?.map(t => t.toLowerCase()).join(" ")}" data-name="${product.name.toLowerCase()}" data-price="${product.price}">
-            <a href="${product.url}" class="block bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition">
-                <div class="bg-white w-full aspect-[4/3] overflow-hidden flex items-center justify-center">
-                    <img src="${product.image}" alt="${product.name}" class="object-contain w-full h-full" />
+    <div class="item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
+        <a href="${p.url}" class="block bg-white rounded-xl shadow-sm border hover:shadow-lg transition overflow-hidden">
+            <div class="bg-white aspect-[4/3] flex items-center justify-center">
+                <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain p-4">
+            </div>
+            <div class="p-4">
+                <h2 class="text-sm font-semibold line-clamp-2 min-h-[3.5rem]">${p.name}</h2>
+                ${isOnSale
+            ? `<div class="text-red-600 font-bold text-sm mt-1">
+                            $${sale.toFixed(2)}
+                            <span class="text-xs text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
+                        </div>`
+            : `<div class="text-sm text-gray-800 mt-1">$${regular.toFixed(2)}</div>`}
+                <div class="flex flex-wrap gap-1 mt-2">
+                    ${tagBadges}
                 </div>
-                <div class="p-3 flex flex-col justify-between min-h-[130px]">
-                    <div class="text-sm font-semibold leading-snug line-clamp-2">${product.name}</div>
-                    ${priceHTML}
-                    <div class="mt-2 flex flex-wrap gap-1">
-                        ${badges.join("")}
-                    </div>
-                </div>
-            </a>
-        </div>
-    `;
+            </div>
+        </a>
+    </div>`;
 }
+
 
