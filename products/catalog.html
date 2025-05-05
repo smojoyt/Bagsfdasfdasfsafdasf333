@@ -21,8 +21,7 @@
 
         <!-- Sidebar -->
         <aside id="filter-sidebar"
-               class="fixed top-0 left-0 w-64 h-full bg-white border-r border-gray-200 shadow-lg z-40
-             transform -translate-x-full transition-transform duration-300 ease-in-out md:fixed">
+               class="fixed top-0 left-0 w-64 h-full bg-white border-r border-gray-200 shadow-lg z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
             <div class="p-4">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="font-semibold text-lg">Filters</h2>
@@ -79,36 +78,24 @@
         const sidebar = document.getElementById("filter-sidebar");
         const backdrop = document.getElementById("filter-backdrop");
         const closeBtn = document.getElementById("close-filters");
-        const catalogMain = document.getElementById("catalog-main");
-
-        let sidebarOpen = false;
-
-        function openSidebar() {
-            sidebar.classList.remove("-translate-x-full");
-            sidebarOpen = true;
-            if (window.innerWidth < 768) {
-                backdrop.classList.remove("hidden");
-            } else {
-                catalogMain.classList.add("ml-64");
-            }
-        }
-
-        function closeSidebar() {
-            sidebar.classList.add("-translate-x-full");
-            sidebarOpen = false;
-            if (window.innerWidth < 768) {
-                backdrop.classList.add("hidden");
-            } else {
-                catalogMain.classList.remove("ml-64");
-            }
-        }
 
         toggleBtn.addEventListener("click", () => {
-            sidebarOpen ? closeSidebar() : openSidebar();
+            sidebar.classList.toggle("translate-x-0");
+            sidebar.classList.toggle("-translate-x-full");
+            backdrop.classList.toggle("hidden");
         });
 
-        closeBtn?.addEventListener("click", closeSidebar);
-        backdrop?.addEventListener("click", closeSidebar);
+        closeBtn?.addEventListener("click", () => {
+            sidebar.classList.add("-translate-x-full");
+            sidebar.classList.remove("translate-x-0");
+            backdrop.classList.add("hidden");
+        });
+
+        backdrop?.addEventListener("click", () => {
+            sidebar.classList.add("-translate-x-full");
+            sidebar.classList.remove("translate-x-0");
+            backdrop.classList.add("hidden");
+        });
     </script>
 </body>
 </html>
