@@ -1,3 +1,25 @@
+function getCompactPriceHTML(product) {
+    const regular = product.price;
+    const sale = product.sale_price ?? regular;
+    const isOnSale = product.tags?.includes("Onsale") && sale < regular;
+
+    if (isOnSale) {
+        return `
+            <div class="flex flex-col items-center gap-1">
+                <div class="text-red-600 font-bold text-sm">
+                    $${sale.toFixed(2)}
+                    <span class="text-xs text-gray-500 line-through ml-1">$${regular.toFixed(2)}</span>
+                </div>
+                <div class="bg-red-100 text-red-500 text-[11px] font-medium px-2 py-0.5 rounded-full">
+                    On Sale
+                </div>
+            </div>
+        `;
+    } else {
+        return `<div class="text-sm text-gray-600">$${regular.toFixed(2)}</div>`;
+    }
+}
+
 function initMoreItemsCarousel() {
     const carouselWrapper = document.querySelector('#pp_moreitems .carousel');
     if (!carouselWrapper) return;
@@ -28,21 +50,7 @@ function initMoreItemsCarousel() {
   </div>
   <div class="text-center mt-3">
     <div class="text-sm font-semibold truncate">${product.name}</div>
-
-    ${(product.tags?.includes("Onsale") && product.sale_price < product.price)
-                        ? `
-      <div class="flex flex-col items-center gap-1">
-        <div class="text-red-600 font-bold text-sm">
-          $${product.sale_price.toFixed(2)}
-          <span class="text-xs text-gray-500 line-through ml-1">$${product.price.toFixed(2)}</span>
-        </div>
-        <div class="bg-red-100 text-red-500 text-[11px] font-medium px-2 py-0.5 rounded-full">
-          On Sale
-        </div>
-      </div>`
-                        : `<div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`
-                    }
-
+    ${getCompactPriceHTML(product)}
     ${(product.custom1Options && product.custom1Options.split("|").length > 1)
                         ? `<div class="text-[11px] text-gray-500 mt-1">More colors available</div>`
                         : ''

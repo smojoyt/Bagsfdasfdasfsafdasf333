@@ -19,33 +19,10 @@ function loadProductData() {
 
             const priceSection = document.getElementById("price-section");
             if (priceSection) {
-                const regular = activeProduct.price;
-                const sale = activeProduct.sale_price ?? regular;
-                const isOnSale = activeProduct.tags?.includes("Onsale") && sale < regular;
-
-                if (isOnSale) {
-                    const saved = (regular - sale).toFixed(2);
-                    const percentOff = Math.round((saved / regular) * 100);
-
-                    priceSection.innerHTML = `
-<p class="italic text-green-700 text-xl font-bold">
-        Now <span class="text-3xl">$${sale.toFixed(2)}</span>
-        <span class="text-gray-500 line-through text-base ml-2">$${regular.toFixed(2)}</span>
-
-</p>
-<span class="mr-2 text-sm bg-red-100 text-red-600 font-semibold px-2 py-1 rounded">
-        ${percentOff}% OFF
-</span>
-<div class="bg-green-100 text-green-700 text-sm font-semibold inline-block mt-1 px-2 py-1 rounded">
-        You save $${saved}
-</div>
-            `;
-                } else {
-                    priceSection.innerHTML = `
-<p class="italic text-2xl font-semibold">$${regular.toFixed(2)}</p>
-            `;
-                }
+                priceSection.innerHTML = getFullPriceHTML(activeProduct);
             }
+
+
 
 
 
