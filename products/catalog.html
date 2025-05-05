@@ -159,28 +159,30 @@
                         const isOnSale = p.tags?.includes("Onsale") && sale < regular;
 
                         const priceBlock = isOnSale
-                            ? <div class="mt-2">
-                                <p class="text-green-700 italic font-semibold text-xs sm:text-sm">
-                                    Now <span class="text-lg sm:text-xl font-bold">$${sale.toFixed(2)}</span>
-                                    <span class="text-xs sm:text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
-                                </p>
-                                <div class="flex gap-2 mt-1">
-                                    <span class="bg-red-100 text-red-600 text-[10px] sm:text-xs font-semibold px-1 py-0.5 rounded">
-                                        ${Math.round(((regular - sale) / regular) * 100)}% OFF
-                                    </span>
-                                    <span class="bg-green-100 text-green-700 text-[10px] sm:text-xs italic px-1 py-0.5 rounded">
-                                        You save $${(regular - sale).toFixed(2)}
-                                    </span>
-                                </div>
-                            </div>
-                            : <div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>;
+                            ? `
+    <div class="mt-2">
+      <p class="text-green-700 italic font-semibold text-xs sm:text-sm">
+        Now <span class="text-lg sm:text-xl font-bold">$${sale.toFixed(2)}</span>
+        <span class="text-xs sm:text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
+      </p>
+      <div class="flex gap-2 mt-1">
+        <span class="bg-red-100 text-red-600 text-[10px] sm:text-xs font-semibold px-1 py-0.5 rounded">
+          ${Math.round(((regular - sale) / regular) * 100)}% OFF
+        </span>
+        <span class="bg-green-100 text-green-700 text-[10px] sm:text-xs italic px-1 py-0.5 rounded">
+          You save $${(regular - sale).toFixed(2)}
+        </span>
+      </div>
+    </div>
+  `
+                            : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
 
-                        const tagBadges =
-                            ${ p.tags?.includes("Bestseller") ? <span class="text-[10px] sm:text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span> : ""
-                    }
-                                  ${ p.tags?.includes("Outofstock") ? <span class="text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span> : "" }
-                                  ${ hasVariants?<span class= "text-[10px] sm:text-xs text-gray-500 ml-2" > More colors available</span> : ""}
-                                ;
+                        const tagBadges = `
+  ${p.tags?.includes("Bestseller") ? `<span class="text-[10px] sm:text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
+  ${!p.tags?.includes("Outofstock") ? `<span class="text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">In Stock</span>` : ""}
+  ${hasVariants ? `<span class="text-[10px] sm:text-xs text-gray-500 ml-2">More colors available</span>` : ""}
+`;
+
 
             const card =
                 <div class="p-2 item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
