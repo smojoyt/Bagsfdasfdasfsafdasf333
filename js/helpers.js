@@ -81,7 +81,11 @@ function renderCatalogCard(p) {
     `;
 
     return `
-    <div class="p-4 item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
+    <div class="p-4 item ${p.category} ${tagClasses}" 
+     data-name="${p.name.toLowerCase()}" 
+     data-price="${p.price}" 
+     data-discount="${isOnSale ? Math.round(((regular - sale) / regular) * 100) : 0}">
+
         <a href="${p.url}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
             <div class="bg-white aspect-[4/3] flex items-center justify-center">
                 <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain mx-auto">

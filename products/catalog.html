@@ -208,8 +208,10 @@
                             getSortData: {
                                 name: '[data-name]',
                                 'price-low': '[data-price] parseFloat',
-                                'price-high': '[data-price] parseFloat'
+                                'price-high': '[data-price] parseFloat',
+                                'best-deals': '[data-discount] parseInt'
                             }
+
                         });
 
                         document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -229,10 +231,14 @@
                             } else if (val === 'price-low') {
                                 iso.updateSortData();
                                 iso.arrange({ sortBy: 'price-low', sortAscending: true });
+                            } else if (val === 'best-deals') {
+                                iso.updateSortData();
+                                iso.arrange({ sortBy: 'best-deals', sortAscending: false });
                             } else {
                                 iso.arrange({ sortBy: val });
                             }
                         });
+
                     });
                 });
         });
