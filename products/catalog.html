@@ -65,15 +65,11 @@
             .then(res => res.json())
             .then(products => {
                 const container = document.getElementById("product-grid");
-                let html = "";
 
                 Object.entries(products).forEach(([sku, product]) => {
                     const card = renderCatalogCard(product);
                     container.insertAdjacentHTML('beforeend', card);
                 });
-
-
-                container.innerHTML = html;
 
                 const iso = new Isotope(container, {
                     itemSelector: '.item',
@@ -90,11 +86,7 @@
                     btn.addEventListener('click', e => {
                         const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
                         const filter = btn.getAttribute('data-filter');
-
-                        // Update filter for the group
                         filters[group] = filter;
-
-                        // Apply combined filter
                         iso.arrange({ filter: concatFilters(filters) });
                     });
                 });
@@ -113,6 +105,7 @@
                     }
                 });
             });
+
     </script>
 
 
