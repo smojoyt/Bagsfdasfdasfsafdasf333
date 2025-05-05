@@ -178,7 +178,7 @@
 
                         const tagBadges = `
                               ${p.tags?.includes("Bestseller") ? `<span class="text-[10px] sm:text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
-                              ${!p.tags?.includes("Outofstock") ? `<span class="text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full"></span>` : ""}
+                              ${!p.tags?.includes("Outofstock") ? `<span class="hidden instock text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full"></span>` : ""}
                               ${hasVariants ? `<span class="text-[10px] sm:text-xs text-gray-500 ml-2">More colors available</span>` : ""}
                             `;
 
