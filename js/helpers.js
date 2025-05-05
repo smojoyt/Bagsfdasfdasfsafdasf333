@@ -65,10 +65,10 @@ function renderCatalogCard(p) {
     `;
 
     return `
-    <div class="item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
-        <a href="${p.url}" class="block bg-white rounded-xl shadow-sm border hover:shadow-lg transition overflow-hidden">
+    <div class="p-4 item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
+        <a href="${p.url}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
             <div class="bg-white aspect-[4/3] flex items-center justify-center">
-                <img src="${p.image}" alt="${p.name}" class="w-full h-48 object-contain">
+                <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain mx-auto">
             </div>
             <div class="p-4">
                 <h2 class="text-sm font-semibold line-clamp-2 min-h-[3.5rem]">${p.name}</h2>
