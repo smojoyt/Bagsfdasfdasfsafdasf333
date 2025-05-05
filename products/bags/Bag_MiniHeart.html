@@ -134,10 +134,25 @@
             }, 150);
         }
 
-        function updateVariant(select) {
+        function updateVariant(input) {
             const btn = document.getElementById('add-to-cart-btn');
-            if (btn) btn.setAttribute('data-item-custom1-value', select.value);
+            if (btn) {
+                const value = typeof input === 'string' ? input : input.value;
+                btn.setAttribute('data-item-custom1-value', value);
+            }
         }
+
+        const colorMap = {
+            Black: "#000000",
+            White: "#ffffff",
+            Red: "#e3342f",
+            Navy: "#1e3a8a",
+            Beige: "#f5f5dc",
+            Brown: "#8b4513",
+            Gray: "#6b7280",
+            Cream: "#fffdd0",
+            // Add more as needed
+        };
 
         function loadProductData() {
             fetch("https://www.karrykraze.com/products/products.json")
@@ -158,8 +173,37 @@
                     }
 
 
-                    const priceEl = document.getElementById("product-price");
-                    if (priceEl) priceEl.textContent = activeProduct.price.toFixed(2);
+                    const priceSection = document.getElementById("price-section");
+                    if (priceSection) {
+                        const regular = activeProduct.price;
+                        const sale = activeProduct.sale_price ?? regular;
+                        const isOnSale = activeProduct.tags?.includes("Onsale") && sale < regular;
+
+                        if (isOnSale) {
+                            const saved = (regular - sale).toFixed(2);
+                            const percentOff = Math.round((saved / regular) * 100);
+
+                            priceSection.innerHTML = `
+<p class="italic text-green-700 text-xl font-bold">
+        Now <span class="text-3xl">$${sale.toFixed(2)}</span>
+        <span class="text-gray-500 line-through text-base ml-2">$${regular.toFixed(2)}</span>
+
+</p>
+<span class="mr-2 text-sm bg-red-100 text-red-600 font-semibold px-2 py-1 rounded">
+        ${percentOff}% OFF
+</span>
+<div class="bg-green-100 text-green-700 text-sm font-semibold inline-block mt-1 px-2 py-1 rounded">
+        You save $${saved}
+</div>
+            `;
+                        } else {
+                            priceSection.innerHTML = `
+<p class="italic text-2xl font-semibold">$${regular.toFixed(2)}</p>
+            `;
+                        }
+                    }
+
+
 
                     const descEl = document.getElementById("product-description");
                     if (descEl) {
@@ -173,42 +217,78 @@
                         imgEl.src = activeProduct.image;
                         imgEl.alt = activeProduct.name;
                     }
-
                     const btn = document.getElementById("add-to-cart-btn");
                     if (btn) {
                         Object.assign(btn.dataset, {
                             itemId: skuFromURL,
                             itemName: activeProduct.name,
-                            itemPrice: activeProduct.price,
+                            itemPrice: (activeProduct.tags?.includes("Onsale") && activeProduct.sale_price < activeProduct.price)
+                                ? activeProduct.sale_price
+                                : activeProduct.price,
                             itemUrl: window.location.pathname,
                             itemImage: activeProduct.image,
                             itemDescription: activeProduct.descriptionList
                                 ? activeProduct.descriptionList.join(" | ")
                                 : activeProduct.description,
                             itemCustom1Name: activeProduct.custom1Name || "",
-                            itemCustom1Options: activeProduct.custom1Options || ""
+                            itemCustom1Options: activeProduct.custom1Options || "",
+                            itemCustom2Name: "Original Price",
+                            itemCustom2Value: `$${activeProduct.price.toFixed(2)}`,
+                            itemCustom2Type: "readonly"
                         });
                     }
+
+
 
                     const variantSelect = document.getElementById("variant-select");
                     if (variantSelect && activeProduct.custom1Options) {
                         variantSelect.innerHTML = "";
-                        activeProduct.custom1Options.split("|").forEach(opt => {
-                            const option = document.createElement("option");
-                            option.value = opt.trim();
-                            option.textContent = opt.trim();
-                            variantSelect.appendChild(option);
+                        const options = activeProduct.custom1Options.split("|").map(opt => opt.trim());
+
+                        options.forEach(color => {
+                            const swatch = document.createElement("button");
+                            swatch.className = `
+            flex flex-col items-center group cursor-pointer
+            focus:outline-none
+        `;
+
+                            // Warn if color not in colorMap and not a valid CSS color
+                            if (!colorMap[color] && !CSS.supports("color", color.toLowerCase())) {
+                                console.warn(`Missing color swatch value for "${color}"`);
+                            }
+
+                            // Create swatch HTML
+                            swatch.innerHTML = `
+            <div class="w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black"
+                 style="background-color: ${colorMap[color] || color.toLowerCase()};"></div>
+            <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
+        `;
+
+                            // Improve accessibility for screen readers
+                            swatch.setAttribute("aria-label", `${color} color`);
+
+                            swatch.addEventListener("click", () => {
+                                updateVariant(color); // now works because of updated function
+
+                                Array.from(variantSelect.children).forEach(btn =>
+                                    btn.querySelector("div").classList.remove("ring", "ring-black", "ring-offset-2")
+                                );
+                                swatch.querySelector("div").classList.add("ring", "ring-black", "ring-offset-2");
+
+                                if (activeProduct.variantImages?.[color]) {
+                                    const img = document.getElementById("mainImage");
+                                    if (img) img.src = activeProduct.variantImages[color];
+                                }
+                            });
+
+                            variantSelect.appendChild(swatch);
                         });
 
-                        variantSelect.addEventListener("change", () => {
-                            const selected = variantSelect.value.trim();
-                            updateVariant(variantSelect);
-                            if (activeProduct.variantImages?.[selected]) {
-                                const img = document.getElementById("mainImage");
-                                if (img) img.src = activeProduct.variantImages[selected];
-                            }
-                        });
+
+                        // trigger default selection
+                        variantSelect.firstChild?.click();
                     }
+
 
                     const thumbnailContainer = document.getElementById("thumbnailContainer");
                     if (thumbnailContainer && Array.isArray(activeProduct.thumbnails)) {
