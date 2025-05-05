@@ -1,20 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Karry Kraze Catalog</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-    <script src="/js/helpers.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-
-
-</head>
-
-
-
-
-<body class="bg-white text-gray-900">
+    <script src="/js/helpers.js"></script>
     <style>
         .line-clamp-2 {
             display: -webkit-box;
@@ -23,27 +15,31 @@
             overflow: hidden;
         }
     </style>
+</head>
 
-    <!-- Filter Toggle Button -->
-    <button id="toggle-filters"
-            class="bg-gray-800 text-white px-4 py-2 m-4 rounded z-50 relative">
+<body class="bg-white text-gray-900">
+
+    <!-- Toggle Filters Button -->
+    <button id="toggle-filters" class="bg-gray-800 text-white px-4 py-2 m-4 rounded z-50 relative">
         Filters
     </button>
 
-    <!-- Catalog Layout -->
+    <!-- Backdrop (Mobile) -->
+    <div id="filter-backdrop" class="fixed inset-0 bg-black bg-opacity-30 z-30 hidden md:hidden"></div>
+
+    <!-- Layout Container -->
     <div id="catalog-layout" class="flex relative transition-all duration-300 ease-in-out">
 
         <!-- Sidebar -->
         <aside id="filter-sidebar"
                class="fixed md:relative top-0 left-0 w-64 md:w-[15%] h-full bg-white border-r border-gray-200 shadow-lg z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
             <div class="p-4">
-                <!-- Header -->
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="font-semibold text-lg">Filters</h2>
                     <button id="close-filters" class="text-gray-600 hover:text-black text-xl md:hidden">&times;</button>
                 </div>
 
-                <!-- Category Filters -->
+                <!-- Categories -->
                 <div class="mb-6" data-filter-group="category">
                     <h3 class="text-sm font-medium mb-2">Category</h3>
                     <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
@@ -51,7 +47,7 @@
                     <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".headwear">Headwear</button>
                 </div>
 
-                <!-- Tag Filters -->
+                <!-- Tags -->
                 <div class="mb-6" data-filter-group="tags">
                     <h3 class="text-sm font-medium mb-2">Tags</h3>
                     <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
@@ -73,15 +69,13 @@
             </div>
         </aside>
 
-        <!-- Product Grid Area -->
+        <!-- Product Grid -->
         <main id="catalog-main" class="flex-1 transition-all duration-300 ease-in-out">
             <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4"></div>
         </main>
     </div>
 
-
-
-    <!-- Script to Load and Activate -->
+    <!-- JS Logic -->
     <script>
         const toggleBtn = document.getElementById("toggle-filters");
         const sidebar = document.getElementById("filter-sidebar");
@@ -93,7 +87,7 @@
             sidebar.classList.remove("-translate-x-full");
             backdrop.classList.remove("hidden");
 
-            // Desktop layout shift
+            // Push content on desktop
             if (window.innerWidth >= 768) {
                 catalogMain.classList.add("ml-[15%]");
             }
@@ -103,7 +97,6 @@
             sidebar.classList.add("-translate-x-full");
             backdrop.classList.add("hidden");
 
-            // Reset layout shift
             catalogMain.classList.remove("ml-[15%]");
         }
 
@@ -111,17 +104,13 @@
         closeBtn.addEventListener("click", closeSidebar);
         backdrop.addEventListener("click", closeSidebar);
 
-
-
-
-
-        let filters = {}; // stores selected filters by group
+        // Filters and Product Grid
+        let filters = {};
 
         function concatFilters(obj) {
             return Object.values(obj).filter(Boolean).join('');
         }
 
-        // Fetch + render products
         fetch("https://www.karrykraze.com/products/products.json")
             .then(res => res.json())
             .then(products => {
@@ -143,9 +132,9 @@
                         }
                     });
 
-                    // Attach filters after layout is ready
+                    // Filters
                     document.querySelectorAll('.filter-btn').forEach(btn => {
-                        btn.addEventListener('click', e => {
+                        btn.addEventListener('click', () => {
                             const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
                             const filter = btn.getAttribute('data-filter');
                             filters[group] = filter;
@@ -153,6 +142,7 @@
                         });
                     });
 
+                    // Sort
                     document.getElementById('sort-select').addEventListener('change', e => {
                         const val = e.target.value;
                         if (val === 'price-high') {
@@ -166,37 +156,7 @@
                         }
                     });
                 });
-
-
-                // Filtering logic
-                document.querySelectorAll('.filter-btn').forEach(btn => {
-                    btn.addEventListener('click', e => {
-                        const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
-                        const filter = btn.getAttribute('data-filter');
-                        filters[group] = filter;
-                        iso.arrange({ filter: concatFilters(filters) });
-                    });
-                });
-
-                // Sort logic
-                document.getElementById('sort-select').addEventListener('change', e => {
-                    const val = e.target.value;
-                    if (val === 'price-high') {
-                        iso.updateSortData();
-                        iso.arrange({ sortBy: 'price-low', sortAscending: false });
-                    } else if (val === 'price-low') {
-                        iso.updateSortData();
-                        iso.arrange({ sortBy: 'price-low', sortAscending: true });
-                    } else {
-                        iso.arrange({ sortBy: val });
-                    }
-                });
             });
-
     </script>
-
-
 </body>
-
-
 </html>
