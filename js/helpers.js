@@ -51,23 +51,40 @@ function getFullPriceHTML(product) {
 
 // Product card renderer for catalog
 function renderCatalogCard(product) {
-    const tagClasses = product.tags ? product.tags.map(t => t.toLowerCase()).join(" ") : "";
-    const moreColors = (product.custom1Options && product.custom1Options.split("|").length > 1)
-        ? `<div class="text-[11px] text-gray-500 mt-1">More colors available</div>`
-        : "";
+    const regular = product.price;
+    const sale = product.sale_price ?? regular;
+    const isOnSale = product.tags?.includes("Onsale") && sale < regular;
+    const hasMultipleColors = product.custom1Options && product.custom1Options.split("|").length > 1;
+
+    const priceHTML = isOnSale
+        ? `
+        <div class="text-red-600 font-semibold text-sm">
+            $${sale.toFixed(2)}
+            <span class="text-xs text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
+        </div>`
+        : `<div class="text-gray-700 text-sm font-medium">$${regular.toFixed(2)}</div>`;
+
+    const badges = [];
+    if (isOnSale) badges.push('<span class="bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">On Sale</span>');
+    if (product.tags?.includes("Bestseller")) badges.push('<span class="bg-green-100 text-green-600 text-xs font-semibold px-2 py-0.5 rounded">Bestseller</span>');
+    if (product.tags?.includes("Outofstock")) badges.push('<span class="bg-yellow-100 text-yellow-600 text-xs font-semibold px-2 py-0.5 rounded">Out of Stock</span>');
+    if (hasMultipleColors) badges.push('<span class="text-gray-500 text-[11px] mt-1 block">More colors available</span>');
 
     return `
-    <div class="item ${product.category} ${tagClasses}" data-name="${product.name.toLowerCase()}" data-price="${product.price}">
-        <a href="${product.url}" class="block bg-white shadow-sm border hover:shadow-md transition rounded-lg overflow-hidden">
-            <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover" />
-            <div class="p-4 text-left">
-                <h2 class="text-lg font-bold">${product.name}</h2>
-                ${getCompactPriceHTML(product)}
-                ${product.tags?.includes("Onsale") ? '<span class="inline-block text-xs mt-1 text-red-500 bg-red-100 px-2 py-1 rounded">On Sale</span>' : ""}
-                ${product.tags?.includes("Outofstock") ? '<span class="inline-block text-xs mt-1 text-yellow-600 bg-yellow-100 px-2 py-1 rounded">Out of Stock</span>' : ""}
-                ${product.tags?.includes("Bestseller") ? '<span class="inline-block text-xs mt-1 text-green-600 bg-green-100 px-2 py-1 rounded">Bestseller</span>' : ""}
-                ${moreColors}
-            </div>
-        </a>
-    </div>`;
+        <div class="item ${product.category} ${product.tags?.map(t => t.toLowerCase()).join(" ")}" data-name="${product.name.toLowerCase()}" data-price="${product.price}">
+            <a href="${product.url}" class="block bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition">
+                <div class="bg-white w-full aspect-[4/3] overflow-hidden flex items-center justify-center">
+                    <img src="${product.image}" alt="${product.name}" class="object-contain w-full h-full" />
+                </div>
+                <div class="p-3 flex flex-col justify-between min-h-[130px]">
+                    <div class="text-sm font-semibold leading-snug line-clamp-2">${product.name}</div>
+                    ${priceHTML}
+                    <div class="mt-2 flex flex-wrap gap-1">
+                        ${badges.join("")}
+                    </div>
+                </div>
+            </a>
+        </div>
+    `;
 }
+
