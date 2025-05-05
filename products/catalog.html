@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script src="/js/helpers.js"></script>
     <style>
         .line-clamp-2 {
             display: -webkit-box;
@@ -65,7 +66,8 @@
             <div class="flex justify-between items-center p-4">
                 <button id="toggle-filters" class="bg-gray-800 text-white px-4 py-2 rounded z-50">Filters</button>
             </div>
-            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4"></div>
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+            </div>
         </main>
     </div>
 
@@ -112,6 +114,51 @@
         window.addEventListener("DOMContentLoaded", () => {
             sidebar.classList.add("-translate-x-full");
             backdrop.classList.add("hidden");
+
+            fetch("https://www.karrykraze.com/products/products.json")
+                .then(res => res.json())
+                .then(products => {
+                    const container = document.getElementById("product-grid");
+
+                    Object.entries(products).forEach(([sku, p]) => {
+                        const card = renderCatalogCard(p);
+                        container.insertAdjacentHTML("beforeend", card);
+                    });
+
+                    imagesLoaded(container, () => {
+                        const iso = new Isotope(container, {
+                            itemSelector: '.item',
+                            layoutMode: 'fitRows',
+                            getSortData: {
+                                name: '[data-name]',
+                                'price-low': '[data-price] parseFloat',
+                                'price-high': '[data-price] parseFloat'
+                            }
+                        });
+
+                        document.querySelectorAll('.filter-btn').forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
+                                const filter = btn.getAttribute('data-filter');
+                                filters[group] = filter;
+                                iso.arrange({ filter: Object.values(filters).filter(Boolean).join('') });
+                            });
+                        });
+
+                        document.getElementById('sort-select').addEventListener('change', e => {
+                            const val = e.target.value;
+                            if (val === 'price-high') {
+                                iso.updateSortData();
+                                iso.arrange({ sortBy: 'price-low', sortAscending: false });
+                            } else if (val === 'price-low') {
+                                iso.updateSortData();
+                                iso.arrange({ sortBy: 'price-low', sortAscending: true });
+                            } else {
+                                iso.arrange({ sortBy: val });
+                            }
+                        });
+                    });
+                });
         });
     </script>
 </body>

@@ -1,165 +1,99 @@
-< !DOCTYPE html >
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Karry Kraze Catalog Test</title>
-            <script src="https://cdn.tailwindcss.com"></script>
-            <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-            <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-            <script src="/js/helpers.js"></script>
-            <style>
-                .line-clamp-2 {
-                    display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-    }
-            </style>
-        </head>
-        <body class="bg-white text-gray-900">
-            <!-- Layout -->
-            <div id="catalog-layout" class="flex relative transition-all duration-300 ease-in-out">
+// helpers.js
 
-                <!-- Sidebar -->
-                <aside id="filter-sidebar"
-                    class="fixed top-0 left-0 w-full sm:w-80 md:w-64 h-full bg-white border-r border-gray-200 shadow-lg z-40
-             transform -translate-x-full transition-transform duration-300 ease-in-out">
-                    <div class="p-4 h-full overflow-y-auto">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="font-semibold text-lg">Filters</h2>
-                            <button id="close-filters" class="text-gray-600 hover:text-black text-xl">&times;</button>
-                        </div>
+// Price formatter for compact display (used in carousels and catalog)
+function getCompactPriceHTML(product) {
+    const regular = product.price;
+    const sale = product.sale_price ?? regular;
+    const isOnSale = product.tags?.includes("Onsale") && sale < regular;
 
-                        <div class="mb-6" data-filter-group="category">
-                            <h3 class="text-sm font-medium mb-2">Category</h3>
-                            <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
-                            <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".bags">Bags</button>
-                            <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".headwear">Headwear</button>
-                        </div>
-
-                        <div class="mb-6" data-filter-group="tags">
-                            <h3 class="text-sm font-medium mb-2">Tags</h3>
-                            <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
-                            <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".bestseller">Bestsellers</button>
-                            <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".onsale">On Sale</button>
-                            <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".outofstock">Out of Stock</button>
-                        </div>
-
-                        <div>
-                            <label for="sort-select" class="block text-sm font-medium mb-2">Sort By</label>
-                            <select id="sort-select" class="w-full border p-2 rounded">
-                                <option value="original-order">Default</option>
-                                <option value="name">Name A–Z</option>
-                                <option value="price-low">Price Low–High</option>
-                                <option value="price-high">Price High–Low</option>
-                            </select>
-                        </div>
-                    </div>
-                </aside>
-
-                <!-- Backdrop -->
-                <div id="filter-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden"></div>
-
-                <!-- Main -->
-                <main id="catalog-main" class="flex-1 transition-all duration-300 ease-in-out">
-                    <div class="flex justify-between items-center p-4">
-                        <button id="toggle-filters" class="bg-gray-800 text-white px-4 py-2 rounded z-50">Filters</button>
-                    </div>
-                    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-                    </div>
-                </main>
+    if (isOnSale) {
+        return `
+            <div class="flex flex-col items-center gap-1">
+                <div class="text-red-600 font-bold text-sm">
+                    $${sale.toFixed(2)}
+                    <span class="text-xs text-gray-500 line-through ml-1">$${regular.toFixed(2)}</span>
+                </div>
+                <div class="bg-red-100 text-red-500 text-[11px] font-medium px-2 py-0.5 rounded-full">
+                    On Sale
+                </div>
             </div>
-
-            <script>
-                const toggleBtn = document.getElementById("toggle-filters");
-                const sidebar = document.getElementById("filter-sidebar");
-                const backdrop = document.getElementById("filter-backdrop");
-                const closeBtn = document.getElementById("close-filters");
-                const catalogMain = document.getElementById("catalog-main");
-
-                let sidebarOpen = false;
-
-                function isMobile() {
-      return window.matchMedia("(max-width: 767px)").matches;
+        `;
+    } else {
+        return `<div class="text-sm text-gray-600">$${regular.toFixed(2)}</div>`;
     }
+}
 
-                function openSidebar() {
-                    sidebar.classList.remove("-translate-x-full");
-                sidebarOpen = true;
-                if (isMobile()) {
-                    backdrop.classList.remove("hidden");
-      } else {
-                    catalogMain.classList.add("ml-64");
-      }
+// Price formatter for product page full display
+function getFullPriceHTML(product) {
+    const regular = product.price;
+    const sale = product.sale_price ?? regular;
+    const isOnSale = product.tags?.includes("Onsale") && sale < regular;
+
+    if (isOnSale) {
+        const saved = (regular - sale).toFixed(2);
+        const percentOff = Math.round((saved / regular) * 100);
+        return `
+            <p class="italic text-green-700 text-xl font-bold">
+                Now <span class="text-3xl">$${sale.toFixed(2)}</span>
+                <span class="text-gray-500 line-through text-base ml-2">$${regular.toFixed(2)}</span>
+            </p>
+            <span class="mr-2 text-sm bg-red-100 text-red-600 font-semibold px-2 py-1 rounded">
+                ${percentOff}% OFF
+            </span>
+            <div class="bg-green-100 text-green-700 text-sm font-semibold inline-block mt-1 px-2 py-1 rounded">
+                You save $${saved}
+            </div>
+        `;
+    } else {
+        return `<p class="italic text-2xl font-semibold">$${regular.toFixed(2)}</p>`;
     }
+}
 
-                function closeSidebar() {
-                    sidebar.classList.add("-translate-x-full");
-                sidebarOpen = false;
-                if (isMobile()) {
-                    backdrop.classList.add("hidden");
-      } else {
-                    catalogMain.classList.remove("ml-64");
-      }
-    }
+// Product card renderer for catalog
+function renderCatalogCard(p) {
+    const tagClasses = p.tags ? p.tags.map(t => t.toLowerCase()).join(" ") : "";
+    const hasVariants = p.custom1Options && p.custom1Options.split("|").length > 1;
+    const regular = p.price;
+    const sale = p.sale_price ?? regular;
+    const isOnSale = p.tags?.includes("Onsale") && sale < regular;
 
-    toggleBtn.addEventListener("click", () => {
-                    sidebarOpen ? closeSidebar() : openSidebar();
-    });
+    const priceBlock = isOnSale
+        ? `<div class="mt-2">
+                <p class="text-green-700 italic font-semibold text-sm">
+                    Now <span class="text-xl font-bold">$${sale.toFixed(2)}</span>
+                    <span class="text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
+                </p>
+                <div class="flex gap-2 mt-1">
+                    <span class="bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">
+                        ${Math.round(((regular - sale) / regular) * 100)}% OFF
+                    </span>
+                    <span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">
+                        You save $${(regular - sale).toFixed(2)}
+                    </span>
+                </div>
+            </div>`
+        : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
 
-                closeBtn?.addEventListener("click", closeSidebar);
-                backdrop?.addEventListener("click", closeSidebar);
+    const tagBadges = `
+        ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
+        ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
+        ${hasVariants ? `<span class="text-xs text-gray-500 ml-2">More colors available</span>` : ""}
+    `;
 
-    window.addEventListener("DOMContentLoaded", () => {
-                    sidebar.classList.add("-translate-x-full");
-                backdrop.classList.add("hidden");
+    return `
+    <div class="p-4 item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
+        <a href="${p.url}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
+            <div class="bg-white aspect-[4/3] flex items-center justify-center">
+                <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain mx-auto">
+            </div>
+            <div class="p-4">
+                <h2 class="text-sm font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
+                ${priceBlock}
+                <div class="flex flex-wrap gap-1 mt-2">
+                    ${tagBadges}
+                </div>
+            </div>
+        </a>
+    </div>`;
+}
 
-                fetch("https://www.karrykraze.com/products/products.json")
-        .then(res => res.json())
-        .then(products => {
-          const container = document.getElementById("product-grid");
-
-          Object.entries(products).forEach(([sku, p]) => {
-            const card = renderCatalogCard(p);
-                container.insertAdjacentHTML("beforeend", card);
-          });
-
-          imagesLoaded(container, () => {
-            const iso = new Isotope(container, {
-                    itemSelector: '.item',
-                layoutMode: 'fitRows',
-                getSortData: {
-                    name: '[data-name]',
-                'price-low': '[data-price] parseFloat',
-                'price-high': '[data-price] parseFloat'
-              }
-            });
-
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
-                        const filter = btn.getAttribute('data-filter');
-                        filters[group] = filter;
-                        iso.arrange({ filter: Object.values(filters).filter(Boolean).join('') });
-                    });
-            });
-
-            document.getElementById('sort-select').addEventListener('change', e => {
-              const val = e.target.value;
-                if (val === 'price-high') {
-                    iso.updateSortData();
-                iso.arrange({sortBy: 'price-low', sortAscending: false });
-              } else if (val === 'price-low') {
-                    iso.updateSortData();
-                iso.arrange({sortBy: 'price-low', sortAscending: true });
-              } else {
-                    iso.arrange({ sortBy: val });
-              }
-            });
-          });
-        });
-    });
-            </script>
-        </body>
-    </html>
