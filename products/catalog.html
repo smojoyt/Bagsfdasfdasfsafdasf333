@@ -51,17 +51,44 @@
 
                 <div class="mb-6" data-filter-group="category">
                     <h3 class="text-sm font-medium mb-2">Category</h3>
-                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
-                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".bags">Bags</button>
-                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".headwear">Headwear</button>
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="tags" value="" />
+                        <span>All</span>
+                    </label>
+
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".bags" />
+                        <span>Bags</span>
+                    </label>
+
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".headwear" />
+                        <span>Headwear</span>
+                    </label>
+
                 </div>
 
                 <div class="mb-6" data-filter-group="tags">
                     <h3 class="text-sm font-medium mb-2">Tags</h3>
-                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
-                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".bestseller">Best Sellers</button>
-                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".onsale">On Sale</button>
-                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".outofstock">Out of Stock</button>
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="tags" value="" />
+                        <span>All</span>
+                    </label>
+
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".bestseller" />
+                        <span>Best Sellers</span>
+                    </label>
+
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".onsale" />
+                        <span>On Sale</span>
+                    </label>
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".outofstock" />
+                        <span>In Stock</span>
+                    </label>
+
                 </div>
 
                 <div>
