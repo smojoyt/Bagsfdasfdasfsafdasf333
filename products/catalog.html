@@ -5,6 +5,8 @@
     <title>Karry Kraze Catalog</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <script src="/js/helpers.js"></script>
+
 </head>
 <body class="bg-white text-gray-900">
 
@@ -53,23 +55,11 @@
                 const container = document.getElementById("product-grid");
                 let html = "";
 
-                Object.entries(products).forEach(([sku, p]) => {
-                    const tagClasses = p.tags ? p.tags.map(t => t.toLowerCase()).join(" ") : "";
-                    html += `
-                  <div class="item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
-                    <a href="${p.url}" class="block bg-white shadow-sm border hover:shadow-md transition rounded-lg overflow-hidden">
-                      <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-cover" />
-                      <div class="p-4 text-left">
-                        <h2 class="text-lg font-bold">${p.name}</h2>
-                        <p class="text-sm text-gray-500">$${p.price.toFixed(2)}</p>
-                        ${p.tags?.includes("Onsale") ? '<span class="inline-block text-xs mt-1 text-red-500 bg-red-100 px-2 py-1 rounded">On Sale</span>' : ""}
-                        ${p.tags?.includes("Outofstock") ? '<span class="inline-block text-xs mt-1 text-yellow-600 bg-yellow-100 px-2 py-1 rounded">Out of Stock</span>' : ""}
-                        ${p.tags?.includes("Bestseller") ? '<span class="inline-block text-xs mt-1 text-green-600 bg-green-100 px-2 py-1 rounded">Bestseller</span>' : ""}
-                      </div>
-                    </a>
-                  </div>
-                `;
+                Object.entries(products).forEach(([sku, product]) => {
+                    const card = renderCatalogCard(product);
+                    container.insertAdjacentHTML('beforeend', card);
                 });
+
 
                 container.innerHTML = html;
 
