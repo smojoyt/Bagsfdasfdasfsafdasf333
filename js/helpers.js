@@ -58,7 +58,23 @@ function renderCatalogCard(p) {
     const isOnSale = p.tags?.includes("Onsale") && sale < regular;
 
     const tagBadges = `
-        ${isOnSale ? `<span class="text-xs text-red-600 bg-red-100 px-2 py-0.5 rounded-full">On Sale</span>` : ""}
+        ${isOnSale
+            ? `<div class="mt-2">
+        <p class="text-green-700 italic font-semibold text-sm">
+            Now <span class="text-xl font-bold">$${sale.toFixed(2)}</span>
+            <span class="text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
+        </p>
+        <div class="flex gap-2 mt-1">
+            <span class="bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">
+                ${Math.round(((regular - sale) / regular) * 100)}% OFF
+            </span>
+            <span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">
+                You save $${(regular - sale).toFixed(2)}
+            </span>
+        </div>
+    </div>`
+            : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`}
+
         ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
         ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
         ${hasVariants ? `<span class="text-xs text-gray-500 ml-2">More colors available</span>` : ""}
@@ -71,7 +87,7 @@ function renderCatalogCard(p) {
                 <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain mx-auto">
             </div>
             <div class="p-4">
-                <h2 class="text-sm font-semibold line-clamp-2 min-h-[3.5rem]">${p.name}</h2>
+                <h2 class="text-sm font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
                 ${isOnSale
             ? `<div class="text-red-600 font-bold text-sm mt-1">
                             $${sale.toFixed(2)}
