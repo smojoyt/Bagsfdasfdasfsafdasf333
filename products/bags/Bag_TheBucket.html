@@ -381,7 +381,20 @@
                                       </div>
                                       <div class="text-center mt-3">
                                         <div class="text-sm font-semibold truncate">${product.name}</div>
-                                        <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>
+                                        ${(product.tags?.includes("Onsale") && product.sale_price < product.price)
+                                ? `
+    <div class="flex flex-col items-center gap-1">
+      <div class="text-red-600 font-bold text-sm">
+        $${product.sale_price.toFixed(2)}
+        <span class="text-xs text-gray-500 line-through ml-1">$${product.price.toFixed(2)}</span>
+      </div>
+      <div class="bg-red-100 text-red-500 text-[11px] font-medium px-2 py-0.5 rounded-full">
+        On Sale
+      </div>
+    </div>`
+                                : `<div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`
+}
+
                                       </div>
                                     </a>`;
                         carouselWrapper.appendChild(cell);
