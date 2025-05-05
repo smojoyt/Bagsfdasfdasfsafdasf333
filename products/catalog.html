@@ -24,31 +24,46 @@
         }
     </style>
 
-    <div class="p-4 flex flex-wrap items-center justify-center gap-4">
+    <div class="flex flex-col lg:flex-row">
+        <!-- Sidebar Filters -->
+        <aside class="w-full lg:w-1/4 p-4 bg-gray-50 border-r border-gray-200">
+            <h2 class="font-semibold text-lg mb-4">Filter</h2>
 
-        <!-- Category filters -->
-        <div data-filter-group="category">
-            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter="">All</button>
-            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter=".bags">Bags</button>
-            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter=".headwear">Headwear</button>
-        </div>
+            <!-- Category filters -->
+            <div class="mb-6" data-filter-group="category">
+                <h3 class="text-sm font-medium mb-2">Category</h3>
+                <button class="filter-btn bg-gray-100 w-full text-left px-3 py-2 rounded mb-1" data-filter="">All</button>
+                <button class="filter-btn bg-gray-100 w-full text-left px-3 py-2 rounded mb-1" data-filter=".bags">Bags</button>
+                <button class="filter-btn bg-gray-100 w-full text-left px-3 py-2 rounded" data-filter=".headwear">Headwear</button>
+            </div>
 
-        <!-- Tag filters -->
-        <div data-filter-group="tags">
-            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter="">All</button>
-            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter=".bestseller">Bestsellers</button>
-            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter=".onsale">On Sale</button>
-            <button class="filter-btn bg-gray-100 px-4 py-2 rounded" data-filter=".outofstock">Out of Stock</button>
-        </div>
+            <!-- Tag filters -->
+            <div class="mb-6" data-filter-group="tags">
+                <h3 class="text-sm font-medium mb-2">Tags</h3>
+                <button class="filter-btn bg-gray-100 w-full text-left px-3 py-2 rounded mb-1" data-filter="">All</button>
+                <button class="filter-btn bg-gray-100 w-full text-left px-3 py-2 rounded mb-1" data-filter=".bestseller">Bestsellers</button>
+                <button class="filter-btn bg-gray-100 w-full text-left px-3 py-2 rounded mb-1" data-filter=".onsale">On Sale</button>
+                <button class="filter-btn bg-gray-100 w-full text-left px-3 py-2 rounded" data-filter=".outofstock">Out of Stock</button>
+            </div>
 
-        <!-- Sort Dropdown -->
-        <select id="sort-select" class="ml-4 border p-2 rounded">
-            <option value="original-order">Default</option>
-            <option value="name">Name A–Z</option>
-            <option value="price-low">Price Low–High</option>
-            <option value="price-high">Price High–Low</option>
-        </select>
+            <!-- Sort Dropdown -->
+            <div>
+                <label for="sort-select" class="block text-sm font-medium mb-2">Sort By</label>
+                <select id="sort-select" class="w-full border p-2 rounded">
+                    <option value="original-order">Default</option>
+                    <option value="name">Name A–Z</option>
+                    <option value="price-low">Price Low–High</option>
+                    <option value="price-high">Price High–Low</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- Product Grid -->
+        <main class="w-full lg:w-3/4 p-4">
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+        </main>
     </div>
+
 
 
     <!-- Product Grid -->
