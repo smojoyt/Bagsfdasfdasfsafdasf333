@@ -32,7 +32,7 @@
 
         <!-- Sidebar -->
         <aside id="filter-sidebar"
-               class="fixed md:relative top-0 left-0 w-64 md:w-[15%] h-full bg-white border-r border-gray-200 shadow-lg z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+               class="fixed md:relative top-0 left-0 w-64 md:w-[15%] h-full bg-white border-r border-gray-200 shadow-lg z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
             <div class="p-4">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="font-semibold text-lg">Filters</h2>
@@ -87,18 +87,18 @@
             sidebar.classList.remove("-translate-x-full");
             backdrop.classList.remove("hidden");
 
-            // Push content on desktop
             if (window.innerWidth >= 768) {
                 catalogMain.classList.add("ml-[15%]");
             }
         }
 
+
         function closeSidebar() {
             sidebar.classList.add("-translate-x-full");
             backdrop.classList.add("hidden");
-
             catalogMain.classList.remove("ml-[15%]");
         }
+
 
         toggleBtn.addEventListener("click", openSidebar);
         closeBtn.addEventListener("click", closeSidebar);
