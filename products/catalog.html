@@ -24,9 +24,18 @@
         }
     </style>
 
+    <!-- Filter Toggle Button (Visible on small screens only) -->
+    <button id="toggle-filters"
+            class="lg:hidden bg-gray-800 text-white px-4 py-2 m-4 rounded">
+        Filters
+    </button>
+
+    <!-- Layout Wrapper -->
     <div class="flex flex-col lg:flex-row">
-        <!-- Sidebar Filters -->
-        <aside class="w-full lg:w-1/4 p-4 bg-gray-50 border-r border-gray-200">
+
+        <!-- Sidebar -->
+        <aside id="filter-sidebar"
+               class="w-full lg:w-[15%] p-4 bg-gray-50 border-r border-gray-200 hidden lg:block">
             <h2 class="font-semibold text-lg mb-4">Filter</h2>
 
             <!-- Category filters -->
@@ -58,11 +67,12 @@
             </div>
         </aside>
 
-        <!-- Product Grid -->
-        <main class="w-full lg:w-3/4 p-4">
+        <!-- Product Grid Area -->
+        <main class="w-full lg:w-[85%] p-4">
             <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
         </main>
     </div>
+
 
 
 
@@ -71,6 +81,15 @@
 
     <!-- Script to Load and Activate -->
     <script>
+        const toggleBtn = document.getElementById("toggle-filters");
+        const sidebar = document.getElementById("filter-sidebar");
+
+        toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("hidden");
+        });
+
+
+
         let filters = {}; // stores selected filters by group
 
         function concatFilters(obj) {
