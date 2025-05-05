@@ -183,7 +183,7 @@
 
                         const card = `
   <div class="p-2 item ${p.category} ${tagClasses} min-h-[500px]" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
-    <a href="${p.url}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
+    <a href="${p.url}" class="flex flex-col justify-between min-h-[500px] bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
       <div class="bg-white aspect-[4/3] flex items-center justify-center">
         <img src="${p.image}" alt="${p.name}" class="max-h-48 w-auto object-contain mx-auto">
       </div>
