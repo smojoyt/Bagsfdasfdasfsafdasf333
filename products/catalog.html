@@ -61,7 +61,7 @@
                     <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
                     <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".bestseller">Best Sellers</button>
                     <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".onsale">On Sale</button>
-                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".outofstock">In Stock</button>
+                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".outofstock">Out of Stock</button>
                 </div>
 
                 <div>
@@ -86,7 +86,7 @@
                 <button id="toggle-filters" class="bg-gray-800 text-white px-4 py-2 rounded z-20">Filters</button>
             </div>
             <div class="overflow-x-auto">
-                <div id="product-grid" class="grid grid-cols-2 gap-4 px-4 box-border"></div>
+                <div id="product-grid" class="grid gap-6 p-2"></div>
             </div>
         </main>
     </div>
@@ -102,6 +102,147 @@
     <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz" data-config-modal-style="side"></div>
 
     <script>
+        const toggleBtn = document.getElementById("toggle-filters");
+        const sidebar = document.getElementById("filter-sidebar");
+        const backdrop = document.getElementById("filter-backdrop");
+        const closeBtn = document.getElementById("close-filters");
+        const catalogMain = document.getElementById("catalog-main");
+
+        let sidebarOpen = false;
+        let filters = {};
+
+        function isMobile() {
+            return window.matchMedia("(max-width: 767px)").matches;
+        }
+
+        function openSidebar() {
+            sidebar.classList.remove("-translate-x-full");
+            sidebarOpen = true;
+            if (isMobile()) {
+                backdrop.classList.remove("hidden");
+            } else {
+                catalogMain.classList.add("ml-64");
+            }
+        }
+
+        function closeSidebar() {
+            sidebar.classList.add("-translate-x-full");
+            sidebarOpen = false;
+            if (isMobile()) {
+                backdrop.classList.add("hidden");
+            } else {
+                catalogMain.classList.remove("ml-64");
+            }
+        }
+
+        toggleBtn.addEventListener("click", () => {
+            sidebarOpen ? closeSidebar() : openSidebar();
+        });
+
+        closeBtn?.addEventListener("click", closeSidebar);
+        backdrop?.addEventListener("click", closeSidebar);
+
+        window.addEventListener("DOMContentLoaded", () => {
+            sidebar.classList.add("-translate-x-full");
+            backdrop.classList.add("hidden");
+
+            fetch("https://www.karrykraze.com/products/products.json")
+                .then(res => res.json())
+                .then(products => {
+                    const container = document.getElementById("product-grid");
+
+                    Object.entries(products).forEach(([sku, p]) => {
+                        const tagClasses = p.tags ? p.tags.map(t => t.toLowerCase()).join(" ") : "";
+                        const hasVariants = p.custom1Options && p.custom1Options.split("|").length > 1;
+                        const regular = p.price;
+                        const sale = p.sale_price ?? regular;
+                        const isOnSale = p.tags?.includes("Onsale") && sale < regular;
+
+                        const priceBlock = isOnSale
+                            ? <div class="mt-2">
+                                <p class="text-green-700 italic font-semibold text-xs sm:text-sm">
+                                    Now <span class="text-lg sm:text-xl font-bold">$${sale.toFixed(2)}</span>
+                                    <span class="text-xs sm:text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
+                                </p>
+                                <div class="flex gap-2 mt-1">
+                                    <span class="bg-red-100 text-red-600 text-[10px] sm:text-xs font-semibold px-1 py-0.5 rounded">
+                                        ${Math.round(((regular - sale) / regular) * 100)}% OFF
+                                    </span>
+                                    <span class="bg-green-100 text-green-700 text-[10px] sm:text-xs italic px-1 py-0.5 rounded">
+                                        You save $${(regular - sale).toFixed(2)}
+                                    </span>
+                                </div>
+                            </div>
+                            : <div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>;
+
+                        const tagBadges =
+                            ${ p.tags?.includes("Bestseller") ? <span class="text-[10px] sm:text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span> : ""
+                    }
+                                  ${ p.tags?.includes("Outofstock") ? <span class="text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span> : "" }
+                                  ${ hasVariants?<span class= "text-[10px] sm:text-xs text-gray-500 ml-2" > More colors available</span> : ""}
+                                ;
+
+            const card =
+                <div class="p-2 item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
+                    <a href="${p.url}" class="flex flex-col justify-between bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
+                        <div class="bg-white aspect-[4/3] flex items-center justify-center">
+                            <img src="${p.image}" alt="${p.name}" class="max-h-48 w-auto object-contain mx-auto">
+                        </div>
+                        <div class="min-h-[150px] max-w-[192px] p-2">
+                            <h2 class="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
+                            ${priceBlock}
+                            <div class="flex flex-wrap gap-1 mt-2">
+                                ${tagBadges}
+                            </div>
+                        </div>
+                    </a>
+                </div>;
+
+
+            container.insertAdjacentHTML("beforeend", card);
+        });
+
+        imagesLoaded(container, () => {
+            const iso = new Isotope(container, {
+                itemSelector: '.item',
+                layoutMode: 'fitRows',
+                getSortData: {
+                    name: '[data-name]',
+                    'price-low': '[data-price] parseFloat',
+                    'price-high': '[data-price] parseFloat',
+                    'best-deals': '[data-discount] parseInt'
+                }
+
+            });
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
+                    const filter = btn.getAttribute('data-filter');
+                    filters[group] = filter;
+                    iso.arrange({ filter: Object.values(filters).filter(Boolean).join('') });
+                });
+            });
+
+            document.getElementById('sort-select').addEventListener('change', e => {
+                const val = e.target.value;
+                if (val === 'price-high') {
+                    iso.updateSortData();
+                    iso.arrange({ sortBy: 'price-low', sortAscending: false });
+                } else if (val === 'price-low') {
+                    iso.updateSortData();
+                    iso.arrange({ sortBy: 'price-low', sortAscending: true });
+                } else if (val === 'best-deals') {
+                    iso.updateSortData();
+                    iso.arrange({ sortBy: 'best-deals', sortAscending: false });
+                } else {
+                    iso.arrange({ sortBy: val });
+                }
+            });
+
+        });
+                    });
+            });
         function includeHTML(id, filePath, callback = null) {
             fetch(filePath)
                 .then(res => res.text())
@@ -133,16 +274,6 @@
                 lastScrollY = window.scrollY;
             });
         }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-                initNavbar();
-                includeHTML("unicart-container", "/page_inserts/uni_cart.html");
-                includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-                includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
-            });
-        });
-
         document.addEventListener('snipcart.ready', () => {
             const navbar = document.getElementById('mainNavbar');
             const body = document.body;
@@ -162,6 +293,18 @@
                 pageContent?.classList.remove('blurred');
             });
         });
+
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar(); // ✅ safe - navbar is now present
+
+            includeHTML("productpage", "/page_inserts/productpage.html", loadProductData);
+
+
+            includeHTML("unicart-container", "/page_inserts/uni_cart.html");
+            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+        });
+
     </script>
 </body>
 </html>
