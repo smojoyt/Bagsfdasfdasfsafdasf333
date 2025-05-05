@@ -95,13 +95,13 @@
 	},
 
 	"Bag_BitchesIsWeird": {
-		"name": "Pink Mini Tote Bag – “B!TCH#S IS WEIRD” Statement Purse",
+		"name": "Pink Mini Tote Bag - B!TCH#S IS WEIRD Statement Purse",
 		"category": "bags",
 		"product_id": "KK-1004",
 		"price": 75.65,
 		"sale_price": 56.74,
 		"tags": [ "Onsale" ],
-		"image": "https://www.karrykraze.com/imgs/Products/Pouches/0011_BitchesisWeird/01_05.jpg",
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_BitchesIsWeird.html",
 		"descriptionList": [
 			"Boxy mini tote silhouette",
@@ -112,14 +112,14 @@
 		"custom1Name": "Color",
 		"custom1Options": "Pink",
 		"variantImages": {
-			"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/0011_BitchesisWeird/01_05.jpg"
+			"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg"
 		},
 		"thumbnails": [
-			"https://www.karrykraze.com/imgs/Products/Pouches/0011_BitchesisWeird/01_05.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pouches/0011_BitchesisWeird/01_06.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pouches/0011_BitchesisWeird/01_01.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pouches/0011_BitchesisWeird/01_03.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pouches/0011_BitchesisWeird/01_04.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_06.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_03.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_04.jpg"
 		]
 	}
 
