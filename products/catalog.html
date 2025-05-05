@@ -30,49 +30,55 @@
         Filters
     </button>
 
-    <!-- Sidebar Overlay Panel -->
-    <div id="filter-sidebar"
-         class="fixed top-0 left-0 w-64 h-full bg-white border-r border-gray-200 shadow-lg z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
-        <div class="p-4">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="font-semibold text-lg">Filters</h2>
-                <button id="close-filters" class="text-gray-600 hover:text-black text-xl">&times;</button>
-            </div>
+    <!-- Catalog Layout -->
+    <div id="catalog-layout" class="flex relative transition-all duration-300 ease-in-out">
 
-            <!-- Category filters -->
-            <div class="mb-6" data-filter-group="category">
-                <h3 class="text-sm font-medium mb-2">Category</h3>
-                <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
-                <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".bags">Bags</button>
-                <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".headwear">Headwear</button>
-            </div>
+        <!-- Sidebar -->
+        <aside id="filter-sidebar"
+               class="fixed md:relative top-0 left-0 w-64 md:w-[15%] h-full bg-white border-r border-gray-200 shadow-lg z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+            <div class="p-4">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-semibold text-lg">Filters</h2>
+                    <button id="close-filters" class="text-gray-600 hover:text-black text-xl md:hidden">&times;</button>
+                </div>
 
-            <!-- Tag filters -->
-            <div class="mb-6" data-filter-group="tags">
-                <h3 class="text-sm font-medium mb-2">Tags</h3>
-                <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
-                <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".bestseller">Bestsellers</button>
-                <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".onsale">On Sale</button>
-                <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".outofstock">Out of Stock</button>
-            </div>
+                <!-- Category Filters -->
+                <div class="mb-6" data-filter-group="category">
+                    <h3 class="text-sm font-medium mb-2">Category</h3>
+                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
+                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".bags">Bags</button>
+                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".headwear">Headwear</button>
+                </div>
 
-            <!-- Sort Dropdown -->
-            <div>
-                <label for="sort-select" class="block text-sm font-medium mb-2">Sort By</label>
-                <select id="sort-select" class="w-full border p-2 rounded">
-                    <option value="original-order">Default</option>
-                    <option value="name">Name A–Z</option>
-                    <option value="price-low">Price Low–High</option>
-                    <option value="price-high">Price High–Low</option>
-                </select>
+                <!-- Tag Filters -->
+                <div class="mb-6" data-filter-group="tags">
+                    <h3 class="text-sm font-medium mb-2">Tags</h3>
+                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter="">All</button>
+                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".bestseller">Bestsellers</button>
+                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded mb-1" data-filter=".onsale">On Sale</button>
+                    <button class="filter-btn block w-full text-left bg-gray-100 px-3 py-2 rounded" data-filter=".outofstock">Out of Stock</button>
+                </div>
+
+                <!-- Sort -->
+                <div>
+                    <label for="sort-select" class="block text-sm font-medium mb-2">Sort By</label>
+                    <select id="sort-select" class="w-full border p-2 rounded">
+                        <option value="original-order">Default</option>
+                        <option value="name">Name A–Z</option>
+                        <option value="price-low">Price Low–High</option>
+                        <option value="price-high">Price High–Low</option>
+                    </select>
+                </div>
             </div>
-        </div>
+        </aside>
+
+        <!-- Product Grid Area -->
+        <main id="catalog-main" class="flex-1 transition-all duration-300 ease-in-out">
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4"></div>
+        </main>
     </div>
 
-    <!-- Product Grid Area -->
-    <main class="p-4 relative z-10">
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
-    </main>
 
 
     <!-- Script to Load and Activate -->
@@ -80,14 +86,32 @@
         const toggleBtn = document.getElementById("toggle-filters");
         const sidebar = document.getElementById("filter-sidebar");
         const closeBtn = document.getElementById("close-filters");
+        const backdrop = document.getElementById("filter-backdrop");
+        const catalogMain = document.getElementById("catalog-main");
 
-        toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("-translate-x-full");
-        });
+        function openSidebar() {
+            sidebar.classList.remove("-translate-x-full");
+            backdrop.classList.remove("hidden");
 
-        closeBtn.addEventListener("click", () => {
+            // Desktop layout shift
+            if (window.innerWidth >= 768) {
+                catalogMain.classList.add("ml-[15%]");
+            }
+        }
+
+        function closeSidebar() {
             sidebar.classList.add("-translate-x-full");
-        });
+            backdrop.classList.add("hidden");
+
+            // Reset layout shift
+            catalogMain.classList.remove("ml-[15%]");
+        }
+
+        toggleBtn.addEventListener("click", openSidebar);
+        closeBtn.addEventListener("click", closeSidebar);
+        backdrop.addEventListener("click", closeSidebar);
+
+
 
 
 
