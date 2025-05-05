@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <title>Karry Kraze Catalog Test</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
@@ -20,9 +20,7 @@
             overflow: hidden;
         }
 
-        .item {
-            width: 45% !important;
-        }
+
 
         @media (min-width: 768px) {
             .item {
@@ -87,7 +85,7 @@
                 <button id="toggle-filters" class="bg-gray-800 text-white px-4 py-2 rounded z-20">Filters</button>
             </div>
             <div class="overflow-x-auto">
-                <div id="product-grid" class="grid grid-cols-2 gap-4 px-4 box-border"></div>
+                <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-4 px-2 max-w-screen overflow-hidden mx-auto"></div>
             </div>
         </main>
     </div>
