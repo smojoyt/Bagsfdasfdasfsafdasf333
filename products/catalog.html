@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script src="/js/helpers.js"></script>
+    <script src="/js/moreItemsCarousel.js"></script>
     <style>
         .line-clamp-2 {
             display: -webkit-box;
@@ -88,6 +89,13 @@
         </main>
     </div>
 
+    <!-- Footer -->
+    <footer class="text-center text-sm text-gray-500 py-8 border-t mt-10 mb-10">
+        &copy; 2025 Karry Kraze. All rights reserved.
+    </footer>
+    <div id="navbar-container"></div>
+    <div id="unicart-container"></div>
+
     <script>
         const toggleBtn = document.getElementById("toggle-filters");
         const sidebar = document.getElementById("filter-sidebar");
@@ -147,42 +155,42 @@
 
                         const priceBlock = isOnSale
                             ? `<div class="mt-2">
-                        <p class="text-green-700 italic font-semibold text-xs sm:text-sm">
-                            Now <span class="text-lg sm:text-xl font-bold">$${sale.toFixed(2)}</span>
-                            <span class="text-xs sm:text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
-                        </p>
-                        <div class="flex gap-2 mt-1">
-                            <span class="bg-red-100 text-red-600 text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded">
-                                ${Math.round(((regular - sale) / regular) * 100)}% OFF
-                            </span>
-                            <span class="bg-green-100 text-green-700 text-[10px] sm:text-xs italic px-2 py-0.5 rounded">
-                                You save $${(regular - sale).toFixed(2)}
-                            </span>
-                        </div>
-                    </div>`
+                            <p class="text-green-700 italic font-semibold text-xs sm:text-sm">
+                                Now <span class="text-lg sm:text-xl font-bold">$${sale.toFixed(2)}</span>
+                                <span class="text-xs sm:text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
+                            </p>
+                            <div class="flex gap-2 mt-1">
+                                <span class="bg-red-100 text-red-600 text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded">
+                                    ${Math.round(((regular - sale) / regular) * 100)}% OFF
+                                </span>
+                                <span class="bg-green-100 text-green-700 text-[10px] sm:text-xs italic px-2 py-0.5 rounded">
+                                    You save $${(regular - sale).toFixed(2)}
+                                </span>
+                            </div>
+                        </div>`
                             : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
 
                         const tagBadges = `
-                  ${p.tags?.includes("Bestseller") ? `<span class="text-[10px] sm:text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
-                  ${p.tags?.includes("Outofstock") ? `<span class="text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
-                  ${hasVariants ? `<span class="text-[10px] sm:text-xs text-gray-500 ml-2">More colors available</span>` : ""}
-                `;
+                      ${p.tags?.includes("Bestseller") ? `<span class="text-[10px] sm:text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
+                      ${p.tags?.includes("Outofstock") ? `<span class="text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
+                      ${hasVariants ? `<span class="text-[10px] sm:text-xs text-gray-500 ml-2">More colors available</span>` : ""}
+                    `;
 
                         const card = `
-                  <div class="p-4 item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
-                    <a href="${p.url}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
-                      <div class="bg-white aspect-[4/3] flex items-center justify-center">
-                        <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain mx-auto">
-                      </div>
-                      <div class="p-4">
-                        <h2 class="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
-                        ${priceBlock}
-                        <div class="flex flex-wrap gap-1 mt-2">
-                          ${tagBadges}
-                        </div>
-                      </div>
-                    </a>
-                  </div>`;
+                      <div class="p-4 item ${p.category} ${tagClasses}" data-name="${p.name.toLowerCase()}" data-price="${p.price}">
+                        <a href="${p.url}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
+                          <div class="bg-white aspect-[4/3] flex items-center justify-center">
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain mx-auto">
+                          </div>
+                          <div class="p-4">
+                            <h2 class="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
+                            ${priceBlock}
+                            <div class="flex flex-wrap gap-1 mt-2">
+                              ${tagBadges}
+                            </div>
+                          </div>
+                        </a>
+                      </div>`;
 
                         container.insertAdjacentHTML("beforeend", card);
                     });
@@ -222,6 +230,19 @@
                     });
                 });
         });
+
+
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar(); // ✅ safe - navbar is now present
+
+            includeHTML("productpage", "/page_inserts/productpage.html", loadProductData);
+
+
+            includeHTML("unicart-container", "/page_inserts/uni_cart.html");
+            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+        });
+
     </script>
 </body>
 </html>
