@@ -24,7 +24,10 @@
 
         <!-- Sidebar -->
         <aside id="filter-sidebar"
-               class="fixed md:relative top-0 left-0 w-64 md:w-[15%] h-full bg-white border-r border-gray-200 shadow-lg z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
+               class="fixed top-0 left-0 w-64 h-full bg-white border-r border-gray-200 shadow-lg z-40
+         transform -translate-x-full transition-transform duration-300 ease-in-out
+         md:translate-x-0 md:relative">
+
             <div class="p-4">
                 <!-- Header -->
                 <div class="flex justify-between items-center mb-4">
@@ -85,7 +88,7 @@
 
         function openSidebar() {
             sidebar.classList.remove("-translate-x-full");
-            sidebarOpen = true;
+
             if (window.innerWidth >= 768) {
                 catalogMain.classList.add("ml-[15%]");
             }
@@ -93,11 +96,12 @@
 
         function closeSidebar() {
             sidebar.classList.add("-translate-x-full");
-            sidebarOpen = false;
+
             if (window.innerWidth >= 768) {
                 catalogMain.classList.remove("ml-[15%]");
             }
         }
+
 
         toggleBtn.addEventListener("click", () => {
             sidebarOpen ? closeSidebar() : openSidebar();
