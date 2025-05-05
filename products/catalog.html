@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Karry Kraze Catalog Test</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
@@ -32,7 +32,7 @@
 
         @media (min-width: 1024px) {
             .item {
-                width: auto !important;
+                width: 23.5% !important; /* Optional: fits 4 items per row */
             }
         }
     </style>
@@ -87,8 +87,11 @@
                 <button id="toggle-filters" class="bg-gray-800 text-white px-4 py-2 rounded z-20">Filters</button>
             </div>
             <div class="overflow-x-auto">
-                <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-4 px-2 max-w-screen overflow-hidden mx-auto"></div>
+                <div class="container mx-auto px-2">
+                    <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                </div>
             </div>
+
         </main>
     </div>
 
