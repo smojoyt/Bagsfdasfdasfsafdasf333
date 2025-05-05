@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Karry Kraze Catalog</title>
+    <title>Karry Kraze Catalog Test</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-    <script src="/js/helpers.js"></script>
     <style>
         .line-clamp-2 {
             display: -webkit-box;
@@ -16,7 +15,6 @@
         }
     </style>
 </head>
-
 <body class="bg-white text-gray-900">
     <!-- Layout -->
     <div id="catalog-layout" class="flex relative transition-all duration-300 ease-in-out">
@@ -76,7 +74,6 @@
         </main>
     </div>
 
-    <!-- Script -->
     <script>
         const toggleBtn = document.getElementById("toggle-filters");
         const sidebar = document.getElementById("filter-sidebar");
@@ -112,57 +109,6 @@
 
         closeBtn?.addEventListener("click", closeSidebar);
         backdrop?.addEventListener("click", closeSidebar);
-
-        // Filtering logic
-        let filters = {};
-        function concatFilters(obj) {
-            return Object.values(obj).filter(Boolean).join('');
-        }
-
-        fetch("https://www.karrykraze.com/products/products.json")
-            .then(res => res.json())
-            .then(products => {
-                const container = document.getElementById("product-grid");
-
-                Object.entries(products).forEach(([sku, product]) => {
-                    const card = renderCatalogCard(product);
-                    container.insertAdjacentHTML('beforeend', card);
-                });
-
-                imagesLoaded(container, () => {
-                    const iso = new Isotope(container, {
-                        itemSelector: '.item',
-                        layoutMode: 'fitRows',
-                        getSortData: {
-                            name: '[data-name]',
-                            'price-low': '[data-price] parseFloat',
-                            'price-high': '[data-price] parseFloat'
-                        }
-                    });
-
-                    document.querySelectorAll('.filter-btn').forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
-                            const filter = btn.getAttribute('data-filter');
-                            filters[group] = filter;
-                            iso.arrange({ filter: concatFilters(filters) });
-                        });
-                    });
-
-                    document.getElementById('sort-select').addEventListener('change', e => {
-                        const val = e.target.value;
-                        if (val === 'price-high') {
-                            iso.updateSortData();
-                            iso.arrange({ sortBy: 'price-low', sortAscending: false });
-                        } else if (val === 'price-low') {
-                            iso.updateSortData();
-                            iso.arrange({ sortBy: 'price-low', sortAscending: true });
-                        } else {
-                            iso.arrange({ sortBy: val });
-                        }
-                    });
-                });
-            });
     </script>
 </body>
 </html>
