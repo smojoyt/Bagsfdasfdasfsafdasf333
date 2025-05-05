@@ -6,7 +6,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-    <script src="/js/helpers.js"></script>
     <style>
         .line-clamp-2 {
             display: -webkit-box;
@@ -66,7 +65,11 @@
                 <button id="toggle-filters" class="bg-gray-800 text-white px-4 py-2 rounded z-50">Filters</button>
             </div>
             <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4"></div>
+                <!-- Dummy Items -->
+                <div class="item bags bestseller bg-white p-4 rounded shadow">Item 1</div>
+                <div class="item headwear onsale bg-white p-4 rounded shadow">Item 2</div>
+                <div class="item bags outofstock bg-white p-4 rounded shadow">Item 3</div>
+                <div class="item headwear bg-white p-4 rounded shadow">Item 4</div>
             </div>
         </main>
     </div>
@@ -80,10 +83,14 @@
 
         let sidebarOpen = false;
 
+        function isMobileView() {
+            return window.matchMedia('(max-width: 767px)').matches;
+        }
+
         function openSidebar() {
             sidebar.classList.remove("-translate-x-full");
             sidebarOpen = true;
-            if (window.innerWidth < 768) {
+            if (isMobileView()) {
                 backdrop.classList.remove("hidden");
             } else {
                 catalogMain.classList.add("ml-64");
@@ -93,7 +100,7 @@
         function closeSidebar() {
             sidebar.classList.add("-translate-x-full");
             sidebarOpen = false;
-            if (window.innerWidth < 768) {
+            if (isMobileView()) {
                 backdrop.classList.add("hidden");
             } else {
                 catalogMain.classList.remove("ml-64");
@@ -107,61 +114,9 @@
         closeBtn?.addEventListener("click", closeSidebar);
         backdrop?.addEventListener("click", closeSidebar);
 
-        // Ensure sidebar is hidden initially on all screen sizes
         window.addEventListener("DOMContentLoaded", () => {
             sidebar.classList.add("-translate-x-full");
         });
-
-        // Filtering logic
-        let filters = {};
-        function concatFilters(obj) {
-            return Object.values(obj).filter(Boolean).join('');
-        }
-
-        fetch("https://www.karrykraze.com/products/products.json")
-            .then(res => res.json())
-            .then(products => {
-                const container = document.getElementById("product-grid");
-
-                Object.entries(products).forEach(([sku, product]) => {
-                    const card = renderCatalogCard(product);
-                    container.insertAdjacentHTML('beforeend', card);
-                });
-
-                imagesLoaded(container, () => {
-                    const iso = new Isotope(container, {
-                        itemSelector: '.item',
-                        layoutMode: 'fitRows',
-                        getSortData: {
-                            name: '[data-name]',
-                            'price-low': '[data-price] parseFloat',
-                            'price-high': '[data-price] parseFloat'
-                        }
-                    });
-
-                    document.querySelectorAll('.filter-btn').forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
-                            const filter = btn.getAttribute('data-filter');
-                            filters[group] = filter;
-                            iso.arrange({ filter: concatFilters(filters) });
-                        });
-                    });
-
-                    document.getElementById('sort-select').addEventListener('change', e => {
-                        const val = e.target.value;
-                        if (val === 'price-high') {
-                            iso.updateSortData();
-                            iso.arrange({ sortBy: 'price-low', sortAscending: false });
-                        } else if (val === 'price-low') {
-                            iso.updateSortData();
-                            iso.arrange({ sortBy: 'price-low', sortAscending: true });
-                        } else {
-                            iso.arrange({ sortBy: val });
-                        }
-                    });
-                });
-            });
     </script>
 </body>
 </html>
