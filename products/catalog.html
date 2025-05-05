@@ -6,6 +6,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="/js/helpers.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+
 
 </head>
 
@@ -71,15 +73,41 @@
                     container.insertAdjacentHTML('beforeend', card);
                 });
 
-                const iso = new Isotope(container, {
-                    itemSelector: '.item',
-                    layoutMode: 'fitRows',
-                    getSortData: {
-                        name: '[data-name]',
-                        'price-low': '[data-price] parseFloat',
-                        'price-high': '[data-price] parseFloat'
-                    }
+                imagesLoaded(container, () => {
+                    const iso = new Isotope(container, {
+                        itemSelector: '.item',
+                        layoutMode: 'fitRows',
+                        getSortData: {
+                            name: '[data-name]',
+                            'price-low': '[data-price] parseFloat',
+                            'price-high': '[data-price] parseFloat'
+                        }
+                    });
+
+                    // Attach filters after layout is ready
+                    document.querySelectorAll('.filter-btn').forEach(btn => {
+                        btn.addEventListener('click', e => {
+                            const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
+                            const filter = btn.getAttribute('data-filter');
+                            filters[group] = filter;
+                            iso.arrange({ filter: concatFilters(filters) });
+                        });
+                    });
+
+                    document.getElementById('sort-select').addEventListener('change', e => {
+                        const val = e.target.value;
+                        if (val === 'price-high') {
+                            iso.updateSortData();
+                            iso.arrange({ sortBy: 'price-low', sortAscending: false });
+                        } else if (val === 'price-low') {
+                            iso.updateSortData();
+                            iso.arrange({ sortBy: 'price-low', sortAscending: true });
+                        } else {
+                            iso.arrange({ sortBy: val });
+                        }
+                    });
                 });
+
 
                 // Filtering logic
                 document.querySelectorAll('.filter-btn').forEach(btn => {
