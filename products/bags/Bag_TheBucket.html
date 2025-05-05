@@ -134,9 +134,12 @@
             }, 150);
         }
 
-        function updateVariant(select) {
+        function updateVariant(input) {
             const btn = document.getElementById('add-to-cart-btn');
-            if (btn) btn.setAttribute('data-item-custom1-value', select.value);
+            if (btn) {
+                const value = typeof input === 'string' ? input : input.value;
+                btn.setAttribute('data-item-custom1-value', value);
+            }
         }
 
         const colorMap = {
@@ -245,13 +248,42 @@
                         options.forEach(color => {
                             const swatch = document.createElement("button");
                             swatch.className = `
-            flex flex-col items-center group cursor-pointer
-            focus:outline-none
-        `;
+        flex flex-col items-center group cursor-pointer
+        focus:outline-none
+    `;
+
+                            // Warn if color not in colorMap and not a valid CSS color
+                            if (!colorMap[color] && !CSS.supports("color", color.toLowerCase())) {
+                                console.warn(`Missing color swatch value for "${color}"`);
+                            }
+
+                            // Create swatch HTML
                             swatch.innerHTML = `
-            <div class="w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black" style="background-color: ${colorMap[color] || color.toLowerCase()};"></div>
-            <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
-        `;
+        <div class="w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black"
+             style="background-color: ${colorMap[color] || color.toLowerCase()};"></div>
+        <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
+    `;
+
+                            // Improve accessibility for screen readers
+                            swatch.setAttribute("aria-label", `${color} color`);
+
+                            swatch.addEventListener("click", () => {
+                                updateVariant(color); // now works because of updated function
+
+                                Array.from(variantSelect.children).forEach(btn =>
+                                    btn.querySelector("div").classList.remove("ring", "ring-black", "ring-offset-2")
+                                );
+                                swatch.querySelector("div").classList.add("ring", "ring-black", "ring-offset-2");
+
+                                if (activeProduct.variantImages?.[color]) {
+                                    const img = document.getElementById("mainImage");
+                                    if (img) img.src = activeProduct.variantImages[color];
+                                }
+                            });
+
+                            variantSelect.appendChild(swatch);
+                        });
+
 
                             swatch.addEventListener("click", () => {
                                 updateVariant({ value: color });
