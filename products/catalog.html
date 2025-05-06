@@ -206,31 +206,8 @@
                             </div>`
                             : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
 
-                        const tagBadges = `
-                            ${p.tags?.includes("Bestseller") ? `<span class="text-[10px] sm:text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
-                            ${p.tags?.includes("Outofstock") ? `<span class="hidden text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">In Stock</span>` : ""}
-                            ${hasVariants ? `<span class="text-[10px] sm:text-xs text-gray-500 ml-2">More colors available</span>` : ""}
-                        `;
+                        container.insertAdjacentHTML("beforeend", renderCatalogCard(p));
 
-                        const card = `
-                            <div class="p-2 item ${p.category} ${tagClasses}"
-                                 data-name="${p.name.toLowerCase()}"
-                                 data-price="${sale}"
-                                 data-discount="${discount}">
-                                <a href="${p.url}" class="flex flex-col justify-between bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
-                                    <div class="bg-white flex items-center justify-center">
-                                        <img src="${p.image}" alt="${p.name}" class="max-h-72 w-auto object-contain mx-auto">
-                                    </div>
-                                    <div class="min-h-[150px] max-w-[192px] p-2">
-                                        <h2 class="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
-                                        ${priceBlock}
-                                        <div class="flex flex-wrap gap-1 mt-2">${tagBadges}</div>
-                                    </div>
-                                </a>
-                            </div>
-                        `;
-
-                        container.insertAdjacentHTML("beforeend", card);
                     });
 
                     imagesLoaded(container, () => {

@@ -113,8 +113,8 @@ function renderCatalogCard(p) {
     const tagBadges = `
     ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
     ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
-    ${hasVariants ? renderColorDots(p.custom1Options) : ""}
-`;
+` + (hasVariants ? renderColorDots(p.custom1Options) : "");
+
 
     return `
     <div class="p-4 item ${p.category} ${tagClasses}" 
