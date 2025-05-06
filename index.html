@@ -297,11 +297,7 @@
                         // Build the product card
                         const card = document.createElement("a");
                         card.href = p.url;
-                        card.className = `
-    relative w-[30%] max-w-xs overflow-hidden shadow hover:shadow-lg transition bg-white flex flex-col border 
-    ${isBestseller ? "border-yellow-400 rounded-b-xl" : "rounded-xl"}
-`.trim();
-
+                        card.className = `block rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white border ${isBestseller ? "border-yellow-400 rounded-b-xl" : "rounded-xl"}`;
                         card.innerHTML = `
                     <div class="relative w-full bg-white">
                         <img src="${p.image}" alt="${p.name}" class="w-full object-contain">
