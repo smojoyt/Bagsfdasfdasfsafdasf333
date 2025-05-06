@@ -98,7 +98,7 @@
                 const customMap = {
                     cream: "#f5f5dc", // example for custom 'cream'
                 };
-                return `<span class="w-6 h-6 rounded-full border" style="background:${customMap[color] || color}"></span>`;
+                return `<span class="w-4 h-4 sm:w-6 sm:h-6 rounded-full border" style="background:${customMap[color] || color}"></span>`;
             }).join("");
         }
 
@@ -289,7 +289,7 @@
                         // Add bestseller badge above the card
                         if (isBestseller) {
                             const badge = document.createElement("div");
-                            badge.className = "absolute -top-4 sm:-top-5 left-0 w-full text-center bg-yellow-400 text-white text-xs font-bold py-1 rounded-t shadow z-10";
+                            badge.className = "absolute -top-5 sm:-top-4 left-0 w-full text-center bg-yellow-400 text-white text-xs font-bold py-1 rounded-t shadow z-10";
                             badge.textContent = "Bestseller";
                             wrapper.appendChild(badge);
                         }
