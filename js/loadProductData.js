@@ -50,7 +50,9 @@ function loadProductData() {
                             : activeProduct.price
                     ).toFixed(2),
 
-                    itemUrl: window.location.pathname,
+                    itemUrl: window.location.origin + window.location.pathname,
+
+
                     itemImage: activeProduct.image,
                     itemDescription: activeProduct.descriptionList
                         ? activeProduct.descriptionList.join(" | ")
