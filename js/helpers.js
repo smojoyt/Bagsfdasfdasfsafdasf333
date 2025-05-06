@@ -117,22 +117,20 @@ function renderCatalogCard(p) {
 
 
     return `
-    <div class="p-4 item ${p.category} ${tagClasses}" 
+    <div class="p-2 item ${p.category} ${tagClasses}" 
      data-name="${p.name.toLowerCase()}" 
      data-price="${p.price}" 
      data-discount="${isOnSale ? Math.round(((regular - sale) / regular) * 100) : 0}">
 
         <a href="${p.url}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
-            <div class="bg-white aspect-[4/3] flex items-center justify-center">
-                <img src="${p.image}" alt="${p.name}" class="w-full h-64 object-contain mx-auto">
+            <div class="bg-white flex items-center justify-center">
+                <img src="${p.image}" alt="${p.name}" class="max-h-72 w-auto object-contain mx-auto">
             </div>
-            <div class="p-4">
-                <h2 class="text-sm font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
-                ${priceBlock}
-                <div class="flex flex-wrap gap-1 mt-2">
-                    ${tagBadges}
-                </div>
-            </div>
+            <div class="min-h-[150px] max-w-[192px] p-2">
+                                        <h2 class="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
+                                        ${priceBlock}
+                                        <div class="flex flex-wrap gap-1 mt-2">${tagBadges}</div>
+                                    </div>
         </a>
     </div>`;
 }
