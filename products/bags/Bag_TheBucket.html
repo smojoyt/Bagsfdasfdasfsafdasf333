@@ -158,7 +158,7 @@
             // Add more as needed
         };
 
-       
+
 
         function initNavbar() {
             const toggleBtn = document.getElementById("mobile-menu-button");
@@ -183,7 +183,7 @@
             });
         }
 
-        
+
 
         document.addEventListener('snipcart.ready', () => {
             const navbar = document.getElementById('mainNavbar');
@@ -226,7 +226,7 @@
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
             initNavbar(); // ✅ safe - navbar is now present
 
-          
+            includeHTML("productpage", "/page_inserts/productpage.html", loadProductData);
 
 
             includeHTML("unicart-container", "/page_inserts/uni_cart.html");
