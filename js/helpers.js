@@ -1,4 +1,4 @@
-// helpers.js
+﻿// helpers.js
 function renderColorDots(optionsStr) {
     const colorMap = {
         pink: 'bg-pink-400',
@@ -14,7 +14,8 @@ function renderColorDots(optionsStr) {
         orange: 'bg-orange-400',
         tan: 'bg-amber-300',
         gold: 'bg-yellow-300',
-        silver: 'bg-gray-300'
+        silver: 'bg-gray-300',
+        cream: 'bg-[#fdf6e3] border'
     };
 
     const options = optionsStr.split("|");
@@ -111,7 +112,9 @@ function renderCatalogCard(p) {
     const tagBadges = `
     ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
     ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
-` + (hasVariants ? renderColorDots(p.custom1Options) : "");
+`;
+    // ⬆️ No more color dots here
+
 
 
     return `
