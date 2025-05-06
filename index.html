@@ -270,11 +270,12 @@
                         const isBestseller = p.tags?.includes("Bestseller");
                         const card = document.createElement("a");
                         card.href = p.url;
-                        card.className = `relative w-[30%] max-w-xs rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white ${isBestseller ? "border-2 border-yellow-400" : "border"
+                        card.className = `w-[30%] max-w-xs rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white flex flex-col ${isBestseller ? "border-2 border-yellow-400" : "border"
                             }`;
+
                         card.innerHTML = `
     ${isBestseller ? `
-        <div class="absolute top-2 left-2 bg-yellow-400 text-white text-xs font-semibold px-2 py-0.5 rounded">
+        <div class="bg-yellow-400 text-white text-xs font-semibold px-2 py-1 text-center">
             Bestseller
         </div>` : ""}
     <img src="${p.image}" alt="${p.name}" class="w-full object-contain bg-white">
@@ -286,6 +287,7 @@
                                 : `<p class="text-gray-700 text-sm">$${p.price.toFixed(2)}</p>`}
     </div>
 `;
+
 
                         container.appendChild(card);
                     });
