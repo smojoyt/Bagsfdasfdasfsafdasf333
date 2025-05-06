@@ -51,21 +51,16 @@
 
                 <div class="mb-6" data-filter-group="category">
                     <h3 class="text-sm font-medium mb-2">Category</h3>
-                    <label class="flex items-center space-x-2 mb-1">
-                        <input type="checkbox" class="filter-checkbox" data-group="tags" value="" />
-                        <span>All</span>
-                    </label>
 
                     <label class="flex items-center space-x-2 mb-1">
-                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".bags" />
+                        <input type="checkbox" class="filter-checkbox" data-group="category" value=".bags" />
                         <span>Bags</span>
                     </label>
 
                     <label class="flex items-center space-x-2 mb-1">
-                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".headwear" />
+                        <input type="checkbox" class="filter-checkbox" data-group="category" value=".headwear" />
                         <span>Headwear</span>
                     </label>
-
                 </div>
 
                 <div class="mb-6" data-filter-group="tags">
@@ -102,6 +97,9 @@
                     </select>
                 </div>
             </div>
+            <button id="apply-filters" class="mt-4 bg-gray-800 text-white px-4 py-2 rounded w-full">
+                Apply Filters
+            </button>
         </aside>
 
         <!-- Backdrop -->
@@ -270,6 +268,25 @@
                         });
                     });
                 });
+        });
+        // When "Apply Filters" is clicked
+        document.getElementById('apply-filters').addEventListener('click', () => {
+            const allFilters = {};
+
+            // Collect checked checkboxes by group
+            document.querySelectorAll('.filter-checkbox:checked').forEach(cb => {
+                const group = cb.dataset.group;
+                const val = cb.value;
+                if (!allFilters[group]) allFilters[group] = [];
+                allFilters[group].push(val);
+            });
+
+            // Build filter selector: OR logic within group, AND logic across groups
+            const filterSelector = Object.values(allFilters)
+                .map(groupVals => groupVals.join(','))
+                .join('');
+
+            iso.arrange({ filter: filterSelector || '*' });
         });
 
         // Other included HTML
