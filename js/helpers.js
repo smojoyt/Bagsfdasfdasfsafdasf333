@@ -103,9 +103,7 @@ function renderCatalogCard(p) {
                     <span class="bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">
                         ${Math.round(((regular - sale) / regular) * 100)}% OFF
                     </span>
-                    <span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">
-                        You save $${(regular - sale).toFixed(2)}
-                    </span>
+                    
                 </div>
             </div>`
         : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
@@ -134,4 +132,7 @@ function renderCatalogCard(p) {
         </a>
     </div>`;
 }
-
+// You save part
+//<span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">
+//                        You save $${ (regular - sale).toFixed(2) }
+//
