@@ -271,7 +271,6 @@
         document.getElementById('apply-filters').addEventListener('click', () => {
             const allFilters = {};
 
-            // Collect checked checkboxes by group
             document.querySelectorAll('.filter-checkbox:checked').forEach(cb => {
                 const group = cb.dataset.group;
                 const val = cb.value;
@@ -279,13 +278,16 @@
                 allFilters[group].push(val);
             });
 
-            // Build filter selector: OR logic within group, AND logic across groups
             const filterSelector = Object.values(allFilters)
                 .map(groupVals => groupVals.join(','))
                 .join('');
 
             iso.arrange({ filter: filterSelector || '*' });
+
+            // ✅ Close the sidebar after applying filters
+            closeSidebar();
         });
+
 
         // Other included HTML
         function includeHTML(id, filePath, callback = null) {
