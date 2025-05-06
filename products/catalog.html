@@ -77,8 +77,9 @@
                         <span>On Sale</span>
                     </label>
                     <label class="flex items-center space-x-2 mb-1">
-                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".outofstock" />
+                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".instock" />
                         <span>In Stock</span>
+
                     </label>
 
                 </div>
@@ -176,7 +177,11 @@
                     const container = document.getElementById("product-grid");
 
                     Object.entries(products).forEach(([sku, p]) => {
-                        const tagClasses = p.tags ? p.tags.map(t => t.toLowerCase()).join(" ") : "";
+                        const tagClasses = [
+                            ...(p.tags ? p.tags.map(t => t.toLowerCase()) : []),
+                            ...(p.tags?.includes("Outofstock") ? [] : ["instock"])
+                        ].join(" ");
+
                         const hasVariants = p.custom1Options && p.custom1Options.split("|").length > 1;
                         const regular = p.price ?? 0;
                         const sale = p.sale_price ?? regular;
@@ -203,7 +208,7 @@
 
                         const tagBadges = `
                             ${p.tags?.includes("Bestseller") ? `<span class="text-[10px] sm:text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
-                            ${!p.tags?.includes("Outofstock") ? `<span class="hidden text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">In Stock</span>` : ""}
+                            ${p.tags?.includes("Outofstock") ? `<span class="hidden text-[10px] sm:text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">In Stock</span>` : ""}
                             ${hasVariants ? `<span class="text-[10px] sm:text-xs text-gray-500 ml-2">More colors available</span>` : ""}
                         `;
 
