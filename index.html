@@ -273,7 +273,7 @@
                         card.innerHTML = `
     <img src="${p.image}" alt="${p.name}" class="w-full object-contain bg-white">
     <div class="p-3">
-        <h3 class="text-sm font-semibold truncate">${p.name}</h3>
+        
         ${p.sale_price && p.sale_price < p.price
                                 ? `<p class="text-green-700 font-semibold text-sm">$${p.sale_price.toFixed(2)}
                 <span class="text-xs text-gray-500 line-through ml-1">$${p.price.toFixed(2)}</span>
