@@ -43,9 +43,13 @@ function loadProductData() {
                 Object.assign(btn.dataset, {
                     itemId: skuFromURL,
                     itemName: activeProduct.name,
-                    itemPrice: (activeProduct.tags?.includes("Onsale") && activeProduct.sale_price < activeProduct.price)
-                        ? activeProduct.sale_price
-                        : activeProduct.price,
+                    itemPrice: (
+                        activeProduct.tags?.includes("Onsale") &&
+                            activeProduct.sale_price < activeProduct.price
+                            ? activeProduct.sale_price
+                            : activeProduct.price
+                    ).toFixed(2),
+
                     itemUrl: window.location.pathname,
                     itemImage: activeProduct.image,
                     itemDescription: activeProduct.descriptionList
