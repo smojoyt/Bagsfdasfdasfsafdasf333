@@ -66,7 +66,7 @@
     <section class="max-w-6xl mx-auto px-4 py-12">
         <h2 class="text-2xl font-bold mb-4 text-center">Featured Picks</h2>
         <div class="mt-2 mb-4 w-24 h-1 bg-gray-300 mx-auto rounded"></div>
-        <div id="featured-products" class="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-4 -mx-4"></div>
+        <div id="featured-products" class="flex flex-nowrap gap-4 justify-center px-4"></div>
     </section>
 
     <!-- More To Love -->
@@ -269,7 +269,7 @@
 
                         const card = document.createElement("a");
                         card.href = p.url;
-                        card.className = "min-w-[220px] sm:min-w-[250px] snap-start shrink-0 border rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white";
+                        card.className = "w-[30%] max-w-xs border rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white";
                         card.innerHTML = `
     <img src="${p.image}" alt="${p.name}" class="w-full h-44 object-contain bg-white p-4">
     <div class="p-3">
