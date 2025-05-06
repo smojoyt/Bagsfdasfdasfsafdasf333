@@ -57,6 +57,16 @@
     </style>
 </head>
 <body class="bg-white text-gray-900">
+    <div class="relative w-full">
+        <!-- Banner background -->
+        <img src="/imgs/banner/CB_02.jpg" alt="Catalog Banner" class="w-full h-auto object-cover">
+
+        <!-- Overlay logo centered -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <img src="/imgs/banner/CB_03.png" alt="Karry Kraze Logo" class="w-24 md:w-36 lg:w-48 drop-shadow-lg">
+        </div>
+    </div>
+
     <!-- Layout -->
     <div id="catalog-layout" class="flex relative transition-all duration-300 ease-in-out">
         <!-- Sidebar -->
@@ -118,7 +128,7 @@
                     Apply Filters
                 </button>
             </div>
-            
+
         </aside>
 
         <!-- Backdrop -->
@@ -210,20 +220,20 @@
 
                         const priceBlock = isOnSale
                             ? `
-                            <div class="mt-2">
-                                <p class="text-green-700 italic font-semibold text-xs sm:text-sm">
-                                    Now <span class="text-lg sm:text-xl font-bold">$${sale.toFixed(2)}</span>
-                                    <span class="text-xs sm:text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
-                                </p>
-                                <div class="flex gap-2 mt-1">
-                                    <span class="bg-red-100 text-red-600 text-[10px] sm:text-xs font-semibold px-1 py-0.5 rounded">
-                                        ${discount}% OFF
-                                    </span>
-                                    <span class="bg-green-100 text-green-700 text-[10px] sm:text-xs italic px-1 py-0.5 rounded">
-                                        You save $${(regular - sale).toFixed(2)}
-                                    </span>
-                                </div>
-                            </div>`
+                                <div class="mt-2">
+                                    <p class="text-green-700 italic font-semibold text-xs sm:text-sm">
+                                        Now <span class="text-lg sm:text-xl font-bold">$${sale.toFixed(2)}</span>
+                                        <span class="text-xs sm:text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
+                                    </p>
+                                    <div class="flex gap-2 mt-1">
+                                        <span class="bg-red-100 text-red-600 text-[10px] sm:text-xs font-semibold px-1 py-0.5 rounded">
+                                            ${discount}% OFF
+                                        </span>
+                                        <span class="bg-green-100 text-green-700 text-[10px] sm:text-xs italic px-1 py-0.5 rounded">
+                                            You save $${(regular - sale).toFixed(2)}
+                                        </span>
+                                    </div>
+                                </div>`
                             : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
 
                         container.insertAdjacentHTML("beforeend", renderCatalogCard(p));
