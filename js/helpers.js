@@ -1,4 +1,36 @@
 // helpers.js
+function renderColorDots(optionsStr) {
+    const colorMap = {
+        pink: 'bg-pink-400',
+        white: 'bg-white border',
+        black: 'bg-black',
+        red: 'bg-red-500',
+        blue: 'bg-blue-500',
+        green: 'bg-green-500',
+        yellow: 'bg-yellow-400',
+        gray: 'bg-gray-500',
+        brown: 'bg-amber-900',
+        purple: 'bg-purple-500',
+        orange: 'bg-orange-400',
+        tan: 'bg-amber-300',
+        gold: 'bg-yellow-300',
+        silver: 'bg-gray-300'
+    };
+
+    const options = optionsStr.split("|");
+
+    return `
+        <div class="flex gap-1 mt-1 ml-1">
+            ${options.map(opt => {
+        const name = opt.trim();
+        const key = name.toLowerCase();
+        const colorClass = colorMap[key] || 'bg-gray-300';
+        return `<span title="${name}" class="w-4 h-4 rounded-full ${colorClass} border border-gray-300"></span>`;
+    }).join("")}
+        </div>
+    `;
+}
+
 
 // Price formatter for compact display (used in carousels and catalog)
 function getCompactPriceHTML(product) {
@@ -51,7 +83,11 @@ function getFullPriceHTML(product) {
 
 // Product card renderer for catalog
 function renderCatalogCard(p) {
-    const tagClasses = p.tags ? p.tags.map(t => t.toLowerCase()).join(" ") : "";
+    const tagClasses = [
+        ...(p.tags ? p.tags.map(t => t.toLowerCase()) : []),
+        ...(p.tags?.includes("Outofstock") ? [] : ["instock"])
+    ].join(" ");
+
     const hasVariants = p.custom1Options && p.custom1Options.split("|").length > 1;
     const regular = p.price;
     const sale = p.sale_price ?? regular;
@@ -75,10 +111,10 @@ function renderCatalogCard(p) {
         : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
 
     const tagBadges = `
-        ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
-        ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
-        ${hasVariants ? `<span class="text-xs text-gray-500 ml-2">More colors available</span>` : ""}
-    `;
+    ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
+    ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
+    ${hasVariants ? renderColorDots(p.custom1Options) : ""}
+`;
 
     return `
     <div class="p-4 item ${p.category} ${tagClasses}" 
