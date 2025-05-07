@@ -11,43 +11,76 @@
 
     <!-- Navbar Insert -->
     <div id="navbar-container"></div>
-    <script>includeHTML("navbar-container", "/page_inserts/uni_navbar.html");</script>
+    <script>
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html");
+    </script>
 
     <!-- Contact Section -->
     <section class="pt-24 pb-16 px-4 max-w-4xl mx-auto">
         <h1 class="text-3xl font-bold mb-6 text-center">Get in Touch</h1>
         <p class="text-center text-gray-600 mb-10">Have a question or just want to say hi? We'd love to hear from you.</p>
 
-        <form action="https://formsubmit.co/contact@karrykraze.com" method="POST" class="grid gap-6">
-            <!-- Anti-spam bot field -->
-            <input type="text" name="_honey" style="display:none">
-            <!-- Disable captcha -->
-            <input type="hidden" name="_captcha" value="false">
-            <!-- Redirect after submission -->
-            <input type="hidden" name="_next" value="https://karrykraze.com/thanks.html">
+        <form action="https://sheetdb.io/api/v1/YOUR_SHEETDB_ID" method="POST" class="grid gap-6">
 
+            <!-- Name -->
             <div>
                 <label class="block mb-1 font-semibold">Name</label>
                 <input type="text" name="name" class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300" required />
             </div>
 
+            <!-- Email -->
             <div>
                 <label class="block mb-1 font-semibold">Email</label>
                 <input type="email" name="email" class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300" required />
             </div>
 
+            <!-- Phone (optional) -->
+            <div>
+                <label class="block mb-1 font-semibold">Phone Number (optional)</label>
+                <input type="tel" name="phone" placeholder="123-456-7890" class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300" />
+            </div>
+
+            <!-- Subject Dropdown -->
+            <div>
+                <label class="block mb-1 font-semibold">What is your message about?</label>
+                <select name="subject" required class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300">
+                    <option value="">-- Select an option --</option>
+                    <option value="General Inquiry">General Inquiry</option>
+                    <option value="Order Issue">Order Issue</option>
+                    <option value="Returns & Refunds">Returns & Refunds</option>
+                    <option value="Product Question">Product Question</option>
+                    <option value="Business/Collab">Business/Collaboration</option>
+                </select>
+            </div>
+
+            <!-- Message -->
             <div>
                 <label class="block mb-1 font-semibold">Message</label>
                 <textarea name="message" rows="5" class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300" required></textarea>
             </div>
 
+            <!-- Marketing Email Consent -->
+            <label class="inline-flex items-center">
+                <input type="checkbox" name="marketing_consent" value="Yes" class="form-checkbox text-black">
+                <span class="ml-2 text-sm">I’d like to receive updates, promos, or newsletters from Karry Kraze.</span>
+            </label>
+
+            <!-- SMS Consent -->
+            <label class="inline-flex items-center">
+                <input type="checkbox" name="sms_consent" value="Yes" class="form-checkbox text-black">
+                <span class="ml-2 text-sm">I agree to receive SMS updates if I provided my phone number.</span>
+            </label>
+
+            <!-- Submit -->
             <button type="submit" class="bg-black text-white py-2 px-6 rounded hover:bg-gray-800 transition">Send Message</button>
         </form>
     </section>
 
     <!-- Footer Insert -->
     <div id="footer-container"></div>
-    <script>includeHTML("footer-container", "/page_inserts/uni_footer.html");</script>
+    <script>
+        includeHTML("footer-container", "/page_inserts/uni_footer.html");
+    </script>
 
 </body>
 </html>
