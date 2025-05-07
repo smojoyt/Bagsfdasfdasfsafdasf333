@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -15,7 +17,7 @@
         <!-- FORM: Sends to FormSubmit -->
         <form id="formEmail" action="https://formsubmit.co/contact@karrykraze.com" method="POST" class="grid gap-6">
 
-            <input type="hidden" name="_next" value="https://www.karrykraze.com/thank_you.html">
+            <input type="hidden" name="_next" value="https://www.karrykraze.com/thank-you.html">
             <input type="hidden" name="_captcha" value="false">
 
             <div>
@@ -52,7 +54,7 @@
 
             <label class="inline-flex items-center">
                 <input type="checkbox" name="marketing_consent" id="marketing_consent" value="Yes" class="form-checkbox text-black">
-                <span class="ml-2 text-sm">I would like to receive updates, promos, or newsletters from Karry Kraze.</span>
+                <span class="ml-2 text-sm">I’d like to receive updates, promos, or newsletters from Karry Kraze.</span>
             </label>
 
             <label class="inline-flex items-center">
@@ -64,11 +66,12 @@
         </form>
     </section>
 
-    <!-- JS: Send to SheetDB first -->
     <script>
         const formEmail = document.getElementById("formEmail");
 
         formEmail.addEventListener("submit", function (e) {
+            e.preventDefault();
+
             const formData = new FormData();
             formData.append("data[name]", document.getElementById("name").value);
             formData.append("data[email]", document.getElementById("email").value);
@@ -78,50 +81,14 @@
             formData.append("data[marketing_consent]", document.getElementById("marketing_consent").checked ? "Yes" : "No");
             formData.append("data[sms_consent]", document.getElementById("sms_consent").checked ? "Yes" : "No");
 
-            fetch("https://sheetdb.io/api/v1/7lmwo5pzmii1v?sheet=Customer_Info", {
+            fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Customer_Info", {
                 method: "POST",
                 body: formData
+            }).finally(() => {
+                // After SheetDB finishes, submit FormSubmit form
+                formEmail.submit();
             });
         });
-
-
-
-
-
-
-        function includeHTML(id, filePath, callback = null) {
-            fetch(filePath)
-                .then(res => res.text())
-                .then(html => {
-                    document.getElementById(id).innerHTML = html;
-                    if (callback) callback();
-                });
-        }
-
-        function initNavbar() {
-            const toggleBtn = document.getElementById("mobile-menu-button");
-            const menu = document.getElementById("mobile-menu");
-            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
-
-            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-            const countElem = document.getElementById("cart-count");
-            if (countElem) countElem.textContent = totalQty;
-
-            const navbar = document.getElementById('mainNavbar');
-            let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                if (!navbar) return;
-                if (window.scrollY > lastScrollY && window.scrollY > 50) {
-                    navbar.classList.replace('navbar-show', 'navbar-hide');
-                } else {
-                    navbar.classList.replace('navbar-hide', 'navbar-show');
-                }
-                lastScrollY = window.scrollY;
-            });
-        }
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-            initNavbar();
     </script>
 
 </body>
