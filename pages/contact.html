@@ -81,7 +81,7 @@
             formData.append("data[marketing_consent]", document.getElementById("marketing_consent").checked ? "Yes" : "No");
             formData.append("data[sms_consent]", document.getElementById("sms_consent").checked ? "Yes" : "No");
 
-            fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=CustomerInfo", {
+            fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Customer_Info", {
                 method: "POST",
                 body: formData
             }).finally(() => {
