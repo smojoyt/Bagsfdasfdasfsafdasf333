@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,41 +10,30 @@
 </head>
 <body class="bg-white text-gray-800">
 
-    <!-- Navbar Insert -->
-    <div id="navbar-container"></div>
-    <script>
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html");
-    </script>
-
-    <!-- Contact Section -->
     <section class="pt-24 pb-16 px-4 max-w-4xl mx-auto">
         <h1 class="text-3xl font-bold mb-6 text-center">Get in Touch</h1>
         <p class="text-center text-gray-600 mb-10">Have a question or just want to say hi? We'd love to hear from you.</p>
 
-        <form action="https://sheetdb.io/api/v1/keeq9r332240v?sheet=Customer_Info" method="POST" class="grid gap-6">
+        <form id="dualSubmitForm" class="grid gap-6">
 
-            <!-- Name -->
             <div>
                 <label class="block mb-1 font-semibold">Name</label>
-                <input type="text" name="data[name]" class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300" required />
+                <input type="text" name="data[name]" required class="w-full border rounded-lg px-4 py-2" />
             </div>
 
-            <!-- Email -->
             <div>
                 <label class="block mb-1 font-semibold">Email</label>
-                <input type="email" name="data[email]" class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300" required />
+                <input type="email" name="data[email]" required class="w-full border rounded-lg px-4 py-2" />
             </div>
 
-            <!-- Phone (optional) -->
             <div>
                 <label class="block mb-1 font-semibold">Phone Number (optional)</label>
-                <input type="tel" name="data[phone]" placeholder="123-456-7890" class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300" />
+                <input type="tel" name="data[phone]" class="w-full border rounded-lg px-4 py-2" />
             </div>
 
-            <!-- Subject Dropdown -->
             <div>
                 <label class="block mb-1 font-semibold">What is your message about?</label>
-                <select name="data[subject]" required class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300">
+                <select name="data[subject]" required class="w-full border rounded-lg px-4 py-2">
                     <option value="">-- Select an option --</option>
                     <option value="General Inquiry">General Inquiry</option>
                     <option value="Order Issue">Order Issue</option>
@@ -53,34 +43,54 @@
                 </select>
             </div>
 
-            <!-- Message -->
             <div>
                 <label class="block mb-1 font-semibold">Message</label>
-                <textarea name="data[message]" rows="5" class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300" required></textarea>
+                <textarea name="data[message]" rows="5" required class="w-full border rounded-lg px-4 py-2"></textarea>
             </div>
 
-            <!-- Marketing Email Consent -->
             <label class="inline-flex items-center">
                 <input type="checkbox" name="data[marketing_consent]" value="Yes" class="form-checkbox text-black">
                 <span class="ml-2 text-sm">I’d like to receive updates, promos, or newsletters from Karry Kraze.</span>
             </label>
 
-            <!-- SMS Consent -->
             <label class="inline-flex items-center">
                 <input type="checkbox" name="data[sms_consent]" value="Yes" class="form-checkbox text-black">
                 <span class="ml-2 text-sm">I agree to receive SMS updates if I provided my phone number.</span>
             </label>
 
-            <!-- Submit -->
             <button type="submit" class="bg-black text-white py-2 px-6 rounded hover:bg-gray-800 transition">Send Message</button>
         </form>
 
+        <p id="responseMsg" class="text-center mt-6 text-green-600 hidden">Thank you! Your message has been sent.</p>
     </section>
 
-    <!-- Footer Insert -->
-    <div id="footer-container"></div>
     <script>
-        includeHTML("footer-container", "/page_inserts/uni_footer.html");
+        const form = document.getElementById("dualSubmitForm");
+        const responseMsg = document.getElementById("responseMsg");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            // Send to SheetDB
+            fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Customer_Info", {
+                method: "POST",
+                body: formData
+            });
+
+            // Send to FormSubmit for email notification
+            fetch("https://formsubmit.co/ajax/contact@karrykraze.com", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        form.reset();
+                        responseMsg.classList.remove("hidden");
+                    }
+                });
+        });
     </script>
 
 </body>
