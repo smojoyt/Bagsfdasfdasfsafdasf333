@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +14,7 @@
         <h1 class="text-3xl font-bold mb-6 text-center">Get in Touch</h1>
         <p class="text-center text-gray-600 mb-10">Have a question or just want to say hi? We'd love to hear from you.</p>
 
-        <!-- VISIBLE FORM: Sends to FormSubmit -->
+        <!-- FORM: Sends to FormSubmit -->
         <form id="formEmail" action="https://formsubmit.co/contact@karrykraze.com" method="POST" class="grid gap-6">
 
             <input type="hidden" name="_next" value="https://www.karrykraze.com/thank-you.html">
@@ -62,35 +64,30 @@
 
             <button type="submit" class="bg-black text-white py-2 px-6 rounded hover:bg-gray-800 transition">Send Message</button>
         </form>
-
-        <!-- HIDDEN FORM: Sends to SheetDB -->
-        <form id="formSheet" action="https://sheetdb.io/api/v1/keeq9r332240v?sheet=CustomerInfo" method="POST" style="display: none;">
-            <input type="text" name="data[name]" id="sheet_name">
-            <input type="email" name="data[email]" id="sheet_email">
-            <input type="tel" name="data[phone]" id="sheet_phone">
-            <input type="text" name="data[subject]" id="sheet_subject">
-            <input type="text" name="data[message]" id="sheet_message">
-            <input type="text" name="data[marketing_consent]" id="sheet_marketing">
-            <input type="text" name="data[sms_consent]" id="sheet_sms">
-        </form>
     </section>
 
     <script>
         const formEmail = document.getElementById("formEmail");
-        const formSheet = document.getElementById("formSheet");
 
         formEmail.addEventListener("submit", function (e) {
-            // Copy values into hidden form
-            document.getElementById("sheet_name").value = document.getElementById("name").value;
-            document.getElementById("sheet_email").value = document.getElementById("email").value;
-            document.getElementById("sheet_phone").value = document.getElementById("phone").value;
-            document.getElementById("sheet_subject").value = document.getElementById("subject").value;
-            document.getElementById("sheet_message").value = document.getElementById("message").value;
-            document.getElementById("sheet_marketing").value = document.getElementById("marketing_consent").checked ? "Yes" : "No";
-            document.getElementById("sheet_sms").value = document.getElementById("sms_consent").checked ? "Yes" : "No";
+            e.preventDefault();
 
-            // Submit hidden form to SheetDB
-            formSheet.submit();
+            const formData = new FormData();
+            formData.append("data[name]", document.getElementById("name").value);
+            formData.append("data[email]", document.getElementById("email").value);
+            formData.append("data[phone]", document.getElementById("phone").value);
+            formData.append("data[subject]", document.getElementById("subject").value);
+            formData.append("data[message]", document.getElementById("message").value);
+            formData.append("data[marketing_consent]", document.getElementById("marketing_consent").checked ? "Yes" : "No");
+            formData.append("data[sms_consent]", document.getElementById("sms_consent").checked ? "Yes" : "No");
+
+            fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=CustomerInfo", {
+                method: "POST",
+                body: formData
+            }).finally(() => {
+                // After SheetDB finishes, submit FormSubmit form
+                formEmail.submit();
+            });
         });
     </script>
 
