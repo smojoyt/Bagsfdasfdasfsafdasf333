@@ -15,7 +15,7 @@
         <!-- FORM: Sends to FormSubmit -->
         <form id="formEmail" action="https://formsubmit.co/contact@karrykraze.com" method="POST" class="grid gap-6">
 
-            <input type="hidden" name="_next" value="https://www.karrykraze.com/thank-you.html">
+            <input type="hidden" name="_next" value="https://www.karrykraze.com/thank_you.html">
             <input type="hidden" name="_captcha" value="false">
 
             <div>
@@ -64,15 +64,11 @@
         </form>
     </section>
 
-    <!-- Snipcart -->
-    <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz" data-config-modal-style="side"></div>
-
+    <!-- JS: Send to SheetDB first -->
     <script>
         const formEmail = document.getElementById("formEmail");
 
         formEmail.addEventListener("submit", function (e) {
-            e.preventDefault();
-
             const formData = new FormData();
             formData.append("data[name]", document.getElementById("name").value);
             formData.append("data[email]", document.getElementById("email").value);
@@ -85,13 +81,8 @@
             fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Customer_Info", {
                 method: "POST",
                 body: formData
-            }).finally(() => {
-                // After SheetDB finishes, submit FormSubmit form
-                formEmail.submit();
             });
         });
-
-
 
 
 
