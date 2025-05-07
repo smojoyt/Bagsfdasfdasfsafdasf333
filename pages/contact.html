@@ -54,7 +54,7 @@
 
             <label class="inline-flex items-center">
                 <input type="checkbox" name="marketing_consent" id="marketing_consent" value="Yes" class="form-checkbox text-black">
-                <span class="ml-2 text-sm">I’d like to receive updates, promos, or newsletters from Karry Kraze.</span>
+                <span class="ml-2 text-sm">I would like to receive updates, promos, or newsletters from Karry Kraze.</span>
             </label>
 
             <label class="inline-flex items-center">
@@ -65,6 +65,9 @@
             <button type="submit" class="bg-black text-white py-2 px-6 rounded hover:bg-gray-800 transition">Send Message</button>
         </form>
     </section>
+
+    <!-- Snipcart -->
+    <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz" data-config-modal-style="side"></div>
 
     <script>
         const formEmail = document.getElementById("formEmail");
@@ -89,6 +92,47 @@
                 formEmail.submit();
             });
         });
+
+
+
+
+
+
+
+
+        function includeHTML(id, filePath, callback = null) {
+            fetch(filePath)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    if (callback) callback();
+                });
+        }
+
+        function initNavbar() {
+            const toggleBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+
+            const navbar = document.getElementById('mainNavbar');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (!navbar) return;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace('navbar-show', 'navbar-hide');
+                } else {
+                    navbar.classList.replace('navbar-hide', 'navbar-show');
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar();
     </script>
 
 </body>
