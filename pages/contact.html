@@ -1,4 +1,4 @@
-
+﻿
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +17,7 @@
         <!-- FORM: Sends to FormSubmit -->
         <form id="formEmail" action="https://formsubmit.co/contact@karrykraze.com" method="POST" class="grid gap-6">
 
-            <input type="hidden" name="_next" value="https://www.karrykraze.com/thank-you.html">
+            
             <input type="hidden" name="_captcha" value="false">
 
             <div>
@@ -64,6 +64,10 @@
 
             <button type="submit" class="bg-black text-white py-2 px-6 rounded hover:bg-gray-800 transition">Send Message</button>
         </form>
+        <p id="responseMsg" class="text-green-600 text-center mt-6 hidden">
+            ✅ Your message has been sent. We'll get back to you shortly!
+        </p>
+
     </section>
 
     <!-- Snipcart -->
@@ -92,6 +96,19 @@
                 formEmail.submit();
             });
         });
+
+        // Submit to FormSubmit
+        fetch("https://formsubmit.co/ajax/contact@karrykraze.com", {
+            method: "POST",
+            body: new FormData(formEmail)
+        }).then(response => {
+            if (response.ok) {
+                formEmail.reset();
+                responseMsg.classList.remove("hidden");
+            }
+        });
+
+        
 
 
 
