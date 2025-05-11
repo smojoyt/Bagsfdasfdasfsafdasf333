@@ -160,7 +160,7 @@
 		"product_id": "KK-1006",
 		"price": 49.95,
 		"tags": [ "" ],
-		"image": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_01.jpg",
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_01.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_CelestialRound.html",
 		"descriptionList": [
 			"Chic round handbag with celestial sun, moon & star embroidery",
@@ -180,11 +180,10 @@
 			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_02.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_03.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_01.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_02.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_03.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_01.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_02.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_04.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_02.jpg"
 		]
 	},
 
@@ -238,7 +237,11 @@
 			"Red": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg"
 		},
 		"thumbnails": [
-			"https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/Pear/01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/Pear/01_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/Pear/03_01.jpg"
 		]
 	}
 
