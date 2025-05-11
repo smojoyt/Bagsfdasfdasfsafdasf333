@@ -101,9 +101,7 @@
 
 
     <!-- Footer -->
-    <footer class="text-center text-sm text-gray-500 py-8 border-t mt-10 mb-10">
-        &copy; 2025 Karry Kraze. All rights reserved.
-    </footer>
+    <div id="footer"></div>
     <div id="navbar-container"></div>
     <div id="unicart-container"></div>
 
@@ -245,7 +243,7 @@
 
             includeHTML("productpage", "/page_inserts/productpage.html", loadProductData);
 
-
+            includeHTML("footer", "/page_inserts/footer.html");
             includeHTML("unicart-container", "/page_inserts/uni_cart.html");
             includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
             includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");

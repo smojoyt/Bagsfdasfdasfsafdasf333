@@ -80,9 +80,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="text-center text-sm text-gray-500 py-8 border-t mt-10 mb-10">
-        &copy; 2025 Karry Kraze. All rights reserved.
-    </footer>
+    <div id="footer"></div>
 
     <!-- Snipcart -->
     <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz" data-config-modal-style="side"></div>
@@ -324,6 +322,7 @@
                 setupScrollNavbarColorChange();
             });
 
+            includeHTML("footer", "/page_inserts/footer.html");
             includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
             loadFeaturedProducts();
         });
