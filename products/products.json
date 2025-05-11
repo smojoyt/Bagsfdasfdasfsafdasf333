@@ -217,7 +217,7 @@
 		]
 	},
 
-	"Charm_PearChain": {
+	"Charms_PearChain": {
 		"name": "Pear Drop Charm - Glitter Red",
 		"category": "charms",
 		"product_id": "KK-1008",
@@ -245,7 +245,7 @@
 		]
 	},
 
-	"Charm_AlienPlushies": {
+	"Charms_AlienPlushies": {
 		"name": "Mini Alien Plushies",
 		"category": "charms",
 		"product_id": "KK-1009",
@@ -262,15 +262,15 @@
 		"custom1Name": "Color",
 		"custom1Options": "Brown | White | Black",
 		"variantImages": {
-			"Brown": "https://www.karrykraze.com/imgs/Products/Toys/Toy_MonsterPlushies/01_01.jpg",
-			"Whtie": "https://www.karrykraze.com/imgs/Products/Toys/Toy_MonsterPlushies/02_01.jpg",
-			"Black": "https://www.karrykraze.com/imgs/Products/Toys/Toy_MonsterPlushies/03_01.jpg"
+			"Brown": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/01_01.jpg",
+			"Whtie": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/02_01.jpg",
+			"Black": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/03_01.jpg"
 		},
 		"thumbnails": [
-			"https://www.karrykraze.com/imgs/Products/Toys/Toy_MonsterPlushies/01_01.jpg",
-			"https://www.karrykraze.com/imgs/Products/Toys/Toy_MonsterPlushies/02_01.jpg",
-			"https://www.karrykraze.com/imgs/Products/Toys/Toy_MonsterPlushies/03_01.jpg",
-			"https://www.karrykraze.com/imgs/Products/Toys/Toy_MonsterPlushies/04_01.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/02_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/03_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/04_01.jpg"
 		]
 	}
 
