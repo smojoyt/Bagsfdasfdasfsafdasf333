@@ -216,6 +216,31 @@
 			"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_07.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_01.jpg"
 		]
+	},
+
+	"Charm_PearDrop": {
+		"name": "Pear Drop Charm - Glitter Red",
+		"category": "Accessories",
+		"product_id": "KK-1008",
+		"price": 19.97,
+		"tags": [ "BagAccessory" ],
+		"image": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg",
+		"url": "https://www.karrykraze.com/products/charms/Charms_PearChain.html",
+		"descriptionList": [
+			"Elegant pear-shaped charm with glitter red finish",
+			"Gold-tone hardware with secure lobster clasp",
+			"Perfect for handbags, keys, or backpacks",
+			"Lightweight with premium build and glossy shine"
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Red",
+		"variantImages": {
+			"Red": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg"
+		]
 	}
+
 
 }
