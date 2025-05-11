@@ -127,7 +127,7 @@
 		"name": "Moto Jacket Crossbody - Patent Black",
 		"category": "bags",
 		"product_id": "KK-1005",
-		"price": 68.50,
+		"price": 44.97,
 		"tags": [ "NewArrival" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_MotoJacket.html",
@@ -152,8 +152,70 @@
 			"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/05_01.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/06_01.jpg"
 		]
+	},
+
+	"Bag_CelestialRound": {
+		"name": "Celestial Round Bag",
+		"category": "bags",
+		"product_id": "KK-1006",
+		"price": 49.95,
+		"tags": [ "" ],
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_01.jpg",
+		"url": "https://www.karrykraze.com/products/bags/Bag_CelestialRound.html",
+		"descriptionList": [
+			"Chic round handbag with celestial sun, moon & star embroidery",
+			"Gold heart charm chain detail",
+			"White faux leather with top zipper",
+			"Detachable gold chain strap for crossbody or shoulder wear"
+		],
+		"custom1Name": "Color",
+		"custom1Options": "White",
+		"variantImages": {
+			"Black": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_01.jpg",
+			"White": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_01.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/04_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_03.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_03.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_04.jpg"
+		]
+	},
+
+	"Bag_HelloKittyDuffel": {
+		"name": "Mini Duffel - Hello Kitty Pink",
+		"category": "bags",
+		"product_id": "KK-1007",
+		"price": 69.97,
+		"tags": [ "HelloKitty" ],
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_04.jpg",
+		"url": "https://www.karrykraze.com/products/bags/Bag_HelloKittyDuffel.html",
+		"descriptionList": [
+			"Mini pink duffel handbag featuring Hello Kitty print",
+			"Dual top handles and adjustable long strap",
+			"Soft faux leather with gold hardware",
+			"Zipper closure and structured barrel shape"
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Pink",
+		"variantImages": {
+			"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_04.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_04.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_05.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_06.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_03.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_07.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_01.jpg"
+		]
 	}
-
-
 
 }
