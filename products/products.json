@@ -70,7 +70,7 @@
 		"category": "bags",
 		"product_id": "KK-1003",
 		"price": 64.97,
-		"tags": [ "Onsale" ],
+		"tags": [ "" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_TheBucket.html",
 		"descriptionList": [
@@ -121,7 +121,39 @@
 			"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_03.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_04.jpg"
 		]
+	},
+
+	"Bag_MotoJacket": {
+		"name": "Moto Jacket Crossbody - Patent Black",
+		"category": "bags",
+		"product_id": "KK-1005",
+		"price": 68.50,
+		"tags": [ "NewArrival" ],
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg",
+		"url": "https://www.karrykraze.com/products/bags/Bag_MotoJacket.html",
+		"descriptionList": [
+			"Edgy faux leather purse shaped like a biker jacket",
+			"Chain and faux leather crossbody strap",
+			"Glossy black patent finish with gold hardware",
+			"Compact size, fits small wallet, keys, and phone"
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Black",
+		"variantImages": {
+			"Black": "https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_03.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/02_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/03_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/04_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/05_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/06_01.jpg"
+		]
 	}
+
 
 
 }

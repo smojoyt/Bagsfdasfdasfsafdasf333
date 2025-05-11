@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- SEO + Social Meta Tags -->
+    <title>Moto Jacket Crossbody - Patent Black</title>
+    <meta name="description" content="Edgy faux leather purse shaped like a biker jacket" />
+    <meta property="og:title" content="Moto Jacket Crossbody - Patent Black" />
+    <meta property="og:description" content="Edgy faux leather purse shaped like a biker jacket" />
+    <meta property="og:image" content="https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg" />
+    <meta property="og:url" content="https://www.karrykraze.com/products/bags/Bag_MotoJacket.html" />
+    <meta property="og:type" content="product" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Moto Jacket Crossbody - Patent Black" />
+    <meta name="twitter:description" content="Edgy faux leather purse shaped like a biker jacket" />
+    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="snipcart-page-url" content="https://www.karrykraze.com/products/bags/Bag_MotoJacket.html" />
+
+
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
+    <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script src="/js/helpers.js"></script>
+    <script src="/js/moreItemsCarousel.js"></script>
+    <script src="/js/loadProductData.js"></script>
+
+
+    <style>
+        .rotate-45 {
+            transform: rotate(45deg);
+        }
+
+        .carousel.thumbnail {
+            margin-left: 0px
+        }
+
+            .carousel.thumbnail .carousel-cell {
+                margin-right: 12px;
+                flex-shrink: 0;
+            }
+
+            .carousel.thumbnail img {
+                height: 100px;
+            }
+
+        .carousel {
+            margin-left: 1rem;
+        }
+
+        .carousel-cell {
+            width: auto;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .carousel img {
+            height: 202px;
+            object-fit: contain;
+            width: 100%;
+        }
+
+        .dimmed-background {
+            pointer-events: none;
+            background-color: rgba(0, 0, 0, 0.25);
+            transition: background-color 0.3s ease;
+        }
+
+        .blurred {
+            filter: blur(4px);
+            transition: filter 0.3s ease;
+        }
+
+        .navbar-hide {
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-show {
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-800">
+
+
+    <div id="productpage"></div>
+    <div id="productpage_shipandret"></div>
+
+
+    <div class="mt-12 px-4 text-center">
+        <h2 class="text-2xl font-bold text-gray-800">MORE TO LOVE</h2>
+        <div class="mt-2 mb-4 w-24 h-1 bg-gray-300 mx-auto rounded"></div>
+        <div id="pp_moreitems"></div>
+    </div>
+
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    <div id="navbar-container"></div>
+    <div id="unicart-container"></div>
+
+    <!-- Snipcart -->
+    <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz" data-config-modal-style="side"></div>
+
+    <div id="snipcart-static-buttons"></div>
+    <!-- ✅ Hidden button so Snipcart can crawl product -->
+    <button class="snipcart-add-item hidden"
+            data-item-id="Bag_BitchesIsWeird"
+            data-item-name="Mini Tote - B!TCH#S IS WEIRD"
+            data-item-price="56.74"
+            data-item-url="https://www.karrykraze.com/products/bags/Bag_MotoJacket.html"
+            data-item-description="Edgy faux leather purse shaped like a biker jacket"
+            data-item-image="https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg"
+            data-item-custom1-name="Color"
+            data-item-custom1-options="Pink"
+            data-item-custom1-value="Pink">
+        Add to Cart
+    </button>
+
+
+
+
+
+
+
+    <script>
+        const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
+
+        function includeHTML(id, filePath, callback = null) {
+            fetch(filePath)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    if (callback) callback();
+                });
+        }
+
+        function swapImage(newSrc) {
+            const mainImage = document.getElementById("mainImage");
+            if (!mainImage) return;
+
+            mainImage.classList.add("opacity-0");
+
+            setTimeout(() => {
+                mainImage.src = newSrc;
+                mainImage.onload = () => mainImage.classList.remove("opacity-0");
+            }, 150);
+        }
+
+        function updateVariant(input) {
+            const btn = document.getElementById('add-to-cart-btn');
+            if (btn) {
+                const value = typeof input === 'string' ? input : input.value;
+                btn.setAttribute('data-item-custom1-value', value);
+            }
+        }
+
+        const colorMap = {
+            Black: "#000000",
+            White: "#ffffff",
+            Red: "#e3342f",
+            Navy: "#1e3a8a",
+            Beige: "#f5f5dc",
+            Brown: "#8b4513",
+            Gray: "#6b7280",
+            Cream: "#fffdd0",
+            // Add more as needed
+        };
+
+
+
+        function initNavbar() {
+            const toggleBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+
+            const navbar = document.getElementById('mainNavbar');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (!navbar) return;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace('navbar-show', 'navbar-hide');
+                } else {
+                    navbar.classList.replace('navbar-hide', 'navbar-show');
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
+
+
+
+        document.addEventListener('snipcart.ready', () => {
+            const navbar = document.getElementById('mainNavbar');
+            const body = document.body;
+            const pageContent = document.getElementById('pageContent');
+
+            Snipcart.events.on('cart.opened', () => {
+                navbar?.classList.add('navbar-hide', 'relative');
+                navbar?.classList.remove('fixed', 'top-0');
+                body.classList.add('dimmed-background');
+                pageContent?.classList.add('blurred');
+            });
+
+            Snipcart.events.on('cart.closed', () => {
+                navbar?.classList.remove('navbar-hide', 'relative');
+                navbar?.classList.add('navbar-show', 'fixed', 'top-0');
+                body.classList.remove('dimmed-background');
+                pageContent?.classList.remove('blurred');
+            });
+        });
+
+        function toggleAccordion() {
+            const content = document.getElementById("accordion-content");
+            const icon = document.getElementById("accordion-icon");
+
+            if (!content || !icon) return;
+
+            const isOpen = content.style.height && content.style.height !== "0px";
+
+            if (isOpen) {
+                content.style.height = "0px";
+                icon.classList.remove("rotate-45");
+            } else {
+                content.style.height = content.scrollHeight + "px";
+                icon.classList.add("rotate-45");
+            }
+        }
+
+
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar(); // ✅ safe - navbar is now present
+
+            includeHTML("productpage", "/page_inserts/productpage.html", loadProductData);
+
+            includeHTML("footer", "/page_inserts/footer.html");
+            includeHTML("unicart-container", "/page_inserts/uni_cart.html");
+            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+        });
+
+    </script>
+
+
+
+
+</body>
+</html>
