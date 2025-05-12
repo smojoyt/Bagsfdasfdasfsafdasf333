@@ -132,7 +132,11 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     items: [
-                        { name: 'Mini Heart Tote', amount: 3497, quantity: 1 }
+                        {
+                            name: 'Mini Tote - Heart Embossed',
+                            amount: 3497, // Stripe needs price in cents (34.97 * 100)
+                            quantity: 1
+                        }
                     ]
                 })
             })
@@ -141,11 +145,17 @@
                     if (data.url) {
                         window.location.href = data.url;
                     } else {
-                        alert("Something went wrong.");
+                        alert("Something went wrong: " + (data.error || "No session URL returned."));
                     }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Checkout failed. See console for details.");
                 });
         });
     </script>
+
+
 
 
 
