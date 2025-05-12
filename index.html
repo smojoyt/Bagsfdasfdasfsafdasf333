@@ -7,29 +7,36 @@
 </head>
 <body>
     <h1>Test Product</h1>
-    <button id="buyButton">Buy for $19.99</button>
 
+    <!-- This lives on www.karrykraze.com -->
+    <a href="https://buy.karrykraze.com?sku=Bag_MiniHeart" class="btn">
+        Buy Now
+    </a>
+
+    <!-- This lives on buy.karrykraze.com -->
     <script>
-        document.getElementById("buyButton").addEventListener("click", async () => {
-            try {
-                const res = await fetch("/api/create-checkout-session", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" }
+        const urlParams = new URLSearchParams(window.location.search);
+        const sku = urlParams.get("sku");
+
+        if (sku) {
+            fetch("/api/create-checkout-session", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ sku })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        alert("Checkout failed");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Something went wrong.");
                 });
-
-                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
-                const data = await res.json();
-                if (data.url) {
-                    window.location.href = data.url;
-                } else {
-                    alert("Checkout session failed. Please try again.");
-                }
-            } catch (err) {
-                console.error(err);
-                alert("Something went wrong with Stripe checkout.");
-            }
-        });
+        }
     </script>
 </body>
 </html>
