@@ -130,7 +130,12 @@
             try {
                 const res = await fetch("/api/create-checkout-session", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: "Mini Tote - Pink",
+                        price: 1999,
+                        variant: "Pink"
+                    })
                 });
 
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -147,6 +152,7 @@
             }
         });
     </script>
+
 
 
 

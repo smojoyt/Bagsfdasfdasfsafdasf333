@@ -3,21 +3,24 @@
 module.exports = async (req, res) => {
     if (req.method === 'POST') {
         try {
+            const { name, price, variant } = req.body;
+
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
                 line_items: [{
                     price_data: {
                         currency: 'usd',
                         product_data: {
-                            name: 'Test Product',
+                            name: name,
+                            description: `Variant: ${variant}`,
                         },
-                        unit_amount: 1999, // $19.99
+                        unit_amount: price
                     },
-                    quantity: 1,
+                    quantity: 1
                 }],
                 mode: 'payment',
-                success_url: `${req.headers.origin}/`,   // ✅ back to homepage
-                cancel_url: `${req.headers.origin}/`,    // ✅ back to homepage
+                success_url: `${req.headers.origin}/`,
+                cancel_url: `${req.headers.origin}/`,
             });
 
             res.status(200).json({ url: session.url });
