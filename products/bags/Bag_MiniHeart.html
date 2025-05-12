@@ -129,13 +129,7 @@
         document.getElementById("buyButton").addEventListener("click", async () => {
             try {
                 const res = await fetch("/api/create-checkout-session", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        name: "Mini Tote - Pink",
-                        price: 1999,
-                        variant: "Pink"
-                    })
+                    method: "POST"
                 });
 
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -144,7 +138,7 @@
                 if (data.url) {
                     window.location.href = data.url;
                 } else {
-                    alert("Checkout session failed. Please try again.");
+                    alert("Checkout session failed.");
                 }
             } catch (err) {
                 console.error(err);
