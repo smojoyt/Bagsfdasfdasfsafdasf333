@@ -5,12 +5,16 @@ export const config = {
 };
 
 export default async function handler(req, res) {
+    // ✅ Always send CORS headers, no matter the method
     res.setHeader('Access-Control-Allow-Origin', 'https://www.karrykraze.com');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-    if (req.method === 'OPTIONS') return res.status(200).end();
+    // ✅ Reply immediately to OPTIONS preflight
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
 
     if (req.method === 'POST') {
         try {
@@ -34,13 +38,14 @@ export default async function handler(req, res) {
                 cancel_url: `${req.headers.origin}/cancel`,
             });
 
-            res.status(200).json({ url: session.url });
+            return res.status(200).json({ url: session.url });
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: err.message });
+            return res.status(500).json({ error: err.message });
         }
-    } else {
-        res.setHeader('Allow', 'POST');
-        res.status(405).end('Method Not Allowed');
     }
+
+    // For anything that's not POST or OPTIONS
+    res.setHeader('Allow', 'POST');
+    return res.status(405).end('Method Not Allowed');
 }
