@@ -5,26 +5,23 @@ module.exports = async (req, res) => {
         try {
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
-                line_items: [
-                    {
-                        price_data: {
-                            currency: 'usd',
-                            product_data: {
-                                name: 'Mini Tote - Test Product',
-                            },
-                            unit_amount: 1999, // $19.99
+                line_items: [{
+                    price_data: {
+                        currency: 'usd',
+                        product_data: {
+                            name: 'Test Product',
                         },
-                        quantity: 1,
+                        unit_amount: 1999, // $19.99
                     },
-                ],
+                    quantity: 1,
+                }],
                 mode: 'payment',
-                success_url: `${req.headers.origin}/`,
-                cancel_url: `${req.headers.origin}/`,
+                success_url: `${req.headers.origin}/`,   // ✅ back to homepage
+                cancel_url: `${req.headers.origin}/`,    // ✅ back to homepage
             });
 
             res.status(200).json({ url: session.url });
         } catch (err) {
-            console.error("Stripe error:", err.message);
             res.status(500).json({ error: err.message });
         }
     } else {

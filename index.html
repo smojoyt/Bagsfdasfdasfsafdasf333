@@ -64,7 +64,31 @@
             <a href="https://karrykraze.com/products/catalog" class="inline-block px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200">Catalog</a>
         </div>
     </section>
+    <h1>Test Product</h1>
+    <button id="buyButton">Buy for $19.99</button>
 
+    <script>
+        document.getElementById("buyButton").addEventListener("click", async () => {
+            try {
+                const res = await fetch("/api/create-checkout-session", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" }
+                });
+
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+                const data = await res.json();
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    alert("Checkout session failed. Please try again.");
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Something went wrong with Stripe checkout.");
+            }
+        });
+    </script>
     <!-- Featured Products -->
     <section class="max-w-6xl mx-auto py-12">
         <h2 class="text-2xl font-bold mb-4 text-center">Featured Picks</h2>
@@ -205,26 +229,25 @@
                         const cell = document.createElement('div');
                         cell.className = "carousel-cell p-2";
                         cell.innerHTML = `
-                            <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-                                <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-                                    <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-                                    ${product.thumbnails?.[1] ? `
-                                        <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-                                            src="${product.thumbnails[1]}" alt="Hover image">` : ''}
-                                </div>
-                                <div class="text-center mt-6">
-                                    <div class="text-sm font-semibold truncate">${product.name}</div>
-                                    ${
-                            product.sale_price && product.sale_price < product.price
+                                <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
+                                    <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
+                                        <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+                                        ${product.thumbnails?.[1] ? `
+                                            <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+                                                src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+                                    </div>
+                                    <div class="text-center mt-6">
+                                        <div class="text-sm font-semibold truncate">${product.name}</div>
+                                        ${product.sale_price && product.sale_price < product.price
                                 ? `<div class="text-sm">
-          <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
-          <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
-       </div>`
+              <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
+              <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
+           </div>`
                                 : `<div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`
-}
+                            }
 
-                                </div>
-                            </a>`;
+                                    </div>
+                                </a>`;
                         carouselWrapper.appendChild(cell);
                     });
 
@@ -299,14 +322,14 @@
                         card.href = p.url;
                         card.className = `block rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white border ${isBestseller ? "border-yellow-400 rounded-b-xl" : "rounded-xl"}`;
                         card.innerHTML = `
-                    <div class="relative w-full bg-white">
-                        <img src="${p.image}" alt="${p.name}" class="w-full object-contain">
-                        ${hasVariants ? `
-                            <div class="absolute bottom-2 left-2 flex gap-1">
-                                ${renderColorDots(p.custom1Options)}
-                            </div>` : ""}
-                    </div>
-                `;
+                        <div class="relative w-full bg-white">
+                            <img src="${p.image}" alt="${p.name}" class="w-full object-contain">
+                            ${hasVariants ? `
+                                <div class="absolute bottom-2 left-2 flex gap-1">
+                                    ${renderColorDots(p.custom1Options)}
+                                </div>` : ""}
+                        </div>
+                    `;
 
                         wrapper.appendChild(card);
                         container.appendChild(wrapper);
