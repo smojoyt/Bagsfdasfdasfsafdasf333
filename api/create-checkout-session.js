@@ -1,18 +1,18 @@
 ﻿const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-    // ✅ Handle CORS
+    // ✅ CORS headers
     res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Origin', 'https://www.karrykraze.com'); // ← YOUR DOMAIN
+    res.setHeader('Access-Control-Allow-Origin', 'https://www.karrykraze.com'); // your domain
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-    // ✅ Respond to preflight
+    // ✅ Preflight response
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
 
-    // ✅ Main logic
+    // ✅ Checkout session
     if (req.method === 'POST') {
         try {
             const session = await stripe.checkout.sessions.create({
