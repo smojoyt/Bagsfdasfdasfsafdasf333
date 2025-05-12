@@ -40,29 +40,32 @@ function loadProductData() {
             }
             const btn = document.getElementById("add-to-cart-btn");
             if (btn) {
-                Object.assign(btn.dataset, {
-                    itemId: skuFromURL,
-                    itemName: activeProduct.name,
-                    itemPrice: (
-                        activeProduct.tags?.includes("Onsale") &&
-                            activeProduct.sale_price < activeProduct.price
-                            ? activeProduct.sale_price
-                            : activeProduct.price
-                    ).toFixed(2),
-
-                    itemUrl: window.location.origin + window.location.pathname,
-
-
-                    itemImage: activeProduct.image,
-                    itemDescription: activeProduct.descriptionList
+                btn.setAttribute("data-item-id", skuFromURL);
+                btn.setAttribute("data-item-name", activeProduct.name);
+                btn.setAttribute("data-item-price", (
+                    activeProduct.tags?.includes("Onsale") &&
+                        activeProduct.sale_price < activeProduct.price
+                        ? activeProduct.sale_price
+                        : activeProduct.price
+                ).toFixed(2));
+                btn.setAttribute("data-item-url", window.location.origin + window.location.pathname);
+                btn.setAttribute("data-item-image", activeProduct.image);
+                btn.setAttribute("data-item-description",
+                    activeProduct.descriptionList
                         ? activeProduct.descriptionList.join(" | ")
-                        : activeProduct.description,
-                    itemCustom1Name: activeProduct.custom1Name || "",
-                    itemCustom1Options: activeProduct.custom1Options || "",
-                    itemCustom2Name: "Original Price",
-                    itemCustom2Value: `$${activeProduct.price.toFixed(2)}`,
-                    itemCustom2Type: "readonly"
-                });
+                        : activeProduct.description
+                );
+
+                // Variant
+                btn.setAttribute("data-item-custom1-name", activeProduct.custom1Name || "");
+                btn.setAttribute("data-item-custom1-options", activeProduct.custom1Options || "");
+                btn.setAttribute("data-item-custom1-value", activeProduct.custom1Value || ""); // optional default
+
+                // Original Price (readonly field)
+                btn.setAttribute("data-item-custom2-name", "Original Price");
+                btn.setAttribute("data-item-custom2-value", `$${activeProduct.price.toFixed(2)}`);
+                btn.setAttribute("data-item-custom2-type", "readonly");
+
             }
 
 
