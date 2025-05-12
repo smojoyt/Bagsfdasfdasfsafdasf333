@@ -1,4 +1,4 @@
-function loadProductData() {
+﻿function loadProductData() {
     fetch("https://www.karrykraze.com/products/products.json")
         .then(res => res.json())
         .then(data => {
@@ -38,6 +38,7 @@ function loadProductData() {
                 imgEl.src = activeProduct.image;
                 imgEl.alt = activeProduct.name;
             }
+
             const btn = document.getElementById("add-to-cart-btn");
             if (btn) {
                 btn.setAttribute("data-item-id", skuFromURL);
@@ -56,17 +57,19 @@ function loadProductData() {
                         : activeProduct.description
                 );
 
-                // Variant
-                btn.setAttribute("data-item-custom1-name", activeProduct.custom1Name || "");
-                btn.setAttribute("data-item-custom1-options", activeProduct.custom1Options || "");
-                btn.setAttribute("data-item-custom1-value", activeProduct.custom1Value || ""); // optional default
+                // ✅ Only add variant fields if they exist — this makes sure variant is always custom1
+                if (activeProduct.custom1Name && activeProduct.custom1Options) {
+                    btn.setAttribute("data-item-custom1-name", activeProduct.custom1Name);
+                    btn.setAttribute("data-item-custom1-options", activeProduct.custom1Options);
+                    btn.setAttribute("data-item-custom1-value", activeProduct.custom1Value || "");
+                }
 
-                // Original Price (readonly field)
+                // ✅ Add original price second, always as custom2
                 btn.setAttribute("data-item-custom2-name", "Original Price");
                 btn.setAttribute("data-item-custom2-value", `$${activeProduct.price.toFixed(2)}`);
                 btn.setAttribute("data-item-custom2-type", "readonly");
-
             }
+
 
 
 
