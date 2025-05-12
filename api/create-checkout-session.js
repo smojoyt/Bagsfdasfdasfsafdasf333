@@ -1,22 +1,33 @@
 ﻿const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-export default async function handler(req, res) {
-    // ✅ Allow CORS from your domain
-    res.setHeader('Access-Control-Allow-Origin', 'https://www.karrykraze.com');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+export const config = {
+    api: { bodyParser: true },
+};
 
-    // ✅ Handle preflight request
+export default async function handler(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://www.karrykraze.com');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
+        return res.status(200).end();
     }
 
     if (req.method === 'POST') {
         try {
+            const line_items = req.body.items.map(item => ({
+                price_data: {
+                    currency: 'usd',
+                    product_data: { name: item.name },
+                    unit_amount: item.amount,
+                },
+                quantity: item.quantity,
+            }));
+
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
-                line_items: req.body.items,
+                line_items,
                 mode: 'payment',
                 success_url: `${req.headers.origin}/success`,
                 cancel_url: `${req.headers.origin}/cancel`,

@@ -111,15 +111,15 @@
     <div id="snipcart-static-buttons"></div>
     <!-- ✅ Hidden button so Snipcart can crawl product -->
     <button class="snipcart-add-item" hidden
-        data-item-id="Bag_MiniHeart"
-        data-item-name="Mini Tote - Heart Embossed"
-        data-item-price="34.97"
-        data-item-url="https://www.karrykraze.com/products/bags/Bag_MiniHeart.html"
-        data-item-description="Boxy mini tote silhouette | Dual top handles for hand carry | Wipe clean with damp cloth only | One size, Compact yet spacious for essentials"
-        data-item-image="https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg"
-        data-item-custom1-name="Color"
-        data-item-custom1-options="Pink | White"
-        data-item-custom1-value="Pink">
+            data-item-id="Bag_MiniHeart"
+            data-item-name="Mini Tote - Heart Embossed"
+            data-item-price="34.97"
+            data-item-url="https://www.karrykraze.com/products/bags/Bag_MiniHeart.html"
+            data-item-description="Boxy mini tote silhouette | Dual top handles for hand carry | Wipe clean with damp cloth only | One size, Compact yet spacious for essentials"
+            data-item-image="https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg"
+            data-item-custom1-name="Color"
+            data-item-custom1-options="Pink | White"
+            data-item-custom1-value="Pink">
         Add to Cart
     </button>
 
@@ -132,18 +132,10 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     items: [
-                        {
-                            price_data: {
-                                currency: 'usd',
-                                product_data: { name: 'Mini Heart Tote' },
-                                unit_amount: 3497,
-                            },
-                            quantity: 1
-                        }
+                        { name: 'Mini Heart Tote', amount: 3497, quantity: 1 }
                     ]
                 })
             })
-
                 .then(res => res.json())
                 .then(data => {
                     if (data.url) {
@@ -154,6 +146,7 @@
                 });
         });
     </script>
+
 
 
 
