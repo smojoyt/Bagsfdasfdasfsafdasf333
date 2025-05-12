@@ -41,6 +41,7 @@
 
             const btn = document.getElementById("add-to-cart-btn");
             if (btn) {
+                // Required base fields
                 btn.setAttribute("data-item-id", skuFromURL);
                 btn.setAttribute("data-item-name", activeProduct.name);
                 btn.setAttribute("data-item-price", (
@@ -57,20 +58,19 @@
                         : activeProduct.description
                 );
 
-                // ✅ Only add variant fields if they exist — this makes sure variant is always custom1
-                // ✅ Variant first (if it exists)
+                // ✅ Variant as custom1
                 if (activeProduct.custom1Name && activeProduct.custom1Options) {
                     btn.setAttribute("data-item-custom1-name", activeProduct.custom1Name); // e.g. "Color"
                     btn.setAttribute("data-item-custom1-options", activeProduct.custom1Options); // "Pink|White"
-                    btn.setAttribute("data-item-custom1-value", activeProduct.custom1Value || ""); // "Pink"
+                    btn.setAttribute("data-item-custom1-value", activeProduct.custom1Value || "Pink");
                 }
 
-                // ✅ Price second — separate slot, no dropdown conflict
+                // ✅ Original price as custom2 (readonly)
                 btn.setAttribute("data-item-custom2-name", "Original Price");
                 btn.setAttribute("data-item-custom2-value", `$${activeProduct.price.toFixed(2)}`);
-                btn.setAttribute("data-item-custom2-type", "readonly"); // <- REQUIRED to prevent dropdown merging
-
+                btn.setAttribute("data-item-custom2-type", "readonly");
             }
+
 
 
 
