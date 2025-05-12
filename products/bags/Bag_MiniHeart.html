@@ -110,7 +110,7 @@
 
     <div id="snipcart-static-buttons"></div>
     <!-- ✅ Hidden button so Snipcart can crawl product -->
-    <button class="snipcart-add-item" hidden>
+    <button class="snipcart-add-item" hidden
         data-item-id="Bag_MiniHeart"
         data-item-name="Mini Tote - Heart Embossed"
         data-item-price="34.97"
@@ -119,7 +119,7 @@
         data-item-image="https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg"
         data-item-custom1-name="Color"
         data-item-custom1-options="Pink | White"
-        data-item-custom1-value="Pink"
+        data-item-custom1-value="Pink">
         Add to Cart
     </button>
 
@@ -127,7 +127,7 @@
 
     <script>
         document.getElementById("buy-now-btn").addEventListener("click", () => {
-            fetch('/api/create-checkout-session', {
+            fetch('https://bagsfdasfdasfsafdasf333-5dap-qsxcw0yck-smojoyts-projects.vercel.app/api/create-checkout-session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -143,6 +143,7 @@
                     ]
                 })
             })
+
                 .then(res => res.json())
                 .then(data => {
                     if (data.url) {
