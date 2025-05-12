@@ -123,37 +123,32 @@
         Add to Cart
     </button>
 
-    <button id="buy-now-btn">Buy Now</button>
+    <button onclick="buyNow()">Buy Now</button>
 
     <script>
-        document.getElementById("buy-now-btn").addEventListener("click", () => {
-            fetch('https://bagsfdasfdasfsafdasf333-5dap-qsxcw0yck-smojoyts-projects.vercel.app/api/create-checkout-session', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    items: [
-                        {
-                            name: 'Mini Tote - Heart Embossed',
-                            amount: 3497, // Stripe needs price in cents (34.97 * 100)
-                            quantity: 1
-                        }
-                    ]
-                })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.url) {
-                        window.location.href = data.url;
-                    } else {
-                        alert("Something went wrong: " + (data.error || "No session URL returned."));
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("Checkout failed. See console for details.");
-                });
-        });
+        async function buyNow() {
+            const product = {
+                name: "Mini Tote - Heart Embossed",
+                amount: 3497, // in cents
+                quantity: 1,
+                image: "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg"
+            };
+
+            const response = await fetch("bagsfdasfdasfsafdasf333-kojz-hdwu7lgaq-smojoyts-projects.vercel.app/api/create-checkout-session", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ item: product })
+            });
+
+            const data = await response.json();
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                alert("Checkout failed.");
+            }
+        }
     </script>
+
 
 
 
