@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Processing Checkout...</title>
+</head>
+<body>
+    <h1>Redirecting to checkout...</h1>
+
+    <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const sku = urlParams.get("sku");
+
+    if (sku) {
+      fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sku })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert("Checkout failed");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Something went wrong.");
+      });
+    } else {
+      document.body.innerHTML = "<h1>Missing SKU. Please try again from the store page.</h1>";
+    }
+    </script>
+</body>
+</html>

@@ -14,29 +14,6 @@
     </a>
 
     <!-- This lives on buy.karrykraze.com -->
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const sku = urlParams.get("sku");
 
-        if (sku) {
-            fetch("/api/create-checkout-session", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ sku })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.url) {
-                        window.location.href = data.url;
-                    } else {
-                        alert("Checkout failed");
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("Something went wrong.");
-                });
-        }
-    </script>
 </body>
 </html>
