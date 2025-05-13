@@ -44,7 +44,8 @@ export default async function handler(req, res) {
                             metadata: {
                                 variant: variant || "N/A",
                                 product_id: item.id || "N/A",
-                                requires_shipping: "true"
+                                requires_shipping: "true",
+                                clean_name: product.name
                             }
                         },
                         unit_amount: Math.round(item.price * 100)
@@ -71,7 +72,8 @@ export default async function handler(req, res) {
                         metadata: {
                             variant: variant || "N/A",
                             product_id: sku,
-                            requires_shipping: "true"
+                            requires_shipping: "true",
+                            clean_name: product.name
                         }
                     },
                     unit_amount: Math.round(
