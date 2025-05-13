@@ -1,7 +1,7 @@
 ﻿function addToCart(product, variant) {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
-    const existing = cart.find(item => item.id === product.id && item.variant === variant);
+    const existing = cart.find(item => item.id === product.product_id && item.variant === variant);
     if (existing) {
         existing.qty += 1;
     } else {
@@ -17,8 +17,9 @@
     }
 
     localStorage.setItem("savedCart", JSON.stringify(cart));
-    updateCartCount(); // from uni_navbar.js
-    toggleCart(true);  // optional: open cart on add
+    updateCartCount();
+    renderCart();
+    toggleCart(true);
 }
 
 
@@ -158,13 +159,6 @@ function loadProductData() {
             const content = document.getElementById('pageContent');
             if (content) content.classList.remove('hidden');
 
-            // ✅ Move this block INSIDE the .then so activeProduct is in scope
-            const addToCartBtn = document.getElementById("add-to-cart-btn");
-            if (addToCartBtn) {
-                addToCartBtn.addEventListener("click", () => {
-                    const variant = document.getElementById("variantSelector")?.value || null;
-                    addToCart(activeProduct, variant);
-                });
-            }
+            
         }); // ← closes the `.then(data => { ... })`
 } // ← closes the `loadProductData()` function
