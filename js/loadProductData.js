@@ -27,7 +27,7 @@ function loadProductData() {
     fetch("https://www.karrykraze.com/products/products.json")
         .then(res => res.json())
         .then(data => {
-            const activeProduct = data[skuFromURL];
+            activeProduct = data[skuFromURL];
             if (!activeProduct) {
                 console.error(`Product not found for SKU: ${skuFromURL}`);
                 return;

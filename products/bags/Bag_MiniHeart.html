@@ -107,6 +107,7 @@
 
 
     <script>
+        let activeProduct = null;
         const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
 
         function includeHTML(id, filePath, callback = null) {
@@ -199,8 +200,17 @@
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
             initNavbar();
             includeHTML("productpage", "/page_inserts/productpage.html", () => {
-                loadProductData();   
-                setupStripeBuyButton(); 
+                loadProductData();
+                setupStripeBuyButton();
+
+                // Attach add-to-cart listener AFTER productpage is inserted
+                const addToCartBtn = document.getElementById("add-to-cart-btn");
+                if (addToCartBtn) {
+                    addToCartBtn.addEventListener("click", () => {
+                        const variant = document.getElementById("variantSelector")?.value || null;
+                        addToCart(activeProduct, variant);
+                    });
+                }
             });
             includeHTML("footer", "/page_inserts/footer.html");
             includeHTML("unicart-container", "/page_inserts/uni_cart.html");
@@ -250,15 +260,6 @@
                 }
             });
         }
-    </script>
-
-    <script>
-        document.getElementById("add-to-cart-btn").addEventListener("click", () => {
-            const variant = document.getElementById("variantSelector")?.value || null;
-            addToCart(activeProduct, variant);
-        });
-
-
     </script>
 
 
