@@ -50,23 +50,27 @@ function renderCart() {
     cart.forEach((item, index) => {
         total += item.price * item.qty;
         cartItemsEl.innerHTML += `
-            <div class="flex justify-between items-center">
-                <div>
-                    <p class="font-semibold">${item.name}</p>
-                    <p class="text-sm text-gray-500">${item.variant || ""}</p>
-                    <div class="flex items-center gap-2 mt-1">
-                        <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="decrease" data-index="${index}">−</button>
-                        <span class="text-sm">${item.qty}</span>
-                        <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="increase" data-index="${index}">+</button>
-                        <button class="text-red-500 text-xs hover:underline ml-4 remove-btn" data-index="${index}">Remove</button>
-                    </div>
-                </div>
-                <div class="text-right font-medium">
-                    $${(item.price * item.qty).toFixed(2)}
+        <div class="flex gap-4 items-start justify-between">
+            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded border" />
+
+            <div class="flex-1">
+                <p class="font-semibold text-sm">${item.name}</p>
+                <p class="text-xs text-gray-500">${item.variant || ""}</p>
+                <div class="flex items-center gap-2 mt-1">
+                    <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="decrease" data-index="${index}">−</button>
+                    <span class="text-sm">${item.qty}</span>
+                    <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="increase" data-index="${index}">+</button>
+                    <button class="text-red-500 text-xs hover:underline ml-4 remove-btn" data-index="${index}">Remove</button>
                 </div>
             </div>
-        `;
+
+            <div class="text-right font-medium text-sm whitespace-nowrap">
+                $${(item.price * item.qty).toFixed(2)}
+            </div>
+        </div>
+    `;
     });
+
 
     cartTotalEl.textContent = `$${total.toFixed(2)}`;
 

@@ -12,8 +12,10 @@
             price: product.tags?.includes("Onsale") && product.sale_price < product.price
                 ? product.sale_price
                 : product.price,
-            qty: 1
+            qty: 1,
+            image: product.variantImages?.[variant] || product.image  // ✅ Add this
         });
+
     }
 
     localStorage.setItem("savedCart", JSON.stringify(cart));
