@@ -82,12 +82,17 @@ export default async function handler(req, res) {
         const subtotal = line_items.reduce((sum, item) => sum + item.price_data.unit_amount * item.quantity, 0);
 
         // 🚚 Stripe shipping rates
-        const shipping_options = subtotal >= 5000
-            ? [{ shipping_rate: "shr_1RO9lyLzNgqX2t8KUr7X1RJh" }] // Free Shipping
-            : [
-                { shipping_rate: "shr_1RO9juLzNgqX2t8KonaNgulK" }, // Standard
-                { shipping_rate: "shr_1RO9kSLzNgqX2t8K0SOnswvh" }  // Express
-            ];
+        // Use predefined Stripe shipping rate IDs
+        const shipping_options = [
+            { shipping_rate: 'shr_1RO9juLzNgqX2t8KonaNgulK' }, // Standard
+            { shipping_rate: 'shr_1RO9kSLzNgqX2t8K0SOnswvh' }, // Express
+        ];
+
+        // Conditionally add free shipping
+        if (subtotal >= 5000) {
+            shipping_options.unshift({ shipping_rate: 'shr_1RO9lyLzNgqX2t8KUr7X1RJh' }); // Free
+        }
+
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
