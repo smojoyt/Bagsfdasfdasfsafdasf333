@@ -119,15 +119,26 @@ function updateCartCount() {
 document.addEventListener("DOMContentLoaded", () => {
     updateCartCount();
 
-    // Wait for checkoutBtn if injected later
     const tryBindCheckout = () => {
         const btn = document.getElementById("checkoutBtn");
         if (btn) {
             btn.addEventListener("click", triggerStripeCheckout);
         } else {
-            setTimeout(tryBindCheckout, 100);
+            setTimeout(tryBindCheckout, 100); // Retry if not yet loaded
         }
     };
 
     tryBindCheckout();
+
+    // 👇 Prevent cart from animating on load
+    const cartEl = document.getElementById("sideCart");
+    const overlay = document.getElementById("cartOverlay");
+
+    cartEl?.classList.add("translate-x-full");
+    overlay?.classList.add("hidden");
+
+    requestAnimationFrame(() => {
+        cartEl?.classList.remove("no-transition");
+    });
 });
+

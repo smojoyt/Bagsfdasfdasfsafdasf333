@@ -56,7 +56,7 @@
 <!-- Cart Overlay and Side Drawer -->
 <div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleCart(false)"></div>
 
-<div id="sideCart" class="fixed right-0 top-0 w-80 max-w-full h-full bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+<div id="sideCart" class="no-transition fixed right-0 top-0 w-80 max-w-full h-full bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
     <div class="flex items-center justify-between p-4 border-b">
         <h2 class="text-xl font-bold">Your Cart</h2>
         <button onclick="toggleCart(false)" class="text-gray-500 hover:text-black text-2xl">&times;</button>
@@ -73,9 +73,8 @@
 
 
 <style>
-    #snipcart {
-        z-index: 2147483647 !important;
-        position: relative !important;
+    .no-transition {
+        transition: none !important;
     }
 
     body.dimmed-background {
