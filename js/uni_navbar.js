@@ -41,23 +41,42 @@ function renderCart() {
 
     cartItemsEl.innerHTML = "";
 
-    cart.forEach(item => {
+    cart.forEach((item, index) => {
         total += item.price * item.qty;
         cartItemsEl.innerHTML += `
-            <div class="flex items-center justify-between">
-                <div>
+            <div class="flex items-center justify-between gap-2">
+                <div class="flex-1">
                     <p class="font-semibold">${item.name}</p>
                     <p class="text-sm text-gray-500">${item.variant || ""} × ${item.qty}</p>
                 </div>
                 <div class="text-right">
                     <p class="text-sm font-medium">$${(item.price * item.qty).toFixed(2)}</p>
+                    <button data-index="${index}" class="text-red-500 text-xs mt-1 hover:underline remove-btn">Remove</button>
                 </div>
             </div>
         `;
     });
 
     cartTotalEl.textContent = `$${total.toFixed(2)}`;
+
+    // 🔁 Attach delete listeners after rendering
+    document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const index = parseInt(e.target.getAttribute("data-index"));
+            removeFromCart(index);
+        });
+    });
 }
+
+function removeFromCart(index) {
+    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("savedCart", JSON.stringify(cart));
+    updateCartCount();
+    renderCart();
+}
+
+
 
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
