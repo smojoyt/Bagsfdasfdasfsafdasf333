@@ -106,21 +106,19 @@
 
 
     <script>
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-            initNavbar();
-            const checkoutBtn = document.getElementById("checkoutBtn");
-            if (checkoutBtn) checkoutBtn.addEventListener("click", triggerStripeCheckout);
-
-            includeHTML("productpage", "/page_inserts/productpage.html", () => {
-                loadProductData();
-                setupStripeBuyButton(); // optional
-            });
-        });
-    </script>
-
-    <script>
-        let activeProduct = null;
         const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
+        let activeProduct = null;
+
+        const colorMap = {
+            Black: "#000000",
+            White: "#ffffff",
+            Red: "#e3342f",
+            Navy: "#1e3a8a",
+            Beige: "#f5f5dc",
+            Brown: "#8b4513",
+            Gray: "#6b7280",
+            Cream: "#fffdd0",
+        };
 
         function includeHTML(id, filePath, callback = null) {
             fetch(filePath)
@@ -136,7 +134,6 @@
             if (!mainImage) return;
 
             mainImage.classList.add("opacity-0");
-
             setTimeout(() => {
                 mainImage.src = newSrc;
                 mainImage.onload = () => mainImage.classList.remove("opacity-0");
@@ -145,33 +142,14 @@
 
         function updateVariant(input) {
             const value = typeof input === 'string' ? input : input.value;
-
-            // ✅ For Stripe
             const variantInput = document.getElementById("variantSelector");
-            if (variantInput) {
-                variantInput.value = value.trim();
-            }
+            if (variantInput) variantInput.value = value.trim();
         }
-
-
-        const colorMap = {
-            Black: "#000000",
-            White: "#ffffff",
-            Red: "#e3342f",
-            Navy: "#1e3a8a",
-            Beige: "#f5f5dc",
-            Brown: "#8b4513",
-            Gray: "#6b7280",
-            Cream: "#fffdd0",
-            // Add more as needed
-        };
-
-
 
         function initNavbar() {
             const toggleBtn = document.getElementById("mobile-menu-button");
             const menu = document.getElementById("mobile-menu");
-            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+            toggleBtn?.addEventListener("click", () => menu?.classList.toggle("hidden"));
 
             const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
             const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
@@ -198,41 +176,10 @@
             if (!content || !icon) return;
 
             const isOpen = content.style.height && content.style.height !== "0px";
-
-            if (isOpen) {
-                content.style.height = "0px";
-                icon.classList.remove("rotate-45");
-            } else {
-                content.style.height = content.scrollHeight + "px";
-                icon.classList.add("rotate-45");
-            }
+            content.style.height = isOpen ? "0px" : content.scrollHeight + "px";
+            icon.classList.toggle("rotate-45", !isOpen);
         }
 
-
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-            initNavbar();
-            includeHTML("productpage", "/page_inserts/productpage.html", () => {
-                loadProductData();
-                setupStripeBuyButton();
-
-                // Attach add-to-cart listener AFTER productpage is inserted
-                const addToCartBtn = document.getElementById("add-to-cart-btn");
-                if (addToCartBtn) {
-                    addToCartBtn.addEventListener("click", () => {
-                        const variant = document.getElementById("variantSelector")?.value || null;
-                        addToCart(activeProduct, variant);
-                    });
-                }
-            });
-            includeHTML("footer", "/page_inserts/footer.html");
-            includeHTML("unicart-container", "/page_inserts/uni_cart.html");
-            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
-        });
-
-    </script>
-
-    <script>
         function setupStripeBuyButton() {
             const btn = document.getElementById("buyButton");
             if (!btn) return;
@@ -242,22 +189,14 @@
                     const resProducts = await fetch("/products/products.json");
                     const products = await resProducts.json();
                     const product = products[skuFromURL];
+                    if (!product) return alert("Product not found.");
 
-                    if (!product) {
-                        alert("Product not found.");
-                        return;
-                    }
-
-                    const variantSelector = document.getElementById("variantSelector");
-                    const selectedVariant = variantSelector ? variantSelector.value : null;
+                    const variant = document.getElementById("variantSelector")?.value;
 
                     const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            sku: skuFromURL,
-                            selectedVariant
-                        })
+                        body: JSON.stringify({ sku: skuFromURL, selectedVariant: variant })
                     });
 
                     const data = await res.json();
@@ -272,7 +211,31 @@
                 }
             });
         }
+
+        // 🔁 Main Load Flow
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar();
+
+            includeHTML("productpage", "/page_inserts/productpage.html", () => {
+                loadProductData();
+                setupStripeBuyButton();
+
+                const addToCartBtn = document.getElementById("add-to-cart-btn");
+                if (addToCartBtn) {
+                    addToCartBtn.addEventListener("click", () => {
+                        const variant = document.getElementById("variantSelector")?.value || null;
+                        addToCart(activeProduct, variant);
+                    });
+                }
+            });
+
+            includeHTML("footer", "/page_inserts/footer.html");
+            includeHTML("unicart-container", "/page_inserts/uni_cart.html");
+            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+        });
     </script>
+
 
 
 
