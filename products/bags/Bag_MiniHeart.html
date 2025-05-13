@@ -103,47 +103,9 @@
     <div id="navbar-container"></div>
     <div id="unicart-container"></div>
 
-    <button id="buyButton">Buy for $19.99</button>
+
 
     <script>
-        document.getElementById("buyButton").addEventListener("click", async () => {
-            try {
-                // Load the full products list
-                const resProducts = await fetch("/products/products.json");
-                const products = await resProducts.json();
-
-                const product = products[skuFromURL];
-                if (!product) {
-                    alert("Product not found.");
-                    return;
-                }
-
-                const variantSelector = document.getElementById("variantSelector");
-                const selectedVariant = variantSelector ? variantSelector.value : null;
-
-                const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        sku: skuFromURL,
-                        selectedVariant
-                    })
-                });
-
-                const data = await res.json();
-                if (data.url) {
-                    window.location.href = data.url;
-                } else {
-                    alert("Checkout session failed.");
-                }
-            } catch (err) {
-                console.error(err);
-                alert("Something went wrong with Stripe checkout.");
-            }
-        });
-    </script>
-
-<script>
         const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
 
         function includeHTML(id, filePath, callback = null) {
@@ -263,6 +225,44 @@
             includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
         });
 
+    </script>
+
+    <script>
+        document.getElementById("buyButton").addEventListener("click", async () => {
+            try {
+                // Load the full products list
+                const resProducts = await fetch("/products/products.json");
+                const products = await resProducts.json();
+
+                const product = products[skuFromURL];
+                if (!product) {
+                    alert("Product not found.");
+                    return;
+                }
+
+                const variantSelector = document.getElementById("variantSelector");
+                const selectedVariant = variantSelector ? variantSelector.value : null;
+
+                const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        sku: skuFromURL,
+                        selectedVariant
+                    })
+                });
+
+                const data = await res.json();
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    alert("Checkout session failed.");
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Something went wrong with Stripe checkout.");
+            }
+        });
     </script>
 
 
