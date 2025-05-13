@@ -40,42 +40,6 @@ function loadProductData() {
                 imgEl.alt = activeProduct.name;
             }
 
-            const btn = document.getElementById("add-to-cart-btn");
-            if (btn) {
-                // Required base fields
-                btn.setAttribute("data-item-id", skuFromURL);
-                btn.setAttribute("data-item-name", activeProduct.name);
-                btn.setAttribute("data-item-price", (
-                    activeProduct.tags?.includes("Onsale") &&
-                        activeProduct.sale_price < activeProduct.price
-                        ? activeProduct.sale_price
-                        : activeProduct.price
-                ).toFixed(2));
-                btn.setAttribute("data-item-url", window.location.origin + window.location.pathname);
-                btn.setAttribute("data-item-image", activeProduct.image);
-                btn.setAttribute("data-item-description",
-                    activeProduct.descriptionList
-                        ? activeProduct.descriptionList.join(" | ")
-                        : activeProduct.description
-                );
-
-                // ✅ Variant as custom1
-                if (activeProduct.custom1Name && activeProduct.custom1Options) {
-                    btn.setAttribute("data-item-custom1-name", activeProduct.custom1Name); // e.g. "Color"
-                    btn.setAttribute("data-item-custom1-options", activeProduct.custom1Options); // "Pink|White"
-                    btn.setAttribute("data-item-custom1-value", activeProduct.custom1Value || "Pink");
-                }
-
-                // ✅ Original price as custom2 (readonly)
-                btn.setAttribute("data-item-custom2-name", "Original Price");
-                btn.setAttribute("data-item-custom2-value", `$${activeProduct.price.toFixed(2)}`);
-                btn.setAttribute("data-item-custom2-type", "readonly");
-            }
-
-
-
-
-
             const variantSelect = document.getElementById("variant-select");
             if (variantSelect && activeProduct.custom1Options) {
                 variantSelect.innerHTML = "";
@@ -170,7 +134,6 @@ function loadProductData() {
             const content = document.getElementById('pageContent');
             if (content) content.classList.remove('hidden');
 
-            injectStaticSnipcartButton(activeProduct);
 
         });
 }

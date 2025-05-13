@@ -43,8 +43,8 @@ export default async function handler(req, res) {
                             currency: "usd",
                             product_data: {
                                 name: finalName,
-                                description: product.description || "Karry Kraze item",
-                                images: [product.image],
+                                description: product.descriptionList?.join(" | ") || product.description || "Karry Kraze item",
+                                images: [product.variantImages?.[selectedVariant] || product.image],
                             },
                             unit_amount: Math.round(
                                 product.tags?.includes("Onsale") && product.sale_price < product.price
@@ -63,6 +63,7 @@ export default async function handler(req, res) {
                 success_url: "https://www.karrykraze.com/success.html?session_id={CHECKOUT_SESSION_ID}",
                 cancel_url: "https://www.karrykraze.com/cancel.html",
             });
+
 
             return res.status(200).json({ url: session.url });
 
