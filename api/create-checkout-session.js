@@ -18,7 +18,6 @@ export default async function handler(req, res) {
     try {
         const { sku, selectedVariant, cart } = req.body;
 
-        // Load products.json
         const filePath = path.join(process.cwd(), 'products', 'products.json');
         const rawData = fs.readFileSync(filePath, 'utf8');
         const products = JSON.parse(rawData);
@@ -42,7 +41,10 @@ export default async function handler(req, res) {
                             name,
                             description,
                             images: [image],
-                            metadata: { shipping: "true" }
+                            metadata: {
+                                shipping: "true",
+                                requires_shipping: "true"
+                            }
                         },
                         unit_amount: Math.round(item.price * 100)
                     },
@@ -50,7 +52,6 @@ export default async function handler(req, res) {
                 };
             }).filter(Boolean);
         } else if (sku) {
-            // Fallback for single direct-buy product
             const product = products[sku];
             if (!product) return res.status(404).json({ error: "Product not found" });
 
@@ -66,7 +67,10 @@ export default async function handler(req, res) {
                         name,
                         description,
                         images: [image],
-                        metadata: { shipping: "true" }
+                        metadata: {
+                            shipping: "true",
+                            requires_shipping: "true"
+                        }
                     },
                     unit_amount: Math.round(
                         product.tags?.includes("Onsale") && product.sale_price < product.price
@@ -80,17 +84,15 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: "No valid cart or SKU provided." });
         }
 
-        // 📦 Calculate subtotal
         const subtotal = line_items.reduce((sum, item) => sum + item.price_data.unit_amount * item.quantity, 0);
 
-        // 🚚 Stripe shipping rates
         const shipping_options = [
             { shipping_rate: 'shr_1RO9juLzNgqX2t8KonaNgulK' }, // Standard
             { shipping_rate: 'shr_1RO9kSLzNgqX2t8K0SOnswvh' }  // Express
         ];
 
         if (subtotal >= 5000) {
-            shipping_options.unshift({ shipping_rate: 'shr_1RO9lyLzNgqX2t8KUr7X1RJh' }); // Free
+            shipping_options.unshift({ shipping_rate: 'shr_1RO9lyLzNgqX2t8KUr7X1RJh' }); // Free shipping
         }
 
         const session = await stripe.checkout.sessions.create({
