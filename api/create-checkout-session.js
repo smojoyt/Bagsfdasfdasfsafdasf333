@@ -1,22 +1,29 @@
 ﻿const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
-const products = {
-    "Bag_MiniHeart": {
-        name: "Mini Tote - Heart Embossed",
-        price: 1999
-    },
-    // Add more products here
-};
+const fs = require('fs');
+const path = require('path');
 
 module.exports = async (req, res) => {
     if (req.method === "POST") {
         try {
-            const { sku } = req.body;
+            const { sku, selectedVariant } = req.body;
+
+            const filePath = path.join(process.cwd(), 'products', 'products.json');
+            const rawData = fs.readFileSync(filePath, 'utf-8');
+            const products = JSON.parse(rawData);
+
             const product = products[sku];
 
             if (!product) {
                 return res.status(400).json({ error: "Invalid SKU" });
             }
+
+            // Fallback image logic
+            let productImage = product.image;
+            if (selectedVariant && product.variantImages && product.variantImages[selectedVariant]) {
+                productImage = product.variantImages[selectedVariant];
+            }
+
+            const variantText = selectedVariant ? ` (${product.custom1Name}: ${selectedVariant})` : "";
 
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
@@ -24,9 +31,11 @@ module.exports = async (req, res) => {
                     price_data: {
                         currency: 'usd',
                         product_data: {
-                            name: product.name,
+                            name: `${product.name}${variantText}`,
+                            description: product.descriptionList.join(' • '),
+                            images: [productImage]
                         },
-                        unit_amount: product.price
+                        unit_amount: Math.round(product.price * 100) // Convert to cents
                     },
                     quantity: 1
                 }],

@@ -19,8 +19,6 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
-    <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
@@ -105,34 +103,32 @@
     <div id="navbar-container"></div>
     <div id="unicart-container"></div>
 
-    <!-- Snipcart -->
-    <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz" data-config-modal-style="side"></div>
-
-    <div id="snipcart-static-buttons"></div>
-    <!-- ✅ Hidden button so Snipcart can crawl product -->
-    <button class="snipcart-add-item" hidden
-            data-item-id="Bag_MiniHeart"
-            data-item-name="Mini Tote - Heart Embossed"
-            data-item-price="34.97"
-            data-item-url="https://www.karrykraze.com/products/bags/Bag_MiniHeart.html"
-            data-item-description="Boxy mini tote silhouette | Dual top handles for hand carry | Wipe clean with damp cloth only | One size, Compact yet spacious for essentials"
-            data-item-image="https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg"
-            data-item-custom1-name="Color"
-            data-item-custom1-options="Pink | White"
-            data-item-custom1-value="Pink">
-        Add to Cart
-    </button>
-
     <button id="buyButton">Buy for $19.99</button>
 
     <script>
         document.getElementById("buyButton").addEventListener("click", async () => {
             try {
-                const res = await fetch("/api/create-checkout-session", {
-                    method: "POST"
-                });
+                // Load the full products list
+                const resProducts = await fetch("/products/products.json");
+                const products = await resProducts.json();
 
-                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                const product = products[skuFromURL];
+                if (!product) {
+                    alert("Product not found.");
+                    return;
+                }
+
+                const variantSelector = document.getElementById("variantSelector");
+                const selectedVariant = variantSelector ? variantSelector.value : null;
+
+                const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        sku: skuFromURL,
+                        selectedVariant
+                    })
+                });
 
                 const data = await res.json();
                 if (data.url) {
@@ -147,21 +143,7 @@
         });
     </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script>
+<script>
         const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
 
         function includeHTML(id, filePath, callback = null) {
