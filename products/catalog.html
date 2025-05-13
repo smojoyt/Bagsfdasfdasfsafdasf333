@@ -7,11 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css" />
-    <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
     <script src="/js/helpers.js"></script>
     <script src="/js/moreItemsCarousel.js"></script>
-    <meta name="snipcart-page-url" content="https://www.karrykraze.com/products/bags/Bag_TheBucket.html" />
+    <script src="/js/loadProductData.js"></script>
+    <script src="/js/uni_navbar.js"></script>
 
 
     <!-- Social Media Thumbnail & Info -->
@@ -351,10 +350,23 @@
                 pageContent?.classList.remove('blurred');
             });
         });
-        includeHTML("footer", "/page_inserts/footer.html");
+        // 🔁 Main Load Flow
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
             initNavbar();
-            includeHTML("productpage", "/page_inserts/productpage.html", loadProductData);
+
+            includeHTML("productpage", "/page_inserts/productpage.html", () => {
+                loadProductData();
+                setupStripeBuyButton();
+
+                const addToCartBtn = document.getElementById("add-to-cart-btn");
+                if (addToCartBtn) {
+                    addToCartBtn.addEventListener("click", () => {
+                        const variant = document.getElementById("variantSelector")?.value || null;
+                        addToCart(activeProduct, variant);
+                    });
+                }
+            });
+            includeHTML("footer", "/page_inserts/footer.html");
             includeHTML("unicart-container", "/page_inserts/uni_cart.html");
             includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
             includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");

@@ -42,6 +42,7 @@ export default async function handler(req, res) {
                             description,
                             images: [image],
                             metadata: {
+                                variant: item.variant,
                                 shipping: "true",
                                 requires_shipping: "true"
                             }
@@ -68,6 +69,7 @@ export default async function handler(req, res) {
                         description,
                         images: [image],
                         metadata: {
+                            variant: item.variant,
                             shipping: "true",
                             requires_shipping: "true"
                         }
