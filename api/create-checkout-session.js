@@ -32,7 +32,7 @@ export default async function handler(req, res) {
                 return res.status(404).json({ error: "Product not found" });
             }
 
-            const finalName = selectedVariant ? `${product.name} - ${selectedVariant}` : product.name;
+            const finalName = cleanVariant ? `${product.name} - ${cleanVariant}` : product.name;
 
             const cleanVariant = selectedVariant?.trim();
 
@@ -79,3 +79,4 @@ export default async function handler(req, res) {
         return res.status(405).end("Method Not Allowed");
     }
 }
+console.log("Using image:", product.variantImages?.[cleanVariant] || product.image);
