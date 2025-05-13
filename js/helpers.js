@@ -60,7 +60,7 @@ function getCompactPriceHTML(product) {
 function getFullPriceHTML(product) {
     const regular = product.price;
     const sale = product.sale_price ?? regular;
-    const isOnSale = product.tags?.includes("Onsale") && sale < regular;
+    const isOnSale = product.tags?.includes("Onsale") || sale < regular;
 
     if (isOnSale) {
         const saved = (regular - sale).toFixed(2);
