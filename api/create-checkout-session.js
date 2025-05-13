@@ -13,28 +13,19 @@ export default async function handler(req, res) {
     res.setHeader("Access-Control-Allow-Credentials", "true");
 
     if (req.method === "OPTIONS") return res.status(200).end();
-
-    if (req.method !== "POST") {
-        res.setHeader("Allow", "POST");
-        return res.status(405).end("Method Not Allowed");
-    }
+    if (req.method !== "POST") return res.status(405).end("Method Not Allowed");
 
     try {
         const { sku, selectedVariant, cart } = req.body;
 
-        // Load full product data
+        // Load products.json
         const filePath = path.join(process.cwd(), 'products', 'products.json');
         const rawData = fs.readFileSync(filePath, 'utf8');
         const products = JSON.parse(rawData);
 
         let line_items = [];
 
-        // 🔄 Handle SIDE CART
         if (Array.isArray(cart)) {
-            if (cart.length === 0) {
-                return res.status(400).json({ error: "Cart is empty" });
-            }
-
             line_items = cart.map(item => {
                 const product = Object.values(products).find(p => p.product_id === item.id);
                 if (!product) return null;
@@ -57,13 +48,10 @@ export default async function handler(req, res) {
                     quantity: item.qty || 1
                 };
             }).filter(Boolean);
-        }
-        // 🛍️ Handle SINGLE ITEM BUY NOW
-        else if (sku) {
+        } else if (sku) {
+            // Fallback for single direct-buy product
             const product = products[sku];
-            if (!product) {
-                return res.status(404).json({ error: "Product not found" });
-            }
+            if (!product) return res.status(404).json({ error: "Product not found" });
 
             const variant = selectedVariant?.trim();
             const image = product.variantImages?.[variant] || product.image;
@@ -90,15 +78,27 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: "No valid cart or SKU provided." });
         }
 
+        // 📦 Calculate subtotal
+        const subtotal = line_items.reduce((sum, item) => sum + item.price_data.unit_amount * item.quantity, 0);
+
+        // 🚚 Stripe shipping rates
+        const shipping_options = subtotal >= 5000
+            ? [{ shipping_rate: "shr_1RO9lyLzNgqX2t8KUr7X1RJh" }] // Free Shipping
+            : [
+                { shipping_rate: "shr_1RO9juLzNgqX2t8KonaNgulK" }, // Standard
+                { shipping_rate: "shr_1RO9kSLzNgqX2t8K0SOnswvh" }  // Express
+            ];
+
         const session = await stripe.checkout.sessions.create({
-            payment_method_types: ["card"],
-            mode: "payment",
+            payment_method_types: ['card'],
+            mode: 'payment',
             line_items,
-            customer_creation: "always",
-            billing_address_collection: "auto",
+            customer_creation: 'always',
+            billing_address_collection: 'auto',
             shipping_address_collection: {
-                allowed_countries: ["US", "CA"]
+                allowed_countries: ['US', 'CA']
             },
+            shipping_options,
             allow_promotion_codes: true,
             success_url: "https://www.karrykraze.com/success.html?session_id={CHECKOUT_SESSION_ID}",
             cancel_url: "https://www.karrykraze.com/cancel.html"

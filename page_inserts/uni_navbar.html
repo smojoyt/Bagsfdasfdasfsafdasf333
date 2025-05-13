@@ -63,12 +63,22 @@
     </div>
     <div id="cartItems" class="p-4 space-y-4 overflow-y-auto max-h-[calc(100%-180px)]"></div>
     <div class="p-4 border-t">
-        <div class="flex justify-between font-bold text-lg mb-2">
+        <div class="flex justify-between font-bold text-lg mb-1">
             <span>Total:</span>
             <span id="cartTotal">$0.00</span>
         </div>
+
+        <div id="freeShippingBar" class="mb-3 text-sm text-gray-700">
+            <!-- Will be filled by JS -->
+        </div>
+
+        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-3">
+            <div id="freeShippingProgress" class="bg-green-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%;"></div>
+        </div>
+
         <button id="checkoutBtn" class="w-full bg-black text-white py-2 rounded hover:bg-gray-800">Checkout</button>
     </div>
+
 </div>
 
 

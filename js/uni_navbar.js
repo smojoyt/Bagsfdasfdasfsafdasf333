@@ -43,6 +43,26 @@ function renderCart() {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
     const cartItemsEl = document.getElementById("cartItems");
     const cartTotalEl = document.getElementById("cartTotal");
+    // Update Free Shipping Progress Bar
+    const freeShippingBar = document.getElementById("freeShippingBar");
+    const freeShippingProgress = document.getElementById("freeShippingProgress");
+
+    const goal = 50.0;
+    const progress = Math.min((total / goal) * 100, 100);
+
+    if (total >= goal) {
+        freeShippingBar.textContent = "🎉 You’ve unlocked FREE shipping!";
+        freeShippingProgress.style.width = "100%";
+        freeShippingProgress.classList.remove("bg-yellow-400");
+        freeShippingProgress.classList.add("bg-green-500");
+    } else {
+        const diff = (goal - total).toFixed(2);
+        freeShippingBar.textContent = `You're $${diff} away from free shipping!`;
+        freeShippingProgress.style.width = `${progress}%`;
+        freeShippingProgress.classList.remove("bg-green-500");
+        freeShippingProgress.classList.add("bg-yellow-400");
+    }
+
     let total = 0;
 
     cartItemsEl.innerHTML = "";
