@@ -22,6 +22,7 @@
 }
 
 
+
 function loadProductData() {
     fetch("https://www.karrykraze.com/products/products.json")
         .then(res => res.json())
@@ -157,8 +158,13 @@ function loadProductData() {
             const content = document.getElementById('pageContent');
             if (content) content.classList.remove('hidden');
 
-
-        });
-}
-
-
+            // ✅ Move this block INSIDE the .then so activeProduct is in scope
+            const addToCartBtn = document.getElementById("add-to-cart-btn");
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener("click", () => {
+                    const variant = document.getElementById("variantSelector")?.value || null;
+                    addToCart(activeProduct, variant);
+                });
+            }
+        }); // ← closes the `.then(data => { ... })`
+} // ← closes the `loadProductData()` function
