@@ -4,7 +4,7 @@
     const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cart }) // ✅ Correct key
+        body: JSON.stringify({ cart })
     });
 
     const data = await res.json();
@@ -43,70 +43,67 @@ function renderCart() {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
     const cartItemsEl = document.getElementById("cartItems");
     const cartTotalEl = document.getElementById("cartTotal");
-    // Update Free Shipping Progress Bar
     const freeShippingBar = document.getElementById("freeShippingBar");
     const freeShippingProgress = document.getElementById("freeShippingProgress");
 
-    const goal = 50.0;
-    const progress = Math.min((total / goal) * 100, 100);
-
-    if (total >= goal) {
-        freeShippingBar.textContent = "🎉 You’ve unlocked FREE shipping!";
-        freeShippingProgress.style.width = "100%";
-        freeShippingProgress.classList.remove("bg-yellow-400");
-        freeShippingProgress.classList.add("bg-green-500");
-    } else {
-        const diff = (goal - total).toFixed(2);
-        freeShippingBar.textContent = `You're $${diff} away from free shipping!`;
-        freeShippingProgress.style.width = `${progress}%`;
-        freeShippingProgress.classList.remove("bg-green-500");
-        freeShippingProgress.classList.add("bg-yellow-400");
-    }
-
     let total = 0;
-
     cartItemsEl.innerHTML = "";
 
     cart.forEach((item, index) => {
         total += item.price * item.qty;
         cartItemsEl.innerHTML += `
-        <div class="flex gap-4 items-start justify-between">
-            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded border" />
-
-            <div class="flex-1">
-                <p class="font-semibold text-sm">${item.name}</p>
-                <p class="text-xs text-gray-500">${item.variant || ""}</p>
-                <div class="flex items-center gap-2 mt-1">
-                    <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="decrease" data-index="${index}">−</button>
-                    <span class="text-sm">${item.qty}</span>
-                    <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="increase" data-index="${index}">+</button>
-                    <button class="text-red-500 text-xs hover:underline ml-4 remove-btn" data-index="${index}">Remove</button>
+            <div class="flex gap-4 items-start justify-between">
+                <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded border" />
+                <div class="flex-1">
+                    <p class="font-semibold text-sm">${item.name}</p>
+                    <p class="text-xs text-gray-500">${item.variant || ""}</p>
+                    <div class="flex items-center gap-2 mt-1">
+                        <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="decrease" data-index="${index}">−</button>
+                        <span class="text-sm">${item.qty}</span>
+                        <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="increase" data-index="${index}">+</button>
+                        <button class="text-red-500 text-xs hover:underline ml-4 remove-btn" data-index="${index}">Remove</button>
+                    </div>
+                </div>
+                <div class="text-right font-medium text-sm whitespace-nowrap">
+                    $${(item.price * item.qty).toFixed(2)}
                 </div>
             </div>
-
-            <div class="text-right font-medium text-sm whitespace-nowrap">
-                $${(item.price * item.qty).toFixed(2)}
-            </div>
-        </div>
-    `;
+        `;
     });
-
 
     cartTotalEl.textContent = `$${total.toFixed(2)}`;
 
-    // Attach quantity buttons
+    // ✅ Free shipping bar update
+    const goal = 50;
+    const progress = Math.min((total / goal) * 100, 100);
+
+    if (freeShippingBar && freeShippingProgress) {
+        if (total >= goal) {
+            freeShippingBar.textContent = "🎉 You’ve unlocked FREE shipping!";
+            freeShippingProgress.style.width = "100%";
+            freeShippingProgress.classList.remove("bg-yellow-400");
+            freeShippingProgress.classList.add("bg-green-500");
+        } else {
+            const diff = (goal - total).toFixed(2);
+            freeShippingBar.textContent = `You're $${diff} away from free shipping!`;
+            freeShippingProgress.style.width = `${progress}%`;
+            freeShippingProgress.classList.remove("bg-green-500");
+            freeShippingProgress.classList.add("bg-yellow-400");
+        }
+    }
+
+    // Event listeners
     document.querySelectorAll(".qty-btn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            const index = parseInt(e.target.getAttribute("data-index"));
-            const action = e.target.getAttribute("data-action");
+        btn.addEventListener("click", e => {
+            const index = parseInt(e.target.dataset.index);
+            const action = e.target.dataset.action;
             adjustQuantity(index, action);
         });
     });
 
-    // Attach remove buttons
     document.querySelectorAll(".remove-btn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            const index = parseInt(e.target.getAttribute("data-index"));
+        btn.addEventListener("click", e => {
+            const index = parseInt(e.target.dataset.index);
             removeFromCart(index);
         });
     });
@@ -114,7 +111,6 @@ function renderCart() {
 
 function adjustQuantity(index, action) {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-
     if (action === "increase") {
         cart[index].qty += 1;
     } else if (action === "decrease") {
@@ -123,7 +119,6 @@ function adjustQuantity(index, action) {
             cart.splice(index, 1);
         }
     }
-
     saveCart(cart);
 }
 
@@ -148,27 +143,21 @@ document.addEventListener("DOMContentLoaded", () => {
         if (btn) {
             btn.addEventListener("click", triggerStripeCheckout);
         } else {
-            setTimeout(tryBindCheckout, 100); // Retry if not yet loaded
+            setTimeout(tryBindCheckout, 100);
         }
     };
 
     tryBindCheckout();
 
-    // 👇 Prevent cart from animating on load
     const cartEl = document.getElementById("sideCart");
     const overlay = document.getElementById("cartOverlay");
 
-    // Hide immediately without animation
     cartEl?.classList.add("translate-x-full", "no-transition");
     overlay?.classList.add("hidden");
 
-    // Re-enable animation after 1 frame
     requestAnimationFrame(() => {
         cartEl?.classList.remove("no-transition");
     });
 
-    updateCartCount();
-    renderCart(); // Optional if you want to render on load
-
+    renderCart();
 });
-
