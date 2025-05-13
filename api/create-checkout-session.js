@@ -41,7 +41,8 @@ export default async function handler(req, res) {
                         product_data: {
                             name,
                             description,
-                            images: [image]
+                            images: [image],
+                            metadata: { shipping: "true" }
                         },
                         unit_amount: Math.round(item.price * 100)
                     },
@@ -64,7 +65,8 @@ export default async function handler(req, res) {
                     product_data: {
                         name,
                         description,
-                        images: [image]
+                        images: [image],
+                        metadata: { shipping: "true" }
                     },
                     unit_amount: Math.round(
                         product.tags?.includes("Onsale") && product.sale_price < product.price
@@ -82,17 +84,14 @@ export default async function handler(req, res) {
         const subtotal = line_items.reduce((sum, item) => sum + item.price_data.unit_amount * item.quantity, 0);
 
         // 🚚 Stripe shipping rates
-        // Use predefined Stripe shipping rate IDs
         const shipping_options = [
             { shipping_rate: 'shr_1RO9juLzNgqX2t8KonaNgulK' }, // Standard
-            { shipping_rate: 'shr_1RO9kSLzNgqX2t8K0SOnswvh' }, // Express
+            { shipping_rate: 'shr_1RO9kSLzNgqX2t8K0SOnswvh' }  // Express
         ];
 
-        // Conditionally add free shipping
         if (subtotal >= 5000) {
             shipping_options.unshift({ shipping_rate: 'shr_1RO9lyLzNgqX2t8KUr7X1RJh' }); // Free
         }
-
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
