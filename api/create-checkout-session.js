@@ -34,6 +34,8 @@ export default async function handler(req, res) {
 
             const finalName = selectedVariant ? `${product.name} - ${selectedVariant}` : product.name;
 
+            const cleanVariant = selectedVariant?.trim();
+
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ["card"],
                 mode: "payment",
@@ -42,9 +44,9 @@ export default async function handler(req, res) {
                         price_data: {
                             currency: "usd",
                             product_data: {
-                                name: finalName,
+                                name: cleanVariant ? `${product.name} - ${cleanVariant}` : product.name,
                                 description: product.descriptionList?.join(" | ") || product.description || "Karry Kraze item",
-                                images: [product.variantImages?.[selectedVariant] || product.image],
+                                images: [product.variantImages?.[cleanVariant] || product.image],
                             },
                             unit_amount: Math.round(
                                 product.tags?.includes("Onsale") && product.sale_price < product.price
@@ -63,6 +65,7 @@ export default async function handler(req, res) {
                 success_url: "https://www.karrykraze.com/success.html?session_id={CHECKOUT_SESSION_ID}",
                 cancel_url: "https://www.karrykraze.com/cancel.html",
             });
+
 
 
             return res.status(200).json({ url: session.url });

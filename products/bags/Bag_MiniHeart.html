@@ -130,12 +130,15 @@
         }
 
         function updateVariant(input) {
-            const btn = document.getElementById('add-to-cart-btn');
-            if (btn) {
-                const value = typeof input === 'string' ? input : input.value;
-                btn.setAttribute('data-item-custom1-value', value);
+            const value = typeof input === 'string' ? input : input.value;
+
+            // ✅ For Stripe
+            const variantInput = document.getElementById("variantSelector");
+            if (variantInput) {
+                variantInput.value = value.trim();
             }
         }
+
 
         const colorMap = {
             Black: "#000000",
