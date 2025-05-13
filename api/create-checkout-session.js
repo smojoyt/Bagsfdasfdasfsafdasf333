@@ -29,8 +29,12 @@ export default async function handler(req, res) {
 
         let line_items = [];
 
+        // 🔄 Handle SIDE CART
         if (Array.isArray(cart)) {
-            // 🛒 MULTI-ITEM: From custom side cart
+            if (cart.length === 0) {
+                return res.status(400).json({ error: "Cart is empty" });
+            }
+
             line_items = cart.map(item => {
                 const product = Object.values(products).find(p => p.product_id === item.id);
                 if (!product) return null;
@@ -53,8 +57,9 @@ export default async function handler(req, res) {
                     quantity: item.qty || 1
                 };
             }).filter(Boolean);
-        } else if (sku) {
-            // 🛍️ SINGLE ITEM: Fallback (like direct buy now button)
+        }
+        // 🛍️ Handle SINGLE ITEM BUY NOW
+        else if (sku) {
             const product = products[sku];
             if (!product) {
                 return res.status(404).json({ error: "Product not found" });

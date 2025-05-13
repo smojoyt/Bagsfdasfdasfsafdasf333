@@ -1,10 +1,10 @@
-async function triggerStripeCheckout() {
+﻿async function triggerStripeCheckout() {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
     const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cartItems: cart }),
+        body: JSON.stringify({ cart })  // ✅ correct key
     });
 
     const data = await res.json();
@@ -14,23 +14,6 @@ async function triggerStripeCheckout() {
         alert("Checkout failed.");
     }
 }
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    const tryBindCheckout = () => {
-        const btn = document.getElementById("checkoutBtn");
-        if (btn) {
-            btn.addEventListener("click", triggerStripeCheckout);
-        } else {
-            // Try again later if it hasn't been injected yet
-            setTimeout(tryBindCheckout, 100);
-        }
-    };
-
-    tryBindCheckout();
-    updateCartCount();
-});
-
 
 function toggleCart(show = null) {
     const cartEl = document.getElementById("sideCart");
@@ -64,7 +47,7 @@ function renderCart() {
             <div class="flex items-center justify-between">
                 <div>
                     <p class="font-semibold">${item.name}</p>
-                    <p class="text-sm text-gray-500">${item.variant || ""} � ${item.qty}</p>
+                    <p class="text-sm text-gray-500">${item.variant || ""} × ${item.qty}</p>
                 </div>
                 <div class="text-right">
                     <p class="text-sm font-medium">$${(item.price * item.qty).toFixed(2)}</p>
@@ -83,5 +66,18 @@ function updateCartCount() {
     if (badge) badge.textContent = count;
 }
 
-document.getElementById("checkoutBtn")?.addEventListener("click", triggerStripeCheckout);
-document.addEventListener("DOMContentLoaded", updateCartCount);
+document.addEventListener("DOMContentLoaded", () => {
+    updateCartCount();
+
+    // 🧠 Ensure checkoutBtn exists before binding
+    const tryBindCheckout = () => {
+        const btn = document.getElementById("checkoutBtn");
+        if (btn) {
+            btn.addEventListener("click", triggerStripeCheckout);
+        } else {
+            setTimeout(tryBindCheckout, 100); // Retry if not yet loaded
+        }
+    };
+
+    tryBindCheckout();
+});
