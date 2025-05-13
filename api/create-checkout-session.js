@@ -1,56 +1,77 @@
 ﻿const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
 
-module.exports = async (req, res) => {
+export const config = {
+    api: {
+        bodyParser: true,
+    },
+};
+
+export default async function handler(req, res) {
+    res.setHeader("Access-Control-Allow-Origin", "https://www.karrykraze.com");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+
+    if (req.method === "OPTIONS") {
+        return res.status(200).end();
+    }
+
     if (req.method === "POST") {
-        try {
-            const { sku, selectedVariant } = req.body;
+        const { sku, selectedVariant } = req.body;
 
+        try {
+            // Load products.json from the root of your project
             const filePath = path.join(process.cwd(), 'products', 'products.json');
-            const rawData = fs.readFileSync(filePath, 'utf-8');
+            const rawData = fs.readFileSync(filePath, 'utf8');
             const products = JSON.parse(rawData);
 
             const product = products[sku];
-
             if (!product) {
-                return res.status(400).json({ error: "Invalid SKU" });
+                return res.status(404).json({ error: "Product not found" });
             }
 
-            // Fallback image logic
-            let productImage = product.image;
-            if (selectedVariant && product.variantImages && product.variantImages[selectedVariant]) {
-                productImage = product.variantImages[selectedVariant];
-            }
-
-            const variantText = selectedVariant ? ` (${product.custom1Name}: ${selectedVariant})` : "";
+            const finalName = selectedVariant ? `${product.name} - ${selectedVariant}` : product.name;
 
             const session = await stripe.checkout.sessions.create({
-                payment_method_types: ['card'],
-                line_items: [{
-                    price_data: {
-                        currency: 'usd',
-                        product_data: {
-                            name: `${product.name}${variantText}`,
-                            description: product.descriptionList.join(' • '),
-                            images: [productImage]
+                payment_method_types: ["card"],
+                mode: "payment",
+                line_items: [
+                    {
+                        price_data: {
+                            currency: "usd",
+                            product_data: {
+                                name: finalName,
+                                description: product.description || "Karry Kraze item",
+                                images: [product.image],
+                            },
+                            unit_amount: Math.round(
+                                product.tags?.includes("Onsale") && product.sale_price < product.price
+                                    ? product.sale_price * 100
+                                    : product.price * 100
+                            ),
                         },
-                        unit_amount: Math.round(product.price * 100) // Convert to cents
+                        quantity: 1,
                     },
-                    quantity: 1
-                }],
-                mode: 'payment',
-                success_url: `https://www.karrykraze.com/`,
-                cancel_url: `https://www.karrykraze.com/`,
+                ],
+                customer_creation: "always",
+                billing_address_collection: "auto",
+                shipping_address_collection: {
+                    allowed_countries: ["US", "CA"],
+                },
+                success_url: "https://www.karrykraze.com/success.html?session_id={CHECKOUT_SESSION_ID}",
+                cancel_url: "https://www.karrykraze.com/cancel.html",
             });
 
-            res.status(200).json({ url: session.url });
+            return res.status(200).json({ url: session.url });
+
         } catch (err) {
-            console.error("Stripe error:", err.message);
-            res.status(500).json({ error: err.message });
+            console.error("Stripe session error:", err);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     } else {
         res.setHeader("Allow", "POST");
-        res.status(405).end("Method Not Allowed");
+        return res.status(405).end("Method Not Allowed");
     }
-};
+}
