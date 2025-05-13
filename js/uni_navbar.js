@@ -138,12 +138,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartEl = document.getElementById("sideCart");
     const overlay = document.getElementById("cartOverlay");
 
-    cartEl?.classList.add("translate-x-full");
+    // Hide immediately without animation
+    cartEl?.classList.add("translate-x-full", "no-transition");
     overlay?.classList.add("hidden");
 
-    setTimeout(() => {
+    // Re-enable animation after 1 frame
+    requestAnimationFrame(() => {
         cartEl?.classList.remove("no-transition");
-    }, 50); // small delay to allow initial paint
+    });
+
+    updateCartCount();
+    renderCart(); // Optional if you want to render on load
 
 });
 
