@@ -105,6 +105,18 @@
     <div id="unicart-container"></div>
 
 
+    <script>
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar();
+            const checkoutBtn = document.getElementById("checkoutBtn");
+            if (checkoutBtn) checkoutBtn.addEventListener("click", triggerStripeCheckout);
+
+            includeHTML("productpage", "/page_inserts/productpage.html", () => {
+                loadProductData();
+                setupStripeBuyButton(); // optional
+            });
+        });
+    </script>
 
     <script>
         let activeProduct = null;

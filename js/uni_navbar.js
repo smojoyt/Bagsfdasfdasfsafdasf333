@@ -15,6 +15,23 @@ async function triggerStripeCheckout() {
     }
 }
 
+
+document.addEventListener("DOMContentLoaded", () => {
+    const tryBindCheckout = () => {
+        const btn = document.getElementById("checkoutBtn");
+        if (btn) {
+            btn.addEventListener("click", triggerStripeCheckout);
+        } else {
+            // Try again later if it hasn't been injected yet
+            setTimeout(tryBindCheckout, 100);
+        }
+    };
+
+    tryBindCheckout();
+    updateCartCount();
+});
+
+
 function toggleCart(show = null) {
     const cartEl = document.getElementById("sideCart");
     const overlay = document.getElementById("cartOverlay");
