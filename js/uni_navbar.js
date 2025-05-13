@@ -48,6 +48,32 @@ function updateCartCount() {
     const badge = document.getElementById("cart-count");
     if (badge) badge.textContent = count;
 }
+document.getElementById("checkout-button")?.addEventListener("click", async () => {
+    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+    if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    try {
+        const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cart })
+        });
+
+        const data = await res.json();
+        if (data.url) {
+            window.location.href = data.url;
+        } else {
+            alert("Checkout session failed.");
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Error starting checkout.");
+    }
+});
+
 
 // Optional: Call this on page load to update cart count
 document.addEventListener("DOMContentLoaded", updateCartCount);
