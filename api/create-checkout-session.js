@@ -31,10 +31,10 @@ export default async function handler(req, res) {
             if (!product) {
                 return res.status(404).json({ error: "Product not found" });
             }
-
+            const cleanVariant = selectedVariant?.trim();
             const finalName = cleanVariant ? `${product.name} - ${cleanVariant}` : product.name;
 
-            const cleanVariant = selectedVariant?.trim();
+            
             console.log("Using image:", product.variantImages?.[cleanVariant] || product.image);
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ["card"],
