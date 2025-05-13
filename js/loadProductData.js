@@ -1,31 +1,4 @@
-﻿function injectStaticSnipcartButton(product) {
-    const hiddenButton = document.createElement("button");
-    hiddenButton.className = "snipcart-add-item hidden";
-    hiddenButton.setAttribute("data-item-id", skuFromURL);
-    hiddenButton.setAttribute("data-item-name", product.name);
-    hiddenButton.setAttribute("data-item-price", (
-        product.tags?.includes("Onsale") && product.sale_price < product.price
-            ? product.sale_price
-            : product.price
-    ).toFixed(2));
-    hiddenButton.setAttribute("data-item-url", window.location.origin + window.location.pathname);
-    hiddenButton.setAttribute("data-item-image", product.image);
-    hiddenButton.setAttribute("data-item-description", product.descriptionList?.join(" | ") || product.description);
-
-    if (product.custom1Name && product.custom1Options) {
-        hiddenButton.setAttribute("data-item-custom1-name", product.custom1Name);
-        hiddenButton.setAttribute("data-item-custom1-options", product.custom1Options);
-        hiddenButton.setAttribute("data-item-custom1-value", product.custom1Value || product.custom1Options.split("|")[0].trim());
-    }
-
-    hiddenButton.setAttribute("data-item-custom2-name", "Original Price");
-    hiddenButton.setAttribute("data-item-custom2-value", `$${product.price.toFixed(2)}`);
-    hiddenButton.setAttribute("data-item-custom2-type", "readonly");
-
-    document.body.appendChild(hiddenButton);
-}
-
-
+﻿
 function loadProductData() {
     fetch("https://www.karrykraze.com/products/products.json")
         .then(res => res.json())
@@ -131,18 +104,23 @@ function loadProductData() {
                     swatch.setAttribute("aria-label", `${color} color`);
 
                     swatch.addEventListener("click", () => {
-                        updateVariant(color); // now works because of updated function
+                        updateVariant(color);
 
                         Array.from(variantSelect.children).forEach(btn =>
                             btn.querySelector("div").classList.remove("ring", "ring-black", "ring-offset-2")
                         );
                         swatch.querySelector("div").classList.add("ring", "ring-black", "ring-offset-2");
 
-                        if (activeProduct.variantImages?.[color]) {
-                            const img = document.getElementById("mainImage");
-                            if (img) img.src = activeProduct.variantImages[color];
+                        const img = document.getElementById("mainImage");
+                        if (activeProduct.variantImages?.[color] && img) {
+                            img.src = activeProduct.variantImages[color];
                         }
+
+                        // ✅ Sync selected variant to hidden field for Stripe
+                        const variantInput = document.getElementById("variantSelector");
+                        if (variantInput) variantInput.value = color;
                     });
+
 
                     variantSelect.appendChild(swatch);
                 });
