@@ -43,14 +43,12 @@ export default async function handler(req, res) {
                             images: [image],
                             metadata: {
                                 variant: variant || "N/A",
-                                product_id: sku || item.id || "N/A",
-                                shipping: "true",
-                                requires_shipping: "true"
+                                product_id: item.id || "N/A"
                             }
-
                         },
                         unit_amount: Math.round(item.price * 100)
-                    },
+                    }
+,
                     quantity: item.qty || 1
                 };
             }).filter(Boolean);
