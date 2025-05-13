@@ -35,7 +35,7 @@ export default async function handler(req, res) {
             const finalName = cleanVariant ? `${product.name} - ${cleanVariant}` : product.name;
 
             const cleanVariant = selectedVariant?.trim();
-
+            console.log("Using image:", product.variantImages?.[cleanVariant] || product.image);
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ["card"],
                 mode: "payment",
@@ -79,4 +79,4 @@ export default async function handler(req, res) {
         return res.status(405).end("Method Not Allowed");
     }
 }
-console.log("Using image:", product.variantImages?.[cleanVariant] || product.image);
+
