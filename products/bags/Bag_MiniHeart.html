@@ -254,6 +254,15 @@
         }
     </script>
 
+    <script>
+        document.getElementById("add-to-cart-btn").addEventListener("click", () => {
+            const variant = document.getElementById("variantSelector")?.value || null;
+            addToCart(activeProduct, variant);
+        });
+
+
+    </script>
+
 
 
 

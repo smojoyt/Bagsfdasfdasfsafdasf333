@@ -1,4 +1,27 @@
-﻿
+﻿function addToCart(product, variant) {
+    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+
+    const existing = cart.find(item => item.id === product.id && item.variant === variant);
+    if (existing) {
+        existing.qty += 1;
+    } else {
+        cart.push({
+            id: product.product_id,
+            name: product.name,
+            variant: variant || null,
+            price: product.tags?.includes("Onsale") && product.sale_price < product.price
+                ? product.sale_price
+                : product.price,
+            qty: 1
+        });
+    }
+
+    localStorage.setItem("savedCart", JSON.stringify(cart));
+    updateCartCount(); // from uni_navbar.js
+    toggleCart(true);  // optional: open cart on add
+}
+
+
 function loadProductData() {
     fetch("https://www.karrykraze.com/products/products.json")
         .then(res => res.json())
