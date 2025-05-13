@@ -106,7 +106,7 @@ export default async function handler(req, res) {
             },
             shipping_options,
             allow_promotion_codes: true,
-            success_url: "https://www.karrykraze.com/success.html?session_id={CHECKOUT_SESSION_ID}",
+            success_url: "https://www.karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
             cancel_url: "https://www.karrykraze.com/cancel.html"
         });
 
