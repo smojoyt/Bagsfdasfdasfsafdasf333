@@ -42,10 +42,12 @@ export default async function handler(req, res) {
                             description,
                             images: [image],
                             metadata: {
-                                variant: item.variant,
+                                variant: variant || "N/A",
+                                product_id: sku || item.id || "N/A",
                                 shipping: "true",
                                 requires_shipping: "true"
                             }
+
                         },
                         unit_amount: Math.round(item.price * 100)
                     },
@@ -56,6 +58,7 @@ export default async function handler(req, res) {
             const product = products[sku];
             if (!product) return res.status(404).json({ error: "Product not found" });
 
+            // inside else if (sku) block
             const variant = selectedVariant?.trim();
             const image = product.variantImages?.[variant] || product.image;
             const name = variant ? `${product.name} - ${variant}` : product.name;
@@ -69,10 +72,12 @@ export default async function handler(req, res) {
                         description,
                         images: [image],
                         metadata: {
-                            variant: item.variant,
+                            variant: variant || "N/A",
+                            product_id: sku || item.id || "N/A",
                             shipping: "true",
                             requires_shipping: "true"
                         }
+
                     },
                     unit_amount: Math.round(
                         product.tags?.includes("Onsale") && product.sale_price < product.price
@@ -82,6 +87,7 @@ export default async function handler(req, res) {
                 },
                 quantity: 1
             }];
+
         } else {
             return res.status(400).json({ error: "No valid cart or SKU provided." });
         }
