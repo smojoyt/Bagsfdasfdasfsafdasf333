@@ -1,3 +1,4 @@
+[
 {
 	"Headwear_EarflapBeanie": {
 		"name": "Ribbed Knit Earflap Beanie",
@@ -218,7 +219,7 @@
 	},
 
 	"Charms_PearChain": {
-		"name": "Pear Drop Charm - Glitter Red",
+		"name": "Pear Drop Glitter Charm",
 		"category": "charms",
 		"product_id": "KK-1008",
 		"price": 19.97,
@@ -277,3 +278,4 @@
 
 
 }
+]

@@ -1,0 +1,281 @@
+[
+	{
+		"Headwear_EarflapBeanie": {
+			"name": "Ribbed Knit Earflap Beanie",
+			"category": "headwear",
+			"product_id": "KK-1001",
+			"price": 65.96,
+			"sale_price": 39.97,
+			"tags": [ "Bestseller", "Onsale" ],
+			"image": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_05.jpg",
+			"url": "https://www.karrykraze.com/products/headwear/Headwear_EarflapBeanie.html",
+			"descriptionList": [
+				"Ribbed Knit Acrylic Blend",
+				"Oversized earflap design",
+				"Signature LOVER BOY front patch",
+				"One size fits most",
+				"Lightweight & breathable",
+				"Hand wash cold, dry flat"
+			],
+			"custom1Name": "Color",
+			"custom1Options": "Black | Cream",
+			"variantImages": {
+				"Black": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_03.jpg",
+				"Cream": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_06.jpg"
+			},
+			"thumbnails": [
+				"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_05.jpg",
+				"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_03.jpg",
+				"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_05.jpg",
+				"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_02.jpg",
+				"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_04.jpg",
+				"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_03.jpg",
+				"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_06.jpg"
+			]
+		},
+
+		"Bag_MiniHeart": {
+			"name": "Mini Tote - Heart Embossed",
+			"category": "bags",
+			"product_id": "KK-1002",
+			"price": 34.97,
+			"tags": [ "Bestseller" ],
+			"image": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg",
+			"url": "https://www.karrykraze.com/products/bags/Bag_MiniHeart.html",
+			"descriptionList": [
+				"Mini tote silhouette with top handles",
+				"Includes detachable heart charm keychain",
+				"Lightweight and compact. Fits phone, cards, & gloss",
+				"Wipe clean with damp cloth",
+				"One size. Perfect for daily essentials or gifting"
+			],
+			"custom1Name": "Color",
+			"custom1Options": "Pink | White",
+			"variantImages": {
+				"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg",
+				"White": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_03.jpg"
+			},
+			"thumbnails": [
+				"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_03.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_06.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_03.jpg"
+			]
+		},
+
+
+		"Bag_TheBucket": {
+			"name": "The Bucket White Drawstring Bag",
+			"category": "bags",
+			"product_id": "KK-1003",
+			"price": 64.97,
+			"tags": [ "" ],
+			"image": "https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg",
+			"url": "https://www.karrykraze.com/products/bags/Bag_TheBucket.html",
+			"descriptionList": [
+				"Soft white faux leather with bold THE BUCKET text",
+				"Gold-tone hardware + durable drawstring closure",
+				"Compact & roomy. Fits your phone, wallet, and gloss",
+				"Lightweight, stylish, and ready to go wherever you do",
+				"Sling it over your shoulder and own the look."
+			],
+			"custom1Name": "Color",
+			"custom1Options": "White",
+			"variantImages": {
+				"White": "https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg"
+			},
+			"thumbnails": [
+				"https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_06.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_05.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_04.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_08.jpg"
+			]
+		},
+
+		"Bag_BitchesIsWeird": {
+			"name": "Mini Tote - B!TCH#S IS WEIRD",
+			"category": "bags",
+			"product_id": "KK-1004",
+			"price": 75.65,
+			"sale_price": 56.74,
+			"tags": [ "Onsale" ],
+			"image": "https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg",
+			"url": "https://www.karrykraze.com/products/bags/Bag_BitchesIsWeird.html",
+			"descriptionList": [
+				"Boxy mini tote statement purse",
+				"Dual top handles for hand carry",
+				"Wipe clean with damp cloth only",
+				"One size, Compact yet spacious for essentials"
+			],
+			"custom1Name": "Color",
+			"custom1Options": "Pink",
+			"variantImages": {
+				"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg"
+			},
+			"thumbnails": [
+				"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_06.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_03.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_04.jpg"
+			]
+		},
+
+		"Bag_MotoJacket": {
+			"name": "Moto Jacket Crossbody - Patent Black",
+			"category": "bags",
+			"product_id": "KK-1005",
+			"price": 44.97,
+			"tags": [ "NewArrival" ],
+			"image": "https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg",
+			"url": "https://www.karrykraze.com/products/bags/Bag_MotoJacket.html",
+			"descriptionList": [
+				"Edgy faux leather purse shaped like a biker jacket",
+				"Chain and faux leather crossbody strap",
+				"Glossy black patent finish with gold hardware",
+				"Compact size, fits small wallet, keys, and phone"
+			],
+			"custom1Name": "Color",
+			"custom1Options": "Black",
+			"variantImages": {
+				"Black": "https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg"
+			},
+			"thumbnails": [
+				"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_02.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_03.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/02_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/03_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/04_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/05_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/06_01.jpg"
+			]
+		},
+
+		"Bag_CelestialRound": {
+			"name": "Celestial Round Bag",
+			"category": "bags",
+			"product_id": "KK-1006",
+			"price": 49.95,
+			"tags": [ "" ],
+			"image": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_01.jpg",
+			"url": "https://www.karrykraze.com/products/bags/Bag_CelestialRound.html",
+			"descriptionList": [
+				"Chic round handbag with celestial sun, moon & star embroidery",
+				"Gold heart charm chain detail",
+				"White faux leather with top zipper",
+				"Detachable gold chain strap for crossbody or shoulder wear"
+			],
+			"custom1Name": "Color",
+			"custom1Options": "White",
+			"variantImages": {
+				"Black": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_01.jpg",
+				"White": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_01.jpg"
+			},
+			"thumbnails": [
+				"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/04_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_02.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_03.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_02.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_03.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_02.jpg"
+			]
+		},
+
+		"Bag_HelloKittyDuffel": {
+			"name": "Mini Duffel - Hello Kitty Pink",
+			"category": "bags",
+			"product_id": "KK-1007",
+			"price": 69.97,
+			"tags": [ "HelloKitty" ],
+			"image": "https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_04.jpg",
+			"url": "https://www.karrykraze.com/products/bags/Bag_HelloKittyDuffel.html",
+			"descriptionList": [
+				"Mini pink duffel handbag featuring Hello Kitty print",
+				"Dual top handles and adjustable long strap",
+				"Soft faux leather with gold hardware",
+				"Zipper closure and structured barrel shape"
+			],
+			"custom1Name": "Color",
+			"custom1Options": "Pink",
+			"variantImages": {
+				"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_04.jpg"
+			},
+			"thumbnails": [
+				"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_04.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_05.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_06.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_02.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_03.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_07.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_01.jpg"
+			]
+		},
+
+		"Charms_PearChain": {
+			"name": "Pear Drop Glitter Charm",
+			"category": "charms",
+			"product_id": "KK-1008",
+			"price": 19.97,
+			"tags": [ "BagAccessory" ],
+			"image": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg",
+			"url": "https://www.karrykraze.com/products/charms/Charms_PearChain.html",
+			"descriptionList": [
+				"Elegant pear-shaped charm with glitter red finish",
+				"Gold-tone hardware with secure lobster clasp",
+				"Perfect for handbags, keys, or backpacks",
+				"Lightweight with premium build and glossy shine"
+			],
+			"custom1Name": "Color",
+			"custom1Options": "Red",
+			"variantImages": {
+				"Red": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg"
+			},
+			"thumbnails": [
+				"https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pendants/Pear/01_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pendants/Pear/01_02.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_02.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pendants/Pear/03_01.jpg"
+			]
+		},
+
+		"Charms_AlienPlushies": {
+			"name": "Mini Alien Plushies",
+			"category": "charms",
+			"product_id": "KK-1009",
+			"price": 24.97,
+			"tags": [ "BagAccessory" ],
+			"image": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/04_01.jpg",
+			"url": "https://www.karrykraze.com/products/charms/Charms_AlienPlushies.html",
+			"descriptionList": [
+				"Set of 3 plush monster figures in yellow, black, and white",
+				"Soft material with embroidered details and expressive eyes",
+				"Great as keychains, shelf decor, or small gifts",
+				"Each approx. 3.5–4 inches tall"
+			],
+			"custom1Name": "Color",
+			"custom1Options": "Brown | White | Black",
+			"variantImages": {
+				"Brown": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/01_01.jpg",
+				"White": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/02_01.jpg",
+				"Black": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/03_01.jpg"
+			},
+			"thumbnails": [
+				"https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/01_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/02_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/03_01.jpg",
+				"https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/04_01.jpg"
+			]
+		}
+
+
+
+	}
+]
