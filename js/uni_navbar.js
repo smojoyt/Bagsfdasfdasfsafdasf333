@@ -137,8 +137,9 @@ document.addEventListener("DOMContentLoaded", () => {
     cartEl?.classList.add("translate-x-full");
     overlay?.classList.add("hidden");
 
-    requestAnimationFrame(() => {
+    setTimeout(() => {
         cartEl?.classList.remove("no-transition");
-    });
+    }, 50); // small delay to allow initial paint
+
 });
 
