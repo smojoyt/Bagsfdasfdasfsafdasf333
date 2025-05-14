@@ -149,9 +149,6 @@
     <div id="navbar-container"></div>
     <div id="unicart-container"></div>
 
-    <!-- Snipcart -->
-    <div hidden id="snipcart" data-api-key="OTkwZGJhM2QtNmQyMy00ZGYxLTg4YzAtNmExNDA2MDhmNmU0NjM4NzgwMjMxMTgyOTYyMjAz" data-config-modal-style="side"></div>
-
     <script>
         const toggleBtn = document.getElementById("toggle-filters");
         const sidebar = document.getElementById("filter-sidebar");
@@ -204,6 +201,9 @@
                     const container = document.getElementById("product-grid");
 
                     Object.entries(products).forEach(([sku, p]) => {
+                        // Skip discontinued items
+                        if (p.tags?.includes("Discontinued")) return;
+
                         const tagClasses = [
                             ...(p.tags ? p.tags.map(t => t.toLowerCase()) : []),
                             ...(p.tags?.includes("Outofstock") ? [] : ["instock"])
@@ -331,25 +331,7 @@
             });
         }
 
-        document.addEventListener('snipcart.ready', () => {
-            const navbar = document.getElementById('mainNavbar');
-            const body = document.body;
-            const pageContent = document.getElementById('pageContent');
-
-            Snipcart.events.on('cart.opened', () => {
-                navbar?.classList.add('navbar-hide', 'relative');
-                navbar?.classList.remove('fixed', 'top-0');
-                body.classList.add('dimmed-background');
-                pageContent?.classList.add('blurred');
-            });
-
-            Snipcart.events.on('cart.closed', () => {
-                navbar?.classList.remove('navbar-hide', 'relative');
-                navbar?.classList.add('navbar-show', 'fixed', 'top-0');
-                body.classList.remove('dimmed-background');
-                pageContent?.classList.remove('blurred');
-            });
-        });
+        
         // 🔁 Main Load Flow
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
             initNavbar();
