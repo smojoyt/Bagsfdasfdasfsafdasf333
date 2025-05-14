@@ -1,4 +1,3 @@
-
 {
 	"Headwear_EarflapBeanie": {
 		"name": "Ribbed Knit Earflap Beanie",
@@ -273,7 +272,29 @@
 			"https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/03_01.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/04_01.jpg"
 		]
+	},
+
+	"Bag_LVShoulderSet": {
+		"name": "LV Shoulder Set",
+		"category": "bags",
+		"product_id": "KK-1010",
+		"price": 125.00,
+		"tags": [ "" ],
+		"image": "",
+		"url": "",
+		"descriptionList": [
+			""
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Black",
+		"variantImages": {
+			"Black": ""
+		},
+		"thumbnails": [
+			""
+		]
 	}
+
 
 
 
