@@ -377,6 +377,25 @@
 		"thumbnails": [
 			""
 		]
+	},
+
+	"Bag_DiorTote": {
+		"name": "Dior Tote Bag",
+		"category": "bags",
+		"product_id": "KK-1015",
+		"price": 300.00,
+		"tags": [ "" ],
+		"image": "",
+		"url": "",
+		"descriptionList": [
+			""
+		],
+		"custom1Name": "Color",
+		"custom1Options": "",
+		"variantImages": {
+		},
+		"thumbnails": [
+		]
 	}
 
 
