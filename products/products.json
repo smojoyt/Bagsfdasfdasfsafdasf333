@@ -293,6 +293,90 @@
 		"thumbnails": [
 			""
 		]
+	},
+
+	"Bag_LVTote": {
+		"name": "LV Tote",
+		"category": "bags",
+		"product_id": "KK-1011",
+		"price": 150.00,
+		"tags": [ "" ],
+		"image": "",
+		"url": "",
+		"descriptionList": [
+			""
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Black",
+		"variantImages": {
+			"Black": ""
+		},
+		"thumbnails": [
+			""
+		]
+	},
+
+	"Bag_ToteBagGradient": {
+		"name": "The Tote Bag Gradient",
+		"category": "bags",
+		"product_id": "KK-1012",
+		"price": 60.00,
+		"tags": [ "" ],
+		"image": "",
+		"url": "",
+		"descriptionList": [
+			""
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Pink",
+		"variantImages": {
+			"Black": ""
+		},
+		"thumbnails": [
+			""
+		]
+	},
+
+	"Charms_CherryAccessory": {
+		"name": "Cherry Bag Accessory",
+		"category": "charms",
+		"product_id": "KK-1013",
+		"price": 20.00,
+		"tags": [ "" ],
+		"image": "",
+		"url": "",
+		"descriptionList": [
+			""
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Red",
+		"variantImages": {
+			"Black": ""
+		},
+		"thumbnails": [
+			""
+		]
+	},
+
+	"Bag_LVMediumWallet": {
+		"name": "LV Wallet",
+		"category": "bags",
+		"product_id": "KK-1014",
+		"price": 120.00,
+		"tags": [ "" ],
+		"image": "",
+		"url": "",
+		"descriptionList": [
+			""
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Black",
+		"variantImages": {
+			"Black": ""
+		},
+		"thumbnails": [
+			""
+		]
 	}
 
 
