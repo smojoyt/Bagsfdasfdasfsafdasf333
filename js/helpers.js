@@ -132,7 +132,7 @@ function renderCatalogCard(p) {
         </div>` : ""}
 </div>
 
-            <div class="min-h-[150px] max-w-[192px] p-2">
+            <div class="min-h-[100px] max-w-[192px] p-2">
                                         <h2 class="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
                                         ${priceBlock}
                                         <div class="flex flex-wrap gap-1 mt-2">${tagBadges}</div>
