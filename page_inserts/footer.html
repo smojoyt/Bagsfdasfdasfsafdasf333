@@ -33,7 +33,7 @@
         <div class="col-span-1">
             <h2 class="text-base font-bold mb-1">10% OFF YOUR FIRST PURCHASE</h2>
             <p class="text-lg font-semibold mb-3">JOIN THE KRAZE</p>
-            <form id="newsletterForm" class="flex flex-col sm:flex-row gap-2">
+            <form id="newsletterForm" onsubmit="return false;" class="flex flex-col sm:flex-row gap-2">
                 <input type="email"
                        id="newsletterEmail"
                        required
@@ -44,6 +44,7 @@
                     UNLOCK NOW
                 </button>
             </form>
+
         </div>
     </div>
 
@@ -67,8 +68,14 @@
         const emailInput = document.getElementById("newsletterEmail");
         const overlay = document.getElementById("thankYouOverlay");
 
-        form.addEventListener("submit", async function (e) {
-            e.preventDefault(); // stop reload
+        if (!form || !emailInput) {
+            console.warn("❌ Form or email input not found!");
+            return;
+        }
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            console.log("✅ Form submission captured");
 
             const email = emailInput.value.trim();
             if (!email || !email.includes("@")) {
@@ -80,20 +87,19 @@
             formData.append("data[email]", email);
             formData.append("data[source]", "Newsletter");
 
-            try {
-                const res = await fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Newsletter_Signups", {
-                    method: "POST",
-                    body: formData
+            fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Newsletter_Signups", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error("Failed to submit");
+                    overlay.classList.remove("hidden");
+                    form.reset();
+                })
+                .catch(error => {
+                    console.error("Error submitting to SheetDB:", error);
+                    alert("Something went wrong. Please try again.");
                 });
-
-                if (!res.ok) throw new Error("Save failed");
-
-                overlay.classList.remove("hidden");
-                form.reset();
-            } catch (err) {
-                console.error(err);
-                alert("Something went wrong. Please try again.");
-            }
         });
 
         window.closeThankYou = function () {
@@ -101,3 +107,4 @@
         };
     });
 </script>
+
