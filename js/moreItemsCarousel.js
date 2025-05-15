@@ -58,12 +58,6 @@ function initMoreItemsCarousel() {
   <div class="text-center mt-3">
     <div class="text-sm font-semibold truncate">${product.name}</div>
     ${getCompactPriceHTML(product)}
-    ${(product.custom1Options && product.custom1Options.split("|").length > 1)
-                        ? `<div class="flex justify-center mt-2 gap-1">
-        ${renderColorDots(product.custom1Options, product.variantStock)}
-       </div>`
-                        : ''
-}
 
   </div>
 </a>`;
