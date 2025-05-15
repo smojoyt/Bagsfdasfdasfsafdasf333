@@ -317,25 +317,24 @@
             fetch("https://www.karrykraze.com/products/products.json")
                 .then(res => res.json())
                 .then(data => {
-                    const featured = ["Bag_CelestialRound", "Bag_MiniHeart", "Headwear_EarflapBeanie"];
                     const container = document.getElementById("featured-products");
+                    if (!container) return;
 
-                    featured.forEach(sku => {
-                        const p = data[sku];
-                        if (!p) return;
+                    // 1. Filter for products with the "Featured" tag
+                    const featuredProducts = Object.values(data).filter(p =>
+                        p.tags?.includes("Featured")
+                    );
+
+                    featuredProducts.forEach(p => {
+                        // 2. Skip if product is completely out of stock
+                        const stock = p.variantStock || {};
+                        const allOut = Object.values(stock).every(qty => qty <= 0);
+                        if (allOut) return;
 
                         const isBestseller = p.tags?.includes("Bestseller");
-                        const hasVariants = p.custom1Options?.split("|").length > 1;
 
-                        const stock = p.variantStock;
-                        if (stock && Object.keys(stock).length > 0) {
-                            const allOut = Object.values(stock).every(qty => qty <= 0);
-                            if (allOut) return; // Skip if all variants are out
-                        }
-
-                        const firstInStock = stock
-                            ? Object.keys(stock).find(variant => stock[variant] > 0)
-                            : null;
+                        // 3. Get first in-stock variant image (fallback to main image)
+                        const firstInStock = Object.keys(stock).find(variant => stock[variant] > 0);
                         const variantImage = firstInStock && p.variantImages?.[firstInStock]
                             ? p.variantImages[firstInStock]
                             : p.image;
@@ -353,20 +352,27 @@
                         const card = document.createElement("a");
                         card.href = p.url;
                         card.className = `block rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white border ${isBestseller ? "border-yellow-400 rounded-b-xl" : "rounded-xl"}`;
+
+                        // 4. Filter only in-stock variants for swatch rendering
+                        const inStockColors = Object.keys(stock).filter(variant => stock[variant] > 0);
+                        const swatchString = inStockColors.join("|");
+
                         card.innerHTML = `
                     <div class="relative w-full bg-white">
                         <img src="${variantImage}" alt="${p.name}" class="w-full object-contain">
-                        ${hasVariants ? `
+                        ${inStockColors.length > 1 ? `
                             <div class="absolute bottom-2 left-2 flex gap-1">
-                                ${renderColorDots(p.custom1Options, p.variantStock)}
+                                ${renderColorDots(swatchString, p.variantStock)}
                             </div>` : ""}
                     </div>
                 `;
+
                         wrapper.appendChild(card);
                         container.appendChild(wrapper);
                     });
                 });
         }
+
 
 
 

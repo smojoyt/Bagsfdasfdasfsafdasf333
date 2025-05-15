@@ -43,7 +43,7 @@
 		"category": "bags",
 		"product_id": "KK-1002",
 		"price": 34.97,
-		"tags": [ "Bestseller" ],
+		"tags": [ "Bestseller", "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_MiniHeart.html",
 		"descriptionList": [
@@ -81,7 +81,7 @@
 		"category": "bags",
 		"product_id": "KK-1003",
 		"price": 64.97,
-		"tags": [ "" ],
+		"tags": [ "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_TheBucket.html",
 		"descriptionList": [
@@ -114,7 +114,7 @@
 		"product_id": "KK-1004",
 		"price": 75.65,
 		"sale_price": 56.74,
-		"tags": [ "Onsale" ],
+		"tags": [ "Onsale", "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_BitchesIsWeird.html",
 		"descriptionList": [
