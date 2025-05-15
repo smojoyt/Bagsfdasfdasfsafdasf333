@@ -52,9 +52,12 @@ function initMoreItemsCarousel() {
     <div class="text-sm font-semibold truncate">${product.name}</div>
     ${getCompactPriceHTML(product)}
     ${(product.custom1Options && product.custom1Options.split("|").length > 1)
-                        ? `<div class="text-[11px] text-gray-500 mt-1">More colors available</div>`
+                        ? `<div class="flex justify-center mt-2 gap-1">
+        ${renderColorDots(product.custom1Options, product.variantStock)}
+       </div>`
                         : ''
-                    }
+}
+
   </div>
 </a>`;
 

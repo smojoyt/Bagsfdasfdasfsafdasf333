@@ -84,12 +84,19 @@ function loadProductData() {
                     swatch.disabled = isOut;
 
                     swatch.innerHTML = `
-                        <div class="w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black"
-                             style="background-color: ${colorMap[color] || color.toLowerCase()};"></div>
-                        <span class="text-xs mt-1 text-gray-700 group-hover:text-black">
-                            ${color}${isOut ? " (Out)" : ""}
-                        </span>
-                    `;
+    <div class="relative w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black overflow-hidden ${isOut ? 'opacity-50' : ''}"
+         style="background-color: ${colorMap[color] || color.toLowerCase()};">
+        ${isOut ? `
+            <span class="absolute inset-0 bg-white/40 z-10"></span>
+            <span class="absolute inset-0 flex items-center justify-center z-20">
+                <span class="w-full h-[2px] bg-red-600 rotate-45 absolute"></span>
+                <span class="w-full h-[2px] bg-red-600 -rotate-45 absolute"></span>
+            </span>
+        ` : ''}
+    </div>
+    <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
+`;
+
 
                     swatch.setAttribute("aria-label", `${color} color`);
 

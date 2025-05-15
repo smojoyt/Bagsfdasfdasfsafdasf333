@@ -26,7 +26,7 @@
         return `
   <span title="${name}${isOut ? ' (Out of stock)' : ''}"
         class="relative w-5 h-5 sm:w-6 sm:h-6 rounded-full border overflow-hidden 
-               ${isOut ? 'opacity-50' : ''} ${className}">
+               ${isOut ? 'opacity-70' : ''} ${className}">
     ${isOut ? `
       <span class="absolute inset-0 bg-white/40 z-10"></span>
       <span class="absolute inset-0 flex items-center justify-center z-20">
