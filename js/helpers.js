@@ -19,18 +19,24 @@
 
     return optionsStr.split("|").map(opt => {
         const color = opt.toLowerCase().trim();
+        const name = opt.trim();
         const className = colorMap[color] || 'bg-gray-200';
-        const isOut = stockObj && stockObj[opt.trim()] === 0;
+        const isOut = stockObj && stockObj[name] === 0;
 
         return `
-            <span title="${opt.trim()}"
-                  class="relative w-4 h-4 sm:w-6 sm:h-6 rounded-full border ${className}">
+            <span title="${name}"
+                  class="relative w-4 h-4 sm:w-6 sm:h-6 rounded-full border ${className} overflow-hidden">
                 ${isOut ? `
-                    <span class="absolute inset-0 w-full h-full bg-transparent pointer-events-none before:content-[''] before:absolute before:left-0 before:top-1/2 before:w-full before:border-t-2 before:border-red-600 before:transform before:rotate-45 before:origin-center"></span>
+                    <span class="absolute inset-0 bg-white/50"></span>
+                    <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span class="w-[150%] h-[1.5px] bg-black rotate-45"></span>
+                    </span>
                 ` : ""}
             </span>`;
     }).join("");
 }
+
+
 
 
 
