@@ -338,7 +338,7 @@
                                 <img src="${p.image}" alt="${p.name}" class="w-full object-contain">
                                 ${hasVariants ? `
                                     <div class="absolute bottom-2 left-2 flex gap-1">
-                                        ${renderColorDots(p.custom1Options)}
+                                        ${renderColorDots(p.custom1Options, p.variantStock)}
                                     </div>` : ""}
                             </div>`;
                         wrapper.appendChild(card);

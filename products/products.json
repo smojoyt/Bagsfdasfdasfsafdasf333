@@ -18,6 +18,10 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Black | Cream",
+		"variantStock": {
+			"Black": 1,
+			"Cream": 3
+		},
 		"variantImages": {
 			"Black": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_03.jpg",
 			"Cream": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_06.jpg"
@@ -257,7 +261,7 @@
 			"Set of 3 plush monster figures in yellow, black, and white",
 			"Soft material with embroidered details and expressive eyes",
 			"Great as keychains, shelf decor, or small gifts",
-			"Each approx. 3.5–4 inches tall"
+			"Each approx. 3.5ï¿½4 inches tall"
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Brown | White | Black",

@@ -1,4 +1,4 @@
-﻿function renderColorDots(optionsStr) {
+﻿function renderColorDots(optionsStr, stockObj = {}) {
     const colorMap = {
         pink: 'bg-pink-400',
         white: 'bg-white border',
@@ -17,19 +17,21 @@
         cream: 'bg-[#fdf6e3] border'
     };
 
-    const options = optionsStr.split("|");
+    return optionsStr.split("|").map(opt => {
+        const color = opt.toLowerCase().trim();
+        const className = colorMap[color] || 'bg-gray-200';
+        const isOut = stockObj && stockObj[opt.trim()] === 0;
 
-    return `
-        <div class="flex gap-1 mt-1 ml-1">
-            ${options.map(opt => {
-        const name = opt.trim();
-        const key = name.toLowerCase();
-        const colorClass = colorMap[key] || 'bg-gray-300';
-        return `<span title="${name}" class="w-4 h-4 sm:w-6 sm:h-6 rounded-full ${colorClass} border border-gray-300"></span>`;
-    }).join("")}
-        </div>
-    `;
+        return `
+            <span title="${opt.trim()}"
+                  class="relative w-4 h-4 sm:w-6 sm:h-6 rounded-full border ${className}">
+                ${isOut ? `
+                    <span class="absolute inset-0 w-full h-full bg-transparent pointer-events-none before:content-[''] before:absolute before:left-0 before:top-1/2 before:w-full before:border-t-2 before:border-red-600 before:transform before:rotate-45 before:origin-center"></span>
+                ` : ""}
+            </span>`;
+    }).join("");
 }
+
 
 
 
