@@ -95,27 +95,6 @@
         // UTILITIES
         // ─────────────────────────────────────────────────────
 
-        function renderColorDots(options) {
-            const customMap = {
-                cream: "#f5f5dc"
-            };
-            return options.split("|").map(opt => {
-                const color = opt.toLowerCase().trim();
-                return `<span class="w-4 h-4 sm:w-6 sm:h-6 rounded-full border" style="background:${customMap[color] || color}"></span>`;
-            }).join("");
-        }
-
-        const colorMap = {
-            Black: "#000000",
-            White: "#ffffff",
-            Red: "#e3342f",
-            Navy: "#1e3a8a",
-            Beige: "#f5f5dc",
-            Brown: "#8b4513",
-            Gray: "#6b7280",
-            Cream: "#fffdd0"
-        };
-
         function includeHTML(id, filePath, callback = null) {
             fetch(filePath)
                 .then(res => res.text())
