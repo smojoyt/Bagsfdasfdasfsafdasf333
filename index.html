@@ -90,18 +90,69 @@
     <div id="unicart-container"></div>
 
     <!-- JS Scripts -->
+
     <script>
         // ─────────────────────────────────────────────────────
         // UTILITIES
         // ─────────────────────────────────────────────────────
 
         function includeHTML(id, filePath, callback = null) {
+            const target = document.getElementById(id);
+            if (!target) return;
+
             fetch(filePath)
                 .then(res => res.text())
                 .then(html => {
-                    document.getElementById(id).innerHTML = html;
-                    if (callback) callback();
+                    target.innerHTML = html;
+                    if (typeof callback === "function") callback();
+                })
+                .catch(err => {
+                    console.error(`❌ Failed to load ${filePath}:`, err);
                 });
+        }
+
+        function initFooterScripts() {
+            const form = document.getElementById("newsletterForm");
+            const emailInput = document.getElementById("newsletterEmail");
+            const overlay = document.getElementById("thankYouOverlay");
+
+            if (!form || !emailInput) {
+                console.warn("❌ Newsletter form not found");
+                return;
+            }
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                console.log("✅ Newsletter form submitted");
+
+                const email = emailInput.value.trim();
+                if (!email.includes("@")) {
+                    alert("Please enter a valid email.");
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append("data[email]", email);
+                formData.append("data[source]", "Newsletter");
+
+                fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Newsletter_Signups", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error("Failed to submit to SheetDB");
+                        overlay.classList.remove("hidden");
+                        form.reset();
+                    })
+                    .catch(err => {
+                        console.error("❌ SheetDB error:", err);
+                        alert("Something went wrong.");
+                    });
+            });
+
+            window.closeThankYou = function () {
+                overlay.classList.add("hidden");
+            };
         }
 
         function swapImage(newSrc) {
@@ -296,10 +347,6 @@
                 });
         }
 
-        // ─────────────────────────────────────────────────────
-        // STRIPE CHECKOUT
-        // ─────────────────────────────────────────────────────
-
         function setupStripeBuyButton() {
             const btn = document.getElementById("buyButton");
             if (!btn) return;
@@ -332,10 +379,6 @@
             });
         }
 
-        // ─────────────────────────────────────────────────────
-        // PAGE LOAD INIT
-        // ─────────────────────────────────────────────────────
-
         const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
         let activeProduct = null;
 
@@ -345,11 +388,10 @@
                 setupScrollNavbarColorChange();
             });
 
-            includeHTML("footer", "/page_inserts/footer.html");
+            includeHTML("footer", "/page_inserts/footer.html", initFooterScripts);
             includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
             loadFeaturedProducts();
 
-            // Product Page Specific Load
             includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
                 initNavbar();
 
@@ -370,6 +412,7 @@
             });
         });
     </script>
+
 
 
 
