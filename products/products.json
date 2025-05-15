@@ -19,7 +19,7 @@
 		"custom1Name": "Color",
 		"custom1Options": "Black | Cream",
 		"variantStock": {
-			"Black": 0,
+			"Black": 1,
 			"Cream": 3
 		},
 		"variantImages": {
@@ -90,6 +90,9 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "White",
+		"variantStock": {
+			"White": 1
+		},
 		"variantImages": {
 			"White": "https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg"
 		},
@@ -119,6 +122,9 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Pink",
+		"variantStock": {
+			"Pink": 1
+		},
 		"variantImages": {
 			"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg"
 		},
@@ -190,10 +196,16 @@
 			"Detachable gold chain strap for crossbody or shoulder wear"
 		],
 		"custom1Name": "Color",
-		"custom1Options": "White",
+		"custom1Options": "White | Black | Blue",
+		"variantStock": {
+			"White": 1,
+			"Black": 0,
+			"Blue": 0
+		},
 		"variantImages": {
 			"Black": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/03_01.jpg",
-			"White": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_01.jpg"
+			"White": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_01.jpg",
+			"Blue": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_01.jpg"
 		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/04_01.jpg",
@@ -224,6 +236,9 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Pink",
+		"variantStock": {
+			"Pink": 2
+		},
 		"variantImages": {
 			"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_04.jpg"
 		},
@@ -253,9 +268,16 @@
 			"Lightweight with premium build and glossy shine"
 		],
 		"custom1Name": "Color",
-		"custom1Options": "Red",
+		"custom1Options": "Red | Green | Gold",
+		"variantStock": {
+			"Red": 1,
+			"Green": 0,
+			"Gold": 0
+		},
 		"variantImages": {
-			"Red": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg"
+			"Red": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/01_01.jpg",
+			"Green": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg",
+			"Gold": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/03_01.jpg"
 		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg",
@@ -282,6 +304,11 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Brown | White | Black",
+		"variantStock": {
+			"Brown": 1,
+			"White": 0,
+			"Black": 0
+		},
 		"variantImages": {
 			"Brown": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/01_01.jpg",
 			"White": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/02_01.jpg",
