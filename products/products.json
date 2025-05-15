@@ -55,6 +55,10 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Pink | White",
+		"variantStock": {
+			"Pink": 4,
+			"White": 4
+		},
 		"variantImages": {
 			"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg",
 			"White": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_03.jpg"
