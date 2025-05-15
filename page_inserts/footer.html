@@ -34,7 +34,8 @@
             <h2 class="text-base font-bold mb-1">10% OFF YOUR FIRST PURCHASE</h2>
             <p class="text-lg font-semibold mb-3">JOIN THE KRAZE</p>
             <form id="newsletterForm" class="flex flex-col sm:flex-row gap-2">
-                <input type="hidden" name="_captcha" value="false">
+
+
 
                 <input type="email"
                        name="email"
@@ -66,52 +67,58 @@
 
 
 <script>
-    const newsletterForm = document.getElementById("newsletterForm");
-    const thankYouOverlay = document.getElementById("thankYouOverlay");
+    document.addEventListener("DOMContentLoaded", function () {
+        const newsletterForm = document.getElementById("newsletterForm");
+        const thankYouOverlay = document.getElementById("thankYouOverlay");
 
-    newsletterForm.addEventListener("submit", function (e) {
-        e.preventDefault(); // stop full page redirect
+        if (!newsletterForm) return;
 
-        const email = document.getElementById("newsletterEmail").value;
+        newsletterForm.addEventListener("submit", function (e) {
+            e.preventDefault(); // block normal submit
 
-        // SheetDB save
-        const formData = new FormData();
-        formData.append("data[email]", email);
-        formData.append("data[source]", "Newsletter");
+            const emailInput = document.getElementById("newsletterEmail");
+            const email = emailInput.value;
 
-        // 1. Send to SheetDB
-        fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Newsletter_Signups", {
-            method: "POST",
-            body: formData
+            // ✅ SheetDB
+            const formData = new FormData();
+            formData.append("data[email]", email);
+            formData.append("data[source]", "Newsletter");
+
+            fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Newsletter_Signups", {
+                method: "POST",
+                body: formData
+            });
+
+            // ✅ FormSubmit
+            fetch("https://formsubmit.co/ajax/contact@karrykraze.com", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    _subject: "New Newsletter Signup",
+                    source: "Newsletter"
+                })
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error("FormSubmit failed");
+                    thankYouOverlay.classList.remove("hidden");
+                    newsletterForm.reset();
+                })
+                .catch(() => {
+                    alert("Oops! Something went wrong.");
+                });
         });
 
-        // 2. Then send to FormSubmit (AJAX-style)
-        fetch("https://formsubmit.co/ajax/contact@karrykraze.com", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email,
-                _subject: "New Newsletter Signup",
-                source: "Newsletter"
-            })
-        })
-            .then(() => {
-                // Show thank-you overlay instead of redirect
-                thankYouOverlay.classList.remove("hidden");
-                newsletterForm.reset();
-            })
-            .catch(() => {
-                alert("Oops! Something went wrong.");
-            });
+        window.closeThankYou = function () {
+            thankYouOverlay.classList.add("hidden");
+        };
     });
-
-    function closeThankYou() {
-        document.getElementById("thankYouOverlay").classList.add("hidden");
-    }
 </script>
+
+
 
 
 
