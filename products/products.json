@@ -19,7 +19,7 @@
 		"custom1Name": "Color",
 		"custom1Options": "Black | Cream",
 		"variantStock": {
-			"Black": 1,
+			"Black": 0,
 			"Cream": 3
 		},
 		"variantImages": {
