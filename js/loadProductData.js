@@ -46,7 +46,15 @@ function loadProductData() {
 
             const priceSection = document.getElementById("price-section");
             if (priceSection) {
-                priceSection.innerHTML = getFullPriceHTML(activeProduct);
+                if (activeProduct.tags?.includes("Onsale") && activeProduct.sale_price < activeProduct.price) {
+                    priceSection.innerHTML = `
+        <span class="text-gray-500 line-through text-base mr-2">$${activeProduct.price.toFixed(2)}</span>
+        <span class="text-black font-bold text-xl">$${activeProduct.sale_price.toFixed(2)}</span>
+    `;
+                } else {
+                    priceSection.innerHTML = `<span class="text-black font-bold text-xl">$${activeProduct.price.toFixed(2)}</span>`;
+                }
+
             }
 
             const descEl = document.getElementById("product-description");
