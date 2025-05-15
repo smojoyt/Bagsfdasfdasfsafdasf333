@@ -1,5 +1,4 @@
-﻿// helpers.js
-function renderColorDots(optionsStr) {
+﻿function renderColorDots(optionsStr) {
     const colorMap = {
         pink: 'bg-pink-400',
         white: 'bg-white border',
@@ -18,14 +17,6 @@ function renderColorDots(optionsStr) {
         cream: 'bg-[#fdf6e3] border'
     };
 
-    return optionsStr.split("|").map(opt => {
-        const color = opt.toLowerCase().trim();
-        const className = colorMap[color] || 'bg-gray-200';
-        return `<span class="w-4 h-4 sm:w-6 sm:h-6 rounded-full border ${className}"></span>`;
-    }).join("");
-}
-
-
     const options = optionsStr.split("|");
 
     return `
@@ -34,11 +25,12 @@ function renderColorDots(optionsStr) {
         const name = opt.trim();
         const key = name.toLowerCase();
         const colorClass = colorMap[key] || 'bg-gray-300';
-        return `<span title="${name}" class="w-4 h-4 rounded-full ${colorClass} border border-gray-300"></span>`;
+        return `<span title="${name}" class="w-4 h-4 sm:w-6 sm:h-6 rounded-full ${colorClass} border border-gray-300"></span>`;
     }).join("")}
         </div>
     `;
 }
+
 
 
 // Price formatter for compact display (used in carousels and catalog)
