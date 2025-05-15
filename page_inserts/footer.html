@@ -1,44 +1,123 @@
-<!-- Footer -->
-<footer class="bg-[rgb(254_240_138_/var(--tw-bg-opacity,1))] text-gray-700 text-sm border-t mt-10 pb-10">
-    <div class="max-w-7xl mx-auto px-4 py-10 flex flex-col sm:flex-row justify-between items-center sm:items-start gap-8 text-center sm:text-left">
+﻿<!-- Footer -->
+<footer class="bg-[rgb(254_249_195_/var(--tw-bg-opacity,1))] text-gray-700 text-sm border-t mt-10">
+    <div class="max-w-7xl mx-auto px-4 py-12 flex flex-col gap-10">
 
-        <!-- Logo + Brand -->
-        <div class="flex flex-col items-center sm:items-start">
-            <img src="/imgs/Logo/Short/2.jpg" alt="Karry Kraze Logo" class="w-20 h-20 object-contain mb-2">
-            <p class="max-w-xs text-gray-600">
-                Unique bags & accessories designed to turn heads. Fast U.S. shipping, secure checkout, and curated drops.
+        <!-- Newsletter Signup (FormSubmit + SheetDB + Name + Tag + Confirmation) -->
+        <div class="text-center max-w-xl mx-auto">
+            <h2 class="text-xl font-bold mb-2">10% OFF YOUR FIRST PURCHASE</h2>
+            <p class="text-lg font-semibold mb-4">JOIN THE KINFOLK</p>
+
+            <form id="newsletterForm" action="https://formsubmit.co/contact@karrykraze.com" method="POST" class="flex flex-col gap-3 items-center">
+                <!-- Hidden Configs -->
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://www.karrykraze.com/pages/thank-you.html">
+
+                <!-- Name + Email Inputs -->
+                <input type="text" name="name" id="newsletterName" placeholder="Your name"
+                       class="w-full sm:w-72 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+
+                <input type="email" name="email" id="newsletterEmail" placeholder="Enter your email" required
+                       class="w-full sm:w-72 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+
+                <!-- SMS Checkbox -->
+                <label class="inline-flex items-center justify-center text-sm">
+                    <input type="checkbox" id="newsletter_sms_consent" class="form-checkbox text-black">
+                    <span class="ml-2 text-gray-600">I agree to receive SMS updates.</span>
+                </label>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                        class="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-2 rounded font-semibold">
+                    UNLOCK NOW
+                </button>
+            </form>
+
+            <!-- Success Message (hidden by default) -->
+            <p id="newsletterSuccess" class="text-green-700 font-medium mt-4 hidden">🎉 You're in! Check your inbox for a special offer.</p>
+
+            <!-- Disclaimer -->
+            <p class="mt-4 text-sm text-gray-600">
+                Text <strong>DROP to 42092</strong> for early access to drops!
+            </p>
+            <p class="mt-1 text-xs text-gray-500 max-w-md mx-auto">
+                By signing up via text you agree to receive recurring automated marketing messages and cart reminders.
+                Consent not required to purchase. Msg & data rates may apply. <a href="#" class="underline">View Policy & ToS</a>.
             </p>
         </div>
 
-        <!-- Contact Links -->
-        <div>
-            <h3 class="text-lg font-semibold mb-2">Get in Touch</h3>
-            <ul class="space-y-1">
-                <li><a href="/pages/contact-us" class="hover:underline">Contact Us</a></li>
-                <li><a href="mailto:contact@karrykraze.com" class="hover:underline">contact@karrykraze.com</a></li>
-            </ul>
-        </div>
+        <script>
+            const newsletterForm = document.getElementById("newsletterForm");
+            const successMsg = document.getElementById("newsletterSuccess");
 
-        <!-- Social Icons -->
-        <div class="flex flex-col items-center sm:items-end">
-            <h3 class="text-lg font-semibold mb-2">Follow Us</h3>
-            <div class="flex gap-4 justify-center sm:justify-end">
-                <a href="https://www.instagram.com/karrykraze" target="_blank" aria-label="Instagram" class="text-gray-700 hover:text-black transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5c0 3.3-2.45 5.75-5.75 5.75h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2Zm0 1.5C5.4 3.5 3.5 5.4 3.5 7.75v8.5c0 2.35 1.9 4.25 4.25 4.25h8.5c2.35 0 4.25-1.9 4.25-4.25v-8.5c0-2.35-1.9-4.25-4.25-4.25h-8.5Zm8.5 2a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Zm-4.25 1.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5Zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z" />
-                    </svg>
-                </a>
-                <a href="mailto:contact@karrykraze.com" aria-label="Email" class="text-gray-700 hover:text-black transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 2v.01L12 13 4 6.01V6h16ZM4 18V8.01l7.39 6.71c.37.34.94.34 1.3 0L20 8.01V18H4Z" />
-                    </svg>
-                </a>
+            newsletterForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const name = document.getElementById("newsletterName").value;
+                const email = document.getElementById("newsletterEmail").value;
+                const smsConsent = document.getElementById("newsletter_sms_consent").checked ? "Yes" : "No";
+
+                const formData = new FormData();
+                formData.append("data[name]", name);
+                formData.append("data[email]", email);
+                formData.append("data[sms_consent]", smsConsent);
+                formData.append("data[source]", "Newsletter");
+
+                fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Newsletter_Signups", {
+                    method: "POST",
+                    body: formData
+                }).finally(() => {
+                    // Show success message
+                    successMsg.classList.remove("hidden");
+
+                    // Delay sending to FormSubmit so user sees message
+                    setTimeout(() => {
+                        newsletterForm.submit();
+                    }, 1000);
+                });
+            });
+        </script>
+
+
+        <!-- Footer Main Content -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center sm:text-left">
+            <!-- Logo & About -->
+            <div class="flex flex-col items-center sm:items-start">
+                <img src="/imgs/Logo/Short/2.jpg" alt="Karry Kraze Logo" class="w-20 h-20 object-contain mb-2">
+                <p class="max-w-xs text-gray-600">
+                    Unique bags & accessories designed to turn heads. Fast U.S. shipping, secure checkout, and curated drops.
+                </p>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h3 class="text-lg font-semibold mb-2">Get in Touch</h3>
+                <ul class="space-y-1">
+                    <li><a href="/pages/contact" class="hover:underline">Contact Us</a></li>
+                    <li><a href="mailto:contact@karrykraze.com" class="hover:underline">contact@karrykraze.com</a></li>
+                </ul>
+            </div>
+
+            <!-- Social -->
+            <div class="flex flex-col items-center sm:items-end">
+                <h3 class="text-lg font-semibold mb-2">Follow Us</h3>
+                <div class="flex gap-4 justify-center sm:justify-end">
+                    <a href="https://www.instagram.com/karrykraze" target="_blank" aria-label="Instagram" class="text-gray-700 hover:text-black transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5c0 3.3-2.45 5.75-5.75 5.75h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2Zm0 1.5C5.4 3.5 3.5 5.4 3.5 7.75v8.5c0 2.35 1.9 4.25 4.25 4.25h8.5c2.35 0 4.25-1.9 4.25-4.25v-8.5c0-2.35-1.9-4.25-4.25-4.25h-8.5Zm8.5 2a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Zm-4.25 1.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5Zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z" />
+                        </svg>
+                    </a>
+                    <a href="mailto:contact@karrykraze.com" aria-label="Email" class="text-gray-700 hover:text-black transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 2v.01L12 13 4 6.01V6h16ZM4 18V8.01l7.39 6.71c.37.34.94.34 1.3 0L20 8.01V18H4Z" />
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
 
-    </div>
-
-    <div class="text-center text-gray-500 border-t border-gray-300 py-4 px-4">
-        &copy; 2025 Karry Kraze. All rights reserved.
+        <!-- Copyright -->
+        <div class="text-center text-gray-500 border-t border-gray-300 pt-6">
+            &copy; 2025 Karry Kraze. All rights reserved.
+        </div>
     </div>
 </footer>
