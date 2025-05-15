@@ -35,7 +35,6 @@
             <p class="text-lg font-semibold mb-3">JOIN THE KRAZE</p>
             <form id="newsletterForm" action="https://formsubmit.co/contact@karrykraze.com" method="POST" class="flex flex-col sm:flex-row gap-2">
                 <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://www.karrykraze.com/pages/thank-you.html">
 
                 <input type="email"
                        name="email"
@@ -79,15 +78,30 @@
         formData.append("data[email]", email);
         formData.append("data[source]", "Newsletter");
 
+        // Save to SheetDB first
         fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Newsletter_Signups", {
             method: "POST",
             body: formData
         }).finally(() => {
-            // Show overlay message
+            // THEN send to FormSubmit via AJAX instead of letting it redirect
+            fetch("https://formsubmit.co/ajax/contact@karrykraze.com", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    _subject: "New Newsletter Signup",
+                    source: "Newsletter"
+                })
+            });
+
+            // Show overlay thank you message
             thankYouOverlay.classList.remove("hidden");
 
-            // Skip the redirect by NOT calling newsletterForm.submit()
-            // Or delay it if you want to email-confirm
+            // Optional: clear form
+            newsletterForm.reset();
         });
     });
 
@@ -95,4 +109,5 @@
         document.getElementById("thankYouOverlay").classList.add("hidden");
     }
 </script>
+
 
