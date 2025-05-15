@@ -392,22 +392,20 @@
             includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
             loadFeaturedProducts();
 
+            includeHTML("productpage", "/page_inserts/productpage.html", () => {
+                loadProductData();
+                setupStripeBuyButton();
 
-                includeHTML("productpage", "/page_inserts/productpage.html", () => {
-                    loadProductData();
-                    setupStripeBuyButton();
-
-                    const addToCartBtn = document.getElementById("add-to-cart-btn");
-                    if (addToCartBtn) {
-                        addToCartBtn.addEventListener("click", () => {
-                            const variant = document.getElementById("variantSelector")?.value || null;
-                            addToCart(activeProduct, variant);
-                        });
-                    }
-                });
-
-                includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+                const addToCartBtn = document.getElementById("add-to-cart-btn");
+                if (addToCartBtn) {
+                    addToCartBtn.addEventListener("click", () => {
+                        const variant = document.getElementById("variantSelector")?.value || null;
+                        addToCart(activeProduct, variant);
+                    });
+                }
             });
+
+            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
         });
     </script>
 
