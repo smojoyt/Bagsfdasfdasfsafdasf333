@@ -43,24 +43,31 @@ function initMoreItemsCarousel() {
                 cell.innerHTML = `
 <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
   <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-  <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-  ${product.thumbnails?.[1] ? `
-    <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-         src="${product.thumbnails[1]}" alt="Hover image">` : ''}
-  
-  ${(product.custom1Options && product.custom1Options.split("|").length > 1)
-                        ? `<div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
-         ${renderColorDots(product.custom1Options, product.variantStock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
-       </div>`
-                        : ''}
-</div>
+    <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+    ${product.thumbnails?.[1] ? `
+      <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+           src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+
+    ${(() => {
+                        const stock = product.variantStock || {};
+                        const inStockVariants = (product.custom1Options || "")
+                            .split("|")
+                            .map(v => v.trim())
+                            .filter(v => stock[v] > 0);
+                        return inStockVariants.length > 1
+                            ? `<div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
+             ${renderColorDots(inStockVariants.join("|"), stock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
+           </div>`
+                            : "";
+                    })()}
+  </div>
 
   <div class="text-center mt-3">
     <div class="text-sm font-semibold truncate">${product.name}</div>
     ${getCompactPriceHTML(product)}
-
   </div>
 </a>`;
+
 
                 carouselWrapper.appendChild(cell);
             });
