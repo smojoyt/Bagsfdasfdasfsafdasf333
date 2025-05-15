@@ -24,15 +24,19 @@
         const isOut = stockObj && stockObj[name] === 0;
 
         return `
-            <span title="${name}${isOut ? ' (Out of stock)' : ''}"
-                  class="relative w-4 h-4 sm:w-6 sm:h-6 rounded-full border ${className} overflow-hidden">
-                ${isOut ? `
-                    <span class="absolute inset-0 bg-white/50"></span>
-                    <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <span class="w-[150%] h-[1.5px] bg-black rotate-45"></span>
-                    </span>
-                ` : ""}
-            </span>`;
+  <span title="${name}${isOut ? ' (Out of stock)' : ''}"
+        class="relative w-5 h-5 sm:w-6 sm:h-6 rounded-full border overflow-hidden 
+               ${isOut ? 'opacity-50' : ''} ${className}">
+    ${isOut ? `
+      <span class="absolute inset-0 bg-white/40 z-10"></span>
+      <span class="absolute inset-0 flex items-center justify-center z-20">
+        <span class="w-full h-[2px] bg-red-500 rotate-45 absolute"></span>
+        <span class="w-full h-[2px] bg-red-500 -rotate-45 absolute"></span>
+      </span>
+    ` : ""}
+  </span>
+`;
+
     }).join("");
 }
 

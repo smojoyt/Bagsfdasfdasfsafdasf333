@@ -122,6 +122,7 @@ function loadProductData() {
                         if (!defaultSelected) {
                             defaultSelected = true;
                             setTimeout(() => swatch.click(), 0);
+
                         }
                     }
 
@@ -135,6 +136,13 @@ function loadProductData() {
                         btn.textContent = "Out of Stock";
                         btn.classList.add("opacity-50", "cursor-not-allowed");
                     }
+                    const buyBtn = document.getElementById("buyButton");
+                    if (buyBtn) {
+                        buyBtn.disabled = true;
+                        buyBtn.textContent = "Out of Stock";
+                        buyBtn.classList.add("opacity-50", "cursor-not-allowed");
+                    }
+
                 }
             }
 
