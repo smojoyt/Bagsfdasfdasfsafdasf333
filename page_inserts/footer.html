@@ -31,7 +31,7 @@
 
         <!-- Newsletter Form -->
         <div class="col-span-1">
-            <h2 class="text-base font-bold mb-1">10% OFF YOUR FIRST PURCHASE</h2>
+            <h2 class="text-base font-bold mb-1">$5 OFF YOUR FIRST PURCHASE!</h2>
             <p class="text-lg font-semibold mb-3">JOIN THE KRAZE</p>
             <form id="newsletterForm" onsubmit="return false;" class="flex flex-col sm:flex-row gap-2">
                 <input type="email"
@@ -54,10 +54,16 @@
 </footer>
 
 <!-- ✅ Thank You Overlay -->
-<div id="thankYouOverlay" class="fixed bottom-0 left-0 w-full bg-yellow-100 border-t border-yellow-300 text-center p-4 shadow-lg z-50 hidden">
-    <p class="text-lg font-semibold mb-2">🎉 Use code <span class="font-bold">Kraze5</span> for $5 off your purchase!</p>
-    <button onclick="closeThankYou()" class="mt-1 px-4 py-1 text-sm bg-yellow-600 hover:bg-yellow-700 text-white rounded">
-        Close
-    </button>
+<!-- ✅ Mobile-Friendly Thank You Overlay -->
+<div id="thankYouOverlay" class="fixed bottom-0 left-0 w-full bg-yellow-100 border-t border-yellow-300 shadow-lg z-50 px-4 py-3 sm:py-4 text-center">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 max-w-4xl mx-auto">
+        <p class="text-base sm:text-lg font-semibold text-gray-800">
+            🎉 Use code <span class="font-bold">Kraze5</span> for $5 off your purchase!
+        </p>
+        <button onclick="closeThankYou()" class="mt-1 sm:mt-0 px-4 py-1 text-sm sm:text-base bg-yellow-600 hover:bg-yellow-700 text-white rounded transition">
+            Close
+        </button>
+    </div>
 </div>
+
 
