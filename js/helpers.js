@@ -24,7 +24,7 @@
         const isOut = stockObj && stockObj[name] === 0;
 
         return `
-            <span title="${name}"
+            <span title="${name}${isOut ? ' (Out of stock)' : ''}"
                   class="relative w-4 h-4 sm:w-6 sm:h-6 rounded-full border ${className} overflow-hidden">
                 ${isOut ? `
                     <span class="absolute inset-0 bg-white/50"></span>

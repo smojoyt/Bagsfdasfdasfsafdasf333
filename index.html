@@ -320,6 +320,13 @@
                         const isBestseller = p.tags?.includes("Bestseller");
                         const hasVariants = p.custom1Options?.split("|").length > 1;
 
+                        const variantQuantities = p.variantQuantities || {};
+                        const allVariantsOut = Object.values(variantQuantities).every(qty => qty <= 0);
+                        if (allVariantsOut) return;
+
+                        const inStockVariant = Object.keys(variantQuantities).find(v => variantQuantities[v] > 0);
+                        const variantImage = p.variantImages?.[inStockVariant] || p.image;
+
                         const wrapper = document.createElement("div");
                         wrapper.className = "relative w-[30%] max-w-xs flex-shrink-0";
 
@@ -334,18 +341,20 @@
                         card.href = p.url;
                         card.className = `block rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white border ${isBestseller ? "border-yellow-400 rounded-b-xl" : "rounded-xl"}`;
                         card.innerHTML = `
-                            <div class="relative w-full bg-white">
-                                <img src="${p.image}" alt="${p.name}" class="w-full object-contain">
-                                ${hasVariants ? `
-                                    <div class="absolute bottom-2 left-2 flex gap-1">
-                                        ${renderColorDots(p.custom1Options, p.variantStock)}
-                                    </div>` : ""}
-                            </div>`;
+                    <div class="relative w-full bg-white">
+                        <img src="${variantImage}" alt="${p.name}" class="w-full object-contain">
+                        ${hasVariants ? `
+                            <div class="absolute bottom-2 left-2 flex gap-1">
+                                ${renderColorDots(p.custom1Options, variantQuantities)}
+                            </div>` : ""}
+                    </div>
+                `;
                         wrapper.appendChild(card);
                         container.appendChild(wrapper);
                     });
                 });
         }
+
 
         function setupStripeBuyButton() {
             const btn = document.getElementById("buyButton");
