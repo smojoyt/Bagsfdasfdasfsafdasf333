@@ -320,12 +320,18 @@
                         const isBestseller = p.tags?.includes("Bestseller");
                         const hasVariants = p.custom1Options?.split("|").length > 1;
 
-                        const variantQuantities = p.variantQuantities || {};
-                        const allVariantsOut = Object.values(variantQuantities).every(qty => qty <= 0);
-                        if (allVariantsOut) return;
+                        const stock = p.variantStock;
+                        if (stock && Object.keys(stock).length > 0) {
+                            const allOut = Object.values(stock).every(qty => qty <= 0);
+                            if (allOut) return; // Skip if all variants are out
+                        }
 
-                        const inStockVariant = Object.keys(variantQuantities).find(v => variantQuantities[v] > 0);
-                        const variantImage = p.variantImages?.[inStockVariant] || p.image;
+                        const firstInStock = stock
+                            ? Object.keys(stock).find(variant => stock[variant] > 0)
+                            : null;
+                        const variantImage = firstInStock && p.variantImages?.[firstInStock]
+                            ? p.variantImages[firstInStock]
+                            : p.image;
 
                         const wrapper = document.createElement("div");
                         wrapper.className = "relative w-[30%] max-w-xs flex-shrink-0";
@@ -345,7 +351,7 @@
                         <img src="${variantImage}" alt="${p.name}" class="w-full object-contain">
                         ${hasVariants ? `
                             <div class="absolute bottom-2 left-2 flex gap-1">
-                                ${renderColorDots(p.custom1Options, variantQuantities)}
+                                ${renderColorDots(p.custom1Options, p.variantStock)}
                             </div>` : ""}
                     </div>
                 `;
@@ -354,6 +360,8 @@
                     });
                 });
         }
+
+
 
 
         function setupStripeBuyButton() {

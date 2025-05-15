@@ -41,6 +41,7 @@
 
 
 
+
 // Price formatter for compact display (used in carousels and catalog)
 function getCompactPriceHTML(product) {
     const regular = product.price;
