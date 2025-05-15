@@ -146,7 +146,7 @@
 			"Compact size, fits small wallet, keys, and phone"
 		],
 		"custom1Name": "Color",
-		"custom1Options": "Black",
+		"custom1Options": "Black | White | Pink | Tan | Biege | Yellow",
 		"variantStock": {
 			"Black": 1,
 			"White": 0,
