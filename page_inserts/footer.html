@@ -57,9 +57,18 @@
     </div>
 </footer>
 
+<!-- Thank You Overlay -->
+<div id="thankYouOverlay" class="fixed bottom-0 left-0 w-full bg-yellow-100 border-t border-yellow-300 text-center p-4 shadow-lg z-50 hidden">
+    <p class="text-lg font-semibold mb-2">🎉 Use code <span class="font-bold">Kraze5</span> for $5 off your purchase!</p>
+    <button onclick="closeThankYou()" class="mt-1 px-4 py-1 text-sm bg-yellow-600 hover:bg-yellow-700 text-white rounded">
+        Close
+    </button>
+</div>
+
+
 <script>
     const newsletterForm = document.getElementById("newsletterForm");
-    const successMsg = document.getElementById("newsletterSuccess");
+    const thankYouOverlay = document.getElementById("thankYouOverlay");
 
     newsletterForm.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -74,11 +83,16 @@
             method: "POST",
             body: formData
         }).finally(() => {
-            successMsg.classList.remove("hidden");
+            // Show overlay message
+            thankYouOverlay.classList.remove("hidden");
 
-            setTimeout(() => {
-                newsletterForm.submit();
-            }, 1000);
+            // Skip the redirect by NOT calling newsletterForm.submit()
+            // Or delay it if you want to email-confirm
         });
     });
+
+    function closeThankYou() {
+        document.getElementById("thankYouOverlay").classList.add("hidden");
+    }
 </script>
+
