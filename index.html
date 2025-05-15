@@ -132,8 +132,8 @@
                 }
 
                 const formData = new FormData();
-                formData.append("data[email]", email);
-                formData.append("data[source]", "Newsletter");
+                formData.append("data[Email]", email);
+                formData.append("data[Source]", "Newsletter");
 
                 fetch("https://sheetdb.io/api/v1/33jcww5tw8pyg?sheet=Newsletter_Signups", {
                     method: "POST",
