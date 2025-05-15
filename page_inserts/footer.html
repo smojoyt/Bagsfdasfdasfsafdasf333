@@ -44,6 +44,7 @@
                     UNLOCK NOW
                 </button>
             </form>
+
             <p id="newsletterSuccess" class="text-green-700 font-medium mt-4 hidden">🎉 You're in! Check your inbox for a special offer.</p>
         </div>
     </div>
@@ -71,41 +72,27 @@
         if (!newsletterForm || !emailInput) return;
 
         newsletterForm.addEventListener("submit", async function (e) {
-            e.preventDefault(); // BLOCK default submit
+            e.preventDefault(); // Prevent form refresh
 
-            const email = emailInput.value;
+            const email = emailInput.value.trim();
 
             if (!email || !email.includes("@")) {
                 alert("Please enter a valid email.");
                 return;
             }
 
-            // Send to SheetDB
             const formData = new FormData();
             formData.append("data[email]", email);
             formData.append("data[source]", "Newsletter");
 
             try {
-                await fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Newsletter_Signups", {
+                const res = await fetch("https://sheetdb.io/api/v1/keeq9r332240v?sheet=Newsletter_Signups", {
                     method: "POST",
                     body: formData
                 });
 
-                // Send to FormSubmit via AJAX
-                await fetch("https://formsubmit.co/ajax/contact@karrykraze.com", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        _subject: "New Newsletter Signup",
-                        source: "Newsletter"
-                    })
-                });
+                if (!res.ok) throw new Error("Failed to save");
 
-                // Show overlay
                 thankYouOverlay.classList.remove("hidden");
                 newsletterForm.reset();
             } catch (err) {
@@ -119,6 +106,7 @@
         };
     });
 </script>
+
 
 
 
