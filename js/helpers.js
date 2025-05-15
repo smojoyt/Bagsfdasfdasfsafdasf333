@@ -1,5 +1,4 @@
-﻿// helpers.js
-function renderColorDots(optionsStr) {
+﻿function renderColorDots(optionsStr, stockObj = {}) {
     const colorMap = {
         pink: 'bg-pink-400',
         white: 'bg-white border',
@@ -18,19 +17,29 @@ function renderColorDots(optionsStr) {
         cream: 'bg-[#fdf6e3] border'
     };
 
-    const options = optionsStr.split("|");
-
-    return `
-        <div class="flex gap-1 mt-1 ml-1">
-            ${options.map(opt => {
+    return optionsStr.split("|").map(opt => {
+        const color = opt.toLowerCase().trim();
         const name = opt.trim();
-        const key = name.toLowerCase();
-        const colorClass = colorMap[key] || 'bg-gray-300';
-        return `<span title="${name}" class="w-4 h-4 rounded-full ${colorClass} border border-gray-300"></span>`;
-    }).join("")}
-        </div>
-    `;
+        const className = colorMap[color] || 'bg-gray-200';
+        const isOut = stockObj && stockObj[name] === 0;
+
+        return `
+            <span title="${name}${isOut ? ' (Out of stock)' : ''}"
+                  class="relative w-4 h-4 sm:w-6 sm:h-6 rounded-full border ${className} overflow-hidden">
+                ${isOut ? `
+                    <span class="absolute inset-0 bg-white/50"></span>
+                    <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span class="w-[150%] h-[1.5px] bg-black rotate-45"></span>
+                    </span>
+                ` : ""}
+            </span>`;
+    }).join("");
 }
+
+
+
+
+
 
 
 // Price formatter for compact display (used in carousels and catalog)
@@ -132,7 +141,7 @@ function renderCatalogCard(p) {
         </div>` : ""}
 </div>
 
-            <div class="min-h-[150px] max-w-[192px] p-2">
+            <div class="min-h-[100px] max-w-[192px] p-2">
                                         <h2 class="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
                                         ${priceBlock}
                                         <div class="flex flex-wrap gap-1 mt-2">${tagBadges}</div>

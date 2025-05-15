@@ -44,15 +44,10 @@ function loadProductData() {
                 productIdEl.textContent = activeProduct.product_id;
             }
 
-
             const priceSection = document.getElementById("price-section");
             if (priceSection) {
                 priceSection.innerHTML = getFullPriceHTML(activeProduct);
             }
-
-
-
-
 
             const descEl = document.getElementById("product-description");
             if (descEl) {
@@ -62,8 +57,11 @@ function loadProductData() {
             }
 
             const imgEl = document.getElementById("mainImage");
-            if (imgEl && activeProduct.image) {
-                imgEl.src = activeProduct.image;
+            const variantStock = activeProduct.variantStock || {};
+            const defaultVariant = Object.keys(variantStock).find(c => variantStock[c] > 0);
+            const defaultImg = activeProduct.variantImages?.[defaultVariant] || activeProduct.image;
+            if (imgEl) {
+                imgEl.src = defaultImg;
                 imgEl.alt = activeProduct.name;
             }
 
@@ -71,56 +69,74 @@ function loadProductData() {
             if (variantSelect && activeProduct.custom1Options) {
                 variantSelect.innerHTML = "";
                 const options = activeProduct.custom1Options.split("|").map(opt => opt.trim());
+                let defaultSelected = false;
 
                 options.forEach(color => {
+                    const stock = variantStock[color] ?? 0;
+                    const isOut = stock <= 0;
+
                     const swatch = document.createElement("button");
                     swatch.className = `
-            flex flex-col items-center group cursor-pointer
-            focus:outline-none
-        `;
+                        flex flex-col items-center group cursor-pointer
+                        focus:outline-none
+                        ${isOut ? "opacity-50 cursor-not-allowed" : ""}
+                    `;
+                    swatch.disabled = isOut;
 
-                    // Warn if color not in colorMap and not a valid CSS color
-                    if (!colorMap[color] && !CSS.supports("color", color.toLowerCase())) {
-                        console.warn(`Missing color swatch value for "${color}"`);
-                    }
-
-                    // Create swatch HTML
                     swatch.innerHTML = `
-            <div class="w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black"
-                 style="background-color: ${colorMap[color] || color.toLowerCase()};"></div>
-            <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
-        `;
+                        <div class="w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black"
+                             style="background-color: ${colorMap[color] || color.toLowerCase()};"></div>
+                        <span class="text-xs mt-1 text-gray-700 group-hover:text-black">
+                            ${color}${isOut ? " (Out)" : ""}
+                        </span>
+                    `;
 
-                    // Improve accessibility for screen readers
                     swatch.setAttribute("aria-label", `${color} color`);
 
-                    swatch.addEventListener("click", () => {
-                        updateVariant(color);
+                    if (!isOut) {
+                        swatch.addEventListener("click", () => {
+                            updateVariant(color);
 
-                        Array.from(variantSelect.children).forEach(btn =>
-                            btn.querySelector("div").classList.remove("ring", "ring-black", "ring-offset-2")
-                        );
-                        swatch.querySelector("div").classList.add("ring", "ring-black", "ring-offset-2");
+                            Array.from(variantSelect.children).forEach(btn =>
+                                btn.querySelector("div").classList.remove("ring", "ring-black", "ring-offset-2")
+                            );
+                            swatch.querySelector("div").classList.add("ring", "ring-black", "ring-offset-2");
 
-                        const img = document.getElementById("mainImage");
-                        if (activeProduct.variantImages?.[color] && img) {
-                            img.src = activeProduct.variantImages[color];
+                            const img = document.getElementById("mainImage");
+                            if (activeProduct.variantImages?.[color] && img) {
+                                img.src = activeProduct.variantImages[color];
+                            }
+
+                            const variantInput = document.getElementById("variantSelector");
+                            if (variantInput) variantInput.value = color;
+
+                            const btn = document.getElementById("add-to-cart-btn");
+                            if (btn) {
+                                btn.disabled = false;
+                                btn.textContent = "Add to Cart";
+                                btn.classList.remove("opacity-50", "cursor-not-allowed");
+                            }
+                        });
+
+                        // Select first in-stock variant
+                        if (!defaultSelected) {
+                            defaultSelected = true;
+                            setTimeout(() => swatch.click(), 0);
                         }
-
-                        // ✅ Sync selected variant to hidden field for Stripe
-                        const variantInput = document.getElementById("variantSelector");
-                        if (variantInput) variantInput.value = color;
-                    });
-
+                    }
 
                     variantSelect.appendChild(swatch);
                 });
 
-
-                // trigger default selection
-                variantSelect.firstChild?.click();
+                if (!defaultSelected) {
+                    const btn = document.getElementById("add-to-cart-btn");
+                    if (btn) {
+                        btn.disabled = true;
+                        btn.textContent = "Out of Stock";
+                        btn.classList.add("opacity-50", "cursor-not-allowed");
+                    }
+                }
             }
-
 
             const thumbnailContainer = document.getElementById("thumbnailContainer");
             if (thumbnailContainer && Array.isArray(activeProduct.thumbnails)) {
@@ -160,7 +176,5 @@ function loadProductData() {
 
             const content = document.getElementById('pageContent');
             if (content) content.classList.remove('hidden');
-
-            
-        }); // ← closes the `.then(data => { ... })`
-} // ← closes the `loadProductData()` function
+        });
+}

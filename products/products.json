@@ -18,6 +18,10 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Black | Cream",
+		"variantStock": {
+			"Black": 0,
+			"Cream": 3
+		},
 		"variantImages": {
 			"Black": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_03.jpg",
 			"Cream": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_06.jpg"
@@ -51,6 +55,10 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Pink | White",
+		"variantStock": {
+			"Pink": 4,
+			"White": 4
+		},
 		"variantImages": {
 			"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg",
 			"White": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/02_03.jpg"
@@ -127,7 +135,7 @@
 		"name": "Moto Jacket Crossbody - Patent Black",
 		"category": "bags",
 		"product_id": "KK-1005",
-		"price": 44.97,
+		"price": 52.97,
 		"tags": [ "NewArrival" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_MotoJacket.html",
@@ -221,7 +229,7 @@
 		"name": "Pear Drop Glitter Charm",
 		"category": "charms",
 		"product_id": "KK-1008",
-		"price": 19.97,
+		"price": 24.97,
 		"tags": [ "BagAccessory" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_PearChain.html",
@@ -249,7 +257,7 @@
 		"name": "Mini Alien Plushies",
 		"category": "charms",
 		"product_id": "KK-1009",
-		"price": 24.97,
+		"price": 26.97,
 		"tags": [ "BagAccessory" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/04_01.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_AlienPlushies.html",
@@ -257,7 +265,7 @@
 			"Set of 3 plush monster figures in yellow, black, and white",
 			"Soft material with embroidered details and expressive eyes",
 			"Great as keychains, shelf decor, or small gifts",
-			"Each approx. 3.5–4 inches tall"
+			"Each approx. 3.5ï¿½4 inches tall"
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Brown | White | Black",
@@ -279,7 +287,7 @@
 		"category": "bags",
 		"product_id": "KK-1010",
 		"price": 125.00,
-		"tags": [ "" ],
+		"tags": [ "Discontinued" ],
 		"image": "",
 		"url": "",
 		"descriptionList": [
@@ -300,7 +308,7 @@
 		"category": "bags",
 		"product_id": "KK-1011",
 		"price": 150.00,
-		"tags": [ "" ],
+		"tags": [ "Discontinued" ],
 		"image": "",
 		"url": "",
 		"descriptionList": [
@@ -321,7 +329,7 @@
 		"category": "bags",
 		"product_id": "KK-1012",
 		"price": 60.00,
-		"tags": [ "" ],
+		"tags": [ "Discontinued" ],
 		"image": "",
 		"url": "",
 		"descriptionList": [
@@ -342,7 +350,7 @@
 		"category": "charms",
 		"product_id": "KK-1013",
 		"price": 20.00,
-		"tags": [ "" ],
+		"tags": [ "Discontinued" ],
 		"image": "",
 		"url": "",
 		"descriptionList": [
@@ -363,7 +371,7 @@
 		"category": "bags",
 		"product_id": "KK-1014",
 		"price": 120.00,
-		"tags": [ "" ],
+		"tags": [ "Discontinued" ],
 		"image": "",
 		"url": "",
 		"descriptionList": [
@@ -384,7 +392,7 @@
 		"category": "bags",
 		"product_id": "KK-1015",
 		"price": 300.00,
-		"tags": [ "" ],
+		"tags": [ "Discontinued" ],
 		"image": "",
 		"url": "",
 		"descriptionList": [
