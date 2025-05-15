@@ -1,6 +1,30 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karry Kraze – Unique Bags & Accessories</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.png" type="image/png" />
+
+    <!-- Website Description -->
+    <meta name="description" content="Shop Karry Kraze for stylish, standout bags and fashion accessories. Free U.S. shipping over $50!" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.karrykraze.com/" />
+    <meta property="og:title" content="Karry Kraze – Unique Bags & Accessories" />
+    <meta property="og:description" content="Shop Karry Kraze for stylish, standout bags and fashion accessories. Free U.S. shipping over $50!" />
+    <meta property="og:image" content="https://www.karrykraze.com/imgs/Logo/Short/2.jpg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Karry Kraze – Unique Bags & Accessories" />
+    <meta name="twitter:description" content="Shop Karry Kraze for stylish, standout bags and fashion accessories. Free U.S. shipping over $50!" />
+    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Logo/Short/2.jpg" />
+
+    <!-- Custom Scrollbar Style -->
     <style>
         #featured-products::-webkit-scrollbar {
             height: 6px;
@@ -12,57 +36,40 @@
         }
     </style>
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Karry Kraze – Unique Bags & Accessories</title>
-
-    <!-- Favicon (browser tab icon) -->
-    <link rel="icon" type="/imgs/Logo/Short/2.jpg" href="/favicon.png" />
-
-    <!-- Website Description -->
-    <meta name="description" content="Shop Karry Kraze for stylish, standout bags and fashion accessories. Free U.S. shipping over $50!" />
-
-    <!-- Social Media Thumbnail & Info -->
-    <meta property="og:title" content="Karry Kraze – Unique Bags & Accessories" />
-    <meta property="og:description" content="Shop Karry Kraze for stylish, standout bags and fashion accessories. Free U.S. shipping over $50!" />
-    <meta property="og:image" content="https://www.karrykraze.com/imgs/Logo/Short/2.jpg" />
-    <meta property="og:url" content="https://www.karrykraze.com/" />
-    <meta property="og:type" content="website" />
-
-    <!-- Twitter Card Support -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Karry Kraze – Unique Bags & Accessories" />
-    <meta name="twitter:description" content="Shop Karry Kraze for stylish, standout bags and fashion accessories. Free U.S. shipping over $50!" />
-    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Logo/Short/2.jpg" />
-
-
-    <!-- Styles & Scripts -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Flickity Carousel -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+    <!-- ImagesLoaded (for smoother image handling) -->
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+
+    <!-- Custom Scripts -->
     <script src="/js/helpers.js"></script>
     <script src="/js/moreItemsCarousel.js"></script>
     <script src="/js/loadProductData.js"></script>
     <script src="/js/uni_navbar.js"></script>
 </head>
 
-<body class="bg-white text-gray-800">
 
+<body class="bg-white text-gray-800">
     <!-- Transparent Navbar Placeholder -->
     <div id="navbar-container"></div>
 
     <!-- Hero Banner with Video -->
     <section class="relative h-[35vh] w-full flex items-center justify-center text-center text-white overflow-hidden">
         <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
-            <source src="/imgs/Banner/BagPreview_06.mp4" type="video/mp4">
+            <source src="/imgs/Banner/BagPreview_06.mp4" type="video/mp4" />
             Your browser does not support the video tag.
         </video>
         <div class="relative z-10">
-            <a href="https://www.karrykraze.com/products/catalog" class="inline-block px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200">Catalog</a>
+            <a href="https://www.karrykraze.com/products/catalog" class="inline-block px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200">
+                Catalog
+            </a>
         </div>
     </section>
-
 
     <!-- Featured Products -->
     <section class="max-w-6xl mx-auto py-12">
@@ -72,33 +79,43 @@
     </section>
 
     <!-- More To Love -->
-    <div class="mt-12 px-4 text-center">
+    <section class="mt-12 px-4 text-center">
         <h2 class="text-2xl font-bold text-gray-800">MORE TO LOVE</h2>
         <div class="mt-2 mb-4 w-24 h-1 bg-gray-300 mx-auto rounded"></div>
         <div id="pp_moreitems"></div>
-    </div>
+    </section>
 
+    <!-- Footer and Cart Container -->
     <div id="footer"></div>
     <div id="unicart-container"></div>
 
-
-
-
-
     <!-- JS Scripts -->
     <script>
+        // ─────────────────────────────────────────────────────
+        // UTILITIES
+        // ─────────────────────────────────────────────────────
+
         function renderColorDots(options) {
+            const customMap = {
+                cream: "#f5f5dc"
+            };
             return options.split("|").map(opt => {
                 const color = opt.toLowerCase().trim();
-                const customMap = {
-                    cream: "#f5f5dc", // example for custom 'cream'
-                };
                 return `<span class="w-4 h-4 sm:w-6 sm:h-6 rounded-full border" style="background:${customMap[color] || color}"></span>`;
             }).join("");
         }
 
+        const colorMap = {
+            Black: "#000000",
+            White: "#ffffff",
+            Red: "#e3342f",
+            Navy: "#1e3a8a",
+            Beige: "#f5f5dc",
+            Brown: "#8b4513",
+            Gray: "#6b7280",
+            Cream: "#fffdd0"
+        };
 
-        // Load HTML sections dynamically
         function includeHTML(id, filePath, callback = null) {
             fetch(filePath)
                 .then(res => res.text())
@@ -108,7 +125,36 @@
                 });
         }
 
-        // Init Mobile Menu + Cart Count
+        function swapImage(newSrc) {
+            const mainImage = document.getElementById("mainImage");
+            if (!mainImage) return;
+            mainImage.classList.add("opacity-0");
+            setTimeout(() => {
+                mainImage.src = newSrc;
+                mainImage.onload = () => mainImage.classList.remove("opacity-0");
+            }, 150);
+        }
+
+        function updateVariant(input) {
+            const value = typeof input === 'string' ? input : input.value;
+            const variantInput = document.getElementById("variantSelector");
+            if (variantInput) variantInput.value = value.trim();
+        }
+
+        function toggleAccordion() {
+            const content = document.getElementById("accordion-content");
+            const icon = document.getElementById("accordion-icon");
+            if (!content || !icon) return;
+
+            const isOpen = content.style.height && content.style.height !== "0px";
+            content.style.height = isOpen ? "0px" : content.scrollHeight + "px";
+            icon.classList.toggle("rotate-45", !isOpen);
+        }
+
+        // ─────────────────────────────────────────────────────
+        // NAVBAR + SCROLL LOGIC
+        // ─────────────────────────────────────────────────────
+
         function initNavbar() {
             const toggleBtn = document.getElementById("mobile-menu-button");
             const menu = document.getElementById("mobile-menu");
@@ -116,7 +162,7 @@
             if (toggleBtn && menu) {
                 toggleBtn.addEventListener("click", () => {
                     menu.classList.toggle("hidden");
-                    updateNavbarStyles(); // Recalculate navbar on menu toggle
+                    updateNavbarStyles?.();
                 });
             }
 
@@ -124,9 +170,21 @@
             const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
             const countElem = document.getElementById("cart-count");
             if (countElem) countElem.textContent = totalQty;
+
+            const navbar = document.getElementById("mainNavbar");
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener("scroll", () => {
+                if (!navbar) return;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace("navbar-show", "navbar-hide");
+                } else {
+                    navbar.classList.replace("navbar-hide", "navbar-show");
+                }
+                lastScrollY = window.scrollY;
+            });
         }
 
-        // Scroll + Menu-based navbar style swap
         function setupScrollNavbarColorChange() {
             const navbar = document.getElementById("mainNavbar");
             const logo = document.getElementById("logo");
@@ -135,41 +193,24 @@
 
             let wasScrolled = false;
 
-            window.updateNavbarStyles = function updateNavbarStyles() {
+            window.updateNavbarStyles = function () {
                 const isScrolled = window.scrollY > 10;
                 const menuOpen = menu && !menu.classList.contains("hidden");
                 const shouldBeScrolled = isScrolled || menuOpen;
 
-                if (!navbar) return;
-                if (shouldBeScrolled === wasScrolled) return; // Skip redundant updates
-
+                if (!navbar || shouldBeScrolled === wasScrolled) return;
                 wasScrolled = shouldBeScrolled;
 
                 if (shouldBeScrolled) {
                     navbar.classList.remove("bg-transparent", "text-white");
                     navbar.classList.add("bg-white", "text-black", "shadow-md");
-
-                    if (burger) {
-                        burger.classList.remove("text-white");
-                        burger.classList.add("text-black");
-                    }
-
-                    if (logo) {
-                        logo.src = "/imgs/Logo/Long/LL_Black_02.png";
-                    }
-
+                    burger?.classList.replace("text-white", "text-black");
+                    if (logo) logo.src = "/imgs/Logo/Long/LL_Black_02.png";
                 } else {
                     navbar.classList.remove("bg-white", "text-black", "shadow-md");
                     navbar.classList.add("bg-transparent", "text-white");
-
-                    if (burger) {
-                        burger.classList.remove("text-black");
-                        burger.classList.add("text-white");
-                    }
-
-                    if (logo) {
-                        logo.src = "/imgs/Logo/Long/LL_White_02.png";
-                    }
+                    burger?.classList.replace("text-black", "text-white");
+                    if (logo) logo.src = "/imgs/Logo/Long/LL_White_02.png";
                 }
             };
 
@@ -177,54 +218,49 @@
             window.addEventListener("scroll", updateNavbarStyles);
         }
 
+        // ─────────────────────────────────────────────────────
+        // CAROUSEL + FEATURED ITEMS
+        // ─────────────────────────────────────────────────────
 
-
-        // Load More Items Carousel
         function initMoreItemsCarousel() {
             const carouselWrapper = document.querySelector('#pp_moreitems .carousel');
             if (!carouselWrapper) return;
 
-            fetch('https://www.karrykraze.com/products/products.json')
+            fetch("https://www.karrykraze.com/products/products.json")
                 .then(res => res.json())
                 .then(products => {
-                    const productKeys = Object.keys(products);
-                    for (let i = productKeys.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [productKeys[i], productKeys[j]] = [productKeys[j], productKeys[i]];
-                    }
+                    const productKeys = Object.keys(products).sort(() => 0.5 - Math.random());
 
                     productKeys.forEach(sku => {
                         const product = products[sku];
                         if (!product || !product.image) return;
 
-                        const cell = document.createElement('div');
+                        const cell = document.createElement("div");
                         cell.className = "carousel-cell p-2";
                         cell.innerHTML = `
-                                        <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-                                            <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-                                                <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-                                                ${product.thumbnails?.[1] ? `
-                                                    <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-                                                        src="${product.thumbnails[1]}" alt="Hover image">` : ''}
-                                            </div>
-                                            <div class="text-center mt-6">
-                                                <div class="text-sm font-semibold truncate">${product.name}</div>
-                                                ${product.sale_price && product.sale_price < product.price
-                                ? `<div class="text-sm">
-                      <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
-                      <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
-                   </div>`
-                                : `<div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`
-                            }
-
-                                            </div>
-                                        </a>`;
+                            <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
+                                <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
+                                    <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+                                    ${product.thumbnails?.[1] ? `
+                                    <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+                                         src="${product.thumbnails[1]}" alt="Hover image">` : ""}
+                                </div>
+                                <div class="text-center mt-6">
+                                    <div class="text-sm font-semibold truncate">${product.name}</div>
+                                    ${product.sale_price && product.sale_price < product.price ? `
+                                        <div class="text-sm">
+                                            <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
+                                            <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
+                                        </div>` : `
+                                        <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`}
+                                </div>
+                            </a>`;
                         carouselWrapper.appendChild(cell);
                     });
 
                     imagesLoaded(carouselWrapper, () => {
                         const flickity = new Flickity(carouselWrapper, {
-                            cellAlign: 'left',
+                            cellAlign: "left",
                             contain: true,
                             groupCells: 1,
                             freeScroll: false,
@@ -240,9 +276,6 @@
                 });
         }
 
-
-
-        // Featured product loader
         function loadFeaturedProducts() {
             fetch("https://www.karrykraze.com/products/products.json")
                 .then(res => res.json())
@@ -255,13 +288,11 @@
                         if (!p) return;
 
                         const isBestseller = p.tags?.includes("Bestseller");
-                        const hasVariants = p.custom1Options && p.custom1Options.split("|").length > 1;
+                        const hasVariants = p.custom1Options?.split("|").length > 1;
 
-                        // Create wrapper div to hold the badge and the card
                         const wrapper = document.createElement("div");
                         wrapper.className = "relative w-[30%] max-w-xs flex-shrink-0";
 
-                        // Add bestseller badge above the card
                         if (isBestseller) {
                             const badge = document.createElement("div");
                             badge.className = "absolute -top-2 sm:-top-4 left-0 w-full text-center bg-yellow-400 text-white text-[8px] sm:text-xs font-bold sm:py-1 py-0.5 rounded-t shadow z-10";
@@ -269,114 +300,26 @@
                             wrapper.appendChild(badge);
                         }
 
-                        // Build the product card
                         const card = document.createElement("a");
                         card.href = p.url;
                         card.className = `block rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white border ${isBestseller ? "border-yellow-400 rounded-b-xl" : "rounded-xl"}`;
                         card.innerHTML = `
-                                <div class="relative w-full bg-white">
-                                    <img src="${p.image}" alt="${p.name}" class="w-full object-contain">
-                                    ${hasVariants ? `
-                                        <div class="absolute bottom-2 left-2 flex gap-1">
-                                            ${renderColorDots(p.custom1Options)}
-                                        </div>` : ""}
-                                </div>
-                            `;
-
+                            <div class="relative w-full bg-white">
+                                <img src="${p.image}" alt="${p.name}" class="w-full object-contain">
+                                ${hasVariants ? `
+                                    <div class="absolute bottom-2 left-2 flex gap-1">
+                                        ${renderColorDots(p.custom1Options)}
+                                    </div>` : ""}
+                            </div>`;
                         wrapper.appendChild(card);
                         container.appendChild(wrapper);
                     });
                 });
         }
 
-
-        // Master loader
-        document.addEventListener("DOMContentLoaded", () => {
-            includeHTML("navbar-container", "/page_inserts/uni_navbart.html", () => {
-                initNavbar();
-                setupScrollNavbarColorChange();
-            });
-
-            includeHTML("footer", "/page_inserts/footer.html");
-            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-            loadFeaturedProducts();
-        });
-    </script>
-
-    <script>
-        const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
-        let activeProduct = null;
-
-        const colorMap = {
-            Black: "#000000",
-            White: "#ffffff",
-            Red: "#e3342f",
-            Navy: "#1e3a8a",
-            Beige: "#f5f5dc",
-            Brown: "#8b4513",
-            Gray: "#6b7280",
-            Cream: "#fffdd0",
-        };
-
-        function includeHTML(id, filePath, callback = null) {
-            fetch(filePath)
-                .then(res => res.text())
-                .then(html => {
-                    document.getElementById(id).innerHTML = html;
-                    if (callback) callback();
-                });
-        }
-
-        function swapImage(newSrc) {
-            const mainImage = document.getElementById("mainImage");
-            if (!mainImage) return;
-
-            mainImage.classList.add("opacity-0");
-            setTimeout(() => {
-                mainImage.src = newSrc;
-                mainImage.onload = () => mainImage.classList.remove("opacity-0");
-            }, 150);
-        }
-
-        function updateVariant(input) {
-            const value = typeof input === 'string' ? input : input.value;
-            const variantInput = document.getElementById("variantSelector");
-            if (variantInput) variantInput.value = value.trim();
-        }
-
-        function initNavbar() {
-            const toggleBtn = document.getElementById("mobile-menu-button");
-            const menu = document.getElementById("mobile-menu");
-            toggleBtn?.addEventListener("click", () => menu?.classList.toggle("hidden"));
-
-            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-            const countElem = document.getElementById("cart-count");
-            if (countElem) countElem.textContent = totalQty;
-
-            const navbar = document.getElementById('mainNavbar');
-            let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                if (!navbar) return;
-                if (window.scrollY > lastScrollY && window.scrollY > 50) {
-                    navbar.classList.replace('navbar-show', 'navbar-hide');
-                } else {
-                    navbar.classList.replace('navbar-hide', 'navbar-show');
-                }
-                lastScrollY = window.scrollY;
-            });
-        }
-
-        function toggleAccordion() {
-            const content = document.getElementById("accordion-content");
-            const icon = document.getElementById("accordion-icon");
-
-            if (!content || !icon) return;
-
-            const isOpen = content.style.height && content.style.height !== "0px";
-            content.style.height = isOpen ? "0px" : content.scrollHeight + "px";
-            icon.classList.toggle("rotate-45", !isOpen);
-        }
+        // ─────────────────────────────────────────────────────
+        // STRIPE CHECKOUT
+        // ─────────────────────────────────────────────────────
 
         function setupStripeBuyButton() {
             const btn = document.getElementById("buyButton");
@@ -410,28 +353,45 @@
             });
         }
 
-        // 🔁 Main Load Flow
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-            initNavbar();
+        // ─────────────────────────────────────────────────────
+        // PAGE LOAD INIT
+        // ─────────────────────────────────────────────────────
 
-            includeHTML("productpage", "/page_inserts/productpage.html", () => {
-                loadProductData();
-                setupStripeBuyButton();
+        const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
+        let activeProduct = null;
 
-                const addToCartBtn = document.getElementById("add-to-cart-btn");
-                if (addToCartBtn) {
-                    addToCartBtn.addEventListener("click", () => {
-                        const variant = document.getElementById("variantSelector")?.value || null;
-                        addToCart(activeProduct, variant);
-                    });
-                }
+        document.addEventListener("DOMContentLoaded", () => {
+            includeHTML("navbar-container", "/page_inserts/uni_navbart.html", () => {
+                initNavbar();
+                setupScrollNavbarColorChange();
             });
 
             includeHTML("footer", "/page_inserts/footer.html");
             includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+            loadFeaturedProducts();
+
+            // Product Page Specific Load
+            includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+                initNavbar();
+
+                includeHTML("productpage", "/page_inserts/productpage.html", () => {
+                    loadProductData();
+                    setupStripeBuyButton();
+
+                    const addToCartBtn = document.getElementById("add-to-cart-btn");
+                    if (addToCartBtn) {
+                        addToCartBtn.addEventListener("click", () => {
+                            const variant = document.getElementById("variantSelector")?.value || null;
+                            addToCart(activeProduct, variant);
+                        });
+                    }
+                });
+
+                includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+            });
         });
     </script>
+
 
 
 
