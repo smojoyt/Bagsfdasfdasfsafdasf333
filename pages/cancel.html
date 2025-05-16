@@ -1,96 +1,59 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Payment Canceled – Karry Kraze</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Canceled - Karry Kraze</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        .toast-custom {
-            @apply fixed bottom-6 right-6 bg-black text-white text-sm px-4 py-2 rounded shadow-lg opacity-0 translate-y-4 transition-all duration-300 z-50;
+        body {
+            background-color: #fff8f0;
+            color: #1f2937;
         }
-
-            .toast-custom.show {
-                @apply opacity-100 translate-y-0;
-            }
     </style>
 </head>
-<body class="bg-white text-gray-900 min-h-screen flex flex-col items-center justify-center p-6 text-center">
+<body class="min-h-screen flex flex-col justify-center items-center text-center px-4 py-12">
 
-    <img src="/imgs/Logo/Short/4.jpg" alt="Karry Kraze Logo" class="w-24 mb-4" />
-    <h1 class="text-3xl font-bold uppercase">Payment Canceled</h1>
-    <p class="mt-2 text-sm text-gray-600 max-w-sm">Your cart is still safe. Review your order below and come back anytime!</p>
+    <div class="max-w-md w-full bg-white rounded-2xl shadow-lg p-6">
+        <img src="/imgs/Logo/Short/4.jpg" alt="Karry Kraze Logo" class="w-20 mx-auto mb-4 rounded-full border">
+        <h1 class="text-2xl font-bold mb-2">Order Canceled</h1>
+        <p class="text-gray-600 mb-4">It looks like you didn’t complete your purchase. No worries — your cart is still saved!</p>
 
-    <!-- 🧾 Order Summary -->
-    <div id="order-summary" class="mt-8 max-w-md w-full text-left bg-gray-50 border border-gray-200 p-4 rounded shadow-sm hidden">
-        <h2 class="text-lg font-semibold mb-3 border-b pb-1">Your Order</h2>
-        <ul id="summary-list" class="divide-y divide-gray-200 text-sm"></ul>
-        <div class="text-right font-bold mt-3 text-gray-800">Total: $<span id="summary-total">0.00</span></div>
+        <!-- Toast Notification -->
+        <div class="bg-red-100 text-red-800 border border-red-200 rounded-md px-4 py-3 text-sm mb-4">
+            You canceled your checkout. You can resume anytime.
+        </div>
+
+        <!-- Discount Banner -->
+        <div class="bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-lg px-4 py-3 text-sm mb-6">
+            Use code <strong>KRAZE5</strong> at checkout for <strong>$5 off</strong> your order.
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col gap-3">
+            <a href="/products/catalog" class="bg-yellow-200 hover:bg-yellow-300 text-black font-semibold py-2 px-4 rounded transition uppercase">Return to Shop</a>
+            <a href="mailto:support@karrykraze.com" class="text-sm underline text-gray-700 hover:text-black">Have questions? Contact us</a>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="mt-8 border-t pt-4 text-left text-sm">
+            <h2 class="font-semibold mb-2">Order Summary (Canceled)</h2>
+            <ul class="text-gray-600">
+                <li class="flex justify-between">
+                    <span>👜 Mini Heart Bag - Pink</span>
+                    <span>$56.74</span>
+                </li>
+                <li class="flex justify-between">
+                    <span>🎀 Bow Charm Accessory</span>
+                    <span>$5.00</span>
+                </li>
+                <li class="flex justify-between border-t mt-2 pt-2 font-medium text-black">
+                    <span>Total:</span>
+                    <span>$61.74</span>
+                </li>
+            </ul>
+        </div>
     </div>
-
-    <a href="/products/catalog" class="mt-6 bg-yellow-300 hover:bg-yellow-400 text-black font-bold tracking-wider uppercase px-6 py-3 rounded transition">
-        Back to Shop
-    </a>
-
-    <div id="plainToast" class="toast-custom">⚠️ Payment was canceled.</div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script>
-    // Plain Toast
-    const plainToast = document.getElementById("plainToast");
-    plainToast.classList.add("show");
-    setTimeout(() => plainToast.classList.remove("show"), 4000);
-
-    // Toastr.js
-    toastr.options = {
-      "closeButton": true,
-      "progressBar": true,
-      "positionClass": "toast-bottom-right",
-      "timeOut": "4000",
-    };
-    toastr.warning("Payment canceled. No charge was made.");
-
-    // SweetAlert2
-    Swal.fire({
-      toast: true,
-      icon: 'info',
-      title: 'Your checkout was canceled',
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 4000,
-      timerProgressBar: true
-    });
-
-    // 🛍️ Load Order Summary
-    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-    const list = document.getElementById("summary-list");
-    const totalEl = document.getElementById("summary-total");
-    const wrapper = document.getElementById("order-summary");
-
-    if (cart.length > 0) {
-      let total = 0;
-      cart.forEach(item => {
-        const subtotal = item.price * item.qty;
-        total += subtotal;
-        const li = document.createElement("li");
-        li.className = "flex justify-between py-2";
-        li.innerHTML = `
-          <div>
-            <div class="font-medium">${item.name}</div>
-            ${item.variant ? `<div class="text-xs text-gray-500">Variant: ${item.variant}</div>` : ""}
-            <div class="text-xs text-gray-500">Qty: ${item.qty}</div>
-          </div>
-          <div class="text-right text-gray-800 font-semibold">$${subtotal.toFixed(2)}</div>
-        `;
-        list.appendChild(li);
-      });
-
-      totalEl.textContent = total.toFixed(2);
-      wrapper.classList.remove("hidden");
-    }
-    </script>
 
 </body>
 </html>
