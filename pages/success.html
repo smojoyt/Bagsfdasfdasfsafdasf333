@@ -41,45 +41,46 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const sessionId = params.get("session_id");
+            const sessionId = params.get("session_id") || localStorage.getItem("last_session_id");
 
-            if (!sessionId && localStorage.getItem("last_session_id")) {
-                params.set("session_id", localStorage.getItem("last_session_id"));
-                window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
-            }
-
-            const currentSessionId = params.get("session_id");
-            if (currentSessionId) {
-                localStorage.setItem("last_session_id", currentSessionId);
-                fetch(`/api/get-order?session_id=${currentSessionId}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        showToast("Order loaded successfully!");
-                        document.getElementById("thankYouMessage").textContent = `Thank you, ${data.customer_name || 'Customer'}!`;
-                        document.getElementById("emailMessage").innerHTML = `A receipt has been sent to <strong>${data.customer_email}</strong>.`;
-
-                        const itemsContainer = document.getElementById("orderItems");
-                        itemsContainer.innerHTML = "";
-
-                        data.items.forEach(item => {
-                            const div = document.createElement("div");
-                            div.className = "flex justify-between text-sm mb-1";
-                            div.innerHTML = `<span>${item.name} × ${item.quantity}</span><span>$${item.amount_total}</span>`;
-                            itemsContainer.appendChild(div);
-                        });
-
-                        document.getElementById("orderTotal").textContent = `$${data.total}`;
-                        document.getElementById("orderTotalContainer").style.display = "flex";
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        showToast("Failed to load order details.", "error");
-                        document.getElementById("orderItems").innerHTML = `<p class="text-red-500 text-sm">Unable to load order summary.</p>`;
-                    });
-            } else {
+            if (!sessionId) {
                 showToast("Missing session ID.", "error");
                 document.getElementById("orderItems").innerHTML = `<p class="text-red-500 text-sm">Missing session ID.</p>`;
+                return;
             }
+
+            localStorage.setItem("last_session_id", sessionId);
+
+            fetch(`/api/get-order?session_id=${sessionId}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Network response was not ok");
+                    return res.json();
+                })
+                .then(data => {
+                    if (!data || !data.items || !Array.isArray(data.items)) throw new Error("Invalid data format");
+
+                    showToast("Order loaded successfully!");
+                    document.getElementById("thankYouMessage").textContent = `Thank you, ${data.customer_name || 'Customer'}!`;
+                    document.getElementById("emailMessage").innerHTML = `A receipt has been sent to <strong>${data.customer_email}</strong>.`;
+
+                    const itemsContainer = document.getElementById("orderItems");
+                    itemsContainer.innerHTML = "";
+
+                    data.items.forEach(item => {
+                        const div = document.createElement("div");
+                        div.className = "flex justify-between text-sm mb-1";
+                        div.innerHTML = `<span>${item.name} × ${item.quantity}</span><span>$${item.amount_total}</span>`;
+                        itemsContainer.appendChild(div);
+                    });
+
+                    document.getElementById("orderTotal").textContent = `$${data.total}`;
+                    document.getElementById("orderTotalContainer").style.display = "flex";
+                })
+                .catch(err => {
+                    console.error("Error loading order:", err);
+                    showToast("There was an issue retrieving your order. Please contact support.", "error");
+                    document.getElementById("orderItems").innerHTML = `<p class="text-red-500 text-sm">Unable to load order summary.</p>`;
+                });
         });
     </script>
 
