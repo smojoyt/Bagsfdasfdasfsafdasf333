@@ -73,7 +73,7 @@ function loadProductData() {
 
                 options.forEach(color => {
                     const stock = variantStock[color] ?? 0;
-                    const isOut = stock <= 0;
+                    if (stock <= 0) return;
 
                     const swatch = document.createElement("button");
                     swatch.className = `
