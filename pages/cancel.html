@@ -30,51 +30,62 @@
         </div>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-3 mb-6">
             <a href="/products/catalog" class="bg-yellow-200 hover:bg-yellow-300 text-black font-semibold py-2 px-4 rounded transition uppercase">Return to Shop</a>
             <a href="mailto:support@karrykraze.com" class="text-sm underline text-gray-700 hover:text-black">Have questions? Contact us</a>
         </div>
 
         <!-- Order Summary -->
-        <div class="mt-8 border-t pt-4 text-left text-sm">
-            <h2 class="font-semibold mb-2">Order Summary (Canceled)</h2>
-            <ul id="order-summary" class="text-gray-600 space-y-2">
-                <li class="flex items-center gap-3">
-                    <img src="/imgs/Products/Bags/MiniHeart/01.jpg" alt="Mini Heart Bag" class="w-10 h-10 rounded border">
-                    <span>Mini Heart Bag - Pink</span>
-                </li>
-                <li class="flex items-center gap-3">
-                    <img src="/imgs/Products/Accessories/BowCharm/01.jpg" alt="Bow Charm" class="w-10 h-10 rounded border">
-                    <span>Bow Charm Accessory</span>
-                </li>
-                <li class="mt-2 font-medium text-black">Subtotal: $56.74</li>
-                <li class="text-sm text-gray-500">Shipping Estimate: $5.00</li>
-                <li class="text-sm text-gray-500">Tax Estimate: $3.12</li>
-                <li class="font-bold text-lg text-black">Total: $64.86</li>
-            </ul>
+        <div class="mt-4 border-t pt-4 text-left text-sm">
+            <h2 class="font-semibold mb-2">Order Summary</h2>
+            <div id="order-summary" class="text-gray-600 space-y-2"></div>
         </div>
 
-        <!-- Trust Badge -->
-        <div class="mt-6 text-xs text-gray-500">
-            <p class="italic">✔️ Secure checkout • 30-day returns • SSL Protected</p>
+        <!-- Trust Badges -->
+        <div class="mt-6 flex justify-center gap-4">
+            <img src="/imgs/badges/secure-checkout.png" alt="Secure Checkout" class="h-8">
+            <img src="/imgs/badges/money-back.png" alt="Money Back Guarantee" class="h-8">
+            <img src="/imgs/badges/ssl.png" alt="SSL Encrypted" class="h-8">
         </div>
 
-        <!-- Social Follow Section -->
-        <div class="mt-6">
-            <p class="text-sm text-gray-600 mb-2">Follow us for deals, new drops, and styling inspo!</p>
+        <!-- Social Media Follow -->
+        <div class="mt-8">
+            <p class="text-sm font-medium text-gray-700 mb-2">Follow us for drops and deals</p>
             <div class="flex justify-center gap-4">
-                <a href="https://www.instagram.com/karrykraze" target="_blank">
-                    <img src="/imgs/socials/instagram.svg" alt="Instagram" class="w-6 h-6">
-                </a>
-                <a href="https://www.tiktok.com/@karrykraze" target="_blank">
-                    <img src="/imgs/socials/tiktok.svg" alt="TikTok" class="w-6 h-6">
-                </a>
-                <a href="https://www.pinterest.com/karrykraze" target="_blank">
-                    <img src="/imgs/socials/pinterest.svg" alt="Pinterest" class="w-6 h-6">
-                </a>
+                <a href="https://instagram.com/karrykraze" target="_blank"><img src="/imgs/social/instagram.svg" alt="Instagram" class="h-6"></a>
+                <a href="https://tiktok.com/@karrykraze" target="_blank"><img src="/imgs/social/tiktok.svg" alt="TikTok" class="h-6"></a>
+                <a href="https://pinterest.com/karrykraze" target="_blank"><img src="/imgs/social/pinterest.svg" alt="Pinterest" class="h-6"></a>
             </div>
         </div>
+
     </div>
+
+    <script>
+        const container = document.getElementById("order-summary");
+        const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+
+        if (cart.length === 0) {
+            container.innerHTML = '<p class="text-gray-500">Your cart was empty.</p>';
+        } else {
+            let total = 0;
+            cart.forEach(item => {
+                const line = `
+              <div class="flex items-center gap-3">
+                <img src="${item.image}" alt="${item.name}" class="w-10 h-10 rounded object-cover border">
+                <div>
+                  <p class="text-sm font-medium">${item.name} ${item.variant ? `- ${item.variant}` : ""}</p>
+                  <p class="text-xs text-gray-500">Qty: ${item.qty}</p>
+                </div>
+                <div class="ml-auto text-sm font-semibold">$${(item.price * item.qty).toFixed(2)}</div>
+              </div>
+            `;
+                total += item.price * item.qty;
+                container.insertAdjacentHTML("beforeend", line);
+            });
+
+            container.insertAdjacentHTML("beforeend", `<div class="border-t pt-2 mt-2 text-right font-bold text-black">Total: $${total.toFixed(2)}</div>`);
+        }
+    </script>
 
 </body>
 </html>
