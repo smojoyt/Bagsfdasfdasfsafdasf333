@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Canceled – Karry Kraze</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .toast-custom {
+            @apply fixed bottom-6 right-6 bg-black text-white text-sm px-4 py-2 rounded shadow-lg opacity-0 translate-y-4 transition-all duration-300 z-50;
+        }
+
+            .toast-custom.show {
+                @apply opacity-100 translate-y-0;
+            }
+    </style>
+</head>
+<body class="bg-white text-gray-900 min-h-screen flex flex-col items-center justify-center p-6 text-center">
+
+    <img src="/imgs/Logo/Short/4.jpg" alt="Karry Kraze Logo" class="w-24 mb-4" />
+    <h1 class="text-3xl font-bold uppercase">Payment Canceled</h1>
+    <p class="mt-2 text-sm text-gray-600 max-w-sm">Your cart is still safe. Review your order below and come back anytime!</p>
+
+    <!-- 🧾 Order Summary -->
+    <div id="order-summary" class="mt-8 max-w-md w-full text-left bg-gray-50 border border-gray-200 p-4 rounded shadow-sm hidden">
+        <h2 class="text-lg font-semibold mb-3 border-b pb-1">Your Order</h2>
+        <ul id="summary-list" class="divide-y divide-gray-200 text-sm"></ul>
+        <div class="text-right font-bold mt-3 text-gray-800">Total: $<span id="summary-total">0.00</span></div>
+    </div>
+
+    <a href="/products/catalog" class="mt-6 bg-yellow-300 hover:bg-yellow-400 text-black font-bold tracking-wider uppercase px-6 py-3 rounded transition">
+        Back to Shop
+    </a>
+
+    <div id="plainToast" class="toast-custom">⚠️ Payment was canceled.</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+    // Plain Toast
+    const plainToast = document.getElementById("plainToast");
+    plainToast.classList.add("show");
+    setTimeout(() => plainToast.classList.remove("show"), 4000);
+
+    // Toastr.js
+    toastr.options = {
+      "closeButton": true,
+      "progressBar": true,
+      "positionClass": "toast-bottom-right",
+      "timeOut": "4000",
+    };
+    toastr.warning("Payment canceled. No charge was made.");
+
+    // SweetAlert2
+    Swal.fire({
+      toast: true,
+      icon: 'info',
+      title: 'Your checkout was canceled',
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true
+    });
+
+    // 🛍️ Load Order Summary
+    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+    const list = document.getElementById("summary-list");
+    const totalEl = document.getElementById("summary-total");
+    const wrapper = document.getElementById("order-summary");
+
+    if (cart.length > 0) {
+      let total = 0;
+      cart.forEach(item => {
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+        const li = document.createElement("li");
+        li.className = "flex justify-between py-2";
+        li.innerHTML = `
+          <div>
+            <div class="font-medium">${item.name}</div>
+            ${item.variant ? `<div class="text-xs text-gray-500">Variant: ${item.variant}</div>` : ""}
+            <div class="text-xs text-gray-500">Qty: ${item.qty}</div>
+          </div>
+          <div class="text-right text-gray-800 font-semibold">$${subtotal.toFixed(2)}</div>
+        `;
+        list.appendChild(li);
+      });
+
+      totalEl.textContent = total.toFixed(2);
+      wrapper.classList.remove("hidden");
+    }
+    </script>
+
+</body>
+</html>
