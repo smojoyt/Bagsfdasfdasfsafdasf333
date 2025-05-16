@@ -92,38 +92,35 @@ function loadProductData() {
 
                     swatch.setAttribute("aria-label", `${color} color`);
 
-                    if (!isOut) {
-                        swatch.addEventListener("click", () => {
-                            updateVariant(color);
+                    swatch.addEventListener("click", () => {
+                        updateVariant(color);
 
-                            Array.from(variantSelect.children).forEach(btn =>
-                                btn.querySelector("div").classList.remove("ring", "ring-black", "ring-offset-2")
-                            );
-                            swatch.querySelector("div").classList.add("ring", "ring-black", "ring-offset-2");
+                        Array.from(variantSelect.children).forEach(btn =>
+                            btn.querySelector("div").classList.remove("ring", "ring-black", "ring-offset-2")
+                        );
+                        swatch.querySelector("div").classList.add("ring", "ring-black", "ring-offset-2");
 
-                            const img = document.getElementById("mainImage");
-                            if (activeProduct.variantImages?.[color] && img) {
-                                img.src = activeProduct.variantImages[color];
-                            }
-
-                            const variantInput = document.getElementById("variantSelector");
-                            if (variantInput) variantInput.value = color;
-
-                            const btn = document.getElementById("add-to-cart-btn");
-                            if (btn) {
-                                btn.disabled = false;
-                                btn.textContent = "Add to Cart";
-                                btn.classList.remove("opacity-50", "cursor-not-allowed");
-                            }
-                        });
-
-                        // Select first in-stock variant
-                        if (!defaultSelected) {
-                            defaultSelected = true;
-                            setTimeout(() => swatch.click(), 0);
-
+                        const img = document.getElementById("mainImage");
+                        if (activeProduct.variantImages?.[color] && img) {
+                            img.src = activeProduct.variantImages[color];
                         }
+
+                        const variantInput = document.getElementById("variantSelector");
+                        if (variantInput) variantInput.value = color;
+
+                        const btn = document.getElementById("add-to-cart-btn");
+                        if (btn) {
+                            btn.disabled = false;
+                            btn.textContent = "Add to Cart";
+                            btn.classList.remove("opacity-50", "cursor-not-allowed");
+                        }
+                    });
+
+                    if (!defaultSelected) {
+                        defaultSelected = true;
+                        setTimeout(() => swatch.click(), 0);
                     }
+
 
                     variantSelect.appendChild(swatch);
                 });
