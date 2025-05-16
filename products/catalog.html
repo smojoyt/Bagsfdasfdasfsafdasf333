@@ -165,9 +165,13 @@
                 catalogMain.classList.add("ml-64");
             }
             // ⏱ Delay Isotope layout until after animation finishes
-            setTimeout(() => {
+            let count = 0;
+            const intervalId = setInterval(() => {
                 if (iso) iso.layout();
-            }, 350);
+                count++;
+                if (count >= 2) clearInterval(intervalId);
+            }, 500); // every 500ms (or whatever timing you prefer)
+
         }
 
         function closeSidebar() {
