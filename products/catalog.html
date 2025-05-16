@@ -205,6 +205,12 @@
 
                     Object.entries(products).forEach(([sku, p]) => {
                         // Skip discontinued items
+                        const variantStock = p.variantStock || {};
+                        const firstInStock = Object.keys(variantStock).find(color => variantStock[color] > 0);
+                        if (firstInStock && p.variantImages?.[firstInStock]) {
+                            p.image = p.variantImages[firstInStock]; // override default image with in-stock variant
+                        }
+
                         if (p.tags?.includes("Discontinued")) return;
 
                         const tagClasses = [
