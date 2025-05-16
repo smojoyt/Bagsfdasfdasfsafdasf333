@@ -1,12 +1,12 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-    // Set CORS headers to allow access from your main site
+    // CORS HEADERS
     res.setHeader("Access-Control-Allow-Origin", "https://www.karrykraze.com");
     res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-    // Handle preflight OPTIONS request
+    // Handle preflight request
     if (req.method === "OPTIONS") {
         return res.status(200).end();
     }
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
             limit: 100,
         });
 
-        res.status(200).json({
+        return res.status(200).json({
             customer_name: session.customer_details.name,
             customer_email: session.customer_details.email,
             total: (session.amount_total / 100).toFixed(2),
@@ -39,6 +39,6 @@ export default async function handler(req, res) {
         });
     } catch (err) {
         console.error('Error fetching order summary:', err);
-        res.status(500).json({ error: 'Failed to fetch order' });
+        return res.status(500).json({ error: 'Failed to fetch order' });
     }
 }
