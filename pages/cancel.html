@@ -5,11 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Canceled - Karry Kraze</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <style>
         body {
             background-color: #fff8f0;
             color: #1f2937;
         }
+
+        .carousel-cell {
+            width: 180px;
+            margin-right: 10px;
+        }
+
+            .carousel-cell img {
+                width: 100%;
+                border-radius: 0.75rem;
+            }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-center items-center text-center px-4 py-12">
@@ -35,52 +47,59 @@
             <a href="mailto:support@karrykraze.com" class="text-sm underline text-gray-700 hover:text-black">Have questions? Contact us</a>
         </div>
 
-        <!-- Order Summary (Live Cart) -->
-        <div id="order-summary" class="mt-8 border-t pt-4 text-left text-sm hidden">
-            <h2 class="font-semibold text-lg mb-4">Your Cart (<span id="cart-count"></span> Items – Canceled)</h2>
-            <div id="cart-items" class="space-y-3"></div>
-            <div class="flex justify-between border-t pt-2 font-semibold text-black">
-                <span>Total</span>
-                <span id="cart-total">$0.00</span>
-            </div>
-            <div id="discount-banner" class="text-green-700 text-xs mt-2"></div>
+        <!-- Order Summary -->
+        <div class="mt-8 border-t pt-4 text-left text-sm">
+            <h2 class="font-semibold mb-2">Order Summary</h2>
+            <ul id="order-summary-list" class="text-gray-600"></ul>
         </div>
     </div>
 
+    <!-- You May Also Like -->
+    <div class="w-full max-w-5xl mt-12">
+        <h2 class="text-2xl font-bold mb-4 text-center">You May Also Like</h2>
+        <div class="carousel px-6" id="recommend-carousel"></div>
+    </div>
+
     <script>
+        // Load cart from localStorage and populate summary
         const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-        const orderSummary = document.getElementById("order-summary");
-        const cartItems = document.getElementById("cart-items");
-        const cartCount = document.getElementById("cart-count");
-        const cartTotal = document.getElementById("cart-total");
-        const discountBanner = document.getElementById("discount-banner");
+        const list = document.getElementById("order-summary-list");
+        let total = 0;
+        cart.forEach(item => {
+            total += item.price * item.qty;
+            list.innerHTML += `<li>👜 ${item.name}${item.variant ? ` - ${item.variant}` : ""} (x${item.qty})</li>`;
+        });
+        list.innerHTML += `<li class="mt-2 font-medium text-black">Total: $${total.toFixed(2)}</li>`;
 
-        if (cart.length > 0) {
-            orderSummary.classList.remove("hidden");
-            cartCount.textContent = cart.length;
+        // Load product suggestions
+        fetch("/products/products.json")
+            .then(res => res.json())
+            .then(products => {
+                const container = document.getElementById("recommend-carousel");
+                const entries = Object.entries(products)
+                    .filter(([_, p]) => !p.tags?.includes("Discontinued") && !p.tags?.includes("Outofstock"))
+                    .slice(0, 6);
 
-            let total = 0;
-
-            cart.forEach(item => {
-                const itemRow = document.createElement("div");
-                itemRow.className = "flex justify-between items-center gap-4";
-                itemRow.innerHTML = `
-              <div class="flex items-center gap-2">
-                <img src="${item.image}" alt="${item.name}" class="w-10 h-10 rounded object-cover border">
-                <div>
-                  <p class="font-medium text-gray-800 text-sm">${item.name}</p>
-                  ${item.variant ? `<p class="text-xs text-gray-500">Color: ${item.variant}</p>` : ''}
+                entries.forEach(([sku, p]) => {
+                    const img = p.variantImages?.[Object.keys(p.variantImages ?? {})[0]] || p.image;
+                    container.innerHTML += `
+                <div class="carousel-cell">
+                  <a href="/products/${sku}.html" class="block">
+                    <img src="${img}" alt="${p.name}" class="mb-2">
+                    <p class="font-semibold text-sm text-gray-800">${p.name}</p>
+                    <p class="text-sm text-gray-600">$${(p.sale_price ?? p.price).toFixed(2)}</p>
+                  </a>
                 </div>
-              </div>
-              <div class="text-sm font-medium">$${(item.price * item.qty).toFixed(2)}</div>
-            `;
-                cartItems.appendChild(itemRow);
-                total += item.price * item.qty;
-            });
+              `;
+                });
 
-            cartTotal.textContent = `$${total.toFixed(2)}`;
-            discountBanner.textContent = `You’ll save $5 with code KRAZE5 when you complete your order.`;
-        }
+                new Flickity(container, {
+                    cellAlign: 'left',
+                    contain: true,
+                    pageDots: false,
+                    groupCells: true
+                });
+            });
     </script>
 
 </body>
