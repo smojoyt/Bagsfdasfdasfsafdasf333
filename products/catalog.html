@@ -129,7 +129,7 @@
             <div class="flex justify-between items-center p-2">
                 <button id="toggle-filters" class="bg-gray-800 text-white px-4 py-2 rounded z-20">Filters</button>
             </div>
-            <div class="overflow-x-auto">
+            <div class="w-full">
                 <div id="product-grid" class="grid gap-6 p-2 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                 </div>
             </div>
@@ -244,7 +244,7 @@
                             : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
 
                         container.insertAdjacentHTML("beforeend", `
-                    <div class="p-2 item ${p.category} ${tagClasses}"
+                    <div class="p-2 item w-full sm:w-1/2 ${p.category} ${tagClasses}"
                          data-name="${p.name.toLowerCase()}"
                          data-price="${p.tags?.includes('Onsale') && p.sale_price < p.price ? p.sale_price : p.price}"
                          data-discount="${discount}">
