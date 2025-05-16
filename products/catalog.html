@@ -164,6 +164,7 @@
             } else {
                 catalogMain.classList.add("ml-64");
             }
+            if (iso) iso.layout(); // ⬅️ Force Isotope to re-calculate
         }
 
         function closeSidebar() {
@@ -174,6 +175,7 @@
             } else {
                 catalogMain.classList.remove("ml-64");
             }
+            if (iso) iso.layout(); // ⬅️ Force Isotope to re-calculate
         }
 
         toggleBtn.addEventListener("click", () => {
