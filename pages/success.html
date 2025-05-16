@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Order Confirmation — Karry Kraze</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="/favicon.ico" />
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -51,7 +52,9 @@
 
             localStorage.setItem("last_session_id", sessionId);
 
-            fetch(`/api/get-order?session_id=${sessionId}`)
+            const API_BASE = "https://buy.karrykraze.com";
+
+            fetch(`${API_BASE}/api/get-order?session_id=${sessionId}`)
                 .then(res => {
                     if (!res.ok) throw new Error("Network response was not ok");
                     return res.json();
