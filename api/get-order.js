@@ -1,10 +1,13 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const path = require('path');
+const fs = require('fs');
 
 export default async function handler(req, res) {
     // CORS setup for GET from www.karrykraze.com
     res.setHeader("Access-Control-Allow-Origin", "https://www.karrykraze.com");
     res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
 
     if (req.method === "OPTIONS") return res.status(200).end();
 
