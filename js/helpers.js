@@ -21,24 +21,18 @@
         const color = opt.toLowerCase().trim();
         const name = opt.trim();
         const className = colorMap[color] || 'bg-gray-200';
-        const isOut = stockObj && stockObj[name] === 0;
+        const isOut = stockObj[name] === 0;
+
+        // ✅ Skip rendering if out of stock
+        if (isOut) return "";
 
         return `
-  <span title="${name}${isOut ? ' (Out of stock)' : ''}"
-        class="relative w-5 h-5 sm:w-6 sm:h-6 rounded-full border overflow-hidden 
-               ${isOut ? 'opacity-70' : ''} ${className}">
-    ${isOut ? `
-      <span class="absolute inset-0 bg-white/40 z-10"></span>
-      <span class="absolute inset-0 flex items-center justify-center z-20">
-        <span class="w-full h-[2px] bg-red-500 rotate-45 absolute"></span>
-        <span class="w-full h-[2px] bg-red-500 -rotate-45 absolute"></span>
-      </span>
-    ` : ""}
-  </span>
-`;
-
+            <span title="${name}"
+                  class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border ${className} block"></span>
+        `;
     }).join("");
 }
+
 
 
 
