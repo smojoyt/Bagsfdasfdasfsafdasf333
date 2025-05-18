@@ -115,11 +115,13 @@ export default async function handler(req, res) {
         };
 
         if (subtotal >= 6000) {
-            sessionOptions.discounts = [{ promotion_code: "promo_1RQFQVLzNgqX2t8K9or5i7Za" }];
-            // Stripe does NOT allow both at once
+            sessionOptions.discounts = [
+                { promotion_code: "promo_1RQFQVLzNgqX2t8K9or5i7Za" }
+            ];
         } else {
             sessionOptions.allow_promotion_codes = true;
         }
+
 
 
 
