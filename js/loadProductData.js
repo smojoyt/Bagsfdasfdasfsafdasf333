@@ -13,9 +13,8 @@
                 ? product.sale_price
                 : product.price,
             qty: 1,
-            image: product.variantImages?.[variant] || product.image  // ✅ Add this
+            image: product.variantImages?.[variant] || product.image
         });
-
     }
 
     localStorage.setItem("savedCart", JSON.stringify(cart));
@@ -31,18 +30,17 @@ function renderAllColorDots(customOptions, variantStock = {}) {
             const trimmed = color.trim();
             const inStock = (variantStock[trimmed] ?? 0) > 0;
             return `
-        <div class="relative w-6 h-6 rounded-full border border-gray-300 ${!inStock ? 'opacity-40' : ''} ${(getColorClass ? getColorClass(color) : '')}">
-          ${!inStock ? `
-            <span class="absolute inset-0 flex items-center justify-center">
-              <span class="w-full h-[2px] bg-red-600 rotate-45 absolute"></span>
-              <span class="w-full h-[2px] bg-red-600 -rotate-45 absolute"></span>
-            </span>` : ""}
-        </div>
-      `;
+                <div class="relative w-6 h-6 rounded-full border border-gray-300 ${!inStock ? 'opacity-40' : ''} ${getColorClass ? getColorClass(trimmed) : ''}">
+                  ${!inStock ? `
+                    <span class="absolute inset-0 flex items-center justify-center">
+                      <span class="w-full h-[2px] bg-red-600 rotate-45 absolute"></span>
+                      <span class="w-full h-[2px] bg-red-600 -rotate-45 absolute"></span>
+                    </span>` : ""}
+                </div>
+            `;
         })
         .join("");
 }
-
 
 function loadProductData() {
     fetch("https://www.karrykraze.com/products/products.json")
@@ -95,25 +93,24 @@ function loadProductData() {
 
                     const swatch = document.createElement("button");
                     swatch.className = `
-        flex flex-col items-center group
-        focus:outline-none
-        ${isOut ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-    `;
+                        flex flex-col items-center group
+                        focus:outline-none
+                        ${isOut ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+                    `;
                     swatch.disabled = isOut;
 
                     swatch.innerHTML = `
-        <div class="relative w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black overflow-hidden"
-             class="${getColorClass(color)}">
-            ${isOut ? `
-                <span class="absolute inset-0 bg-white/40 z-10"></span>
-                <span class="absolute inset-0 flex items-center justify-center z-20">
-                    <span class="w-full h-[2px] bg-red-600 rotate-45 absolute"></span>
-                    <span class="w-full h-[2px] bg-red-600 -rotate-45 absolute"></span>
-                </span>
-            ` : ""}
-        </div>
-        <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
-    `;
+                        <div class="relative w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black overflow-hidden ${getColorClass ? getColorClass(color) : ''}">
+                            ${isOut ? `
+                                <span class="absolute inset-0 bg-white/40 z-10"></span>
+                                <span class="absolute inset-0 flex items-center justify-center z-20">
+                                    <span class="w-full h-[2px] bg-red-600 rotate-45 absolute"></span>
+                                    <span class="w-full h-[2px] bg-red-600 -rotate-45 absolute"></span>
+                                </span>
+                            ` : ""}
+                        </div>
+                        <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
+                    `;
 
                     swatch.setAttribute("aria-label", `${color} color`);
 
@@ -151,7 +148,6 @@ function loadProductData() {
                     variantSelect.appendChild(swatch);
                 });
 
-
                 if (!defaultSelected) {
                     const btn = document.getElementById("add-to-cart-btn");
                     if (btn) {
@@ -165,7 +161,6 @@ function loadProductData() {
                         buyBtn.textContent = "Out of Stock";
                         buyBtn.classList.add("opacity-50", "cursor-not-allowed");
                     }
-
                 }
             }
 
