@@ -111,7 +111,8 @@ export default async function handler(req, res) {
             shipping_options,
             allow_promotion_codes: true,
             success_url: "https://www.karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
-            cancel_url: "https://www.karrykraze.com/pages/cancel.html"
+            cancel_url: "https://www.karrykraze.com/pages/cancel.html",
+            discounts: [{ promotion_code: "promo_1RQF2MLzNgqX2t8KigFqj3DG" }]
         });
 
         return res.status(200).json({ url: session.url });
