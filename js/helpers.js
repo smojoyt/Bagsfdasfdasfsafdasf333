@@ -14,7 +14,12 @@
         tan: 'bg-amber-300',
         gold: 'bg-yellow-300',
         silver: 'bg-gray-300',
-        cream: 'bg-[#fdf6e3] border'
+        cream: 'bg-[#fdf6e3] border',
+
+            // Gradients (horizontal)
+        "black/red": "bg-gradient-to-r from-black to-red-500",
+        "black/white": "bg-gradient-to-r from-black to-white border",
+        "pink/white": "bg-gradient-to-r from-pink-400 to-white border"
     };
 
     return optionsStr.split("|").map(opt => {
