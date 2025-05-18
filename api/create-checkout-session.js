@@ -116,8 +116,11 @@ export default async function handler(req, res) {
 
         if (subtotal >= 6000) {
             sessionOptions.discounts = [{ promotion_code: "promo_1RQFQVLzNgqX2t8K9or5i7Za" }];
+            sessionOptions.allow_promotion_codes = false;
+        } else {
+            sessionOptions.allow_promotion_codes = true;
         }
-        sessionOptions.allow_promotion_codes = false; // disables manual entry
+
 
 
         const session = await stripe.checkout.sessions.create(sessionOptions);
