@@ -47,6 +47,10 @@ function renderCart() {
     const freeShippingProgress = document.getElementById("freeShippingProgress");
     const checkoutBtn = document.getElementById("checkoutBtn");
     const emptyMsg = document.getElementById("emptyCartMessage");
+    const discountBar = document.getElementById("discountBar");
+    const discountProgress = document.getElementById("discountProgress");
+    const discountBarWrapper = document.getElementById("discountBarWrapper");
+
 
     let total = 0;
     cartItemsEl.innerHTML = "";
@@ -108,6 +112,30 @@ function renderCart() {
             freeShippingProgress.classList.add("bg-yellow-400");
         }
     }
+
+    // $10 OFF $60 Progress Tracker
+    const discountGoal = 60;
+    const discountProgressValue = Math.min((total / discountGoal) * 100, 100);
+
+    if (discountBar && discountProgress && discountBarWrapper) {
+        discountBarWrapper.classList.remove("hidden");
+        discountBar.classList.remove("hidden");
+
+        if (total >= discountGoal) {
+            discountBar.textContent = "🎉 You’ve unlocked $10 OFF your order!";
+            discountProgress.style.width = "100%";
+            discountProgress.classList.remove("bg-yellow-400");
+            discountProgress.classList.add("bg-purple-600");
+        } else {
+            const diff = (discountGoal - total).toFixed(2);
+            discountBar.textContent = `You're $${diff} away from $10 off!`;
+            discountProgress.style.width = `${discountProgressValue}%`;
+            discountProgress.classList.remove("bg-purple-600");
+            discountProgress.classList.add("bg-yellow-400");
+        }
+    }
+
+
 
     // Attach buttons
     document.querySelectorAll(".qty-btn").forEach(btn => {
