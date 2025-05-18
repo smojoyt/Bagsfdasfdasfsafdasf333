@@ -1,4 +1,5 @@
-﻿function renderColorDots(optionsStr, stockObj = {}) {
+﻿// Make color map function globally available
+window.getColorClass = function (colorName) {
     const colorMap = {
         pink: 'bg-pink-400',
         white: 'bg-white border',
@@ -16,27 +17,30 @@
         silver: 'bg-gray-300',
         cream: 'bg-[#fdf6e3] border',
 
-            // Gradients (horizontal)
+        // Gradient styles
         "black/red": "bg-gradient-to-r from-black to-red-500",
         "black/white": "bg-gradient-to-r from-black to-white border",
         "pink/white": "bg-gradient-to-r from-pink-400 to-white border"
     };
 
+    return colorMap[colorName.toLowerCase()] || 'bg-gray-200';
+};
+
+// Render color dots using global getColorClass
+window.renderColorDots = function (optionsStr, stockObj = {}) {
     return optionsStr.split("|").map(opt => {
-        const color = opt.toLowerCase().trim();
         const name = opt.trim();
-        const className = colorMap[color] || 'bg-gray-200';
         const isOut = stockObj[name] === 0;
 
-        // ✅ Skip rendering if out of stock
-        if (isOut) return "";
+        if (isOut) return ""; // skip if out of stock
 
         return `
             <span title="${name}"
-                  class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border ${className} block"></span>
+                  class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border ${getColorClass(name)} block"></span>
         `;
     }).join("");
-}
+};
+
 
 
 
