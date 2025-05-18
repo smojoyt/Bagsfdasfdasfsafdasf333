@@ -244,7 +244,7 @@
                             : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
 
                         container.insertAdjacentHTML("beforeend", `
-                    <div class="p-2 item w-full sm:w-1/2 ${p.category} ${tagClasses}"
+                    <div class="p-2 item ${p.category} ${tagClasses}"
                          data-name="${p.name.toLowerCase()}"
                          data-price="${p.tags?.includes('Onsale') && p.sale_price < p.price ? p.sale_price : p.price}"
                          data-discount="${discount}">
