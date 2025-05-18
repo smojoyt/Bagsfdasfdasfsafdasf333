@@ -99,6 +99,7 @@ export default async function handler(req, res) {
             shipping_options.unshift({ shipping_rate: 'shr_1RO9lyLzNgqX2t8KUr7X1RJh' }); // Free shipping
         }
 
+        // ✅ Create base sessionOptions (without allow_promotion_codes or discounts yet)
         const sessionOptions = {
             payment_method_types: ['card', 'link', 'klarna', 'cashapp', 'affirm', 'afterpay_clearpay'],
             mode: 'payment',
@@ -109,14 +110,19 @@ export default async function handler(req, res) {
                 allowed_countries: ['US', 'CA']
             },
             shipping_options,
-            allow_promotion_codes: true,
             success_url: "https://www.karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
             cancel_url: "https://www.karrykraze.com/pages/cancel.html"
         };
 
+        // ✅ Now apply either discounts OR allow_promotion_codes
         if (subtotal >= 6000) {
-            sessionOptions.discounts = [{ promotion_code: "promo_1RQFQVLzNgqX2t8K9or5i7Za" }];
+            sessionOptions.discounts = [
+                { promotion_code: "promo_1RQFQVLzNgqX2t8K9or5i7Za" }
+            ];
+        } else {
+            sessionOptions.allow_promotion_codes = true;
         }
+
 
 
         const session = await stripe.checkout.sessions.create(sessionOptions);
