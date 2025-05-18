@@ -117,7 +117,7 @@ export default async function handler(req, res) {
         // ✅ Now apply either discounts OR allow_promotion_codes
         if (subtotal >= 6000) {
             sessionOptions.discounts = [
-                { promotion_code: "promo_1RQFQVLzNgqX2t8K9or5i7Za" }
+                { promotion_code: "promo_1RQGELLzNgqX2t8K1ROge1Er" }
             ];
         } else {
             sessionOptions.allow_promotion_codes = true;
