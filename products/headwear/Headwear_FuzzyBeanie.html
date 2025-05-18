@@ -101,16 +101,7 @@
         const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
         let activeProduct = null;
 
-        const colorMap = {
-            Black: "#000000",
-            White: "#ffffff",
-            Red: "#e3342f",
-            Navy: "#1e3a8a",
-            Beige: "#f5f5dc",
-            Brown: "#8b4513",
-            Gray: "#6b7280",
-            Cream: "#fffdd0",
-        };
+
 
         function includeHTML(id, filePath, callback = null) {
             fetch(filePath)

@@ -31,8 +31,7 @@ function renderAllColorDots(customOptions, variantStock = {}) {
             const trimmed = color.trim();
             const inStock = (variantStock[trimmed] ?? 0) > 0;
             return `
-        <div class="relative w-6 h-6 rounded-full border border-gray-300 ${!inStock ? 'opacity-40' : ''}"
-             style="background-color: ${colorMap[trimmed] || trimmed.toLowerCase()}">
+        <div class="relative w-6 h-6 rounded-full border border-gray-300 ${!inStock ? 'opacity-40' : ''} ${(getColorClass ? getColorClass(color) : '')}">
           ${!inStock ? `
             <span class="absolute inset-0 flex items-center justify-center">
               <span class="w-full h-[2px] bg-red-600 rotate-45 absolute"></span>
@@ -104,7 +103,7 @@ function loadProductData() {
 
                     swatch.innerHTML = `
         <div class="relative w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black overflow-hidden"
-             style="background-color: ${colorMap[color] || color.toLowerCase()}">
+             class="${getColorClass(color)}">
             ${isOut ? `
                 <span class="absolute inset-0 bg-white/40 z-10"></span>
                 <span class="absolute inset-0 flex items-center justify-center z-20">
