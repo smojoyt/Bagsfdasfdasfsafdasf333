@@ -447,7 +447,47 @@
 		},
 		"thumbnails": [
 		]
+	},
+
+	"Headwear_FuzzyBeanie": {
+		"name": "Fuzzy Beanie",
+		"category": "headwear",
+		"product_id": "KK-1016",
+		"price": 24.97,
+		"tags": [ "Headwear", "Bestseller", "InStock" ],
+		"image": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/featured.jpg",
+		"url": "https://www.karrykraze.com/products/headwear/Headwear_FuzzyBeanie.html",
+		"descriptionList": [
+			"Soft textured red and black fuzzy knit design",
+			"Eye-catching statement piece with streetwear edge",
+			"Warm and cozy fit for colder seasons",
+			"One size fits most – stretchy and comfortable"
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Black/Red | Black | Black/White | Pink/White",
+		"variantStock": {
+			"Black/Red": 2,
+			"Black": 4,
+			"Black/White": 2,
+			"Pink/White": 2
+		},
+		"variantImages": {
+			"Black/Red": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_2_1.jpg",
+			"Black": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_4_1.jpg",
+			"Black/White": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_3_1.jpg",
+			"Pink/White": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_1_1.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_2_1.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_6.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_1_1.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_1_2.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_5_1.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_3_1.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_4_1.jpg"
+		]
 	}
+
 
 
 
