@@ -5,7 +5,7 @@
 		"product_id": "KK-1001",
 		"price": 44.97,
 		"sale_price": 34.97,
-		"tags": [ "Bestseller", "Onsale" ],
+		"tags": [ "Bestseller", "Onsale", "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_05.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_EarflapBeanie.html",
 		"descriptionList": [
@@ -46,7 +46,7 @@
 		"category": "bags",
 		"product_id": "KK-1002",
 		"price": 34.97,
-		"tags": [ "Bestseller", "Featured" ],
+		"tags": [ "Bestseller" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/0011_HeartBag/01_05.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_MiniHeart.html",
 		"descriptionList": [
@@ -84,7 +84,7 @@
 		"category": "bags",
 		"product_id": "KK-1003",
 		"price": 64.97,
-		"tags": [ "Featured" ],
+		"tags": [ "" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/001_TheBucket/03_07.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_TheBucket.html",
 		"descriptionList": [
@@ -117,7 +117,7 @@
 		"product_id": "KK-1004",
 		"price": 75.65,
 		"sale_price": 56.74,
-		"tags": [ "Onsale", "Featured" ],
+		"tags": [ "Onsale", "" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_BitchesIsWeird.html",
 		"descriptionList": [
@@ -458,7 +458,7 @@
 		"product_id": "KK-1016",
 		"price": 34.97,
 		"sale_price": 24.97,
-		"tags": [ "Headwear", "Bestseller", "Onsale" ],
+		"tags": [ "Headwear", "Bestseller", "Onsale", "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_2_1.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_FuzzyBeanie.html",
 		"descriptionList": [
@@ -499,7 +499,7 @@
 		"product_id": "KK-1021",
 		"price": 44.97,
 		"sale_price": 34.97,
-		"tags": [ "Headwear", "New Arrival", "Onsale" ],
+		"tags": [ "Headwear", "New Arrival", "Onsale", "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_3_1.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_CatEarBeanie.html",
 		"descriptionList": [
