@@ -30,6 +30,16 @@
             width: 100vw;
             height: 100vh;
             object-fit: cover;
+            z-index: -2;
+        }
+
+        #bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
 
@@ -50,11 +60,11 @@
         }
 
         .fade-exit-left {
-            animation: slideOutLeft 0.5s forwards;
+            animation: slideOutLeft 0.8s forwards;
         }
 
         .fade-enter-right {
-            animation: slideInRight 0.5s forwards;
+            animation: slideInRight 0.8s forwards;
         }
 
         @keyframes slideOutLeft {
@@ -104,6 +114,7 @@
         <source src="/imgs/Banner/Banner3_1.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+    <div id="bg-overlay"></div>
     <div class="max-w-7xl mx-auto px-4 py-8 relative z-10">
         <h1 id="promo-title" class="text-3xl font-bold mb-4 text-center">Promo</h1>
 
@@ -168,17 +179,17 @@
                     card.className = "relative group bg-white p-2 rounded-xl shadow hover:shadow-lg overflow-hidden";
 
                     card.innerHTML = `
-                <a href="${product.url}" class="block">
-                  <div class="relative">
-                    <img src="${product.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
-                    <img src="${hover}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
-                  </div>
-                  <div class="mt-2">
-                    <h2 class="font-semibold text-sm line-clamp-2">${product.name}</h2>
-                    ${getCompactPriceHTML(product)}
-                  </div>
-                </a>
-              `;
+                    <a href="${product.url}" class="block">
+                      <div class="relative">
+                        <img src="${product.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
+                        <img src="${hover}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
+                      </div>
+                      <div class="mt-2">
+                        <h2 class="font-semibold text-sm line-clamp-2">${product.name}</h2>
+                        ${getCompactPriceHTML(product)}
+                      </div>
+                    </a>
+                  `;
 
                     grid.appendChild(card);
                 });
