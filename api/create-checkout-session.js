@@ -26,24 +26,13 @@ export default async function handler(req, res) {
 
         if (Array.isArray(cart)) {
             line_items = cart.map(item => {
-                const product = products[item.id];
-
-                if (!product) {
-                    console.error("❌ Cart item not found in products.json:", item.id);
-                    return null;
-                }
+                const product = Object.values(products).find(p => p.product_id === item.id);
+                if (!product) return null;
 
                 const variant = item.variant?.trim();
                 const image = product.variantImages?.[variant] || product.image;
                 const name = variant ? `${product.name} - ${variant}` : product.name;
                 const description = product.descriptionList?.join(" | ") || product.description || "Karry Kraze item";
-
-                const price = item.price || product.sale_price || product.price;
-
-                if (!price || isNaN(price)) {
-                    console.error("❌ Invalid price for:", item.id);
-                    return null;
-                }
 
                 return {
                     price_data: {
@@ -59,12 +48,11 @@ export default async function handler(req, res) {
                                 clean_name: product.name
                             }
                         },
-                        unit_amount: Math.round(price * 100)
+                        unit_amount: Math.round(item.price * 100)
                     },
                     quantity: item.qty || 1
                 };
             }).filter(Boolean);
-
         } else if (sku) {
             const product = products[sku];
             if (!product) return res.status(404).json({ error: "Product not found" });
