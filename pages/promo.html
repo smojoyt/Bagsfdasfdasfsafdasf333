@@ -136,7 +136,7 @@
                 const modelImg = document.getElementById('model-image');
 
                 title.textContent = promoConfig.title;
-                modelImg.src = promoConfig.modelImage;
+                modelImg.src = entries[0]?.thumbnails?.[1] || entries[0]?.image || '';
 
                 entries.slice(0, 9).forEach(product => {
                     const hover = product.thumbnails?.[1] || product.image;
@@ -197,14 +197,14 @@
                         const btn = document.createElement('button');
                         btn.className = `w-6 h-6 rounded-full border swatch-button ${idx === 0 ? 'selected' : ''} ${getColorClass(clean)}`;
                         btn.addEventListener('click', () => {
-                            modelEl.src = p.variantImages?.[clean] || p.image;
+                            modelEl.src = p.thumbnails?.[1] || p.image;
                             [...variantEl.children].forEach(b => b.classList.remove('selected'));
                             btn.classList.add('selected');
                         });
                         variantEl.appendChild(btn);
                     });
 
-                    modelEl.src = p.variantImages?.[colors[0].trim()] || p.image;
+                    modelEl.src = p.thumbnails?.[1] || p.image;
                 }
 
                 function updateCarousel(index) {
@@ -230,5 +230,6 @@
                 updateCarousel(0);
             });
     </script>
+
 </body>
 </html>
