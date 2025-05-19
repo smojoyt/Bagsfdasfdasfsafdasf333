@@ -118,35 +118,7 @@ function renderCart() {
         }
     }
 
-    // $10 OFF $60 Progress Tracker
-    const discountGoal = 60;
-
-    function updateDiscountTracker(total) {
-        const discountProgressValue = Math.min((total / discountGoal) * 100, 100);
-
-        if (discountBar && discountProgress && discountBarWrapper) {
-            if (total <= 0) {
-                discountBarWrapper.classList.add("hidden");
-                return;
-            }
-
-            discountBarWrapper.classList.remove("hidden");
-            discountBar.classList.remove("hidden");
-
-            if (total >= discountGoal) {
-                discountBar.textContent = "🎉 You’ve unlocked $10 OFF your order!";
-                discountProgress.style.width = "100%";
-                discountProgress.classList.remove("bg-yellow-400");
-                discountProgress.classList.add("bg-purple-600");
-            } else {
-                const diff = (discountGoal - total).toFixed(2);
-                discountBar.textContent = `You're $${diff} away from $10 off!`;
-                discountProgress.style.width = `${discountProgressValue}%`;
-                discountProgress.classList.remove("bg-purple-600");
-                discountProgress.classList.add("bg-yellow-400");
-            }
-        }
-    }
+    
 
     // ✅ Add this line:
     updateDiscountTracker(total);
@@ -170,6 +142,40 @@ function renderCart() {
             removeFromCart(index);
         });
     });
+}
+
+// $10 OFF $60 Progress Tracker
+const discountGoal = 60;
+
+function updateDiscountTracker(total) {
+    const discountBar = document.getElementById("discountBar");
+    const discountProgress = document.getElementById("discountProgress");
+    const discountBarWrapper = document.getElementById("discountBarWrapper");
+    const discountProgressValue = Math.min((total / discountGoal) * 100, 100);
+
+    if (discountBar && discountProgress && discountBarWrapper) {
+
+        if (total <= 0) {
+            discountBarWrapper.classList.add("hidden");
+            return;
+        }
+
+        discountBarWrapper.classList.remove("hidden");
+        discountBar.classList.remove("hidden");
+
+        if (total >= discountGoal) {
+            discountBar.textContent = "🎉 You’ve unlocked $10 OFF your order!";
+            discountProgress.style.width = "100%";
+            discountProgress.classList.remove("bg-yellow-400");
+            discountProgress.classList.add("bg-purple-600");
+        } else {
+            const diff = (discountGoal - total).toFixed(2);
+            discountBar.textContent = `You're $${diff} away from $10 off!`;
+            discountProgress.style.width = `${discountProgressValue}%`;
+            discountProgress.classList.remove("bg-purple-600");
+            discountProgress.classList.add("bg-yellow-400");
+        }
+    }
 }
 
 
