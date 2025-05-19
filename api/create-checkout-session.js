@@ -26,7 +26,7 @@ export default async function handler(req, res) {
 
         if (Array.isArray(cart)) {
             line_items = cart.map(item => {
-                const product = Object.values(products).find(p => p.product_id === item.id);
+                const product = products[item.id]; // ✅ Always works, always matches the key
                 if (!product) return null;
 
                 const variant = item.variant?.trim();

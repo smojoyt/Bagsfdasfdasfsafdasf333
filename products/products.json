@@ -496,7 +496,7 @@
 	"Headwear_CatEarBeanie": {
 		"name": "Cat Ear Beanie",
 		"category": "headwear",
-		"product_id": "KK-1021",
+		"product_id": "KK-1017",
 		"price": 44.97,
 		"sale_price": 34.97,
 		"tags": [ "Headwear", "New Arrival", "Onsale", "Featured" ],
@@ -511,8 +511,8 @@
 		"custom1Name": "Color",
 		"custom1Options": "Black | Black/White | Pink | Blue | Pink/Cream | Red/Blue/Cream",
 		"variantStock": {
-			"Black/White": 2,
-			"Black": 4,
+			"Black": 2,
+			"Black/White": 4,
 			"Pink": 3,
 			"Blue": 3,
 			"Pink/Cream": 2,
