@@ -26,15 +26,37 @@
             transition: all 0.5s ease;
         }
 
-        .fade-exit-active {
+        .fade-exit-left {
             opacity: 0;
             transform: translateX(-100%);
         }
 
-        .fade-enter-active {
+        .fade-enter-right {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(100%);
         }
+
+        .fade-final {
+            transform: translateX(0);
+            transition: all 0.5s ease;
+        }
+
+        .swatch-button {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+            .swatch-button.selected::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 2px solid black;
+                border-radius: 9999px;
+                box-shadow: 0 0 0 2px white;
+            }
     </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -51,14 +73,14 @@
                     <img id="model-image" src="" alt="Model" class="w-full rounded-lg shadow h-full object-cover">
                 </div>
                 <div class="w-1/2">
-                    <div id="carousel-product-card" class="bg-white rounded-lg shadow p-6 h-full flex flex-col justify-between transition-all w-full">
-                        <div class="flex flex-col gap-2">
-                            <h2 id="carousel-name" class="text-2xl font-bold"></h2>
+                    <div id="carousel-product-card" class="bg-white rounded-lg shadow p-8 h-full flex flex-col justify-between transition-all w-full">
+                        <div class="flex flex-col gap-3">
+                            <h2 id="carousel-name" class="text-3xl font-bold"></h2>
                             <div id="carousel-price"></div>
-                            <ul id="carousel-description" class="text-sm text-gray-600 list-disc list-inside"></ul>
-                            <div id="carousel-variants" class="flex gap-2 flex-wrap"></div>
+                            <ul id="carousel-description" class="text-base text-gray-700 list-disc list-inside"></ul>
+                            <div id="carousel-variants" class="flex gap-3 flex-wrap"></div>
                         </div>
-                        <button id="carousel-buy-btn" class="bg-black text-white px-6 py-3 rounded mt-6 hover:bg-gray-900 w-fit">Buy Now</button>
+                        <button id="carousel-buy-btn" class="bg-black text-white px-8 py-3 rounded mt-6 hover:bg-gray-900 w-fit">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -121,7 +143,6 @@
                     grid.appendChild(card);
                 });
 
-                // Carousel Logic
                 let current = 0;
                 const nameEl = document.getElementById("carousel-name");
                 const priceEl = document.getElementById("carousel-price");
@@ -133,14 +154,16 @@
                 const wrapper = document.getElementById("fade-wrapper");
 
                 function animateChange(cb) {
-                    wrapper.classList.add("fade-exit-active");
+                    wrapper.classList.add("fade-exit-left");
                     setTimeout(() => {
                         cb();
-                        wrapper.classList.remove("fade-exit-active");
-                        wrapper.classList.add("fade-enter-active");
+                        wrapper.classList.remove("fade-exit-left");
+                        wrapper.classList.add("fade-enter-right");
                         setTimeout(() => {
-                            wrapper.classList.remove("fade-enter-active");
-                        }, 500);
+                            wrapper.classList.remove("fade-enter-right");
+                            wrapper.classList.add("fade-final");
+                            setTimeout(() => wrapper.classList.remove("fade-final"), 300);
+                        }, 50);
                     }, 300);
                 }
 
@@ -153,14 +176,16 @@
 
                     variantEl.innerHTML = '';
                     const colors = p.custom1Options.split('|');
-                    colors.forEach(color => {
+                    colors.forEach((color, idx) => {
                         const clean = color.trim();
-                        const div = document.createElement('div');
-                        div.className = `w-6 h-6 rounded-full border ${getColorClass(clean)}`;
-                        div.addEventListener('click', () => {
+                        const btn = document.createElement('button');
+                        btn.className = `w-6 h-6 rounded-full border swatch-button ${idx === 0 ? 'selected' : ''} ${getColorClass(clean)}`;
+                        btn.addEventListener('click', () => {
                             modelEl.src = p.variantImages?.[clean] || p.image;
+                            [...variantEl.children].forEach(b => b.classList.remove('selected'));
+                            btn.classList.add('selected');
                         });
-                        variantEl.appendChild(div);
+                        variantEl.appendChild(btn);
                     });
 
                     modelEl.src = p.variantImages?.[colors[0].trim()] || p.image;
