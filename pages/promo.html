@@ -79,45 +79,60 @@
     </style>
 
 </head>
-<body class="bg-white text-gray-800">
+<body class="text-gray-800">
     <div class="max-w-7xl mx-auto px-4 py-8 relative z-10">
+        <!-- Banner Image -->
+        <div class="mb-8">
+            <img src="/imgs/Banner/promo-banner.jpg" alt="Promo Banner" class="w-full rounded-lg shadow-md object-cover max-h-[300px] sm:max-h-[400px] lg:max-h-[500px]" />
+        </div>
+
+        <!-- Title -->
         <h1 id="promo-title" class="text-3xl font-bold mb-4 text-center">Promo</h1>
 
+        <!-- Product Grid -->
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
+        <!-- Feature Section -->
         <div class="mt-12" id="promo-feature">
-            <div id="fade-wrapper" class="fade-wrapper">
-                <div class="w-1/2">
-                    <img id="model-image" src="" alt="Model" class="w-full rounded-lg shadow h-full object-cover">
+            <div id="fade-wrapper" class="fade-wrapper flex flex-col lg:flex-row gap-6">
+                <!-- Model Image -->
+                <div class="w-full lg:w-1/2">
+                    <img id="model-image" src="" alt="Model" class="w-full rounded-lg shadow object-cover max-h-[400px] sm:max-h-[500px]" />
                 </div>
-                <div class="w-1/2">
-                    <div id="carousel-product-card" class="text-lg leading-7 bg-white rounded-lg shadow p-8 h-full flex flex-col justify-between transition-all w-full">
+
+                <!-- Carousel Product Card -->
+                <div class="w-full lg:w-1/2">
+                    <div id="carousel-product-card" class="text-base leading-7 bg-white rounded-lg shadow p-6 sm:p-8 flex flex-col justify-between transition-all w-full h-full">
                         <div class="flex flex-col gap-3">
-                            <h2 id="carousel-name" class="text-4xl leading-10 font-bold"></h2>
-                            <div id="carousel-price" class="text-xl"></div>
-                            <ul id="carousel-description" class="text-lg pt-2 list-disc list-inside text-gray-700"></ul>
-                            <div id="carousel-variants" class="mt-4 flex gap-3 flex-wrap"></div>
+                            <h2 id="carousel-name" class="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight"></h2>
+                            <div id="carousel-price" class="text-lg sm:text-xl"></div>
+                            <ul id="carousel-description" class="text-base sm:text-lg pt-2 list-disc list-inside text-gray-700"></ul>
+                            <div id="carousel-variants" class="mt-4 flex flex-wrap gap-3"></div>
                         </div>
-                        <button id="carousel-buy-btn" class="bg-black text-white px-8 py-3 rounded mt-6 hover:bg-gray-900 w-fit">Buy Now</button>
+                        <button id="carousel-buy-btn" class="bg-black text-white px-6 py-3 rounded mt-6 hover:bg-gray-900 w-full sm:w-fit text-center">Buy Now</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="flex justify-between items-center mt-8">
-            <button id="prev-btn" class="text-lg">
+        <!-- Carousel Controls -->
+        <div class="flex justify-between items-center mt-8 flex-wrap gap-4">
+            <button id="prev-btn" class="text-lg flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
             </button>
-            <div id="carousel-thumbs" class="p-1 flex gap-2 overflow-x-auto"></div>
-            <button id="next-btn" class="text-lg">
+
+            <div id="carousel-thumbs" class="p-1 flex gap-2 overflow-x-auto w-full sm:w-auto justify-center"></div>
+
+            <button id="next-btn" class="text-lg flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
             </button>
         </div>
     </div>
+
 
     <script>
         const promoConfig = {
@@ -144,17 +159,17 @@
                     card.className = "relative group bg-white p-2 rounded-xl shadow hover:shadow-lg overflow-hidden";
 
                     card.innerHTML = `
-                        <a href="${product.url}" class="block">
-                          <div class="relative">
-                            <img src="${product.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
-                            <img src="${hover}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
-                          </div>
-                          <div class="mt-2">
-                            <h2 class="font-semibold text-sm line-clamp-2">${product.name}</h2>
-                            ${getCompactPriceHTML(product)}
-                          </div>
-                        </a>
-                      `;
+                            <a href="${product.url}" class="block">
+                              <div class="relative">
+                                <img src="${product.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
+                                <img src="${hover}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
+                              </div>
+                              <div class="mt-2">
+                                <h2 class="font-semibold text-sm line-clamp-2">${product.name}</h2>
+                                ${getCompactPriceHTML(product)}
+                              </div>
+                            </a>
+                          `;
 
                     grid.appendChild(card);
                 });
