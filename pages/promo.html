@@ -194,17 +194,17 @@
                     card.className = "relative group bg-white p-2 rounded-xl shadow hover:shadow-lg overflow-hidden";
 
                     card.innerHTML = `
-                                    <a href="${product.url}" class="block">
-                                      <div class="relative">
-                                        <img src="${product.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
-                                        <img src="${hover}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
-                                      </div>
-                                      <div class="mt-2">
-                                        <h2 class="font-semibold text-sm line-clamp-2">${product.name}</h2>
-                                        ${getCompactPriceHTML(product)}
-                                      </div>
-                                    </a>
-                                  `;
+                                        <a href="${product.url}" class="block">
+                                          <div class="relative">
+                                            <img src="${product.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
+                                            <img src="${hover}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
+                                          </div>
+                                          <div class="mt-2">
+                                            <h2 class="font-semibold text-sm line-clamp-2">${product.name}</h2>
+                                            ${getCompactPriceHTML(product)}
+                                          </div>
+                                        </a>
+                                      `;
 
                     grid.appendChild(card);
                 });
@@ -279,6 +279,137 @@
 
                 updateCarousel(0);
             });
+    </script>
+
+    <script>
+        const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
+        let activeProduct = null;
+
+        const colorMap = {
+            Black: "#000000",
+            White: "#ffffff",
+            Red: "#e3342f",
+            Navy: "#1e3a8a",
+            Beige: "#f5f5dc",
+            Brown: "#8b4513",
+            Gray: "#6b7280",
+            Cream: "#fffdd0",
+        };
+
+        function includeHTML(id, filePath, callback = null) {
+            fetch(filePath)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    if (callback) callback();
+                });
+        }
+
+        function swapImage(newSrc) {
+            const mainImage = document.getElementById("mainImage");
+            if (!mainImage) return;
+
+            mainImage.classList.add("opacity-0");
+            setTimeout(() => {
+                mainImage.src = newSrc;
+                mainImage.onload = () => mainImage.classList.remove("opacity-0");
+            }, 150);
+        }
+
+        function updateVariant(input) {
+            const value = typeof input === 'string' ? input : input.value;
+            const variantInput = document.getElementById("variantSelector");
+            if (variantInput) variantInput.value = value.trim();
+        }
+
+        function initNavbar() {
+            const toggleBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+            toggleBtn?.addEventListener("click", () => menu?.classList.toggle("hidden"));
+
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+
+            const navbar = document.getElementById('mainNavbar');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (!navbar) return;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace('navbar-show', 'navbar-hide');
+                } else {
+                    navbar.classList.replace('navbar-hide', 'navbar-show');
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
+
+        function toggleAccordion() {
+            const content = document.getElementById("accordion-content");
+            const icon = document.getElementById("accordion-icon");
+
+            if (!content || !icon) return;
+
+            const isOpen = content.style.height && content.style.height !== "0px";
+            content.style.height = isOpen ? "0px" : content.scrollHeight + "px";
+            icon.classList.toggle("rotate-45", !isOpen);
+        }
+
+        function setupStripeBuyButton() {
+            const btn = document.getElementById("buyButton");
+            if (!btn) return;
+
+            btn.addEventListener("click", async () => {
+                try {
+                    const resProducts = await fetch("/products/products.json");
+                    const products = await resProducts.json();
+                    const product = products[skuFromURL];
+                    if (!product) return alert("Product not found.");
+
+                    const variant = document.getElementById("variantSelector")?.value;
+
+                    const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ sku: skuFromURL, selectedVariant: variant })
+                    });
+
+                    const data = await res.json();
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        alert("Checkout session failed.");
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("Something went wrong with Stripe checkout.");
+                }
+            });
+        }
+
+        // 🔁 Main Load Flow
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar();
+
+            includeHTML("productpage", "/page_inserts/productpage.html", () => {
+                loadProductData();
+                setupStripeBuyButton();
+
+                const addToCartBtn = document.getElementById("add-to-cart-btn");
+                if (addToCartBtn) {
+                    addToCartBtn.addEventListener("click", () => {
+                        const variant = document.getElementById("variantSelector")?.value || null;
+                        addToCart(activeProduct, variant);
+                    });
+                }
+            });
+
+            includeHTML("footer", "/page_inserts/footer.html");
+            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+        });
+
     </script>
 
 </body>
