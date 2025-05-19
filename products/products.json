@@ -17,14 +17,16 @@
 			"Hand wash cold, dry flat"
 		],
 		"custom1Name": "Color",
-		"custom1Options": "Black | Cream",
+		"custom1Options": "Black | Cream | Pink",
 		"variantStock": {
 			"Black": 1,
-			"Cream": 3
+			"Cream": 3,
+			"Pink" : 2
 		},
 		"variantImages": {
 			"Black": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_03.jpg",
-			"Cream": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_06.jpg"
+			"Cream": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_06.jpg",
+			"Pink": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/03_02.jpg"
 		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_05.jpg",
@@ -34,7 +36,8 @@
 			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_02.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_04.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_03.jpg",
-			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_06.jpg"
+			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/01_06.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/03_02.jpg"
 		]
 	},
 
