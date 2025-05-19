@@ -51,9 +51,11 @@ function renderCart() {
     const discountProgress = document.getElementById("discountProgress");
     const discountBarWrapper = document.getElementById("discountBarWrapper");
 
-
     let total = 0;
     cartItemsEl.innerHTML = "";
+
+    // ✅ Always update the discount tracker first
+    updateDiscountTracker(total);
 
     if (cart.length === 0) {
         emptyMsg?.classList.remove("hidden");
@@ -63,6 +65,9 @@ function renderCart() {
         checkoutBtn?.classList.add("hidden");
         return;
     }
+
+    // ... continue rest of renderCart logic here ...
+
 
     emptyMsg?.classList.add("hidden");
     cartTotalEl?.parentElement?.classList.remove("hidden");
