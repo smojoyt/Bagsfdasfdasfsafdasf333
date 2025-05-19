@@ -455,7 +455,7 @@
 		"product_id": "KK-1016",
 		"price": 34.97,
 		"sale_price": 24.97,
-		"tags": [ "Headwear", "Bestseller" ],
+		"tags": [ "Headwear", "Bestseller", "Onsale" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_2_1.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_FuzzyBeanie.html",
 		"descriptionList": [
@@ -496,7 +496,7 @@
 		"product_id": "KK-1021",
 		"price": 44.97,
 		"sale_price": 34.97,
-		"tags": [ "Headwear", "New Arrival" ],
+		"tags": [ "Headwear", "New Arrival", "Onsale" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_3_1.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_CatEarBeanie.html",
 		"descriptionList": [
