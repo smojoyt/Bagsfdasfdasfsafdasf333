@@ -20,7 +20,12 @@ window.getColorClass = function (colorName) {
         // Gradient styles
         "black/red": "bg-gradient-to-r from-black to-red-500",
         "black/white": "bg-gradient-to-r from-black to-white border",
-        "pink/white": "bg-gradient-to-r from-pink-400 to-white border"
+        "pink/white": "bg-gradient-to-r from-pink-400 to-white border",
+        "pink/cream": "bg-gradient-to-r from-pink-400 via-[#fdf6e3] to-[#fdf6e3] border",
+        "red/blue/cream": "bg-gradient-to-r from-red-500 via-white to-[#fdf6e3] border",
+        "red/blue/cream": "bg-gradient-to-r from-red-500 via-blue-500 to-[#fdf6e3] border"
+
+
     };
 
     return colorMap[colorName.toLowerCase()] || 'bg-gray-200';

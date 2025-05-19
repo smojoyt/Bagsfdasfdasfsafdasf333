@@ -3,8 +3,8 @@
 		"name": "Ribbed Knit Earflap Beanie",
 		"category": "headwear",
 		"product_id": "KK-1001",
-		"price": 65.96,
-		"sale_price": 39.97,
+		"price": 44.97,
+		"sale_price": 34.97,
 		"tags": [ "Bestseller", "Onsale" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_05.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_EarflapBeanie.html",
@@ -453,7 +453,8 @@
 		"name": "Fuzzy Beanie",
 		"category": "headwear",
 		"product_id": "KK-1016",
-		"price": 24.97,
+		"price": 34.97,
+		"sale_price": 24.97,
 		"tags": [ "Headwear", "Bestseller" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_2_1.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_FuzzyBeanie.html",
@@ -487,7 +488,52 @@
 			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_5.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_4_1.jpg"
 		]
+	},
+
+	"Headwear_CatEarBeanie": {
+		"name": "Cat Ear Beanie",
+		"category": "headwear",
+		"product_id": "KK-1021",
+		"price": 44.97,
+		"sale_price": 34.97,
+		"tags": [ "Headwear", "New Arrival" ],
+		"image": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_3_1.jpg",
+		"url": "https://www.karrykraze.com/products/headwear/Headwear_CatEarBeanie.html",
+		"descriptionList": [
+			"Chunky ribbed knit with structured cat ear silhouette",
+			"Adorable yet edgy – perfect for playful cold-weather looks",
+			"Warm and soft material with a stretchy cuffed fit",
+			"One size fits most – snug and cozy for daily wear"
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Black/White | Black | Pink | Blue | Pink/Cream | Red/Blue/Cream",
+		"variantStock": {
+			"Black/White": 2,
+			"Black": 4,
+			"Pink": 3,
+			"Blue": 3,
+			"Pink/Cream": 2,
+			"Red/Blue/Cream": 2
+		},
+		"variantImages": {
+			"Black/White": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_1_1.jpg",
+			"Black": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_3_1.jpg",
+			"Pink": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_4_1.jpg",
+			"Blue": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_5_1.jpg",
+			"Pink/Cream": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_6_1.jpg",
+			"Red/Blue/Cream": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_7_1.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_1_1.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_2.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_3_1.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_4_1.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_5_1.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_6_1.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_7_1.jpg"
+		]
 	}
+
 
 
 
