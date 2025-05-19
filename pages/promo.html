@@ -89,10 +89,10 @@
     </style>
 
 </head>
-<body class="text-gray-800">
+<body class="text-gray-800 ">
     <!-- Banner Image -->
     <!-- Full-width Banner (outside container) -->
-    <div class="w-full">
+    <div class="w-full pt-10">
         <img src="/imgs/Promo/10Hats/2.jpg" alt="Promo Banner" class="w-full object-cover max-h-[300px] sm:max-h-[400px] lg:max-h-[700px]" />
     </div>
     <div class="max-w-7xl mx-auto px-4 py-8 relative z-10">
@@ -282,19 +282,7 @@
     </script>
 
     <script>
-        const skuFromURL = window.location.pathname.split("/").pop().replace(".html", "");
-        let activeProduct = null;
-
-        const colorMap = {
-            Black: "#000000",
-            White: "#ffffff",
-            Red: "#e3342f",
-            Navy: "#1e3a8a",
-            Beige: "#f5f5dc",
-            Brown: "#8b4513",
-            Gray: "#6b7280",
-            Cream: "#fffdd0",
-        };
+        
 
         function includeHTML(id, filePath, callback = null) {
             fetch(filePath)
@@ -305,22 +293,9 @@
                 });
         }
 
-        function swapImage(newSrc) {
-            const mainImage = document.getElementById("mainImage");
-            if (!mainImage) return;
+       
 
-            mainImage.classList.add("opacity-0");
-            setTimeout(() => {
-                mainImage.src = newSrc;
-                mainImage.onload = () => mainImage.classList.remove("opacity-0");
-            }, 150);
-        }
-
-        function updateVariant(input) {
-            const value = typeof input === 'string' ? input : input.value;
-            const variantInput = document.getElementById("variantSelector");
-            if (variantInput) variantInput.value = value.trim();
-        }
+        
 
         function initNavbar() {
             const toggleBtn = document.getElementById("mobile-menu-button");
@@ -345,48 +320,7 @@
             });
         }
 
-        function toggleAccordion() {
-            const content = document.getElementById("accordion-content");
-            const icon = document.getElementById("accordion-icon");
-
-            if (!content || !icon) return;
-
-            const isOpen = content.style.height && content.style.height !== "0px";
-            content.style.height = isOpen ? "0px" : content.scrollHeight + "px";
-            icon.classList.toggle("rotate-45", !isOpen);
-        }
-
-        function setupStripeBuyButton() {
-            const btn = document.getElementById("buyButton");
-            if (!btn) return;
-
-            btn.addEventListener("click", async () => {
-                try {
-                    const resProducts = await fetch("/products/products.json");
-                    const products = await resProducts.json();
-                    const product = products[skuFromURL];
-                    if (!product) return alert("Product not found.");
-
-                    const variant = document.getElementById("variantSelector")?.value;
-
-                    const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ sku: skuFromURL, selectedVariant: variant })
-                    });
-
-                    const data = await res.json();
-                    if (data.url) {
-                        window.location.href = data.url;
-                    } else {
-                        alert("Checkout session failed.");
-                    }
-                } catch (err) {
-                    console.error(err);
-                    alert("Something went wrong with Stripe checkout.");
-                }
-            });
-        }
+       
 
         // 🔁 Main Load Flow
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
