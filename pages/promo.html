@@ -76,6 +76,16 @@
                 border-radius: 9999px;
                 box-shadow: 0 0 0 2px white;
             }
+
+        .navbar-hide {
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-show {
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
     </style>
 
 </head>
@@ -136,13 +146,35 @@
         </div>
     </div>
 
-
+    <div id="footer"></div>
+    <div id="navbar-container"></div>
     <script>
         const promoConfig = {
             title: "",
             category: "headwear",
             modelImage: "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_7.jpg"
         };
+
+        // 🔁 Main Load Flow
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar();
+
+            includeHTML("productpage", "/page_inserts/productpage.html", () => {
+                loadProductData();
+                setupStripeBuyButton();
+
+                const addToCartBtn = document.getElementById("add-to-cart-btn");
+                if (addToCartBtn) {
+                    addToCartBtn.addEventListener("click", () => {
+                        const variant = document.getElementById("variantSelector")?.value || null;
+                        addToCart(activeProduct, variant);
+                    });
+                }
+            });
+
+            includeHTML("footer", "/page_inserts/footer.html");
+            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
+        });
     </script>
     <script>
         fetch('/products/products.json')
@@ -162,17 +194,17 @@
                     card.className = "relative group bg-white p-2 rounded-xl shadow hover:shadow-lg overflow-hidden";
 
                     card.innerHTML = `
-                                <a href="${product.url}" class="block">
-                                  <div class="relative">
-                                    <img src="${product.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
-                                    <img src="${hover}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
-                                  </div>
-                                  <div class="mt-2">
-                                    <h2 class="font-semibold text-sm line-clamp-2">${product.name}</h2>
-                                    ${getCompactPriceHTML(product)}
-                                  </div>
-                                </a>
-                              `;
+                                    <a href="${product.url}" class="block">
+                                      <div class="relative">
+                                        <img src="${product.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
+                                        <img src="${hover}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
+                                      </div>
+                                      <div class="mt-2">
+                                        <h2 class="font-semibold text-sm line-clamp-2">${product.name}</h2>
+                                        ${getCompactPriceHTML(product)}
+                                      </div>
+                                    </a>
+                                  `;
 
                     grid.appendChild(card);
                 });
