@@ -561,16 +561,19 @@
 		],
 
 		"custom1Name": "Color",
-		"custom1Options": "Gold",
+		"custom1Options": "Gold | Silver",
 		"variantStock": {
-			"Gold": 10
+			"Gold": 10,
+			"Silver": 10
 		},
 		"variantImages": {
-			"Gold": "https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_02_01.jpg"
+			"Gold": "https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_02_01.jpg",
+			"Silver": "https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_03_01.jpg"
 		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_01_01.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_02_01.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_02_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_03_01.jpg"
 		]
 	},
 
@@ -638,6 +641,34 @@
 			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_03_01.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_04_01.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_05_01.jpg"
+		]
+	},
+
+	"Charms_RoundedHeartClasp": {
+		"name": "Rounded Heart Clasp",
+		"category": "charms",
+		"product_id": "KK-1019",
+		"price": 4.47,
+		"tags": [ "BagAccessory" ],
+		"image": "https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg",
+		"url": "https://www.karrykraze.com/products/charms/Charms_RoundedHeartClasp.html",
+		"descriptionList": [
+			"Polished gold-tone clasp with a smooth rounded heart shape",
+			"Swivel base for flexible attachment and easy use",
+			"Perfect for keychains, bag charms, or custom accessories",
+			"Durable, lightweight, and adds a chic touch to any design"
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Gold",
+		"variantStock": {
+			"Gold": 20
+		},
+		"variantImages": {
+			"Gold": "https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg"
 		]
 	}
 
