@@ -21,7 +21,7 @@
 		"variantStock": {
 			"Black": 1,
 			"Cream": 3,
-			"Pink" : 2
+			"Pink": 2
 		},
 		"variantImages": {
 			"Black": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_05.jpg",
@@ -395,7 +395,7 @@
 		"name": "Cherry Bag Charm",
 		"category": "charms",
 		"product_id": "KK-1013",
-		"price": 19.97,
+		"price": 14.97,
 		"tags": [ "BagAccessory" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_CherryChain.html",
@@ -414,7 +414,8 @@
 		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_02_01.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_02_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_02_02.jpg"
 		]
 	},
 
@@ -541,6 +542,62 @@
 			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_5_1.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_6_1.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_7_1.jpg"
+		]
+	},
+
+	"Charms_HeartClaspHook": {
+		"name": "Heart Clasp Hook",
+		"category": "charms",
+		"product_id": "KK-1018",
+		"price": 2.47,
+		"tags": [ "BagAccessory" ],
+		"image": "https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_01_01.jpg",
+		"url": "https://www.karrykraze.com/products/charms/Charms_HeartClaspHook.html",
+		"descriptionList": [
+			"Heart-shaped clasp hook with elegant curves",
+			"Polished gold-tone finish with swivel base",
+			"Great for handbags, keychains, or DIY charms",
+			"Durable and lightweight with a premium feel"
+		],
+
+		"custom1Name": "Color",
+		"custom1Options": "Gold",
+		"variantStock": {
+			"Gold": 10
+		},
+		"variantImages": {
+			"Gold": "https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_02_01.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_02_01.jpg"
+		]
+	},
+
+	"Charms_RoundedHeartClasp": {
+		"name": "Rounded Heart Clasp",
+		"category": "charms",
+		"product_id": "KK-1019",
+		"price": 4.47,
+		"tags": [ "BagAccessory" ],
+		"image": "https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RCH_01_01.jpg",
+		"url": "https://www.karrykraze.com/products/charms/Charms_RoundedHeartClasp.html",
+		"descriptionList": [
+			"Polished gold-tone clasp with a smooth rounded heart shape",
+			"Swivel base for flexible attachment and easy use",
+			"Perfect for keychains, bag charms, or custom accessories",
+			"Durable, lightweight, and adds a chic touch to any design"
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Gold",
+		"variantStock": {
+			"Gold": 20
+		},
+		"variantImages": {
+			"Gold": "https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RCH_01_01.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RCH_01_01.jpg"
 		]
 	}
 
