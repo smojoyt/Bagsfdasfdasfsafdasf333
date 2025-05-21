@@ -263,7 +263,7 @@
 		"name": "Pear Drop Glitter Charm",
 		"category": "charms",
 		"product_id": "KK-1008",
-		"price": 24.97,
+		"price": 14.97,
 		"tags": [ "BagAccessory" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_PearChain.html",
@@ -276,7 +276,7 @@
 		"custom1Name": "Color",
 		"custom1Options": "Red | Green | Gold",
 		"variantStock": {
-			"Red": 1,
+			"Red": 8,
 			"Green": 0,
 			"Gold": 0
 		},
@@ -298,7 +298,7 @@
 		"name": "Mini Alien Plushies",
 		"category": "charms",
 		"product_id": "KK-1009",
-		"price": 26.97,
+		"price": 16.97,
 		"tags": [ "BagAccessory" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/04_01.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_AlienPlushies.html",
@@ -311,7 +311,7 @@
 		"custom1Name": "Color",
 		"custom1Options": "Brown | White | Black",
 		"variantStock": {
-			"Brown": 1,
+			"Brown": 8,
 			"White": 0,
 			"Black": 0
 		},
@@ -391,24 +391,27 @@
 		]
 	},
 
-	"Charms_CherryAccessory": {
-		"name": "Cherry Bag Accessory",
+	"Charms_CherryChain": {
+		"name": "Cherry Bag Charm",
 		"category": "charms",
 		"product_id": "KK-1013",
 		"price": 20.00,
-		"tags": [ "Discontinued" ],
-		"image": "",
-		"url": "",
+		"tags": [ "BagAccessory" ],
+		"image": "https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg",
+		"url": "https://www.karrykraze.com/products/charms/Charms_CherryChain.html",
 		"descriptionList": [
 			""
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Red",
+		"variantStock": {
+			"Red": 10
+		},
 		"variantImages": {
-			"Black": ""
+			"Red": "https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg"
 		},
 		"thumbnails": [
-			""
+			"https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg"
 		]
 	},
 
@@ -537,6 +540,8 @@
 			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_7_1.jpg"
 		]
 	}
+
+
 
 
 
