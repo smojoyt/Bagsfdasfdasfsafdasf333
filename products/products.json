@@ -618,17 +618,26 @@
 			"Roomy interior perfect for essentials"
 		],
 		"custom1Name": "Color",
-		"custom1Options": "Ivory",
+		"custom1Options": "Ivory | Black | Purple | Pink",
 		"variantStock": {
-			"Ivory": 12
+			"Ivory": 5,
+			"Black": 0,
+			"Purple": 0,
+			"Pink": 0
 		},
 		"variantImages": {
-			"Ivory": "https://www.karrykraze.com/imgs/Products/Pouches/VelvetCherryPuff/VCP_01_01.jpg"
+			"Ivory": "https://www.karrykraze.com/imgs/Products/Pouches/VelvetCherryPuff/VCP_01_01.jpg",
+			"Black": "https://www.karrykraze.com/imgs/Products/Pouches/VelvetCherryPuff/VCP_03_01.jpg",
+			"Purple": "https://www.karrykraze.com/imgs/Products/Pouches/VelvetCherryPuff/VCP_04_01.jpg",
+			"Pink": "https://www.karrykraze.com/imgs/Products/Pouches/VelvetCherryPuff/VCP_05_01.jpg"
 		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_01_01.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_01_02.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_02_01.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_02_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_03_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_04_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_05_01.jpg"
 		]
 	}
 
