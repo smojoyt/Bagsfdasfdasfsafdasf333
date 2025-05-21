@@ -608,7 +608,7 @@
 		"product_id": "KK-1020",
 		"price": 34.97,
 		"tags": [ "New Arrival" ],
-		"image": "https://www.karrykraze.com/imgs/Products/Bags/0013_VelvetCherryPuff/VCP_02_01.jpg",
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_02_01.jpg",
 		"url": "https://www.karrykraze.com/products/bags/VelvetCherryPuff.html",
 		"descriptionList": [
 			"Creamy faux-fur tote with a soft-touch finish",
@@ -623,12 +623,12 @@
 			"Ivory": 12
 		},
 		"variantImages": {
-			"Ivory": "https://www.karrykraze.com/imgs/Products/Bags/VelvetCherryPuff/VCP_01_01.jpg"
+			"Ivory": "https://www.karrykraze.com/imgs/Products/Pouches/VelvetCherryPuff/VCP_01_01.jpg"
 		},
 		"thumbnails": [
-			"https://www.karrykraze.com/imgs/Products/Bags/0013_VelvetCherryPuff/VCP_01_01.jpg",
-			"https://www.karrykraze.com/imgs/Products/Bags/0013_VelvetCherryPuff/VCP_01_02.jpg",
-			"https://www.karrykraze.com/imgs/Products/Bags/0013_VelvetCherryPuff/VCP_02_01.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_01_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_02_01.jpg"
 		]
 	}
 
