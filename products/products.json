@@ -569,8 +569,8 @@
 			"Gold": "https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_02_01.jpg"
 		},
 		"thumbnails": [
-			"https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_01_01.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_02_01.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_02_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/HeartClaspHook/HCH_01_01.jpg"
 		]
 	},
 
@@ -580,7 +580,7 @@
 		"product_id": "KK-1019",
 		"price": 4.47,
 		"tags": [ "BagAccessory" ],
-		"image": "https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RCH_01_01.jpg",
+		"image": "https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_RoundedHeartClasp.html",
 		"descriptionList": [
 			"Polished gold-tone clasp with a smooth rounded heart shape",
@@ -594,10 +594,11 @@
 			"Gold": 20
 		},
 		"variantImages": {
-			"Gold": "https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RCH_01_01.jpg"
+			"Gold": "https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg"
 		},
 		"thumbnails": [
-			"https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RCH_01_01.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg"
 		]
 	},
 
