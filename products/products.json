@@ -395,12 +395,14 @@
 		"name": "Cherry Bag Charm",
 		"category": "charms",
 		"product_id": "KK-1013",
-		"price": 20.00,
+		"price": 19.97,
 		"tags": [ "BagAccessory" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_CherryChain.html",
 		"descriptionList": [
-			""
+			"A stylish and playful cherry keychain featuring",
+			"glossy red cherries, a pearl heart charm,",
+			"and gold-tone hardware."
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Red",
@@ -411,7 +413,8 @@
 			"Red": "https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg"
 		},
 		"thumbnails": [
-			"https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_02_01.jpg"
 		]
 	},
 
