@@ -644,33 +644,47 @@
 		]
 	},
 
-	"Charms_RoundedHeartClasp": {
-		"name": "Rounded Heart Clasp",
+	"Charms_MiniCrocs": {
+		"name": "Mini Croc Charms",
 		"category": "charms",
-		"product_id": "KK-1019",
-		"price": 4.47,
+		"product_id": "KK-1045",
+		"price": 2.97,
 		"tags": [ "BagAccessory" ],
-		"image": "https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg",
-		"url": "https://www.karrykraze.com/products/charms/Charms_RoundedHeartClasp.html",
+		"image": "https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_04_01.jpg",
+		"url": "https://www.karrykraze.com/products/charms/Charms_MiniCrocs.html",
 		"descriptionList": [
-			"Polished gold-tone clasp with a smooth rounded heart shape",
-			"Swivel base for flexible attachment and easy use",
-			"Perfect for keychains, bag charms, or custom accessories",
-			"Durable, lightweight, and adds a chic touch to any design"
+			"Mini croc-style shoe charms in bold playful colors",
+			"Durable soft rubber charm with metal keyring",
+			"Clip onto handbags, keys, or zippers for a quirky touch",
+			"Fun gift idea or collectible for charm lovers"
 		],
 		"custom1Name": "Color",
-		"custom1Options": "Gold",
+		"custom1Options": "Black | Blue | Red | Pink | Green | White | Yellow | Purple",
 		"variantStock": {
-			"Gold": 20
+			"Black": 10,
+			"Blue": 10,
+			"Red": 10,
+			"Pink": 10,
+			"Green": 0,
+			"White": 0,
+			"Yellow": 0,
+			"Purple": 0
 		},
 		"variantImages": {
-			"Gold": "https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg"
+			"Black": "https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_04_01.jpg",
+			"Blue": "https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_02_01.jpg",
+			"Red": "https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_03_01.jpg",
+			"Pink": "https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_01_01.jpg"
 		},
 		"thumbnails": [
-			"https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg",
-			"https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RHC_01_01.jpg"
+			"https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_04_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_02_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_03_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_01_01.jpg"
+
 		]
 	}
+
 
 
 
