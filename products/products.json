@@ -599,7 +599,37 @@
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Pendants/RoundedHeartClasp/RCH_01_01.jpg"
 		]
+	},
+
+	"Bag_VelvetCherryPuff": {
+		"name": "Velvet Cherry Puff",
+		"category": "bags",
+		"product_id": "KK-1020",
+		"price": 34.97,
+		"tags": [ "New Arrival"],
+		"image": "https://www.karrykraze.com/imgs/Products/Bags/VelvetCherryPuff/VCP_01_01.jpg",
+		"url": "https://www.karrykraze.com/products/bags/VelvetCherryPuff.html",
+		"descriptionList": [
+			"Creamy faux-fur tote with a soft-touch finish",
+			"Braided coral velvet handles for extra comfort",
+			"Fluffy pink cherry pom charm with stitched leaves",
+			"Gold-tone chain strap for shoulder or crossbody wear",
+			"Roomy interior perfect for essentials"
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Ivory",
+		"variantStock": {
+			"Ivory": 12
+		},
+		"variantImages": {
+			"Ivory": "https://www.karrykraze.com/imgs/Products/Bags/VelvetCherryPuff/VCP_01_01.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Bags/VelvetCherryPuff/VCP_01_01.jpg"
+		]
 	}
+
+
 
 
 
