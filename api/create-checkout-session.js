@@ -114,6 +114,7 @@ export default async function handler(req, res) {
             cancel_url: "https://www.karrykraze.com/pages/cancel.html"
         };
 
+        /*
         // ✅ Now apply either discounts OR allow_promotion_codes
         if (subtotal >= 6000) {
             sessionOptions.discounts = [
@@ -122,7 +123,7 @@ export default async function handler(req, res) {
         } else {
             sessionOptions.allow_promotion_codes = true;
         }
-
+        */
 
 
         const session = await stripe.checkout.sessions.create(sessionOptions);

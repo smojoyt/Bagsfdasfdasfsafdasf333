@@ -143,7 +143,7 @@ function renderCart() {
         });
     });
 }
-
+/*
 // $10 OFF $60 Progress Tracker
 const discountGoal = 60;
 
@@ -177,6 +177,7 @@ function updateDiscountTracker(total) {
         }
     }
 }
+*/
 
 
 function adjustQuantity(index, action) {
