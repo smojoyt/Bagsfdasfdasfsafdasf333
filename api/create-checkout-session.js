@@ -109,9 +109,11 @@ export default async function handler(req, res) {
             shipping_address_collection: {
                 allowed_countries: ['US', 'CA']
             },
+            allow_promotion_codes: true,
             shipping_options,
             success_url: "https://www.karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
             cancel_url: "https://www.karrykraze.com/pages/cancel.html"
+
         };
 
         /*
