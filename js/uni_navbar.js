@@ -147,7 +147,7 @@ function renderCart() {
 // $10 OFF $60 Progress Tracker
 const discountGoal = 60;
 
-/*
+
 function updateDiscountTracker(total) {
     const discountBar = document.getElementById("discountBar");
     const discountProgress = document.getElementById("discountProgress");
@@ -178,7 +178,7 @@ function updateDiscountTracker(total) {
         }
     }
 }
-*/
+
 
 
 
