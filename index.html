@@ -264,13 +264,17 @@
             const carouselWrapper = document.querySelector('#pp_moreitems .carousel');
             if (!carouselWrapper) return;
 
-            fetch("https://www.karrykraze.com/products/products.json")
-                .then(res => res.json())
-                .then(products => {
-                    const productKeys = Object.keys(products).sort(() => 0.5 - Math.random());
+            Promise.all([
+                fetch("/products/products.json").then(res => res.json()),
+                fetch("/products/promotions.json").then(res => res.json())
+            ]).then(([products, promotions]) => {
+                const updatedProducts = applyPromotionsToProducts(products, promotions);
+                const productKeys = Object.keys(updatedProducts).sort(() => 0.5 - Math.random());
 
-                    productKeys.forEach(sku => {
-                        const product = products[sku];
+                productKeys.forEach(sku => {
+                    const product = updatedProducts[sku];
+
+
                         if (!product || !product.image) return;
 
                         const cell = document.createElement("div");
