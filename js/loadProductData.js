@@ -51,7 +51,7 @@ function loadProductData() {
         .then(([products, promotionsFile]) => {
             const promotions = promotionsFile.promotions || [];
 
-            applyPromotionsToProducts(products, promotions);
+            products = applyPromotionsToProducts(products, promotions);
 
             activeProduct = products[skuFromURL];
             if (!activeProduct) {
