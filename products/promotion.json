@@ -13,7 +13,7 @@
       "name": "30% Off All Charms",
       "category": "charms",
       "type": "percent",
-      "amount": 20,
+      "amount": 30,
       "condition": { "minPrice": 0 },
       "startDate": "2025-05-01T00:00:00Z",
       "endDate": "2025-06-07T23:59:59Z",
