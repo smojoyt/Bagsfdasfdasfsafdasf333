@@ -1,7 +1,7 @@
 function getCompactPriceHTML(product) {
     const regular = product.price;
     const sale = product.sale_price ?? regular;
-    const isOnSale = product.tags?.includes("Onsale") && sale < regular;
+    const isOnSale = sale < regular;
 
     if (isOnSale) {
         return `
@@ -24,9 +24,14 @@ function initMoreItemsCarousel() {
     const carouselWrapper = document.querySelector('#pp_moreitems .carousel');
     if (!carouselWrapper) return;
 
-    fetch('https://www.karrykraze.com/products/products.json')
-        .then(res => res.json())
-        .then(products => {
+    Promise.all([
+        fetch('https://www.karrykraze.com/products/products.json').then(res => res.json()),
+        fetch('https://www.karrykraze.com/products/promotion.json').then(res => res.json())
+    ])
+        .then(([products, promotionData]) => {
+            applyPromotions(products, promotionData.promotions || []);
+
+            // continue as before
             const productKeys = Object.keys(products);
             for (let i = productKeys.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
