@@ -13,7 +13,7 @@
       "name": "15% Off All Hats Over $10",
       "category": "charms",
       "type": "percent",
-      "amount": 15,
+      "amount": 30,
       "condition": {
         "maxPrice": 100.00
       },
