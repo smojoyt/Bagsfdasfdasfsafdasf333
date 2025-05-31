@@ -318,18 +318,17 @@
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
             initNavbar();
 
-                const addToCartBtn = document.getElementById("add-to-cart-btn");
-                if (addToCartBtn) {
-                    addToCartBtn.addEventListener("click", () => {
-                        const variant = document.getElementById("variantSelector")?.value || null;
-                        addToCart(activeProduct, variant);
-                    });
-                }
-            });
-            
+            const addToCartBtn = document.getElementById("add-to-cart-btn");
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener("click", () => {
+                    const variant = document.getElementById("variantSelector")?.value || null;
+                    addToCart(activeProduct, variant);
+                });
+            }
 
             includeHTML("footer", "/page_inserts/footer.html");
         });
+
     </script>
 
 </body>
