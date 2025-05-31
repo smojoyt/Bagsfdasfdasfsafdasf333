@@ -1,15 +1,11 @@
 [
   {
-    "promotions": [
-      {
-        "name": "Free All Charms Under $5",
-        "category": "charms",
-        "type": "fixed",
-        "amount": 1.00,
-        "condition": {
-          "maxPrice": 5.00
-        }
-      }
-    ]
+    "name": "Free All Charms Under $5",
+    "category": "charms",
+    "type": "fixed",
+    "amount": 1.00,
+    "condition": {
+      "maxPrice": 5.00
+    }
   }
 ]
