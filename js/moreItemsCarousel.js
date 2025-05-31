@@ -28,10 +28,11 @@ function initMoreItemsCarousel() {
         fetch('https://www.karrykraze.com/products/products.json').then(res => res.json()),
         fetch('https://www.karrykraze.com/products/promotion.json').then(res => res.json())
     ])
-        .then(([products, promotionData]) => {
-            products = applyPromotionsToProducts(products, promotionData.promotions || []);
+        .then(([products, promotionFile]) => {
+            const promotions = promotionFile.promotions || [];
+            products = applyPromotionsToProducts(products, promotions);
 
-            // continue as before
+            // Shuffle
             const productKeys = Object.keys(products);
             for (let i = productKeys.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -61,8 +62,8 @@ function initMoreItemsCarousel() {
                             .filter(v => stock[v] > 0);
                         return inStockVariants.length > 1
                             ? `<div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
-             ${renderColorDots(inStockVariants.join("|"), stock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
-           </div>`
+                 ${renderColorDots(inStockVariants.join("|"), stock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
+               </div>`
                             : "";
                     })()}
   </div>
@@ -72,7 +73,6 @@ function initMoreItemsCarousel() {
     ${getCompactPriceHTML(product)}
   </div>
 </a>`;
-
 
                 carouselWrapper.appendChild(cell);
             });
@@ -94,3 +94,4 @@ function initMoreItemsCarousel() {
             });
         });
 }
+
