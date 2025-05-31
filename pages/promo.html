@@ -166,15 +166,38 @@
                 buyBtn.onclick = () => window.location.href = p.url;
 
                 variantEl.innerHTML = "";
-                (p.custom1Options?.split("|") || []).forEach((opt, idx) => {
+                let selectedSet = false;
+
+                (p.custom1Options?.split("|") || []).forEach((opt) => {
+                    const trimmed = opt.trim();
+                    const inStock = (p.variantStock?.[trimmed] ?? 0) > 0;
+                    if (!inStock) return;
+
                     const btn = document.createElement("button");
-                    btn.className = `w-6 h-6 rounded-full border swatch-button ${idx === 0 ? 'ring ring-black' : ''} ${getColorClass(opt.trim())}`;
-                    btn.onclick = () => modelEl.src = p.variantImages?.[opt.trim()] || p.image;
+                    btn.textContent = trimmed;
+                    btn.className = `px-2 py-1 border rounded-full`;
+
+                    btn.onclick = () => {
+                        modelEl.src = p.variantImages?.[trimmed] || p.image;
+                        [...variantEl.children].forEach(b => b.classList.remove('bg-black', 'text-white'));
+                        btn.classList.add('bg-black', 'text-white');
+                    };
+
+                    if (!selectedSet) {
+                        btn.classList.add('bg-black', 'text-white');
+                        modelEl.src = p.variantImages?.[trimmed] || p.image;
+                        selectedSet = true;
+                    }
+
                     variantEl.appendChild(btn);
                 });
 
-                modelEl.src = p.thumbnails?.[1] || p.image;
+                // Fallback if no swatches rendered
+                if (!selectedSet) {
+                    modelEl.src = p.thumbnails?.[1] || p.image;
+                }
             }
+
 
             function updateCarousel(i) {
                 current = i;
