@@ -7,114 +7,24 @@
 
     <!-- Social Meta -->
     <meta property="og:title" content="Promo – Karry Kraze" />
-    <meta property="og:description" content="Save big on our exclusive hat collection – only at Karry Kraze!" />
-    <meta property="og:image" content="https://www.karrykraze.com/imgs/Promo/10Hats/3.jpg" />
+    <meta property="og:description" content="Save big on exclusive deals – only at Karry Kraze!" />
+    <meta property="og:image" content="https://www.karrykraze.com/imgs/Promo/default.jpg" />
     <meta property="og:url" content="https://www.karrykraze.com/pages/promo" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Promo – Karry Kraze" />
-    <meta name="twitter:description" content="Save big on our exclusive hat collection – only at Karry Kraze!" />
-    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Promo/10Hats/3.jpg" />
-    <script src="/js/helpers.js"></script>
-    <script src="/js/moreItemsCarousel.js"></script>
-    <script src="/js/loadProductData.js"></script>
-    <script src="/js/uni_navbar.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-    <!-- Favicon -->
+    <meta name="twitter:description" content="Save big on exclusive deals – only at Karry Kraze!" />
+    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Promo/default.jpg" />
+
     <link rel="icon" href="/imgs/Logo/Short/SL_White_01.png" type="image/png" />
-
-    <style>
-        body {
-            background: #f5a442;
-        }
-
-        .carousel-cell {
-            width: 100%;
-        }
-
-        .is-selected .ring {
-            ring-width: 2px;
-        }
-
-        .fade-wrapper {
-            display: flex;
-            gap: 2rem;
-            opacity: 1;
-            transform: translateX(0);
-            transition: none;
-        }
-
-        .fade-exit-left {
-            animation: fadeOut 0.5s forwards;
-        }
-
-        .fade-enter-right {
-            animation: fadeIn 0.5s forwards;
-        }
-
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
-
-            to {
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .swatch-button {
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-            .swatch-button.selected::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                border: 2px solid black;
-                border-radius: 9999px;
-                box-shadow: 0 0 0 2px white;
-            }
-
-        .navbar-hide {
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .navbar-show {
-            transform: translateY(0);
-            transition: transform 0.3s ease;
-        }
-    </style>
-
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="text-gray-800 ">
-    <!-- Banner Image -->
-    <!-- Full-width Banner (outside container) -->
-    <div class="w-full pt-10">
-        <img src="/imgs/Promo/10Hats/2.jpg" alt="Promo Banner" class="w-full object-cover max-h-[300px] sm:max-h-[400px] lg:max-h-[700px]" />
-    </div>
+<body class="text-gray-800 bg-orange-100">
+    <!-- Dynamic Promo Banner -->
+    <div id="promo-banner"></div>
+
     <div class="max-w-7xl mx-auto px-4 py-8 relative z-10">
-
-
-
         <!-- Title -->
         <h1 id="promo-title" class="text-3xl font-bold mb-4 text-center">Promo</h1>
 
@@ -124,21 +34,18 @@
         <!-- Feature Section -->
         <div class="mt-12" id="promo-feature">
             <div id="fade-wrapper" class="fade-wrapper flex flex-col lg:flex-row gap-6">
-                <!-- Model Image -->
                 <div class="w-full lg:w-1/2">
                     <img id="model-image" src="" alt="Model" class="w-full rounded-lg shadow object-cover max-h-[400px] sm:max-h-[500px]" />
                 </div>
-
-                <!-- Carousel Product Card -->
                 <div class="w-full lg:w-1/2">
-                    <div id="carousel-product-card" class="text-base leading-7 bg-white rounded-lg shadow p-6 sm:p-8 flex flex-col justify-between transition-all w-full h-full">
+                    <div id="carousel-product-card" class="bg-white rounded-lg shadow p-6 sm:p-8 flex flex-col justify-between w-full h-full">
                         <div class="flex flex-col gap-3">
                             <h2 id="carousel-name" class="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight"></h2>
                             <div id="carousel-price" class="text-lg sm:text-xl"></div>
                             <ul id="carousel-description" class="text-base sm:text-lg pt-2 list-disc list-inside text-gray-700"></ul>
                             <div id="carousel-variants" class="mt-4 flex flex-wrap gap-3"></div>
                         </div>
-                        <button id="carousel-buy-btn" class="bg-black text-white px-6 py-3 rounded mt-6 hover:bg-gray-900 w-full sm:w-fit text-center">More Info</button>
+                        <button id="carousel-buy-btn" class="bg-black text-white px-6 py-3 rounded mt-6 hover:bg-gray-900">More Info</button>
                     </div>
                 </div>
             </div>
@@ -146,15 +53,13 @@
 
         <!-- Carousel Controls -->
         <div class="flex justify-between items-center mt-8 gap-4">
-            <button id="prev-btn" class="text-lg flex-shrink-0">
+            <button id="prev-btn" class="text-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
             </button>
-
             <div id="carousel-thumbs" class="p-1 flex gap-2 overflow-x-auto w-full sm:w-auto justify-center"></div>
-
-            <button id="next-btn" class="text-lg flex-shrink-0">
+            <button id="next-btn" class="text-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
@@ -162,208 +67,104 @@
         </div>
     </div>
 
-    <div id="footer"></div>
-    <div id="navbar-container"></div>
     <script>
-        const promoConfig = {
-            title: "",
-            category: "headwear",
-            modelImage: "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_7.jpg"
-        };
+        async function loadPromoPage() {
+            const promoRes = await fetch('/products/promotion.json');
+            const productRes = await fetch('/products/products.json');
+            const promoData = await promoRes.json();
+            const productData = await productRes.json();
+            const now = new Date();
 
-        // 🔁 Main Load Flow
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-            initNavbar();
+            const promo = promoData.promotions.find(p =>
+                (!p.startDate || new Date(p.startDate) <= now) &&
+                (!p.endDate || new Date(p.endDate) >= now) &&
+                p.featured && p.media
+            );
 
-            includeHTML("productpage", "/page_inserts/productpage.html", () => {
-                loadProductData();
-                setupStripeBuyButton();
+            if (!promo) return;
 
-                const addToCartBtn = document.getElementById("add-to-cart-btn");
-                if (addToCartBtn) {
-                    addToCartBtn.addEventListener("click", () => {
-                        const variant = document.getElementById("variantSelector")?.value || null;
-                        addToCart(activeProduct, variant);
-                    });
-                }
+            const products = Object.values(productData).filter(p => p.category === promo.category);
+
+            // Banner
+            const banner = document.getElementById("promo-banner");
+            banner.innerHTML = `
+                    <img src="${promo.media.image}" alt="${promo.media.headline}" class="w-full object-cover max-h-[400px]" />
+                `;
+
+            // Title
+            document.getElementById("promo-title").textContent = promo.name;
+
+            // Product Grid
+            const grid = document.getElementById("product-grid");
+            products.slice(0, 9).forEach(p => {
+                const hover = p.thumbnails?.[1] || p.image;
+                const card = document.createElement('div');
+                card.className = "relative group bg-white p-2 rounded-xl shadow hover:shadow-lg overflow-hidden";
+                card.innerHTML = `
+                        <a href="${p.url}" class="block">
+                            <div class="relative">
+                                <img src="${p.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
+                                <img src="${hover}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
+                            </div>
+                            <div class="mt-2">
+                                <h2 class="font-semibold text-sm line-clamp-2">${p.name}</h2>
+                                <div class="text-base text-gray-800 font-medium">$${p.sale_price ?? p.price}</div>
+                            </div>
+                        </a>`;
+                grid.appendChild(card);
             });
 
-            includeHTML("footer", "/page_inserts/footer.html");
-            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-        });
-    </script>
-    <script>
-        fetch('/products/products.json')
-            .then(res => res.json())
-            .then(products => {
-                const entries = Object.values(products).filter(p => p.category === promoConfig.category);
-                const grid = document.getElementById('product-grid');
-                const title = document.getElementById('promo-title');
-                const modelImg = document.getElementById('model-image');
+            // Carousel Feature
+            let current = 0;
+            const nameEl = document.getElementById("carousel-name");
+            const priceEl = document.getElementById("carousel-price");
+            const descEl = document.getElementById("carousel-description");
+            const buyBtn = document.getElementById("carousel-buy-btn");
+            const thumbs = document.getElementById("carousel-thumbs");
+            const variantEl = document.getElementById("carousel-variants");
+            const modelEl = document.getElementById("model-image");
 
-                title.textContent = promoConfig.title;
-                modelImg.src = entries[0]?.thumbnails?.[1] || entries[0]?.image || '';
+            function updateCarousel(index) {
+                const p = products[index];
+                nameEl.textContent = p.name;
+                priceEl.innerHTML = `$${p.sale_price ?? p.price}`;
+                descEl.innerHTML = (p.descriptionList || []).map(d => `<li>${d}</li>`).join('');
+                buyBtn.onclick = () => window.location.href = p.url;
 
-                entries.slice(0, 9).forEach(product => {
-                    const hover = product.thumbnails?.[1] || product.image;
-                    const card = document.createElement('div');
-                    card.className = "relative group bg-white p-2 rounded-xl shadow hover:shadow-lg overflow-hidden";
+                modelEl.src = p.thumbnails?.[1] || p.image;
 
-                    card.innerHTML = `
-                                        <a href="${product.url}" class="block">
-                                          <div class="relative">
-                                            <img src="${product.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
-                                            <img src="${hover}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
-                                          </div>
-                                          <div class="mt-2">
-                                            <h2 class="font-semibold text-sm line-clamp-2">${product.name}</h2>
-                                            ${getCompactPriceHTML(product)}
-                                          </div>
-                                        </a>
-                                      `;
-
-                    grid.appendChild(card);
+                variantEl.innerHTML = '';
+                (p.custom1Options?.split('|') || []).forEach((color, i) => {
+                    const btn = document.createElement('button');
+                    btn.className = `w-6 h-6 rounded-full border ${i === 0 ? 'ring ring-black' : ''}`;
+                    btn.style.backgroundColor = color.trim().toLowerCase();
+                    btn.onclick = () => modelEl.src = p.variantImages?.[color.trim()] || p.image;
+                    variantEl.appendChild(btn);
                 });
 
-                let current = 0;
-                const nameEl = document.getElementById("carousel-name");
-                const priceEl = document.getElementById("carousel-price");
-                const descEl = document.getElementById("carousel-description");
-                const buyBtn = document.getElementById("carousel-buy-btn");
-                const thumbs = document.getElementById("carousel-thumbs");
-                const variantEl = document.getElementById("carousel-variants");
-                const modelEl = document.getElementById("model-image");
-                const wrapper = document.getElementById("fade-wrapper");
-
-                function animateChange(cb) {
-                    wrapper.classList.add("fade-exit-left");
-                    setTimeout(() => {
-                        cb();
-                        wrapper.classList.remove("fade-exit-left");
-                        wrapper.classList.add("fade-enter-right");
-                        setTimeout(() => {
-                            wrapper.classList.remove("fade-enter-right");
-                            wrapper.classList.add("fade-final");
-                            setTimeout(() => wrapper.classList.remove("fade-final"), 300);
-                        }, 50);
-                    }, 300);
-                }
-
-                function loadCard(index) {
-                    const p = entries[index];
-                    nameEl.textContent = p.name;
-                    priceEl.innerHTML = getFullPriceHTML(p);
-                    descEl.innerHTML = p.descriptionList?.map(d => `<li>${d}</li>`).join('');
-                    buyBtn.onclick = () => window.location.href = p.url;
-
-                    variantEl.innerHTML = '';
-                    const colors = p.custom1Options.split('|');
-                    colors.forEach((color, idx) => {
-                        const clean = color.trim();
-                        const btn = document.createElement('button');
-                        btn.className = `w-6 h-6 rounded-full border swatch-button ${idx === 0 ? 'selected' : ''} ${getColorClass(clean)}`;
-                        btn.addEventListener('click', () => {
-                            const variantImage = p.variantImages?.[clean] || p.thumbnails?.[1] || p.image;
-                            modelEl.src = variantImage;
-
-                            [...variantEl.children].forEach(b => b.classList.remove('selected'));
-                            btn.classList.add('selected');
-                        });
-
-                        variantEl.appendChild(btn);
-                    });
-
-                    modelEl.src = p.thumbnails?.[1] || p.image;
-                }
-
-                function updateCarousel(index) {
-                    current = index;
-                    animateChange(() => loadCard(index));
-                    Array.from(thumbs.children).forEach((el, i) => {
-                        el.classList.toggle("ring", i === current);
-                        el.classList.toggle("ring-black", i === current);
-                    });
-                }
-
-                entries.forEach((p, i) => {
-                    const img = document.createElement('img');
-                    img.src = p.image;
-                    img.className = "w-12 h-12 object-contain cursor-pointer rounded-lg";
-                    img.onclick = () => updateCarousel(i);
-                    thumbs.appendChild(img);
+                Array.from(thumbs.children).forEach((el, i) => {
+                    el.classList.toggle("ring", i === index);
+                    el.classList.toggle("ring-black", i === index);
                 });
 
-                document.getElementById("prev-btn").onclick = () => updateCarousel((current - 1 + entries.length) % entries.length);
-                document.getElementById("next-btn").onclick = () => updateCarousel((current + 1) % entries.length);
+                current = index;
+            }
 
-                updateCarousel(0);
+            products.forEach((p, i) => {
+                const img = document.createElement('img');
+                img.src = p.image;
+                img.className = "w-12 h-12 object-contain cursor-pointer rounded-lg";
+                img.onclick = () => updateCarousel(i);
+                thumbs.appendChild(img);
             });
-    </script>
 
-    <script>
-        
+            document.getElementById("prev-btn").onclick = () => updateCarousel((current - 1 + products.length) % products.length);
+            document.getElementById("next-btn").onclick = () => updateCarousel((current + 1) % products.length);
 
-        function includeHTML(id, filePath, callback = null) {
-            fetch(filePath)
-                .then(res => res.text())
-                .then(html => {
-                    document.getElementById(id).innerHTML = html;
-                    if (callback) callback();
-                });
+            updateCarousel(0);
         }
 
-       
-
-        
-
-        function initNavbar() {
-            const toggleBtn = document.getElementById("mobile-menu-button");
-            const menu = document.getElementById("mobile-menu");
-            toggleBtn?.addEventListener("click", () => menu?.classList.toggle("hidden"));
-
-            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-            const countElem = document.getElementById("cart-count");
-            if (countElem) countElem.textContent = totalQty;
-
-            const navbar = document.getElementById('mainNavbar');
-            let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                if (!navbar) return;
-                if (window.scrollY > lastScrollY && window.scrollY > 50) {
-                    navbar.classList.replace('navbar-show', 'navbar-hide');
-                } else {
-                    navbar.classList.replace('navbar-hide', 'navbar-show');
-                }
-                lastScrollY = window.scrollY;
-            });
-        }
-
-       
-
-        // 🔁 Main Load Flow
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-            initNavbar();
-
-            includeHTML("productpage", "/page_inserts/productpage.html", () => {
-                loadProductData();
-                setupStripeBuyButton();
-
-                const addToCartBtn = document.getElementById("add-to-cart-btn");
-                if (addToCartBtn) {
-                    addToCartBtn.addEventListener("click", () => {
-                        const variant = document.getElementById("variantSelector")?.value || null;
-                        addToCart(activeProduct, variant);
-                    });
-                }
-            });
-
-            includeHTML("footer", "/page_inserts/footer.html");
-            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
-        });
-
+        loadPromoPage();
     </script>
-
 </body>
 </html>
