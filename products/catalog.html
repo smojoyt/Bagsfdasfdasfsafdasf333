@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script src="/js/helpers.js"></script>
     <script src="/js/moreItemsCarousel.js"></script>
-    <script src="/js/loadProductData.js"></script>
+    <script src="/js/loadProductData.js" defer></script>
     <script src="/js/uni_navbar.js"></script>
 
 
@@ -212,137 +212,72 @@
         backdrop?.addEventListener("click", closeSidebar);
 
         window.addEventListener("DOMContentLoaded", () => {
-            sidebar.classList.add("-translate-x-full");
-            backdrop.classList.add("hidden");
+            const container = document.getElementById("product-grid");
 
-            fetch("https://www.karrykraze.com/products/products.json")
-                .then(res => res.json())
-                .then(products => {
-                    const container = document.getElementById("product-grid");
+            Promise.all([
+                fetch("https://www.karrykraze.com/products/products.json").then(res => res.json()),
+                fetch("https://www.karrykraze.com/products/promotion.json").then(res => res.json())
+            ]).then(([products, promotions]) => {
+                applyPromotions(products, promotions); // 🔁 Apply promo discounts
 
-                    Object.entries(products).forEach(([sku, p]) => {
-                        // Skip discontinued items
-                        const variantStock = p.variantStock || {};
-                        const firstInStock = Object.keys(variantStock).find(color => variantStock[color] > 0);
-                        if (firstInStock && p.variantImages?.[firstInStock]) {
-                            p.image = p.variantImages[firstInStock]; // override default image with in-stock variant
+                Object.entries(products).forEach(([_, p]) => {
+                    if (p.tags?.includes("Discontinued")) return;
+                    const html = renderCatalogCard(p); // ✅ Use your shared renderer
+                    container.insertAdjacentHTML("beforeend", html);
+                });
+
+                imagesLoaded(container, () => {
+                    iso = new Isotope(container, {
+                        sortBy: 'best-deals',
+                        sortAscending: false,
+                        itemSelector: '.item',
+                        layoutMode: 'fitRows',
+                        getSortData: {
+                            name: '[data-name]',
+                            'price-low': '[data-price] parseFloat',
+                            'price-high': '[data-price] parseFloat',
+                            'best-deals': '[data-discount] parseInt'
                         }
-
-                        if (p.tags?.includes("Discontinued")) return;
-
-                        const tagClasses = [
-                            ...(p.tags ? p.tags.map(t => t.toLowerCase()) : []),
-                            ...(p.tags?.includes("Outofstock") ? [] : ["instock"])
-                        ].join(" ");
-
-                        const hasVariants = p.custom1Options && p.custom1Options.split("|").length > 1;
-                        const regular = p.price ?? 0;
-                        const sale = p.sale_price ?? regular;
-                        const discount = regular > 0 ? Math.round(((regular - sale) / regular) * 100) : 0;
-                        const isOnSale = p.tags?.includes("Onsale") && sale < regular;
-
-                        const priceBlock = isOnSale
-                            ? `
-                        <div class="mt-2">
-                            <p class="text-green-700 italic font-semibold text-xs sm:text-sm">
-                                Now <span class="text-lg sm:text-xl font-bold">$${sale.toFixed(2)}</span>
-                                <span class="text-xs sm:text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
-                            </p>
-                            <div class="flex gap-2 mt-1">
-                                <span class="bg-red-100 text-red-600 text-[10px] sm:text-xs font-semibold px-1 py-0.5 rounded">
-                                    ${discount}% OFF
-                                </span>
-                                <span class="bg-green-100 text-green-700 text-[10px] sm:text-xs italic px-1 py-0.5 rounded">
-                                    You save $${(regular - sale).toFixed(2)}
-                                </span>
-                            </div>
-                        </div>`
-                            : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
-
-                        container.insertAdjacentHTML("beforeend", `
-                    <div class="p-2 item ${p.category} ${tagClasses}"
-                         data-name="${p.name.toLowerCase()}"
-                         data-price="${p.tags?.includes('Onsale') && p.sale_price < p.price ? p.sale_price : p.price}"
-                         data-discount="${discount}">
-                        <a href="${p.url}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
-                            <div class="relative bg-white flex items-center justify-center">
-                                <img src="${p.image}" alt="${p.name}" class="max-h-72 w-auto object-contain mx-auto">
-                                ${hasVariants ? `
-                                    <div class="absolute bottom-2 left-2 flex gap-[3px] z-10">
-                                        ${renderColorDots(p.custom1Options, p.variantStock)
-                                    .replaceAll('w-6', 'w-4')
-                                    .replaceAll('h-6', 'h-4')}
-                                    </div>` : ""}
-                            </div>
-                            <div class="min-h-[100px] max-w-[192px] p-2">
-                                <h2 class="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
-                                ${priceBlock}
-                            </div>
-                        </a>
-                    </div>
-                `);
                     });
 
-                    imagesLoaded(container, () => {
-                        iso = new Isotope(container, {
-                            itemSelector: '.item',
-                            layoutMode: 'fitRows',
-                            getSortData: {
-                                name: '[data-name]',
-                                'price-low': '[data-price] parseFloat',
-                                'price-high': '[data-price] parseFloat',
-                                'best-deals': '[data-discount] parseInt'
-                            }
+                    // 🔁 Sorting logic
+                    document.getElementById('sort-select').addEventListener('change', e => {
+                        const val = e.target.value;
+                        iso.updateSortData();
+                        if (val === 'price-high') {
+                            iso.arrange({ sortBy: 'price-low', sortAscending: false });
+                        } else if (val === 'price-low') {
+                            iso.arrange({ sortBy: 'price-low', sortAscending: true });
+                        } else if (val === 'best-deals') {
+                            iso.arrange({ sortBy: 'best-deals', sortAscending: false });
+                        } else {
+                            iso.arrange({ sortBy: val });
+                        }
+                    });
+
+                    // 🧃 Filter logic
+                    document.getElementById('apply-filters').addEventListener('click', () => {
+                        const allFilters = {};
+                        document.querySelectorAll('.filter-checkbox:checked').forEach(cb => {
+                            const group = cb.dataset.group;
+                            const val = cb.value;
+                            if (!allFilters[group]) allFilters[group] = [];
+                            allFilters[group].push(val);
                         });
 
-                        // Sorting
-                        document.getElementById('sort-select').addEventListener('change', e => {
-                            const val = e.target.value;
-                            iso.updateSortData();
-                            if (val === 'price-high') {
-                                iso.arrange({ sortBy: 'price-low', sortAscending: false });
-                            } else if (val === 'price-low') {
-                                iso.arrange({ sortBy: 'price-low', sortAscending: true });
-                            } else if (val === 'best-deals') {
-                                iso.arrange({ sortBy: 'best-deals', sortAscending: false });
-                            } else {
-                                iso.arrange({ sortBy: val });
-                            }
-                        });
+                        const filterSelector = Object.values(allFilters)
+                            .map(groupVals => groupVals.join(','))
+                            .join('');
 
-                        // Filtering
-                        document.querySelectorAll('.filter-btn').forEach(btn => {
-                            btn.addEventListener('click', () => {
-                                const group = btn.closest('[data-filter-group]').getAttribute('data-filter-group');
-                                const filter = btn.getAttribute('data-filter');
-                                filters[group] = filter;
-                                iso.arrange({ filter: Object.values(filters).filter(Boolean).join('') });
-                            });
-                        });
+                        iso.arrange({ filter: filterSelector || '*' });
+
+                        closeSidebar(); // ✅ Hide sidebar on mobile
                     });
                 });
-        });
-
-        // When "Apply Filters" is clicked
-        document.getElementById('apply-filters').addEventListener('click', () => {
-            const allFilters = {};
-
-            document.querySelectorAll('.filter-checkbox:checked').forEach(cb => {
-                const group = cb.dataset.group;
-                const val = cb.value;
-                if (!allFilters[group]) allFilters[group] = [];
-                allFilters[group].push(val);
             });
-
-            const filterSelector = Object.values(allFilters)
-                .map(groupVals => groupVals.join(','))
-                .join('');
-
-            iso.arrange({ filter: filterSelector || '*' });
-
-            // ✅ Close the sidebar after applying filters
-            closeSidebar();
         });
+
+        
 
 
         // Other included HTML
@@ -395,9 +330,10 @@
                     });
                 }
             });
-            includeHTML("footer", "/page_inserts/footer.html");
+            
             includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
             includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+            includeHTML("footer", "/page_inserts/footer.html");
         });
     </script>
 
