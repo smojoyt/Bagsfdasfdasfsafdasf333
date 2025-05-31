@@ -1,4 +1,4 @@
-{
+﻿{
   "promotions": [
     {
       "name": "Free All Charms Under $5",
@@ -10,15 +10,20 @@
       }
     },
     {
-      "name": "15% Off All Hats Over $10",
+      "name": "30% Off All Charms",
       "category": "charms",
       "type": "percent",
       "amount": 30,
-      "condition": {
-        "maxPrice": 100.00
-      },
+      "condition": { "minPrice": 0 },
       "startDate": "2025-05-01T00:00:00Z",
-      "endDate": "2025-06-07T23:59:59Z"
+      "endDate": "2025-06-07T23:59:59Z",
+      "featured": true,
+      "media": {
+        "headline": "🔥 30% Off All Charms!",
+        "caption": "Limited time only. Grab your favorite styles today!",
+        "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "image": "https://www.karrykraze.com/imgs/promos/hatpromo.jpg"
+      }
     }
   ]
 }
