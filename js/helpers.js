@@ -153,6 +153,27 @@ function renderCatalogCard(p) {
     </div>`;
 }
 
+window.applyPromotionsToProducts = function (products, promotions) {
+    const updated = structuredClone(products);
+
+    promotions.forEach(promo => {
+        Object.keys(updated).forEach(sku => {
+            const item = updated[sku];
+            if (item.category !== promo.category) return;
+
+            if (promo.condition?.maxPrice && item.price > promo.condition.maxPrice) return;
+
+            if (promo.type === "fixed") {
+                item.sale_price = Math.max(0, item.price - promo.amount);
+            } else if (promo.type === "percent") {
+                item.sale_price = Math.max(0, item.price * (1 - promo.amount / 100));
+            }
+        });
+    });
+
+    return updated;
+};
+
 // You save part
 //<span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">
 //                        You save $${ (regular - sale).toFixed(2) }
