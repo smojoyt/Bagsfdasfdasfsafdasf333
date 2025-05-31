@@ -30,10 +30,14 @@ window.renderColorDots = function (optionsStr, stockObj = {}) {
 };
 
 // Apply promotion.json discounts
+// 🛠 FIXED: Now deducts amount instead of setting price to amount
+// ✅ FINAL version — only this should be used
 window.applyPromotions = function (products, promotions) {
     const now = new Date();
-    for (const key in products) {
-        const product = products[key];
+    const updated = structuredClone(products);
+
+    for (const key in updated) {
+        const product = updated[key];
         for (const promo of promotions) {
             const matchesCategory = product.category === promo.category;
             const matchesPrice = promo.condition?.maxPrice ? product.price <= promo.condition.maxPrice : true;
@@ -43,13 +47,18 @@ window.applyPromotions = function (products, promotions) {
 
             if (matchesCategory && matchesPrice && matchesID && isWithinDateRange) {
                 if (!promo.stackable && alreadyDiscounted) continue;
+
                 product.sale_price = promo.type === "fixed"
-                    ? promo.amount
+                    ? Math.max(0, product.price - promo.amount)
                     : +(product.price * (1 - promo.amount / 100)).toFixed(2);
             }
         }
     }
+
+    return updated;
 };
+
+
 
 // Compact price for carousel, cards, etc.
 window.getCompactPriceHTML = function (product) {
@@ -153,26 +162,7 @@ function renderCatalogCard(p) {
     </div>`;
 }
 
-window.applyPromotionsToProducts = function (products, promotions) {
-    const updated = structuredClone(products);
 
-    promotions.forEach(promo => {
-        Object.keys(updated).forEach(sku => {
-            const item = updated[sku];
-            if (item.category !== promo.category) return;
-
-            if (promo.condition?.maxPrice && item.price > promo.condition.maxPrice) return;
-
-            if (promo.type === "fixed") {
-                item.sale_price = Math.max(0, item.price - promo.amount);
-            } else if (promo.type === "percent") {
-                item.sale_price = Math.max(0, item.price * (1 - promo.amount / 100));
-            }
-        });
-    });
-
-    return updated;
-};
 
 // You save part
 //<span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">

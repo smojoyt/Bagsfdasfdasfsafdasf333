@@ -268,7 +268,7 @@
                 fetch("/products/products.json").then(res => res.json()),
                 fetch("/products/promotion.json").then(res => res.json())
             ]).then(([products, promotions]) => {
-                const updatedProducts = applyPromotionsToProducts(products, promotions);
+                const updatedProducts = applyPromotions(products, promotions);
                 const productKeys = Object.keys(updatedProducts).sort(() => 0.5 - Math.random());
 
                 productKeys.forEach(sku => {
