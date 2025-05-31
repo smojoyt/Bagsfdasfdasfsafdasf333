@@ -61,25 +61,27 @@
     <!-- Hero Banner with Video -->
     <div id="promoContainer" class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden"></div>
 
-    <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
+    <!-- Hero Banner Default Code
+        <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
         <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
             <source src="/imgs/Banner/Banner3_1.mp4" type="video/mp4" />
             Your browser does not support the video tag.
         </video>
 
-        <!-- Bold bottom-left text -->
-        <div class="absolute bottom-6 left-6 z-10 text-left">
-            <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
-                NEW FUZZY&<br>RIBBED LINED BEANIES
-            </h1>
-            <p class="mt-4 text-2xl font-medium text-white drop-shadow">
-                $10 Off All Headwear!!
-            </p>
-            <a href="https://www.karrykraze.com/pages/promo" class="mt-8 inline-block px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200">
-                Shop Now
-            </a>
-        </div>
+        <!-- Bold bottom-left text 
+    <div class="absolute bottom-6 left-6 z-10 text-left">
+        <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
+            NEW FUZZY&<br>RIBBED LINED BEANIES
+        </h1>
+        <p class="mt-4 text-2xl font-medium text-white drop-shadow">
+            $10 Off All Headwear!!
+        </p>
+        <a href="https://www.karrykraze.com/pages/promo" class="mt-8 inline-block px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200">
+            Shop Now
+        </a>
+    </div>
     </section>
+    -->
 
 
     <!-- Featured Products -->
@@ -126,31 +128,31 @@
 
                     const background = video
                         ? `<video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
-                        <source src="${video}" type="video/mp4" />
-                        Your browser does not support the video tag.
-                   </video>`
+                            <source src="${video}" type="video/mp4" />
+                            Your browser does not support the video tag.
+                       </video>`
                         : `<img src="${image}" class="absolute top-0 left-0 w-full h-full object-cover z-0" alt="Promo Background" />`;
 
                     const buttonHTML = button
                         ? `<a href="${button.url}" class="mt-8 inline-block px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200">
-                        ${button.label}
-                   </a>`
+                            ${button.label}
+                       </a>`
                         : "";
 
                     container.innerHTML = `
-                <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
-                    ${background}
-                    <div class="absolute bottom-6 left-6 z-10 text-left">
-                        <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
-                            ${headline}
-                        </h1>
-                        <p class="mt-4 text-2xl font-medium text-white drop-shadow">
-                            ${caption}
-                        </p>
-                        ${buttonHTML}
-                    </div>
-                </section>
-            `;
+                    <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
+                        ${background}
+                        <div class="absolute bottom-6 left-6 z-10 text-left">
+                            <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
+                                ${headline}
+                            </h1>
+                            <p class="mt-4 text-2xl font-medium text-white drop-shadow">
+                                ${caption}
+                            </p>
+                            ${buttonHTML}
+                        </div>
+                    </section>
+                `;
                 });
         });
 
@@ -342,27 +344,27 @@
 
                     cell.innerHTML = `
 <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-      <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-        <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-        ${product.thumbnails?.[1] ? `
-          <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-               src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+          <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
+            <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+            ${product.thumbnails?.[1] ? `
+              <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+                   src="${product.thumbnails[1]}" alt="Hover image">` : ''}
 
-        ${inStockColors.length > 1 ? `
-          <div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
-            ${renderColorDots(swatchString, product.variantStock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
-          </div>` : ""}
-      </div>
+            ${inStockColors.length > 1 ? `
+              <div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
+                ${renderColorDots(swatchString, product.variantStock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
+              </div>` : ""}
+          </div>
 
-      <div class="text-center mt-6">
-        <div class="text-sm font-semibold truncate">${product.name}</div>
-        ${product.sale_price && product.sale_price < product.price ? `
-          <div class="text-sm">
-            <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
-            <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
-          </div>` : `
-          <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`}
-      </div>
+          <div class="text-center mt-6">
+            <div class="text-sm font-semibold truncate">${product.name}</div>
+            ${product.sale_price && product.sale_price < product.price ? `
+              <div class="text-sm">
+                <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
+                <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
+              </div>` : `
+              <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`}
+          </div>
 </a>
 `;
 
@@ -434,14 +436,14 @@
                         const swatchString = inStockColors.join("|");
 
                         card.innerHTML = `
-                            <div class="relative w-full bg-white">
-                                <img src="${variantImage}" alt="${p.name}" class="w-full object-contain">
-                                ${inStockColors.length > 1 ? `
-                                    <div class="absolute bottom-2 left-2 flex gap-1">
-                                        ${renderColorDots(swatchString, p.variantStock)}
-                                    </div>` : ""}
-                            </div>
-                        `;
+                                <div class="relative w-full bg-white">
+                                    <img src="${variantImage}" alt="${p.name}" class="w-full object-contain">
+                                    ${inStockColors.length > 1 ? `
+                                        <div class="absolute bottom-2 left-2 flex gap-1">
+                                            ${renderColorDots(swatchString, p.variantStock)}
+                                        </div>` : ""}
+                                </div>
+                            `;
 
                         wrapper.appendChild(card);
                         container.appendChild(wrapper);
