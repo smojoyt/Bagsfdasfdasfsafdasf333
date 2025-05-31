@@ -218,11 +218,11 @@
                 fetch("https://www.karrykraze.com/products/products.json").then(res => res.json()),
                 fetch("https://www.karrykraze.com/products/promotion.json").then(res => res.json())
             ]).then(([products, promotions]) => {
-                applyPromotions(products, promotions); // 🔁 Apply promo discounts
+                const updatedProducts = applyPromotionsToProducts(products, promotions); // ✅ updated name
 
-                Object.entries(products).forEach(([_, p]) => {
+                Object.entries(updatedProducts).forEach(([_, p]) => {
                     if (p.tags?.includes("Discontinued")) return;
-                    const html = renderCatalogCard(p); // ✅ Use your shared renderer
+                    const html = renderCatalogCard(p);
                     container.insertAdjacentHTML("beforeend", html);
                 });
 
@@ -240,7 +240,7 @@
                         }
                     });
 
-                    // 🔁 Sorting logic
+                    // Sorting logic
                     document.getElementById('sort-select').addEventListener('change', e => {
                         const val = e.target.value;
                         iso.updateSortData();
@@ -255,7 +255,7 @@
                         }
                     });
 
-                    // 🧃 Filter logic
+                    // Filter logic
                     document.getElementById('apply-filters').addEventListener('click', () => {
                         const allFilters = {};
                         document.querySelectorAll('.filter-checkbox:checked').forEach(cb => {
@@ -270,11 +270,11 @@
                             .join('');
 
                         iso.arrange({ filter: filterSelector || '*' });
-
-                        closeSidebar(); // ✅ Hide sidebar on mobile
+                        closeSidebar();
                     });
                 });
             });
+
         });
 
         

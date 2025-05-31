@@ -32,7 +32,8 @@ window.renderColorDots = function (optionsStr, stockObj = {}) {
 // Apply promotion.json discounts
 // 🛠 FIXED: Now deducts amount instead of setting price to amount
 // ✅ FINAL version — only this should be used
-window.applyPromotions = function (products, promotions) {
+// ✅ Final version — returns a cloned and updated product list
+window.applyPromotionsToProducts = function (products, promotions) {
     const now = new Date();
     const updated = structuredClone(products);
 
@@ -42,7 +43,8 @@ window.applyPromotions = function (products, promotions) {
             const matchesCategory = product.category === promo.category;
             const matchesPrice = promo.condition?.maxPrice ? product.price <= promo.condition.maxPrice : true;
             const matchesID = promo.condition?.product_ids ? promo.condition.product_ids.includes(product.product_id) : true;
-            const isWithinDateRange = (!promo.startDate || now >= new Date(promo.startDate)) && (!promo.endDate || now <= new Date(promo.endDate));
+            const isWithinDateRange = (!promo.startDate || now >= new Date(promo.startDate)) &&
+                (!promo.endDate || now <= new Date(promo.endDate));
             const alreadyDiscounted = product.sale_price !== undefined && product.sale_price < product.price;
 
             if (matchesCategory && matchesPrice && matchesID && isWithinDateRange) {
@@ -57,6 +59,7 @@ window.applyPromotions = function (products, promotions) {
 
     return updated;
 };
+
 
 
 

@@ -29,7 +29,7 @@ function initMoreItemsCarousel() {
         fetch('https://www.karrykraze.com/products/promotion.json').then(res => res.json())
     ])
         .then(([products, promotionData]) => {
-            applyPromotions(products, promotionData.promotions || []);
+            applyPromotionsToProducts(products, promotionData.promotions || []);
 
             // continue as before
             const productKeys = Object.keys(products);
