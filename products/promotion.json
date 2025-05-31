@@ -22,9 +22,12 @@
         "headline": "🔥 30% Off All Charms!",
         "caption": "Limited time only. Grab your favorite styles today!",
         "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        "image": "https://www.karrykraze.com/imgs/promos/hatpromo.jpg"
+        "image": "https://www.karrykraze.com/imgs/promos/hatpromo.jpg",
+        "button": {
+          "label": "Shop Now",
+          "url": "https://www.karrykraze.com/pages/promo"
+        }
       }
     }
   ]
 }
-
