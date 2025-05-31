@@ -2,12 +2,24 @@
   "promotions": [
     {
       "name": "Free All Charms Under $5",
-      "category": "charms",
+      "category": "hats",
       "type": "fixed",
       "amount": 1.00,
       "condition": {
         "maxPrice": 5.00
       }
+    },
+    {
+      "name": "15% Off All Hats Over $10",
+      "category": "charms",
+      "type": "percent",
+      "amount": 15,
+      "condition": {
+        "minPrice": 100.00
+      },
+      "startDate": "2025-06-01T00:00:00Z",
+      "endDate": "2025-06-07T23:59:59Z"
     }
   ]
 }
+
