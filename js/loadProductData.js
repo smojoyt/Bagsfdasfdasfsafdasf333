@@ -1,4 +1,15 @@
-﻿function addToCart(product, variant) {
+﻿window.updateCartCount = function () {
+    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+    const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+    const countElem = document.getElementById("cart-count");
+    if (countElem) {
+        countElem.textContent = totalQty;
+    }
+};
+
+
+
+function addToCart(product, variant) {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
     const existing = cart.find(item => item.id === product.product_id && item.variant === variant);
