@@ -15,6 +15,10 @@
     }
 }
 
+if (typeof updateDiscountTracker !== "function") {
+    function updateDiscountTracker(_) { } // no-op placeholder
+}
+
 function toggleCart(show = null) {
     const cartEl = document.getElementById("sideCart");
     const overlay = document.getElementById("cartOverlay");
@@ -55,7 +59,8 @@ function renderCart() {
     cartItemsEl.innerHTML = "";
 
     // ✅ Always update the discount tracker first
-    updateDiscountTracker(total);
+    // updateDiscountTracker(total); // Temporarily disabled
+
 
     if (cart.length === 0) {
         emptyMsg?.classList.remove("hidden");
@@ -121,7 +126,7 @@ function renderCart() {
     
 
     // ✅ Add this line:
-    updateDiscountTracker(total);
+    // updateDiscountTracker(total); // Temporarily disabled
 
 
 
