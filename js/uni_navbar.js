@@ -51,34 +51,27 @@ function renderCart() {
     const freeShippingProgress = document.getElementById("freeShippingProgress");
     const checkoutBtn = document.getElementById("checkoutBtn");
     const emptyMsg = document.getElementById("emptyCartMessage");
-    const discountBar = document.getElementById("discountBar");
-    const discountProgress = document.getElementById("discountProgress");
-    const discountBarWrapper = document.getElementById("discountBarWrapper");
 
-    let total = 0;
+    if (!cartItemsEl || !cartTotalEl) return; // 🛑 Early return if cart isn't present
+
     cartItemsEl.innerHTML = "";
-
-    // ✅ Always update the discount tracker first
-    // updateDiscountTracker(total); // Temporarily disabled
-
 
     if (cart.length === 0) {
         emptyMsg?.classList.remove("hidden");
-        cartTotalEl?.parentElement?.classList.add("hidden");
+        cartTotalEl.parentElement?.classList.add("hidden");
         freeShippingBar?.classList.add("hidden");
         freeShippingProgress?.parentElement?.classList.add("hidden");
         checkoutBtn?.classList.add("hidden");
         return;
     }
 
-    // ... continue rest of renderCart logic here ...
-
-
     emptyMsg?.classList.add("hidden");
-    cartTotalEl?.parentElement?.classList.remove("hidden");
+    cartTotalEl.parentElement?.classList.remove("hidden");
     freeShippingBar?.classList.remove("hidden");
     freeShippingProgress?.parentElement?.classList.remove("hidden");
     checkoutBtn?.classList.remove("hidden");
+
+    let total = 0;
 
     cart.forEach((item, index) => {
         total += item.price * item.qty;
@@ -104,10 +97,9 @@ function renderCart() {
 
     cartTotalEl.textContent = `$${total.toFixed(2)}`;
 
-    // ✅ Free shipping bar update
+    // Update free shipping progress
     const goal = 50;
     const progress = Math.min((total / goal) * 100, 100);
-
     if (freeShippingBar && freeShippingProgress) {
         if (total >= goal) {
             freeShippingBar.textContent = "🎉 You’ve unlocked FREE shipping!";
@@ -117,37 +109,8 @@ function renderCart() {
         } else {
             const diff = (goal - total).toFixed(2);
             freeShippingBar.textContent = `You're $${diff} away from free shipping!`;
-            freeShippingProgress.style.width = `${progress}%`;
-            freeShippingProgress.classList.remove("bg-green-500");
-            freeShippingProgress.classList.add("bg-yellow-400");
-        }
-    }
+            freeShippingProgres
 
-    
-
-    // ✅ Add this line:
-    // updateDiscountTracker(total); // Temporarily disabled
-
-
-
-
-
-    // Attach buttons
-    document.querySelectorAll(".qty-btn").forEach(btn => {
-        btn.addEventListener("click", e => {
-            const index = parseInt(e.target.dataset.index);
-            const action = e.target.dataset.action;
-            adjustQuantity(index, action);
-        });
-    });
-
-    document.querySelectorAll(".remove-btn").forEach(btn => {
-        btn.addEventListener("click", e => {
-            const index = parseInt(e.target.dataset.index);
-            removeFromCart(index);
-        });
-    });
-}
 /*
 // $10 OFF $60 Progress Tracker
 const discountGoal = 60;

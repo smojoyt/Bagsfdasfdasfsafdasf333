@@ -318,10 +318,6 @@
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
             initNavbar();
 
-            includeHTML("productpage", "/page_inserts/productpage.html", () => {
-                loadProductData();
-                setupStripeBuyButton();
-
                 const addToCartBtn = document.getElementById("add-to-cart-btn");
                 if (addToCartBtn) {
                     addToCartBtn.addEventListener("click", () => {
@@ -331,8 +327,7 @@
                 }
             });
             
-            includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
-            includeHTML("productpage_shipandret", "/page_inserts/productpage_shipandret.html");
+
             includeHTML("footer", "/page_inserts/footer.html");
         });
     </script>
