@@ -174,23 +174,25 @@
                     if (!inStock) return;
 
                     const btn = document.createElement("button");
-                    btn.textContent = trimmed;
-                    btn.className = `px-2 py-1 border rounded-full`;
+                    btn.className = `w-6 h-6 rounded-full border-2 border-gray-300 hover:scale-110 transition-all`;
+                    btn.style.backgroundColor = trimmed.toLowerCase(); // Assumes color name matches CSS color
+                    btn.title = trimmed;
 
                     btn.onclick = () => {
                         modelEl.src = p.variantImages?.[trimmed] || p.image;
-                        [...variantEl.children].forEach(b => b.classList.remove('bg-black', 'text-white'));
-                        btn.classList.add('bg-black', 'text-white');
+                        [...variantEl.children].forEach(b => b.classList.remove('ring-2', 'ring-black'));
+                        btn.classList.add('ring-2', 'ring-black');
                     };
 
                     if (!selectedSet) {
-                        btn.classList.add('bg-black', 'text-white');
+                        btn.classList.add('ring-2', 'ring-black');
                         modelEl.src = p.variantImages?.[trimmed] || p.image;
                         selectedSet = true;
                     }
 
                     variantEl.appendChild(btn);
                 });
+
 
                 // Fallback if no swatches rendered
                 if (!selectedSet) {
