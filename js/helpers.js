@@ -58,7 +58,8 @@ window.renderColorDots = function (optionsStr, stockObj = {}) {
 function getCompactPriceHTML(product) {
     const regular = product.price;
     const sale = product.sale_price ?? regular;
-    const isOnSale = product.tags?.includes("Onsale") && sale < regular;
+    const isOnSale = sale < regular;
+
 
     if (isOnSale) {
         return `
