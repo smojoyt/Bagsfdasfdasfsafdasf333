@@ -1,66 +1,61 @@
-﻿// Make color map function globally available
+﻿// 📁 helpers.js — All shared logic across product pages and carousels
+
+// Color mapping for swatches
 window.getColorClass = function (colorName) {
     const colorMap = {
-        pink: 'bg-pink-400',
-        white: 'bg-white border',
-        black: 'bg-black',
-        red: 'bg-red-500',
-        blue: 'bg-blue-500',
-        green: 'bg-green-500',
-        yellow: 'bg-yellow-400',
-        gray: 'bg-gray-500',
-        brown: 'bg-amber-900',
-        purple: 'bg-purple-500',
-        orange: 'bg-orange-400',
-        tan: 'bg-amber-300',
-        gold: 'bg-yellow-300',
-        silver: 'bg-gray-300',
-        cream: 'bg-[#fdf6e3] border',
+        pink: 'bg-pink-400', white: 'bg-white border', black: 'bg-black',
+        red: 'bg-red-500', blue: 'bg-blue-500', green: 'bg-green-500',
+        yellow: 'bg-yellow-400', gray: 'bg-gray-500', brown: 'bg-amber-900',
+        purple: 'bg-purple-500', orange: 'bg-orange-400', tan: 'bg-amber-300',
+        gold: 'bg-yellow-300', silver: 'bg-gray-300', cream: 'bg-[#fdf6e3] border',
 
-        // Gradient styles
+        // Gradients
         "black/red": "bg-gradient-to-r from-black to-red-500",
         "black/white": "bg-gradient-to-r from-black to-white border",
         "pink/white": "bg-gradient-to-r from-pink-400 to-white border",
         "pink/cream": "bg-gradient-to-r from-pink-400 via-[#fdf6e3] to-[#fdf6e3] border",
-        "red/blue/cream": "bg-gradient-to-r from-red-500 via-white to-[#fdf6e3] border",
         "red/blue/cream": "bg-gradient-to-r from-red-500 via-blue-500 to-[#fdf6e3] border"
-
-
     };
-
     return colorMap[colorName.toLowerCase()] || 'bg-gray-200';
 };
 
-// Render color dots using global getColorClass
+// Render color dots
 window.renderColorDots = function (optionsStr, stockObj = {}) {
     return optionsStr.split("|").map(opt => {
         const name = opt.trim();
         const isOut = stockObj[name] === 0;
-
-        if (isOut) return ""; // skip if out of stock
-
-        return `
-            <span title="${name}"
-                  class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border ${getColorClass(name)} block"></span>
-        `;
+        if (isOut) return "";
+        return `<span title="${name}" class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border ${getColorClass(name)} block"></span>`;
     }).join("");
 };
 
+// Apply promotion.json discounts
+window.applyPromotions = function (products, promotions) {
+    const now = new Date();
+    for (const key in products) {
+        const product = products[key];
+        for (const promo of promotions) {
+            const matchesCategory = product.category === promo.category;
+            const matchesPrice = promo.condition?.maxPrice ? product.price <= promo.condition.maxPrice : true;
+            const matchesID = promo.condition?.product_ids ? promo.condition.product_ids.includes(product.product_id) : true;
+            const isWithinDateRange = (!promo.startDate || now >= new Date(promo.startDate)) && (!promo.endDate || now <= new Date(promo.endDate));
+            const alreadyDiscounted = product.sale_price !== undefined && product.sale_price < product.price;
 
+            if (matchesCategory && matchesPrice && matchesID && isWithinDateRange) {
+                if (!promo.stackable && alreadyDiscounted) continue;
+                product.sale_price = promo.type === "fixed"
+                    ? promo.amount
+                    : +(product.price * (1 - promo.amount / 100)).toFixed(2);
+            }
+        }
+    }
+};
 
-
-
-
-
-
-
-// Price formatter for compact display (used in carousels and catalog)
-function getCompactPriceHTML(product) {
+// Compact price for carousel, cards, etc.
+window.getCompactPriceHTML = function (product) {
     const regular = product.price;
     const sale = product.sale_price ?? regular;
     const isOnSale = sale < regular;
-
-
     if (isOnSale) {
         return `
             <div class="flex flex-col items-center gap-1">
@@ -76,14 +71,13 @@ function getCompactPriceHTML(product) {
     } else {
         return `<div class="text-sm text-gray-600">$${regular.toFixed(2)}</div>`;
     }
-}
+};
 
-// Price formatter for product page full display
-function getFullPriceHTML(product) {
+// Full price for product detail page
+window.getFullPriceHTML = function (product) {
     const regular = product.price;
     const sale = product.sale_price ?? regular;
-    const isOnSale = product.tags?.includes("Onsale") || sale < regular;
-
+    const isOnSale = sale < regular;
     if (isOnSale) {
         const saved = (regular - sale).toFixed(2);
         const percentOff = Math.round((saved / regular) * 100);
@@ -102,7 +96,8 @@ function getFullPriceHTML(product) {
     } else {
         return `<p class="italic text-2xl font-semibold">$${regular.toFixed(2)}</p>`;
     }
-}
+};
+
 
 // Product card renderer for catalog
 function renderCatalogCard(p) {
@@ -166,3 +161,6 @@ function renderCatalogCard(p) {
 //<span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">
 //                        You save $${ (regular - sale).toFixed(2) }
 //
+
+// Export globally so other scripts (like catalog.js) can use it
+window.renderCatalogCard = renderCatalogCard;

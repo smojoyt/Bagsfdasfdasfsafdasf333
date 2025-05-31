@@ -42,35 +42,6 @@ function renderAllColorDots(customOptions, variantStock = {}) {
         })
         .join("");
 }
-function applyPromotions(products, promotions) {
-    const now = new Date();
-
-    for (const key in products) {
-        const product = products[key];
-
-        for (const promo of promotions) {
-            const matchesCategory = product.category === promo.category;
-            const matchesPrice = promo.condition?.maxPrice ? product.price <= promo.condition.maxPrice : true;
-            const matchesID = promo.condition?.product_ids ? promo.condition.product_ids.includes(product.product_id) : true;
-
-            const isWithinDateRange =
-                (!promo.startDate || now >= new Date(promo.startDate)) &&
-                (!promo.endDate || now <= new Date(promo.endDate));
-
-            const alreadyDiscounted = product.sale_price !== undefined && product.sale_price < product.price;
-
-            if (matchesCategory && matchesPrice && matchesID && isWithinDateRange) {
-                if (!promo.stackable && alreadyDiscounted) continue;
-
-                if (promo.type === "fixed") {
-                    product.sale_price = promo.amount;
-                } else if (promo.type === "percent") {
-                    product.sale_price = +(product.price * (1 - promo.amount / 100)).toFixed(2);
-                }
-            }
-        }
-    }
-}
 
 function loadProductData() {
     Promise.all([
