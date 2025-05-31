@@ -29,7 +29,7 @@
         <h1 id="promo-title" class="text-3xl font-bold mb-4 text-center">Promo</h1>
 
         <!-- Product Grid -->
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
         <!-- Feature Section -->
         <div class="mt-12" id="promo-feature">
@@ -68,53 +68,58 @@
     </div>
 
     <script>
-        async function loadPromoPage() {
-            const promoRes = await fetch('/products/promotion.json');
-            const productRes = await fetch('/products/products.json');
-            const promoData = await promoRes.json();
-            const productData = await productRes.json();
+        Promise.all([
+            fetch("/products/products.json").then(res => res.json()),
+            fetch("/products/promotion.json").then(res => res.json())
+        ]).then(([products, promoData]) => {
             const now = new Date();
+            const promotions = promoData.promotions || [];
 
-            const promo = promoData.promotions.find(p =>
-                (!p.startDate || new Date(p.startDate) <= now) &&
-                (!p.endDate || new Date(p.endDate) >= now) &&
-                p.featured && p.media
-            );
+            const updatedProducts = structuredClone(products);
+            for (const key in updatedProducts) {
+                const p = updatedProducts[key];
+                for (const promo of promotions) {
+                    const validDate = (!promo.startDate || new Date(promo.startDate) <= now) && (!promo.endDate || new Date(promo.endDate) >= now);
+                    const matchesCategory = p.category === promo.category;
+                    const priceCond = (!promo.condition?.maxPrice || p.price <= promo.condition.maxPrice) && (!promo.condition?.minPrice || p.price >= promo.condition.minPrice);
+                    if (promo.featured && validDate && matchesCategory && priceCond) {
+                        p.sale_price = promo.type === "percent" ? +(p.price * (1 - promo.amount / 100)).toFixed(2) : Math.max(0, p.price - promo.amount);
+                    }
+                }
+            }
 
-            if (!promo) return;
+            const featuredPromo = promotions.find(p => p.featured && (!p.startDate || new Date(p.startDate) <= now) && (!p.endDate || new Date(p.endDate) >= now));
+            if (!featuredPromo) return;
 
-            const products = Object.values(productData).filter(p => p.category === promo.category);
+            document.getElementById("promo-title").textContent = featuredPromo.name;
+            document.getElementById("promo-banner").src = featuredPromo.media?.image || "";
 
-            // Banner
-            const banner = document.getElementById("promo-banner");
-            banner.innerHTML = `
-                    <img src="${promo.media.image}" alt="${promo.media.headline}" class="w-full object-cover max-h-[400px]" />
-                `;
+            const entries = Object.values(updatedProducts).filter(p => p.category === featuredPromo.category);
 
-            // Title
-            document.getElementById("promo-title").textContent = promo.name;
-
-            // Product Grid
             const grid = document.getElementById("product-grid");
-            products.slice(0, 9).forEach(p => {
-                const hover = p.thumbnails?.[1] || p.image;
-                const card = document.createElement('div');
+            entries.forEach(p => {
+                const sale = p.sale_price ?? p.price;
+                const priceHTML = p.sale_price < p.price
+                    ? `<div class='text-green-600 font-semibold'>$${sale.toFixed(2)} <span class='text-sm text-gray-500 line-through'>$${p.price.toFixed(2)}</span></div>`
+                    : `<div class='font-medium text-gray-800'>$${p.price.toFixed(2)}</div>`;
+
+                const card = document.createElement("div");
                 card.className = "relative group bg-white p-2 rounded-xl shadow hover:shadow-lg overflow-hidden";
                 card.innerHTML = `
                         <a href="${p.url}" class="block">
                             <div class="relative">
                                 <img src="${p.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
-                                <img src="${hover}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
+                                <img src="${p.thumbnails?.[1] || p.image}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
                             </div>
                             <div class="mt-2">
                                 <h2 class="font-semibold text-sm line-clamp-2">${p.name}</h2>
-                                <div class="text-base text-gray-800 font-medium">$${p.sale_price ?? p.price}</div>
+                                ${priceHTML}
                             </div>
                         </a>`;
                 grid.appendChild(card);
             });
 
-            // Carousel Feature
+            // Carousel Setup
             let current = 0;
             const nameEl = document.getElementById("carousel-name");
             const priceEl = document.getElementById("carousel-price");
@@ -123,48 +128,51 @@
             const thumbs = document.getElementById("carousel-thumbs");
             const variantEl = document.getElementById("carousel-variants");
             const modelEl = document.getElementById("model-image");
+            const wrapper = document.getElementById("fade-wrapper");
 
-            function updateCarousel(index) {
-                const p = products[index];
+            function loadCard(i) {
+                const p = entries[i];
                 nameEl.textContent = p.name;
-                priceEl.innerHTML = `$${p.sale_price ?? p.price}`;
+                priceEl.innerHTML = p.sale_price < p.price
+                    ? `<span class='text-green-600'>$${p.sale_price.toFixed(2)}</span> <span class='line-through text-sm text-gray-500'>$${p.price.toFixed(2)}</span>`
+                    : `$${p.price.toFixed(2)}`;
                 descEl.innerHTML = (p.descriptionList || []).map(d => `<li>${d}</li>`).join('');
                 buyBtn.onclick = () => window.location.href = p.url;
 
-                modelEl.src = p.thumbnails?.[1] || p.image;
-
-                variantEl.innerHTML = '';
-                (p.custom1Options?.split('|') || []).forEach((color, i) => {
-                    const btn = document.createElement('button');
-                    btn.className = `w-6 h-6 rounded-full border ${i === 0 ? 'ring ring-black' : ''}`;
-                    btn.style.backgroundColor = color.trim().toLowerCase();
-                    btn.onclick = () => modelEl.src = p.variantImages?.[color.trim()] || p.image;
+                variantEl.innerHTML = "";
+                (p.custom1Options?.split("|") || []).forEach((opt, idx) => {
+                    const btn = document.createElement("button");
+                    btn.textContent = opt;
+                    btn.className = `px-2 py-1 border rounded-full ${idx === 0 ? 'bg-black text-white' : ''}`;
+                    btn.onclick = () => modelEl.src = p.variantImages?.[opt.trim()] || p.image;
                     variantEl.appendChild(btn);
                 });
 
-                Array.from(thumbs.children).forEach((el, i) => {
-                    el.classList.toggle("ring", i === index);
-                    el.classList.toggle("ring-black", i === index);
-                });
-
-                current = index;
+                modelEl.src = p.thumbnails?.[1] || p.image;
             }
 
-            products.forEach((p, i) => {
-                const img = document.createElement('img');
+            function updateCarousel(i) {
+                current = i;
+                loadCard(i);
+                [...thumbs.children].forEach((img, idx) => {
+                    img.classList.toggle("ring", idx === current);
+                    img.classList.toggle("ring-black", idx === current);
+                });
+            }
+
+            entries.forEach((p, i) => {
+                const img = document.createElement("img");
                 img.src = p.image;
                 img.className = "w-12 h-12 object-contain cursor-pointer rounded-lg";
                 img.onclick = () => updateCarousel(i);
                 thumbs.appendChild(img);
             });
 
-            document.getElementById("prev-btn").onclick = () => updateCarousel((current - 1 + products.length) % products.length);
-            document.getElementById("next-btn").onclick = () => updateCarousel((current + 1) % products.length);
+            document.getElementById("prev-btn").onclick = () => updateCarousel((current - 1 + entries.length) % entries.length);
+            document.getElementById("next-btn").onclick = () => updateCarousel((current + 1) % entries.length);
 
             updateCarousel(0);
-        }
-
-        loadPromoPage();
+        });
     </script>
 </body>
 </html>
