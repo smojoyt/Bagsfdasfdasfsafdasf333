@@ -142,7 +142,7 @@ function renderCatalogCard(p) {
     `;
 
     return `
-    <div class="p-2 item ${p.category} ${tagClasses}" 
+    <div class="p-2 item ${p.category} ${tagClasses} ${isOnSale ? "on-sale" : ""}"  
      data-name="${p.name.toLowerCase()}" 
      data-price="${sale}" 
      data-discount="${isOnSale ? Math.round(((regular - sale) / regular) * 100) : 0}">
