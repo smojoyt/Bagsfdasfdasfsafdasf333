@@ -21,6 +21,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="text-gray-800 bg-orange-100">
+    <div id="navbar-container"></div>
+
     <!-- Dynamic Promo Banner -->
     <div id="promo-banner"></div>
 
@@ -68,6 +70,8 @@
     </div>
 
     <script>
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", initNavbar);
+
         Promise.all([
             fetch("/products/products.json").then(res => res.json()),
             fetch("/products/promotion.json").then(res => res.json())
@@ -92,7 +96,9 @@
             if (!featuredPromo) return;
 
             document.getElementById("promo-title").textContent = featuredPromo.name;
-            document.getElementById("promo-banner").src = featuredPromo.media?.image || "";
+            document.getElementById("promo-banner").innerHTML = `
+    <img src="${featuredPromo.media?.image || ''}" alt="${featuredPromo.name}" class="w-full object-cover max-h-[300px] sm:max-h-[400px] lg:max-h-[700px] rounded-b-lg" />
+`;
 
             const entries = Object.values(updatedProducts).filter(p => p.category === featuredPromo.category);
 
@@ -106,16 +112,16 @@
                 const card = document.createElement("div");
                 card.className = "relative group bg-white p-2 rounded-xl shadow hover:shadow-lg overflow-hidden";
                 card.innerHTML = `
-                        <a href="${p.url}" class="block">
-                            <div class="relative">
-                                <img src="${p.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
-                                <img src="${p.thumbnails?.[1] || p.image}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
-                            </div>
-                            <div class="mt-2">
-                                <h2 class="font-semibold text-sm line-clamp-2">${p.name}</h2>
-                                ${priceHTML}
-                            </div>
-                        </a>`;
+                                <a href="${p.url}" class="block">
+                                    <div class="relative">
+                                        <img src="${p.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
+                                        <img src="${p.thumbnails?.[1] || p.image}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
+                                    </div>
+                                    <div class="mt-2">
+                                        <h2 class="font-semibold text-sm line-clamp-2">${p.name}</h2>
+                                        ${priceHTML}
+                                    </div>
+                                </a>`;
                 grid.appendChild(card);
             });
 
@@ -142,8 +148,7 @@
                 variantEl.innerHTML = "";
                 (p.custom1Options?.split("|") || []).forEach((opt, idx) => {
                     const btn = document.createElement("button");
-                    btn.textContent = opt;
-                    btn.className = `px-2 py-1 border rounded-full ${idx === 0 ? 'bg-black text-white' : ''}`;
+                    btn.className = `w-6 h-6 rounded-full border swatch-button ${idx === 0 ? 'ring ring-black' : ''} ${getColorClass(opt.trim())}`;
                     btn.onclick = () => modelEl.src = p.variantImages?.[opt.trim()] || p.image;
                     variantEl.appendChild(btn);
                 });
@@ -174,5 +179,24 @@
             updateCarousel(0);
         });
     </script>
+
+    <script>
+        function includeHTML(id, filePath, callback = null) {
+            fetch(filePath)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    if (callback) callback();
+                });
+        }
+
+        function initNavbar() {
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+        }
+    </script>
+
 </body>
 </html>
