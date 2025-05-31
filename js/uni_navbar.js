@@ -143,7 +143,7 @@ function renderCart() {
         });
     });
 }
-
+/*
 // $10 OFF $60 Progress Tracker
 const discountGoal = 60;
 
@@ -177,7 +177,8 @@ function updateDiscountTracker(total) {
             discountProgress.classList.add("bg-yellow-400");
         }
     }
-}
+} 
+*/
 
 
 
