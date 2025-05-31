@@ -223,3 +223,37 @@ function loadProductData() {
             if (content) content.classList.remove('hidden');
         });
 }
+
+function toggleCart(open = true) {
+    const cartSidebar = document.getElementById("cart-sidebar");
+    if (!cartSidebar) return;
+    cartSidebar.classList.toggle("hidden", !open);
+}
+
+function renderCart() {
+    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+    const container = document.getElementById("cart-items");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    cart.forEach(item => {
+        const itemElem = document.createElement("div");
+        itemElem.className = "flex items-center justify-between py-2 border-b";
+        itemElem.innerHTML = `
+            <div class="flex items-center gap-2">
+                <img src="${item.image}" class="w-10 h-10 object-contain rounded" />
+                <div>
+                    <div class="text-sm font-medium">${item.name}</div>
+                    ${item.variant ? `<div class="text-xs text-gray-500">Variant: ${item.variant}</div>` : ""}
+                    <div class="text-xs text-gray-600">Qty: ${item.qty}</div>
+                </div>
+            </div>
+            <div class="text-sm font-semibold">$${(item.price * item.qty).toFixed(2)}</div>
+        `;
+        container.appendChild(itemElem);
+    });
+
+    updateCartCount();
+}
+
