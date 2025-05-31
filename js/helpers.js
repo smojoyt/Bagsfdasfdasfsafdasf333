@@ -99,7 +99,6 @@ window.getFullPriceHTML = function (product) {
 };
 
 
-// Product card renderer for catalog
 function renderCatalogCard(p) {
     const tagClasses = [
         ...(p.tags ? p.tags.map(t => t.toLowerCase()) : []),
@@ -109,7 +108,7 @@ function renderCatalogCard(p) {
     const hasVariants = p.custom1Options && p.custom1Options.split("|").length > 1;
     const regular = p.price;
     const sale = p.sale_price ?? regular;
-    const isOnSale = p.tags?.includes("Onsale") && sale < regular;
+    const isOnSale = sale < regular; // ✅ Fixed this
 
     const priceBlock = isOnSale
         ? `<div class="mt-2">
@@ -121,42 +120,39 @@ function renderCatalogCard(p) {
                     <span class="bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">
                         ${Math.round(((regular - sale) / regular) * 100)}% OFF
                     </span>
-                    
                 </div>
             </div>`
         : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
 
     const tagBadges = `
-    ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
-    ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
-`;
-    // ⬆️ No more color dots here
-
-
+        ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
+        ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
+    `;
 
     return `
     <div class="p-2 item ${p.category} ${tagClasses}" 
      data-name="${p.name.toLowerCase()}" 
-     data-price="${p.price}" 
+     data-price="${sale}" 
      data-discount="${isOnSale ? Math.round(((regular - sale) / regular) * 100) : 0}">
 
         <a href="${p.url}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
             <div class="relative bg-white flex items-center justify-center">
-    <img src="${p.image}" alt="${p.name}" class="max-h-72 w-auto object-contain mx-auto">
-    ${hasVariants ? `
-        <div class="absolute bottom-2 left-2 flex gap-1">
-            ${renderColorDots(p.custom1Options)}
-        </div>` : ""}
-</div>
+                <img src="${p.image}" alt="${p.name}" class="max-h-72 w-auto object-contain mx-auto">
+                ${hasVariants ? `
+                    <div class="absolute bottom-2 left-2 flex gap-1">
+                        ${renderColorDots(p.custom1Options)}
+                    </div>` : ""}
+            </div>
 
             <div class="min-h-[100px] max-w-[192px] p-2">
-                                        <h2 class="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
-                                        ${priceBlock}
-                                        <div class="flex flex-wrap gap-1 mt-2">${tagBadges}</div>
-                                    </div>
+                <h2 class="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2rem]">${p.name}</h2>
+                ${priceBlock}
+                <div class="flex flex-wrap gap-1 mt-2">${tagBadges}</div>
+            </div>
         </a>
     </div>`;
 }
+
 // You save part
 //<span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">
 //                        You save $${ (regular - sale).toFixed(2) }
