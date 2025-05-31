@@ -4,9 +4,8 @@
 		"category": "headwear",
 		"product_id": "KK-1001",
 		"price": 44.97,
-		"sale_price": 34.97,
 		"weight_oz": 5.29,
-		"tags": [ "Bestseller", "Onsale", "Featured" ],
+		"tags": [ "Bestseller", "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_05.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_EarflapBeanie.html",
 		"descriptionList": [
@@ -482,9 +481,8 @@
 		"category": "headwear",
 		"product_id": "KK-1016",
 		"price": 34.97,
-		"sale_price": 24.97,
 		"weight_oz": 1.94,
-		"tags": [ "Headwear", "Bestseller", "Onsale", "Featured" ],
+		"tags": [ "Headwear", "Bestseller", "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_2_1.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_FuzzyBeanie.html",
 		"descriptionList": [
@@ -527,9 +525,8 @@
 		"category": "headwear",
 		"product_id": "KK-1017",
 		"price": 44.97,
-		"sale_price": 34.97,
 		"weight_oz": 5.57,
-		"tags": [ "Headwear", "New Arrival", "Onsale", "Featured" ],
+		"tags": [ "Headwear", "New Arrival", "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_3_1.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_CatEarBeanie.html",
 		"descriptionList": [
