@@ -52,7 +52,7 @@ function renderCart() {
     const checkoutBtn = document.getElementById("checkoutBtn");
     const emptyMsg = document.getElementById("emptyCartMessage");
 
-    if (!cartItemsEl || !cartTotalEl) return; // 🛑 Early return if cart isn't present
+    if (!cartItemsEl || !cartTotalEl) return;
 
     cartItemsEl.innerHTML = "";
 
@@ -97,7 +97,7 @@ function renderCart() {
 
     cartTotalEl.textContent = `$${total.toFixed(2)}`;
 
-    // Update free shipping progress
+    // Free shipping bar logic...
     const goal = 50;
     const progress = Math.min((total / goal) * 100, 100);
     if (freeShippingBar && freeShippingProgress) {
@@ -113,8 +113,25 @@ function renderCart() {
             freeShippingProgress.classList.remove("bg-green-500");
             freeShippingProgress.classList.add("bg-yellow-400");
         }
-    } // closes `else`
-}   // closes `if (freeShippingBar && freeShippingProgress)`
+    }
+
+    // ✅ Bind buttons *after* they exist
+    document.querySelectorAll(".qty-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const action = btn.dataset.action;
+            const index = parseInt(btn.dataset.index);
+            adjustQuantity(index, action);
+        });
+    });
+
+    document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const index = parseInt(btn.dataset.index);
+            removeFromCart(index);
+        });
+    });
+}
+
 
 
 /*
