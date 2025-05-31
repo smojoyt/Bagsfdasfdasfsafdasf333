@@ -109,7 +109,11 @@ function renderCart() {
         } else {
             const diff = (goal - total).toFixed(2);
             freeShippingBar.textContent = `You're $${diff} away from free shipping!`;
-            freeShippingProgres
+            freeShippingProgress.style.width = `${progress}%`;
+            freeShippingProgress.classList.remove("bg-green-500");
+            freeShippingProgress.classList.add("bg-yellow-400");
+        }
+
 
 /*
 // $10 OFF $60 Progress Tracker
