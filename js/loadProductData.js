@@ -2,6 +2,8 @@
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
     const existing = cart.find(item => item.id === product.product_id && item.variant === variant);
+    const price = product.sale_price !== undefined ? product.sale_price : product.price;
+
     if (existing) {
         existing.qty += 1;
     } else {
@@ -9,9 +11,7 @@
             id: product.product_id,
             name: product.name,
             variant: variant || null,
-            price: product.tags?.includes("Onsale") && product.sale_price < product.price
-                ? product.sale_price
-                : product.price,
+            price: price,
             qty: 1,
             image: product.variantImages?.[variant] || product.image
         });
@@ -22,6 +22,7 @@
     renderCart();
     toggleCart(true);
 }
+
 
 function renderAllColorDots(customOptions, variantStock = {}) {
     return customOptions
@@ -41,16 +42,52 @@ function renderAllColorDots(customOptions, variantStock = {}) {
         })
         .join("");
 }
+function applyPromotions(products, promotions) {
+    const now = new Date();
+
+    for (const key in products) {
+        const product = products[key];
+
+        for (const promo of promotions) {
+            const matchesCategory = product.category === promo.category;
+            const matchesPrice = promo.condition?.maxPrice ? product.price <= promo.condition.maxPrice : true;
+            const matchesID = promo.condition?.product_ids ? promo.condition.product_ids.includes(product.product_id) : true;
+
+            const isWithinDateRange =
+                (!promo.startDate || now >= new Date(promo.startDate)) &&
+                (!promo.endDate || now <= new Date(promo.endDate));
+
+            const alreadyDiscounted = product.sale_price !== undefined && product.sale_price < product.price;
+
+            if (matchesCategory && matchesPrice && matchesID && isWithinDateRange) {
+                if (!promo.stackable && alreadyDiscounted) continue;
+
+                if (promo.type === "fixed") {
+                    product.sale_price = promo.amount;
+                } else if (promo.type === "percent") {
+                    product.sale_price = +(product.price * (1 - promo.amount / 100)).toFixed(2);
+                }
+            }
+        }
+    }
+}
 
 function loadProductData() {
-    fetch("https://www.karrykraze.com/products/products.json")
-        .then(res => res.json())
-        .then(data => {
-            activeProduct = data[skuFromURL];
+    Promise.all([
+        fetch("https://www.karrykraze.com/products/products.json").then(res => res.json()),
+        fetch("https://www.karrykraze.com/products/promotion.json").then(res => res.json())
+    ])
+        .then(([products, promotionsFile]) => {
+            const promotions = promotionsFile.promotions || [];
+
+            applyPromotions(products, promotions);
+
+            activeProduct = products[skuFromURL];
             if (!activeProduct) {
                 console.error(`Product not found for SKU: ${skuFromURL}`);
                 return;
             }
+
 
             const nameEl = document.getElementById("product-name");
             if (nameEl) nameEl.textContent = activeProduct.name;

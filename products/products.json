@@ -675,8 +675,9 @@
 		"category": "charms",
 		"product_id": "KK-1045",
 		"price": 2.97,
+		"sale_price": 2.47,
 		"weight_oz": 1.13,
-		"tags": [ "BagAccessory" ],
+		"tags": [ "BagAccessory", "OnSale" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_04_01.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_MiniCrocs.html",
 		"descriptionList": [
