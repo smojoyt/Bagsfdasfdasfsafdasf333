@@ -113,6 +113,8 @@ function renderCart() {
             freeShippingProgress.classList.remove("bg-green-500");
             freeShippingProgress.classList.add("bg-yellow-400");
         }
+    } // closes `else`
+}   // closes `if (freeShippingBar && freeShippingProgress)`
 
 
 /*
