@@ -25,8 +25,8 @@ function initMoreItemsCarousel() {
     if (!carouselWrapper) return;
 
     Promise.all([
-        fetch('https://www.karrykraze.com/products/products.json').then(res => res.json()),
-        fetch('https://www.karrykraze.com/products/promotion.json').then(res => res.json())
+        fetch("/products/products.json").then(res => res.json()),
+        fetch("/products/promotion.json").then(res => res.json())
     ])
         .then(([products, promotionFile]) => {
             const promotions = promotionFile.promotions || [];

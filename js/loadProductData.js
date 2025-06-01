@@ -56,8 +56,8 @@ function renderAllColorDots(customOptions, variantStock = {}) {
 
 function loadProductData() {
     Promise.all([
-        fetch("https://www.karrykraze.com/products/products.json").then(res => res.json()),
-        fetch("https://www.karrykraze.com/products/promotion.json").then(res => res.json())
+        fetch("/products/products.json").then(res => res.json()),
+        fetch("/products/promotion.json").then(res => res.json())
     ])
         .then(([products, promotionsFile]) => {
             const promotions = promotionsFile.promotions || [];
