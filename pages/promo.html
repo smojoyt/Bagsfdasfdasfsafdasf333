@@ -117,10 +117,13 @@
             const featuredPromo = promotions.find(p => p.featured && (!p.startDate || new Date(p.startDate) <= now) && (!p.endDate || new Date(p.endDate) >= now));
             if (!featuredPromo) return;
 
-            document.getElementById("promo-title").textContent = featuredPromo.name;
             document.getElementById("promo-banner").innerHTML = `
-            <img src="${featuredPromo.media?.image || ''}" alt="${featuredPromo.name}" class="w-full object-cover max-h-[300px] sm:max-h-[400px] lg:max-h-[700px] rounded-b-lg" />
+  <img src="${featuredPromo.media?.image || ''}" alt="${featuredPromo.name}" class="absolute inset-0 w-full h-full object-cover max-h-[300px] sm:max-h-[400px] lg:max-h-[700px] z-0" />
+  <h1 class="absolute bottom-6 left-6 text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg z-10">
+    ${featuredPromo.name}
+  </h1>
 `;
+
 
             const entries = Object.values(updatedProducts).filter(p => p.category === featuredPromo.category);
 
