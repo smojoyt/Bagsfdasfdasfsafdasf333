@@ -106,7 +106,7 @@
     <script>
 
         document.addEventListener("DOMContentLoaded", () => {
-            fetch("https://www.karrykraze.com/products/promotion.json")
+            fetch("/products/promotion.json")
                 .then(res => res.json())
                 .then(data => {
                     const now = new Date();
@@ -392,7 +392,7 @@
 
 
         function loadFeaturedProducts() {
-            fetch("https://www.karrykraze.com/products/products.json")
+            fetch("/products/products.json")
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById("featured-products");
