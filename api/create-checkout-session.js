@@ -7,13 +7,25 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-    res.setHeader("Access-Control-Allow-Origin", "https://www.karrykraze.com");
+    const allowedOrigins = [
+        "https://karrykraze.com",
+        "https://www.karrykraze.com" // optional if you ever serve both
+    ];
+
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin);
+    }
+
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.setHeader("Access-Control-Allow-Credentials", "true");
 
     if (req.method === "OPTIONS") return res.status(200).end();
     if (req.method !== "POST") return res.status(405).end("Method Not Allowed");
+
+    // Continue with your logic here...
+}
 
     try {
         const { sku, selectedVariant, cart } = req.body;
