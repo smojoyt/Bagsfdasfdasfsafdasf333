@@ -28,8 +28,12 @@
     <div id="navbar-container"></div>
 
     <!-- Dynamic Promo Banner -->
-    <div id="promo-banner"></div>
-    <h1 id="promo-title" class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">Promo</h1>
+    <div id="promo-banner" class="relative h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden">
+        <h1 id="promo-title" class="absolute bottom-6 left-6 text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg z-10">
+            Promo
+        </h1>
+    </div>
+
     <div class="max-w-7xl mx-auto px-4 py-8 relative z-10">
         <!-- Title -->
         <!-- Product Grid -->
@@ -115,7 +119,7 @@
 
             document.getElementById("promo-title").textContent = featuredPromo.name;
             document.getElementById("promo-banner").innerHTML = `
-        <img src="${featuredPromo.media?.image || ''}" alt="${featuredPromo.name}" class="w-full object-cover max-h-[300px] sm:max-h-[400px] lg:max-h-[700px] rounded-b-lg" />
+            <img src="${featuredPromo.media?.image || ''}" alt="${featuredPromo.name}" class="w-full object-cover max-h-[300px] sm:max-h-[400px] lg:max-h-[700px] rounded-b-lg" />
 `;
 
             const entries = Object.values(updatedProducts).filter(p => p.category === featuredPromo.category);
@@ -130,16 +134,16 @@
                 const card = document.createElement("div");
                 card.className = "relative group bg-white p-2 rounded-xl shadow hover:shadow-lg overflow-hidden";
                 card.innerHTML = `
-                                    <a href="${p.url}" class="block">
-                                        <div class="relative">
-                                            <img src="${p.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
-                                            <img src="${p.thumbnails?.[1] || p.image}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
-                                        </div>
-                                        <div class="mt-2">
-                                            <h2 class="font-semibold text-sm line-clamp-2">${p.name}</h2>
-                                            ${priceHTML}
-                                        </div>
-                                    </a>`;
+                                        <a href="${p.url}" class="block">
+                                            <div class="relative">
+                                                <img src="${p.image}" class="w-full object-contain rounded-lg transition duration-300 group-hover:opacity-0">
+                                                <img src="${p.thumbnails?.[1] || p.image}" class="w-full object-contain rounded-lg absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition duration-300">
+                                            </div>
+                                            <div class="mt-2">
+                                                <h2 class="font-semibold text-sm line-clamp-2">${p.name}</h2>
+                                                ${priceHTML}
+                                            </div>
+                                        </a>`;
                 grid.appendChild(card);
             });
 
