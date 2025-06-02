@@ -54,7 +54,7 @@
 </head>
 
 
-<body class="text-gray-800 bg-[#f4f4f4]">
+<body class="text-gray-800 bg-[#fedcc1]">
     <!-- Transparent Navbar Placeholder -->
     <div id="navbar-container"></div>
 
@@ -440,9 +440,8 @@
                     const isBestseller = p.tags?.includes("Bestseller");
 
                     const firstInStock = Object.keys(stock).find(variant => stock[variant] > 0);
-                    const variantImage = firstInStock && p.variantImages?.[firstInStock]
-                        ? p.variantImages[firstInStock]
-                        : p.image;
+                    const secondThumbnail = p.thumbnails?.[1] || p.image;
+
 
                     const wrapper = document.createElement("div");
                     wrapper.className = "relative w-[30%] max-w-xs flex-shrink-0";
@@ -463,14 +462,15 @@
 
                     card.innerHTML = `
                     <div class="relative w-full bg-white">
-                        <img src="${variantImage}" alt="${p.name}" class="w-full object-contain">
+                        <img src="${secondThumbnail}" alt="${p.name}" class="w-full object-contain">
+
                         ${inStockColors.length > 1 ? `
                             <div class="absolute bottom-2 left-2 flex gap-1">
                                 ${renderColorDots(swatchString, p.variantStock)}
                             </div>` : ""}
                     </div>
                     <div class="mt-4 text-left">
-    <div class="text-3xl md:text-4xl font-extrabold text-gray-800 leading-tight truncate">${p.name}</div>
+    <div class="text-lg md:text-xl font-bold text-gray-800 leading-tight truncate">${p.name}</div>
     ${p.sale_price && p.sale_price < p.price ? `
         <div class="mt-1 text-lg font-semibold text-green-700">
             $${p.sale_price.toFixed(2)} 
