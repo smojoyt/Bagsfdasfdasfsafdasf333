@@ -85,9 +85,7 @@
     <!-- Featured Products -->
     <section class="max-w-6xl mx-auto py-12">
         <div class="max-w-6xl mx-auto flex items-center justify-between mb-4 px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase">
-                Featured Items
-            </h2>
+            <h2 id="featured-title" class="text-3xl md:text-4xl font-extrabold text-gray-800">Featured Picks</h2>
             <a href="/products/catalog.html" class="text-sm md:text-base font-semibold text-black hover:underline">Shop all</a>
         </div>
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -411,6 +409,15 @@
                     const endOk = !p.endDate || new Date(p.endDate) >= now;
                     return isFeatured && startOk && endOk;
                 });
+
+                if (featuredPromo?.category) {
+                    const title = document.getElementById("featured-title");
+                    if (title) {
+                        const cap = featuredPromo.category.charAt(0).toUpperCase() + featuredPromo.category.slice(1);
+                        title.textContent = `All New ${cap}s`; // e.g., Charms, Hats
+                    }
+                }
+
 
                 if (!featuredPromo || !featuredPromo.category) return;
 
