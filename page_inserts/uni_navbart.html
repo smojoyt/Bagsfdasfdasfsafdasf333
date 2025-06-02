@@ -22,10 +22,18 @@
                 </a>
             </div>
 
-            <!-- Right: Custom Cart Icon -->
+            <!-- Right: Custom Mail + Cart Icons -->
             <div class="flex items-center gap-4">
+
+                <!-- Mail Icon Button -->
+                <a href="https://karrykraze.com/pages/contact" class="text-white hover:text-gray-300" title="Contact Us">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-6 h-6" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v16H4V4zm0 0l8 8 8-8" />
+                    </svg>
+                </a>
+
+                <!-- Cart Icon Button -->
                 <button onclick="toggleCart()" class="relative">
-                    <!-- Cart Icon SVG -->
                     <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6 text-current" stroke="currentColor" stroke-width="2">
                         <path d="M2.5,3.5 L4.57364,3.5 C4.81929,3.5 5.02855,3.67844 5.06736,3.921 L6.73058,14.3158 C6.88582,15.286 7.72287,15.9998 8.70546,15.9998 L17.3957,15.9998 C18.3331,15.9998 19.1447,15.3487 19.3481,14.4337 L20.7296,8.21674 C20.8684,7.59222 20.3932,6.9998 19.7534,6.9998 L5.83997,6.9998" stroke-linecap="round"></path>
                         <circle cx="9.5" cy="21" r="1" stroke-linecap="round"></circle>
@@ -33,24 +41,29 @@
                     </svg>
                     <span id="cart-count" class="absolute -top-0.5 -right-0.5 bg-black text-white text-xs rounded-full px-1">0</span>
                 </button>
+
             </div>
+
 
         </div>
 
 
         <!-- Desktop Nav -->
         <div class="hidden md:flex justify-center space-x-6 items-center py-2">
-            <a href="/" class="nav-link font-semibold">Home</a>
-            <a href="https://www.karrykraze.com/products/catalog.html" class="nav-link font-semibold">Catalog</a>
-            <a href="https://www.instagram.com/karrykraze/" target="_blank" class="nav-link font-semibold ">Instagram</a>
-            <a href="https://www.karrykraze.com/pages/contact.html" class="nav-link font-semibold">Contact</a>
+            <a href="/" class="nav-link font-semibold text-lg uppercase">Home</a>
+            <a href="https://www.karrykraze.com/products/catalog.html" class="nav-link font-semibold text-lg uppercase">All Items</a>
+            <a href="https://www.karrykraze.com/products/catalog.html" class="nav-link font-semibold text-lg uppercase">Beanies</a>
+            <a href="https://www.karrykraze.com/products/catalog.html" class="nav-link font-semibold text-lg uppercase">Bags</a>
+            <a href="https://www.karrykraze.com/products/catalog.html" class="nav-link font-semibold text-lg uppercase">Charms</a>
+            <a href="https://www.instagram.com/karrykraze/" target="_blank" class="nav-link font-semibold text-lg uppercase ">Instagram</a>
+            <a href="https://www.karrykraze.com/pages/contact.html" class="nav-link font-semibold text-lg uppercase">Contact</a>
         </div>
     </div>
 
     <!-- Mobile Nav -->
     <div id="mobile-menu" class="md:hidden hidden flex flex-col gap-2 px-4 pb-4 pt-2 bg-white shadow-md z-40 w-full">
         <a href="/" class="text-gray-600 hover:text-black">Home</a>
-        <a href="https://www.karrykraze.com/products/catalog" class="text-gray-600 hover:text-black">Catalog</a>
+        <a href="https://www.karrykraze.com/products/catalog" class="text-gray-600 hover:text-black ">All Items</a>
         <a href="https://www.instagram.com/karrykraze/" target="_blank" class="text-gray-600 hover:text-black">Instagram</a>
         <a href="https://karrykraze.com/pages/contact.html" class="text-gray-600 hover:text-black">Contact</a>
     </div>
