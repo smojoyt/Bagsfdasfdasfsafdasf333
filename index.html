@@ -438,10 +438,19 @@
                 filteredProducts.forEach(p => {
                     const stock = p.variantStock || {};
                     const isBestseller = p.tags?.includes("Bestseller");
-
                     const firstInStock = Object.keys(stock).find(variant => stock[variant] > 0);
                     const secondThumbnail = p.thumbnails?.[1] || p.image;
+                    const inStockColors = Object.keys(stock).filter(variant => stock[variant] > 0);
+                    const swatchString = inStockColors.join("|");
 
+                    // 🔢 Price calculation
+                    const originalPrice = p.price;
+                    let salePrice = originalPrice;
+                    if (featuredPromo?.type === "percent") {
+                        salePrice = originalPrice * (1 - featuredPromo.amount / 100);
+                    } else if (featuredPromo?.type === "fixed") {
+                        salePrice = Math.max(0, originalPrice - featuredPromo.amount);
+                    }
 
                     const wrapper = document.createElement("div");
                     wrapper.className = "relative w-[30%] max-w-xs flex-shrink-0";
@@ -455,35 +464,29 @@
 
                     const card = document.createElement("a");
                     card.href = p.url;
-                    card.className = `block rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white border ${isBestseller ? "border-yellow-400 rounded-b-xl" : "rounded-xl"}`;
-
-                    const inStockColors = Object.keys(stock).filter(variant => stock[variant] > 0);
-                    const swatchString = inStockColors.join("|");
+                    card.className = `block rounded-xl overflow-hidden shadow hover:shadow-lg transition`;
 
                     card.innerHTML = `
-                    <div class="relative w-full bg-white">
-                        <img src="${secondThumbnail}" alt="${p.name}" class="w-full object-contain">
-
-                        ${inStockColors.length > 1 ? `
-                            <div class="absolute bottom-2 left-2 flex gap-1">
-                                ${renderColorDots(swatchString, p.variantStock)}
-                            </div>` : ""}
-                    </div>
-                    <div class="mt-4 text-left">
-    <div class="text-lg md:text-xl font-bold text-gray-800 leading-tight truncate">${p.name}</div>
-    ${p.sale_price && p.sale_price < p.price ? `
-        <div class="mt-1 text-lg font-semibold text-green-700">
-            $${p.sale_price.toFixed(2)} 
-            <span class="ml-2 text-gray-500 line-through text-base">$${p.price.toFixed(2)}</span>
-        </div>` : `
-        <div class="mt-1 text-lg text-gray-800 font-semibold">$${p.price.toFixed(2)}</div>`}
-</div>
-
-                `;
+        <div class="relative w-full bg-white rounded-xl">
+            <img src="${secondThumbnail}" alt="${p.name}" class="w-full object-contain rounded-t-xl">
+            ${inStockColors.length > 1 ? `
+                <div class="absolute bottom-2 left-2 flex gap-1">
+                    ${renderColorDots(swatchString, p.variantStock)}
+                </div>` : ""}
+        </div>
+        <div class="mt-4 text-left">
+            <div class="text-lg md:text-xl font-bold text-gray-800 leading-tight truncate">${p.name}</div>
+            <div class="mt-1 text-lg font-semibold text-green-700">
+                $${salePrice.toFixed(2)} 
+                <span class="ml-2 text-gray-500 line-through text-base">$${originalPrice.toFixed(2)}</span>
+            </div>
+        </div>
+    `;
 
                     wrapper.appendChild(card);
                     container.appendChild(wrapper);
                 });
+
             });
         }
 
