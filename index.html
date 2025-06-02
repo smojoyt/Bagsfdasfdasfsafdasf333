@@ -267,18 +267,7 @@
             const countElem = document.getElementById("cart-count");
             if (countElem) countElem.textContent = totalQty;
 
-            const navbar = document.getElementById("mainNavbar");
-            let lastScrollY = window.scrollY;
-
-            window.addEventListener("scroll", () => {
-                if (!navbar) return;
-                if (window.scrollY > lastScrollY && window.scrollY > 50) {
-                    navbar.classList.replace("navbar-show", "navbar-hide");
-                } else {
-                    navbar.classList.replace("navbar-hide", "navbar-show");
-                }
-                lastScrollY = window.scrollY;
-            });
+            
         }
 
         function setupScrollNavbarColorChange() {
