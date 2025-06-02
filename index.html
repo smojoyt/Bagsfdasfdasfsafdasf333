@@ -519,38 +519,39 @@
                     const name = selected.name;
 
                     container.innerHTML = `
-<div class="w-full grid grid-cols-1 md:grid-cols-2 items-stretch gap-0 min-h-[500px] max-h-[600px]">
+<div class="w-full grid grid-cols-1 md:grid-cols-2 items-stretch gap-0">
     <!-- Left: Text + Captions -->
     <div class="flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 uppercase">Home of the ${name}</h2>
+        <h2 class="text-4xl md:text-7xl font-extrabold text-gray-800 uppercase">Home of the ${name}</h2>
 
         <div class="grid grid-cols-2 gap-6">
-            <!-- Caption 1 -->
-            <div class="space-y-2">
-                <div class="w-12 h-12 mx-auto bg-gray-300 rounded-full flex items-center justify-center">
-                    <!-- Magic Stick 3 SVG -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white">
-                        <path d="M16.7 3.3a1 1 0 0 0-1.4 0l-12 12a1 1 0 0 0 1.4 1.4l12-12a1 1 0 0 0 0-1.4zM16 11a1 1 0 1 0 0 2h1a1 1 0 1 0 0-2h-1zm-2 2a1 1 0 1 0 0-2h-1a1 1 0 1 0 0 2h1zm3 2a1 1 0 1 0 0 2h-1a1 1 0 1 0 0 2h1a1 1 0 1 0 0-2zM20 11a1 1 0 1 0 0-2h-1a1 1 0 1 0 0 2h1z"/>
-                    </svg>
-                </div>
-                <p class="text-base font-semibold text-gray-700">Our ${category} are awesome</p>
-            </div>
-
-            <!-- Caption 2 -->
-            <div class="space-y-2">
-                <div class="w-12 h-12 mx-auto bg-gray-300 rounded-full flex items-center justify-center">
-                    <!-- Star Angle SVG -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white">
-                        <path d="M12 2a1 1 0 0 1 .894.553l2.186 4.455 4.912.712a1 1 0 0 1 .554 1.706l-3.55 3.463.839 4.89a1 1 0 0 1-1.451 1.054L12 17.347l-4.384 2.3a1 1 0 0 1-1.451-1.054l.839-4.89-3.55-3.463a1 1 0 0 1 .554-1.706l4.912-.712 2.186-4.455A1 1 0 0 1 12 2z"/>
-                    </svg>
-                </div>
-                <p class="text-base font-semibold text-gray-700">Our ${category} is great</p>
-            </div>
+    <!-- Left Caption -->
+    <div class="space-y-2">
+        <div class="w-12 h-12 mx-auto flex items-center justify-center">
+            <!-- Star Angle SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-gray-800">
+                <path d="M12 2a1 1 0 0 1 .894.553l2.186 4.455 4.912.712a1 1 0 0 1 .554 1.706l-3.55 3.463.839 4.89a1 1 0 0 1-1.451 1.054L12 17.347l-4.384 2.3a1 1 0 0 1-1.451-1.054l.839-4.89-3.55-3.463a1 1 0 0 1 .554-1.706l4.912-.712 2.186-4.455A1 1 0 0 1 12 2z"/>
+            </svg>
         </div>
+        <p class="text-[1.125rem] font-semibold text-gray-800">Our ${category} are awesome</p>
+    </div>
+
+    <!-- Right Caption -->
+    <div class="space-y-2">
+        <div class="w-12 h-12 mx-auto flex items-center justify-center">
+            <!-- Magic Stick 3 SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-gray-800">
+                <path d="M15.7 2.3a1 1 0 0 0-1.4 1.4l1.3 1.3-4.6 4.6-1.3-1.3a1 1 0 0 0-1.4 1.4l1.3 1.3-7.3 7.3a1 1 0 1 0 1.4 1.4l7.3-7.3 1.3 1.3a1 1 0 0 0 1.4-1.4l-1.3-1.3 4.6-4.6 1.3 1.3a1 1 0 0 0 1.4-1.4l-4-4z"/>
+            </svg>
+        </div>
+        <p class="text-[1.125rem] font-semibold text-gray-800">Our ${category} is great</p>
+    </div>
+</div>
+
     </div>
 
     <!-- Right: Full-Bleed Image -->
-    <div class="w-full h-full">
+    <div class="w-full h-[1100px]">
         <img src="${secondThumb}" alt="${name}" class="w-full h-full object-cover">
     </div>
 </div>
