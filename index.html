@@ -95,7 +95,7 @@
     </section>
 
     <!-- Category Feature -->
-    <div id="dynamicFeature" class="w-full py-12 px-4 sm:px-6 lg:px-8"></div>
+    <div id="dynamicFeature" class="w-full py-12"></div>
 
 
     <!-- More To Love -->
@@ -580,9 +580,9 @@
     </div>
 
     <!-- Right: Full-Bleed Image -->
-    <div class="w-full h-[1100px]">
-        <img src="${secondThumb}" alt="${name}" class="w-full h-full object-cover">
-    </div>
+    <div class="w-full h-[600px] md:h-[1100px]">
+    <img src="${secondThumb}" alt="${name}" class="w-full h-full object-cover object-center">
+</div>
 </div>`;
                 });
         }
@@ -629,7 +629,7 @@
         let activeProduct = null;
 
         document.addEventListener("DOMContentLoaded", () => {
-            loadDynamicFeatureSection("headwear"); // or "charms", "headwear", "bags" etc.
+            loadDynamicFeatureSection("bags"); // or "charms", "headwear", "bags" etc.
             includeHTML("navbar-container", "/page_inserts/uni_navbart.html", () => {
                 initNavbar();
                 setupScrollNavbarColorChange();
