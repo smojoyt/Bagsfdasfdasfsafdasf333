@@ -100,8 +100,15 @@
 
     <!-- More To Love -->
     <section class="mt-12 px-4 text-center">
-        <h2 class="text-2xl font-bold text-gray-800">MORE TO LOVE</h2>
-        <div class="mt-2 mb-4 w-24 h-1 bg-gray-300 mx-auto rounded"></div>
+        <div class="max-w-6xl mx-auto flex items-center justify-between mb-4 px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800">More to Love</h2>
+            <!-- Optional right-side link (remove if not needed) -->
+            <!-- <a href="/products/catalog.html" class="text-sm md:text-base font-semibold text-black hover:underline">Shop all</a> -->
+        </div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
+        </div>
+
         <div id="pp_moreitems"></div>
     </section>
 
@@ -512,10 +519,10 @@
                 const name = selected.name;
 
                 container.innerHTML = `
-<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+<div class="w-full grid grid-cols-1 md:grid-cols-2 items-center gap-10 px-4 sm:px-6 lg:px-8">
     <!-- Left: Text + Captions -->
     <div class="space-y-6">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800">Home of the ${name}</h2>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase">Home of the ${name}</h2>
 
         <div class="grid grid-cols-2 gap-6 text-center">
             <div class="space-y-2">
@@ -524,7 +531,7 @@
                         <path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
                     </svg>
                 </div>
-                <p class="text-sm text-gray-700">Caption 1</p>
+                <p class="text-sm text-gray-700">Our ${category} are awesome</p>
             </div>
             <div class="space-y-2">
                 <div class="w-10 h-10 mx-auto bg-gray-300 rounded-full flex items-center justify-center">
@@ -532,17 +539,18 @@
                         <path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
                     </svg>
                 </div>
-                <p class="text-sm text-gray-700">Caption 2</p>
+                <p class="text-sm text-gray-700">Our ${category} is great</p>
             </div>
         </div>
     </div>
 
     <!-- Right: Image -->
     <div class="w-full">
-        <img src="${secondThumb}" alt="${name}" class="w-full object-contain rounded-xl shadow-md">
+        <img src="${secondThumb}" alt="${name}" class="w-full object-contain rounded-xl shadow-md max-h-[500px]">
     </div>
 </div>
-        `;
+`;
+
             });
         }
 
