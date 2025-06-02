@@ -86,8 +86,11 @@
 
     <!-- Featured Products -->
     <section class="max-w-6xl mx-auto py-12">
-        <h2 class="text-2xl font-bold mb-4 text-center">Featured Picks</h2>
-        <div class="mt-2 mb-6 w-24 h-1 bg-gray-300 mx-auto rounded"></div>
+        <div class="flex items-center justify-between mb-4 px-2">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800">Featured Picks</h2>
+            <a href="/products/catalog.html" class="text-sm md:text-base font-semibold text-black hover:underline">Shop all</a>
+        </div>
+        <div class="w-24 h-1 bg-gray-300 rounded mb-6 ml-2"></div>
         <div id="featured-products" class="flex flex-nowrap gap-2 justify-center px-1"></div>
     </section>
 
@@ -275,6 +278,7 @@
             const logo = document.getElementById("logo");
             const burger = document.getElementById("mobile-menu-button");
             const menu = document.getElementById("mobile-menu");
+            const mail = document.getElementById("mail-icon");
 
             let wasScrolled = false;
 
@@ -286,17 +290,22 @@
                 if (!navbar || shouldBeScrolled === wasScrolled) return;
                 wasScrolled = shouldBeScrolled;
 
+                
+
                 if (shouldBeScrolled) {
                     navbar.classList.remove("bg-transparent", "text-white");
                     navbar.classList.add("bg-white", "text-black", "shadow-md");
                     burger?.classList.replace("text-white", "text-black");
+                    if (mail) mail.classList.replace("text-white", "text-black");
                     if (logo) logo.src = "/imgs/Logo/Long/LL_Black_02.png";
                 } else {
                     navbar.classList.remove("bg-white", "text-black", "shadow-md");
                     navbar.classList.add("bg-transparent", "text-white");
                     burger?.classList.replace("text-black", "text-white");
+                    if (mail) mail.classList.replace("text-black", "text-white");
                     if (logo) logo.src = "/imgs/Logo/Long/LL_White_02.png";
                 }
+
             };
 
             updateNavbarStyles();
