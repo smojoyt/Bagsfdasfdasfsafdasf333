@@ -94,6 +94,10 @@
         <div id="featured-products" class="flex flex-nowrap gap-2 justify-center px-1"></div>
     </section>
 
+    <!-- Category Feature -->
+    <div id="dynamicFeature" class="w-full py-12 px-4 sm:px-6 lg:px-8"></div>
+
+
     <!-- More To Love -->
     <section class="mt-12 px-4 text-center">
         <h2 class="text-2xl font-bold text-gray-800">MORE TO LOVE</h2>
@@ -131,31 +135,31 @@
 
                     const background = video
                         ? `<video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
-                                <source src="${video}" type="video/mp4" />
-                                Your browser does not support the video tag.
-                           </video>`
+                                        <source src="${video}" type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                   </video>`
                         : `<img src="${image}" class="absolute top-0 left-0 w-full h-full object-cover z-0" alt="Promo Background" />`;
 
                     const buttonHTML = button
                         ? `<a href="${button.url}" class="mt-8 inline-block px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200">
-                                ${button.label}
-                           </a>`
+                                        ${button.label}
+                                   </a>`
                         : "";
 
                     container.innerHTML = `
-                        <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
-                            ${background}
-                            <div class="absolute bottom-6 left-6 z-10 text-left">
-                                <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
-                                    ${headline}
-                                </h1>
-                                <p class="mt-4 text-2xl font-medium text-white drop-shadow">
-                                    ${caption}
-                                </p>
-                                ${buttonHTML}
-                            </div>
-                        </section>
-                    `;
+                                <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
+                                    ${background}
+                                    <div class="absolute bottom-6 left-6 z-10 text-left">
+                                        <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
+                                            ${headline}
+                                        </h1>
+                                        <p class="mt-4 text-2xl font-medium text-white drop-shadow">
+                                            ${caption}
+                                        </p>
+                                        ${buttonHTML}
+                                    </div>
+                                </section>
+                            `;
                 });
         });
 
@@ -342,27 +346,27 @@
 
                     cell.innerHTML = `
 <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-              <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-                <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-                ${product.thumbnails?.[1] ? `
-                  <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-                       src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+                      <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
+                        <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+                        ${product.thumbnails?.[1] ? `
+                          <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+                               src="${product.thumbnails[1]}" alt="Hover image">` : ''}
 
-                ${inStockColors.length > 1 ? `
-                  <div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
-                    ${renderColorDots(swatchString, product.variantStock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
-                  </div>` : ""}
-              </div>
+                        ${inStockColors.length > 1 ? `
+                          <div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
+                            ${renderColorDots(swatchString, product.variantStock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
+                          </div>` : ""}
+                      </div>
 
-              <div class="text-center mt-6">
-                <div class="text-sm font-semibold truncate">${product.name}</div>
-                ${product.sale_price && product.sale_price < product.price ? `
-                  <div class="text-sm">
-                    <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
-                    <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
-                  </div>` : `
-                  <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`}
-              </div>
+                      <div class="text-center mt-6">
+                        <div class="text-sm font-semibold truncate">${product.name}</div>
+                        ${product.sale_price && product.sale_price < product.price ? `
+                          <div class="text-sm">
+                            <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
+                            <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
+                          </div>` : `
+                          <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`}
+                      </div>
 </a>
 `;
 
@@ -467,21 +471,21 @@
                     card.className = `block overflow-hidden transition`;
 
                     card.innerHTML = `
-        <div class="relative w-full bg-white rounded-xl">
-            <img src="${secondThumbnail}" alt="${p.name}" class="shadow hover:shadow-lg w-full object-contain rounded-xl">
-            ${inStockColors.length > 1 ? `
-                <div class="absolute bottom-2 left-2 flex gap-1">
-                    ${renderColorDots(swatchString, p.variantStock)}
-                </div>` : ""}
-        </div>
-        <div class="mt-4 text-left">
-            <div class="text-lg md:text-xl font-extrabold uppercase text-gray-800 leading-tight truncate">${p.name}</div>
-            <div class="mt-1 text-lg font-bold text-green-700">
-                $${salePrice.toFixed(2)} 
-                <span class="ml-2 text-gray-500 line-through text-base">$${originalPrice.toFixed(2)}</span>
-            </div>
-        </div>
-    `;
+                <div class="relative w-full bg-white rounded-xl">
+                    <img src="${secondThumbnail}" alt="${p.name}" class="shadow hover:shadow-lg w-full object-contain rounded-xl">
+                    ${inStockColors.length > 1 ? `
+                        <div class="absolute bottom-2 left-2 flex gap-1">
+                            ${renderColorDots(swatchString, p.variantStock)}
+                        </div>` : ""}
+                </div>
+                <div class="mt-4 text-left">
+                    <div class="text-lg md:text-xl font-extrabold uppercase text-gray-800 leading-tight truncate">${p.name}</div>
+                    <div class="mt-1 text-lg font-bold text-green-700">
+                        $${salePrice.toFixed(2)}
+                        <span class="ml-2 text-gray-500 line-through text-base">$${originalPrice.toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
 
                     wrapper.appendChild(card);
                     container.appendChild(wrapper);
@@ -491,6 +495,56 @@
         }
 
 
+        function loadDynamicFeatureSection(category) {
+            Promise.all([
+                fetch("/products/products.json").then(res => res.json())
+            ]).then(([products]) => {
+                const container = document.getElementById("dynamicFeature");
+                if (!container) return;
+
+                const matching = Object.values(products)
+                    .filter(p => p.category === category && Object.values(p.variantStock || {}).some(qty => qty > 0));
+
+                if (matching.length === 0) return;
+
+                const selected = matching[Math.floor(Math.random() * matching.length)];
+                const secondThumb = selected.thumbnails?.[1] || selected.image;
+                const name = selected.name;
+
+                container.innerHTML = `
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+    <!-- Left: Text + Captions -->
+    <div class="space-y-6">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800">Home of the ${name}</h2>
+
+        <div class="grid grid-cols-2 gap-6 text-center">
+            <div class="space-y-2">
+                <div class="w-10 h-10 mx-auto bg-gray-300 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    </svg>
+                </div>
+                <p class="text-sm text-gray-700">Caption 1</p>
+            </div>
+            <div class="space-y-2">
+                <div class="w-10 h-10 mx-auto bg-gray-300 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    </svg>
+                </div>
+                <p class="text-sm text-gray-700">Caption 2</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Image -->
+    <div class="w-full">
+        <img src="${secondThumb}" alt="${name}" class="w-full object-contain rounded-xl shadow-md">
+    </div>
+</div>
+        `;
+            });
+        }
 
 
 
@@ -531,6 +585,7 @@
         let activeProduct = null;
 
         document.addEventListener("DOMContentLoaded", () => {
+            loadDynamicFeatureSection("charms"); // or "hats", "bags", etc.
             includeHTML("navbar-container", "/page_inserts/uni_navbart.html", () => {
                 initNavbar();
                 setupScrollNavbarColorChange();
