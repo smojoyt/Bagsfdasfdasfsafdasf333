@@ -414,7 +414,7 @@
                     const title = document.getElementById("featured-title");
                     if (title) {
                         const cap = featuredPromo.category.charAt(0).toUpperCase() + featuredPromo.category.slice(1);
-                        title.textContent = `All New ${cap}s`; // e.g., Charms, Hats
+                        title.textContent = `All New ${cap}`; // e.g., Charms, Hats
                     }
                 }
 
@@ -424,11 +424,15 @@
                 const targetCategory = featuredPromo.category;
 
                 // Step 2: Filter products by category match and in-stock status
-                const filteredProducts = Object.values(products).filter(p => {
-                    if (p.category !== targetCategory) return false;
-                    const stock = p.variantStock || {};
-                    return Object.values(stock).some(qty => qty > 0); // At least 1 in stock
-                });
+                const filteredProducts = Object.values(products)
+                    .filter(p => {
+                        if (p.category !== targetCategory) return false;
+                        const stock = p.variantStock || {};
+                        return Object.values(stock).some(qty => qty > 0);
+                    })
+                    .sort(() => 0.5 - Math.random()) // Randomize
+                    .slice(0, 3);
+
 
                 // Step 3: Build product cards
                 filteredProducts.forEach(p => {
