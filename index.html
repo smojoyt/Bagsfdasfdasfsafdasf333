@@ -100,12 +100,12 @@
 
     <!-- More To Love -->
     <section class="mt-12 px-4 text-center">
-        <div class="max-w-6xl mx-auto flex items-center justify-between mb-4 px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800">More to Love</h2>
+        <div class="max-w-5xl mx-auto flex items-center justify-between mb-4 px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase">More to Love</h2>
             <!-- Optional right-side link (remove if not needed) -->
             <!-- <a href="/products/catalog.html" class="text-sm md:text-base font-semibold text-black hover:underline">Shop all</a> -->
         </div>
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
         </div>
 
@@ -486,7 +486,7 @@
                         </div>` : ""}
                 </div>
                 <div class="mt-4 text-left">
-                    <div class="text-lg md:text-xl font-extrabold uppercase text-gray-800 leading-tight truncate">${p.name}</div>
+                    <div class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${p.name}</div>
                     <div class="mt-1 text-lg font-bold text-green-700">
                         $${salePrice.toFixed(2)}
                         <span class="ml-2 text-gray-500 line-through text-base">$${originalPrice.toFixed(2)}</span>
@@ -503,25 +503,25 @@
 
 
         function loadDynamicFeatureSection(category) {
-            Promise.all([
-                fetch("/products/products.json").then(res => res.json())
-            ]).then(([products]) => {
-                const container = document.getElementById("dynamicFeature");
-                if (!container) return;
+            fetch("/products/products.json")
+                .then(res => res.json())
+                .then(products => {
+                    const container = document.getElementById("dynamicFeature");
+                    if (!container) return;
 
-                const matching = Object.values(products)
-                    .filter(p => p.category === category && Object.values(p.variantStock || {}).some(qty => qty > 0));
+                    const matching = Object.values(products)
+                        .filter(p => p.category === category && Object.values(p.variantStock || {}).some(qty => qty > 0));
 
-                if (matching.length === 0) return;
+                    if (matching.length === 0) return;
 
-                const selected = matching[Math.floor(Math.random() * matching.length)];
-                const secondThumb = selected.thumbnails?.[1] || selected.image;
-                const name = selected.name;
+                    const selected = matching[Math.floor(Math.random() * matching.length)];
+                    const secondThumb = selected.thumbnails?.[1] || selected.image;
+                    const name = selected.name;
 
-                container.innerHTML = `
-<div class="w-full grid grid-cols-1 md:grid-cols-2 items-center gap-10 px-4 sm:px-6 lg:px-8">
+                    container.innerHTML = `
+<div class="w-full grid grid-cols-1 md:grid-cols-2 items-stretch gap-0 min-h-[500px]">
     <!-- Left: Text + Captions -->
-    <div class="space-y-6">
+    <div class="flex flex-col justify-center px-4 sm:px-6 lg:px-8 space-y-6">
         <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase">Home of the ${name}</h2>
 
         <div class="grid grid-cols-2 gap-6 text-center">
@@ -544,15 +544,15 @@
         </div>
     </div>
 
-    <!-- Right: Image -->
-    <div class="w-full">
-        <img src="${secondThumb}" alt="${name}" class="w-full object-contain rounded-xl shadow-md max-h-[500px]">
+    <!-- Right: Full-Bleed Image -->
+    <div class="w-full h-full">
+        <img src="${secondThumb}" alt="${name}" class="w-full h-full object-cover">
     </div>
 </div>
-`;
-
-            });
+            `;
+                });
         }
+
 
 
 
