@@ -54,7 +54,7 @@
 </head>
 
 
-<body class="text-gray-800">
+<body class="text-gray-800 bg-[#fedcc1]">
     <!-- Transparent Navbar Placeholder -->
     <div id="navbar-container"></div>
 
@@ -68,7 +68,7 @@
             Your browser does not support the video tag.
         </video>
 
-        <!-- Bold bottom-left text 
+        <!-- Bold bottom-left text
     <div class="absolute bottom-6 left-6 z-10 text-left">
         <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
             NEW FUZZY&<br>RIBBED LINED BEANIES
@@ -82,15 +82,17 @@
     </div>
     </section>
     -->
-
-
     <!-- Featured Products -->
     <section class="max-w-6xl mx-auto py-12">
-        <div class="flex items-center justify-between mb-4 px-2">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800">Featured Picks</h2>
+        <div class="max-w-6xl mx-auto flex items-center justify-between mb-4 px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase">
+                Featured Items
+            </h2>
             <a href="/products/catalog.html" class="text-sm md:text-base font-semibold text-black hover:underline">Shop all</a>
         </div>
-        <div class="w-24 h-1 bg-gray-300 rounded mb-6 ml-2"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
+        </div>
         <div id="featured-products" class="flex flex-nowrap gap-2 justify-center px-1"></div>
     </section>
 
@@ -131,31 +133,31 @@
 
                     const background = video
                         ? `<video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
-                            <source src="${video}" type="video/mp4" />
-                            Your browser does not support the video tag.
-                       </video>`
+                                <source src="${video}" type="video/mp4" />
+                                Your browser does not support the video tag.
+                           </video>`
                         : `<img src="${image}" class="absolute top-0 left-0 w-full h-full object-cover z-0" alt="Promo Background" />`;
 
                     const buttonHTML = button
                         ? `<a href="${button.url}" class="mt-8 inline-block px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200">
-                            ${button.label}
-                       </a>`
+                                ${button.label}
+                           </a>`
                         : "";
 
                     container.innerHTML = `
-                    <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
-                        ${background}
-                        <div class="absolute bottom-6 left-6 z-10 text-left">
-                            <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
-                                ${headline}
-                            </h1>
-                            <p class="mt-4 text-2xl font-medium text-white drop-shadow">
-                                ${caption}
-                            </p>
-                            ${buttonHTML}
-                        </div>
-                    </section>
-                `;
+                        <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
+                            ${background}
+                            <div class="absolute bottom-6 left-6 z-10 text-left">
+                                <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
+                                    ${headline}
+                                </h1>
+                                <p class="mt-4 text-2xl font-medium text-white drop-shadow">
+                                    ${caption}
+                                </p>
+                                ${buttonHTML}
+                            </div>
+                        </section>
+                    `;
                 });
         });
 
@@ -270,7 +272,7 @@
             const countElem = document.getElementById("cart-count");
             if (countElem) countElem.textContent = totalQty;
 
-            
+
         }
 
         function setupScrollNavbarColorChange() {
@@ -290,7 +292,7 @@
                 if (!navbar || shouldBeScrolled === wasScrolled) return;
                 wasScrolled = shouldBeScrolled;
 
-                
+
 
                 if (shouldBeScrolled) {
                     navbar.classList.remove("bg-transparent", "text-white");
@@ -342,27 +344,27 @@
 
                     cell.innerHTML = `
 <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-          <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-            <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-            ${product.thumbnails?.[1] ? `
-              <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-                   src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+              <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
+                <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+                ${product.thumbnails?.[1] ? `
+                  <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+                       src="${product.thumbnails[1]}" alt="Hover image">` : ''}
 
-            ${inStockColors.length > 1 ? `
-              <div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
-                ${renderColorDots(swatchString, product.variantStock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
-              </div>` : ""}
-          </div>
+                ${inStockColors.length > 1 ? `
+                  <div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
+                    ${renderColorDots(swatchString, product.variantStock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
+                  </div>` : ""}
+              </div>
 
-          <div class="text-center mt-6">
-            <div class="text-sm font-semibold truncate">${product.name}</div>
-            ${product.sale_price && product.sale_price < product.price ? `
-              <div class="text-sm">
-                <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
-                <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
-              </div>` : `
-              <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`}
-          </div>
+              <div class="text-center mt-6">
+                <div class="text-sm font-semibold truncate">${product.name}</div>
+                ${product.sale_price && product.sale_price < product.price ? `
+                  <div class="text-sm">
+                    <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
+                    <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
+                  </div>` : `
+                  <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`}
+              </div>
 </a>
 `;
 
@@ -390,64 +392,89 @@
 
 
         function loadFeaturedProducts() {
-            fetch("/products/products.json")
-                .then(res => res.json())
-                .then(data => {
-                    const container = document.getElementById("featured-products");
-                    if (!container) return;
+            Promise.all([
+                fetch("/products/products.json").then(res => res.json()),
+                fetch("/products/promotion.json").then(res => res.json())
+            ]).then(([products, promotionFile]) => {
+                const container = document.getElementById("featured-products");
+                if (!container) return;
 
-                    // 1. Filter for products with the "Featured" tag
-                    const featuredProducts = Object.values(data).filter(p =>
-                        p.tags?.includes("Featured")
-                    );
+                container.innerHTML = ""; // Clear previous content
 
-                    featuredProducts.forEach(p => {
-                        // 2. Skip if product is completely out of stock
-                        const stock = p.variantStock || {};
-                        const allOut = Object.values(stock).every(qty => qty <= 0);
-                        if (allOut) return;
+                const now = new Date();
+                const promotions = promotionFile.promotions || [];
 
-                        const isBestseller = p.tags?.includes("Bestseller");
-
-                        // 3. Get first in-stock variant image (fallback to main image)
-                        const firstInStock = Object.keys(stock).find(variant => stock[variant] > 0);
-                        const variantImage = firstInStock && p.variantImages?.[firstInStock]
-                            ? p.variantImages[firstInStock]
-                            : p.image;
-
-                        const wrapper = document.createElement("div");
-                        wrapper.className = "relative w-[30%] max-w-xs flex-shrink-0";
-
-                        if (isBestseller) {
-                            const badge = document.createElement("div");
-                            badge.className = "absolute -top-2 sm:-top-4 left-0 w-full text-center bg-yellow-400 text-white text-[8px] sm:text-xs font-bold sm:py-1 py-0.5 rounded-t shadow z-10";
-                            badge.textContent = "Bestseller";
-                            wrapper.appendChild(badge);
-                        }
-
-                        const card = document.createElement("a");
-                        card.href = p.url;
-                        card.className = `block rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white border ${isBestseller ? "border-yellow-400 rounded-b-xl" : "rounded-xl"}`;
-
-                        // 4. Filter only in-stock variants for swatch rendering
-                        const inStockColors = Object.keys(stock).filter(variant => stock[variant] > 0);
-                        const swatchString = inStockColors.join("|");
-
-                        card.innerHTML = `
-                                <div class="relative w-full bg-white">
-                                    <img src="${variantImage}" alt="${p.name}" class="w-full object-contain">
-                                    ${inStockColors.length > 1 ? `
-                                        <div class="absolute bottom-2 left-2 flex gap-1">
-                                            ${renderColorDots(swatchString, p.variantStock)}
-                                        </div>` : ""}
-                                </div>
-                            `;
-
-                        wrapper.appendChild(card);
-                        container.appendChild(wrapper);
-                    });
+                // Step 1: Find the active promotion with "featured": true
+                const featuredPromo = promotions.find(p => {
+                    const isFeatured = p.featured;
+                    const startOk = !p.startDate || new Date(p.startDate) <= now;
+                    const endOk = !p.endDate || new Date(p.endDate) >= now;
+                    return isFeatured && startOk && endOk;
                 });
+
+                if (!featuredPromo || !featuredPromo.category) return;
+
+                const targetCategory = featuredPromo.category;
+
+                // Step 2: Filter products by category match and in-stock status
+                const filteredProducts = Object.values(products).filter(p => {
+                    if (p.category !== targetCategory) return false;
+                    const stock = p.variantStock || {};
+                    return Object.values(stock).some(qty => qty > 0); // At least 1 in stock
+                });
+
+                // Step 3: Build product cards
+                filteredProducts.forEach(p => {
+                    const stock = p.variantStock || {};
+                    const isBestseller = p.tags?.includes("Bestseller");
+
+                    const firstInStock = Object.keys(stock).find(variant => stock[variant] > 0);
+                    const variantImage = firstInStock && p.variantImages?.[firstInStock]
+                        ? p.variantImages[firstInStock]
+                        : p.image;
+
+                    const wrapper = document.createElement("div");
+                    wrapper.className = "relative w-[30%] max-w-xs flex-shrink-0";
+
+                    if (isBestseller) {
+                        const badge = document.createElement("div");
+                        badge.className = "absolute -top-2 sm:-top-4 left-0 w-full text-center bg-yellow-400 text-white text-[8px] sm:text-xs font-bold sm:py-1 py-0.5 rounded-t shadow z-10";
+                        badge.textContent = "Bestseller";
+                        wrapper.appendChild(badge);
+                    }
+
+                    const card = document.createElement("a");
+                    card.href = p.url;
+                    card.className = `block rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white border ${isBestseller ? "border-yellow-400 rounded-b-xl" : "rounded-xl"}`;
+
+                    const inStockColors = Object.keys(stock).filter(variant => stock[variant] > 0);
+                    const swatchString = inStockColors.join("|");
+
+                    card.innerHTML = `
+                    <div class="relative w-full bg-white">
+                        <img src="${variantImage}" alt="${p.name}" class="w-full object-contain">
+                        ${inStockColors.length > 1 ? `
+                            <div class="absolute bottom-2 left-2 flex gap-1">
+                                ${renderColorDots(swatchString, p.variantStock)}
+                            </div>` : ""}
+                    </div>
+                    <div class="text-center mt-4">
+                        <div class="text-sm font-semibold truncate">${p.name}</div>
+                        ${p.sale_price && p.sale_price < p.price ? `
+                            <div class="text-sm">
+                                <span class="text-green-700 font-semibold">$${p.sale_price.toFixed(2)}</span>
+                                <span class="text-gray-500 line-through ml-2">$${p.price.toFixed(2)}</span>
+                            </div>` : `
+                            <div class="text-sm text-gray-600">$${p.price.toFixed(2)}</div>`}
+                    </div>
+                `;
+
+                    wrapper.appendChild(card);
+                    container.appendChild(wrapper);
+                });
+            });
         }
+
 
 
 
