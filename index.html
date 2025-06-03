@@ -84,11 +84,11 @@
     -->
     <!-- Featured Products -->
     <section class="max-w-6xl mx-auto py-12">
-        <div class="max-w-5xl mx-auto flex items-center justify-between mb-4 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto flex items-center justify-between mb-4 px-4 sm:px-6 lg:px-8">
             <h2 id="featured-title" class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase">Featured Picks</h2>
             <a href="/pages/promo.html" class="text-sm md:text-base font-bold text-black hover:underline uppercase">Shop all</a>
         </div>
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
         </div>
         <div id="featured-products" class="flex flex-nowrap gap-2 justify-center px-1"></div>
@@ -100,12 +100,12 @@
 
     <!-- More To Love -->
     <section class="mt-12 px-4 text-center">
-        <div class="max-w-5xl mx-auto flex items-center justify-between mb-4 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto flex items-center justify-between mb-4 px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase">More to Love</h2>
             <!-- Optional right-side link (remove if not needed) -->
             <!-- <a href="/products/catalog.html" class="text-sm md:text-base font-semibold text-black hover:underline">Shop all</a> -->
         </div>
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
         </div>
 
@@ -459,7 +459,7 @@
                     }
 
                     const wrapper = document.createElement("div");
-                    wrapper.className = "snap-start flex-shrink-0 w-[48%] sm:w-[45%] md:w-auto max-w-xs";
+                    wrapper.className = "mx-auto snap-start flex-shrink-0 w-[48%] sm:w-[45%] md:w-auto max-w-xs";
 
                     if (isBestseller) {
                         const badge = document.createElement("div");
@@ -474,7 +474,7 @@
 
                     card.innerHTML = `
         <div class="relative w-full bg-white rounded-xl">
-            <img src="${secondThumbnail}" alt="${p.name}" class="shadow hover:shadow-lg w-full object-contain rounded-xl aspect-[4/5]">
+            <img src="${secondThumbnail}" alt="${p.name}" class="shadow hover:shadow-lg w-full object-contain rounded-xl">
             ${inStockColors.length > 1 ? `
                 <div class="absolute bottom-2 left-2 flex gap-1">
                     ${renderColorDots(swatchString, p.variantStock)}
