@@ -409,11 +409,11 @@
                 if (!container) return;
 
                 container.innerHTML = ""; // Clear previous content
+                container.className = "flex overflow-x-auto gap-4 px-4 scroll-snap-x snap-x snap-mandatory md:grid md:grid-cols-3 md:overflow-visible md:px-0"; // Responsive container styles
 
                 const now = new Date();
                 const promotions = promotionFile.promotions || [];
 
-                // Step 1: Find the active promotion with "featured": true
                 const featuredPromo = promotions.find(p => {
                     const isFeatured = p.featured;
                     const startOk = !p.startDate || new Date(p.startDate) <= now;
@@ -425,27 +425,23 @@
                     const title = document.getElementById("featured-title");
                     if (title) {
                         const cap = featuredPromo.category.charAt(0).toUpperCase() + featuredPromo.category.slice(1);
-                        title.textContent = `All New ${cap}`; // e.g., Charms, Hats
+                        title.textContent = `All New ${cap}`;
                     }
                 }
-
 
                 if (!featuredPromo || !featuredPromo.category) return;
 
                 const targetCategory = featuredPromo.category;
 
-                // Step 2: Filter products by category match and in-stock status
                 const filteredProducts = Object.values(products)
                     .filter(p => {
                         if (p.category !== targetCategory) return false;
                         const stock = p.variantStock || {};
                         return Object.values(stock).some(qty => qty > 0);
                     })
-                    .sort(() => 0.5 - Math.random()) // Randomize
-                    .slice(0, 3);
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 6); // Show up to 6 for swiping
 
-
-                // Step 3: Build product cards
                 filteredProducts.forEach(p => {
                     const stock = p.variantStock || {};
                     const isBestseller = p.tags?.includes("Bestseller");
@@ -454,7 +450,6 @@
                     const inStockColors = Object.keys(stock).filter(variant => stock[variant] > 0);
                     const swatchString = inStockColors.join("|");
 
-                    // 🔢 Price calculation
                     const originalPrice = p.price;
                     let salePrice = originalPrice;
                     if (featuredPromo?.type === "percent") {
@@ -464,7 +459,7 @@
                     }
 
                     const wrapper = document.createElement("div");
-                    wrapper.className = "relative w-[30%] max-w-xs flex-shrink-0";
+                    wrapper.className = "snap-start flex-shrink-0 w-[48%] sm:w-[45%] md:w-auto max-w-xs";
 
                     if (isBestseller) {
                         const badge = document.createElement("div");
@@ -478,28 +473,28 @@
                     card.className = `block overflow-hidden transition`;
 
                     card.innerHTML = `
-                <div class="relative w-full bg-white rounded-xl">
-                    <img src="${secondThumbnail}" alt="${p.name}" class="shadow hover:shadow-lg w-full object-contain rounded-xl">
-                    ${inStockColors.length > 1 ? `
-                        <div class="absolute bottom-2 left-2 flex gap-1">
-                            ${renderColorDots(swatchString, p.variantStock)}
-                        </div>` : ""}
-                </div>
-                <div class="mt-4 text-left">
-                    <div class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${p.name}</div>
-                    <div class="mt-1 text-lg font-bold text-green-700">
-                        $${salePrice.toFixed(2)}
-                        <span class="ml-2 text-gray-500 line-through text-base">$${originalPrice.toFixed(2)}</span>
-                    </div>
-                </div>
-            `;
+        <div class="relative w-full bg-white rounded-xl">
+            <img src="${secondThumbnail}" alt="${p.name}" class="shadow hover:shadow-lg w-full object-contain rounded-xl aspect-[4/5]">
+            ${inStockColors.length > 1 ? `
+                <div class="absolute bottom-2 left-2 flex gap-1">
+                    ${renderColorDots(swatchString, p.variantStock)}
+                </div>` : ""}
+        </div>
+        <div class="mt-4 text-left">
+            <div class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${p.name}</div>
+            <div class="mt-1 text-lg font-bold text-green-700">
+                $${salePrice.toFixed(2)}
+                <span class="ml-2 text-gray-500 line-through text-base">$${originalPrice.toFixed(2)}</span>
+            </div>
+        </div>
+    `;
 
                     wrapper.appendChild(card);
                     container.appendChild(wrapper);
                 });
-
             });
         }
+
 
 
         function loadDynamicFeatureSection(category) {
@@ -549,7 +544,7 @@
             <!-- Left Caption -->
             <div class="space-y-2">
                 <div class="w-36 h-36 mx-auto flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-gray-800" stroke="currentColor">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 md:w-24 md:h-24 text-gray-800" stroke="currentColor">
     <path d="M13 8.92226L7.92226 3.84453C6.79623 2.71849 4.97056 2.71849 3.84453 3.84453C2.71849 4.97056 2.71849 6.79623 3.84453 7.92226L16.0777 20.1555C17.2038 21.2815 19.0294 21.2815 20.1555 20.1555C21.2815 19.0294 21.2815 17.2038 20.1555 16.0777L17.0777 13" stroke-width="1.5" stroke-linecap="round"/>
     <path d="M6 10L10 6" stroke-width="1.5" stroke-linecap="round"/>
     <path d="M16.1 2.30719C16.261 1.8976 16.8385 1.8976 16.9994 2.30719L17.4298 3.40247C17.479 3.52752 17.5776 3.62651 17.7022 3.67583L18.7934 4.1078C19.2015 4.26934 19.2015 4.849 18.7934 5.01054L17.7022 5.44252C17.5776 5.49184 17.479 5.59082 17.4298 5.71587L16.9995 6.81115C16.8385 7.22074 16.261 7.22074 16.1 6.81116L15.6697 5.71587C15.6205 5.59082 15.5219 5.49184 15.3973 5.44252L14.3061 5.01054C13.898 4.849 13.898 4.26934 14.3061 4.1078L15.3973 3.67583C15.5219 3.62651 15.6205 3.52752 15.6697 3.40247L16.1 2.30719Z" />
@@ -557,18 +552,18 @@
     <path d="M5.1332 15.3072C5.29414 14.8976 5.87167 14.8976 6.03261 15.3072L6.18953 15.7065C6.23867 15.8316 6.33729 15.9306 6.46188 15.9799L6.85975 16.1374C7.26783 16.2989 7.26783 16.8786 6.85975 17.0401L6.46188 17.1976C6.33729 17.2469 6.23867 17.3459 6.18953 17.471L6.03261 17.8703C5.87167 18.2799 5.29414 18.2799 5.1332 17.8703L4.97628 17.471C4.92714 17.3459 4.82852 17.2469 4.70393 17.1976L4.30606 17.0401C3.89798 16.8786 3.89798 16.2989 4.30606 16.1374L4.70393 15.9799C4.82852 15.9306 4.92714 15.8316 4.97628 15.7065L5.1332 15.3072Z" />
   </svg>
                 </div>
-                <p class="text-[1.25rem] font-semibold text-gray-800">${leftText}</p>
+                <p class="text-base md:text-[1.25rem] font-semibold text-gray-800">${leftText}</p>
             </div>
 
             <!-- Right Caption -->
             <div class="space-y-2">
                 <div class="w-36 h-36 mx-auto flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24" stroke="currentColor">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 md:w-24 md:h-24" stroke="currentColor">
     <path d="M2.92992 12.7732C2.3588 14.4238 2.07325 15.2491 2.43835 15.7587C2.80345 16.2683 3.57742 16.1248 5.12535 15.8376L5.52582 15.7634C5.9657 15.6818 6.18563 15.641 6.39316 15.7012C6.60069 15.7614 6.77232 15.9157 7.11558 16.2245L7.42809 16.5056C8.63602 17.5922 9.79155 17.8917 9.79155 17.8917C10.3431 17.648 10.477 16.7787 10.7447 15.0401L10.814 14.5903C10.8901 14.0962 10.9281 13.8492 11.0475 13.6446C11.1669 13.4399 11.3541 13.3008 11.7286 13.0226L12.0695 12.7693C13.3871 11.7902 14.0459 11.3006 14.0217 10.6404C13.9975 9.98014 13.3063 9.58645 11.9238 8.79907L11.5662 8.59536C11.1733 8.37161 10.9769 8.25974 10.8431 8.07305C10.7094 7.88637 10.6535 7.646 10.5416 7.16529L10.4398 6.72764C10.0462 5.03598 9.84944 4.19015 9.28291 4.02582C8.71638 3.86148 8.1553 4.48747 7.03315 5.73945L6.74284 6.06335C6.42396 6.41912 6.26452 6.59701 6.06247 6.68628C5.86042 6.77556 5.63864 6.76613 5.19508 6.74725L4.79126 6.73007C3.23035 6.66365 2.4499 6.63044 2.12399 7.18912C1.79807 7.7478 2.14254 8.52837 2.83147 10.0895" stroke-width="1.5" stroke-linecap="round"></path>
     <path d="M11.9239 8.79864L15 9.65061M9.7916 17.8913L13.0651 18.8409M11.0476 13.6441L19.0252 15.9583M9.28296 4.02539L17.2606 6.33953C17.8271 6.50387 18.0239 7.34969 18.4175 9.04135L18.5193 9.479C18.6312 9.95972 18.6871 10.2001 18.8208 10.3868C18.9546 10.5734 19.151 10.6853 19.5438 10.9091M19.5438 10.9091L19.9015 11.1128C21.284 11.9002 21.9752 12.2939 21.9994 12.9541C22.0236 13.6143 21.3648 14.1039 20.0471 15.083L19.7062 15.3363C19.3318 15.6145 19.1446 15.7536 19.0252 15.9583M19.5438 10.9091L17.6388 10.3815M19.0252 15.9583C18.9058 16.1629 18.8678 16.4099 18.7917 16.904L18.7224 17.3538C18.6408 17.8835 18.5205 18.3551 18.3926 18.7549C18.1952 19.3717 18.0965 19.6801 17.7378 19.8862C17.379 20.0922 17.0322 19.9916 16.3385 19.7904" stroke-width="1.5" stroke-linecap="round"></path>
   </svg>
                 </div>
-                <p class="text-[1.25rem] font-semibold text-gray-800">${rightText}</p>
+                <p class="text-base md:text-[1.25rem] font-semibold text-gray-800">${rightText}</p>
             </div>
         </div>
         <!-- Buy Now Button -->
@@ -580,7 +575,7 @@
     </div>
 
     <!-- Right: Full-Bleed Image -->
-    <div class="w-full h-[600px] md:h-[1100px]">
+    <div class="w-full h-[400px] sm:h-[600px] md:h-[1100px]">
     <img src="${secondThumb}" alt="${name}" class="w-full h-full object-cover object-center">
 </div>
 </div>`;
