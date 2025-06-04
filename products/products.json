@@ -497,6 +497,9 @@
 			"Warm and cozy fit for colder seasons",
 			"One size fits most – stretchy and comfortable"
 		],
+		"sizingList": [
+			"One Size Fits All"
+		],
 		"custom1Name": "Color",
 		"custom1Options": "Black/Red | Black | Black/White | Pink/White",
 		"variantStock": {
@@ -512,11 +515,11 @@
 			"Pink/White": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_1_1.jpg"
 		},
 		"thumbnails": [
-			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_2_1.jpg",
-			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_7.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_2_2.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_7_1.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_7_2.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_3_1.jpg",
-			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_8.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_8_1.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_1_1.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_1_2.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_1_3.jpg",

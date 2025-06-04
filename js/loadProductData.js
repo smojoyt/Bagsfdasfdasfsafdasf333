@@ -91,6 +91,28 @@ function loadProductData() {
                     : `<li>${activeProduct.description}</li>`;
             }
 
+            // Inject sizing info
+            const sizingList = activeProduct.sizingList || [];
+            const sizingUl = document.getElementById("product-sizing");
+            if (sizingUl && sizingList.length > 0) {
+                sizingUl.innerHTML = sizingList.map(item => `<li>${item}</li>`).join('');
+            }
+
+            // Toggle Sizing Section
+            const sizingToggleBtn = document.getElementById("toggleSizing");
+            const sizingContent = document.getElementById("sizingContent");
+            const sizingIcon = document.getElementById("sizingIcon");
+
+            if (sizingToggleBtn && sizingContent && sizingIcon) {
+                sizingToggleBtn.addEventListener("click", () => {
+                    const isHidden = sizingContent.classList.contains("hidden");
+                    sizingContent.classList.toggle("hidden", !isHidden);
+                    sizingIcon.classList.toggle("rotate-180", isHidden);
+                });
+            }
+            ``
+
+
             const imgEl = document.getElementById("mainImage");
             const variantStock = activeProduct.variantStock || {};
             const defaultVariant = Object.keys(variantStock).find(c => variantStock[c] > 0);
