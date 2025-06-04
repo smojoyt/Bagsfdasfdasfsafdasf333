@@ -97,14 +97,9 @@ function loadProductData() {
                 if (Array.isArray(listData) && listData.length > 0 && section && listEl) {
                     section.classList.remove("hidden");
                     listEl.innerHTML = listData
-                        .map((item, i) => `<li class="opacity-0 translate-y-2" style="transition-delay: ${i * 50}ms">${item}</li>`)
+                        .map(item => `<li class="transition-all duration-300 opacity-0 translate-y-2">${item}</li>`)
                         .join('');
 
-                    setTimeout(() => {
-                        listEl.querySelectorAll("li").forEach(li => {
-                            li.classList.add("transition-all", "duration-300", "opacity-100", "translate-y-0");
-                        });
-                    }, 10);
                 }
             }
 
@@ -121,21 +116,23 @@ function loadProductData() {
                     const icon = btn.querySelector(".expand-icon");
                     const isCollapsed = content.classList.contains("max-h-0");
 
+                    // Toggle height and icon
                     content.classList.toggle("max-h-0", !isCollapsed);
-                    content.classList.toggle("max-h-[500px]", isCollapsed); // animate height
+                    content.classList.toggle("max-h-[500px]", isCollapsed);
                     icon.classList.toggle("rotate-180", isCollapsed);
 
-                    // Animate list items inside expanded section
-                    const ul = content.querySelector("ul");
-                    if (ul) {
-                        ul.querySelectorAll("li").forEach((li, i) => {
+                    // Animate li items when expanding
+                    if (isCollapsed) {
+                        const listItems = content.querySelectorAll("li");
+                        listItems.forEach((li, i) => {
                             li.style.transitionDelay = `${i * 50}ms`;
-                            li.classList.add("transition-all", "duration-300", "opacity-100", "translate-y-0");
+                            li.classList.remove("opacity-0", "translate-y-2");
+                            li.classList.add("opacity-100", "translate-y-0");
                         });
                     }
-
                 });
             });
+
 
 
             const imgEl = document.getElementById("mainImage");
