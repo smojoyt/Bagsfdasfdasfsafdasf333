@@ -101,7 +101,7 @@ function loadProductData() {
             }
 
             // Dynamic expandable sections
-            setupExpandable("sizing", activeProduct.sizingList);
+            setupExpandable("product-sizing", activeProduct.sizingList);
             setupExpandable("keyDetails", activeProduct.keyDetails);
             setupExpandable("careInstructions", activeProduct.careInstructions);
 
