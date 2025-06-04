@@ -70,7 +70,6 @@ function loadProductData() {
                 return;
             }
 
-
             const nameEl = document.getElementById("product-name");
             if (nameEl) nameEl.textContent = activeProduct.name;
 
@@ -91,27 +90,31 @@ function loadProductData() {
                     : `<li>${activeProduct.description}</li>`;
             }
 
-            // Inject sizing info
-            const sizingList = activeProduct.sizingList || [];
-            const sizingUl = document.getElementById("product-sizing");
-            if (sizingUl && sizingList.length > 0) {
-                sizingUl.innerHTML = sizingList.map(item => `<li>${item}</li>`).join('');
+            // Expandable helper
+            function setupExpandable(sectionId, listData) {
+                const section = document.getElementById(`${sectionId}Section`);
+                const listEl = document.getElementById(`product-${sectionId}`);
+                if (Array.isArray(listData) && listData.length > 0 && section && listEl) {
+                    section.classList.remove("hidden");
+                    listEl.innerHTML = listData.map(item => `<li>${item}</li>`).join('');
+                }
             }
 
-            // Toggle Sizing Section
-            const sizingToggleBtn = document.getElementById("toggleSizing");
-            const sizingContent = document.getElementById("sizingContent");
-            const sizingIcon = document.getElementById("sizingIcon");
+            // Dynamic expandable sections
+            setupExpandable("sizing", activeProduct.sizingList);
+            setupExpandable("keyDetails", activeProduct.keyDetails);
+            setupExpandable("careInstructions", activeProduct.careInstructions);
 
-            if (sizingToggleBtn && sizingContent && sizingIcon) {
-                sizingToggleBtn.addEventListener("click", () => {
-                    const isHidden = sizingContent.classList.contains("hidden");
-                    sizingContent.classList.toggle("hidden", !isHidden);
-                    sizingIcon.classList.toggle("rotate-180", isHidden);
+            // Enable toggle behavior for expandable sections
+            document.querySelectorAll(".toggle-expand").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const content = btn.nextElementSibling;
+                    const icon = btn.querySelector(".expand-icon");
+                    const isHidden = content.classList.contains("hidden");
+                    content.classList.toggle("hidden", !isHidden);
+                    icon.classList.toggle("rotate-180", isHidden);
                 });
-            }
-            ``
-
+            });
 
             const imgEl = document.getElementById("mainImage");
             const variantStock = activeProduct.variantStock || {};
@@ -134,24 +137,24 @@ function loadProductData() {
 
                     const swatch = document.createElement("button");
                     swatch.className = `
-                        flex flex-col items-center group
-                        focus:outline-none
-                        ${isOut ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-                    `;
+                    flex flex-col items-center group
+                    focus:outline-none
+                    ${isOut ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+                `;
                     swatch.disabled = isOut;
 
                     swatch.innerHTML = `
-                        <div class="relative w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black overflow-hidden ${getColorClass ? getColorClass(color) : ''}">
-                            ${isOut ? `
-                                <span class="absolute inset-0 bg-white/40 z-10"></span>
-                                <span class="absolute inset-0 flex items-center justify-center z-20">
-                                    <span class="w-full h-[2px] bg-red-600 rotate-45 absolute"></span>
-                                    <span class="w-full h-[2px] bg-red-600 -rotate-45 absolute"></span>
-                                </span>
-                            ` : ""}
-                        </div>
-                        <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
-                    `;
+                    <div class="relative w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black overflow-hidden ${getColorClass ? getColorClass(color) : ''}">
+                        ${isOut ? `
+                            <span class="absolute inset-0 bg-white/40 z-10"></span>
+                            <span class="absolute inset-0 flex items-center justify-center z-20">
+                                <span class="w-full h-[2px] bg-red-600 rotate-45 absolute"></span>
+                                <span class="w-full h-[2px] bg-red-600 -rotate-45 absolute"></span>
+                            </span>
+                        ` : ""}
+                    </div>
+                    <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
+                `;
 
                     swatch.setAttribute("aria-label", `${color} color`);
 
@@ -245,6 +248,7 @@ function loadProductData() {
             if (content) content.classList.remove('hidden');
         });
 }
+
 
 
 
