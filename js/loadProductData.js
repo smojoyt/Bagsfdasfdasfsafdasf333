@@ -138,7 +138,13 @@ function loadProductData() {
             const imgEl = document.getElementById("mainImage");
             const variantStock = activeProduct.variantStock || {};
             const defaultVariant = Object.keys(variantStock).find(c => variantStock[c] > 0);
-            const defaultImg = activeProduct.variantImages?.[defaultVariant] || activeProduct.image;
+            const fallbackImg =
+                activeProduct.mainImage?.[0] ||
+                activeProduct.thumbnails?.[1] ||
+                activeProduct.image;
+
+            const defaultImg = activeProduct.variantImages?.[defaultVariant] || fallbackImg;
+
             if (imgEl) {
                 imgEl.src = defaultImg;
                 imgEl.alt = activeProduct.name;

@@ -532,6 +532,12 @@
 			"Black/White": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_3_1.jpg",
 			"Pink/White": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_1_1.jpg"
 		},
+		"mainImage": [
+			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_7_2.jpg"
+		],
+		"transImage": {
+
+		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_2_2.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_7_2.jpg",
