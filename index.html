@@ -409,7 +409,7 @@
                 if (!container) return;
 
                 container.innerHTML = ""; // Clear previous content
-                container.className = "flex overflow-x-auto gap-4 px-4 scroll-snap-x snap-x snap-mandatory md:grid md:grid-cols-3 md:overflow-visible md:px-0"; // Responsive container styles
+                container.className = "flex overflow-x-auto gap-4 px-4 ml-4 scroll-snap-x snap-x snap-mandatory md:ml-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:max-h-[9999px]"; // Responsive container styles
 
                 const now = new Date();
                 const promotions = promotionFile.promotions || [];
@@ -459,7 +459,7 @@
                     }
 
                     const wrapper = document.createElement("div");
-                    wrapper.className = "mx-auto snap-start flex-shrink-0 w-[48%] sm:w-[45%] md:w-auto max-w-xs";
+                    wrapper.className = "mx-auto snap-start flex-shrink-0 w-[48%] sm:w-[45%] md:w-auto max-w-xs md:[&:nth-child(n+4)]:hidden";
 
                     if (isBestseller) {
                         const badge = document.createElement("div");
