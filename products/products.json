@@ -568,6 +568,27 @@
 			"Warm and soft material with a stretchy cuffed fit",
 			"One size fits most – snug and cozy for daily wear"
 		],
+		"sizingList": [
+			"One size fits most (recommended for head circumferences 21”–24”)",
+			"Flexible knit allows comfortable fit without tightness",
+			"Sits securely over ears for added warmth",
+			"Ideal for various hairstyles including locs, curls, and braids"
+		],
+		"keyDetails": [
+			"Bold cat ear silhouette for a standout look",
+			"Thick ribbed knit for warmth and structure",
+			"Stretchy, one-size-fits-most design",
+			"Soft interior for all-day comfort",
+			"Unisex style suitable for all hair types and lengths"
+		],
+		"careInstructions": [
+			"Hand wash cold with mild detergent",
+			"Do not bleach",
+			"Lay flat to dry to maintain shape",
+			"Avoid wringing or twisting",
+			"Store in a cool, dry place when not in use"
+		],
+
 		"custom1Name": "Color",
 		"custom1Options": "Black | Black/White | Pink | Blue | Pink/Cream | Red/Blue/Cream",
 		"variantStock": {
@@ -580,7 +601,7 @@
 		},
 		"variantImages": {
 			"Black": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_3_1.jpg",
-			"Black/White": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_1_1.jpg",
+			"Black/White": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_9.jpg",
 			"Pink": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_4_1.jpg",
 			"Blue": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_5_1.jpg",
 			"Pink/Cream": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_6_1.jpg",
@@ -588,7 +609,7 @@
 		},
 		"thumbnails": [
 			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_8.jpg",
-			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_1_1.jpg",
+			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_9.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_2.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_3_1.jpg",
 			"https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_4_1.jpg",
