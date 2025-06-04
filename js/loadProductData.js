@@ -138,12 +138,9 @@ function loadProductData() {
             const imgEl = document.getElementById("mainImage");
             const variantStock = activeProduct.variantStock || {};
             const defaultVariant = Object.keys(variantStock).find(c => variantStock[c] > 0);
-            const fallbackImg =
-                activeProduct.mainImage?.[0] ||
-                activeProduct.thumbnails?.[1] ||
-                activeProduct.image;
 
-            const defaultImg = activeProduct.variantImages?.[defaultVariant] || fallbackImg;
+            // Check for mainImage first, fallback to the second thumbnail if mainImage is missing
+            const defaultImg = activeProduct.mainImage?.[0] || activeProduct.thumbnails?.[1] || activeProduct.image;
 
             if (imgEl) {
                 imgEl.src = defaultImg;
@@ -162,24 +159,24 @@ function loadProductData() {
 
                     const swatch = document.createElement("button");
                     swatch.className = `
-                    flex flex-col items-center group
-                    focus:outline-none
-                    ${isOut ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-                `;
+        flex flex-col items-center group
+        focus:outline-none
+        ${isOut ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+    `;
                     swatch.disabled = isOut;
 
-                    swatch.innerHTML = `
-                    <div class="relative w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black overflow-hidden ${getColorClass ? getColorClass(color) : ''}">
-                        ${isOut ? `
-                            <span class="absolute inset-0 bg-white/40 z-10"></span>
-                            <span class="absolute inset-0 flex items-center justify-center z-20">
-                                <span class="w-full h-[2px] bg-red-600 rotate-45 absolute"></span>
-                                <span class="w-full h-[2px] bg-red-600 -rotate-45 absolute"></span>
-                            </span>
-                        ` : ""}
-                    </div>
-                    <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
-                `;
+                    swatch.innerHTML = ` 
+        <div class="relative w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-black overflow-hidden ${getColorClass ? getColorClass(color) : ''}">
+            ${isOut ? ` 
+                <span class="absolute inset-0 bg-white/40 z-10"></span>
+                <span class="absolute inset-0 flex items-center justify-center z-20">
+                    <span class="w-full h-[2px] bg-red-600 rotate-45 absolute"></span>
+                    <span class="w-full h-[2px] bg-red-600 -rotate-45 absolute"></span>
+                </span>
+            ` : ""}
+        </div>
+        <span class="text-xs mt-1 text-gray-700 group-hover:text-black">${color}</span>
+    `;
 
                     swatch.setAttribute("aria-label", `${color} color`);
 
@@ -232,6 +229,7 @@ function loadProductData() {
                     }
                 }
             }
+
 
             const thumbnailContainer = document.getElementById("thumbnailContainer");
             if (thumbnailContainer && Array.isArray(activeProduct.thumbnails)) {
