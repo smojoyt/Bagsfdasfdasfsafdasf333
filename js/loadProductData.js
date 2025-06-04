@@ -123,7 +123,17 @@ function loadProductData() {
 
                     content.classList.toggle("max-h-0", !isCollapsed);
                     content.classList.toggle("max-h-[500px]", isCollapsed); // animate height
-                    icon.classList.toggle("rotate-180", isCollapsed);       // rotate arrow
+                    icon.classList.toggle("rotate-180", isCollapsed);
+
+                    // Animate list items inside expanded section
+                    const ul = content.querySelector("ul");
+                    if (ul) {
+                        ul.querySelectorAll("li").forEach((li, i) => {
+                            li.style.transitionDelay = `${i * 50}ms`;
+                            li.classList.add("transition-all", "duration-300", "opacity-100", "translate-y-0");
+                        });
+                    }
+
                 });
             });
 
