@@ -96,12 +96,21 @@ function loadProductData() {
                 const listEl = document.getElementById(`product-${sectionId}`);
                 if (Array.isArray(listData) && listData.length > 0 && section && listEl) {
                     section.classList.remove("hidden");
-                    listEl.innerHTML = listData.map(item => `<li>${item}</li>`).join('');
+                    listEl.innerHTML = listData
+                        .map((item, i) => `<li class="opacity-0 translate-y-2" style="transition-delay: ${i * 50}ms">${item}</li>`)
+                        .join('');
+
+                    setTimeout(() => {
+                        listEl.querySelectorAll("li").forEach(li => {
+                            li.classList.add("transition-all", "duration-300", "opacity-100", "translate-y-0");
+                        });
+                    }, 10);
                 }
             }
 
+
             // Dynamic expandable sections
-            setupExpandable("sizingList", activeProduct.sizingList);
+            setupExpandable("sizing", activeProduct.sizingList);
             setupExpandable("keyDetails", activeProduct.keyDetails);
             setupExpandable("careInstructions", activeProduct.careInstructions);
 
@@ -110,11 +119,14 @@ function loadProductData() {
                 btn.addEventListener("click", () => {
                     const content = btn.nextElementSibling;
                     const icon = btn.querySelector(".expand-icon");
-                    const isHidden = content.classList.contains("hidden");
-                    content.classList.toggle("hidden", !isHidden);
-                    icon.classList.toggle("rotate-180", isHidden);
+                    const isCollapsed = content.classList.contains("max-h-0");
+
+                    content.classList.toggle("max-h-0", !isCollapsed);
+                    content.classList.toggle("max-h-[500px]", isCollapsed); // animate height
+                    icon.classList.toggle("rotate-180", isCollapsed);       // rotate arrow
                 });
             });
+
 
             const imgEl = document.getElementById("mainImage");
             const variantStock = activeProduct.variantStock || {};
@@ -246,6 +258,8 @@ function loadProductData() {
 
             const content = document.getElementById('pageContent');
             if (content) content.classList.remove('hidden');
+
+            
         });
 }
 
