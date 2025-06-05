@@ -147,8 +147,8 @@ function renderCatalogCard(p) {
      data-price="${sale}" 
      data-discount="${isOnSale ? Math.round(((regular - sale) / regular) * 100) : 0}">
 
-        <a href="${p.url}" class="block bg-white transition overflow-hidden">
-            <div class="relative bg-white flex items-center justify-center">
+        <a href="${p.url}" class="block transition overflow-hidden">
+            <div class="relative flex items-center justify-center">
                 <img src="${p.image}" alt="${p.name}" class="shadow-sm hover:shadow-lg rounded-xl max-h-72 w-auto object-contain mx-auto">
                 ${hasVariants ? `
                     <div class="absolute bottom-2 left-2 flex gap-1">
