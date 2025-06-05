@@ -58,14 +58,12 @@
 </head>
 <body class="bg-[#ffeddf] text-gray-900">
     <div class="relative w-full pt-16">
-        <!-- Banner background -->
         <img id="catalog-banner" src="" alt="Catalog Banner" class="w-full h-auto object-cover hidden">
-
-        <!-- Overlay logo centered
-    <div class="absolute inset-0 flex items-center justify-center pt-16">
-        <img src="/imgs/Banner/CB_03.png" alt="Karry Kraze Logo" class="w-16 md:w-36 lg:w-48 drop-shadow-lg">
-    </div>-->
+        <div id="banner-text" class="absolute bottom-4 left-4 bg-black bg-opacity-60 text-white px-4 py-2 rounded hidden text-xl font-semibold capitalize tracking-wide">
+            <!-- Category text will be inserted here -->
+        </div>
     </div>
+
 
     <!-- Layout -->
     <div id="catalog-layout" class="flex relative transition-all duration-300 ease-in-out">
@@ -167,6 +165,35 @@
         let filters = {};
         let iso; // ✅ Isotope instance (declared globally)
 
+        function setBannerFromCategory(category, products) {
+            if (!category) return;
+
+            const categoryTextMap = {
+                headwear: "Hats",
+                bagaccessory: "Charms",
+                bags: "Bags"
+            };
+
+            const matching = Object.values(products).filter(p =>
+                p.category?.toLowerCase() === category.toLowerCase() && p.banner
+            );
+
+            if (matching.length > 0) {
+                const randomItem = matching[Math.floor(Math.random() * matching.length)];
+                const bannerEl = document.getElementById("catalog-banner");
+                const textEl = document.getElementById("banner-text");
+
+                if (bannerEl && textEl) {
+                    bannerEl.src = randomItem.banner;
+                    bannerEl.classList.remove("hidden");
+
+                    textEl.textContent = categoryTextMap[category.toLowerCase()] || category;
+                    textEl.classList.remove("hidden");
+                }
+            }
+        }
+
+
         function isMobile() {
             return window.matchMedia("(max-width: 767px)").matches;
         }
@@ -220,6 +247,11 @@
             ]).then(([products, promotionsFile]) => {
                 const promotions = promotionsFile.promotions || [];
                 const updatedProducts = applyPromotionsToProducts(products, promotions);
+                const selectedCategory = urlParams.get("category");
+                if (selectedCategory) {
+                    setBannerFromCategory(selectedCategory, updatedProducts);
+                }
+
 
                 // 🌟 Dynamic Banner from category match
                 const urlParams = new URLSearchParams(window.location.search);
@@ -308,14 +340,22 @@
                             .join('');
 
                         iso.arrange({ filter: filterSelector || '*' });
+
+                        // 🔄 Banner update after filters applied
+                        const selectedCategory = (allFilters["category"] || [])[0];
+                        if (selectedCategory) {
+                            setBannerFromCategory(selectedCategory.replace(".", ""), updatedProducts);
+                        }
+
                         closeSidebar();
                     });
+
                 });
             });
         });
 
 
-        
+
 
 
         // Other included HTML
@@ -351,7 +391,7 @@
             });
         }
 
-        
+
         // 🔁 Main Load Flow
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
             initNavbar();
