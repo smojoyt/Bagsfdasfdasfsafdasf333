@@ -756,13 +756,34 @@
 		"price": 2.97,
 		"weight_oz": 1.13,
 		"tags": [ "BagAccessory" ],
-		"image": "https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_05_01.jpg",
+		"image": "https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_03_01.jpg",
+		"banner": "https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/banner.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_MiniCrocs.html",
 		"descriptionList": [
 			"Mini croc-style shoe charms in bold playful colors",
 			"Durable soft rubber charm with metal keyring",
 			"Clip onto handbags, keys, or zippers for a quirky touch",
 			"Fun gift idea or collectible for charm lovers"
+		],
+		"sizingList": [
+			"Length: ~2.2 inches",
+			"Width: ~1.1 inches",
+			"Height: ~1.0 inch",
+			"Keyring Drop Length: ~1.8 inches"
+		],
+		"keyDetails": [
+			"Miniature Crocs-style slipper design",
+			"Comes with durable metal keyring and chain",
+			"Made from flexible rubber-like material",
+			"Fun mix of colors: pink, black, red, and blue",
+			"Perfect for keys, backpacks, and gifts"
+		],
+		"careInstructions": [
+			"Wipe clean with a damp cloth",
+			"Avoid prolonged exposure to heat",
+			"Do not submerge in water",
+			"Keep sharp objects away to prevent punctures",
+			"Store in a cool, dry place when not in use"
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Black | Blue | Red | Pink | Green | White | Yellow | Purple",
