@@ -490,6 +490,7 @@
 		"weight_oz": 1.94,
 		"tags": [ "Headwear", "Bestseller", "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_7_2.jpg",
+		"banner": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/Banner_1_1.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_FuzzyBeanie.html",
 		"descriptionList": [
 			"Soft textured red and black fuzzy knit design",
@@ -561,7 +562,7 @@
 		"weight_oz": 5.57,
 		"tags": [ "Headwear", "New Arrival", "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_3_1.jpg",
-		"banner": "https://www.karrykraze.com/imgs/Products/Hats/CatEarBeanie/CE_3_1.jpg",
+		"banner": "",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_CatEarBeanie.html",
 		"descriptionList": [
 			"Chunky ribbed knit with structured cat ear silhouette",
