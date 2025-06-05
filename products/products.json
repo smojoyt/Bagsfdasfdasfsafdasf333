@@ -313,6 +313,7 @@
 		"weight_oz": 1.34,
 		"tags": [ "BagAccessory" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/04_01.jpg",
+		"banner": "https://www.karrykraze.com/imgs/Products/Pendants/MiniPoo/Banner_1_1.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_AlienPlushies.html",
 		"descriptionList": [
 			"Set of 3 plush monster figures in yellow, black, and white",
@@ -320,6 +321,28 @@
 			"Great as keychains, shelf decor, or small gifts",
 			"Each approx. 3.5�4 inches tall"
 		],
+
+		"sizingList": [
+			"Height: ~4.5 inches",
+			"Width: ~4 inches",
+			"Depth: ~3.5 inches",
+			"Keyring Drop Length: ~2 inches"
+		],
+		"keyDetails": [
+			"Soft plush material with embroidered eyes",
+			"Secure gold-tone keyring + lobster clasp",
+			"Unique cartoon expression with frog-like eyes",
+			"Lightweight and easy to attach to bags, keys, or zippers",
+			"Great as a gift or collectible charm"
+		],
+		"careInstructions": [
+			"Spot clean with a damp cloth",
+			"Do not machine wash",
+			"Avoid excessive pulling on embroidery",
+			"Keep away from open flame",
+			"Air dry only"
+		],
+
 		"custom1Name": "Color",
 		"custom1Options": "Brown | White | Black",
 		"variantStock": {
