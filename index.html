@@ -83,12 +83,12 @@
     </section>
     -->
     <!-- Featured Products -->
-    <section class="max-w-6xl mx-auto py-12">
-        <div class="max-w-6xl mx-auto flex items-center justify-between mb-4 px-4 sm:px-6 lg:px-8">
+    <section class="max-w-[90rem] mx-auto py-12">
+        <div class=" mx-auto flex items-center justify-between mb-4 px-4 md:px-0">
             <h2 id="featured-title" class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase">Featured Picks</h2>
             <a href="/pages/promo.html" class="text-sm md:text-base font-bold text-black hover:underline uppercase">Shop all</a>
         </div>
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class=" mx-auto flex px-4 md:px-0">
             <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
         </div>
         <div id="featured-products" class="flex flex-nowrap gap-2 justify-center px-1"></div>
@@ -100,12 +100,12 @@
 
     <!-- More To Love -->
     <section class="mt-12 px-4 text-center">
-        <div class="max-w-6xl mx-auto flex items-center justify-between mb-4 px-4 sm:px-6 lg:px-8">
+        <div class=" mx-auto flex items-center justify-between mb-4 px-4 md:px-0">
             <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase">More to Love</h2>
             <!-- Optional right-side link (remove if not needed) -->
             <!-- <a href="/products/catalog.html" class="text-sm md:text-base font-semibold text-black hover:underline">Shop all</a> -->
         </div>
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class=" mx-auto flex px-4 md:px-0">
             <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
         </div>
 
@@ -409,7 +409,7 @@
                 if (!container) return;
 
                 container.innerHTML = ""; // Clear previous content
-                container.className = "flex overflow-x-auto gap-4 px-4 ml-4 scroll-snap-x snap-x snap-mandatory md:ml-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:max-h-[9999px]"; // Responsive container styles
+                container.className = "flex overflow-x-auto gap-4 px-4 ml-4 scroll-snap-x snap-x snap-mandatory md:ml-0 md:grid md:grid-cols-5 md:overflow-visible md:px-0 md:max-h-[9999px]"; // Responsive container styles
 
                 const now = new Date();
                 const promotions = promotionFile.promotions || [];
@@ -459,7 +459,7 @@
                     }
 
                     const wrapper = document.createElement("div");
-                    wrapper.className = "mx-auto snap-start flex-shrink-0 w-[48%] sm:w-[45%] md:w-auto max-w-xs md:[&:nth-child(n+5)]:hidden";
+                    wrapper.className = "mx-auto snap-start flex-shrink-0 w-[48%] sm:w-[45%] md:w-auto max-w-xs md:[&:nth-child(n+6)]:hidden";
 
                     if (isBestseller) {
                         const badge = document.createElement("div");
