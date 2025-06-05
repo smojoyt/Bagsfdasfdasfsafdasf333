@@ -7,6 +7,7 @@
 		"weight_oz": 5.29,
 		"tags": [ "Bestseller", "Featured" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_05.jpg",
+		"banner": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/banner.jpg",
 		"url": "https://www.karrykraze.com/products/headwear/Headwear_EarflapBeanie.html",
 		"descriptionList": [
 			"Ribbed Knit Acrylic Blend",
@@ -15,6 +16,24 @@
 			"One size fits most",
 			"Lightweight & breathable",
 			"Hand wash cold, dry flat"
+		],
+		"keyDetails": [
+			"Color: Black",
+			"Style: Earflap Beanie",
+			"Gender: Unisex",
+			"Label: Fox motif patch",
+			"Texture: Chunky rib-knit"
+		],
+		"sizingInfo": [
+			"Fits head sizes 21”–24” (53–61 cm)",
+			"Stretchable material",
+			"One size fits most"
+		],
+		"careInstructions": [
+			"Hand wash cold",
+			"Do not bleach",
+			"Lay flat to dry",
+			"Do not iron label"
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Black | Cream | Pink",
