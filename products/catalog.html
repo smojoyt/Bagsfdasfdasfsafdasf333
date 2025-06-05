@@ -219,7 +219,7 @@
                 fetch("/products/promotion.json").then(res => res.json())
             ]).then(([products, promotionsFile]) => {
                 const promotions = promotionsFile.promotions || [];
-                const updatedProducts = applyPromotionsToProducts(products, promotions); // ✅ correct input
+                const updatedProducts = applyPromotionsToProducts(products, promotions);
 
                 Object.entries(updatedProducts).forEach(([_, p]) => {
                     if (p.tags?.includes("Discontinued")) return;
@@ -240,6 +240,24 @@
                             'best-deals': '[data-discount] parseInt'
                         }
                     });
+
+                    // ✅ Parse URL parameters and apply pre-filters
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const preselectedFilters = [];
+
+                    document.querySelectorAll('.filter-checkbox').forEach(cb => {
+                        const group = cb.dataset.group;
+                        const paramValue = urlParams.get(group);
+
+                        if (paramValue && cb.value === `.${paramValue}`) {
+                            cb.checked = true;
+                            preselectedFilters.push(`.${paramValue}`);
+                        }
+                    });
+
+                    if (preselectedFilters.length > 0) {
+                        iso.arrange({ filter: preselectedFilters.join('') });
+                    }
 
                     document.getElementById('sort-select').addEventListener('change', e => {
                         const val = e.target.value;
@@ -273,9 +291,8 @@
                     });
                 });
             });
-
-
         });
+
 
         
 
