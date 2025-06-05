@@ -59,7 +59,7 @@
 <body class="bg-white text-gray-900">
     <div class="relative w-full pt-16">
         <!-- Banner background -->
-        <img src="/imgs/Banner/CB_02.jpg" alt="Catalog Banner" class="w-full h-auto object-cover">
+        <img id="catalog-banner" src="" alt="Catalog Banner" class="w-full h-auto object-cover hidden">
 
         <!-- Overlay logo centered -->
         <div class="absolute inset-0 flex items-center justify-center pt-16">
@@ -221,11 +221,32 @@
                 const promotions = promotionsFile.promotions || [];
                 const updatedProducts = applyPromotionsToProducts(products, promotions);
 
+                // 🌟 Dynamic Banner from category match
+                const urlParams = new URLSearchParams(window.location.search);
+                const selectedCategory = urlParams.get("category");
+
+                if (selectedCategory) {
+                    const matching = Object.values(updatedProducts).filter(p =>
+                        p.category?.toLowerCase() === selectedCategory.toLowerCase() && p.banner
+                    );
+
+                    if (matching.length > 0) {
+                        const randomItem = matching[Math.floor(Math.random() * matching.length)];
+                        const bannerEl = document.getElementById("catalog-banner");
+                        if (bannerEl) {
+                            bannerEl.src = randomItem.banner;
+                            bannerEl.classList.remove("hidden");
+                        }
+                    }
+                }
+
+                // 🧩 Continue rendering catalog cards
                 Object.entries(updatedProducts).forEach(([_, p]) => {
                     if (p.tags?.includes("Discontinued")) return;
                     const html = renderCatalogCard(p);
                     container.insertAdjacentHTML("beforeend", html);
                 });
+
 
                 imagesLoaded(container, () => {
                     iso = new Isotope(container, {
