@@ -240,6 +240,7 @@
 
         window.addEventListener("DOMContentLoaded", () => {
             const container = document.getElementById("product-grid");
+            const urlParams = new URLSearchParams(window.location.search); // ✅ moved to top
 
             Promise.all([
                 fetch("/products/products.json").then(res => res.json()),
@@ -247,38 +248,19 @@
             ]).then(([products, promotionsFile]) => {
                 const promotions = promotionsFile.promotions || [];
                 const updatedProducts = applyPromotionsToProducts(products, promotions);
+
+                // 🌟 Dynamic Banner from URL category
                 const selectedCategory = urlParams.get("category");
                 if (selectedCategory) {
                     setBannerFromCategory(selectedCategory, updatedProducts);
                 }
 
-
-                // 🌟 Dynamic Banner from category match
-                const urlParams = new URLSearchParams(window.location.search);
-                const selectedCategory = urlParams.get("category");
-
-                if (selectedCategory) {
-                    const matching = Object.values(updatedProducts).filter(p =>
-                        p.category?.toLowerCase() === selectedCategory.toLowerCase() && p.banner
-                    );
-
-                    if (matching.length > 0) {
-                        const randomItem = matching[Math.floor(Math.random() * matching.length)];
-                        const bannerEl = document.getElementById("catalog-banner");
-                        if (bannerEl) {
-                            bannerEl.src = randomItem.banner;
-                            bannerEl.classList.remove("hidden");
-                        }
-                    }
-                }
-
-                // 🧩 Continue rendering catalog cards
+                // 🧩 Render product cards
                 Object.entries(updatedProducts).forEach(([_, p]) => {
                     if (p.tags?.includes("Discontinued")) return;
                     const html = renderCatalogCard(p);
                     container.insertAdjacentHTML("beforeend", html);
                 });
-
 
                 imagesLoaded(container, () => {
                     iso = new Isotope(container, {
@@ -294,8 +276,7 @@
                         }
                     });
 
-                    // ✅ Parse URL parameters and apply pre-filters
-                    const urlParams = new URLSearchParams(window.location.search);
+                    // ✅ Apply URL-based filters on load
                     const preselectedFilters = [];
 
                     document.querySelectorAll('.filter-checkbox').forEach(cb => {
@@ -312,6 +293,7 @@
                         iso.arrange({ filter: preselectedFilters.join('') });
                     }
 
+                    // 🧠 Sort select
                     document.getElementById('sort-select').addEventListener('change', e => {
                         const val = e.target.value;
                         iso.updateSortData();
@@ -326,6 +308,7 @@
                         }
                     });
 
+                    // ✅ Filters apply and dynamic banner update
                     document.getElementById('apply-filters').addEventListener('click', () => {
                         const allFilters = {};
                         document.querySelectorAll('.filter-checkbox:checked').forEach(cb => {
@@ -341,7 +324,7 @@
 
                         iso.arrange({ filter: filterSelector || '*' });
 
-                        // 🔄 Banner update after filters applied
+                        // 🔄 Banner update from active category filter
                         const selectedCategory = (allFilters["category"] || [])[0];
                         if (selectedCategory) {
                             setBannerFromCategory(selectedCategory.replace(".", ""), updatedProducts);
@@ -349,10 +332,10 @@
 
                         closeSidebar();
                     });
-
                 });
             });
         });
+
 
 
 
