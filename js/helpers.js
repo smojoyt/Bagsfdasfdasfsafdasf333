@@ -134,10 +134,10 @@ function renderCatalogCard(p) {
                     </span>
                 </div>
             </div>`
-        : `<div class="text-base text-gray-800 font-medium mt-2">$${regular.toFixed(2)}</div>`;
+        : `<div class="mt-1 text-lg font-bold text-gray-800">$${regular.toFixed(2)}</div>`;
 
     const tagBadges = `
-        ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Bestseller</span>` : ""}
+        ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-white bg-green-400 px-2 py-0.5 rounded-full font-bold">Bestseller</span>` : ""}
         ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
     `;
 
@@ -156,7 +156,7 @@ function renderCatalogCard(p) {
                     </div>` : ""}
             </div>
 
-            <div class="min-h-[100px] p-2">
+            <div class="min-h-[100px] max-w-[288px] p-2">
                 <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${p.name}</h2>
                 ${priceBlock}
                 <div class="flex flex-wrap gap-1 mt-2">${tagBadges}</div>

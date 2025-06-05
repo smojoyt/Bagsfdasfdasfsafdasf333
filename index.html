@@ -508,11 +508,18 @@
                         .filter(p => p.category === category && Object.values(p.variantStock || {}).some(qty => qty > 0));
 
                     if (matching.length === 0) return;
+                    const categoryTextMap = {
+                        headwear: "Hats",
+                        bagaccessory: "Charms",
+                        bags: "Bags"
+                    };
+
+                    const displayCategory = categoryTextMap[category.toLowerCase()] || category;
 
                     const selected = matching[Math.floor(Math.random() * matching.length)];
                     const secondThumb = selected.thumbnails?.[1] || selected.image;
                     const name = selected.name;
-                    const categoryName = selected.category;
+                    const categoryName = displayCategory;
 
                     // Dynamic caption options
                     const leftCaptions = [
