@@ -216,7 +216,7 @@
 		"product_id": "KK-1006",
 		"price": 44.95,
 		"weight_oz": 21.16,
-		"tags": [ "" ],
+		"tags": [ "Bestseller" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/01_01.jpg",
 		"url": "https://www.karrykraze.com/products/bags/Bag_CelestialRound.html",
 		"descriptionList": [
@@ -455,7 +455,7 @@
 		"product_id": "KK-1013",
 		"price": 9.97,
 		"weight_oz": 2.12,
-		"tags": [ "BagAccessory" ],
+		"tags": [ "Bestseller", "BagAccessory" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_CherryChain.html",
 		"descriptionList": [
@@ -773,7 +773,7 @@
 		"product_id": "KK-1045",
 		"price": 2.97,
 		"weight_oz": 1.13,
-		"tags": [ "BagAccessory" ],
+		"tags": [ "Bestseller", "BagAccessory" ],
 		"image": "https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_03_01.jpg",
 		"banner": "https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/banner.jpg",
 		"url": "https://www.karrykraze.com/products/charms/Charms_MiniCrocs.html",
