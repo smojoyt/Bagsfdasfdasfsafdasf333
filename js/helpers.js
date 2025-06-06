@@ -165,6 +165,19 @@ function renderCatalogCard(p) {
     </div>`;
 }
 
+async function loadAllReviews() {
+    const url = "https://drive.google.com/uc?export=download&id=1gXl4MX0sQboICfNePWtcY27Ktwnu5jbS";
+    try {
+        const res = await fetch(url);
+        const reviews = await res.json();
+        return reviews; // { productId: [ { name, rating, review, ... } ] }
+    } catch (err) {
+        console.error("Failed to load reviews:", err);
+        return {};
+    }
+}
+
+
 
 // You save part
 //<span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">
