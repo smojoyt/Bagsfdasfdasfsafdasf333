@@ -342,7 +342,17 @@
                 headers: { "Content-Type": "application/json" }
             });
 
-            const result = await res.json();
+            const text = await res.text();
+            let result;
+
+            try {
+                result = JSON.parse(text);
+            } catch {
+                console.error("Response is not JSON:", text);
+                document.getElementById("formStatus").textContent = "Unexpected server response.";
+                return;
+            }
+
             if (result.success) {
                 form.reset();
                 preview.src = "";
@@ -354,8 +364,8 @@
             } else {
                 document.getElementById("formStatus").textContent = result.error || "Something went wrong. Try again.";
             }
-
         });
+
     </script>
 </body>
 </html>
