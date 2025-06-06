@@ -12,6 +12,11 @@
             background-color: black;
             color: white;
         }
+
+        mark.bg-yellow-200 {
+            padding: 0 2px;
+            border-radius: 0.25rem;
+        }
     </style>
 
 </head>
@@ -31,7 +36,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div id="dropdownList" class="max-h-64 overflow-y-auto absolute z-10 w-full mt-2 bg-white border rounded shadow max-h-60 overflow-y-auto hidden"></div>
+                    <div id="dropdownList" class="absolute z-10 w-full mt-2 bg-white border rounded shadow hidden">
+                        <div class="p-2">
+                            <input type="text" id="productSearch" placeholder="Search products..." class="w-full p-2 border rounded text-sm" />
+                        </div>
+                        <div id="productItems" class="max-h-60 overflow-y-auto"></div>
+                    </div>
+
                 </div>
             </div>
 
@@ -141,9 +152,13 @@
                 const dropdownList = document.getElementById("dropdownList");
                 const selectedText = document.getElementById("selectedText");
                 const selectedInput = document.getElementById("selectedProduct");
+                const productItemsContainer = document.getElementById("productItems");
+                const searchInput = document.getElementById("productSearch");
+                let allProducts = [];
 
                 dropdownToggle.addEventListener("click", () => {
                     dropdownList.classList.toggle("hidden");
+                    searchInput.focus();
                 });
 
                 document.addEventListener("click", (e) => {
@@ -155,14 +170,16 @@
                 Object.entries(data).forEach(([key, p]) => {
                     const hasStock = Object.values(p.variantStock || {}).some(qty => qty > 0);
                     if (!hasStock) return;
+
                     const item = document.createElement("div");
-                    item.className =
-                        "flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-xl bg-white shadow hover:shadow-md";
+                    item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-xl bg-white shadow hover:shadow-md";
+                    item.dataset.name = p.name.toLowerCase();
+                    item.dataset.id = p.product_id.toLowerCase();
                     item.innerHTML = `
         <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
         <div class="flex flex-col w-full">
-          <p class="text-sm font-medium">${p.name}</p>
-          <p class="text-xs text-gray-400 text-right">${p.product_id}</p>
+          <p class="text-sm font-medium product-name">${p.name}</p>
+          <p class="text-xs text-gray-400 text-right product-id">${p.product_id}</p>
         </div>
       `;
 
@@ -172,9 +189,36 @@
                         dropdownList.classList.add("hidden");
                     });
 
-                    dropdownList.appendChild(item);
+                    allProducts.push(item);
+                    productItemsContainer.appendChild(item);
+                });
+
+                searchInput.addEventListener("input", (e) => {
+                    const term = e.target.value.toLowerCase();
+                    dropdownList.classList.remove("hidden");
+                    productItemsContainer.innerHTML = "";
+
+                    allProducts.forEach(item => {
+                        const name = item.dataset.name;
+                        const id = item.dataset.id;
+
+                        if (name.includes(term) || id.includes(term)) {
+                            const nameEl = item.querySelector(".product-name");
+                            const idEl = item.querySelector(".product-id");
+
+                            const highlight = (text) => {
+                                return text.replace(new RegExp(`(${term})`, "gi"), `<mark class="bg-yellow-200">$1</mark>`);
+                            };
+
+                            nameEl.innerHTML = highlight(nameEl.textContent);
+                            idEl.innerHTML = highlight(idEl.textContent);
+
+                            productItemsContainer.appendChild(item);
+                        }
+                    });
                 });
             });
+
 
 
         // Show image preview immediately after file is picked
