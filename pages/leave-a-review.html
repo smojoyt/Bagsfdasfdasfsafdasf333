@@ -186,9 +186,10 @@
 
                     item.addEventListener("click", () => {
                         selectedText.textContent = `${p.name} (${p.product_id})`;
-                        selectedInput.value = key;
+                        selectedInput.value = p.product_id; // ✅ Use the actual KK-#### instead of the key
                         dropdownList.classList.add("hidden");
                     });
+
 
                     allProducts.push(item);
                     productItemsContainer.appendChild(item);
@@ -336,7 +337,7 @@
                 imageUrl: imageUrl,
             };
 
-            const res = await fetch("https://hook.us2.make.com/your-make-webhook", {
+            const res = await fetch("https://hook.us2.make.com/wxlj4rrp6g3bqlkr3mxmfg6cq626j2qj", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
