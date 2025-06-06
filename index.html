@@ -249,20 +249,30 @@
                         const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
 
                         const cell = document.createElement("div");
-                        cell.className = "carousel-cell w-[420px] h-[420px] bg-white rounded-xl shadow-md p-5 m-2 flex flex-col justify-between text-left border border-gray-200";
+                        cell.className = "carousel-cell w-[420px] h-[320px] bg-white rounded-xl shadow-md p-5 m-2 flex flex-col justify-between text-left border border-gray-200";
 
                         cell.innerHTML = `
-  <div class="flex justify-between text-sm text-gray-500 mb-1">
-    <strong class="text-xl text-gray-900">${r.name || "Anonymous"}</strong>
-    <span>${r.timestamp ? new Date(r.timestamp).toLocaleDateString() : "Invalid Date"}</span>
+  <div class="flex items-center justify-between text-sm text-gray-500 mb-1">
+  <div class="flex items-center gap-1">
+    <strong class="text-xl text-gray-900 capitalize">${r.name || "Anonymous"}</strong>
+    ${r.verified ? `
+      <span class="flex items-center gap-1 text-blue-700 font-medium text-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-blue-700" viewBox="0 0 24 24">
+          <path d="M12 0L15.09 7.36L23.09 8.64L17 14.14L18.18 22.02L12 18.27L5.82 22.02L7 14.14L0.91 8.64L8.91 7.36L12 0Z"/>
+        </svg>
+        Verified Buyer
+      </span>` : ""}
   </div>
+  <span>${r.timestamp ? new Date(r.timestamp).toLocaleDateString() : "Invalid Date"}</span>
+</div>
 
-  <div class="text-yellow-500 text-4xl mb-2">${stars}</div>
 
-  <h3 class="text-lg font-bold text-gray-800 mb-1">${r.reviewHeadline || ""}</h3>
+  <div class="text-yellow-500 text-4xl leading-[1.1] mb-1 -mt-2">${stars}</div>
+
+  <h3 class="text-lg font-bold text-gray-800 uppercase">${r.reviewHeadline || ""}</h3>
 
   <div class="flex-1 overflow-hidden relative mb-3">
-    <p class="review-text text-sm text-gray-700 whitespace-pre-line break-words line-clamp-4 overflow-hidden pr-1 h-full" data-full="${reviewText.replace(/"/g, '&quot;')}">
+    <p class="review-text text-sm text-gray-700 break-words line-clamp-4 overflow-hidden pr-1 h-full" data-full="${reviewText.replace(/"/g, '&quot;')}">
       ${shortText} ${isLong ? `<button class="read-more text-blue-600 hover:underline ml-1 text-sm">Read more</button>` : ""}
     </p>
   </div>
