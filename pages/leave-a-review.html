@@ -31,7 +31,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div id="dropdownList" class="absolute z-10 w-full mt-2 bg-white border rounded shadow max-h-60 overflow-y-auto hidden"></div>
+                    <div id="dropdownList" class="max-h-64 overflow-y-auto absolute z-10 w-full mt-2 bg-white border rounded shadow max-h-60 overflow-y-auto hidden"></div>
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
             <div>
                 <label class="block font-semibold text-lg mb-1">Rate your experience *</label>
                 <div class="flex items-center gap-3">
-                    <div id="starRating" class="flex gap-1 text-5xl cursor-pointer text-gray-400">
+                    <div id="starRating" class="flex gap-1 text-7xl cursor-pointer text-gray-400">
                         <span data-star="1" class="transition-transform duration-150 hover:scale-125">★</span>
                         <span data-star="2" class="transition-transform duration-150 hover:scale-125">★</span>
                         <span data-star="3" class="transition-transform duration-150 hover:scale-125">★</span>
@@ -132,6 +132,51 @@
         };
         firebase.initializeApp(firebaseConfig);
         const storage = firebase.storage();
+
+        // Load products.json and build the dropdown
+        fetch("../products/products.json")
+            .then(res => res.json())
+            .then(data => {
+                const dropdownToggle = document.getElementById("dropdownToggle");
+                const dropdownList = document.getElementById("dropdownList");
+                const selectedText = document.getElementById("selectedText");
+                const selectedInput = document.getElementById("selectedProduct");
+
+                dropdownToggle.addEventListener("click", () => {
+                    dropdownList.classList.toggle("hidden");
+                });
+
+                document.addEventListener("click", (e) => {
+                    if (!dropdownToggle.contains(e.target) && !dropdownList.contains(e.target)) {
+                        dropdownList.classList.add("hidden");
+                    }
+                });
+
+                Object.entries(data).forEach(([key, p]) => {
+                    const hasStock = Object.values(p.variantStock || {}).some(qty => qty > 0);
+                    if (!hasStock) return;
+                    const item = document.createElement("div");
+                    item.className =
+                        "flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-xl bg-white shadow hover:shadow-md";
+                    item.innerHTML = `
+        <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
+        <div class="flex flex-col w-full">
+          <p class="text-sm font-medium">${p.name}</p>
+          <p class="text-xs text-gray-400 text-right">${p.product_id}</p>
+        </div>
+      `;
+
+                    item.addEventListener("click", () => {
+                        selectedText.textContent = `${p.name} (${p.product_id})`;
+                        selectedInput.value = key;
+                        dropdownList.classList.add("hidden");
+                    });
+
+                    dropdownList.appendChild(item);
+                });
+            });
+
+
         // Show image preview immediately after file is picked
         document.getElementById("imageInput").addEventListener("change", (e) => {
             const file = e.target.files[0];
