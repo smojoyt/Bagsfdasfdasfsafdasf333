@@ -249,7 +249,7 @@
                         const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
 
                         const cell = document.createElement("div");
-                        cell.className = "carousel-cell w-[420px] bg-white rounded-xl shadow-md p-5 m-2 flex flex-col justify-between text-left border border-gray-200";
+                        cell.className = "carousel-cell w-[420px] h-[420px] bg-white rounded-xl shadow-md p-5 m-2 flex flex-col justify-between text-left border border-gray-200";
 
                         cell.innerHTML = `
       <div class="flex justify-between items-start text-sm text-gray-500 mb-1">
@@ -259,19 +259,23 @@
 
       <div class="text-yellow-500 text-4xl mb-2">${stars}</div>
 
-      <div class="mb-6">
-        <p class="review-text text-sm text-gray-700 whitespace-pre-line break-words" data-full="${reviewText.replace(/"/g, '&quot;')}">
-          ${shortText} ${isLong ? `<button class="read-more text-blue-600 hover:underline ml-1 text-sm">Read more</button>` : ""}
-        </p>
-      </div>
+      <div class="flex-1 overflow-hidden mb-3">
+  <div class="relative h-[120px]">
+    <p class="review-text text-sm text-gray-700 whitespace-pre-line break-all overflow-hidden line-clamp-4 pr-1" data-full="${reviewText.replace(/"/g, '&quot;')}">
+      ${shortText}
+    </p>
+    ${isLong ? `<button class="read-more absolute bottom-0 right-0 bg-white text-blue-600 hover:underline text-sm px-1">Read more</button>` : ""}
+  </div>
+</div>
 
-      <div class="border-t border-gray-200 pt-4 mt-auto">
-        ${productImg && productName ? `
-          <a href="${productUrl}" class="flex items-center gap-2 group">
-            <img src="${productImg}" class="w-10 h-10 object-cover rounded" alt="${productName}" onerror="this.style.display='none'">
-            <span class="text-sm font-medium text-gray-800 group-hover:underline">${productName}</span>
-          </a>` : ""}
-      </div>
+
+      <div class="pt-4 border-t border-gray-200 mt-auto">
+  <a href="${productUrl}" class="flex items-center gap-2 group">
+    <img src="${productImg}" class="w-10 h-10 object-cover rounded" alt="${productName}" onerror="this.style.display='none'">
+    <span class="text-sm font-medium text-gray-800 group-hover:underline">${productName}</span>
+  </a>
+</div>
+
     `;
 
                         container.appendChild(cell);
@@ -280,11 +284,18 @@
                     // ✅ Attach "Read more" buttons AFTER all reviews are rendered
                     container.querySelectorAll(".read-more").forEach(btn => {
                         btn.addEventListener("click", function () {
-                            const p = this.closest(".review-text");
+                            const p = this.previousElementSibling;
                             const fullText = p.getAttribute("data-full");
-                            p.innerHTML = fullText;
+                            p.innerText = fullText;
+
+                            p.classList.remove("line-clamp-4", "overflow-hidden");
+                            p.classList.add("overflow-y-auto", "pr-1");
+                            p.style.height = "100%";
+
+                            this.remove();
                         });
                     });
+
 
 
 
