@@ -173,29 +173,32 @@ function enableDragScroll(containerId) {
 
     slider.addEventListener("mousedown", (e) => {
         isDown = true;
-        slider.classList.add("active");
-        startX = e.pageX - slider.offsetLeft;
+        slider.classList.add("dragging");
+        slider.style.scrollBehavior = "auto"; // disables CSS smooth scroll during drag
+        startX = e.pageX;
         scrollLeft = slider.scrollLeft;
     });
 
     slider.addEventListener("mouseleave", () => {
         isDown = false;
-        slider.classList.remove("active");
+        slider.classList.remove("dragging");
+        slider.style.scrollBehavior = ""; // re-enable CSS smooth scroll
     });
 
     slider.addEventListener("mouseup", () => {
         isDown = false;
-        slider.classList.remove("active");
+        slider.classList.remove("dragging");
+        slider.style.scrollBehavior = ""; // re-enable CSS smooth scroll
     });
 
     slider.addEventListener("mousemove", (e) => {
         if (!isDown) return;
         e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 1.5; // speed factor
+        const walk = (e.pageX - startX) * 1.5; // adjust scroll speed
         slider.scrollLeft = scrollLeft - walk;
     });
 }
+
 
 // Call this once the DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
