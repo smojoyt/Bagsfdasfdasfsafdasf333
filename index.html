@@ -34,6 +34,13 @@
             background-color: #ccc;
             border-radius: 10px;
         }
+        .line-clamp-4 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+
     </style>
 
     <!-- Tailwind CSS -->
@@ -174,7 +181,7 @@
     <!--review section-->
     <section id="reviewSection" class="px-4 py-8 bg-[#fdf7f1]">
         <h2 class="text-3xl font-bold mb-6 text-center">What Our Customers Say</h2>
-        <div id="reviewContainer" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
+        <div id="reviewContainer" class="carousel grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
     </section>
 
 
@@ -213,6 +220,12 @@
             .then(res => res.json())
             .then(reviews => {
                 const container = document.getElementById("reviewContainer");
+                reviews.sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp)); // 🆕 Sort newest to oldest
+                container.innerHTML = reviews.slice(0, 6).map(r => `
+    ...
+  `).join('');
+            });
+
 
                 container.innerHTML = reviews.slice(0, 6).map(r => `
       <div class="bg-white rounded-xl shadow p-5 flex flex-col gap-4">
@@ -226,7 +239,7 @@
         <div class="flex items-center text-yellow-400 text-xl">
           ${'★'.repeat(r.Rating)}${'☆'.repeat(5 - r.Rating)}
         </div>
-        <p class="text-gray-700 text-sm">${r["Review Text"] || ""}</p>
+       <p class="text-gray-700 text-sm line-clamp-4 hover:line-clamp-none transition-all duration-200 cursor-pointer">${r["Review Text"] || ""}</p>
         <div class="flex items-center gap-3 mt-auto pt-2 border-t pt-4">
           <img src="${r["Image URL"] || '/imgs/placeholder.png'}" class="w-12 h-12 object-cover rounded" />
           <span class="text-sm text-gray-600">Product: ${r.ProductID}</span>
