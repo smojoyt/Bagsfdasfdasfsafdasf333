@@ -165,40 +165,6 @@ function renderCatalogCard(p) {
     </div>`;
 }
 
-function enableDragScroll(containerId) {
-    const slider = document.getElementById(containerId);
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    slider.addEventListener("mousedown", (e) => {
-        isDown = true;
-        slider.classList.add("dragging");
-        slider.style.scrollBehavior = "auto"; // disables CSS smooth scroll during drag
-        startX = e.pageX;
-        scrollLeft = slider.scrollLeft;
-    });
-
-    slider.addEventListener("mouseleave", () => {
-        isDown = false;
-        slider.classList.remove("dragging");
-        slider.style.scrollBehavior = ""; // re-enable CSS smooth scroll
-    });
-
-    slider.addEventListener("mouseup", () => {
-        isDown = false;
-        slider.classList.remove("dragging");
-        slider.style.scrollBehavior = ""; // re-enable CSS smooth scroll
-    });
-
-    slider.addEventListener("mousemove", (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const walk = (e.pageX - startX) * 1.5; // adjust scroll speed
-        slider.scrollLeft = scrollLeft - walk;
-    });
-}
-
 
 // Call this once the DOM is ready
 document.addEventListener("DOMContentLoaded", () => {

@@ -166,7 +166,8 @@
         <div class="mx-auto flex px-4 md:px-0">
             <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
         </div>
-        <div id="bestseller-products" class="flex overflow-x-auto gap-4 px-4 ml-4 scroll-snap-x snap-x snap-mandatory scroll-smooth md:ml-0 scrollbar-hide cursor-grab active:cursor-grabbing select-none">
+        <div id="bestseller-products" class="carousel">
+
 
         </div>
     </section>
@@ -681,11 +682,11 @@
                     if (!container) return;
 
                     container.innerHTML = "";
-                    container.className = "flex overflow-x-auto gap-4 px-4 ml-4 scroll-snap-x snap-x snap-mandatory md:ml-0 scrollbar-hide cursor-grab active:cursor-grabbing select-none";
+                    container.className = "carousel"; // Flickity expects this class
 
                     const filteredProducts = Object.values(products)
                         .filter(p => p.tags?.includes("Bestseller") && Object.values(p.variantStock || {}).some(qty => qty > 0))
-                        .slice(0, 6); // Adjust number as needed
+                        .slice(0, 6);
 
                     filteredProducts.forEach(p => {
                         const stock = p.variantStock || {};
@@ -697,8 +698,7 @@
                         const salePrice = p.sale_price || originalPrice;
 
                         const wrapper = document.createElement("div");
-                        wrapper.className = "mx-auto snap-start flex-shrink-0 w-[48%] sm:w-[45%] md:w-auto max-w-xs";
-
+                        wrapper.className = "carousel-cell w-[75%] sm:w-[55%] md:w-[22rem]";
 
                         const card = document.createElement("a");
                         card.href = p.url;
@@ -720,11 +720,28 @@
     </div>
 </div>
 `;
+
                         wrapper.appendChild(card);
                         container.appendChild(wrapper);
                     });
+
+                    // ✅ Only run Flickity after items are appended
+                    imagesLoaded(container, () => {
+                        const flickity = new Flickity(container, {
+                            cellAlign: 'left',
+                            contain: true,
+                            groupCells: 1,
+                            freeScroll: true,
+                            wrapAround: false,
+                            prevNextButtons: false,
+                            pageDots: false,
+                            dragThreshold: 5
+                        });
+                        flickity.resize();
+                    });
                 });
         }
+
 
 
 
