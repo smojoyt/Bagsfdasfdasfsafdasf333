@@ -83,7 +83,7 @@
     const storage = firebase.storage();
 
     // Load products.json
-    fetch("/products/products.json")
+    fetch("../products/products.json")
       .then(res => res.json())
       .then(data => {
         const select = document.getElementById("productSelect");
