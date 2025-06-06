@@ -172,16 +172,17 @@
                     if (!hasStock) return;
 
                     const item = document.createElement("div");
-                    item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer bg-white shadow hover:shadow-md";
+                    item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-xl bg-white shadow hover:shadow-md";
                     item.dataset.name = p.name.toLowerCase();
                     item.dataset.id = p.product_id.toLowerCase();
                     item.innerHTML = `
-        <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
-        <div class="flex flex-col w-full">
-          <p class="text-sm font-medium product-name">${p.name}</p>
-          <p class="text-xs text-gray-400 text-right product-id">${p.product_id}</p>
-        </div>
-      `;
+  <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
+  <div class="flex flex-col w-full">
+    <p class="text-sm font-medium product-name" data-original="${p.name}">${p.name}</p>
+    <p class="text-xs text-gray-400 text-right product-id" data-original="${p.product_id}">${p.product_id}</p>
+  </div>
+`;
+
 
                     item.addEventListener("click", () => {
                         selectedText.textContent = `${p.name} (${p.product_id})`;
