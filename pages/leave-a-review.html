@@ -8,14 +8,12 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
     <style>
-        .quality-btn {
-            @apply px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition;
+        .quality-btn.selected {
+            background-color: black;
+            color: white;
         }
-
-            .quality-btn.selected {
-                @apply bg-black text-white;
-            }
     </style>
+
 </head>
 <body class="bg-[#fef1e7] text-gray-800 font-sans p-6">
     <div class="max-w-3xl mx-auto px-4 md:px-8 space-y-8">
@@ -39,18 +37,9 @@
                 <input type="hidden" name="rating" id="ratingInput" required />
             </div>
 
-            <!-- Quality (button-style) -->
-            <div>
-                <label class="block font-semibold text-lg mb-2">How would you rate the quality?</label>
-                <div id="qualityOptions" class="flex flex-wrap gap-3">
-                    <button type="button" data-quality="Exceptional" class="quality-btn">Exceptional quality</button>
-                    <button type="button" data-quality="High" class="quality-btn">High quality</button>
-                    <button type="button" data-quality="Average" class="quality-btn">Average quality</button>
-                    <button type="button" data-quality="Below Average" class="quality-btn">Below average quality</button>
-                    <button type="button" data-quality="Poor" class="quality-btn">Poor quality</button>
-                </div>
-                <input type="hidden" name="quality" id="qualityInput" required />
-            </div>
+
+
+
 
             <!-- Review Headline -->
             <div>
@@ -82,10 +71,22 @@
                 <label class="block font-semibold text-lg mb-1">Add media</label>
                 <label class="flex items-center justify-center px-4 py-2 bg-white border rounded shadow cursor-pointer w-fit">
                     <span class="mr-2">⬆</span> Upload
-                    <input type="file" name="image" accept="image/*" class="hidden" />
+                    <input type="file" name="image" id="imageInput" accept="image/*" class="hidden" />
                 </label>
                 <p class="text-xs text-gray-500 mt-1">Upload 1 photo (max 2 MB)</p>
                 <img id="previewImage" class="w-full max-w-md mt-4 rounded-xl shadow hidden" alt="Preview" />
+            </div>
+            <!-- Quality (button-style) -->
+            <div>
+                <label class="block font-semibold text-lg mb-2">How would you rate the quality?</label>
+                <div id="qualityOptions" class="flex flex-wrap gap-3">
+                    <button type="button" data-quality="Exceptional" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">Exceptional quality</button>
+                    <button type="button" data-quality="High" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">High quality</button>
+                    <button type="button" data-quality="Average" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">Average quality</button>
+                    <button type="button" data-quality="Below Average" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">Below average quality</button>
+                    <button type="button" data-quality="Poor" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">Poor quality</button>
+                </div>
+                <input type="hidden" name="quality" id="qualityInput" required />
             </div>
 
             <!-- Consent -->
@@ -113,6 +114,24 @@
         };
         firebase.initializeApp(firebaseConfig);
         const storage = firebase.storage();
+        // Show image preview immediately after file is picked
+        document.getElementById("imageInput").addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            const preview = document.getElementById("previewImage");
+
+            if (file && file.type.startsWith("image/")) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    preview.src = event.target.result;
+                    preview.classList.remove("hidden");
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+                preview.classList.add("hidden");
+            }
+        });
+
 
         // Star rating logic
         const stars = document.querySelectorAll('#starRating span');
