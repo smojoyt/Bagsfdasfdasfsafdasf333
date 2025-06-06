@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leave a Review � Karry Kraze</title>
+    <title>Leave a Review – Karry Kraze</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
@@ -11,62 +11,55 @@
 <body class="bg-[#fef1e7] text-gray-800 font-sans p-6">
     <div class="max-w-3xl mx-auto px-4 md:px-8 space-y-8">
         <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase underline text-center mb-4">Leave a Review</h1>
-        <form id="reviewForm" class="space-y-4">
-            <!-- Product Dropdown -->
+        <form id="reviewForm" class="space-y-6">
+            <!-- Rating -->
             <div>
-                <label class="block font-semibold mb-1">Select Product</label>
-                <input type="hidden" name="product" id="selectedProduct" required />
-                <div class="relative">
-                    <button id="dropdownToggle" type="button" class="w-full border p-2 rounded flex justify-between items-center">
-                        <span id="selectedText">Select a product</span>
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-                    <div id="dropdownList" class="absolute z-10 w-full mt-2 bg-white border rounded shadow max-h-60 overflow-y-auto hidden"></div>
+                <label class="block font-semibold text-lg mb-1">Rate your experience *</label>
+                <div id="starRating" class="flex gap-2 text-3xl cursor-pointer text-gray-400">
+                    <span data-star="1">★</span>
+                    <span data-star="2">★</span>
+                    <span data-star="3">★</span>
+                    <span data-star="4">★</span>
+                    <span data-star="5">★</span>
                 </div>
-
+                <input type="hidden" name="rating" id="ratingInput" required />
             </div>
 
-            <!-- Name/Email -->
-            <div class="grid grid-cols-2 gap-4">
-                <input name="name" placeholder="Your Name" required class="p-2 border rounded" />
-                <input name="email" placeholder="Your Email" type="email" required class="p-2 border rounded" />
+            <!-- Review Headline -->
+            <div>
+                <label class="block font-semibold text-lg mb-1">Add a headline *</label>
+                <input name="reviewHeadline" placeholder="Summarize your experience" required class="w-full p-2 border rounded" />
             </div>
 
-            <!-- Rating and Quality -->
-            <div class="grid grid-cols-2 gap-4">
-                <select name="rating" required class="p-2 border rounded">
-                    <option value="">Rating (1-5 stars)</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-                <select name="quality" required class="p-2 border rounded">
-                    <option value="">Rate the Quality</option>
-                    <option>Poor</option>
-                    <option>Below Average</option>
-                    <option>Average</option>
-                    <option>High</option>
-                    <option>Exceptional</option>
-                </select>
+            <!-- Review Text -->
+            <div>
+                <label class="block font-semibold text-lg mb-1">Write a review *</label>
+                <textarea name="reviewText" rows="5" placeholder="Tell us what you like or dislike" required class="w-full p-2 border rounded"></textarea>
             </div>
 
-            <!-- Text Review -->
-            <textarea name="reviewText" rows="4" placeholder="Write your review..." required class="w-full p-2 border rounded"></textarea>
-
-            <!-- Optional Healing Message -->
-            <textarea name="healingText" rows="2" placeholder="Want to share something healing?" class="w-full p-2 border rounded"></textarea>
+            <!-- Name and Email -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-semibold mb-1">Your name *</label>
+                    <input name="name" required class="w-full p-2 border rounded" />
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1">Your email address *</label>
+                    <input name="email" type="email" required class="w-full p-2 border rounded" />
+                    <p class="text-xs text-gray-500 mt-1">We'll use this to verify your review came from you.</p>
+                </div>
+            </div>
 
             <!-- Image Upload -->
             <div>
-                <label class="block font-semibold mb-1">Upload Image (Optional)</label>
-                <input type="file" name="image" accept="image/*" class="w-full" />
+                <label class="block font-semibold text-lg mb-1">Add media</label>
+                <label class="flex items-center justify-center px-4 py-2 bg-white border rounded shadow cursor-pointer w-fit">
+                    <span class="mr-2">⬆</span> Upload
+                    <input type="file" name="image" accept="image/*" class="hidden" />
+                </label>
+                <p class="text-xs text-gray-500 mt-1">Upload 1 photo (max 2 MB)</p>
+                <img id="previewImage" class="w-full max-w-md mt-4 rounded-xl shadow hidden" alt="Preview" />
             </div>
-            <img id="previewImage" class="w-full max-w-xs mt-4 rounded-xl shadow hidden" alt="Preview" />
-
 
             <!-- Consent -->
             <label class="inline-flex items-center">
@@ -75,14 +68,16 @@
             </label>
 
             <!-- Submit Button -->
-            <button type="submit" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800">Submit Review</button>
+            <button type="submit" class="bg-black text-white py-2 px-6 rounded hover:bg-gray-800">Submit Review</button>
         </form>
+
 
         <p id="formStatus" class="text-sm mt-2"></p>
     </div>
 
     <script>
         // Firebase config
+
         const firebaseConfig = {
             apiKey: "AIzaSyBBDruyZmtNMl2-zJrYwaqUjIHniSolsdk",
             authDomain: "karrykraze-refiews.firebaseapp.com",
@@ -133,6 +128,19 @@
                 });
             });
 
+        // Star rating handler
+        const stars = document.querySelectorAll('#starRating span');
+        const ratingInput = document.getElementById('ratingInput');
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const rating = parseInt(star.dataset.star);
+                ratingInput.value = rating;
+                stars.forEach(s => s.classList.toggle('text-yellow-400', parseInt(s.dataset.star) <= rating));
+            });
+        });
+
+
         // Submit handler
         document.getElementById("reviewForm").addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -177,9 +185,9 @@
 
             if (res.ok) {
                 form.reset();
+                preview.src = "";
+                preview.classList.add("hidden");
                 document.getElementById("formStatus").textContent = "Thank you! Your review was submitted.";
-            } else {
-                document.getElementById("formStatus").textContent = "Something went wrong. Try again later.";
             }
         });
 
