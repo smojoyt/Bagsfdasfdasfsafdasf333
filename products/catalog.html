@@ -276,22 +276,28 @@
                         }
                     });
 
-                    // ✅ Apply URL-based filters on load
+                    // ✅ Apply URL-based filters on load (supports multiple values per group)
                     const preselectedFilters = [];
 
                     document.querySelectorAll('.filter-checkbox').forEach(cb => {
                         const group = cb.dataset.group;
-                        const paramValue = urlParams.get(group);
+                        const paramValue = urlParams.get(group); // supports ?category=bags&tags=onsale,bestseller
 
-                        if (paramValue && cb.value === `.${paramValue}`) {
-                            cb.checked = true;
-                            preselectedFilters.push(`.${paramValue}`);
+                        if (paramValue) {
+                            const values = paramValue.split(',');
+                            values.forEach(val => {
+                                if (cb.value === `.${val}`) {
+                                    cb.checked = true;
+                                    preselectedFilters.push(`.${val}`);
+                                }
+                            });
                         }
                     });
 
                     if (preselectedFilters.length > 0) {
                         iso.arrange({ filter: preselectedFilters.join('') });
                     }
+
 
                     // 🧠 Sort select
                     document.getElementById('sort-select').addEventListener('change', e => {
