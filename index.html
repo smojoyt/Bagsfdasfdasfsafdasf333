@@ -216,37 +216,24 @@
             }
     </style>
     <script>
-        fetch("https://script.google.com/macros/s/AKfycbwG985_YRe4VD9sQm7JzNQ79ZEIRcmIppIFem8Ud7JI3i_aF5F7Io_YppqSjz-OiY4LOg/exec")
+        fetch("YOUR_SCRIPT_URL")
             .then(res => res.json())
             .then(reviews => {
                 const container = document.getElementById("reviewContainer");
-                reviews.sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp)); // 🆕 Sort newest to oldest
-                container.innerHTML = reviews.slice(0, 6).map(r => `
-    ...
-  `).join('');
-            });
 
+                reviews.sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp));
 
-                container.innerHTML = reviews.slice(0, 6).map(r => `
-      <div class="bg-white rounded-xl shadow p-5 flex flex-col gap-4">
-        <div class="flex justify-between items-center text-sm text-gray-500">
-          <div>
-            <strong>${r.Name || "Anonymous"}</strong>
-            <span class="text-blue-600 ml-1">✔ Verified Buyer</span>
-          </div>
-          <div>${new Date(r.Timestamp).toLocaleDateString()}</div>
+                container.innerHTML = reviews.map(r => `
+        <div class="...">
+          <!-- Your review markup -->
         </div>
-        <div class="flex items-center text-yellow-400 text-xl">
-          ${'★'.repeat(r.Rating)}${'☆'.repeat(5 - r.Rating)}
-        </div>
-       <p class="text-gray-700 text-sm line-clamp-4 hover:line-clamp-none transition-all duration-200 cursor-pointer">${r["Review Text"] || ""}</p>
-        <div class="flex items-center gap-3 mt-auto pt-2 border-t pt-4">
-          <img src="${r["Image URL"] || '/imgs/placeholder.png'}" class="w-12 h-12 object-cover rounded" />
-          <span class="text-sm text-gray-600">Product: ${r.ProductID}</span>
-        </div>
-      </div>
-    `).join('');
-            });
+      `).join('');
+            })
+            .catch(err => {
+                document.getElementById("reviewContainer").innerHTML = `
+        <div class="text-red-500 text-center">Failed to load reviews.</div>`;
+            }); // ✅ this was likely missing
+
         document.addEventListener("DOMContentLoaded", () => {
             fetch("/products/promotion.json")
                 .then(res => res.json())
