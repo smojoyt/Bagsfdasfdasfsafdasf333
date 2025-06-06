@@ -166,13 +166,6 @@ function renderCatalogCard(p) {
 }
 
 
-// Call this once the DOM is ready
-document.addEventListener("DOMContentLoaded", () => {
-    enableDragScroll("bestseller-products");
-});
-
-
-
 // You save part
 //<span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">
 //                        You save $${ (regular - sale).toFixed(2) }
