@@ -229,13 +229,14 @@
                 reviews.sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp));
 
                 container.innerHTML = reviews.map(r => `
-        <div class="bg-white rounded-lg p-4 shadow">
-          <strong>${r.Name || "Anonymous"}</strong>
-          <p>${r["Review Text"] || "No comment"}</p>
-          <div class="text-yellow-400">${'★'.repeat(r.Rating || 0)}${'☆'.repeat(5 - (r.Rating || 0))}</div>
-          <small>${new Date(r.Timestamp).toLocaleDateString()}</small>
-        </div>
-      `).join('');
+  <div class="review">
+    <strong>${r.name || "Anonymous"}</strong>
+    <p>${r.reviewText || "No comment"}</p>
+    <div class="stars">${'★'.repeat(r.rating || 0)}${'☆'.repeat(5 - (r.rating || 0))}</div>
+    <small>${new Date(r.timestamp).toLocaleDateString()}</small>
+  </div>
+`)
+.join('');
             })
             .catch(err => {
                 document.getElementById("reviewContainer").innerHTML = `
