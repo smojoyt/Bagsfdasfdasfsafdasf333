@@ -8,9 +8,9 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 p-6">
-    <div class="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow-xl space-y-6">
-        <h1 class="text-2xl font-bold">Leave a Review</h1>
+<body class="bg-[#fef1e7] text-gray-800 font-sans p-6">
+    <div class="max-w-3xl mx-auto px-4 md:px-8 space-y-8">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase underline text-center mb-4">Leave a Review</h1>
         <form id="reviewForm" class="space-y-4">
             <!-- Product Dropdown -->
             <div>
@@ -65,6 +65,8 @@
                 <label class="block font-semibold mb-1">Upload Image (Optional)</label>
                 <input type="file" name="image" accept="image/*" class="w-full" />
             </div>
+            <img id="previewImage" class="w-full max-w-xs mt-4 rounded-xl shadow hidden" alt="Preview" />
+
 
             <!-- Consent -->
             <label class="inline-flex items-center">
@@ -113,13 +115,13 @@
 
                 Object.entries(data).forEach(([key, p]) => {
                     const item = document.createElement("div");
-                    item.className = "flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer";
+                    item.className = "flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-xl bg-white shadow hover:shadow-md ";
                     item.innerHTML = `
-  <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
-  <div class="flex flex-col w-full">
-    <p class="text-sm font-medium">${p.name}</p>
-    <p class="text-xs text-gray-400 text-right">${p.product_id}</p>
-  </div>
+      <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
+      <div class="flex flex-col w-full">
+        <p class="text-sm font-medium">${p.name}</p>
+        <p class="text-xs text-gray-400 text-right">${p.product_id}</p>
+      </div>
 `;
 
                     item.addEventListener("click", () => {
@@ -137,6 +139,16 @@
             const form = e.target;
             const formData = new FormData(form);
             const file = formData.get("image");
+            const preview = document.getElementById("previewImage");
+            if (file && file.size > 0) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.src = e.target.result;
+                    preview.classList.remove("hidden");
+                };
+                reader.readAsDataURL(file);
+            }
+
 
             let imageUrl = "";
             if (file && file.size > 0) {
