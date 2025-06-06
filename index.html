@@ -866,7 +866,8 @@
             includeHTML("footer", "/page_inserts/footer.html", initFooterScripts);
             includeHTML("pp_moreitems", "/page_inserts/productpage_moreitems.html", initMoreItemsCarousel);
             loadFeaturedProducts();
-
+            // ✅ ADD THIS
+            initReviewCarousel();
             includeHTML("productpage", "/page_inserts/productpage.html", () => {
                 loadProductData();
                 setupStripeBuyButton();
