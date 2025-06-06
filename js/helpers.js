@@ -178,6 +178,18 @@ async function loadAllReviews() {
 }
 
 
+function formatShortName(name = "") {
+    const parts = name.trim().split(" ");
+    const first = parts[0];
+    const lastInitial = parts[1]?.charAt(0).toUpperCase();
+    return lastInitial ? `${capitalize(first)} ${lastInitial}.` : capitalize(first);
+}
+
+function capitalize(str = "") {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+
 
 // You save part
 //<span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">

@@ -254,7 +254,7 @@
                         cell.innerHTML = `
   <div class="flex items-center justify-between text-sm text-gray-500 mb-1">
   <div class="flex items-center gap-1">
-    <strong class="text-xl text-gray-900 capitalize">${r.name || "Anonymous"}</strong>
+    <strong class="text-xl text-gray-900">${formatShortName(r.name || "Anonymous")}</strong>
     ${r.verified ? `
       <span class="flex items-center gap-1 text-blue-700 font-medium text-sm">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-blue-700" viewBox="0 0 24 24">
