@@ -172,7 +172,7 @@
                     if (!hasStock) return;
 
                     const item = document.createElement("div");
-                    item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-xl bg-white shadow hover:shadow-md";
+                    item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer bg-white shadow hover:shadow-md";
                     item.dataset.name = p.name.toLowerCase();
                     item.dataset.id = p.product_id.toLowerCase();
                     item.innerHTML = `
@@ -199,24 +199,29 @@
                     productItemsContainer.innerHTML = "";
 
                     allProducts.forEach(item => {
+                        const nameEl = item.querySelector(".product-name");
+                        const idEl = item.querySelector(".product-id");
+
+                        // Reset the original plain text content before re-checking
+                        nameEl.textContent = nameEl.dataset.original;
+                        idEl.textContent = idEl.dataset.original;
+
                         const name = item.dataset.name;
                         const id = item.dataset.id;
 
                         if (name.includes(term) || id.includes(term)) {
-                            const nameEl = item.querySelector(".product-name");
-                            const idEl = item.querySelector(".product-id");
-
-                            const highlight = (text) => {
-                                return text.replace(new RegExp(`(${term})`, "gi"), `<mark class="bg-yellow-200">$1</mark>`);
-                            };
-
-                            nameEl.innerHTML = highlight(nameEl.textContent);
-                            idEl.innerHTML = highlight(idEl.textContent);
-
+                            if (term) {
+                                const highlight = (text) => {
+                                    return text.replace(new RegExp(`(${term})`, "gi"), `<mark class="bg-yellow-200">$1</mark>`);
+                                };
+                                nameEl.innerHTML = highlight(nameEl.textContent);
+                                idEl.innerHTML = highlight(idEl.textContent);
+                            }
                             productItemsContainer.appendChild(item);
                         }
                     });
                 });
+
             });
 
 
