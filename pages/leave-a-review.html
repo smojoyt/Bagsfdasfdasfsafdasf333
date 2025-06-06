@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leave a Review – Karry Kraze</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 p-6">
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow-xl space-y-6">
+        <h1 class="text-2xl font-bold">Leave a Review</h1>
+        <form id="reviewForm" class="space-y-4">
+            <!-- Product Dropdown -->
+            <div>
+                <label class="block font-semibold mb-1">Select Product</label>
+                <select id="productSelect" name="product" class="w-full border p-2 rounded" required></select>
+            </div>
+
+            <!-- Name/Email -->
+            <div class="grid grid-cols-2 gap-4">
+                <input name="name" placeholder="Your Name" required class="p-2 border rounded" />
+                <input name="email" placeholder="Your Email" type="email" required class="p-2 border rounded" />
+            </div>
+
+            <!-- Rating and Quality -->
+            <div class="grid grid-cols-2 gap-4">
+                <select name="rating" required class="p-2 border rounded">
+                    <option value="">Rating (1-5 stars)</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+                <select name="quality" required class="p-2 border rounded">
+                    <option value="">Rate the Quality</option>
+                    <option>Poor</option>
+                    <option>Below Average</option>
+                    <option>Average</option>
+                    <option>High</option>
+                    <option>Exceptional</option>
+                </select>
+            </div>
+
+            <!-- Text Review -->
+            <textarea name="reviewText" rows="4" placeholder="Write your review..." required class="w-full p-2 border rounded"></textarea>
+
+            <!-- Optional Healing Message -->
+            <textarea name="healingText" rows="2" placeholder="Want to share something healing?" class="w-full p-2 border rounded"></textarea>
+
+            <!-- Image Upload -->
+            <div>
+                <label class="block font-semibold mb-1">Upload Image (Optional)</label>
+                <input type="file" name="image" accept="image/*" class="w-full" />
+            </div>
+
+            <!-- Consent -->
+            <label class="inline-flex items-center">
+                <input type="checkbox" required class="mr-2" />
+                I consent to this review being publicly shown on the site.
+            </label>
+
+            <!-- Submit Button -->
+            <button type="submit" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800">Submit Review</button>
+        </form>
+
+        <p id="formStatus" class="text-sm mt-2"></p>
+    </div>
+
+    <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBBDruyZmtNMl2-zJrYwaqUjIHniSolsdk",
+      authDomain: "karrykraze-refiews.firebaseapp.com",
+      projectId: "karrykraze-refiews",
+      storageBucket: "karrykraze-refiews.appspot.com",
+      messagingSenderId: "207129112203",
+      appId: "1:207129112203:web:910e834e7c1bbe9158ae8e",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const storage = firebase.storage();
+
+    // Load products.json
+    fetch("/products/products.json")
+      .then(res => res.json())
+      .then(data => {
+        const select = document.getElementById("productSelect");
+        Object.values(data).forEach(p => {
+          const opt = document.createElement("option");
+          opt.value = p.id;
+          opt.textContent = `${p.name} (${p.id})`;
+          opt.setAttribute("data-img", p.image);
+          select.appendChild(opt);
+        });
+      });
+
+    document.getElementById("reviewForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      const file = formData.get("image");
+
+      let imageUrl = "";
+      if (file && file.size > 0) {
+        const filename = `${Date.now()}_${file.name}`;
+        const ref = storage.ref().child("reviewImages/" + filename);
+        await ref.put(file);
+        imageUrl = await ref.getDownloadURL();
+      }
+
+      // Send data to Google Sheets via Apps Script (next step)
+      const payload = {
+        productId: formData.get("product"),
+        name: formData.get("name").trim(),
+        email: formData.get("email").trim(),
+        rating: formData.get("rating"),
+        quality: formData.get("quality"),
+        reviewText: formData.get("reviewText"),
+        healingText: formData.get("healingText"),
+        imageUrl: imageUrl,
+      };
+
+      const res = await fetch("YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" }
+      });
+
+      if (res.ok) {
+        form.reset();
+        document.getElementById("formStatus").textContent = "Thank you! Your review was submitted.";
+      } else {
+        document.getElementById("formStatus").textContent = "Something went wrong. Try again later.";
+      }
+    });
+    </script>
+</body>
+</html>
