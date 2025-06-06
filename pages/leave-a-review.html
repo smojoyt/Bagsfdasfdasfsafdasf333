@@ -172,7 +172,7 @@
                     if (!hasStock) return;
 
                     const item = document.createElement("div");
-                    item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-xl bg-white shadow hover:shadow-md";
+                    item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer  bg-white shadow hover:shadow-md";
                     item.dataset.name = p.name.toLowerCase();
                     item.dataset.id = p.product_id.toLowerCase();
                     item.innerHTML = `
@@ -342,7 +342,8 @@
                 headers: { "Content-Type": "application/json" }
             });
 
-            if (res.ok) {
+            const result = await res.json();
+            if (result.success) {
                 form.reset();
                 preview.src = "";
                 preview.classList.add("hidden");
@@ -350,7 +351,10 @@
                 highlightStars(0);
                 selectedRating = 0;
                 document.getElementById("formStatus").textContent = "Thank you! Your review was submitted.";
+            } else {
+                document.getElementById("formStatus").textContent = result.error || "Something went wrong. Try again.";
             }
+
         });
     </script>
 </body>
