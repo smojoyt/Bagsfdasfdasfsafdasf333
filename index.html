@@ -217,59 +217,70 @@
             }
     </style>
     <script>
-        fetch("https://api.jsonbin.io/v3/b/6842b73d8561e97a50204314/latest", {
-            headers: {
+        function initReviewCarousel() {
+            const container = document.getElementById("reviewCarousel");
+            if (!container) return;
+
+            const endpoint = "https://api.jsonbin.io/v3/b/6842b73d8561e97a50204314/latest";
+            const headers = {
                 "X-Master-Key": "$2a$10$J46OeqIxDrySG761m72SB.jzEHkOGTFlf4tblSOMrzdUS81uiqEzm"
-            }
-        })
-            .then(res => res.json())
-            .then(json => {
-                const reviews = json.record.reviews || [];
-                const container = document.getElementById("reviewCarousel");
-                if (!container) return;
+            };
 
-                container.innerHTML = reviews.map(r => `
-      <div class="carousel-cell w-[320px] bg-white rounded-xl shadow-md p-5 m-2 flex flex-col justify-between text-left border border-gray-200">
-        <div class="flex justify-between items-start text-sm text-gray-500 mb-1">
-          <strong class="text-gray-900">${r.name || "Anonymous"}</strong>
-          <span>${r.timestamp ? new Date(r.timestamp).toLocaleDateString() : "Invalid Date"}</span>
-        </div>
+            fetch(endpoint, { headers })
+                .then(res => res.json())
+                .then(data => {
+                    const reviews = data?.record?.reviews || [];
 
-        <div class="text-yellow-500 text-lg mb-2">
-          ${'★'.repeat(+r.rating || 0)}${'☆'.repeat(5 - (+r.rating || 0))}
-        </div>
+                    container.innerHTML = ""; // Clear container
 
-        <h3 class="text-base font-semibold text-gray-800 mb-1">${r.reviewHeadline || ""}</h3>
+                    reviews.forEach(r => {
+                        const cell = document.createElement("div");
+                        cell.className = "carousel-cell w-[320px] bg-white rounded-xl shadow-md p-5 m-2 flex flex-col justify-between text-left border border-gray-200";
 
-        <p class="text-sm text-gray-700 line-clamp-4 mb-3">${r.reviewText || "No comment"}</p>
+                        const rating = +r.rating || 0;
+                        const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
 
-        <!-- Optional: Product Reference Block -->
-        ${r.productName && r.imageUrl ? `
-          <div class="flex items-center gap-2 mt-4">
-            <img src="${r.imageUrl}" class="w-10 h-10 object-cover rounded" alt="${r.productName}">
-            <span class="text-sm font-medium text-gray-800">${r.productName}</span>
-          </div>` : ''}
-      </div>
-`).join('');
+                        cell.innerHTML = `
+                    <div class="flex justify-between items-start text-sm text-gray-500 mb-1">
+                        <strong class="text-gray-900">${r.name || "Anonymous"}</strong>
+                        <span>${r.timestamp ? new Date(r.timestamp).toLocaleDateString() : "Invalid Date"}</span>
+                    </div>
 
+                    <div class="text-yellow-500 text-lg mb-2">${stars}</div>
 
-                // Initialize Flickity
-                new Flickity(container, {
-                    cellAlign: 'left',
-                    contain: true,
-                    groupCells: 1,
-                    autoPlay: 3000,
-                    wrapAround: true,
-                    pageDots: false,
-                    prevNextButtons: false,
-                    pauseAutoPlayOnHover: true
+                    <h3 class="text-base font-semibold text-gray-800 mb-1">${r.reviewHeadline || ""}</h3>
+                    <p class="text-sm text-gray-700 line-clamp-4 mb-3">${r.reviewText || "No comment"}</p>
+
+                    ${r.productName && r.imageUrl ? `
+                        <div class="flex items-center gap-2 mt-4">
+                            <img src="${r.imageUrl}" class="w-10 h-10 object-cover rounded" alt="${r.productName}" onerror="this.style.display='none'">
+                            <span class="text-sm font-medium text-gray-800">${r.productName}</span>
+                        </div>` : ""}
+                `;
+
+                        container.appendChild(cell);
+                    });
+
+                    imagesLoaded(container, () => {
+                        const flickity = new Flickity(container, {
+                            cellAlign: "left",
+                            contain: true,
+                            groupCells: 1,
+                            autoPlay: 3000,
+                            wrapAround: true,
+                            pageDots: false,
+                            prevNextButtons: false,
+                            pauseAutoPlayOnHover: true
+                        });
+                        flickity.resize();
+                    });
+                })
+                .catch(err => {
+                    container.innerHTML = `<div class="text-red-500 text-center">Failed to load reviews.</div>`;
+                    console.error("Review load error:", err);
                 });
+        }
 
-            })
-            .catch(err => {
-                document.getElementById("reviewCarousel").innerHTML = `
-            <div class="text-red-500 text-center">Failed to load reviews.</div>`;
-            });
 
         document.addEventListener("DOMContentLoaded", () => {
             fetch("/products/promotion.json")
