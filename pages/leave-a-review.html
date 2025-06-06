@@ -15,7 +15,17 @@
             <!-- Product Dropdown -->
             <div>
                 <label class="block font-semibold mb-1">Select Product</label>
-                <select id="productSelect" name="product" class="w-full border p-2 rounded" required></select>
+                <input type="hidden" name="product" id="selectedProduct" required />
+                <div class="relative">
+                    <button id="dropdownToggle" type="button" class="w-full border p-2 rounded flex justify-between items-center">
+                        <span id="selectedText">Select a product</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="dropdownList" class="absolute z-10 w-full mt-2 bg-white border rounded shadow max-h-60 overflow-y-auto hidden"></div>
+                </div>
+
             </div>
 
             <!-- Name/Email -->
@@ -70,71 +80,97 @@
     </div>
 
     <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBBDruyZmtNMl2-zJrYwaqUjIHniSolsdk",
-      authDomain: "karrykraze-refiews.firebaseapp.com",
-      projectId: "karrykraze-refiews",
-      storageBucket: "karrykraze-refiews.firebasestorage.app",
-      messagingSenderId: "207129112203",
-      appId: "1:207129112203:web:910e834e7c1bbe9158ae8e",
-    };
-    firebase.initializeApp(firebaseConfig);
-    const storage = firebase.storage();
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyBBDruyZmtNMl2-zJrYwaqUjIHniSolsdk",
+            authDomain: "karrykraze-refiews.firebaseapp.com",
+            projectId: "karrykraze-refiews",
+            storageBucket: "karrykraze-refiews.firebasestorage.app",
+            messagingSenderId: "207129112203",
+            appId: "1:207129112203:web:910e834e7c1bbe9158ae8e",
+        };
+        firebase.initializeApp(firebaseConfig);
+        const storage = firebase.storage();
 
-    // Load products.json
-    fetch("../products/products.json")
-      .then(res => res.json())
-      .then(data => {
-        const select = document.getElementById("productSelect");
-        Object.values(data).forEach(p => {
-          const opt = document.createElement("option");
-          opt.value = p.id;
-          opt.textContent = `${p.name} (${p.id})`;
-          opt.setAttribute("data-img", p.image);
-          select.appendChild(opt);
+        // Load products.json and build the dropdown
+        fetch("../products/products.json")
+            .then(res => res.json())
+            .then(data => {
+                const dropdownToggle = document.getElementById("dropdownToggle");
+                const dropdownList = document.getElementById("dropdownList");
+                const selectedText = document.getElementById("selectedText");
+                const selectedInput = document.getElementById("selectedProduct");
+
+                dropdownToggle.addEventListener("click", () => {
+                    dropdownList.classList.toggle("hidden");
+                });
+
+                document.addEventListener("click", (e) => {
+                    if (!dropdownToggle.contains(e.target) && !dropdownList.contains(e.target)) {
+                        dropdownList.classList.add("hidden");
+                    }
+                });
+
+                Object.entries(data).forEach(([key, p]) => {
+                    const item = document.createElement("div");
+                    item.className = "flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer";
+                    item.innerHTML = `
+  <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
+  <div class="flex flex-col w-full">
+    <p class="text-sm font-medium">${p.name}</p>
+    <p class="text-xs text-gray-400 text-right">${p.product_id}</p>
+  </div>
+`;
+
+                    item.addEventListener("click", () => {
+                        selectedText.textContent = `${p.name} (${p.product_id})`;
+                        selectedInput.value = key;
+                        dropdownList.classList.add("hidden");
+                    });
+                    dropdownList.appendChild(item);
+                });
+            });
+
+        // Submit handler
+        document.getElementById("reviewForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const file = formData.get("image");
+
+            let imageUrl = "";
+            if (file && file.size > 0) {
+                const filename = `${Date.now()}_${file.name}`;
+                const ref = storage.ref().child("reviewImages/" + filename);
+                await ref.put(file);
+                imageUrl = await ref.getDownloadURL();
+            }
+
+            const payload = {
+                productId: formData.get("product"),
+                name: formData.get("name").trim(),
+                email: formData.get("email").trim(),
+                rating: formData.get("rating"),
+                quality: formData.get("quality"),
+                reviewText: formData.get("reviewText"),
+                healingText: formData.get("healingText"),
+                imageUrl: imageUrl,
+            };
+
+            const res = await fetch("https://hook.us2.make.com/wxlj4rrp6g3bqlkr3mxmfg6cq626j2qj", {
+                method: "POST",
+                body: JSON.stringify(payload),
+                headers: { "Content-Type": "application/json" }
+            });
+
+            if (res.ok) {
+                form.reset();
+                document.getElementById("formStatus").textContent = "Thank you! Your review was submitted.";
+            } else {
+                document.getElementById("formStatus").textContent = "Something went wrong. Try again later.";
+            }
         });
-      });
 
-    document.getElementById("reviewForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const formData = new FormData(form);
-      const file = formData.get("image");
-
-      let imageUrl = "";
-      if (file && file.size > 0) {
-        const filename = `${Date.now()}_${file.name}`;
-        const ref = storage.ref().child("reviewImages/" + filename);
-        await ref.put(file);
-        imageUrl = await ref.getDownloadURL();
-      }
-
-      // Send data to Google Sheets via Apps Script (next step)
-      const payload = {
-        productId: formData.get("product"),
-        name: formData.get("name").trim(),
-        email: formData.get("email").trim(),
-        rating: formData.get("rating"),
-        quality: formData.get("quality"),
-        reviewText: formData.get("reviewText"),
-        healingText: formData.get("healingText"),
-        imageUrl: imageUrl,
-      };
-
-        const res = await fetch("https://hook.us2.make.com/wxlj4rrp6g3bqlkr3mxmfg6cq626j2qj", {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: { "Content-Type": "application/json" }
-      });
-
-      if (res.ok) {
-        form.reset();
-        document.getElementById("formStatus").textContent = "Thank you! Your review was submitted.";
-      } else {
-        document.getElementById("formStatus").textContent = "Something went wrong. Try again later.";
-      }
-    });
     </script>
 </body>
 </html>
