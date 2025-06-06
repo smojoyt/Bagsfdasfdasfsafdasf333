@@ -20,12 +20,26 @@
         <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase underline text-center mb-4">Leave a Review</h1>
 
         <form id="reviewForm" class="space-y-6">
+            <!-- Product Dropdown -->
+            <div>
+                <label class="block font-semibold text-lg mb-1">Select a product *</label>
+                <input type="hidden" name="product" id="selectedProduct" required />
+                <div class="relative">
+                    <button id="dropdownToggle" type="button" class="w-full border p-2 rounded flex justify-between items-center bg-white shadow-sm">
+                        <span id="selectedText">Select a product</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="dropdownList" class="absolute z-10 w-full mt-2 bg-white border rounded shadow max-h-60 overflow-y-auto hidden"></div>
+                </div>
+            </div>
 
             <!-- Rating -->
             <div>
                 <label class="block font-semibold text-lg mb-1">Rate your experience *</label>
                 <div class="flex items-center gap-3">
-                    <div id="starRating" class="flex gap-1 text-3xl cursor-pointer text-gray-400">
+                    <div id="starRating" class="flex gap-1 text-5xl cursor-pointer text-gray-400">
                         <span data-star="1" class="transition-transform duration-150 hover:scale-125">★</span>
                         <span data-star="2" class="transition-transform duration-150 hover:scale-125">★</span>
                         <span data-star="3" class="transition-transform duration-150 hover:scale-125">★</span>
@@ -43,13 +57,13 @@
 
             <!-- Review Headline -->
             <div>
-                <label class="block font-semibold text-lg mb-1">Add a headline *</label>
+                <label class="text-1xl block font-bold mb-1 uppercase">Add a headline *</label>
                 <input name="reviewHeadline" placeholder="Summarize your experience" required class="w-full p-2 border rounded" />
             </div>
 
             <!-- Review Text -->
             <div>
-                <label class="block font-semibold text-lg mb-1">Write a review *</label>
+                <label class="text-1xl block font-bold mb-1 uppercase">Write a review *</label>
                 <textarea name="reviewText" rows="5" placeholder="Tell us what you like or dislike" required class="w-full p-2 border rounded"></textarea>
             </div>
 
@@ -68,17 +82,21 @@
 
             <!-- Image Upload -->
             <div>
-                <label class="block font-semibold text-lg mb-1">Add media</label>
-                <label class="flex items-center justify-center px-4 py-2 bg-white border rounded shadow cursor-pointer w-fit">
-                    <span class="mr-2">⬆</span> Upload
+                <label class="text-1xl block font-bold mb-1 uppercase">Add media</label>
+                <label class="flex items-center gap-2 px-3 py-2 bg-white border rounded shadow cursor-pointer w-fit text-sm">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 8L12 4M12 4L16 8M12 4V16M4 20H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    Upload Image
                     <input type="file" name="image" id="imageInput" accept="image/*" class="hidden" />
                 </label>
                 <p class="text-xs text-gray-500 mt-1">Upload 1 photo (max 2 MB)</p>
-                <img id="previewImage" class="w-full max-w-md mt-4 rounded-xl shadow hidden" alt="Preview" />
+                <img id="previewImage" class="w-40 mt-4 rounded-xl shadow hidden" alt="Preview" />
             </div>
+
             <!-- Quality (button-style) -->
             <div>
-                <label class="block font-semibold text-lg mb-2">How would you rate the quality?</label>
+                <label class="text-1xl block font-bold mb-2 uppercase">How would you rate the quality?</label>
                 <div id="qualityOptions" class="flex flex-wrap gap-3">
                     <button type="button" data-quality="Exceptional" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">Exceptional quality</button>
                     <button type="button" data-quality="High" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">High quality</button>
