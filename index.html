@@ -181,7 +181,7 @@
     <!--review section-->
     <section id="reviewSection" class="px-4 py-8 bg-[#fdf7f1]">
         <h2 class="text-3xl font-bold mb-6 text-center">What Our Customers Say</h2>
-        <div id="reviewCarousel" class="carousel grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
+        <div id="reviewCarousel" class="carousel flex gap-4 overflow-x-auto snap-x scroll-smooth"></div>
     </section>
 
 
@@ -228,29 +228,42 @@
                 if (!container) return;
 
                 container.innerHTML = reviews.map(r => `
-        <div class="carousel-cell w-[320px] bg-white rounded-lg shadow p-4 m-2 flex-shrink-0">
-          <div class="text-sm text-gray-500 flex justify-between">
-            <span><strong>${r.name || "Anonymous"}</strong></span>
-            <span>${new Date(r.timestamp).toLocaleDateString()}</span>
-          </div>
-          <div class="text-yellow-500 text-lg mt-1 mb-1">
-            ${'★'.repeat(r.rating || 0)}${'☆'.repeat(5 - (r.rating || 0))}
-          </div>
-          <h3 class="font-bold text-gray-800 mb-1">${r.reviewHeadline || "Rated this product"}</h3>
-          <p class="text-gray-600 text-sm">${r.reviewText || "No comment"}</p>
-        </div>
-      `).join('');
+  <div class="carousel-cell w-[320px] bg-white rounded-xl shadow-md p-5 m-2 flex flex-col justify-between text-left border border-gray-200">
+    <div class="flex justify-between items-start text-sm text-gray-500 mb-1">
+      <strong class="text-gray-900">${r.name || "Anonymous"}</strong>
+      <span>${r.timestamp ? new Date(r.timestamp).toLocaleDateString() : "Invalid Date"}</span>
+    </div>
+
+    <div class="text-yellow-500 text-lg mb-2">
+      ${'★'.repeat(+r.rating || 0)}${'☆'.repeat(5 - (+r.rating || 0))}
+    </div>
+
+    <h3 class="text-base font-semibold text-gray-800 mb-1">${r.reviewHeadline || ""}</h3>
+
+    <p class="text-sm text-gray-700 line-clamp-4 mb-3">${r.reviewText || "No comment"}</p>
+
+    <!-- Optional: Product Reference Block -->
+    ${r.productName && r.imageUrl ? `
+      <div class="flex items-center gap-2 mt-4">
+        <img src="${r.imageUrl}" class="w-10 h-10 object-cover rounded" alt="${r.productName}">
+        <span class="text-sm font-medium text-gray-800">${r.productName}</span>
+      </div>` : ''}
+  </div>
+`).join('');
+
 
                 // Initialize Flickity
                 new Flickity(container, {
                     cellAlign: 'left',
                     contain: true,
-                    groupCells: true,
+                    groupCells: 1,
                     autoPlay: 3000,
                     wrapAround: true,
                     pageDots: false,
-                    prevNextButtons: false
+                    prevNextButtons: false,
+                    pauseAutoPlayOnHover: true
                 });
+
             })
             .catch(err => {
                 document.getElementById("reviewCarousel").innerHTML = `
