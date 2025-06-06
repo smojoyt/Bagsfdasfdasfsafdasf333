@@ -286,7 +286,7 @@
                         if (paramValue) {
                             const values = paramValue.split(',');
                             values.forEach(val => {
-                                if (cb.value === `.${val}`) {
+                                if (cb.value.toLowerCase() === `.${val.toLowerCase()}`) {
                                     cb.checked = true;
                                     preselectedFilters.push(`.${val}`);
                                 }
