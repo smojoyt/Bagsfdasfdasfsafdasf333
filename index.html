@@ -166,7 +166,7 @@
         <div class="mx-auto flex px-4 md:px-0">
             <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
         </div>
-        <div id="bestseller-products" class="flex overflow-x-auto gap-4 px-4 ml-4 scroll-snap-x snap-x snap-mandatory md:ml-0 scrollbar-hide">
+        <div id="bestseller-products" class="flex overflow-x-auto gap-4 px-4 ml-4 scroll-snap-x snap-x snap-mandatory md:ml-0 cursor-grab active:cursor-grabbing select-none scrollbar-hide">
         </div>
     </section>
 
@@ -698,9 +698,6 @@
                         const wrapper = document.createElement("div");
                         wrapper.className = "mx-auto snap-start flex-shrink-0 w-[48%] sm:w-[45%] md:w-auto max-w-xs";
 
-                        const badge = document.createElement("div");
-                        badge.className = "absolute -top-2 sm:-top-4 left-0 w-full text-center bg-yellow-400 text-white text-[8px] sm:text-xs font-bold sm:py-1 py-0.5 rounded-t shadow z-10";
-                        badge.textContent = "Bestseller";
 
                         const card = document.createElement("a");
                         card.href = p.url;
