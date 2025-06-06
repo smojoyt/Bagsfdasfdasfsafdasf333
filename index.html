@@ -243,6 +243,7 @@
                         const productUrl = product?.url || "#";
                         const reviewText = r.reviewText || "No comment";
                         const isLong = reviewText.length > 300;
+                        const shortText = isLong ? reviewText.slice(0, 250).trim() + "..." : reviewText;
 
                         const rating = +r.rating || 0;
                         const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
@@ -251,39 +252,40 @@
                         cell.className = "carousel-cell w-[420px] bg-white rounded-xl shadow-md p-5 m-2 flex flex-col justify-between text-left border border-gray-200";
 
                         cell.innerHTML = `
-        <div class="flex justify-between items-start text-sm text-gray-500 mb-1">
-            <strong class="text-xl text-gray-900">${r.name || "Anonymous"}</strong>
-            <span>${r.timestamp ? new Date(r.timestamp).toLocaleDateString() : "Invalid Date"}</span>
-        </div>
+      <div class="flex justify-between items-start text-sm text-gray-500 mb-1">
+          <strong class="text-xl text-gray-900">${r.name || "Anonymous"}</strong>
+          <span>${r.timestamp ? new Date(r.timestamp).toLocaleDateString() : "Invalid Date"}</span>
+      </div>
 
-        <div class="text-yellow-500 text-4xl mb-2">${stars}</div>
+      <div class="text-yellow-500 text-4xl mb-2">${stars}</div>
 
-        <h3 class="text-2xl font-bold text-gray-800 mb-1">${r.reviewHeadline || ""}</h3>
+      <div class="mb-6">
+        <p class="review-text text-sm text-gray-700 whitespace-pre-line break-words" data-full="${reviewText.replace(/"/g, '&quot;')}">
+          ${shortText} ${isLong ? `<button class="read-more text-blue-600 hover:underline ml-1 text-sm">Read more</button>` : ""}
+        </p>
+      </div>
 
-       <p class="review-text h-[150px] text-sm text-gray-700 line-clamp-4 whitespace-pre-line mb-1 break-words">${reviewText}</p>
-${isLong ? `
-  <button 
-    class="text-sm text-blue-600 hover:underline mt-1 self-start"
-    onclick="
-      const p = this.previousElementSibling;
-      p.classList.remove('line-clamp-4');
-      p.classList.add('overflow-y-auto', 'pr-1');
-      p.style.maxHeight = '150px';
-      this.remove();
-    "
-  >Read More</button>` : ""}
-
-
-        
+      <div class="border-t border-gray-200 pt-4 mt-auto">
         ${productImg && productName ? `
-        <a href="${productUrl}" class="flex items-center gap-2 mt-4 group">
+          <a href="${productUrl}" class="flex items-center gap-2 group">
             <img src="${productImg}" class="w-10 h-10 object-cover rounded" alt="${productName}" onerror="this.style.display='none'">
             <span class="text-sm font-medium text-gray-800 group-hover:underline">${productName}</span>
-        </a>` : ""}
+          </a>` : ""}
+      </div>
     `;
 
                         container.appendChild(cell);
                     });
+
+                    // ✅ Attach "Read more" buttons AFTER all reviews are rendered
+                    container.querySelectorAll(".read-more").forEach(btn => {
+                        btn.addEventListener("click", function () {
+                            const p = this.closest(".review-text");
+                            const fullText = p.getAttribute("data-full");
+                            p.innerHTML = fullText;
+                        });
+                    });
+
 
 
                     imagesLoaded(container, () => {
