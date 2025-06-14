@@ -180,8 +180,8 @@
     </section>
     <!-- review section -->
     <section id="reviewSection" class="px-4 py-8 bg-[#fdf7f1]">
-        <h2 class="uppercase text-3xl font-bold text-center">Believe The Hype</h2>
-        <p id="reviewCount" class="text-center text-lg text-gray-700 mt-1 mb-6">Over 0 happy customers</p>
+        <h2 class="uppercase text-3xl font-extrabold text-center">Believe The Hype</h2>
+        <p id="reviewCount" class="uppercase font-semibold text-center text-2xl text-gray-700 mt-4 mb-6">Over 0 happy customers!</p>
         <div id="reviewCarousel" class="carousel"></div>
     </section>
 
@@ -278,7 +278,7 @@
     <p class="review-text" data-full="${reviewText.replace(/"/g, '&quot;')}">
       ${shortText} ${isLong ? `<button class="read-more text-blue-600 hover:underline ml-1 text-sm">Read more</button>` : ""}
     </p>
-    ${r.customerImg ? `<img src="${r.customerImg}" alt="Customer upload" class="w-full rounded-md max-h-32 object-cover shadow" loading="lazy" />` : ""}
+    ${r.customerImg ? `<img src="${r.customerImg}" alt="Customer upload" class="rounded-md max-h-32 object-cover shadow" loading="lazy" />` : ""}
   </div>
 </div>
 
