@@ -271,10 +271,14 @@
   <h3 class="text-lg font-bold text-gray-800 uppercase">${r.reviewHeadline || ""}</h3>
 
   <div class="flex-1 overflow-hidden relative mb-3">
-    <p class="review-text text-sm text-gray-700 break-words line-clamp-4 overflow-hidden pr-1 h-full" data-full="${reviewText.replace(/"/g, '&quot;')}">
+  <div class="review-scroll-box text-sm text-gray-700 break-words overflow-y-auto pr-1 space-y-2 max-h-[160px]">
+    <p class="review-text" data-full="${reviewText.replace(/"/g, '&quot;')}">
       ${shortText} ${isLong ? `<button class="read-more text-blue-600 hover:underline ml-1 text-sm">Read more</button>` : ""}
     </p>
+    ${r.imageUrl ? `<img src="${r.imageUrl}" alt="Customer upload" class="w-full rounded-md max-h-32 object-cover shadow" loading="lazy" />` : ""}
   </div>
+</div>
+
 
   <div class="pt-4 border-t border-gray-200 shrink-0">
     ${productImg && productName ? `
