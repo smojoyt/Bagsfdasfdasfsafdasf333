@@ -7,7 +7,8 @@
       "amount": 1.00,
       "condition": {
         "maxPrice": 5.00
-      }
+      },
+      "featured": false
     },
     {
       "name": "30% Off All Charms",
