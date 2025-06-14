@@ -652,7 +652,18 @@
                 if (!container) return;
 
                 container.innerHTML = ""; // Clear previous content
-                container.className = "flex overflow-x-auto gap-4 px-4 ml-4 scroll-snap-x snap-x snap-mandatory md:ml-0 md:grid md:grid-cols-5 md:overflow-visible md:px-0 md:max-h-[9999px]"; // Responsive container styles
+                const colClasses = {
+                    1: "md:grid-cols-1",
+                    2: "md:grid-cols-2",
+                    3: "md:grid-cols-3",
+                    4: "md:grid-cols-4",
+                    5: "md:grid-cols-5"
+                };
+
+                const gridCols = colClasses[Math.min(filteredProducts.length, 5)];
+
+                container.className = `flex overflow-x-auto gap-4 px-4 ml-4 scroll-snap-x snap-x snap-mandatory md:ml-0 md:grid ${gridCols} md:overflow-visible md:px-0 md:max-h-[9999px]`;
+
 
                 const now = new Date();
                 const promotions = promotionFile.promotions || [];
