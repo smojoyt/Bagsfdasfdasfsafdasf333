@@ -180,7 +180,8 @@
     </section>
     <!-- review section -->
     <section id="reviewSection" class="px-4 py-8 bg-[#fdf7f1]">
-        <h2 class="text-3xl font-bold mb-6 text-center">What Our Customers Say</h2>
+        <h2 class="uppercase text-3xl font-bold text-center">Believe The Hype</h2>
+        <p id="reviewCount" class="text-center text-lg text-gray-700 mt-1 mb-6">Over 0 happy customers</p>
         <div id="reviewCarousel" class="carousel"></div>
     </section>
 
@@ -232,6 +233,8 @@
             ])
                 .then(([reviewData, productData]) => {
                     const reviews = reviewData?.record?.reviews || [];
+                    const rounded = Math.ceil(reviews.length / 10) * 10;
+                    document.getElementById("reviewCount").textContent = `Over ${rounded}+ happy customers`;
                     const products = Object.values(productData);
 
                     container.innerHTML = "";
