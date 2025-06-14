@@ -657,7 +657,7 @@
                 const now = new Date();
                 const promotions = promotionFile.promotions || [];
 
-                const activePromo = promotions.find(p => {
+                const featuredPromo = promotions.find(p => {
                     const now = new Date();
                     const startOk = !p.startDate || new Date(p.startDate) <= now;
                     const endOk = !p.endDate || new Date(p.endDate) >= now;
