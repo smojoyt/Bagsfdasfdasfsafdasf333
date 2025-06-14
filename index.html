@@ -338,11 +338,11 @@
                     const promotions = data.promotions || [];
 
                     const activePromo = promotions.find(p => {
-                        const isFeatured = p.featured;
+                        const now = new Date();
                         const startOk = !p.startDate || new Date(p.startDate) <= now;
                         const endOk = !p.endDate || new Date(p.endDate) >= now;
-                        return isFeatured && startOk && endOk;
-                    });
+                        return p.featured && startOk && endOk;
+                    }) || promotions.find(p => p.featured);
 
                     if (!activePromo || !activePromo.media) return;
 
@@ -353,33 +353,65 @@
 
                     const background = video
                         ? `<video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
-                                                                        <source src="${video}" type="video/mp4" />
-                                                                        Your browser does not support the video tag.
-                                                                   </video>`
+                        <source src="${video}" type="video/mp4" />
+                        Your browser does not support the video tag.
+                   </video>`
                         : `<img src="${image}" class="absolute top-0 left-0 w-full h-full object-cover z-0" alt="Promo Background" />`;
 
                     const buttonHTML = button
                         ? `<a href="${button.url}" class="mt-8 inline-block px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200">
-                                                                        ${button.label}
-                                                                   </a>`
+                        ${button.label}
+                   </a>`
                         : "";
 
                     container.innerHTML = `
-                                                                <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
-                                                                    ${background}
-                                                                    <div class="absolute bottom-6 left-6 z-10 text-left">
-                                                                        <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
-                                                                            ${headline}
-                                                                        </h1>
-                                                                        <p class="mt-4 text-2xl font-medium text-white drop-shadow">
-                                                                            ${caption}
-                                                                        </p>
-                                                                        ${buttonHTML}
-                                                                    </div>
-                                                                </section>
-                                                            `;
-                });
-        });
+                <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
+                    ${background}
+                    <div class="absolute bottom-6 left-6 z-10 text-left">
+                        <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
+                            ${headline}
+                        </h1>
+                        <p class="mt-4 text-2xl font-medium text-white drop-shadow">
+                            ${caption}
+                        </p>
+                        ${buttonHTML}
+                        <div id="promoCountdown" class="mt-4 text-lg font-semibold text-white"></div>
+                    </div>
+                </section>
+            `;
+
+                    // ✅ Countdown logic placed here
+                    if (activePromo?.endDate) {
+                        const countdownEl = document.getElementById("promoCountdown");
+                        const endTime = new Date(activePromo.endDate).getTime();
+
+                        function updateCountdown() {
+                            const now = new Date().getTime();
+                            const timeLeft = endTime - now;
+
+                            if (timeLeft <= 0) {
+                                countdownEl.textContent = "⏰ This promo has ended.";
+                                clearInterval(timer);
+                                return;
+                            }
+
+                            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                            const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+                            const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+                            const seconds = Math.floor((timeLeft / 1000) % 60);
+
+                            if (days >= 1) {
+                                countdownEl.textContent = `⏳ Ends Soon: ${days}d ${hours}h ${minutes}m`;
+                            } else {
+                                countdownEl.textContent = `⚠️ Final Hours: ${hours}h ${minutes}m ${seconds}s`;
+                            }
+                        }
+
+                        updateCountdown();
+                        const timer = setInterval(updateCountdown, 1000);
+                    }
+                }); // <--- closes .then
+        }); // <--- closes DOMContentLoaded
 
 
 
@@ -625,12 +657,13 @@
                 const now = new Date();
                 const promotions = promotionFile.promotions || [];
 
-                const featuredPromo = promotions.find(p => {
-                    const isFeatured = p.featured;
+                const activePromo = promotions.find(p => {
+                    const now = new Date();
                     const startOk = !p.startDate || new Date(p.startDate) <= now;
                     const endOk = !p.endDate || new Date(p.endDate) >= now;
-                    return isFeatured && startOk && endOk;
-                });
+                    return p.featured && startOk && endOk;
+                }) || promotions.find(p => p.featured);
+
 
                 if (featuredPromo?.category) {
                     const title = document.getElementById("featured-title");
