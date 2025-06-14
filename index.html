@@ -660,9 +660,19 @@
                     5: "md:grid-cols-5"
                 };
 
+                const filteredProducts = Object.values(products)
+                    .filter(p => {
+                        if (p.category !== targetCategory) return false;
+                        const stock = p.variantStock || {};
+                        return Object.values(stock).some(qty => qty > 0);
+                    })
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 6); // Show up to 6 for swiping
+
                 const gridCols = colClasses[Math.min(filteredProducts.length, 5)];
 
                 container.className = `flex overflow-x-auto gap-4 px-4 ml-4 scroll-snap-x snap-x snap-mandatory md:ml-0 md:grid ${gridCols} md:overflow-visible md:px-0 md:max-h-[9999px]`;
+
 
 
                 const now = new Date();
