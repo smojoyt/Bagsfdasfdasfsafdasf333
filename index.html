@@ -375,14 +375,22 @@
                             ${caption}
                         </p>
                         ${buttonHTML}
-                        <div id="promoCountdown" class="mt-4 text-lg font-semibold text-white"></div>
+                        
                     </div>
                 </section>
             `;
 
                     // ✅ Countdown logic placed here
+                    // Append countdown banner below promoContainer
                     if (activePromo?.endDate) {
-                        const countdownEl = document.getElementById("promoCountdown");
+                        const countdownSection = document.createElement("section");
+                        countdownSection.className = "w-full bg-yellow-100 text-center py-4 text-lg font-semibold text-gray-900 shadow-md";
+
+                        countdownSection.innerHTML = `<div id="promoCountdown">Loading countdown...</div>`;
+
+                        container.insertAdjacentElement("afterend", countdownSection);
+
+                        const countdownEl = countdownSection.querySelector("#promoCountdown");
                         const endTime = new Date(activePromo.endDate).getTime();
 
                         function updateCountdown() {
@@ -410,8 +418,7 @@
                         updateCountdown();
                         const timer = setInterval(updateCountdown, 1000);
                     }
-                }); // <--- closes .then
-        }); // <--- closes DOMContentLoaded
+
 
 
 
