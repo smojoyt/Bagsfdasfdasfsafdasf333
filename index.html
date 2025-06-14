@@ -384,7 +384,7 @@
                     // Append countdown banner below promoContainer
                     if (activePromo?.endDate) {
                         const countdownSection = document.createElement("section");
-                        countdownSection.className = "w-full bg-yellow-100 text-center py-4 text-lg font-semibold text-gray-900 shadow-md";
+                        countdownSection.className = "tracking-widest uppercase w-full bg-yellow-100 text-center py-1 text-sm font-bold text-gray-900 shadow-md";
 
                         countdownSection.innerHTML = `<div id="promoCountdown">Loading countdown...</div>`;
 
@@ -409,9 +409,9 @@
                             const seconds = Math.floor((timeLeft / 1000) % 60);
 
                             if (days >= 1) {
-                                countdownEl.textContent = `⏳ Ends Soon: ${days}d ${hours}h ${minutes}m`;
+                                countdownEl.textContent = `Ends Soon: ${days}d ${hours}h ${minutes}m`;
                             } else {
-                                countdownEl.textContent = `⚠️ Final Hours: ${hours}h ${minutes}m ${seconds}s`;
+                                countdownEl.textContent = `Final Hours: ${hours}h ${minutes}m ${seconds}s`;
                             }
                         }
 
