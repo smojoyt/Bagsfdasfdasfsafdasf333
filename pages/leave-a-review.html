@@ -131,6 +131,10 @@
         <p id="formStatus" class="text-sm mt-2"></p>
     </div>
 
+    <!-- Footer -->
+    <div id="footer"></div>
+    <div id="navbar-container"></div>
+
     <script>
         // Firebase setup
         const firebaseConfig = {
@@ -176,11 +180,11 @@
                     item.dataset.name = p.name.toLowerCase();
                     item.dataset.id = p.product_id.toLowerCase();
                     item.innerHTML = `
-  <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
-  <div class="flex flex-col w-full">
-    <p class="text-sm font-medium product-name" data-original="${p.name}">${p.name}</p>
-    <p class="text-xs text-gray-400 text-right product-id" data-original="${p.product_id}">${p.product_id}</p>
-  </div>
+          <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
+          <div class="flex flex-col w-full">
+            <p class="text-sm font-medium product-name" data-original="${p.name}">${p.name}</p>
+            <p class="text-xs text-gray-400 text-right product-id" data-original="${p.product_id}">${p.product_id}</p>
+          </div>
 `;
 
 
@@ -365,6 +369,54 @@
             } else {
                 document.getElementById("formStatus").textContent = result.error || "Something went wrong. Try again.";
             }
+        });
+
+        // Other included HTML
+        function includeHTML(id, filePath, callback = null) {
+            fetch(filePath)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    if (callback) callback();
+                });
+        }
+
+        function initNavbar() {
+            const toggleBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+
+            const navbar = document.getElementById('mainNavbar');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (!navbar) return;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace('navbar-show', 'navbar-hide');
+                } else {
+                    navbar.classList.replace('navbar-hide', 'navbar-show');
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
+
+        // 🔁 Main Load Flow
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar();
+
+            const addToCartBtn = document.getElementById("add-to-cart-btn");
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener("click", () => {
+                    const variant = document.getElementById("variantSelector")?.value || null;
+                    addToCart(activeProduct, variant);
+                });
+            }
+
+            includeHTML("footer", "/page_inserts/footer.html");
         });
 
     </script>
