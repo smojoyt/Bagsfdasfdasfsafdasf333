@@ -86,6 +86,22 @@
                 });
         });
     </script>
+    <script>
+        // Clear both old and current cart keys, just in case
+        localStorage.removeItem("cart");        // Legacy or backup key
+        localStorage.removeItem("savedCart");   // Main cart key used by your site
+
+        // Re-render cart UI
+        if (typeof updateCartCount === "function") updateCartCount();
+        if (typeof renderCart === "function") renderCart();
+
+        // Optional: Close cart if it's open
+        if (typeof toggleCart === "function") toggleCart(false);
+    </script>
+
+
+
+
 
     <style>
         @keyframes fade-in-up {
