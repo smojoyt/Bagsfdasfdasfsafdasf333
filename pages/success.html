@@ -6,26 +6,63 @@
     <title>Order Confirmation — Karry Kraze</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="/favicon.ico" />
+    <style>
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.3s ease-out;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-[#fef1e7] text-gray-800 font-sans">
 
-    <div class="max-w-xl mx-auto mt-16 bg-white shadow-md rounded-lg p-6">
-        <h1 class="text-2xl font-bold mb-2" id="thankYouMessage">Thank you!</h1>
-        <p class="text-gray-600 mb-4" id="emailMessage">Processing your order...</p>
-
-        <h2 class="text-lg font-bold mt-6 mb-2">Order Summary</h2>
-        <div id="orderItems" class="bg-gray-50 border rounded p-4 text-gray-700">
-            <p class="text-sm text-gray-500">Loading...</p>
+    <div class="max-w-3xl mx-auto px-4 md:px-8 mt-20 mb-10 space-y-10">
+        <div class="text-left">
+            <h1 class="text-4xl font-extrabold text-gray-800 uppercase mb-2" id="thankYouMessage">Thank you!</h1>
+            <div class="flex justify-start">
+                <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
+            </div>
+            <p class="text-lg text-gray-600" id="emailMessage">Processing your order...</p>
         </div>
 
-        <div class="flex justify-between font-semibold text-base mt-4 border-t pt-2 px-1" id="orderTotalContainer" style="display:none;">
+        <div>
+            <h2 class="text-2xl font-bold mb-4 border-b pb-2">Order Summary</h2>
+            <div id="orderItems" class="space-y-4 text-sm">
+                <p class="text-gray-500">Loading...</p>
+            </div>
+        </div>
+
+        <div id="orderTotalContainer" class="flex justify-between items-center text-xl font-bold pt-4 border-t hidden">
             <span>Total</span>
             <span id="orderTotal">$0.00</span>
         </div>
 
-        <a href="/" class="inline-block mt-6 text-center w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition">
+        <a href="/" class="block mt-6 bg-black text-white text-center py-3 rounded hover:bg-gray-800 transition">
             Continue Shopping
         </a>
+
+        <!-- Review Promo Section -->
+        <div class="mt-12 bg-white border border-dashed border-black p-6 rounded shadow text-center">
+            <h3 class="text-2xl font-bold uppercase mb-2">Get $5 Off Your Next Order!</h3>
+            <p class="text-sm text-gray-700 mb-4">Leave a review for a product you purchased and receive a $5 coupon code for your next order. It only takes a minute and helps our small business grow!</p>
+            <a href="/review.html" class="inline-block bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition">Leave a Review</a>
+        </div>
+
+        <!-- Promo Product Section -->
+        <div class="mt-16">
+            <h2 class="text-2xl font-bold mb-4" id="featured-title">Hot Picks</h2>
+            <div id="featured-products"></div>
+        </div>
     </div>
 
     <!-- Toast Container -->
@@ -51,7 +88,6 @@
             }
 
             localStorage.setItem("last_session_id", sessionId);
-
             const API_BASE = "https://buy.karrykraze.com";
 
             fetch(`${API_BASE}/api/get-order?session_id=${sessionId}`)
@@ -71,55 +107,39 @@
 
                     data.items.forEach(item => {
                         const div = document.createElement("div");
-                        div.className = "flex justify-between text-sm mb-1";
-                        div.innerHTML = `<span>${item.name} × ${item.quantity}</span><span>$${item.amount_total}</span>`;
+                        div.className = "flex justify-between items-start border-b pb-3";
+
+                        div.innerHTML = `
+                                <div class="flex items-start gap-3">
+                                    <img src="${item.image || '/imgs/fallback.png'}" alt="${item.name}" class="w-16 h-16 object-cover rounded border" />
+                                    <div>
+                                        <p class="font-medium">${item.name}</p>
+                                        <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
+                                    </div>
+                                </div>
+                                <div class="text-right font-semibold whitespace-nowrap">$${item.amount_total}</div>
+                            `;
                         itemsContainer.appendChild(div);
                     });
 
                     document.getElementById("orderTotal").textContent = `$${data.total}`;
-                    document.getElementById("orderTotalContainer").style.display = "flex";
+                    document.getElementById("orderTotalContainer").classList.remove("hidden");
                 })
                 .catch(err => {
                     console.error("Error loading order:", err);
                     showToast("There was an issue retrieving your order. Please contact support.", "error");
                     document.getElementById("orderItems").innerHTML = `<p class="text-red-500 text-sm">Unable to load order summary.</p>`;
                 });
+
+            // Clear both cart keys post-purchase
+            localStorage.removeItem("cart");
+            localStorage.removeItem("savedCart");
+
+            if (typeof updateCartCount === "function") updateCartCount();
+            if (typeof renderCart === "function") renderCart();
+            if (typeof toggleCart === "function") toggleCart(false);
         });
     </script>
-    <script>
-        // Clear both old and current cart keys, just in case
-        localStorage.removeItem("cart");        // Legacy or backup key
-        localStorage.removeItem("savedCart");   // Main cart key used by your site
-
-        // Re-render cart UI
-        if (typeof updateCartCount === "function") updateCartCount();
-        if (typeof renderCart === "function") renderCart();
-
-        // Optional: Close cart if it's open
-        if (typeof toggleCart === "function") toggleCart(false);
-    </script>
-
-
-
-
-
-    <style>
-        @keyframes fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fade-in-up 0.3s ease-out;
-        }
-    </style>
-
+    <script src="/js/productinsert.js"></script>
 </body>
 </html>
