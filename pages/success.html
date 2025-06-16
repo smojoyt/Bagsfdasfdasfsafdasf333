@@ -44,6 +44,18 @@
 
         <div id="orderTotalContainer" class="pt-4 border-t hidden"></div>
 
+        <div class="mt-8">
+            <h3 class="text-lg font-bold mb-2">Order Progress</h3>
+            <div class="flex justify-between text-xs text-gray-600">
+                <span>Order Placed</span>
+                <span>Processing</span>
+                <span>Shipped</span>
+                <span>Delivered</span>
+            </div>
+            <div class="w-full bg-gray-200 h-1 rounded mt-2">
+                <div class="w-1/4 h-1 bg-black rounded"></div>
+            </div>
+        </div>
 
         <a href="/" class="block mt-6 bg-black text-white text-center py-3 rounded hover:bg-gray-800 transition">
             Continue Shopping
@@ -58,14 +70,19 @@
 
         <!-- Promo Product Section -->
         <div class="mt-16">
-
-            <h2 id="featured-title" class="text-xl font-bold mb-4"></h2>
+            <h2 class="text-2xl font-bold mb-4" id="featured-title">Hot Picks</h2>
             <div id="featured-products" class="min-h-[200px]"></div>
         </div>
 
+        <!-- Impact Section -->
+        <div class="mt-16 bg-white p-4 rounded shadow text-center text-sm text-gray-600">
+            With this order, you supported a Black-owned small business. We appreciate you! ❤️
+        </div>
+    </div>
+
     <!-- Toast Container -->
     <div id="toastContainer" class="fixed top-5 right-5 z-50 space-y-2"></div>
-    </div>
+
     <script>
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
@@ -100,7 +117,7 @@
                     const fullName = data.customer_details?.name || "Customer";
                     document.getElementById("thankYouMessage").textContent = `Thank you, ${fullName.split(" ")[0]}!`;
                     document.getElementById("emailMessage").innerHTML =
-                        `A receipt has been sent to <strong>${data.customer_details?.email}</strong>.`;
+                        `A receipt has been sent to <strong>${data.customer_details?.email}</strong>`;
 
                     const itemsContainer = document.getElementById("orderItems");
                     itemsContainer.innerHTML = "";
@@ -114,58 +131,47 @@
                         subtotal += itemTotal;
 
                         div.innerHTML = `
-            <div class="flex items-start gap-3">
-                <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 object-cover rounded border" />
-                <div>
-                    <p class="font-medium">${item.description}${item.metadata?.variant ? ` - ${item.metadata.variant}` : ""}</p>
-                    <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
-                </div>
-            </div>
-            <div class="text-right font-semibold whitespace-nowrap">$${itemTotal.toFixed(2)}</div>
-        `;
+                                <div class="flex items-start gap-3">
+                                    <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 object-cover rounded border" />
+                                    <div>
+                                        <p class="font-medium">${item.description}${item.metadata?.variant ? ` - ${item.metadata.variant}` : ""}</p>
+                                        <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
+                                    </div>
+                                </div>
+                                <div class="text-right font-semibold whitespace-nowrap">$${itemTotal.toFixed(2)}</div>
+                            `;
                         itemsContainer.appendChild(div);
                     });
 
-                    // Values from Stripe session
                     const shipping = data.shipping?.amount_total ? data.shipping.amount_total / 100 : 0;
-                    const rawDiscount = data.total_details?.amount_discount
-                        || data.amount_discount
-                        || (data.discounts?.[0]?.amount || 0);
-                    const discount = rawDiscount / 100;
+                    const discount = data.total_details?.amount_discount ? data.total_details.amount_discount / 100 : 0;
                     const tax = data.total_details?.amount_tax ? data.total_details.amount_tax / 100 : 0;
                     const grandTotal = subtotal + shipping + tax - discount;
 
-                    // Inject totals section
                     const totalsContainer = document.getElementById("orderTotalContainer");
                     totalsContainer.innerHTML = `
-        <div class="flex justify-between text-sm py-1">
-            <span class="text-gray-700">Subtotal</span>
-            <span>$${subtotal.toFixed(2)}</span>
-        </div>
-        <div class="flex justify-between text-sm py-1">
-            <span class="text-gray-700">Shipping</span>
-            <span>$${shipping.toFixed(2)}</span>
-        </div>
-        <div class="flex justify-between text-sm py-1">
-            <span class="text-gray-700">Tax</span>
-            <span>$${tax.toFixed(2)}</span>
-        </div>
-        <div class="flex justify-between text-sm py-1">
-            <span class="text-gray-700">Discount</span>
-            <span class="text-green-700">−$${discount.toFixed(2)}</span>
-        </div>
-        <div class="flex justify-between text-base font-bold border-t pt-2 mt-2">
-            <span>Total Paid</span>
-            <span>$${grandTotal.toFixed(2)}</span>
-        </div>
-`;
-
+                            <div class="flex justify-between text-sm py-1">
+                                <span class="text-gray-700">Subtotal</span>
+                                <span>$${subtotal.toFixed(2)}</span>
+                            </div>
+                            <div class="flex justify-between text-sm py-1">
+                                <span class="text-gray-700">Shipping</span>
+                                <span>$${shipping.toFixed(2)}</span>
+                            </div>
+                            <div class="flex justify-between text-sm py-1">
+                                <span class="text-gray-700">Tax</span>
+                                <span>$${tax.toFixed(2)}</span>
+                            </div>
+                            <div class="flex justify-between text-sm py-1">
+                                <span class="text-gray-700">Discount</span>
+                                <span class="text-green-700">−$${discount.toFixed(2)}</span>
+                            </div>
+                            <div class="flex justify-between text-base font-bold border-t pt-2 mt-2">
+                                <span>Total Paid</span>
+                                <span>$${grandTotal.toFixed(2)}</span>
+                            </div>
+                        `;
                     totalsContainer.classList.remove("hidden");
-
-
-
-                    document.getElementById("orderTotalContainer").classList.remove("hidden");
-
                 })
                 .catch(err => {
                     console.error("Error loading order:", err);
@@ -173,15 +179,14 @@
                     document.getElementById("orderItems").innerHTML = `<p class="text-red-500 text-sm">Unable to load order summary.</p>`;
                 });
 
-            // Clear both cart keys post-purchase
             localStorage.removeItem("cart");
             localStorage.removeItem("savedCart");
-
             if (typeof updateCartCount === "function") updateCartCount();
             if (typeof renderCart === "function") renderCart();
             if (typeof toggleCart === "function") toggleCart(false);
         });
     </script>
+
     <script src="/js/productinsert.js"></script>
     <script src="/js/helpers.js"></script>
     <script>
@@ -197,7 +202,6 @@
                     const endOk = !p.endDate || new Date(p.endDate) >= now;
                     return p.featured && startOk && endOk;
                 });
-
                 if (promo?.category) {
                     const cap = promo.category.charAt(0).toUpperCase() + promo.category.slice(1);
                     const interval = setInterval(() => {
@@ -210,7 +214,5 @@
                 }
             });
     </script>
-
-
 </body>
 </html>
