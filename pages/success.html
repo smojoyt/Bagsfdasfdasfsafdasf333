@@ -41,6 +41,11 @@
                 <p class="text-gray-500">Loading...</p>
             </div>
         </div>
+        <div id="ratingsSummary" class="hidden mt-4 text-sm text-gray-700 border-t pt-4">
+            <p class="font-semibold mb-1">Product Ratings Summary</p>
+            <div id="ratingsContent">Loading...</div>
+        </div>
+
 
         <div id="orderTotalContainer" class="pt-4 border-t hidden"></div>
 
@@ -134,7 +139,9 @@
                                 <div class="flex items-start gap-3">
                                     <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 object-cover rounded border" />
                                     <div>
-                                        <p class="font-medium">${item.description}${item.metadata?.variant ? ` - ${item.metadata.variant}` : ""}</p>
+                                        <p class="font-medium">
+  ${item.description}${item.metadata?.variant && !item.description.toLowerCase().includes(item.metadata.variant.toLowerCase()) ? ` – ${item.metadata.variant}` : ""}
+</p>
                                         <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
                                     </div>
                                 </div>
@@ -142,6 +149,42 @@
                             `;
                         itemsContainer.appendChild(div);
                     });
+
+                    fetch("https://api.jsonbin.io/v3/b/6842b73d8561e97a50204314/latest", {
+                        headers: {
+                            "X-Master-Key": "your-jsonbin-master-key-here" // if required
+                        }
+                    })
+                        .then(res => res.json())
+                        .then(reviewData => {
+                            const ratingsDiv = document.getElementById("ratingsSummary");
+                            const contentDiv = document.getElementById("ratingsContent");
+                            const reviews = reviewData.record.reviews;
+
+                            let ratingSum = 0;
+                            let count = 0;
+
+                            const purchasedIds = data.line_items.map(i => i.product_id || i.price?.product || i.metadata?.productId).filter(Boolean);
+
+                            const matchingReviews = reviews.filter(r => purchasedIds.includes(r.productId));
+                            matchingReviews.forEach(r => {
+                                ratingSum += Number(r.rating || 0);
+                                count++;
+                            });
+
+                            if (count > 0) {
+                                const average = (ratingSum / count).toFixed(1);
+                                contentDiv.innerHTML = `⭐ ${average} based on ${count} review${count > 1 ? "s" : ""}`;
+                                ratingsDiv.classList.remove("hidden");
+                            } else {
+                                contentDiv.innerHTML = `No reviews yet for your purchased items.`;
+                                ratingsDiv.classList.remove("hidden");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Error fetching reviews:", err);
+                        });
+
 
                     const shipping = data.shipping?.amount_total ? data.shipping.amount_total / 100 : 0;
                     const discount = data.total_details?.amount_discount ? data.total_details.amount_discount / 100 : 0;
