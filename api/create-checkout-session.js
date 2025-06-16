@@ -1,6 +1,9 @@
-﻿const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const path = require('path');
-const fs = require('fs');
+﻿import Stripe from 'stripe';
+import path from 'path';
+import fs from 'fs';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
 
 export const config = {
     api: { bodyParser: true }
