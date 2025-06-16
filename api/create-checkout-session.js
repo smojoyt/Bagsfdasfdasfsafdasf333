@@ -47,7 +47,7 @@ export default async function handler(req, res) {
             let promo = null;
             if (fs.existsSync(promoPath)) {
                 const promoRaw = fs.readFileSync(promoPath, 'utf8');
-                promo = JSON.parse(promoRaw);
+                promo = JSON.parse(promoRaw.replace(/^\uFEFF/, ''));
             }
 
             line_items = cart.map(item => {
@@ -60,15 +60,27 @@ export default async function handler(req, res) {
                 const description = product.descriptionList?.join(" | ") || product.description || "Karry Kraze item";
 
                 // Apply promo logic
-                const isPromoActive = promo &&
-                    (!promo.startDate || new Date() >= new Date(promo.startDate)) &&
-                    (!promo.endDate || new Date() <= new Date(promo.endDate)) &&
-                    (!promo.condition?.minPrice || product.price >= promo.condition.minPrice) &&
-                    (!promo.category || product.category === promo.category);
+                // Find the best matching promotion for the product
+                const activePromos = (promo?.promotions || []).filter(p =>
+                    (!p.startDate || new Date() >= new Date(p.startDate)) &&
+                    (!p.endDate || new Date() <= new Date(p.endDate)) &&
+                    (!p.category || p.category === product.category) &&
+                    (!p.condition?.minPrice || product.price >= p.condition.minPrice) &&
+                    (!p.condition?.maxPrice || product.price <= p.condition.maxPrice)
+                );
 
-                const finalPrice = isPromoActive && promo.type === "percent"
-                    ? product.price * (1 - promo.amount / 100)
-                    : product.price;
+                // Use the first match, or you can sort by priority if you add a `priority` field later
+                const activePromo = activePromos[0];
+
+                let finalPrice = product.price;
+                if (activePromo) {
+                    if (activePromo.type === "percent") {
+                        finalPrice = product.price * (1 - activePromo.amount / 100);
+                    } else if (activePromo.type === "fixed") {
+                        finalPrice = Math.max(0, product.price - activePromo.amount);
+                    }
+                }
+
 
                 return {
                     price_data: {
