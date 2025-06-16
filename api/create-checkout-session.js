@@ -42,6 +42,14 @@ export default async function handler(req, res) {
         let line_items = [];
 
         if (Array.isArray(cart)) {
+            // Load promotion.json once outside the loop
+            const promoPath = path.join(process.cwd(), 'products', 'promotion.json');
+            let promo = null;
+            if (fs.existsSync(promoPath)) {
+                const promoRaw = fs.readFileSync(promoPath, 'utf8');
+                promo = JSON.parse(promoRaw);
+            }
+
             line_items = cart.map(item => {
                 const product = Object.values(products).find(p => p.product_id === item.id);
                 if (!product) return null;
@@ -50,6 +58,17 @@ export default async function handler(req, res) {
                 const image = product.variantImages?.[variant] || product.image;
                 const name = variant ? `${product.name} - ${variant}` : product.name;
                 const description = product.descriptionList?.join(" | ") || product.description || "Karry Kraze item";
+
+                // Apply promo logic
+                const isPromoActive = promo &&
+                    (!promo.startDate || new Date() >= new Date(promo.startDate)) &&
+                    (!promo.endDate || new Date() <= new Date(promo.endDate)) &&
+                    (!promo.condition?.minPrice || product.price >= promo.condition.minPrice) &&
+                    (!promo.category || product.category === promo.category);
+
+                const finalPrice = isPromoActive && promo.type === "percent"
+                    ? product.price * (1 - promo.amount / 100)
+                    : product.price;
 
                 return {
                     price_data: {
@@ -65,13 +84,15 @@ export default async function handler(req, res) {
                                 clean_name: product.name
                             }
                         },
-                        unit_amount: Math.round(item.price * 100)
+                        unit_amount: Math.round(finalPrice * 100)
                     },
                     quantity: item.qty || 1
                 };
             }).filter(Boolean);
+        }
+
             
-        } else if (sku) {
+         else if (sku) {
             const product = products[sku];
             if (!product) return res.status(404).json({ error: "Product not found" });
 
