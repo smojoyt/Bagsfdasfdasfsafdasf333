@@ -48,7 +48,10 @@
 
 
         <div id="orderTotalContainer" class="pt-4 border-t hidden"></div>
-
+        <!-- Impact Section -->
+        <div class="mt-16 bg-white p-4 rounded shadow text-center text-sm text-gray-600">
+            With this order, you supported a Black-owned small business. We appreciate you! ❤️
+        </div>
         <div class="mt-8">
             <h3 class="text-lg font-bold mb-2">Order Progress</h3>
             <div class="flex justify-between text-xs text-gray-600">
@@ -75,14 +78,14 @@
 
         <!-- Promo Product Section -->
         <div class="mt-16">
-            <h2 class="text-2xl font-bold mb-4" id="featured-title">Hot Picks</h2>
+            <h2 class="uppercase text-2xl font-bold mb-4" id="featured-title">Hot Picks</h2>
+            <div class="flex justify-start">
+                <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
+            </div>
             <div id="featured-products" class="min-h-[200px]"></div>
         </div>
 
-        <!-- Impact Section -->
-        <div class="mt-16 bg-white p-4 rounded shadow text-center text-sm text-gray-600">
-            With this order, you supported a Black-owned small business. We appreciate you! ❤️
-        </div>
+
     </div>
 
     <!-- Toast Container -->
@@ -164,9 +167,14 @@
                             let ratingSum = 0;
                             let count = 0;
 
-                            const purchasedIds = data.line_items.map(i => i.product_id || i.price?.product || i.metadata?.productId).filter(Boolean);
+                            // ✅ Properly extract product IDs from metadata
+                            const purchasedIds = data.line_items
+                                .map(i => i.metadata?.product_id)
+                                .filter(Boolean);
 
+                            // ✅ Match reviews using productId
                             const matchingReviews = reviews.filter(r => purchasedIds.includes(r.productId));
+
                             matchingReviews.forEach(r => {
                                 ratingSum += Number(r.rating || 0);
                                 count++;
@@ -184,6 +192,7 @@
                         .catch(err => {
                             console.error("Error fetching reviews:", err);
                         });
+
 
 
                     const shipping = data.shipping?.amount_total ? data.shipping.amount_total / 100 : 0;
