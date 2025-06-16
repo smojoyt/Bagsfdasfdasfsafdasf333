@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Order Confirmation — Karry Kraze</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Scripts -->
+    <script src="/js/helpers.js"></script>
+    <script src="/js/moreItemsCarousel.js"></script>
+    <script src="/js/loadProductData.js"></script>
+    <script src="/js/uni_navbar.js"></script>
     <link rel="icon" href="/favicon.ico" />
     <style>
         @keyframes fade-in-up {
@@ -23,6 +28,7 @@
             animation: fade-in-up 0.3s ease-out;
         }
     </style>
+
 </head>
 <body class="bg-[#fef1e7] text-gray-800 font-sans">
 
@@ -90,7 +96,9 @@
 
     <!-- Toast Container -->
     <div id="toastContainer" class="fixed top-5 right-5 z-50 space-y-2"></div>
-
+    <!-- Footer -->
+    <div id="footer"></div>
+    <div id="navbar-container"></div>
     <script>
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
@@ -139,17 +147,17 @@
                         subtotal += itemTotal;
 
                         div.innerHTML = `
-                                <div class="flex items-start gap-3">
-                                    <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 object-cover rounded border" />
-                                    <div>
-                                        <p class="font-medium">
-  ${item.description}${item.metadata?.variant && !item.description.toLowerCase().includes(item.metadata.variant.toLowerCase()) ? ` – ${item.metadata.variant}` : ""}
+                                    <div class="flex items-start gap-3">
+                                        <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 object-cover rounded border" />
+                                        <div>
+                                            <p class="font-medium">
+      ${item.description}${item.metadata?.variant && !item.description.toLowerCase().includes(item.metadata.variant.toLowerCase()) ? ` – ${item.metadata.variant}` : ""}
 </p>
-                                        <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
+                                            <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="text-right font-semibold whitespace-nowrap">$${itemTotal.toFixed(2)}</div>
-                            `;
+                                    <div class="text-right font-semibold whitespace-nowrap">$${itemTotal.toFixed(2)}</div>
+                                `;
                         itemsContainer.appendChild(div);
                     });
 
@@ -202,27 +210,27 @@
 
                     const totalsContainer = document.getElementById("orderTotalContainer");
                     totalsContainer.innerHTML = `
-                            <div class="flex justify-between text-sm py-1">
-                                <span class="text-gray-700">Subtotal</span>
-                                <span>$${subtotal.toFixed(2)}</span>
-                            </div>
-                            <div class="flex justify-between text-sm py-1">
-                                <span class="text-gray-700">Shipping</span>
-                                <span>$${shipping.toFixed(2)}</span>
-                            </div>
-                            <div class="flex justify-between text-sm py-1">
-                                <span class="text-gray-700">Tax</span>
-                                <span>$${tax.toFixed(2)}</span>
-                            </div>
-                            <div class="flex justify-between text-sm py-1">
-                                <span class="text-gray-700">Discount</span>
-                                <span class="text-green-700">−$${discount.toFixed(2)}</span>
-                            </div>
-                            <div class="flex justify-between text-base font-bold border-t pt-2 mt-2">
-                                <span>Total Paid</span>
-                                <span>$${grandTotal.toFixed(2)}</span>
-                            </div>
-                        `;
+                                <div class="flex justify-between text-sm py-1">
+                                    <span class="text-gray-700">Subtotal</span>
+                                    <span>$${subtotal.toFixed(2)}</span>
+                                </div>
+                                <div class="flex justify-between text-sm py-1">
+                                    <span class="text-gray-700">Shipping</span>
+                                    <span>$${shipping.toFixed(2)}</span>
+                                </div>
+                                <div class="flex justify-between text-sm py-1">
+                                    <span class="text-gray-700">Tax</span>
+                                    <span>$${tax.toFixed(2)}</span>
+                                </div>
+                                <div class="flex justify-between text-sm py-1">
+                                    <span class="text-gray-700">Discount</span>
+                                    <span class="text-green-700">−$${discount.toFixed(2)}</span>
+                                </div>
+                                <div class="flex justify-between text-base font-bold border-t pt-2 mt-2">
+                                    <span>Total Paid</span>
+                                    <span>$${grandTotal.toFixed(2)}</span>
+                                </div>
+                            `;
                     totalsContainer.classList.remove("hidden");
                 })
                 .catch(err => {
@@ -265,6 +273,23 @@
                     }, 100);
                 }
             });
+
+        // 🔁 Main Load Flow
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar();
+
+            const addToCartBtn = document.getElementById("add-to-cart-btn");
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener("click", () => {
+                    const variant = document.getElementById("variantSelector")?.value || null;
+                    addToCart(activeProduct, variant);
+                });
+            }
+
+            includeHTML("footer", "/page_inserts/footer.html");
+        });
     </script>
+
+
 </body>
 </html>
