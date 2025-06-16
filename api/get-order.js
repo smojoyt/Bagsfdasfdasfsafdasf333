@@ -32,7 +32,7 @@ export default async function handler(req, res) {
     try {
         // Fetch the Checkout Session
         const session = await stripe.checkout.sessions.retrieve(session_id, {
-            expand: ['line_items', 'customer', 'payment_intent']
+            expand: ['line_items.data.price.product', 'total_details.breakdown', 'customer', 'shipping']
         });
 
         // Include relevant data
@@ -43,15 +43,16 @@ export default async function handler(req, res) {
             payment_status: session.payment_status,
             customer_details: session.customer_details,
             shipping: session.shipping,
+            total_details: session.total_details,
             line_items: session.line_items.data.map(item => ({
                 description: item.description,
                 quantity: item.quantity,
                 unit_amount: item.price.unit_amount,
-                product_name: item.price.product.name,
                 metadata: item.price.product.metadata,
                 image: item.price.product.images?.[0] || null
             })),
         };
+
 
         return res.status(200).json(responseData);
 
