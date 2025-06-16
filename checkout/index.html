@@ -13,7 +13,7 @@
         const sku = urlParams.get("sku");
         const coupon = urlParams.get("coupon");
 
-        if (productId) {
+        if (sku) {
             fetch("/api/create-checkout-session", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
