@@ -257,7 +257,9 @@
             localStorage.removeItem("savedCart");
             if (typeof updateCartCount === "function") updateCartCount();
             if (typeof renderCart === "function") renderCart();
-            if (typeof toggleCart === "function") toggleCart(false);
+            if (typeof toggleCart === "function" && document.getElementById("cartSidebar")) {
+                toggleCart(false);
+            }
         });
     </script>
 
@@ -313,6 +315,20 @@
         }
 
         // 🔁 Main Load Flow
+        function includeHTML(id, file, callback) {
+            const elem = document.getElementById(id);
+            if (!elem) return;
+            fetch(file)
+                .then(res => res.text())
+                .then(html => {
+                    elem.innerHTML = html;
+                    if (typeof callback === "function") callback();
+                })
+                .catch(err => {
+                    console.error("Include HTML error:", err);
+                });
+        }
+
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
             initNavbar();
 
