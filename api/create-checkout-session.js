@@ -33,11 +33,19 @@ export default async function handler(req, res) {
     }
 
     try {
+        console.log("Incoming body:", req.body);
         const { sku, selectedVariant, cart, coupon } = req.body;
 
         const filePath = path.join(process.cwd(), 'products', 'products.json');
         const rawData = fs.readFileSync(filePath, 'utf8');
         const products = JSON.parse(rawData);
+
+        // 🔁 Build reverse lookup: { SKU: productKey }
+        const skuToProductKey = Object.entries(products).reduce((acc, [key, val]) => {
+            if (val.product_id) acc[val.product_id] = key; // product_id = SKU
+            return acc;
+        }, {});
+
 
         let line_items = [];
 
@@ -51,7 +59,7 @@ export default async function handler(req, res) {
             }
 
             line_items = cart.map(item => {
-                const product = products[item.id];
+                const product = products[item.id] || products[skuToProductKey[item.id]];
                 if (!product) return null;
 
                 const variant = item.variant?.trim();
