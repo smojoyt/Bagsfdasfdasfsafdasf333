@@ -43,8 +43,6 @@
         </div>
 
         <div id="orderTotalContainer" class="pt-4 border-t hidden"></div>
-        <span>Total</span>
-        <span id="orderTotal">$0.00</span>
     </div>
 
         <a href="/" class="block mt-6 bg-black text-white text-center py-3 rounded hover:bg-gray-800 transition">
@@ -60,7 +58,7 @@
 
         <!-- Promo Product Section -->
         <div class="mt-16">
-            <h2 class="text-2xl font-bold mb-4" id="featured-title">Hot Picks</h2>
+            
             <h2 id="featured-title" class="text-xl font-bold mb-4"></h2>
             <div id="featured-products" class="min-h-[200px]"></div>
         </div>
@@ -100,7 +98,8 @@
                     if (!data || !data.line_items || !Array.isArray(data.line_items)) throw new Error("Invalid data format");
 
                     showToast("Order loaded successfully!");
-                    document.getElementById("thankYouMessage").textContent = `Thank you, ${data.customer_name || 'Customer'}!`;
+                    const fullName = data.customer_details?.name || "Customer";
+                    document.getElementById("thankYouMessage").textContent = `Thank you, ${fullName.split(" ")[0]}!`;
                     document.getElementById("emailMessage").innerHTML =
                         `A receipt has been sent to <strong>${data.customer_details?.email}</strong>.`;
 
@@ -119,7 +118,7 @@
         <div class="flex items-start gap-3">
             <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 object-cover rounded border" />
             <div>
-                <p class="font-medium">${item.description}</p>
+                <p class="font-medium">${item.description}${item.metadata?.variant ? ` - ${item.metadata.variant}` : ""}</p>
                 <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
             </div>
         </div>
@@ -162,7 +161,7 @@
                     totalsContainer.classList.remove("hidden");
 
 
-                    document.getElementById("orderTotal").textContent = `$${totalAmount.toFixed(2)}`;
+                    
                     document.getElementById("orderTotalContainer").classList.remove("hidden");
 
                 })
