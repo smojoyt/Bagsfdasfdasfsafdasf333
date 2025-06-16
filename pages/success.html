@@ -42,10 +42,10 @@
             </div>
         </div>
 
-        <div id="orderTotalContainer" class="flex justify-between items-center text-xl font-bold pt-4 border-t hidden">
-            <span>Total</span>
-            <span id="orderTotal">$0.00</span>
-        </div>
+        <div id="orderTotalContainer" class="pt-4 border-t hidden"></div>
+        <span>Total</span>
+        <span id="orderTotal">$0.00</span>
+    </div>
 
         <a href="/" class="block mt-6 bg-black text-white text-center py-3 rounded hover:bg-gray-800 transition">
             Continue Shopping
@@ -106,14 +106,14 @@
 
                     const itemsContainer = document.getElementById("orderItems");
                     itemsContainer.innerHTML = "";
-                    let totalAmount = 0;
+                    let subtotal = 0;
 
                     data.line_items.forEach(item => {
                         const div = document.createElement("div");
                         div.className = "flex justify-between items-start border-b pb-3";
 
                         const itemTotal = (item.unit_amount * item.quantity) / 100;
-                        totalAmount += itemTotal;
+                        subtotal += itemTotal;
 
                         div.innerHTML = `
         <div class="flex items-start gap-3">
@@ -127,6 +127,40 @@
     `;
                         itemsContainer.appendChild(div);
                     });
+
+                    // Values from Stripe session
+                    const shipping = data.shipping?.amount_total ? data.shipping.amount_total / 100 : 0;
+                    const discount = data.total_details?.amount_discount ? data.total_details.amount_discount / 100 : 0;
+                    const tax = data.total_details?.amount_tax ? data.total_details.amount_tax / 100 : 0;
+                    const grandTotal = subtotal + shipping + tax - discount;
+
+                    // Inject totals section
+                    const totalsContainer = document.getElementById("orderTotalContainer");
+                    totalsContainer.innerHTML = `
+    <div class="flex justify-between text-sm py-1">
+        <span class="text-gray-700">Subtotal</span>
+        <span>$${subtotal.toFixed(2)}</span>
+    </div>
+    <div class="flex justify-between text-sm py-1">
+        <span class="text-gray-700">Shipping</span>
+        <span>$${shipping.toFixed(2)}</span>
+    </div>
+    <div class="flex justify-between text-sm py-1">
+        <span class="text-gray-700">Tax</span>
+        <span>$${tax.toFixed(2)}</span>
+    </div>
+    <div class="flex justify-between text-sm py-1">
+        <span class="text-gray-700">Discount</span>
+        <span class="text-green-700">−$${discount.toFixed(2)}</span>
+    </div>
+    <div class="flex justify-between text-base font-bold border-t pt-2 mt-2">
+        <span>Total Paid</span>
+        <span>$${grandTotal.toFixed(2)}</span>
+    </div>
+`;
+
+                    totalsContainer.classList.remove("hidden");
+
 
                     document.getElementById("orderTotal").textContent = `$${totalAmount.toFixed(2)}`;
                     document.getElementById("orderTotalContainer").classList.remove("hidden");
