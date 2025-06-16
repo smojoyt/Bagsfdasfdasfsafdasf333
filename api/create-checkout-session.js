@@ -51,7 +51,7 @@ export default async function handler(req, res) {
             }
 
             line_items = cart.map(item => {
-                const product = Object.values(products).find(p => p.product_id === item.id);
+                const product = products[item.id];
                 if (!product) return null;
 
                 const variant = item.variant?.trim();
@@ -101,9 +101,7 @@ export default async function handler(req, res) {
                     quantity: item.qty || 1
                 };
             }).filter(Boolean);
-        }
-
-            
+        }   
          else if (sku) {
             const product = products[sku];
             if (!product) return res.status(404).json({ error: "Product not found" });
