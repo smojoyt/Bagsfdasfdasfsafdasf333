@@ -47,10 +47,7 @@
                 <p class="text-gray-500">Loading...</p>
             </div>
         </div>
-        <div id="ratingsSummary" class="hidden mt-4 text-sm text-gray-700 border-t pt-4">
-            <p class="font-semibold mb-1">Product Ratings Summary</p>
-            <div id="ratingsContent">Loading...</div>
-        </div>
+        
 
 
         <div id="orderTotalContainer" class="pt-4 border-t hidden"></div>
@@ -183,7 +180,7 @@
                             <div class="flex items-start gap-3">
                                 <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 object-cover rounded border" />
                                 <div>
-                                    <p class="font-medium">${item.description}${item.metadata?.variant ? ` - ${item.metadata.variant}` : ""}</p>
+                                    <p class="font-medium">${item.description}</p>
                                     <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
                                     ${ratingHTML}
                                 </div>
@@ -195,7 +192,7 @@
                     });
 
                     // 🟨 Optional: Summary Section
-                    const ratingsDiv = document.getElementById("ratingsSummary");
+                    
                     const contentDiv = document.getElementById("ratingsContent");
 
                     const purchasedIds = data.line_items.map(i => i.metadata?.product_id).filter(Boolean);
@@ -286,6 +283,29 @@
                     }, 100);
                 }
             });
+
+        function initNavbar() {
+            const toggleBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+
+            const navbar = document.getElementById('mainNavbar');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (!navbar) return;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace('navbar-show', 'navbar-hide');
+                } else {
+                    navbar.classList.replace('navbar-hide', 'navbar-show');
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
 
         // 🔁 Main Load Flow
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
