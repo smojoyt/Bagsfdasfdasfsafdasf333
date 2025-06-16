@@ -22,7 +22,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Karry Kraze – Unique Bags & Accessories - 30% Off All Charms" />
     <meta name="twitter:description" content="Shop Karry Kraze for stylish, standout bags and fashion accessories. Free U.S. shipping over $50!" />
-    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Promo/30Charms/Card.jpg" />
+    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Promo/U_Hats/20POFF.jpg" />
 
     <!-- Custom Scrollbar Style -->
     <style>
@@ -180,10 +180,22 @@
     </section>
     <!-- review section -->
     <section id="reviewSection" class="px-4 py-8 bg-[#fdf7f1]">
-        <h2 class="uppercase text-3xl font-extrabold text-center">Believe The Hype</h2>
-        <p id="reviewCount" class="uppercase font-semibold text-center text-2xl text-gray-700 mt-4 mb-6">Over 0 happy customers!</p>
+        <div class=" max-w-[90rem] mx-auto flex items-center justify-between mb-4 px-4 md:px-0 ">
+            <h2 class="uppercase text-3xl font-extrabold text-center">Believe The Hype</h2>
+            <p id="reviewCount" class="uppercase font-semibold text-center text-2xl text-gray-700 mt-4 mb-6">Over 0 happy customers!</p>
+            <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
+        </div>
+
+
         <div id="reviewCarousel" class="carousel"></div>
+        <!-- ✅ Leave a Review Button -->
+        <div class=" max-w-[90rem] mx-auto flex items-center justify-between mb-4 px-4 md:px-0">
+            <a href="https://karrykraze.com/pages/leave-a-review" class="inline-block bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition">
+                Leave a Review
+            </a>
+        </div>
     </section>
+
 
 
 
@@ -255,41 +267,41 @@
                         cell.className = "carousel-cell w-[380px] h-[360px] bg-white rounded-xl shadow-md p-5 m-2 flex flex-col justify-between text-left border border-gray-200";
 
                         cell.innerHTML = `
-  <div class="flex items-center justify-between text-sm text-gray-500 mb-1">
-  <div class="flex items-center gap-1">
-    <strong class="text-xl text-gray-900">${formatShortName(r.name || "Anonymous")}</strong>
-    <span class="flex items-center gap-1 text-blue-700 font-medium text-sm">
-  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-700" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M12 0C5.373 0 0 5.373 0 12c0 4.27 2.37 8.01 5.875 10.015L6 24l1.984-1.017C9.312 23.65 10.64 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm5.293 9.293l-6 6a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414L11 13.586l5.293-5.293a1 1 0 011.414 1.414z"/>
-  </svg>
-  Verified Buyer
+      <div class="flex items-center justify-between text-sm text-gray-500 mb-1">
+      <div class="flex items-center gap-1">
+        <strong class="text-xl text-gray-900">${formatShortName(r.name || "Anonymous")}</strong>
+        <span class="flex items-center gap-1 text-blue-700 font-medium text-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-700" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 4.27 2.37 8.01 5.875 10.015L6 24l1.984-1.017C9.312 23.65 10.64 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm5.293 9.293l-6 6a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414L11 13.586l5.293-5.293a1 1 0 011.414 1.414z"/>
+      </svg>
+      Verified Buyer
 </span>
-  </div>
-  <span>${r.timestamp ? new Date(r.timestamp).toLocaleDateString() : "Invalid Date"}</span>
+      </div>
+      <span>${r.timestamp ? new Date(r.timestamp).toLocaleDateString() : "Invalid Date"}</span>
 </div>
 
 
-  <div class="text-yellow-500 text-4xl leading-[1.1] mb-1 -mt-2">${stars}</div>
+      <div class="text-yellow-500 text-4xl leading-[1.1] mb-1 -mt-2">${stars}</div>
 
-  <h3 class="text-lg font-bold text-gray-800 uppercase">${r.reviewHeadline || ""}</h3>
+      <h3 class="text-lg font-bold text-gray-800 uppercase">${r.reviewHeadline || ""}</h3>
 
-  <div class="flex-1 overflow-hidden relative mb-3">
-  <div class="review-scroll-box text-sm text-gray-700 break-words overflow-y-auto pr-1 space-y-2 max-h-[160px]">
-    <p class="review-text" data-full="${reviewText.replace(/"/g, '&quot;')}">
-      ${shortText} ${isLong ? `<button class="read-more text-blue-600 hover:underline ml-1 text-sm">Read more</button>` : ""}
-    </p>
-    ${r.customerImg ? `<img src="${r.customerImg}" alt="Customer upload" class="rounded-md max-h-32 object-cover shadow" loading="lazy" />` : ""}
-  </div>
+      <div class="flex-1 overflow-hidden relative mb-3">
+      <div class="review-scroll-box text-sm text-gray-700 break-words overflow-y-auto pr-1 space-y-2 max-h-[160px]">
+        <p class="review-text" data-full="${reviewText.replace(/"/g, '&quot;')}">
+          ${shortText} ${isLong ? `<button class="read-more text-blue-600 hover:underline ml-1 text-sm">Read more</button>` : ""}
+        </p>
+        ${r.customerImg ? `<img src="${r.customerImg}" alt="Customer upload" class="rounded-md max-h-32 object-cover shadow" loading="lazy" />` : ""}
+      </div>
 </div>
 
 
-  <div class="pt-4 border-t border-gray-200 shrink-0">
-    ${productImg && productName ? `
-      <a href="${productUrl}" class="flex items-center gap-2 group">
-        <img src="${productImg}" class="w-10 h-10 object-cover rounded" alt="${productName}" onerror="this.style.display='none'">
-        <span class="text-sm font-medium text-gray-800 group-hover:underline">${productName}</span>
-      </a>` : ""}
-  </div>
+      <div class="pt-4 border-t border-gray-200 shrink-0">
+        ${productImg && productName ? `
+          <a href="${productUrl}" class="flex items-center gap-2 group">
+            <img src="${productImg}" class="w-10 h-10 object-cover rounded" alt="${productName}" onerror="this.style.display='none'">
+            <span class="text-sm font-medium text-gray-800 group-hover:underline">${productName}</span>
+          </a>` : ""}
+      </div>
 `;
 
 
@@ -360,32 +372,32 @@
 
                     const background = video
                         ? `<video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
-                        <source src="${video}" type="video/mp4" />
-                        Your browser does not support the video tag.
-                   </video>`
+                            <source src="${video}" type="video/mp4" />
+                            Your browser does not support the video tag.
+                       </video>`
                         : `<img src="${image}" class="absolute top-0 left-0 w-full h-full object-cover z-0" alt="Promo Background" />`;
 
                     const buttonHTML = button
                         ? `<a href="${button.url}" class="mt-8 inline-block px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200">
-                        ${button.label}
-                   </a>`
+                            ${button.label}
+                       </a>`
                         : "";
 
                     container.innerHTML = `
-                <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
-                    ${background}
-                    <div class="absolute bottom-6 left-6 z-10 text-left">
-                        <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
-                            ${headline}
-                        </h1>
-                        <p class="mt-4 text-2xl font-medium text-white drop-shadow">
-                            ${caption}
-                        </p>
-                        ${buttonHTML}
-                        
-                    </div>
-                </section>
-            `;
+                    <section class="relative h-[60vh] w-full flex items-center justify-center text-white overflow-hidden">
+                        ${background}
+                        <div class="absolute bottom-6 left-6 z-10 text-left">
+                            <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
+                                ${headline}
+                            </h1>
+                            <p class="mt-4 text-2xl font-medium text-white drop-shadow">
+                                ${caption}
+                            </p>
+                            ${buttonHTML}
+
+                        </div>
+                    </section>
+                `;
 
                     // ✅ Countdown logic placed here
                     // Append countdown banner below promoContainer
@@ -612,27 +624,27 @@
 
                     cell.innerHTML = `
 <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-                                                      <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-                                                        <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
-                                                        ${product.thumbnails?.[1] ? `
-                                                          <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
-                                                               src="${product.thumbnails[1]}" alt="Hover image">` : ''}
+                                                          <div class="max-w-2xl relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
+                                                            <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+                                                            ${product.thumbnails?.[1] ? `
+                                                              <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
+                                                                   src="${product.thumbnails[1]}" alt="Hover image">` : ''}
 
-                                                        ${inStockColors.length > 1 ? `
-                                                          <div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
-                                                            ${renderColorDots(swatchString, product.variantStock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
-                                                          </div>` : ""}
-                                                      </div>
+                                                            ${inStockColors.length > 1 ? `
+                                                              <div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
+                                                                ${renderColorDots(swatchString, product.variantStock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
+                                                              </div>` : ""}
+                                                          </div>
 
-                                                      <div class="text-center mt-6">
-                                                        <div class="text-sm font-semibold truncate">${product.name}</div>
-                                                        ${product.sale_price && product.sale_price < product.price ? `
-                                                          <div class="text-sm">
-                                                            <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
-                                                            <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
-                                                          </div>` : `
-                                                          <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`}
-                                                      </div>
+                                                          <div class="text-center mt-6">
+                                                            <div class="text-sm font-semibold truncate">${product.name}</div>
+                                                            ${product.sale_price && product.sale_price < product.price ? `
+                                                              <div class="text-sm">
+                                                                <span class="text-green-700 font-semibold">$${product.sale_price.toFixed(2)}</span>
+                                                                <span class="text-gray-500 line-through ml-2">$${product.price.toFixed(2)}</span>
+                                                              </div>` : `
+                                                              <div class="text-sm text-gray-600">$${product.price.toFixed(2)}</div>`}
+                                                          </div>
 </a>
 `;
 
@@ -733,21 +745,21 @@
                     card.className = "block overflow-hidden transition";
 
                     card.innerHTML = `
-                <div class="relative w-full bg-white rounded-xl">
-                    <img src="${secondThumbnail}" alt="${p.name}" class="shadow hover:shadow-lg w-full object-contain rounded-xl">
-                    ${inStockColors.length > 1 ? `
-                        <div class="absolute bottom-2 left-2 flex gap-1">
-                            ${renderColorDots(swatchString, p.variantStock)}
-                        </div>` : ""}
-                </div>
-                <div class="mt-4 text-left">
-                    <div class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${p.name}</div>
-                    <div class="mt-1 text-lg font-bold text-green-700">
-                        $${salePrice.toFixed(2)}
-                        <span class="ml-2 text-gray-500 line-through text-base">$${originalPrice.toFixed(2)}</span>
+                    <div class="relative w-full bg-white rounded-xl">
+                        <img src="${secondThumbnail}" alt="${p.name}" class="shadow hover:shadow-lg w-full object-contain rounded-xl">
+                        ${inStockColors.length > 1 ? `
+                            <div class="absolute bottom-2 left-2 flex gap-1">
+                                ${renderColorDots(swatchString, p.variantStock)}
+                            </div>` : ""}
                     </div>
-                </div>
-            `;
+                    <div class="mt-4 text-left">
+                        <div class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${p.name}</div>
+                        <div class="mt-1 text-lg font-bold text-green-700">
+                            $${salePrice.toFixed(2)}
+                            <span class="ml-2 text-gray-500 line-through text-base">$${originalPrice.toFixed(2)}</span>
+                        </div>
+                    </div>
+                `;
 
                     wrapper.appendChild(card);
                     container.appendChild(wrapper);
@@ -804,47 +816,47 @@
 
                     container.innerHTML = `
 <div class="w-full grid grid-cols-1 md:grid-cols-2 items-stretch gap-0">
-                                    <!-- Left: Text + Captions -->
-                                    <div class="p-10 lg:px-28 lg:py-36 flex flex-col justify-center items-center px-4 sm:px-6 space-y-6 text-center bg-[#fedcc1]">
-                                        <h2 class="text-4xl md:text-7xl font-extrabold text-gray-800 uppercase">Home of the ${name}</h2>
+                                        <!-- Left: Text + Captions -->
+                                        <div class="p-10 lg:px-28 lg:py-36 flex flex-col justify-center items-center px-4 sm:px-6 space-y-6 text-center bg-[#fedcc1]">
+                                            <h2 class="text-4xl md:text-7xl font-extrabold text-gray-800 uppercase">Home of the ${name}</h2>
 
-                                        <div class="grid grid-cols-2 gap-6">
-                                            <!-- Left Caption -->
-                                            <div class="space-y-2">
-                                                <div class="w-36 h-24 md:h-36 mx-auto flex items-center justify-center">
-                                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 md:w-24 md:h-24 text-gray-800" stroke="currentColor">
-                                    <path d="M13 8.92226L7.92226 3.84453C6.79623 2.71849 4.97056 2.71849 3.84453 3.84453C2.71849 4.97056 2.71849 6.79623 3.84453 7.92226L16.0777 20.1555C17.2038 21.2815 19.0294 21.2815 20.1555 20.1555C21.2815 19.0294 21.2815 17.2038 20.1555 16.0777L17.0777 13" stroke-width="1.5" stroke-linecap="round"/>
-                                    <path d="M6 10L10 6" stroke-width="1.5" stroke-linecap="round"/>
-                                    <path d="M16.1 2.30719C16.261 1.8976 16.8385 1.8976 16.9994 2.30719L17.4298 3.40247C17.479 3.52752 17.5776 3.62651 17.7022 3.67583L18.7934 4.1078C19.2015 4.26934 19.2015 4.849 18.7934 5.01054L17.7022 5.44252C17.5776 5.49184 17.479 5.59082 17.4298 5.71587L16.9995 6.81115C16.8385 7.22074 16.261 7.22074 16.1 6.81116L15.6697 5.71587C15.6205 5.59082 15.5219 5.49184 15.3973 5.44252L14.3061 5.01054C13.898 4.849 13.898 4.26934 14.3061 4.1078L15.3973 3.67583C15.5219 3.62651 15.6205 3.52752 15.6697 3.40247L16.1 2.30719Z" />
-                                    <path d="M19.9672 9.12945C20.1281 8.71987 20.7057 8.71987 20.8666 9.12945L21.0235 9.5288C21.0727 9.65385 21.1713 9.75284 21.2959 9.80215L21.6937 9.95965C22.1018 10.1212 22.1018 10.7009 21.6937 10.8624L21.2959 11.0199C21.1713 11.0692 21.0727 11.1682 21.0235 11.2932L20.8666 11.6926C20.7057 12.1022 20.1281 12.1022 19.9672 11.6926L19.8103 11.2932C19.7611 11.1682 19.6625 11.0692 19.5379 11.0199L19.14 10.8624C18.732 10.7009 18.732 10.1212 19.14 9.95965L19.5379 9.80215C19.6625 9.75284 19.7611 9.65385 19.8103 9.5288L19.9672 9.12945Z" />
-                                    <path d="M5.1332 15.3072C5.29414 14.8976 5.87167 14.8976 6.03261 15.3072L6.18953 15.7065C6.23867 15.8316 6.33729 15.9306 6.46188 15.9799L6.85975 16.1374C7.26783 16.2989 7.26783 16.8786 6.85975 17.0401L6.46188 17.1976C6.33729 17.2469 6.23867 17.3459 6.18953 17.471L6.03261 17.8703C5.87167 18.2799 5.29414 18.2799 5.1332 17.8703L4.97628 17.471C4.92714 17.3459 4.82852 17.2469 4.70393 17.1976L4.30606 17.0401C3.89798 16.8786 3.89798 16.2989 4.30606 16.1374L4.70393 15.9799C4.82852 15.9306 4.92714 15.8316 4.97628 15.7065L5.1332 15.3072Z" />
-                                  </svg>
+                                            <div class="grid grid-cols-2 gap-6">
+                                                <!-- Left Caption -->
+                                                <div class="space-y-2">
+                                                    <div class="w-36 h-24 md:h-36 mx-auto flex items-center justify-center">
+                                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 md:w-24 md:h-24 text-gray-800" stroke="currentColor">
+                                        <path d="M13 8.92226L7.92226 3.84453C6.79623 2.71849 4.97056 2.71849 3.84453 3.84453C2.71849 4.97056 2.71849 6.79623 3.84453 7.92226L16.0777 20.1555C17.2038 21.2815 19.0294 21.2815 20.1555 20.1555C21.2815 19.0294 21.2815 17.2038 20.1555 16.0777L17.0777 13" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M6 10L10 6" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M16.1 2.30719C16.261 1.8976 16.8385 1.8976 16.9994 2.30719L17.4298 3.40247C17.479 3.52752 17.5776 3.62651 17.7022 3.67583L18.7934 4.1078C19.2015 4.26934 19.2015 4.849 18.7934 5.01054L17.7022 5.44252C17.5776 5.49184 17.479 5.59082 17.4298 5.71587L16.9995 6.81115C16.8385 7.22074 16.261 7.22074 16.1 6.81116L15.6697 5.71587C15.6205 5.59082 15.5219 5.49184 15.3973 5.44252L14.3061 5.01054C13.898 4.849 13.898 4.26934 14.3061 4.1078L15.3973 3.67583C15.5219 3.62651 15.6205 3.52752 15.6697 3.40247L16.1 2.30719Z" />
+                                        <path d="M19.9672 9.12945C20.1281 8.71987 20.7057 8.71987 20.8666 9.12945L21.0235 9.5288C21.0727 9.65385 21.1713 9.75284 21.2959 9.80215L21.6937 9.95965C22.1018 10.1212 22.1018 10.7009 21.6937 10.8624L21.2959 11.0199C21.1713 11.0692 21.0727 11.1682 21.0235 11.2932L20.8666 11.6926C20.7057 12.1022 20.1281 12.1022 19.9672 11.6926L19.8103 11.2932C19.7611 11.1682 19.6625 11.0692 19.5379 11.0199L19.14 10.8624C18.732 10.7009 18.732 10.1212 19.14 9.95965L19.5379 9.80215C19.6625 9.75284 19.7611 9.65385 19.8103 9.5288L19.9672 9.12945Z" />
+                                        <path d="M5.1332 15.3072C5.29414 14.8976 5.87167 14.8976 6.03261 15.3072L6.18953 15.7065C6.23867 15.8316 6.33729 15.9306 6.46188 15.9799L6.85975 16.1374C7.26783 16.2989 7.26783 16.8786 6.85975 17.0401L6.46188 17.1976C6.33729 17.2469 6.23867 17.3459 6.18953 17.471L6.03261 17.8703C5.87167 18.2799 5.29414 18.2799 5.1332 17.8703L4.97628 17.471C4.92714 17.3459 4.82852 17.2469 4.70393 17.1976L4.30606 17.0401C3.89798 16.8786 3.89798 16.2989 4.30606 16.1374L4.70393 15.9799C4.82852 15.9306 4.92714 15.8316 4.97628 15.7065L5.1332 15.3072Z" />
+                                      </svg>
+                                                    </div>
+                                                    <p class="text-base md:text-[1.25rem] font-semibold text-gray-800">${leftText}</p>
                                                 </div>
-                                                <p class="text-base md:text-[1.25rem] font-semibold text-gray-800">${leftText}</p>
-                                            </div>
 
-                                            <!-- Right Caption -->
-                                            <div class="space-y-2">
-                                                <div class="w-36 h-24 md:h-36 mx-auto flex items-center justify-center">
-                                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 md:w-24 md:h-24" stroke="currentColor">
-                                    <path d="M2.92992 12.7732C2.3588 14.4238 2.07325 15.2491 2.43835 15.7587C2.80345 16.2683 3.57742 16.1248 5.12535 15.8376L5.52582 15.7634C5.9657 15.6818 6.18563 15.641 6.39316 15.7012C6.60069 15.7614 6.77232 15.9157 7.11558 16.2245L7.42809 16.5056C8.63602 17.5922 9.79155 17.8917 9.79155 17.8917C10.3431 17.648 10.477 16.7787 10.7447 15.0401L10.814 14.5903C10.8901 14.0962 10.9281 13.8492 11.0475 13.6446C11.1669 13.4399 11.3541 13.3008 11.7286 13.0226L12.0695 12.7693C13.3871 11.7902 14.0459 11.3006 14.0217 10.6404C13.9975 9.98014 13.3063 9.58645 11.9238 8.79907L11.5662 8.59536C11.1733 8.37161 10.9769 8.25974 10.8431 8.07305C10.7094 7.88637 10.6535 7.646 10.5416 7.16529L10.4398 6.72764C10.0462 5.03598 9.84944 4.19015 9.28291 4.02582C8.71638 3.86148 8.1553 4.48747 7.03315 5.73945L6.74284 6.06335C6.42396 6.41912 6.26452 6.59701 6.06247 6.68628C5.86042 6.77556 5.63864 6.76613 5.19508 6.74725L4.79126 6.73007C3.23035 6.66365 2.4499 6.63044 2.12399 7.18912C1.79807 7.7478 2.14254 8.52837 2.83147 10.0895" stroke-width="1.5" stroke-linecap="round"></path>
-                                    <path d="M11.9239 8.79864L15 9.65061M9.7916 17.8913L13.0651 18.8409M11.0476 13.6441L19.0252 15.9583M9.28296 4.02539L17.2606 6.33953C17.8271 6.50387 18.0239 7.34969 18.4175 9.04135L18.5193 9.479C18.6312 9.95972 18.6871 10.2001 18.8208 10.3868C18.9546 10.5734 19.151 10.6853 19.5438 10.9091M19.5438 10.9091L19.9015 11.1128C21.284 11.9002 21.9752 12.2939 21.9994 12.9541C22.0236 13.6143 21.3648 14.1039 20.0471 15.083L19.7062 15.3363C19.3318 15.6145 19.1446 15.7536 19.0252 15.9583M19.5438 10.9091L17.6388 10.3815M19.0252 15.9583C18.9058 16.1629 18.8678 16.4099 18.7917 16.904L18.7224 17.3538C18.6408 17.8835 18.5205 18.3551 18.3926 18.7549C18.1952 19.3717 18.0965 19.6801 17.7378 19.8862C17.379 20.0922 17.0322 19.9916 16.3385 19.7904" stroke-width="1.5" stroke-linecap="round"></path>
-                                  </svg>
+                                                <!-- Right Caption -->
+                                                <div class="space-y-2">
+                                                    <div class="w-36 h-24 md:h-36 mx-auto flex items-center justify-center">
+                                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 md:w-24 md:h-24" stroke="currentColor">
+                                        <path d="M2.92992 12.7732C2.3588 14.4238 2.07325 15.2491 2.43835 15.7587C2.80345 16.2683 3.57742 16.1248 5.12535 15.8376L5.52582 15.7634C5.9657 15.6818 6.18563 15.641 6.39316 15.7012C6.60069 15.7614 6.77232 15.9157 7.11558 16.2245L7.42809 16.5056C8.63602 17.5922 9.79155 17.8917 9.79155 17.8917C10.3431 17.648 10.477 16.7787 10.7447 15.0401L10.814 14.5903C10.8901 14.0962 10.9281 13.8492 11.0475 13.6446C11.1669 13.4399 11.3541 13.3008 11.7286 13.0226L12.0695 12.7693C13.3871 11.7902 14.0459 11.3006 14.0217 10.6404C13.9975 9.98014 13.3063 9.58645 11.9238 8.79907L11.5662 8.59536C11.1733 8.37161 10.9769 8.25974 10.8431 8.07305C10.7094 7.88637 10.6535 7.646 10.5416 7.16529L10.4398 6.72764C10.0462 5.03598 9.84944 4.19015 9.28291 4.02582C8.71638 3.86148 8.1553 4.48747 7.03315 5.73945L6.74284 6.06335C6.42396 6.41912 6.26452 6.59701 6.06247 6.68628C5.86042 6.77556 5.63864 6.76613 5.19508 6.74725L4.79126 6.73007C3.23035 6.66365 2.4499 6.63044 2.12399 7.18912C1.79807 7.7478 2.14254 8.52837 2.83147 10.0895" stroke-width="1.5" stroke-linecap="round"></path>
+                                        <path d="M11.9239 8.79864L15 9.65061M9.7916 17.8913L13.0651 18.8409M11.0476 13.6441L19.0252 15.9583M9.28296 4.02539L17.2606 6.33953C17.8271 6.50387 18.0239 7.34969 18.4175 9.04135L18.5193 9.479C18.6312 9.95972 18.6871 10.2001 18.8208 10.3868C18.9546 10.5734 19.151 10.6853 19.5438 10.9091M19.5438 10.9091L19.9015 11.1128C21.284 11.9002 21.9752 12.2939 21.9994 12.9541C22.0236 13.6143 21.3648 14.1039 20.0471 15.083L19.7062 15.3363C19.3318 15.6145 19.1446 15.7536 19.0252 15.9583M19.5438 10.9091L17.6388 10.3815M19.0252 15.9583C18.9058 16.1629 18.8678 16.4099 18.7917 16.904L18.7224 17.3538C18.6408 17.8835 18.5205 18.3551 18.3926 18.7549C18.1952 19.3717 18.0965 19.6801 17.7378 19.8862C17.379 20.0922 17.0322 19.9916 16.3385 19.7904" stroke-width="1.5" stroke-linecap="round"></path>
+                                      </svg>
+                                                    </div>
+                                                    <p class="text-base md:text-[1.25rem] font-semibold text-gray-800">${rightText}</p>
                                                 </div>
-                                                <p class="text-base md:text-[1.25rem] font-semibold text-gray-800">${rightText}</p>
                                             </div>
-                                        </div>
-                                        <!-- Buy Now Button -->
+                                            <!-- Buy Now Button -->
 <div>
-                                  <a href="${selected.url}" class="inline-block mt-4 px-6 py-3 bg-black text-white text-lg font-semibold rounded-full shadow hover:bg-gray-800 transition">
-                                    Buy Now
-                                  </a>
+                                      <a href="${selected.url}" class="inline-block mt-4 px-6 py-3 bg-black text-white text-lg font-semibold rounded-full shadow hover:bg-gray-800 transition">
+                                        Buy Now
+                                      </a>
 </div>
-                                    </div>
+                                        </div>
 
-                                    <!-- Right: Full-Bleed Image -->
-                                    <div class="w-full h-[400px] sm:h-[600px] md:h-[1100px]">
-                                    <img src="${secondThumb}" alt="${name}" class="w-full h-full object-cover object-center">
+                                        <!-- Right: Full-Bleed Image -->
+                                        <div class="w-full h-[400px] sm:h-[600px] md:h-[1100px]">
+                                        <img src="${secondThumb}" alt="${name}" class="w-full h-full object-cover object-center">
 </div>
 </div>`;
                 });
@@ -882,18 +894,18 @@
 
                         card.innerHTML = `
 <div class="relative w-full bg-white rounded-xl">
-            <img src="${secondThumbnail}" alt="${p.name}" class="shadow hover:shadow-lg w-full object-contain rounded-xl">
-            ${inStockColors.length > 1 ? `
-                <div class="absolute bottom-2 left-2 flex gap-1">
-                    ${renderColorDots(swatchString, p.variantStock)}
-                </div>` : ""}
+                <img src="${secondThumbnail}" alt="${p.name}" class="shadow hover:shadow-lg w-full object-contain rounded-xl">
+                ${inStockColors.length > 1 ? `
+                    <div class="absolute bottom-2 left-2 flex gap-1">
+                        ${renderColorDots(swatchString, p.variantStock)}
+                    </div>` : ""}
 </div>
 <div class="mt-4 text-left">
-            <div class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${p.name}</div>
-            <div class="mt-1 text-lg font-bold text-green-700">
-                $${salePrice.toFixed(2)}
-                ${salePrice < originalPrice ? `<span class="ml-2 text-gray-500 line-through text-base">$${originalPrice.toFixed(2)}</span>` : ""}
-            </div>
+                <div class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${p.name}</div>
+                <div class="mt-1 text-lg font-bold text-green-700">
+                    $${salePrice.toFixed(2)}
+                    ${salePrice < originalPrice ? `<span class="ml-2 text-gray-500 line-through text-base">$${originalPrice.toFixed(2)}</span>` : ""}
+                </div>
 </div>
 `;
 
