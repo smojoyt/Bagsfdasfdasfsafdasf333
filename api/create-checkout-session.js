@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { sku, selectedVariant, cart } = req.body;
+        const { sku, selectedVariant, cart, coupon } = req.body;
 
         const filePath = path.join(process.cwd(), 'products', 'products.json');
         const rawData = fs.readFileSync(filePath, 'utf8');
@@ -67,6 +67,7 @@ export default async function handler(req, res) {
                     quantity: item.qty || 1
                 };
             }).filter(Boolean);
+            
         } else if (sku) {
             const product = products[sku];
             if (!product) return res.status(404).json({ error: "Product not found" });
@@ -122,7 +123,8 @@ export default async function handler(req, res) {
             shipping_address_collection: {
                 allowed_countries: ['US', 'CA']
             },
-            allow_promotion_codes: true,
+            discounts: coupon ? [{ coupon }] : undefined,
+            allow_promotion_codes: !coupon, // fallback if no specific code given
             shipping_options,
             success_url: "https://www.karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
             cancel_url: "https://www.karrykraze.com/pages/cancel.html"

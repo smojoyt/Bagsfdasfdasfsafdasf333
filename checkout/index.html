@@ -9,30 +9,31 @@
     <h1>Redirecting to checkout...</h1>
 
     <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const sku = urlParams.get("sku");
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get("product_id");
+        const coupon = urlParams.get("coupon");
 
-    if (sku) {
-      fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sku })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.url) {
-          window.location.href = data.url;
+        if (productId) {
+            fetch("/api/create-checkout-session", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ productId, coupon })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        document.body.innerHTML = "<h1>Checkout failed.</h1>";
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.body.innerHTML = "<h1>Something went wrong.</h1>";
+                });
         } else {
-          alert("Checkout failed");
+            document.body.innerHTML = "<h1>Missing product ID. Please try again from the store page.</h1>";
         }
-      })
-      .catch(err => {
-        console.error(err);
-        alert("Something went wrong.");
-      });
-    } else {
-      document.body.innerHTML = "<h1>Missing SKU. Please try again from the store page.</h1>";
-    }
     </script>
 </body>
 </html>
