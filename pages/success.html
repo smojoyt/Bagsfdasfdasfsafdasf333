@@ -52,9 +52,7 @@
                 <p class="text-gray-500">Loading...</p>
             </div>
         </div>
-        <div id="ratingsDiv" class="hidden mt-4">
-            <p id="ratingsContent" class="text-sm text-gray-700"></p>
-        </div>
+        
 
 
 
@@ -202,26 +200,7 @@
 
                     // 🟨 Optional: Summary Section
                     
-                    const contentDiv = document.getElementById("ratingsContent");
-
-
-                    const purchasedIds = data.line_items.map(i => i.metadata?.product_id).filter(Boolean);
-                    const matchingReviews = reviews.filter(r => purchasedIds.includes(r.productId));
-
-                    let ratingSum = 0;
-                    matchingReviews.forEach(r => {
-                        ratingSum += Number(r.rating || 0);
-                    });
-
-                    if (matchingReviews.length > 0) {
-                        const average = (ratingSum / matchingReviews.length).toFixed(1);
-                        contentDiv.innerHTML = `⭐ ${average} based on ${matchingReviews.length} review${matchingReviews.length > 1 ? "s" : ""}`;
-                        ratingsDiv.classList.remove("hidden");
-                    } else {
-                        contentDiv.innerHTML = `No reviews yet for your purchased items.`;
-                        ratingsDiv.classList.remove("hidden");
-                    }
-
+                    
                     const shipping = data.shipping?.amount_total ? data.shipping.amount_total / 100 : 0;
                     const discount = data.total_details?.amount_discount ? data.total_details.amount_discount / 100 : 0;
                     const tax = data.total_details?.amount_tax ? data.total_details.amount_tax / 100 : 0;
