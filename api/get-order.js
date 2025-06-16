@@ -5,7 +5,16 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-    res.setHeader("Access-Control-Allow-Origin", "https://www.karrykraze.com");
+    const allowedOrigins = [
+        "https://www.karrykraze.com",
+        "https://karrykraze.com"
+    ];
+
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin);
+    }
+
     res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.setHeader("Access-Control-Allow-Credentials", "true");
