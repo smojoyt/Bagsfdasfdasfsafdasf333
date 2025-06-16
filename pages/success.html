@@ -101,7 +101,8 @@
 
                     showToast("Order loaded successfully!");
                     document.getElementById("thankYouMessage").textContent = `Thank you, ${data.customer_name || 'Customer'}!`;
-                    document.getElementById("emailMessage").innerHTML = `A receipt has been sent to <strong>${data.customer_email}</strong>.`;
+                    document.getElementById("emailMessage").innerHTML =
+                        `A receipt has been sent to <strong>${data.customer_details?.email}</strong>.`;
 
                     const itemsContainer = document.getElementById("orderItems");
                     itemsContainer.innerHTML = "";
@@ -110,18 +111,21 @@
                         const div = document.createElement("div");
                         div.className = "flex justify-between items-start border-b pb-3";
 
+                        const total = ((item.unit_amount * item.quantity) / 100).toFixed(2);
+
                         div.innerHTML = `
-                                        <div class="flex items-start gap-3">
-                                            <img src="${item.image || '/imgs/fallback.png'}" alt="${item.name}" class="w-16 h-16 object-cover rounded border" />
-                                            <div>
-                                                <p class="font-medium">${item.name}</p>
-                                                <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
-                                            </div>
-                                        </div>
-                                        <div class="text-right font-semibold whitespace-nowrap">$${item.amount_total}</div>
-                                    `;
+        <div class="flex items-start gap-3">
+            <img src="${item.image || '/imgs/fallback.png'}" alt="${item.product_name}" class="w-16 h-16 object-cover rounded border" />
+            <div>
+                <p class="font-medium">${item.product_name}</p>
+                <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
+            </div>
+        </div>
+        <div class="text-right font-semibold whitespace-nowrap">$${total}</div>
+    `;
                         itemsContainer.appendChild(div);
                     });
+
 
                     document.getElementById("orderTotal").textContent = `$${data.total}`;
                     document.getElementById("orderTotalContainer").classList.remove("hidden");
@@ -146,5 +150,30 @@
     <script>
         document.addEventListener("DOMContentLoaded", loadFeaturedProducts);
     </script>
+    <script>
+        fetch("/products/promotion.json")
+            .then(res => res.json())
+            .then(promoData => {
+                const now = new Date();
+                const promo = promoData.promotions?.find(p => {
+                    const startOk = !p.startDate || new Date(p.startDate) <= now;
+                    const endOk = !p.endDate || new Date(p.endDate) >= now;
+                    return p.featured && startOk && endOk;
+                });
+
+                if (promo?.category) {
+                    const cap = promo.category.charAt(0).toUpperCase() + promo.category.slice(1);
+                    const interval = setInterval(() => {
+                        const title = document.getElementById("featured-title");
+                        if (title) {
+                            title.textContent = `🔥 All ${cap} items are on sale!!`;
+                            clearInterval(interval);
+                        }
+                    }, 100);
+                }
+            });
+    </script>
+
+
 </body>
 </html>
