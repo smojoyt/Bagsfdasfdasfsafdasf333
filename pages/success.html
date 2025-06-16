@@ -28,7 +28,6 @@
             animation: fade-in-up 0.3s ease-out;
         }
     </style>
-
 </head>
 <body class="bg-[#fef1e7] text-gray-800 font-sans">
 
@@ -47,17 +46,13 @@
                 <p class="text-gray-500">Loading...</p>
             </div>
         </div>
-        <div id="ratingsSummary" class="hidden mt-4 text-sm text-gray-700 border-t pt-4">
-            <p class="font-semibold mb-1">Product Ratings Summary</p>
-            <div id="ratingsContent">Loading...</div>
-        </div>
-
 
         <div id="orderTotalContainer" class="pt-4 border-t hidden"></div>
-        <!-- Impact Section -->
+
         <div class="mt-16 bg-white p-4 rounded shadow text-center text-sm text-gray-600">
             With this order, you supported a Black-owned small business. We appreciate you! ❤️
         </div>
+
         <div class="mt-8">
             <h3 class="text-lg font-bold mb-2">Order Progress</h3>
             <div class="flex justify-between text-xs text-gray-600">
@@ -75,14 +70,12 @@
             Continue Shopping
         </a>
 
-        <!-- Review Promo Section -->
         <div class="mt-12 bg-white border border-dashed border-black p-6 rounded shadow text-center">
             <h3 class="text-2xl font-bold uppercase mb-2">Get $5 Off Your Next Order!</h3>
             <p class="text-sm text-gray-700 mb-4">Leave a review for a product you purchased and receive a $5 coupon code for your next order. It only takes a minute and helps our small business grow!</p>
             <a href="/review.html" class="inline-block bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition">Leave a Review</a>
         </div>
 
-        <!-- Promo Product Section -->
         <div class="mt-16">
             <h2 class="uppercase text-2xl font-bold mb-4" id="featured-title">Hot Picks</h2>
             <div class="flex justify-start">
@@ -90,15 +83,12 @@
             </div>
             <div id="featured-products" class="min-h-[200px]"></div>
         </div>
-
-
     </div>
 
-    <!-- Toast Container -->
     <div id="toastContainer" class="fixed top-5 right-5 z-50 space-y-2"></div>
-    <!-- Footer -->
     <div id="footer"></div>
     <div id="navbar-container"></div>
+
     <script>
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
@@ -108,150 +98,111 @@
             setTimeout(() => toast.remove(), 4000);
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
+        async function loadOrderAndReviews() {
             const params = new URLSearchParams(window.location.search);
             const sessionId = params.get("session_id") || localStorage.getItem("last_session_id");
-
-            if (!sessionId) {
-                showToast("Missing session ID.", "error");
-                document.getElementById("orderItems").innerHTML = `<p class="text-red-500 text-sm">Missing session ID.</p>`;
-                return;
-            }
+            if (!sessionId) return;
 
             localStorage.setItem("last_session_id", sessionId);
             const API_BASE = "https://buy.karrykraze.com";
 
-            fetch(`${API_BASE}/api/get-order?session_id=${sessionId}`)
-                .then(res => {
-                    if (!res.ok) throw new Error("Network response was not ok");
-                    return res.json();
-                })
-                .then(data => {
-                    if (!data || !data.line_items || !Array.isArray(data.line_items)) throw new Error("Invalid data format");
+            try {
+                const orderRes = await fetch(`${API_BASE}/api/get-order?session_id=${sessionId}`);
+                const order = await orderRes.json();
 
-                    showToast("Order loaded successfully!");
-                    const fullName = data.customer_details?.name || "Customer";
-                    document.getElementById("thankYouMessage").textContent = `Thank you, ${fullName.split(" ")[0]}!`;
-                    document.getElementById("emailMessage").innerHTML =
-                        `A receipt has been sent to <strong>${data.customer_details?.email}</strong>`;
+                const reviewRes = await fetch("https://api.jsonbin.io/v3/b/6842b73d8561e97a50204314/latest");
+                const reviews = (await reviewRes.json()).record.reviews;
 
-                    const itemsContainer = document.getElementById("orderItems");
-                    itemsContainer.innerHTML = "";
-                    let subtotal = 0;
+                renderOrderItems(order, reviews);
+                renderTotals(order);
+            } catch (err) {
+                console.error("Error:", err);
+                showToast("Failed to load order info.", "error");
+            }
+        }
 
-                    data.line_items.forEach(item => {
-                        const div = document.createElement("div");
-                        div.className = "flex justify-between items-start border-b pb-3";
+        function renderOrderItems(data, reviews) {
+            const itemsContainer = document.getElementById("orderItems");
+            itemsContainer.innerHTML = "";
+            let subtotal = 0;
 
-                        const itemTotal = (item.unit_amount * item.quantity) / 100;
-                        subtotal += itemTotal;
+            data.line_items.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "flex justify-between items-start border-b pb-4";
+                const itemTotal = (item.unit_amount * item.quantity) / 100;
+                subtotal += itemTotal;
 
-                        div.innerHTML = `
-                                    <div class="flex items-start gap-3">
-                                        <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 object-cover rounded border" />
-                                        <div>
-                                            <p class="font-medium">
-      ${item.description}${item.metadata?.variant && !item.description.toLowerCase().includes(item.metadata.variant.toLowerCase()) ? ` – ${item.metadata.variant}` : ""}
-</p>
-                                            <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
-                                        </div>
-                                    </div>
-                                    <div class="text-right font-semibold whitespace-nowrap">$${itemTotal.toFixed(2)}</div>
-                                `;
-                        itemsContainer.appendChild(div);
-                    });
+                const pid = item.metadata?.product_id;
+                const slug = item.metadata?.slug || "";
+                const productReviews = reviews.filter(r => r.productId === pid);
 
-                    fetch("https://api.jsonbin.io/v3/b/6842b73d8561e97a50204314/latest", {
-                        headers: {
-                            "X-Master-Key": "your-jsonbin-master-key-here" // if required
-                        }
-                    })
-                        .then(res => res.json())
-                        .then(reviewData => {
-                            const ratingsDiv = document.getElementById("ratingsSummary");
-                            const contentDiv = document.getElementById("ratingsContent");
-                            const reviews = reviewData.record.reviews;
+                let ratingHTML = "";
+                if (productReviews.length > 0) {
+                    const avg = (
+                        productReviews.reduce((sum, r) => sum + Number(r.rating || 0), 0) / productReviews.length
+                    ).toFixed(1);
+                    ratingHTML = `
+                        <p class="text-yellow-600 text-xs mt-1">⭐ ${avg} from ${productReviews.length} review${productReviews.length > 1 ? "s" : ""}</p>
+                        <a href="/products/${slug}.html" class="text-xs text-blue-600 underline">View all reviews</a>
+                    `;
+                }
 
-                            let ratingSum = 0;
-                            let count = 0;
+                div.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 object-cover rounded border" />
+                        <div>
+                            <p class="font-medium">${item.description}${item.metadata?.variant ? ` - ${item.metadata.variant}` : ""}</p>
+                            <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
+                            ${ratingHTML}
+                        </div>
+                    </div>
+                    <div class="text-right font-semibold whitespace-nowrap">$${itemTotal.toFixed(2)}</div>
+                `;
 
-                            // ✅ Properly extract product IDs from metadata
-                            const purchasedIds = data.line_items
-                                .map(i => i.metadata?.product_id)
-                                .filter(Boolean);
+                itemsContainer.appendChild(div);
+            });
+        }
 
-                            // ✅ Match reviews using productId
-                            const matchingReviews = reviews.filter(r => purchasedIds.includes(r.productId));
+        function renderTotals(data) {
+            const subtotal = data.line_items.reduce((sum, i) => sum + (i.unit_amount * i.quantity) / 100, 0);
+            const shipping = data.shipping?.amount_total ? data.shipping.amount_total / 100 : 0;
+            const discount = data.total_details?.amount_discount ? data.total_details.amount_discount / 100 : 0;
+            const tax = data.total_details?.amount_tax ? data.total_details.amount_tax / 100 : 0;
+            const grandTotal = subtotal + shipping + tax - discount;
 
-                            matchingReviews.forEach(r => {
-                                ratingSum += Number(r.rating || 0);
-                                count++;
-                            });
+            const totalsContainer = document.getElementById("orderTotalContainer");
+            totalsContainer.innerHTML = `
+                <div class="flex justify-between text-sm py-1">
+                    <span class="text-gray-700">Subtotal</span>
+                    <span>$${subtotal.toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between text-sm py-1">
+                    <span class="text-gray-700">Shipping</span>
+                    <span>$${shipping.toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between text-sm py-1">
+                    <span class="text-gray-700">Tax</span>
+                    <span>$${tax.toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between text-sm py-1">
+                    <span class="text-gray-700">Discount</span>
+                    <span class="text-green-700">−$${discount.toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between text-base font-bold border-t pt-2 mt-2">
+                    <span>Total Paid</span>
+                    <span>$${grandTotal.toFixed(2)}</span>
+                </div>
+            `;
+            totalsContainer.classList.remove("hidden");
+        }
 
-                            if (count > 0) {
-                                const average = (ratingSum / count).toFixed(1);
-                                contentDiv.innerHTML = `⭐ ${average} based on ${count} review${count > 1 ? "s" : ""}`;
-                                ratingsDiv.classList.remove("hidden");
-                            } else {
-                                contentDiv.innerHTML = `No reviews yet for your purchased items.`;
-                                ratingsDiv.classList.remove("hidden");
-                            }
-                        })
-                        .catch(err => {
-                            console.error("Error fetching reviews:", err);
-                        });
-
-
-
-                    const shipping = data.shipping?.amount_total ? data.shipping.amount_total / 100 : 0;
-                    const discount = data.total_details?.amount_discount ? data.total_details.amount_discount / 100 : 0;
-                    const tax = data.total_details?.amount_tax ? data.total_details.amount_tax / 100 : 0;
-                    const grandTotal = subtotal + shipping + tax - discount;
-
-                    const totalsContainer = document.getElementById("orderTotalContainer");
-                    totalsContainer.innerHTML = `
-                                <div class="flex justify-between text-sm py-1">
-                                    <span class="text-gray-700">Subtotal</span>
-                                    <span>$${subtotal.toFixed(2)}</span>
-                                </div>
-                                <div class="flex justify-between text-sm py-1">
-                                    <span class="text-gray-700">Shipping</span>
-                                    <span>$${shipping.toFixed(2)}</span>
-                                </div>
-                                <div class="flex justify-between text-sm py-1">
-                                    <span class="text-gray-700">Tax</span>
-                                    <span>$${tax.toFixed(2)}</span>
-                                </div>
-                                <div class="flex justify-between text-sm py-1">
-                                    <span class="text-gray-700">Discount</span>
-                                    <span class="text-green-700">−$${discount.toFixed(2)}</span>
-                                </div>
-                                <div class="flex justify-between text-base font-bold border-t pt-2 mt-2">
-                                    <span>Total Paid</span>
-                                    <span>$${grandTotal.toFixed(2)}</span>
-                                </div>
-                            `;
-                    totalsContainer.classList.remove("hidden");
-                })
-                .catch(err => {
-                    console.error("Error loading order:", err);
-                    showToast("There was an issue retrieving your order. Please contact support.", "error");
-                    document.getElementById("orderItems").innerHTML = `<p class="text-red-500 text-sm">Unable to load order summary.</p>`;
-                });
-
-            localStorage.removeItem("cart");
-            localStorage.removeItem("savedCart");
-            if (typeof updateCartCount === "function") updateCartCount();
-            if (typeof renderCart === "function") renderCart();
-            if (typeof toggleCart === "function") toggleCart(false);
+        document.addEventListener("DOMContentLoaded", () => {
+            loadOrderAndReviews();
+            document.addEventListener("DOMContentLoaded", loadFeaturedProducts);
         });
     </script>
 
     <script src="/js/productinsert.js"></script>
-    <script src="/js/helpers.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", loadFeaturedProducts);
-    </script>
     <script>
         fetch("/products/promotion.json")
             .then(res => res.json())
@@ -274,10 +225,8 @@
                 }
             });
 
-        // 🔁 Main Load Flow
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
             initNavbar();
-
             const addToCartBtn = document.getElementById("add-to-cart-btn");
             if (addToCartBtn) {
                 addToCartBtn.addEventListener("click", () => {
@@ -285,11 +234,8 @@
                     addToCart(activeProduct, variant);
                 });
             }
-
             includeHTML("footer", "/page_inserts/footer.html");
         });
     </script>
-
-
 </body>
 </html>
