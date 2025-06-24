@@ -22,16 +22,25 @@
         const cart = productString.split(",").map(item => {
             const [rawId, qty] = item.split(":");
 
-            const lastDashIndex = rawId.lastIndexOf("-");
-            const productKey = rawId.slice(0, lastDashIndex);
-            const variant = rawId.slice(lastDashIndex + 1);
+            let productKey, variant;
+
+            // Check if the ID is a true variant-style entry (e.g., 2+ dashes but not SKU-style like LKK-001)
+            if (/^[A-Za-z]+_[A-Za-z]+-[A-Za-z]+$/.test(rawId)) {
+                const lastDashIndex = rawId.lastIndexOf("-");
+                productKey = rawId.slice(0, lastDashIndex);
+                variant = rawId.slice(lastDashIndex + 1);
+            } else {
+                productKey = rawId;
+                variant = null;
+            }
 
             return {
                 id: productKey,
-                variant: variant || null,
+                variant,
                 qty: Number(qty) || 1
             };
         });
+
 
 
         fetch("/api/create-checkout-session", {
