@@ -22,16 +22,13 @@
         const cart = productString.split(",").map(item => {
             const [rawId, qty] = item.split(":");
 
-            let productKey, variant;
+            let productKey = rawId;
+            let variant = null;
 
-            // Check if the ID is a true variant-style entry (e.g., 2+ dashes but not SKU-style like LKK-001)
-            if (/^[A-Za-z]+_[A-Za-z]+-[A-Za-z]+$/.test(rawId)) {
-                const lastDashIndex = rawId.lastIndexOf("-");
-                productKey = rawId.slice(0, lastDashIndex);
-                variant = rawId.slice(lastDashIndex + 1);
-            } else {
-                productKey = rawId;
-                variant = null;
+            const dashParts = rawId.split("-");
+            if (dashParts.length >= 3) {
+                variant = dashParts.pop(); // get last part as variant
+                productKey = dashParts.join("-"); // rest becomes product ID
             }
 
             return {
@@ -40,6 +37,7 @@
                 qty: Number(qty) || 1
             };
         });
+
 
 
 
