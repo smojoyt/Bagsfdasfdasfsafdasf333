@@ -383,12 +383,12 @@
 
 	"Bag_LVShoulderSet": {
 		"name": "LV Shoulder Set",
-		"category": "bags",
+		"category": "designerbags",
 		"product_id": "KK-1010",
 		"price": 125.00,
 		"weight_oz": 16.58,
 		"tags": [ "Discontinued" ],
-		"image": "",
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg",
 		"url": "",
 		"descriptionList": [
 			""
@@ -396,16 +396,16 @@
 		"custom1Name": "Color",
 		"custom1Options": "Black",
 		"variantImages": {
-			"Black": ""
+			"Black": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
 		},
 		"thumbnails": [
-			""
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
 		]
 	},
 
 	"Bag_LVTote": {
 		"name": "LV Tote",
-		"category": "bags",
+		"category": "designerbags",
 		"product_id": "KK-1011",
 		"price": 150.00,
 		"weight_oz": 64.2,
@@ -427,7 +427,7 @@
 
 	"Bag_ToteBagGradient": {
 		"name": "The Tote Bag Gradient",
-		"category": "bags",
+		"category": "designerbags",
 		"product_id": "KK-1012",
 		"price": 60.00,
 		"weight_oz": 28.22,
@@ -481,7 +481,7 @@
 
 	"Bag_LVMediumWallet": {
 		"name": "LV Wallet",
-		"category": "bags",
+		"category": "designerbags",
 		"product_id": "KK-1014",
 		"price": 120.00,
 		"weight_oz": 64.2,
@@ -503,7 +503,7 @@
 
 	"Bag_DiorTote": {
 		"name": "Dior Tote Bag",
-		"category": "bags",
+		"category": "designerbags",
 		"product_id": "KK-1015",
 		"price": 300.00,
 		"weight_oz": 21.16,
