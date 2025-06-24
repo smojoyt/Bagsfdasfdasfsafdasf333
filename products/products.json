@@ -396,7 +396,7 @@
 			"LV"
 		],
 		"product_id": "KK-1010",
-		"checkout_product_id": "LKK_001",
+		"checkout_product_id": "LKK001",
 		"price": 125,
 		"weight_oz": 16.58,
 		"tags": [
@@ -417,7 +417,7 @@
 			"https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
 		]
 	},
-	"LKK_001": {
+	"LKK001": {
 		"product_id": "LKK-001",
 		"name": "LV Shoulder Set",
 		"price": 125,
