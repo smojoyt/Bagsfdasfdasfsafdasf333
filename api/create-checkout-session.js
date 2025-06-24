@@ -40,6 +40,13 @@ export default async function handler(req, res) {
         const rawData = fs.readFileSync(filePath, 'utf8');
         const products = JSON.parse(rawData);
 
+        // 🔁 Build reverse lookup: { checkout_product_id: productKey }
+        const checkoutToProductKey = Object.entries(products).reduce((acc, [key, val]) => {
+            if (val.checkout_product_id) acc[val.checkout_product_id] = key;
+            return acc;
+        }, {});
+
+
         // 🔁 Build reverse lookup: { SKU: productKey }
         const skuToProductKey = Object.entries(products).reduce((acc, [key, val]) => {
             if (val.product_id) acc[val.product_id] = key; // product_id = SKU
@@ -59,7 +66,8 @@ export default async function handler(req, res) {
             }
 
             line_items = cart.map(item => {
-                const product = products[item.id] || products[skuToProductKey[item.id]];
+                const productKey = checkoutToProductKey[item.id] || skuToProductKey[item.id] || item.id;
+                const product = products[productKey];
                 if (!product) return null;
 
                 const variant = item.variant?.trim();
