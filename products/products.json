@@ -404,7 +404,7 @@
 	},
 
 	"Bag_LVTote": {
-		"name": "LV Tote",
+		"name": "LV Tote Set",
 		"category": [ "bags", "LV" ],
 		"product_id": "KK-1011",
 		"price": 150.00,
@@ -490,25 +490,25 @@
 	},
 
 	"Bag_LVMediumWallet": {
-		"name": "LV Wallet",
+		"name": "LV Wallet Set",
 		"category": [ "bags", "LV" ],
 		"product_id": "KK-1014",
 		"price": 120.00,
 		"weight_oz": 64.2,
 		"tags": [ "Discontinued", "designerbags" ],
-		"image": "https://www.karrykraze.com/imgs/Products/LV/003_WalletSet/Brown/01_01.jpg",
+		"image": "https://karrykraze.com/imgs/Products/Pouches/LV/003_WalletSet/Brown/01_01.jpg",
 		"url": "",
 		"descriptionList": [
 			""
 		],
 		"custom1Name": "Color",
-		"custom1Options": "Black",
+		"custom1Options": "Brown",
 		"variantImages": {
-			"Black": "https://www.karrykraze.com/imgs/Products/LV/003_WalletSet/Brown/01_01.jpg"
+			"Brown": "https://karrykraze.com/imgs/Products/Pouches/LV/003_WalletSet/Brown/01_01.jpg"
 		},
 		"thumbnails": [
-			"https://www.karrykraze.com/imgs/Products/LV/003_WalletSet/Brown/01_01.jpg"
-			
+			"https://karrykraze.com/imgs/Products/Pouches/LV/003_WalletSet/Brown/01_01.jpg"
+
 		]
 	},
 
