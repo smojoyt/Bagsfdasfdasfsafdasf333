@@ -410,7 +410,7 @@
 		"price": 150.00,
 		"weight_oz": 64.2,
 		"tags": [ "Discontinued", "designerbags" ],
-		"image": "",
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg",
 		"url": "",
 		"descriptionList": [
 			""
@@ -418,10 +418,20 @@
 		"custom1Name": "Color",
 		"custom1Options": "Black",
 		"variantImages": {
-			"Black": ""
+			"Black": "https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg"
 		},
 		"thumbnails": [
-			""
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_04.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_07.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_08.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_10.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_11.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_18.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_19.jpg"
+
 		]
 	},
 
@@ -431,7 +441,7 @@
 		"product_id": "KK-1012",
 		"price": 60.00,
 		"weight_oz": 28.22,
-		"tags": [ "Discontinued", "designerbags" ],
+		"tags": [ "Discontinued", "designerbagss" ],
 		"image": "",
 		"url": "",
 		"descriptionList": [
@@ -486,7 +496,7 @@
 		"price": 120.00,
 		"weight_oz": 64.2,
 		"tags": [ "Discontinued", "designerbags" ],
-		"image": "",
+		"image": "https://www.karrykraze.com/imgs/Products/LV/003_WalletSet/Brown/01_01.jpg",
 		"url": "",
 		"descriptionList": [
 			""
@@ -494,10 +504,11 @@
 		"custom1Name": "Color",
 		"custom1Options": "Black",
 		"variantImages": {
-			"Black": ""
+			"Black": "https://www.karrykraze.com/imgs/Products/LV/003_WalletSet/Brown/01_01.jpg"
 		},
 		"thumbnails": [
-			""
+			"https://www.karrykraze.com/imgs/Products/LV/003_WalletSet/Brown/01_01.jpg"
+			
 		]
 	},
 
@@ -507,7 +518,7 @@
 		"product_id": "KK-1015",
 		"price": 300.00,
 		"weight_oz": 21.16,
-		"tags": [ "Discontinued", "designerbags" ],
+		"tags": [ "Discontinued", "designerbagss" ],
 		"image": "",
 		"url": "",
 		"descriptionList": [
