@@ -381,36 +381,37 @@
 		]
 	},
 
+	
 	"Bag_LVShoulderSet": {
-		"name": "LV Shoulder Set",
-		"category": [ "bags", "LV" ],
-		"product_id": "KK-1010",
-		"checkout_product_id": "LKK-001",
-		"price": 125.00,
-		"weight_oz": 16.58,
-		"tags": [ "Discontinued", "designerbags" ],
-		"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg",
-		"url": "",
-		"descriptionList": [
-			""
-		],
-		"custom1Name": "Color",
-		"custom1Options": "Black",
-		"variantImages": {
-			"Black": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
+			"name": "LV Shoulder Set",
+			"category": [ "bags", "LV" ],
+			"product_id": "KK-1010",
+			"checkout_product_id": "LKK-001", // used only for internal linking
+			"price": 125.00,
+			"weight_oz": 16.58,
+			"tags": [ "Discontinued", "designerbags" ],
+			"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg",
+			"url": "",
+			"descriptionList": [ "" ],
+			"custom1Name": "Color",
+			"custom1Options": "Black",
+			"variantImages": {
+				"Black": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
+			},
+			"thumbnails": [
+				"https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
+			]
 		},
-		"thumbnails": [
-			"https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
-		]
-	},
 
-	"Bag_LVShoulderSet_Dummy": {
-		"product_id": "LKK-001",
-		"price": 125.00,
-		"custom1Options": "Black",
-		"name": "LV Shoulder Set",
-		"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
-	},
+	"LKK-001": {
+			"product_id": "LKK-001",
+			"name": "LV Shoulder Set",
+			"price": 125.00,
+			"custom1Options": "Black",
+			"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
+		},
+	
+
 
 
 	"Bag_LVTote": {
