@@ -21,13 +21,18 @@
         // Convert "Headwear_EarflapBeanie-Black:1,Headwear_EarflapBeanie-Cream:2" into a usable array
         const cart = productString.split(",").map(item => {
             const [rawId, qty] = item.split(":");
-            const [productKey, variant] = rawId.split("-");
+
+            const lastDashIndex = rawId.lastIndexOf("-");
+            const productKey = rawId.slice(0, lastDashIndex);
+            const variant = rawId.slice(lastDashIndex + 1);
+
             return {
                 id: productKey,
                 variant: variant || null,
                 qty: Number(qty) || 1
             };
         });
+
 
         fetch("/api/create-checkout-session", {
             method: "POST",
