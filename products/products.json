@@ -386,7 +386,7 @@
 			"name": "LV Shoulder Set",
 			"category": [ "bags", "LV" ],
 			"product_id": "KK-1010",
-			"checkout_product_id": "LKK-001", // used only for internal linking
+			"checkout_product_id": "LKK-001",
 			"price": 125.00,
 			"weight_oz": 16.58,
 			"tags": [ "Discontinued", "designerbags" ],
