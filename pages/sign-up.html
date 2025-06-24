@@ -27,7 +27,7 @@
 </section>
 
 <script>
-  document.getElementById('couponForm').addEventListener('submit', async function(e) {
+  document.getElementById('couponForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const form = e.target;
@@ -39,11 +39,32 @@
       body: JSON.stringify(data)
     });
 
+    const messageBox = document.getElementById('couponMessage');
+    const messageText = messageBox.querySelector('p');
+    const useNowBtn = messageBox.querySelector('a');
+
     if (res.ok) {
+      const json = await res.json();
+
       form.style.display = 'none';
-      document.getElementById('couponMessage').classList.remove('hidden');
+      messageBox.classList.remove('hidden');
+
+      if (json.status === 'already_redeemed') {
+        messageText.textContent = json.message;
+
+        // If message includes "expired" or "redeemed", hide the button
+        if (json.message.includes('expired') || json.message.includes('redeemed')) {
+          useNowBtn.classList.add('hidden');
+        } else {
+          useNowBtn.classList.remove('hidden');
+        }
+      } else {
+        messageText.textContent = '🎉 Your coupon is on the way! Check your inbox.';
+        useNowBtn.classList.remove('hidden');
+      }
     } else {
       alert('Something went wrong. Please try again.');
     }
   });
 </script>
+
