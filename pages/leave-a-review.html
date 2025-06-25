@@ -27,37 +27,98 @@
     </style>
 
 </head>
-<body class="bg-[#fef1e7] text-gray-800 font-sans">
-    <div class="mt-20 max-w-3xl mx-auto px-4 md:px-8 space-y-8">
-        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase underline text-center mb-4">Leave a Review</h1>
+<body class="relative bg-[#fef1e7]">
 
-        <form id="reviewForm" class="space-y-6">
+    <!-- 🌸 Background Blob -->
+    <div class="absolute -z-10 top-0 left-0 w-full h-full overflow-hidden">
+        <svg viewBox="0 0 800 800" class="w-[120%] h-[80%] md:h-[120%] opacity-20 animate-blobMotion">
+            <!-- Main Blob -->
+            <path fill="#f88379">
+                <animate attributeName="d" dur="10s" repeatCount="indefinite"
+                         values="
+M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170,437,296Z;
+M417,300Q383,420,280,429Q177,438,164,369Q151,300,199,228Q247,156,344,166Q441,176,417,300Z;
+M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170,437,296Z" />
+            </path>
+
+            <!-- 🎈 Bubble 1: Up-right -->
+            <circle cx="400" cy="300" r="8" fill="#f88379">
+                <animate attributeName="cx" values="300; 310" dur="6s" repeatCount="indefinite" />
+                <animate attributeName="cy" values="300; 900" dur="6s" repeatCount="indefinite" />
+                <animate attributeName="r" values="50; 25; 10" dur="6s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="1; 0.5; 0" dur="6s" repeatCount="indefinite" />
+            </circle>
+
+            <!-- 🎈 Bubble 2: Up-left -->
+            <circle cx="400" cy="300" r="7" fill="#f88379">
+                <animate attributeName="cx" values="300; 330" dur="5s" begin="1s" repeatCount="indefinite" />
+                <animate attributeName="cy" values="300; -200" dur="5s" begin="1s" repeatCount="indefinite" />
+                <animate attributeName="r" values="80; 40; 10" dur="5s" begin="1s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="1; 0.5; 0" dur="5s" begin="1s" repeatCount="indefinite" />
+            </circle>
+
+            <!-- 🎈 Bubble 3: Up-right-far -->
+            <circle cx="400" cy="300" r="6" fill="#f88379">
+                <animate attributeName="cx" values="300; 800" dur="7s" begin="2s" repeatCount="indefinite" />
+                <animate attributeName="cy" values="300; 220" dur="7s" begin="2s" repeatCount="indefinite" />
+                <animate attributeName="r" values="70; 35; 10" dur="7s" begin="2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="1; 0.5; 0" dur="7s" begin="2s" repeatCount="indefinite" />
+            </circle>
+
+
+
+        </svg>
+    </div>
+
+
+    <!-- 🔥 Banner with overlayed title -->
+    <div class="mt-[2rem] md:mt-16 relative w-full h-40 md:h-60 sm:h-72 md:h-80 lg:h-[28rem] overflow-hidden shadow-md">
+        <img src="/imgs/Banner/KK_01.jpg" alt="Signup Banner" class="absolute inset-0 w-full h-full object-cover" />
+
+        <!-- Title Overlay -->
+        <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 text-white drop-shadow-md max-w-[90%] sm:max-w-[75%]">
+            <h1 class="text-2xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
+                $7 off your next order
+            </h1>
+            <p class="mt-4 text-l md:text-2xl font-medium text-white drop-shadow">
+                Leave a review below and your exclusive coupon will be emailed instantly.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- 💌 Signup Section -->
+
+    <section class="relative text-gray-800 font-sans px-4 py-5 md:py-10 max-w-3xl mx-auto animate-fadeInUp">
+
+
+        <form id="reviewForm" class="space-y-6 font-sans">
             <!-- Product Dropdown -->
             <div>
-                <label class="block font-semibold text-lg mb-1">Select a product *</label>
                 <input type="hidden" name="product" id="selectedProduct" required />
                 <div class="relative">
-                    <button id="dropdownToggle" type="button" class="w-full border p-2 rounded flex justify-between items-center bg-white shadow-sm">
-                        <span id="selectedText">Select a product</span>
+                    <button id="dropdownToggle" type="button"
+                            class="w-full border border-gray-300 p-3 rounded-2xl bg-white shadow-sm flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-[#f88379]">
+                        <span id="selectedText" class="text-gray-500">Select a product</span>
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div id="dropdownList" class="absolute z-10 w-full mt-2 bg-white border rounded shadow hidden">
+                    <div id="dropdownList"
+                         class="absolute z-10 w-full mt-2 bg-white border rounded-2xl shadow hidden overflow-hidden">
                         <div class="p-2">
-                            <input type="text" id="productSearch" placeholder="Search products..." class="w-full p-2 border rounded text-sm" />
+                            <input type="text" id="productSearch" placeholder="Search products..."
+                                   class="w-full p-2 border border-gray-300 rounded-xl text-sm" />
                         </div>
                         <div id="productItems" class="max-h-60 overflow-y-auto"></div>
                     </div>
-
                 </div>
             </div>
 
-            <!-- Rating -->
+            <!-- Star Rating -->
             <div>
-                <label class="block font-semibold text-lg mb-1">Rate your experience *</label>
                 <div class="flex items-center gap-3">
-                    <div id="starRating" class="flex gap-1 text-7xl cursor-pointer text-gray-400">
+                    <div id="starRating" class="flex gap-1 text-3xl cursor-pointer text-gray-400">
                         <span data-star="1" class="transition-transform duration-150 hover:scale-125">★</span>
                         <span data-star="2" class="transition-transform duration-150 hover:scale-125">★</span>
                         <span data-star="3" class="transition-transform duration-150 hover:scale-125">★</span>
@@ -69,41 +130,33 @@
                 <input type="hidden" name="rating" id="ratingInput" required />
             </div>
 
-
-
-
-
-            <!-- Review Headline -->
-            <div>
-                <label class="text-1xl block font-bold mb-1 uppercase">Add a headline *</label>
-                <input name="reviewHeadline" placeholder="Summarize your experience" required class="w-full p-2 border rounded" />
-            </div>
+            <!-- Headline -->
+            <input name="reviewHeadline" placeholder="Add a headline *" required
+                   class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
 
             <!-- Review Text -->
-            <div>
-                <label class="text-1xl block font-bold mb-1 uppercase">Write a review *</label>
-                <textarea name="reviewText" rows="5" placeholder="Tell us what you like or dislike" required class="w-full p-2 border rounded"></textarea>
+            <textarea name="reviewText" rows="5" placeholder="Write a review *" required
+                      class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]"></textarea>
+
+            <!-- Name, Email, Phone -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <input name="firstName" placeholder="First Name *" required
+                       class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+                <input name="lastName" placeholder="Last Name *" required
+                       class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+                <input name="phone" placeholder="Phone Number *" required type="tel"
+                       class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
             </div>
 
-            <!-- Name and Email -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block font-semibold mb-1">Your name *</label>
-                    <input name="name" required class="w-full p-2 border rounded" />
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">Your email address *</label>
-                    <input name="email" type="email" required class="w-full p-2 border rounded" />
-                    <p class="text-xs text-gray-500 mt-1">We'll use this to verify your review came from you.</p>
-                </div>
-            </div>
+            <input name="email" type="email" placeholder="Email Address *" required
+                   class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
 
-            <!-- Image Upload -->
+            <!-- Media Upload -->
             <div>
-                <label class="text-1xl block font-bold mb-1 uppercase">Add media</label>
-                <label class="flex items-center gap-2 px-3 py-2 bg-white border rounded shadow cursor-pointer w-fit text-sm">
+                <label class="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-xl shadow cursor-pointer w-fit text-sm">
                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 8L12 4M12 4L16 8M12 4V16M4 20H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M8 8L12 4M12 4L16 8M12 4V16M4 20H20" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" />
                     </svg>
                     Upload Image
                     <input type="file" name="image" id="imageInput" accept="image/*" class="hidden" />
@@ -112,320 +165,348 @@
                 <img id="previewImage" class="w-40 mt-4 rounded-xl shadow hidden" alt="Preview" />
             </div>
 
-            <!-- Quality (button-style) -->
+            <!-- Quality Buttons -->
             <div>
-                <label class="text-1xl block font-bold mb-2 uppercase">How would you rate the quality?</label>
                 <div id="qualityOptions" class="flex flex-wrap gap-3">
-                    <button type="button" data-quality="Exceptional" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">Exceptional quality</button>
-                    <button type="button" data-quality="High" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">High quality</button>
-                    <button type="button" data-quality="Average" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">Average quality</button>
-                    <button type="button" data-quality="Below Average" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">Below average quality</button>
-                    <button type="button" data-quality="Poor" class="quality-btn px-4 py-2 bg-gray-200 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">Poor quality</button>
+                    <button type="button" data-quality="Exceptional"
+                            class="quality-btn px-4 py-2 bg-gray-200 rounded-2xl text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
+                        Exceptional
+                    </button>
+                    <button type="button" data-quality="High"
+                            class="quality-btn px-4 py-2 bg-gray-200 rounded-2xl text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
+                        High
+                    </button>
+                    <button type="button" data-quality="Average"
+                            class="quality-btn px-4 py-2 bg-gray-200 rounded-2xl text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
+                        Average
+                    </button>
+                    <button type="button" data-quality="Below Average"
+                            class="quality-btn px-4 py-2 bg-gray-200 rounded-2xl text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
+                        Below Average
+                    </button>
+                    <button type="button" data-quality="Poor"
+                            class="quality-btn px-4 py-2 bg-gray-200 rounded-2xl text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
+                        Poor
+                    </button>
                 </div>
                 <input type="hidden" name="quality" id="qualityInput" required />
             </div>
 
             <!-- Consent -->
-            <label class="inline-flex items-center">
-                <input type="checkbox" required class="mr-2" />
+            <label class="inline-flex items-start gap-2 text-sm">
+                <input type="checkbox" name="publicConsent" required class="mt-1 accent-[#f88379]" />
                 I consent to this review being publicly shown on the site.
             </label>
 
+            <label class="inline-flex items-start gap-2 text-sm">
+                <input type="checkbox" name="emailConsent" class="mt-1 accent-[#f88379]" />
+                I agree to receive marketing emails.
+            </label>
+
+            <label class="inline-flex items-start gap-2 text-sm">
+                <input type="checkbox" name="smsConsent" class="mt-1 accent-[#f88379]" />
+                I agree to receive promotional SMS messages.
+            </label>
+
             <!-- Submit Button -->
-            <button type="submit" class="bg-black text-white py-2 px-6 rounded hover:bg-gray-800">Submit Review</button>
+            <button type="submit"
+                    class="bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 px-6 rounded-2xl font-semibold transition duration-200 w-full">
+                Submit Review
+            </button>
         </form>
 
+    </section>
         <p id="formStatus" class="text-sm mt-2"></p>
-    </div>
+ 
 
-    <!-- Footer -->
-    <div id="footer"></div>
-    <div id="navbar-container"></div>
+        <!-- Footer -->
+        <div id="footer"></div>
+        <div id="navbar-container"></div>
 
-    <script>
-        // Firebase setup
-        const firebaseConfig = {
-            apiKey: "AIzaSyBBDruyZmtNMl2-zJrYwaqUjIHniSolsdk",
-            authDomain: "karrykraze-refiews.firebaseapp.com",
-            projectId: "karrykraze-refiews",
-            storageBucket: "karrykraze-refiews.firebasestorage.app",
-            messagingSenderId: "207129112203",
-            appId: "1:207129112203:web:910e834e7c1bbe9158ae8e",
-        };
-        firebase.initializeApp(firebaseConfig);
-        const storage = firebase.storage();
+        <script>
+            // Firebase setup
+            const firebaseConfig = {
+                apiKey: "AIzaSyBBDruyZmtNMl2-zJrYwaqUjIHniSolsdk",
+                authDomain: "karrykraze-refiews.firebaseapp.com",
+                projectId: "karrykraze-refiews",
+                storageBucket: "karrykraze-refiews.firebasestorage.app",
+                messagingSenderId: "207129112203",
+                appId: "1:207129112203:web:910e834e7c1bbe9158ae8e",
+            };
+            firebase.initializeApp(firebaseConfig);
+            const storage = firebase.storage();
 
-        // Load products.json and build the dropdown
-        fetch("../products/products.json")
-            .then(res => res.json())
-            .then(data => {
-                const dropdownToggle = document.getElementById("dropdownToggle");
-                const dropdownList = document.getElementById("dropdownList");
-                const selectedText = document.getElementById("selectedText");
-                const selectedInput = document.getElementById("selectedProduct");
-                const productItemsContainer = document.getElementById("productItems");
-                const searchInput = document.getElementById("productSearch");
-                let allProducts = [];
+            // Load products.json and build the dropdown
+            fetch("../products/products.json")
+                .then(res => res.json())
+                .then(data => {
+                    const dropdownToggle = document.getElementById("dropdownToggle");
+                    const dropdownList = document.getElementById("dropdownList");
+                    const selectedText = document.getElementById("selectedText");
+                    const selectedInput = document.getElementById("selectedProduct");
+                    const productItemsContainer = document.getElementById("productItems");
+                    const searchInput = document.getElementById("productSearch");
+                    let allProducts = [];
 
-                dropdownToggle.addEventListener("click", () => {
-                    dropdownList.classList.toggle("hidden");
-                    searchInput.focus();
-                });
+                    dropdownToggle.addEventListener("click", () => {
+                        dropdownList.classList.toggle("hidden");
+                        searchInput.focus();
+                    });
 
-                document.addEventListener("click", (e) => {
-                    if (!dropdownToggle.contains(e.target) && !dropdownList.contains(e.target)) {
-                        dropdownList.classList.add("hidden");
-                    }
-                });
+                    document.addEventListener("click", (e) => {
+                        if (!dropdownToggle.contains(e.target) && !dropdownList.contains(e.target)) {
+                            dropdownList.classList.add("hidden");
+                        }
+                    });
 
-                Object.entries(data).forEach(([key, p]) => {
-                    const hasStock = Object.values(p.variantStock || {}).some(qty => qty > 0);
-                    if (!hasStock) return;
+                    Object.entries(data).forEach(([key, p]) => {
+                        const hasStock = Object.values(p.variantStock || {}).some(qty => qty > 0);
+                        if (!hasStock) return;
 
-                    const item = document.createElement("div");
-                    item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer  bg-white shadow hover:shadow-md";
-                    item.dataset.name = p.name.toLowerCase();
-                    item.dataset.id = p.product_id.toLowerCase();
-                    item.innerHTML = `
-          <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
-          <div class="flex flex-col w-full">
-            <p class="text-sm font-medium product-name" data-original="${p.name}">${p.name}</p>
-            <p class="text-xs text-gray-400 text-right product-id" data-original="${p.product_id}">${p.product_id}</p>
-          </div>
+                        const item = document.createElement("div");
+                        item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer  bg-white shadow hover:shadow-md";
+                        item.dataset.name = p.name.toLowerCase();
+                        item.dataset.id = p.product_id.toLowerCase();
+                        item.innerHTML = `
+                  <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
+                  <div class="flex flex-col w-full">
+                    <p class="text-sm font-medium product-name" data-original="${p.name}">${p.name}</p>
+                    <p class="text-xs text-gray-400 text-right product-id" data-original="${p.product_id}">${p.product_id}</p>
+                  </div>
 `;
 
 
-                    item.addEventListener("click", () => {
-                        selectedText.textContent = `${p.name} (${p.product_id})`;
-                        selectedInput.value = p.product_id; // ✅ Use the actual KK-#### instead of the key
-                        dropdownList.classList.add("hidden");
+                        item.addEventListener("click", () => {
+                            selectedText.textContent = `${p.name} (${p.product_id})`;
+                            selectedInput.value = p.product_id; // ✅ Use the actual KK-#### instead of the key
+                            dropdownList.classList.add("hidden");
+                        });
+
+
+                        allProducts.push(item);
+                        productItemsContainer.appendChild(item);
                     });
 
+                    searchInput.addEventListener("input", (e) => {
+                        const term = e.target.value.toLowerCase();
+                        dropdownList.classList.remove("hidden");
+                        productItemsContainer.innerHTML = "";
 
-                    allProducts.push(item);
-                    productItemsContainer.appendChild(item);
-                });
+                        allProducts.forEach(item => {
+                            const nameEl = item.querySelector(".product-name");
+                            const idEl = item.querySelector(".product-id");
 
-                searchInput.addEventListener("input", (e) => {
-                    const term = e.target.value.toLowerCase();
-                    dropdownList.classList.remove("hidden");
-                    productItemsContainer.innerHTML = "";
+                            // Reset the original plain text content before re-checking
+                            nameEl.textContent = nameEl.dataset.original;
+                            idEl.textContent = idEl.dataset.original;
 
-                    allProducts.forEach(item => {
-                        const nameEl = item.querySelector(".product-name");
-                        const idEl = item.querySelector(".product-id");
+                            const name = item.dataset.name;
+                            const id = item.dataset.id;
 
-                        // Reset the original plain text content before re-checking
-                        nameEl.textContent = nameEl.dataset.original;
-                        idEl.textContent = idEl.dataset.original;
-
-                        const name = item.dataset.name;
-                        const id = item.dataset.id;
-
-                        if (name.includes(term) || id.includes(term)) {
-                            if (term) {
-                                const highlight = (text) => {
-                                    return text.replace(new RegExp(`(${term})`, "gi"), `<mark class="bg-yellow-200">$1</mark>`);
-                                };
-                                nameEl.innerHTML = highlight(nameEl.textContent);
-                                idEl.innerHTML = highlight(idEl.textContent);
+                            if (name.includes(term) || id.includes(term)) {
+                                if (term) {
+                                    const highlight = (text) => {
+                                        return text.replace(new RegExp(`(${term})`, "gi"), `<mark class="bg-yellow-200">$1</mark>`);
+                                    };
+                                    nameEl.innerHTML = highlight(nameEl.textContent);
+                                    idEl.innerHTML = highlight(idEl.textContent);
+                                }
+                                productItemsContainer.appendChild(item);
                             }
-                            productItemsContainer.appendChild(item);
-                        }
+                        });
                     });
+
                 });
 
-            });
 
 
+            // Show image preview immediately after file is picked
+            document.getElementById("imageInput").addEventListener("change", (e) => {
+                const file = e.target.files[0];
+                const preview = document.getElementById("previewImage");
 
-        // Show image preview immediately after file is picked
-        document.getElementById("imageInput").addEventListener("change", (e) => {
-            const file = e.target.files[0];
-            const preview = document.getElementById("previewImage");
-
-            if (file && file.type.startsWith("image/")) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    preview.src = event.target.result;
-                    preview.classList.remove("hidden");
-                };
-                reader.readAsDataURL(file);
-            } else {
-                preview.src = "";
-                preview.classList.add("hidden");
-            }
-        });
-
-
-        // Star rating logic
-        const stars = document.querySelectorAll('#starRating span');
-        const ratingInput = document.getElementById('ratingInput');
-        const starLabel = document.getElementById('starLabel');
-        const ratingLabels = {
-            1: "Terrible",
-            2: "Poor",
-            3: "Okay",
-            4: "Good",
-            5: "Great"
-        };
-        let selectedRating = 0;
-
-        stars.forEach(star => {
-            const value = parseInt(star.dataset.star);
-
-            star.addEventListener('mouseenter', () => {
-                highlightStars(value);
-                starLabel.textContent = ratingLabels[value];
-            });
-
-            star.addEventListener('mouseleave', () => {
-                highlightStars(selectedRating);
-                starLabel.textContent = selectedRating ? ratingLabels[selectedRating] : "";
-            });
-
-            star.addEventListener('click', () => {
-                selectedRating = value;
-                ratingInput.value = value;
-                highlightStars(value);
-                starLabel.textContent = ratingLabels[value];
-            });
-        });
-
-        function highlightStars(value) {
-            stars.forEach(s => {
-                const v = parseInt(s.dataset.star);
-                s.classList.toggle('text-yellow-500', v <= value);
-                s.classList.toggle('text-gray-300', v > value);
-            });
-        }
-
-        // Quality selection logic
-        const qualityButtons = document.querySelectorAll(".quality-btn");
-        const qualityInput = document.getElementById("qualityInput");
-
-        qualityButtons.forEach(btn => {
-            btn.addEventListener("click", () => {
-                qualityButtons.forEach(b => b.classList.remove("selected"));
-                btn.classList.add("selected");
-                qualityInput.value = btn.dataset.quality;
-            });
-        });
-
-        // Form submission
-        document.getElementById("reviewForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const formData = new FormData(form);
-            const file = formData.get("image");
-            const preview = document.getElementById("previewImage");
-
-            if (file && file.size > 0) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    preview.src = e.target.result;
-                    preview.classList.remove("hidden");
-                };
-                reader.readAsDataURL(file);
-            }
-
-            let imageUrl = "";
-            if (file && file.size > 0) {
-                const filename = `${Date.now()}_${file.name}`;
-                const ref = storage.ref().child("reviewImages/" + filename);
-                await ref.put(file);
-                imageUrl = await ref.getDownloadURL();
-            }
-
-            const payload = {
-                productId: formData.get("product"),
-                name: formData.get("name").trim(),
-                email: formData.get("email").trim(),
-                rating: formData.get("rating"),
-                quality: formData.get("quality"),
-                reviewHeadline: formData.get("reviewHeadline"),
-                reviewText: formData.get("reviewText"),
-                imageUrl: imageUrl,
-            };
-
-            const res = await fetch("https://hook.us2.make.com/wxlj4rrp6g3bqlkr3mxmfg6cq626j2qj", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-
-            const text = await res.text();
-            let result;
-
-            try {
-                result = JSON.parse(text);
-            } catch {
-                console.error("Response is not JSON:", text);
-                document.getElementById("formStatus").textContent = "Unexpected server response.";
-                return;
-            }
-
-            if (result.success) {
-                form.reset();
-                preview.src = "";
-                preview.classList.add("hidden");
-                qualityButtons.forEach(b => b.classList.remove("selected"));
-                highlightStars(0);
-                selectedRating = 0;
-                document.getElementById("formStatus").textContent = "Thank you! Your review was submitted.";
-            } else {
-                document.getElementById("formStatus").textContent = result.error || "Something went wrong. Try again.";
-            }
-        });
-
-        // Other included HTML
-        function includeHTML(id, filePath, callback = null) {
-            fetch(filePath)
-                .then(res => res.text())
-                .then(html => {
-                    document.getElementById(id).innerHTML = html;
-                    if (callback) callback();
-                });
-        }
-
-        function initNavbar() {
-            const toggleBtn = document.getElementById("mobile-menu-button");
-            const menu = document.getElementById("mobile-menu");
-            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
-
-            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-            const countElem = document.getElementById("cart-count");
-            if (countElem) countElem.textContent = totalQty;
-
-            const navbar = document.getElementById('mainNavbar');
-            let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                if (!navbar) return;
-                if (window.scrollY > lastScrollY && window.scrollY > 50) {
-                    navbar.classList.replace('navbar-show', 'navbar-hide');
+                if (file && file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        preview.src = event.target.result;
+                        preview.classList.remove("hidden");
+                    };
+                    reader.readAsDataURL(file);
                 } else {
-                    navbar.classList.replace('navbar-hide', 'navbar-show');
+                    preview.src = "";
+                    preview.classList.add("hidden");
                 }
-                lastScrollY = window.scrollY;
             });
-        }
 
-        // 🔁 Main Load Flow
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-            initNavbar();
 
-            const addToCartBtn = document.getElementById("add-to-cart-btn");
-            if (addToCartBtn) {
-                addToCartBtn.addEventListener("click", () => {
-                    const variant = document.getElementById("variantSelector")?.value || null;
-                    addToCart(activeProduct, variant);
+            // Star rating logic
+            const stars = document.querySelectorAll('#starRating span');
+            const ratingInput = document.getElementById('ratingInput');
+            const starLabel = document.getElementById('starLabel');
+            const ratingLabels = {
+                1: "Terrible",
+                2: "Poor",
+                3: "Okay",
+                4: "Good",
+                5: "Great"
+            };
+            let selectedRating = 0;
+
+            stars.forEach(star => {
+                const value = parseInt(star.dataset.star);
+
+                star.addEventListener('mouseenter', () => {
+                    highlightStars(value);
+                    starLabel.textContent = ratingLabels[value];
+                });
+
+                star.addEventListener('mouseleave', () => {
+                    highlightStars(selectedRating);
+                    starLabel.textContent = selectedRating ? ratingLabels[selectedRating] : "";
+                });
+
+                star.addEventListener('click', () => {
+                    selectedRating = value;
+                    ratingInput.value = value;
+                    highlightStars(value);
+                    starLabel.textContent = ratingLabels[value];
+                });
+            });
+
+            function highlightStars(value) {
+                stars.forEach(s => {
+                    const v = parseInt(s.dataset.star);
+                    s.classList.toggle('text-yellow-500', v <= value);
+                    s.classList.toggle('text-gray-300', v > value);
                 });
             }
 
-            includeHTML("footer", "/page_inserts/footer.html");
-        });
+            // Quality selection logic
+            const qualityButtons = document.querySelectorAll(".quality-btn");
+            const qualityInput = document.getElementById("qualityInput");
 
-    </script>
+            qualityButtons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    qualityButtons.forEach(b => b.classList.remove("selected"));
+                    btn.classList.add("selected");
+                    qualityInput.value = btn.dataset.quality;
+                });
+            });
+
+            // Form submission
+            document.getElementById("reviewForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const formData = new FormData(form);
+                const file = formData.get("image");
+                const preview = document.getElementById("previewImage");
+
+                if (file && file.size > 0) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        preview.src = e.target.result;
+                        preview.classList.remove("hidden");
+                    };
+                    reader.readAsDataURL(file);
+                }
+
+                let imageUrl = "";
+                if (file && file.size > 0) {
+                    const filename = `${Date.now()}_${file.name}`;
+                    const ref = storage.ref().child("reviewImages/" + filename);
+                    await ref.put(file);
+                    imageUrl = await ref.getDownloadURL();
+                }
+
+                const payload = {
+                    productId: formData.get("product"),
+                    name: formData.get("name").trim(),
+                    email: formData.get("email").trim(),
+                    rating: formData.get("rating"),
+                    quality: formData.get("quality"),
+                    reviewHeadline: formData.get("reviewHeadline"),
+                    reviewText: formData.get("reviewText"),
+                    imageUrl: imageUrl,
+                };
+
+                const res = await fetch("https://hook.us2.make.com/wxlj4rrp6g3bqlkr3mxmfg6cq626j2qj", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                const text = await res.text();
+                let result;
+
+                try {
+                    result = JSON.parse(text);
+                } catch {
+                    console.error("Response is not JSON:", text);
+                    document.getElementById("formStatus").textContent = "Unexpected server response.";
+                    return;
+                }
+
+                if (result.success) {
+                    form.reset();
+                    preview.src = "";
+                    preview.classList.add("hidden");
+                    qualityButtons.forEach(b => b.classList.remove("selected"));
+                    highlightStars(0);
+                    selectedRating = 0;
+                    document.getElementById("formStatus").textContent = "Thank you! Your review was submitted.";
+                } else {
+                    document.getElementById("formStatus").textContent = result.error || "Something went wrong. Try again.";
+                }
+            });
+
+            // Other included HTML
+            function includeHTML(id, filePath, callback = null) {
+                fetch(filePath)
+                    .then(res => res.text())
+                    .then(html => {
+                        document.getElementById(id).innerHTML = html;
+                        if (callback) callback();
+                    });
+            }
+
+            function initNavbar() {
+                const toggleBtn = document.getElementById("mobile-menu-button");
+                const menu = document.getElementById("mobile-menu");
+                if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+                const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+                const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+                const countElem = document.getElementById("cart-count");
+                if (countElem) countElem.textContent = totalQty;
+
+                const navbar = document.getElementById('mainNavbar');
+                let lastScrollY = window.scrollY;
+                window.addEventListener('scroll', () => {
+                    if (!navbar) return;
+                    if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                        navbar.classList.replace('navbar-show', 'navbar-hide');
+                    } else {
+                        navbar.classList.replace('navbar-hide', 'navbar-show');
+                    }
+                    lastScrollY = window.scrollY;
+                });
+            }
+
+            // 🔁 Main Load Flow
+            includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+                initNavbar();
+
+                const addToCartBtn = document.getElementById("add-to-cart-btn");
+                if (addToCartBtn) {
+                    addToCartBtn.addEventListener("click", () => {
+                        const variant = document.getElementById("variantSelector")?.value || null;
+                        addToCart(activeProduct, variant);
+                    });
+                }
+
+                includeHTML("footer", "/page_inserts/footer.html");
+            });
+
+        </script>
 </body>
 </html>
