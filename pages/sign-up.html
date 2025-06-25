@@ -66,34 +66,40 @@
 
     <!-- 🌸 Background Blob -->
     <div class="absolute -z-10 top-0 left-0 w-full h-full overflow-hidden">
-        <svg viewBox="0 0 800 800" class="w-[120%] h-[120%] opacity-20 animate-blobMotion">
+        <svg viewBox="0 0 800 800" class="w-[120%] h-[80%] md:h-[120%] opacity-20 animate-blobMotion">
             <!-- Main Blob -->
             <path fill="#f88379">
                 <animate attributeName="d" dur="10s" repeatCount="indefinite"
                          values="
-      M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170,437,296Z;
-      M417,300Q383,420,280,429Q177,438,164,369Q151,300,199,228Q247,156,344,166Q441,176,417,300Z;
-      M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170,437,296Z" />
+M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170,437,296Z;
+M417,300Q383,420,280,429Q177,438,164,369Q151,300,199,228Q247,156,344,166Q441,176,417,300Z;
+M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170,437,296Z" />
             </path>
 
-            <!-- Floating bubbles -->
-            <circle cx="400" cy="400" r="8" fill="#f88379">
-                <animate attributeName="cy" values="400;300;200" dur="5s" repeatCount="indefinite" />
-                <animate attributeName="r" values="8;5;0" dur="5s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1;0.5;0" dur="5s" repeatCount="indefinite" />
+            <!-- 🎈 Bubble 1: Up-right -->
+            <circle cx="400" cy="300" r="8" fill="#f88379">
+                <animate attributeName="cx" values="400; 460" dur="6s" repeatCount="indefinite" />
+                <animate attributeName="cy" values="300; 180" dur="6s" repeatCount="indefinite" />
+                <animate attributeName="r" values="8; 4; 0" dur="6s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="1; 0.5; 0" dur="6s" repeatCount="indefinite" />
             </circle>
 
-            <circle cx="430" cy="410" r="6" fill="#f88379">
-                <animate attributeName="cy" values="410;320;210" dur="6s" begin="1s" repeatCount="indefinite" />
-                <animate attributeName="r" values="6;4;0" dur="6s" begin="1s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1;0.6;0" dur="6s" begin="1s" repeatCount="indefinite" />
+            <!-- 🎈 Bubble 2: Up-left -->
+            <circle cx="400" cy="300" r="7" fill="#f88379">
+                <animate attributeName="cx" values="400; 330" dur="5s" begin="1s" repeatCount="indefinite" />
+                <animate attributeName="cy" values="300; 150" dur="5s" begin="1s" repeatCount="indefinite" />
+                <animate attributeName="r" values="7; 3; 0" dur="5s" begin="1s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="1; 0.5; 0" dur="5s" begin="1s" repeatCount="indefinite" />
             </circle>
 
-            <circle cx="370" cy="420" r="5" fill="#f88379">
-                <animate attributeName="cy" values="420;340;250" dur="7s" begin="2s" repeatCount="indefinite" />
-                <animate attributeName="r" values="5;3;0" dur="7s" begin="2s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1;0.4;0" dur="7s" begin="2s" repeatCount="indefinite" />
+            <!-- 🎈 Bubble 3: Up-right-far -->
+            <circle cx="400" cy="300" r="6" fill="#f88379">
+                <animate attributeName="cx" values="400; 500" dur="7s" begin="2s" repeatCount="indefinite" />
+                <animate attributeName="cy" values="300; 120" dur="7s" begin="2s" repeatCount="indefinite" />
+                <animate attributeName="r" values="6; 2; 0" dur="7s" begin="2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="1; 0.3; 0" dur="7s" begin="2s" repeatCount="indefinite" />
             </circle>
+
 
 
         </svg>
@@ -106,10 +112,10 @@
 
         <!-- Title Overlay -->
         <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 text-white drop-shadow-md max-w-[90%] sm:max-w-[75%]">
-            <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold leading-snug sm:leading-tight drop-shadow-lg">
+            <h1 class="text-4xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
                 $5 Off Your Next Order
             </h1>
-            <p class="mt-2 sm:mt-3 text-base sm:text-lg md:text-xl font-medium drop-shadow">
+            <p class="mt-4 text-2xl font-medium text-white drop-shadow">
                 Sign up below and your exclusive coupon will be emailed instantly.
             </p>
         </div>
