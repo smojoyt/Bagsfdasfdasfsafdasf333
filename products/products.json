@@ -540,6 +540,7 @@
 		"name": "LV Wallet Set",
 		"category": "lv",
 		"product_id": "KK-1014",
+		"checkout_product_id": "LKK004",
 		"price": 120,
 		"weight_oz": 64.2,
 		"tags": [
