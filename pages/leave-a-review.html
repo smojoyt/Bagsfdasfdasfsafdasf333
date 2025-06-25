@@ -216,306 +216,322 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
         </form>
 
     </section>
-        <p id="formStatus" class="text-sm mt-2"></p>
- 
+    <p id="formStatus" class="text-sm mt-2 font-semibold text-center"></p>
 
-        <!-- Footer -->
-        <div id="footer"></div>
-        <div id="navbar-container"></div>
 
-        <script>
-            // Firebase setup
-            const firebaseConfig = {
-                apiKey: "AIzaSyBBDruyZmtNMl2-zJrYwaqUjIHniSolsdk",
-                authDomain: "karrykraze-refiews.firebaseapp.com",
-                projectId: "karrykraze-refiews",
-                storageBucket: "karrykraze-refiews.firebasestorage.app",
-                messagingSenderId: "207129112203",
-                appId: "1:207129112203:web:910e834e7c1bbe9158ae8e",
-            };
-            firebase.initializeApp(firebaseConfig);
-            const storage = firebase.storage();
+    <!-- Footer -->
+    <div id="footer"></div>
+    <div id="navbar-container"></div>
 
-            // Load products.json and build the dropdown
-            fetch("../products/products.json")
-                .then(res => res.json())
-                .then(data => {
-                    const dropdownToggle = document.getElementById("dropdownToggle");
-                    const dropdownList = document.getElementById("dropdownList");
-                    const selectedText = document.getElementById("selectedText");
-                    const selectedInput = document.getElementById("selectedProduct");
-                    const productItemsContainer = document.getElementById("productItems");
-                    const searchInput = document.getElementById("productSearch");
-                    let allProducts = [];
+    <script>
+        // Firebase setup
+        const firebaseConfig = {
+            apiKey: "AIzaSyBBDruyZmtNMl2-zJrYwaqUjIHniSolsdk",
+            authDomain: "karrykraze-refiews.firebaseapp.com",
+            projectId: "karrykraze-refiews",
+            storageBucket: "karrykraze-refiews.firebasestorage.app",
+            messagingSenderId: "207129112203",
+            appId: "1:207129112203:web:910e834e7c1bbe9158ae8e",
+        };
+        firebase.initializeApp(firebaseConfig);
+        const storage = firebase.storage();
 
-                    dropdownToggle.addEventListener("click", () => {
-                        dropdownList.classList.toggle("hidden");
-                        searchInput.focus();
-                    });
+        // Load products.json and build the dropdown
+        fetch("../products/products.json")
+            .then(res => res.json())
+            .then(data => {
+                const dropdownToggle = document.getElementById("dropdownToggle");
+                const dropdownList = document.getElementById("dropdownList");
+                const selectedText = document.getElementById("selectedText");
+                const selectedInput = document.getElementById("selectedProduct");
+                const productItemsContainer = document.getElementById("productItems");
+                const searchInput = document.getElementById("productSearch");
+                let allProducts = [];
 
-                    document.addEventListener("click", (e) => {
-                        if (!dropdownToggle.contains(e.target) && !dropdownList.contains(e.target)) {
-                            dropdownList.classList.add("hidden");
-                        }
-                    });
+                dropdownToggle.addEventListener("click", () => {
+                    dropdownList.classList.toggle("hidden");
+                    searchInput.focus();
+                });
 
-                    Object.entries(data).forEach(([key, p]) => {
-                        const hasStock = Object.values(p.variantStock || {}).some(qty => qty > 0);
-                        if (!hasStock) return;
+                document.addEventListener("click", (e) => {
+                    if (!dropdownToggle.contains(e.target) && !dropdownList.contains(e.target)) {
+                        dropdownList.classList.add("hidden");
+                    }
+                });
 
-                        const item = document.createElement("div");
-                        item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer  bg-white shadow hover:shadow-md";
-                        item.dataset.name = p.name.toLowerCase();
-                        item.dataset.id = p.product_id.toLowerCase();
-                        item.innerHTML = `
-                  <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
-                  <div class="flex flex-col w-full">
-                    <p class="text-sm font-medium product-name" data-original="${p.name}">${p.name}</p>
-                    <p class="text-xs text-gray-400 text-right product-id" data-original="${p.product_id}">${p.product_id}</p>
-                  </div>
+                Object.entries(data).forEach(([key, p]) => {
+                    const hasStock = Object.values(p.variantStock || {}).some(qty => qty > 0);
+                    if (!hasStock) return;
+
+                    const item = document.createElement("div");
+                    item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer  bg-white shadow hover:shadow-md";
+                    item.dataset.name = p.name.toLowerCase();
+                    item.dataset.id = p.product_id.toLowerCase();
+                    item.innerHTML = `
+                      <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
+                      <div class="flex flex-col w-full">
+                        <p class="text-sm font-medium product-name" data-original="${p.name}">${p.name}</p>
+                        <p class="text-xs text-gray-400 text-right product-id" data-original="${p.product_id}">${p.product_id}</p>
+                      </div>
 `;
 
 
-                        item.addEventListener("click", () => {
-                            selectedText.textContent = `${p.name} (${p.product_id})`;
-                            selectedInput.value = p.product_id; // ✅ Use the actual KK-#### instead of the key
-                            dropdownList.classList.add("hidden");
-                        });
-
-
-                        allProducts.push(item);
-                        productItemsContainer.appendChild(item);
+                    item.addEventListener("click", () => {
+                        selectedText.textContent = `${p.name} (${p.product_id})`;
+                        selectedInput.value = p.product_id; // ✅ Use the actual KK-#### instead of the key
+                        dropdownList.classList.add("hidden");
                     });
 
-                    searchInput.addEventListener("input", (e) => {
-                        const term = e.target.value.toLowerCase();
-                        dropdownList.classList.remove("hidden");
-                        productItemsContainer.innerHTML = "";
 
-                        allProducts.forEach(item => {
-                            const nameEl = item.querySelector(".product-name");
-                            const idEl = item.querySelector(".product-id");
+                    allProducts.push(item);
+                    productItemsContainer.appendChild(item);
+                });
 
-                            // Reset the original plain text content before re-checking
-                            nameEl.textContent = nameEl.dataset.original;
-                            idEl.textContent = idEl.dataset.original;
+                searchInput.addEventListener("input", (e) => {
+                    const term = e.target.value.toLowerCase();
+                    dropdownList.classList.remove("hidden");
+                    productItemsContainer.innerHTML = "";
 
-                            const name = item.dataset.name;
-                            const id = item.dataset.id;
+                    allProducts.forEach(item => {
+                        const nameEl = item.querySelector(".product-name");
+                        const idEl = item.querySelector(".product-id");
 
-                            if (name.includes(term) || id.includes(term)) {
-                                if (term) {
-                                    const highlight = (text) => {
-                                        return text.replace(new RegExp(`(${term})`, "gi"), `<mark class="bg-yellow-200">$1</mark>`);
-                                    };
-                                    nameEl.innerHTML = highlight(nameEl.textContent);
-                                    idEl.innerHTML = highlight(idEl.textContent);
-                                }
-                                productItemsContainer.appendChild(item);
+                        // Reset the original plain text content before re-checking
+                        nameEl.textContent = nameEl.dataset.original;
+                        idEl.textContent = idEl.dataset.original;
+
+                        const name = item.dataset.name;
+                        const id = item.dataset.id;
+
+                        if (name.includes(term) || id.includes(term)) {
+                            if (term) {
+                                const highlight = (text) => {
+                                    return text.replace(new RegExp(`(${term})`, "gi"), `<mark class="bg-yellow-200">$1</mark>`);
+                                };
+                                nameEl.innerHTML = highlight(nameEl.textContent);
+                                idEl.innerHTML = highlight(idEl.textContent);
                             }
-                        });
+                            productItemsContainer.appendChild(item);
+                        }
                     });
-
                 });
 
-
-
-            // Show image preview immediately after file is picked
-            document.getElementById("imageInput").addEventListener("change", (e) => {
-                const file = e.target.files[0];
-                const preview = document.getElementById("previewImage");
-
-                if (file && file.type.startsWith("image/")) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        preview.src = event.target.result;
-                        preview.classList.remove("hidden");
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    preview.src = "";
-                    preview.classList.add("hidden");
-                }
             });
 
 
-            // Star rating logic
-            const stars = document.querySelectorAll('#starRating span');
-            const ratingInput = document.getElementById('ratingInput');
-            const starLabel = document.getElementById('starLabel');
-            const ratingLabels = {
-                1: "Terrible",
-                2: "Poor",
-                3: "Okay",
-                4: "Good",
-                5: "Great"
-            };
-            let selectedRating = 0;
 
-            stars.forEach(star => {
-                const value = parseInt(star.dataset.star);
+        // Show image preview immediately after file is picked
+        document.getElementById("imageInput").addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            const preview = document.getElementById("previewImage");
 
-                star.addEventListener('mouseenter', () => {
-                    highlightStars(value);
-                    starLabel.textContent = ratingLabels[value];
-                });
-
-                star.addEventListener('mouseleave', () => {
-                    highlightStars(selectedRating);
-                    starLabel.textContent = selectedRating ? ratingLabels[selectedRating] : "";
-                });
-
-                star.addEventListener('click', () => {
-                    selectedRating = value;
-                    ratingInput.value = value;
-                    highlightStars(value);
-                    starLabel.textContent = ratingLabels[value];
-                });
-            });
-
-            function highlightStars(value) {
-                stars.forEach(s => {
-                    const v = parseInt(s.dataset.star);
-                    s.classList.toggle('text-yellow-500', v <= value);
-                    s.classList.toggle('text-gray-300', v > value);
-                });
-            }
-
-            // Quality selection logic
-            const qualityButtons = document.querySelectorAll(".quality-btn");
-            const qualityInput = document.getElementById("qualityInput");
-
-            qualityButtons.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    qualityButtons.forEach(b => b.classList.remove("selected"));
-                    btn.classList.add("selected");
-                    qualityInput.value = btn.dataset.quality;
-                });
-            });
-
-            // Form submission
-            document.getElementById("reviewForm").addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const form = e.target;
-
-                // 🟠 Add loading state
-                const submitBtn = form.querySelector("button[type='submit']");
-                submitBtn.disabled = true;
-                submitBtn.textContent = "Submitting...";
-
-                const formData = new FormData(form);
-                const file = formData.get("image");
-                const preview = document.getElementById("previewImage");
-
-                if (file && file.size > 0) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        preview.src = e.target.result;
-                        preview.classList.remove("hidden");
-                    };
-                    reader.readAsDataURL(file);
-                }
-
-                let imageUrl = "";
-                if (file && file.size > 0) {
-                    const filename = `${Date.now()}_${file.name}`;
-                    const ref = storage.ref().child("reviewImages/" + filename);
-                    await ref.put(file);
-                    imageUrl = await ref.getDownloadURL();
-                }
-
-                const payload = {
-                    productId: formData.get("product"),
-                    name: `${formData.get("firstName").trim()} ${formData.get("lastName").trim()}`,
-                    email: formData.get("email").trim(),
-                    rating: formData.get("rating"),
-                    quality: formData.get("quality"),
-                    reviewHeadline: formData.get("reviewHeadline"),
-                    reviewText: formData.get("reviewText"),
-                    imageUrl: imageUrl,
+            if (file && file.type.startsWith("image/")) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    preview.src = event.target.result;
+                    preview.classList.remove("hidden");
                 };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+                preview.classList.add("hidden");
+            }
+        });
 
-                const res = await fetch("https://hook.us2.make.com/wxlj4rrp6g3bqlkr3mxmfg6cq626j2qj", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                });
 
-                const text = await res.text();
-                let result;
+        // Star rating logic
+        const stars = document.querySelectorAll('#starRating span');
+        const ratingInput = document.getElementById('ratingInput');
+        const starLabel = document.getElementById('starLabel');
+        const ratingLabels = {
+            1: "Terrible",
+            2: "Poor",
+            3: "Okay",
+            4: "Good",
+            5: "Great"
+        };
+        let selectedRating = 0;
 
-                try {
-                    result = JSON.parse(text);
-                } catch {
-                    console.error("Response is not JSON:", text);
-                    document.getElementById("formStatus").textContent = "Unexpected server response.";
-                    return;
+        stars.forEach(star => {
+            const value = parseInt(star.dataset.star);
+
+            star.addEventListener('mouseenter', () => {
+                highlightStars(value);
+                starLabel.textContent = ratingLabels[value];
+            });
+
+            star.addEventListener('mouseleave', () => {
+                highlightStars(selectedRating);
+                starLabel.textContent = selectedRating ? ratingLabels[selectedRating] : "";
+            });
+
+            star.addEventListener('click', () => {
+                selectedRating = value;
+                ratingInput.value = value;
+                highlightStars(value);
+                starLabel.textContent = ratingLabels[value];
+            });
+        });
+
+        function highlightStars(value) {
+            stars.forEach(s => {
+                const v = parseInt(s.dataset.star);
+                s.classList.toggle('text-yellow-500', v <= value);
+                s.classList.toggle('text-gray-300', v > value);
+            });
+        }
+
+        // Quality selection logic
+        const qualityButtons = document.querySelectorAll(".quality-btn");
+        const qualityInput = document.getElementById("qualityInput");
+
+        qualityButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                qualityButtons.forEach(b => b.classList.remove("selected"));
+                btn.classList.add("selected");
+                qualityInput.value = btn.dataset.quality;
+            });
+        });
+
+        // Form submission
+        document.getElementById("reviewForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const form = e.target;
+
+            // 🟠 Add loading state
+            const submitBtn = form.querySelector("button[type='submit']");
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Submitting...";
+
+            const formData = new FormData(form);
+            const file = formData.get("image");
+            const preview = document.getElementById("previewImage");
+
+            if (file && file.size > 0) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.src = e.target.result;
+                    preview.classList.remove("hidden");
+                };
+                reader.readAsDataURL(file);
+            }
+
+            let imageUrl = "";
+            if (file && file.size > 0) {
+                const filename = `${Date.now()}_${file.name}`;
+                const ref = storage.ref().child("reviewImages/" + filename);
+                await ref.put(file);
+                imageUrl = await ref.getDownloadURL();
+            }
+
+            const payload = {
+                productId: formData.get("product"),
+                name: `${formData.get("firstName").trim()} ${formData.get("lastName").trim()}`,
+                email: formData.get("email").trim(),
+                rating: formData.get("rating"),
+                quality: formData.get("quality"),
+                reviewHeadline: formData.get("reviewHeadline"),
+                reviewText: formData.get("reviewText"),
+                imageUrl: imageUrl,
+            };
+
+            const res = await fetch("https://hook.us2.make.com/wxlj4rrp6g3bqlkr3mxmfg6cq626j2qj", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const text = await res.text();
+            let result;
+
+            try {
+                result = JSON.parse(text);
+            } catch {
+                console.error("Response is not JSON:", text);
+                document.getElementById("formStatus").textContent = "Unexpected server response.";
+                return;
+            }
+
+            if (result.success) {
+                form.reset();
+                preview.src = "";
+                preview.classList.add("hidden");
+                qualityButtons.forEach(b => b.classList.remove("selected"));
+                highlightStars(0);
+                selectedRating = 0;
+                document.getElementById("formStatus").textContent = "Thank you! Your review was submitted.";
+            } else {
+                let errorMsg = result.error || "Something went wrong. Try again.";
+
+                if (errorMsg.includes("already submitted")) {
+                    errorMsg = "You’ve already submitted a review for this item. Only one review per item is allowed.";
+                } else if (errorMsg.includes("Order not found")) {
+                    errorMsg = "We couldn't find a matching order. Please double-check your name, email, and selected product.";
                 }
 
-                if (result.success) {
-                    form.reset();
-                    preview.src = "";
-                    preview.classList.add("hidden");
-                    qualityButtons.forEach(b => b.classList.remove("selected"));
-                    highlightStars(0);
-                    selectedRating = 0;
-                    document.getElementById("formStatus").textContent = "Thank you! Your review was submitted.";
+                // Append contact link
+                errorMsg += ` If you believe this is an error, <a href="https://karrykraze.com/pages/contact" class="underline text-blue-600 hover:text-blue-800" target="_blank">contact us</a>.`;
+
+                const statusElem = document.getElementById("formStatus");
+                statusElem.innerHTML = errorMsg;
+                statusElem.classList.remove("text-green-600");
+                statusElem.classList.add("text-red-600");
+            }
+
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit Review";
+
+        });
+
+        // Other included HTML
+        function includeHTML(id, filePath, callback = null) {
+            fetch(filePath)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    if (callback) callback();
+                });
+        }
+
+        function initNavbar() {
+            const toggleBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+
+            const navbar = document.getElementById('mainNavbar');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (!navbar) return;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace('navbar-show', 'navbar-hide');
                 } else {
-                    document.getElementById("formStatus").textContent = result.error || "Something went wrong. Try again.";
+                    navbar.classList.replace('navbar-hide', 'navbar-show');
                 }
-                submitBtn.disabled = false;
-                submitBtn.textContent = "Submit Review";
-
+                lastScrollY = window.scrollY;
             });
+        }
 
-            // Other included HTML
-            function includeHTML(id, filePath, callback = null) {
-                fetch(filePath)
-                    .then(res => res.text())
-                    .then(html => {
-                        document.getElementById(id).innerHTML = html;
-                        if (callback) callback();
-                    });
-            }
+        // 🔁 Main Load Flow
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar();
 
-            function initNavbar() {
-                const toggleBtn = document.getElementById("mobile-menu-button");
-                const menu = document.getElementById("mobile-menu");
-                if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
-
-                const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-                const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-                const countElem = document.getElementById("cart-count");
-                if (countElem) countElem.textContent = totalQty;
-
-                const navbar = document.getElementById('mainNavbar');
-                let lastScrollY = window.scrollY;
-                window.addEventListener('scroll', () => {
-                    if (!navbar) return;
-                    if (window.scrollY > lastScrollY && window.scrollY > 50) {
-                        navbar.classList.replace('navbar-show', 'navbar-hide');
-                    } else {
-                        navbar.classList.replace('navbar-hide', 'navbar-show');
-                    }
-                    lastScrollY = window.scrollY;
+            const addToCartBtn = document.getElementById("add-to-cart-btn");
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener("click", () => {
+                    const variant = document.getElementById("variantSelector")?.value || null;
+                    addToCart(activeProduct, variant);
                 });
             }
 
-            // 🔁 Main Load Flow
-            includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-                initNavbar();
+            includeHTML("footer", "/page_inserts/footer.html");
+        });
 
-                const addToCartBtn = document.getElementById("add-to-cart-btn");
-                if (addToCartBtn) {
-                    addToCartBtn.addEventListener("click", () => {
-                        const variant = document.getElementById("variantSelector")?.value || null;
-                        addToCart(activeProduct, variant);
-                    });
-                }
-
-                includeHTML("footer", "/page_inserts/footer.html");
-            });
-
-        </script>
+    </script>
 </body>
 </html>
