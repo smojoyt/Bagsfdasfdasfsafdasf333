@@ -66,14 +66,21 @@ export default async function handler(req, res) {
             }
 
             line_items = cart.map(item => {
-                const productKey = checkoutToProductKey[item.id] || skuToProductKey[item.id] || item.id;
-                const product = products[productKey];
-                if (!product) return null;
+                const originalId = item.id; // e.g., "LKK001"
+                const productKey = checkoutToProductKey[originalId] || skuToProductKey[originalId] || originalId;
+                const mainProduct = products[productKey]; // used for price, tags, etc.
+                const displayProduct = products[originalId] || mainProduct; // used for image and name
+
+                if (!mainProduct) {
+                    console.warn("❌ Product not found for ID:", originalId);
+                    return null;
+                }
 
                 const variant = item.variant?.trim();
-                const image = product.variantImages?.[variant] || product.image;
-                const name = variant ? `${product.name} - ${variant}` : product.name;
-                const description = product.descriptionList?.join(" | ") || product.description || "Karry Kraze item";
+                const image = displayProduct.variantImages?.[variant] || displayProduct.image;
+                const name = variant ? `${displayProduct.name} - ${variant}` : displayProduct.name;
+                const description = displayProduct.descriptionList?.join(" | ") || displayProduct.description || "Karry Kraze item";
+
 
                 // Apply promo logic
                 // Find the best matching promotion for the product
