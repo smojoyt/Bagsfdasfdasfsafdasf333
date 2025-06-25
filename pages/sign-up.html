@@ -1,79 +1,168 @@
-﻿<section class="max-w-2xl mx-auto px-6 py-16 text-center bg-[#fdf7f1] rounded-2xl shadow-md">
-    <h1 class="text-4xl font-bold mb-4 text-gray-900">💸 Get $5 Off Your First Order!</h1>
-    <p class="text-gray-700 text-base mb-8">Sign up below to receive your exclusive coupon instantly via email.</p>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Favicon -->
+    <link rel="icon" href="/imgs/Logo/Short/SL_0603.png" type="image/png" />
+    <title>Sign Up – Karry Kraze</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <!-- Custom Scripts -->
+    <script src="/js/helpers.js"></script>
+    <script src="/js/moreItemsCarousel.js"></script>
+    <script src="/js/loadProductData.js"></script>
+    <script src="/js/uni_navbar.js"></script>
+    <style>
+        .quality-btn.selected {
+            background-color: black;
+            color: white;
+        }
 
-    <form id="couponForm" class="space-y-5">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input type="text" name="firstName" placeholder="First Name" required class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-400 focus:outline-none" />
-            <input type="text" name="lastName" placeholder="Last Name" required class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-400 focus:outline-none" />
+        mark.bg-yellow-200 {
+            padding: 0 2px;
+            border-radius: 0.25rem;
+        }
+    </style>
+
+</head>
+<body>
+    <section class="max-w-2xl mx-auto px-6 py-16 text-center bg-[#fdf7f1] rounded-2xl shadow-md">
+        <h1 class="text-4xl font-bold mb-4 text-gray-900">💸 Get $5 Off Your First Order!</h1>
+        <p class="text-gray-700 text-base mb-8">Sign up below to receive your exclusive coupon instantly via email.</p>
+
+        <form id="couponForm" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input type="text" name="firstName" placeholder="First Name" required class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-400 focus:outline-none" />
+                <input type="text" name="lastName" placeholder="Last Name" required class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-400 focus:outline-none" />
+            </div>
+            <input type="email" name="email" placeholder="Email" required class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-400 focus:outline-none" />
+            <input type="tel" name="phone" placeholder="Phone Number" required class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-400 focus:outline-none" />
+
+            <div class="text-left space-y-2 text-sm text-gray-700">
+                <label class="flex items-start space-x-2">
+                    <input type="checkbox" name="smsConsent" required class="mt-1 accent-red-500" />
+                    <span>I agree to receive promotional SMS messages from Karry Kraze.</span>
+                </label>
+                <label class="flex items-start space-x-2">
+                    <input type="checkbox" name="emailConsent" required class="mt-1 accent-red-500" />
+                    <span>I agree to receive marketing emails from Karry Kraze.</span>
+                </label>
+            </div>
+
+            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-semibold transition duration-200">
+                Claim My Coupon
+            </button>
+        </form>
+
+        <div id="couponMessage" class="hidden mt-8 text-center">
+            <p class="text-green-700 font-semibold text-lg mb-4">🎉 Your coupon is on the way! Check your inbox.</p>
+            <a href="/products/catalog.html" class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-xl font-medium">
+                Browse the Shop
+            </a>
         </div>
-        <input type="email" name="email" placeholder="Email" required class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-400 focus:outline-none" />
-        <input type="tel" name="phone" placeholder="Phone Number" required class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-400 focus:outline-none" />
-
-        <div class="text-left space-y-2 text-sm text-gray-700">
-            <label class="flex items-start space-x-2">
-                <input type="checkbox" name="smsConsent" required class="mt-1 accent-red-500" />
-                <span>I agree to receive promotional SMS messages from Karry Kraze.</span>
-            </label>
-            <label class="flex items-start space-x-2">
-                <input type="checkbox" name="emailConsent" required class="mt-1 accent-red-500" />
-                <span>I agree to receive marketing emails from Karry Kraze.</span>
-            </label>
-        </div>
-
-        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-semibold transition duration-200">
-            Claim My Coupon
-        </button>
-    </form>
-
-    <div id="couponMessage" class="hidden mt-8 text-center">
-        <p class="text-green-700 font-semibold text-lg mb-4">🎉 Your coupon is on the way! Check your inbox.</p>
-        <a href="/products/catalog.html" class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-xl font-medium">
-            Browse the Shop
-        </a>
-    </div>
-</section>
+    </section>
 
 
-<script>
-    document.getElementById('couponForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
+    <script>
+        document.getElementById('couponForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
 
-        const form = e.target;
-        const data = Object.fromEntries(new FormData(form).entries());
+            const form = e.target;
+            const data = Object.fromEntries(new FormData(form).entries());
 
-        const res = await fetch('https://hook.us2.make.com/mebf3tl39n3o3gx11ywaeta6f7eo1yja', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
+            const res = await fetch('https://hook.us2.make.com/mebf3tl39n3o3gx11ywaeta6f7eo1yja', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
 
-        const messageBox = document.getElementById('couponMessage');
-        const messageText = messageBox.querySelector('p');
-        const useNowBtn = messageBox.querySelector('a');
+            const messageBox = document.getElementById('couponMessage');
+            const messageText = messageBox.querySelector('p');
+            const useNowBtn = messageBox.querySelector('a');
 
-        if (res.ok) {
-            const json = await res.json();
+            if (res.ok) {
+                const json = await res.json();
 
-            form.style.display = 'none';
-            messageBox.classList.remove('hidden');
+                form.style.display = 'none';
+                messageBox.classList.remove('hidden');
 
-            if (json.status === 'already_redeemed') {
-                messageText.textContent = json.message;
+                if (json.status === 'already_redeemed') {
+                    messageText.textContent = json.message;
 
-                // If message includes "expired" or "redeemed", hide the button
-                if (json.message.includes('expired') || json.message.includes('redeemed')) {
-                    useNowBtn.classList.add('hidden');
+                    // If message includes "expired" or "redeemed", hide the button
+                    if (json.message.includes('expired') || json.message.includes('redeemed')) {
+                        useNowBtn.classList.add('hidden');
+                    } else {
+                        useNowBtn.classList.remove('hidden');
+                    }
                 } else {
+                    messageText.textContent = '🎉 Your coupon is on the way! Check your inbox.';
                     useNowBtn.classList.remove('hidden');
                 }
             } else {
-                messageText.textContent = '🎉 Your coupon is on the way! Check your inbox.';
-                useNowBtn.classList.remove('hidden');
+                alert('Something went wrong. Please try again.');
             }
-        } else {
-            alert('Something went wrong. Please try again.');
-        }
-    });
-</script>
+        });
 
+
+
+
+
+
+
+
+
+
+        // Other included HTML
+        function includeHTML(id, filePath, callback = null) {
+            fetch(filePath)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    if (callback) callback();
+                });
+        }
+
+        function initNavbar() {
+            const toggleBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+
+            const navbar = document.getElementById('mainNavbar');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (!navbar) return;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace('navbar-show', 'navbar-hide');
+                } else {
+                    navbar.classList.replace('navbar-hide', 'navbar-show');
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
+
+        // 🔁 Main Load Flow
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar();
+
+            const addToCartBtn = document.getElementById("add-to-cart-btn");
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener("click", () => {
+                    const variant = document.getElementById("variantSelector")?.value || null;
+                    addToCart(activeProduct, variant);
+                });
+            }
+
+            includeHTML("footer", "/page_inserts/footer.html");
+        });
+
+    </script>
+</body>
+</html>
