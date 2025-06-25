@@ -66,13 +66,14 @@ export default async function handler(req, res) {
             }
 
             line_items = cart.map(item => {
-                const originalId = item.id; // e.g., "LKK001"
+                const originalId = item.id;
                 const productKey = checkoutToProductKey[originalId] || skuToProductKey[originalId] || originalId;
-                const mainProduct = products[productKey]; // used for price, tags, etc.
-                const displayProduct = products[originalId] || mainProduct; // used for image and name
+
+                const mainProduct = products[productKey]; // used for logic (price, promos, etc.)
+                const displayProduct = products[originalId] || mainProduct; // used for name, image, description
 
                 if (!mainProduct) {
-                    console.warn("❌ Product not found for ID:", originalId);
+                    console.warn("❌ Product not found for:", originalId);
                     return null;
                 }
 
@@ -81,29 +82,25 @@ export default async function handler(req, res) {
                 const name = variant ? `${displayProduct.name} - ${variant}` : displayProduct.name;
                 const description = displayProduct.descriptionList?.join(" | ") || displayProduct.description || "Karry Kraze item";
 
-
-                // Apply promo logic
-                // Find the best matching promotion for the product
+                // Find promos
                 const activePromos = (promo?.promotions || []).filter(p =>
                     (!p.startDate || new Date() >= new Date(p.startDate)) &&
                     (!p.endDate || new Date() <= new Date(p.endDate)) &&
-                    (!p.category || p.category === product.category) &&
-                    (!p.condition?.minPrice || product.price >= p.condition.minPrice) &&
-                    (!p.condition?.maxPrice || product.price <= p.condition.maxPrice)
+                    (!p.category || p.category === mainProduct.category) &&
+                    (!p.condition?.minPrice || mainProduct.price >= p.condition.minPrice) &&
+                    (!p.condition?.maxPrice || mainProduct.price <= p.condition.maxPrice)
                 );
 
-                // Use the first match, or you can sort by priority if you add a `priority` field later
                 const activePromo = activePromos[0];
+                let finalPrice = mainProduct.price;
 
-                let finalPrice = product.price;
                 if (activePromo) {
                     if (activePromo.type === "percent") {
-                        finalPrice = product.price * (1 - activePromo.amount / 100);
+                        finalPrice = mainProduct.price * (1 - activePromo.amount / 100);
                     } else if (activePromo.type === "fixed") {
-                        finalPrice = Math.max(0, product.price - activePromo.amount);
+                        finalPrice = Math.max(0, mainProduct.price - activePromo.amount);
                     }
                 }
-
 
                 return {
                     price_data: {
@@ -114,9 +111,9 @@ export default async function handler(req, res) {
                             images: [image],
                             metadata: {
                                 variant: variant || "N/A",
-                                product_id: item.id || "N/A",
+                                product_id: originalId,
                                 requires_shipping: "true",
-                                clean_name: product.name
+                                clean_name: displayProduct.name
                             }
                         },
                         unit_amount: Math.round(finalPrice * 100)
@@ -124,6 +121,7 @@ export default async function handler(req, res) {
                     quantity: item.qty || 1
                 };
             }).filter(Boolean);
+
         }   
          else if (sku) {
             const product = products[sku];
