@@ -18,17 +18,15 @@
             throw new Error("Missing products");
         }
 
-        // Convert "Headwear_EarflapBeanie-Black:1,Headwear_EarflapBeanie-Cream:2" into a usable array
         const cart = productString.split(",").map(item => {
             const [rawId, qty] = item.split(":");
-
             let productKey = rawId;
             let variant = null;
 
             const dashParts = rawId.split("-");
             if (dashParts.length >= 3) {
-                variant = dashParts.pop(); // get last part as variant
-                productKey = dashParts.join("-"); // rest becomes product ID
+                variant = dashParts.pop();
+                productKey = dashParts.join("-");
             }
 
             return {
@@ -38,8 +36,14 @@
             };
         });
 
+        if (!cart.length || cart.some(item => !item.id)) {
+            console.error("❌ Invalid cart:", cart);
+            document.body.innerHTML = "<h1>Invalid cart format. Please try again.</h1>";
+            throw new Error("Cart is empty or malformed");
+        }
 
-
+        console.log("🛒 Parsed cart:", cart);
+        console.log("📦 Sending to backend:", JSON.stringify({ cart, coupon }, null, 2));
 
         fetch("/api/create-checkout-session", {
             method: "POST",
@@ -56,9 +60,10 @@
             })
             .catch(err => {
                 console.error("Checkout error:", err);
-                document.body.innerHTML = "<h1>Something went wrong.</h1>";
+                document.body.innerHTML = `<h1>Something went wrong.</h1><pre>${err.message}</pre>`;
             });
     </script>
+
 
 </body>
 </html>
