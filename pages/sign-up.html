@@ -27,64 +27,59 @@
     </style>
 
 </head>
-<body class="bg-[#fef1e7] text-gray-800 font-sans">
-    <div class="mt-20 max-w-3xl mx-auto px-4 md:px-8 space-y-8">
-        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase underline text-center mb-4">
-            💸 Get $5 Off Your First Order
-        </h1>
-        <p class="text-center text-base text-gray-700">Sign up below to receive your exclusive coupon instantly via email.</p>
+<body>
+    <section class="relative bg-[#fef1e7] text-gray-800 font-sans px-4 py-16 max-w-3xl mx-auto rounded-3xl shadow-md bg-[url('/imgs/illustration.png')] bg-no-repeat bg-right-top bg-contain">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-center uppercase mb-4">💸 Get $5 Off Your First Order</h1>
+        <p class="text-center text-base text-gray-700 mb-10">Sign up below and your exclusive coupon will be emailed instantly.</p>
 
-        <form id="couponForm" class="space-y-6 mt-6">
-            <!-- Name Fields -->
+        <form id="couponForm" class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block font-semibold mb-1">First Name *</label>
-                    <input type="text" name="firstName" required class="w-full p-2 border rounded" />
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">Last Name *</label>
-                    <input type="text" name="lastName" required class="w-full p-2 border rounded" />
-                </div>
+                <input type="text"
+                       name="firstName"
+                       placeholder="First Name"
+                       required
+                       class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379] focus:border-[#f88379]" />
+                <input type="text"
+                       name="lastName"
+                       placeholder="Last Name"
+                       required
+                       class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379] focus:border-[#f88379]" />
             </div>
+            <input type="email"
+                   name="email"
+                   placeholder="Email"
+                   required
+                   class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379] focus:border-[#f88379]" />
+            <input type="tel"
+                   name="phone"
+                   placeholder="Phone Number"
+                   required
+                   class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379] focus:border-[#f88379]" />
 
-            <!-- Email & Phone -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block font-semibold mb-1">Email Address *</label>
-                    <input type="email" name="email" required class="w-full p-2 border rounded" />
-                </div>
-                <div>
-                    <label class="block font-semibold mb-1">Phone Number *</label>
-                    <input type="tel" name="phone" required class="w-full p-2 border rounded" />
-                </div>
-            </div>
-
-            <!-- Consent -->
-            <div class="space-y-2 text-sm text-gray-700">
+            <div class="text-left space-y-3 text-sm text-gray-700">
                 <label class="flex items-start gap-2">
-                    <input type="checkbox" name="smsConsent" required class="mt-1 accent-red-500" />
-                    I agree to receive promotional SMS messages from Karry Kraze.
+                    <input type="checkbox" name="smsConsent" required class="accent-[#f88379] mt-1" />
+                    <span>I agree to receive promotional SMS messages from Karry Kraze.</span>
                 </label>
                 <label class="flex items-start gap-2">
-                    <input type="checkbox" name="emailConsent" required class="mt-1 accent-red-500" />
-                    I agree to receive marketing emails from Karry Kraze.
+                    <input type="checkbox" name="emailConsent" required class="accent-[#f88379] mt-1" />
+                    <span>I agree to receive marketing emails from Karry Kraze.</span>
                 </label>
             </div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="bg-black text-white py-2 px-6 rounded hover:bg-gray-800 w-full font-semibold">
+            <button type="submit" class="w-full bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 rounded-2xl font-semibold transition duration-200">
                 Claim My Coupon
             </button>
         </form>
 
-        <!-- Success Message -->
-        <div id="couponMessage" class="hidden mt-8 text-center">
+        <div id="couponMessage" class="hidden mt-10 text-center">
             <p class="text-green-700 font-semibold text-lg mb-4">🎉 Your coupon is on the way! Check your inbox.</p>
-            <a href="/products/catalog.html" class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 rounded font-medium">
+            <a href="/products/catalog.html" class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-xl font-medium">
                 Browse the Shop
             </a>
         </div>
-    </div>
+    </section>
+
 
 
     <!-- Footer -->
