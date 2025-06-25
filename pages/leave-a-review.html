@@ -447,8 +447,14 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
             try {
                 result = JSON.parse(text);
             } catch {
-                console.error("Response is not JSON:", text);
-                document.getElementById("formStatus").textContent = "Unexpected server response.";
+                const statusElem = document.getElementById("formStatus");
+                statusElem.innerHTML = `Unexpected server response. If this keeps happening, <a href="https://karrykraze.com/pages/contact" class="underline text-blue-600 hover:text-blue-800" target="_blank">contact us</a>.`;
+                statusElem.classList.remove("text-green-600");
+                statusElem.classList.add("text-red-600");
+
+                // Re-enable the button even if it fails early
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit Review";
                 return;
             }
 
@@ -460,16 +466,16 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                 highlightStars(0);
                 selectedRating = 0;
                 document.getElementById("formStatus").textContent = "Thank you! Your review was submitted.";
+                document.getElementById("formStatus").classList.remove("text-red-600");
+                document.getElementById("formStatus").classList.add("text-green-600");
             } else {
                 let errorMsg = result.error || "Something went wrong. Try again.";
-
                 if (errorMsg.includes("already submitted")) {
                     errorMsg = "You’ve already submitted a review for this item. Only one review per item is allowed.";
                 } else if (errorMsg.includes("Order not found")) {
                     errorMsg = "We couldn't find a matching order. Please double-check your name, email, and selected product.";
                 }
 
-                // Append contact link
                 errorMsg += ` If you believe this is an error, <a href="https://karrykraze.com/pages/contact" class="underline text-blue-600 hover:text-blue-800" target="_blank">contact us</a>.`;
 
                 const statusElem = document.getElementById("formStatus");
@@ -478,9 +484,10 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                 statusElem.classList.add("text-red-600");
             }
 
-
+            // ✅ Always reset the submit button no matter what
             submitBtn.disabled = false;
             submitBtn.textContent = "Submit Review";
+
 
         });
 
