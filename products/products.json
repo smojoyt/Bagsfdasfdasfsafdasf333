@@ -392,7 +392,7 @@
 	"Bag_LVShoulderSet": {
 		"name": "LV Shoulder Set",
 		"category": [
-			"bags","lv","set"
+			"bags","lv"
 		],
 		"product_id": "KK-1010",
 		"checkout_product_id": "LKK001",
@@ -400,7 +400,8 @@
 		"weight_oz": 16.58,
 		"tags": [
 			"Discontinued",
-			"designerbags"
+			"designerbags",
+			"sets"
 		],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg",
 		"url": "",
@@ -430,7 +431,7 @@
 	"Bag_LVTote": {
 		"name": "LV Tote Set",
 		"category": [
-			"bags","lv","set"
+			"bags","lv"
 		],
 		"product_id": "KK-1011",
 		"checkout_product_id": "LKK002",
@@ -438,7 +439,8 @@
 		"weight_oz": 64.2,
 		"tags": [
 			"Discontinued",
-			"designerbags"
+			"designerbags",
+			"sets"
 		],
 		"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg",
 		"url": "",
@@ -541,14 +543,15 @@
 	"Bag_LVMediumWallet": {
 		"name": "LV Wallet Set",
 		"category": [
-			"bags","lv","set"
+			"bags","lv"
 		],
 		"product_id": "KK-1014",
 		"price": 120,
 		"weight_oz": 64.2,
 		"tags": [
 			"Discontinued",
-			"designerbags"
+			"designerbags",
+			"sets"
 		],
 		"image": "https://karrykraze.com/imgs/Products/Pouches/LV/003_WalletSet/Brown/01_01.jpg",
 		"url": "",
