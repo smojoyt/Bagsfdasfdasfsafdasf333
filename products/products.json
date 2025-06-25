@@ -392,8 +392,7 @@
 	"Bag_LVShoulderSet": {
 		"name": "LV Shoulder Set",
 		"category": [
-			"bags",
-			"LV"
+			"bags","lv","set"
 		],
 		"product_id": "KK-1010",
 		"checkout_product_id": "LKK001",
@@ -431,8 +430,7 @@
 	"Bag_LVTote": {
 		"name": "LV Tote Set",
 		"category": [
-			"bags",
-			"LV"
+			"bags","lv","set"
 		],
 		"product_id": "KK-1011",
 		"checkout_product_id": "LKK002",
@@ -543,8 +541,7 @@
 	"Bag_LVMediumWallet": {
 		"name": "LV Wallet Set",
 		"category": [
-			"bags",
-			"LV"
+			"bags","lv","set"
 		],
 		"product_id": "KK-1014",
 		"price": 120,
