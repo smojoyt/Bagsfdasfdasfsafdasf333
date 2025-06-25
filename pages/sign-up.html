@@ -57,6 +57,28 @@
         }
 
 
+        @keyframes blobPulse {
+            0%, 100%
+
+        {
+            transform: scale(1);
+            border-radius: 1rem;
+        }
+
+        50% {
+            transform: scale(1.05);
+            border-radius: 2rem;
+        }
+
+        }
+
+        .animate-blob-btn {
+            animation: blobPulse 3s ease-in-out infinite;
+        }
+
+
+
+
     </style>
 
 </head>
@@ -64,7 +86,7 @@
 
     <!-- 🌸 Background Blob -->
     <div class="absolute -z-10 top-0 left-0 w-full h-full overflow-hidden">
-        <svg viewBox="0 0 800 800" class="w-[120%] h-[120%] opacity-20 animate-blobMotion">
+        <svg viewBox="0 0 800 800" class="w-[120%] h-[120%] opacity-20 animate-blobMotion  animate-fadeInUp">
             <!-- Main Blob -->
             <path fill="#f88379">
                 <animate attributeName="d" dur="10s" repeatCount="indefinite"
@@ -153,14 +175,14 @@
                 </label>
             </div>
 
-            <button type="submit" class="w-full bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 rounded-2xl font-semibold transition duration-200">
+            <button type="submit" class="w-full bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 rounded-2xl font-semibold transition duration-200 animate-blob-btn">
                 Claim My Coupon
             </button>
         </form>
 
         <div id="couponMessage" class="hidden mt-10 text-center">
             <p class="text-green-700 font-semibold text-lg mb-4">🎉 Your coupon is on the way! Check your inbox.</p>
-            <a href="/products/catalog.html" class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-xl font-medium">
+            <a href="/products/catalog.html" class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-xl font-medium transition duration-200 animate-blob-btn">
                 Browse the Shop
             </a>
         </div>
