@@ -419,7 +419,7 @@
 	},
 	"LKK001": {
 		"product_id": "LKK-001",
-		"name": "Item:LKK001",
+		"name": "LKK001",
 		"price": 125,
 		"tags": [
 			"Discontinued"
@@ -435,6 +435,7 @@
 			"LV"
 		],
 		"product_id": "KK-1011",
+		"checkout_product_id": "LKK002",
 		"price": 150,
 		"weight_oz": 64.2,
 		"tags": [
@@ -464,6 +465,18 @@
 			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_19.jpg"
 		]
 	},
+	"LKK002": {
+		"product_id": "LKK-002",
+		"name": "LKK002",
+		"price": 150,
+		"tags": [
+			"Discontinued"
+		],
+		"custom1Options": "Black",
+		"image": "https://www.karrykraze.com/imgs/Logo/Short/702.jpg"
+	},
+
+
 	"Bag_ToteBagGradient": {
 		"name": "The Tote Bag Gradient",
 		"category": [
@@ -491,6 +504,7 @@
 			""
 		]
 	},
+
 	"Charms_CherryChain": {
 		"name": "Cherry Bag Charm",
 		"category": "charms",
@@ -525,6 +539,7 @@
 			"https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_02_02.jpg"
 		]
 	},
+
 	"Bag_LVMediumWallet": {
 		"name": "LV Wallet Set",
 		"category": [
@@ -552,6 +567,18 @@
 			"https://karrykraze.com/imgs/Products/Pouches/LV/003_WalletSet/Brown/01_01.jpg"
 		]
 	},
+	"LKK004": {
+		"product_id": "LKK-004",
+		"name": "LKK004",
+		"price": 120,
+		"tags": [
+			"Discontinued"
+		],
+		"custom1Options": "Brown",
+		"image": "https://www.karrykraze.com/imgs/Logo/Short/702.jpg"
+	},
+
+
 	"Bag_DiorTote": {
 		"name": "Dior Tote Bag",
 		"category": [
