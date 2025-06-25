@@ -447,7 +447,7 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                 result = await res.json(); // ✅ Replaces .text() + JSON.parse()
             } catch {
                 const statusElem = document.getElementById("formStatus");
-                statusElem.innerHTML = `Unexpected server response. If this keeps happening, <a href="https://karrykraze.com/pages/contact" class="underline text-blue-600 hover:text-blue-800" target="_blank">contact us</a>.`;
+                statusElem.innerHTML = `We couldn't find a matching order or You’ve already submitted a review for this item. If you believe this is an error, <a href="https://karrykraze.com/pages/contact" class="underline text-blue-600 hover:text-blue-800" target="_blank">contact us</a>.`;
                 statusElem.classList.remove("text-green-600");
                 statusElem.classList.add("text-red-600");
 
