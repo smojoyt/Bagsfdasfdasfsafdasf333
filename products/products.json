@@ -419,10 +419,13 @@
 	},
 	"LKK001": {
 		"product_id": "LKK-001",
-		"name": "BagLKK001",
+		"name": "Item:LKK001",
 		"price": 125,
+		"tags": [
+			"Discontinued"
+		],
 		"custom1Options": "Black",
-		"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/41.jpg"
+		"image": "https://www.karrykraze.com/imgs/Logo/Short/702.jpg"
 	},
 	"Bag_LVTote": {
 		"name": "LV Tote Set",
