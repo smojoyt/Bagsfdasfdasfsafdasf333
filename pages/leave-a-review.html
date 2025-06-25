@@ -465,7 +465,8 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                 qualityButtons.forEach(b => b.classList.remove("selected"));
                 highlightStars(0);
                 selectedRating = 0;
-                document.getElementById("formStatus").textContent = "Thank you! Your review was submitted.";
+                const email = formData.get("email").trim();
+                document.getElementById("formStatus").textContent = `Thank you! Your review was submitted. Your coupon was sent to ${email}`;
                 document.getElementById("formStatus").classList.remove("text-red-600");
                 document.getElementById("formStatus").classList.add("text-green-600");
             } else {
