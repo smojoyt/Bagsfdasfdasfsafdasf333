@@ -441,11 +441,10 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                 body: JSON.stringify(payload)
             });
 
-            const text = await res.text();
             let result;
 
             try {
-                result = JSON.parse(text);
+                result = await res.json(); // ✅ Replaces .text() + JSON.parse()
             } catch {
                 const statusElem = document.getElementById("formStatus");
                 statusElem.innerHTML = `Unexpected server response. If this keeps happening, <a href="https://karrykraze.com/pages/contact" class="underline text-blue-600 hover:text-blue-800" target="_blank">contact us</a>.`;
@@ -457,6 +456,7 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                 submitBtn.textContent = "Submit Review";
                 return;
             }
+
 
             if (result.success) {
                 form.reset();
