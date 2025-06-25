@@ -419,10 +419,10 @@
 	},
 	"LKK001": {
 		"product_id": "LKK-001",
-		"name": "LV Shoulder Set",
+		"name": "BagLKK001",
 		"price": 125,
 		"custom1Options": "Black",
-		"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/41.jpg"
 	},
 	"Bag_LVTote": {
 		"name": "LV Tote Set",
