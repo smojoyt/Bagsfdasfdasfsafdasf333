@@ -92,7 +92,7 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
     <section class="relative text-gray-800 font-sans px-4 py-5 md:py-10 max-w-3xl mx-auto animate-fadeInUp">
 
 
-        <form id="reviewForm" class="space-y-6 font-sans">
+        <form id="reviewForm" class="space-y-3 font-sans">
             <!-- Product Dropdown -->
             <div>
                 <input type="hidden" name="product" id="selectedProduct" required />
@@ -118,7 +118,7 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
             <!-- Star Rating -->
             <div>
                 <div class="flex items-center gap-3">
-                    <div id="starRating" class="flex gap-1 text-3xl cursor-pointer text-gray-400">
+                    <div id="starRating" class="flex gap-1 text-[3rem] md:text-[5rem] leading-[0.9] cursor-pointer text-gray-400">
                         <span data-star="1" class="transition-transform duration-150 hover:scale-125">★</span>
                         <span data-star="2" class="transition-transform duration-150 hover:scale-125">★</span>
                         <span data-star="3" class="transition-transform duration-150 hover:scale-125">★</span>
@@ -193,17 +193,17 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
             </div>
 
             <!-- Consent -->
-            <label class="inline-flex items-start gap-2 text-sm">
+            <label class="flex items-start gap-2 text-sm">
                 <input type="checkbox" name="publicConsent" required class="mt-1 accent-[#f88379]" />
                 I consent to this review being publicly shown on the site.
             </label>
 
-            <label class="inline-flex items-start gap-2 text-sm">
+            <label class="flex items-start gap-2 text-sm">
                 <input type="checkbox" name="emailConsent" class="mt-1 accent-[#f88379]" />
                 I agree to receive marketing emails.
             </label>
 
-            <label class="inline-flex items-start gap-2 text-sm">
+            <label class="flex items-start gap-2 text-sm">
                 <input type="checkbox" name="smsConsent" class="mt-1 accent-[#f88379]" />
                 I agree to receive promotional SMS messages.
             </label>
@@ -397,6 +397,12 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
             document.getElementById("reviewForm").addEventListener("submit", async (e) => {
                 e.preventDefault();
                 const form = e.target;
+
+                // 🟠 Add loading state
+                const submitBtn = form.querySelector("button[type='submit']");
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Submitting...";
+
                 const formData = new FormData(form);
                 const file = formData.get("image");
                 const preview = document.getElementById("previewImage");
@@ -420,7 +426,7 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
 
                 const payload = {
                     productId: formData.get("product"),
-                    name: formData.get("name").trim(),
+                    name: `${formData.get("firstName").trim()} ${formData.get("lastName").trim()}`,
                     email: formData.get("email").trim(),
                     rating: formData.get("rating"),
                     quality: formData.get("quality"),
@@ -457,6 +463,9 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                 } else {
                     document.getElementById("formStatus").textContent = result.error || "Something went wrong. Try again.";
                 }
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit Review";
+
             });
 
             // Other included HTML
