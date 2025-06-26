@@ -216,36 +216,37 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                 form.style.display = 'none';
                 messageBox.classList.remove('hidden');
 
-                if (json.status === 'already_redeemed') {
-                    if (json.status === 'already_redeemed') {
-                        const [_, code, date] = json.message.match(/Code:\s(\S+),\sexpires\son\s(.+)/) || [];
+                const { status, code, expires, message } = json;
 
-                        messageText.innerHTML = code && date
-                            ? `<span class="block text-lg font-semibold text-red-600">You’ve already claimed a coupon!</span>
-           <span class="text-sm text-gray-700">Use code <strong class="text-black">${code}</strong> before <strong>${date}</strong>.</span>`
-                            : json.message;
-
-                        if (json.message.includes('expired') || json.message.includes('redeemed')) {
-                            useNowBtn.classList.add('hidden');
-                        } else {
-                            useNowBtn.classList.remove('hidden');
-                        }
-                    }
-
-
-                    // If message includes "expired" or "redeemed", hide the button
-                    if (json.message.includes('expired') || json.message.includes('redeemed')) {
-                        useNowBtn.classList.add('hidden');
-                    } else {
-                        useNowBtn.classList.remove('hidden');
-                    }
-                } else {
-                    messageText.textContent = '🎉 Your coupon is on the way! Check your inbox.';
+                if (status === 'used') {
+                    messageText.innerHTML = `
+            <span class="block text-lg font-semibold text-red-600">You’ve already claimed a coupon!</span>
+            <span class="text-sm text-gray-700">Use code <strong class="text-black">${code}</strong> before <strong>${expires}</strong>.</span>
+        `;
                     useNowBtn.classList.remove('hidden');
+
+                } else if (status === 'expired') {
+                    messageText.innerHTML = `
+            <span class="block text-lg font-semibold text-red-600">Your previous coupon has expired.</span>
+            <span class="text-sm text-gray-700">Code <strong class="text-black">${code}</strong> expired on <strong>${expires}</strong>.</span>
+        `;
+                    useNowBtn.classList.add('hidden');
+
+                } else if (status === 'active') {
+                    messageText.innerHTML = `
+            <span class="block text-lg font-semibold text-green-700">🎉 Your coupon is on the way!</span>
+            <span class="text-sm text-gray-700">Use code <strong class="text-black">${code}</strong> before <strong>${expires}</strong>.</span>
+        `;
+                    useNowBtn.classList.remove('hidden');
+
+                } else {
+                    messageText.textContent = message || 'Something unexpected happened.';
+                    useNowBtn.classList.add('hidden');
                 }
             } else {
                 alert('Something went wrong. Please try again.');
             }
+
         });
 
 
