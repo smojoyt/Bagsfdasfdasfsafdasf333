@@ -220,8 +220,8 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
 
                 if (status === 'used') {
                     messageText.innerHTML = `
-            <span class="block text-lg font-semibold text-red-600">You’ve already claimed a coupon!</span>
-            <span class="text-sm text-gray-700">Use code <strong class="text-black">${code}</strong> before <strong>${expires}</strong>.</span>
+            <span class="block text-lg font-semibold text-red-600">You’ve used your coupon!</span>
+            <span class="text-sm text-gray-700">Your code <strong class="text-black">${code}</strong> has already been redeemd</span>
         `;
                     useNowBtn.classList.remove('hidden');
 
