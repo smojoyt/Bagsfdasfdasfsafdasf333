@@ -174,7 +174,9 @@
             };
 
             const matching = Object.values(products).filter(p =>
-                p.category?.toLowerCase() === category.toLowerCase() && p.banner
+                typeof p.category === "string" &&
+                p.category.toLowerCase() === category.toLowerCase() &&
+                p.banner
             );
 
             if (matching.length > 0) {
@@ -191,6 +193,7 @@
                 }
             }
         }
+
 
 
         function isMobile() {
