@@ -100,7 +100,7 @@
 		]
 	},
 	"Bag_TheBucket": {
-		"name": "The Bucket White Drawstring Bag",
+		"name": "The Bucket - Drawstring Bag",
 		"category": "bags",
 		"product_id": "KK-1003",
 		"price": 39.97,
@@ -169,7 +169,7 @@
 		]
 	},
 	"Bag_MotoJacket": {
-		"name": "Moto Jacket Crossbody - Patent Black",
+		"name": "Moto Jacket Crossbody",
 		"category": "bags",
 		"product_id": "KK-1005",
 		"price": 44.97,

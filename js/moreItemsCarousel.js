@@ -84,7 +84,7 @@ function initMoreItemsCarousel() {
   </div>
 
   <div class="text-left mt-3">
-    <div class="text-[0.8rem] font-bold whitespace-normal">${product.name}</div>
+    <div class="text-[0.9rem] font-bold whitespace-normal">${product.name}</div>
     ${getCompactPriceHTML(product)}
   </div>
 </a>`;
