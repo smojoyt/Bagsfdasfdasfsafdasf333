@@ -217,7 +217,21 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                 messageBox.classList.remove('hidden');
 
                 if (json.status === 'already_redeemed') {
-                    messageText.textContent = json.message;
+                    if (json.status === 'already_redeemed') {
+                        const [_, code, date] = json.message.match(/Code:\s(\S+),\sexpires\son\s(.+)/) || [];
+
+                        messageText.innerHTML = code && date
+                            ? `<span class="block text-lg font-semibold text-red-600">You’ve already claimed a coupon!</span>
+           <span class="text-sm text-gray-700">Use code <strong class="text-black">${code}</strong> before <strong>${date}</strong>.</span>`
+                            : json.message;
+
+                        if (json.message.includes('expired') || json.message.includes('redeemed')) {
+                            useNowBtn.classList.add('hidden');
+                        } else {
+                            useNowBtn.classList.remove('hidden');
+                        }
+                    }
+
 
                     // If message includes "expired" or "redeemed", hide the button
                     if (json.message.includes('expired') || json.message.includes('redeemed')) {
