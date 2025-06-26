@@ -48,8 +48,8 @@ function initMoreItemsCarousel() {
 
                 cell.innerHTML = `
 <a href="/products/${product.category}/${sku}" class="block text-gray-800 hover:text-black">
-  <div class="relative overflow-hidden rounded-lg group md:hover:scale-105 transition">
-    <img class="w-full object-contain rounded-t-lg transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
+  <div class="relative overflow-hidden rounded-2xl group md:hover:scale-105 transition">
+    <img class="w-full object-contain rounded-t-2xl transition md:group-hover:opacity-0" src="${product.image}" alt="${product.name}">
     ${product.thumbnails?.[1] ? `
       <img class="w-full object-contain absolute top-0 left-0 opacity-0 transition md:group-hover:opacity-100"
            src="${product.thumbnails[1]}" alt="Hover image">` : ''}
