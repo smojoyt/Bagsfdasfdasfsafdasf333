@@ -5,7 +5,7 @@ function getCompactPriceHTML(product) {
 
     if (isOnSale) {
         return `
-            <div class="flex flex-col items-center gap-1">
+            <div class="flex flex-col items-left gap-1">
                 <div class="text-red-600 font-bold text-xl">
                     $${sale.toFixed(2)}
                     <span class="text-xs text-gray-500 line-through ml-1">$${regular.toFixed(2)}</span>
@@ -55,21 +55,36 @@ function initMoreItemsCarousel() {
            src="${product.thumbnails[1]}" alt="Hover image">` : ''}
 
     ${(() => {
-                        const stock = product.variantStock || {};
-                        const inStockVariants = (product.custom1Options || "")
-                            .split("|")
-                            .map(v => v.trim())
-                            .filter(v => stock[v] > 0);
-                        return inStockVariants.length > 1
-                            ? `<div class="absolute bottom-1 left-1 flex gap-[3px] z-10">
-                 ${renderColorDots(inStockVariants.join("|"), stock).replaceAll('w-6', 'w-4').replaceAll('h-6', 'h-4')}
-               </div>`
-                            : "";
+                    const stock = product.variantStock || {};
+                    const allVariants = (product.custom1Options || "")
+                        .split("|")
+                        .map(v => v.trim())
+                        .filter(v => stock[v] > 0);
+
+                    if (allVariants.length <= 1) return "";
+
+                    const visibleVariants = allVariants.slice(0, 3);
+                    const hiddenCount = allVariants.length - visibleVariants.length;
+
+                    let swatchesHTML = renderColorDots(visibleVariants.join("|"), stock)
+                        .replaceAll('w-6', 'w-4')
+                        .replaceAll('h-6', 'h-4');
+
+                    if (hiddenCount > 0) {
+                        swatchesHTML += `<span class="ml-1 text-xs text-gray-600 font-medium">+${hiddenCount} more</span>`;
+                    }
+
+                    return `
+    <div class="absolute bottom-1 left-1 flex items-left gap-[3px] z-10">
+        ${swatchesHTML}
+    </div>
+`;
+
                     })()}
   </div>
 
   <div class="text-left mt-3">
-    <div class="text-[1.2rem] font-bold truncate">${product.name}</div>
+    <div class="text-[1.2rem] font-bold whitespace-normal">${product.name}</div>
     ${getCompactPriceHTML(product)}
   </div>
 </a>`;
