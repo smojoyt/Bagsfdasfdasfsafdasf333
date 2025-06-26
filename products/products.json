@@ -3,7 +3,7 @@
 		"name": "Ribbed Knit Earflap Beanie",
 		"category": "headwear",
 		"product_id": "KK-1001",
-		"price": 44.97,
+		"price": 24.97,
 		"weight_oz": 5.29,
 		"tags": [
 			"Bestseller",
@@ -64,7 +64,7 @@
 		"name": "Mini Tote - Heart Embossed",
 		"category": "bags",
 		"product_id": "KK-1002",
-		"price": 29.97,
+		"price": 19.97,
 		"weight_oz": 5.29,
 		"tags": [
 			"Bestseller"
@@ -103,7 +103,7 @@
 		"name": "The Bucket - Drawstring Bag",
 		"category": "bags",
 		"product_id": "KK-1003",
-		"price": 39.97,
+		"price": 29.97,
 		"weight_oz": 14.46,
 		"tags": [
 			""
@@ -137,7 +137,7 @@
 		"name": "Mini Tote - B!TCH#S IS WEIRD",
 		"category": "bags",
 		"product_id": "KK-1004",
-		"price": 75.65,
+		"price": 45.65,
 		"sale_price": 34.74,
 		"weight_oz": 19.4,
 		"tags": [
@@ -172,7 +172,7 @@
 		"name": "Moto Jacket Crossbody",
 		"category": "bags",
 		"product_id": "KK-1005",
-		"price": 44.97,
+		"price": 34.97,
 		"weight_oz": 17.64,
 		"tags": [
 			"NewArrival"
@@ -218,7 +218,7 @@
 		"name": "Celestial Round Bag",
 		"category": "bags",
 		"product_id": "KK-1006",
-		"price": 44.95,
+		"price": 34.95,
 		"weight_oz": 21.16,
 		"tags": [
 			"Bestseller"
@@ -260,7 +260,7 @@
 		"name": "Mini Duffel - Hello Kitty Pink",
 		"category": "bags",
 		"product_id": "KK-1007",
-		"price": 34.97,
+		"price": 24.97,
 		"weight_oz": 10.58,
 		"tags": [
 			"HelloKitty"
@@ -394,7 +394,7 @@
 		"category": "lv",
 		"product_id": "KK-1010",
 		"checkout_product_id": "LKK001",
-		"price": 125,
+		"price": 80,
 		"weight_oz": 16.58,
 		"tags": [
 			"Discontinued",
@@ -562,7 +562,7 @@
 		"category": "lv",
 		"product_id": "KK-1014",
 		"checkout_product_id": "LKK004",
-		"price": 120,
+		"price": 100,
 		"weight_oz": 64.2,
 		"tags": [
 			"Discontinued",
@@ -695,7 +695,7 @@
 		"name": "Cat Ear Beanie",
 		"category": "headwear",
 		"product_id": "KK-1017",
-		"price": 32.97,
+		"price": 24.97,
 		"weight_oz": 5.57,
 		"tags": [
 			"Headwear",
@@ -830,7 +830,7 @@
 		"name": "Velvet Cherry Puff Purse",
 		"category": "bags",
 		"product_id": "KK-1020",
-		"price": 34.97,
+		"price": 27.97,
 		"weight_oz": 17.64,
 		"tags": [
 			"New Arrival"
