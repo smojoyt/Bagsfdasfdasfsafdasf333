@@ -5,7 +5,7 @@ function getCompactPriceHTML(product) {
 
     if (isOnSale) {
         return `
-            <div class="flex flex-col items-left gap-1">
+            <div class="flex flex-col items-start gap-1">
                 <div class="text-red-600 font-bold text-xl">
                     $${sale.toFixed(2)}
                     <span class="text-xs text-gray-500 line-through ml-1">$${regular.toFixed(2)}</span>
@@ -84,7 +84,7 @@ function initMoreItemsCarousel() {
   </div>
 
   <div class="text-left mt-3">
-    <div class="text-[1.2rem] font-bold whitespace-normal">${product.name}</div>
+    <div class="text-[1rem] font-bold whitespace-normal">${product.name}</div>
     ${getCompactPriceHTML(product)}
   </div>
 </a>`;
