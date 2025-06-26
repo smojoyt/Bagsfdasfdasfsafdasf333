@@ -6,7 +6,7 @@ function getCompactPriceHTML(product) {
     if (isOnSale) {
         return `
             <div class="flex flex-col items-center gap-1">
-                <div class="text-red-600 font-bold text-sm">
+                <div class="text-red-600 font-bold text-xl">
                     $${sale.toFixed(2)}
                     <span class="text-xs text-gray-500 line-through ml-1">$${regular.toFixed(2)}</span>
                 </div>
@@ -16,7 +16,7 @@ function getCompactPriceHTML(product) {
             </div>
         `;
     } else {
-        return `<div class="text-sm text-gray-600">$${regular.toFixed(2)}</div>`;
+        return `<div class=" text-xl font-bold text-gray-600 italic">$${regular.toFixed(2)}</div>`;
     }
 }
 
@@ -41,7 +41,7 @@ function initMoreItemsCarousel() {
 
             productKeys.forEach(sku => {
                 const product = products[sku];
-                if (!product || !product.image) return;
+                if (!product || !product.image || product.tags?.includes("Discontinued")) return;
 
                 const cell = document.createElement('div');
                 cell.className = "carousel-cell p2";
@@ -68,8 +68,8 @@ function initMoreItemsCarousel() {
                     })()}
   </div>
 
-  <div class="text-center mt-3">
-    <div class="text-sm font-semibold truncate">${product.name}</div>
+  <div class="text-left mt-3">
+    <div class="text-[1.2rem] font-bold truncate">${product.name}</div>
     ${getCompactPriceHTML(product)}
   </div>
 </a>`;
