@@ -178,12 +178,16 @@ export default async function handler(req, res) {
             shipping_address_collection: {
                 allowed_countries: ['US', 'CA']
             },
+            phone_number_collection: {
+                enabled: true
+            },
             discounts: coupon ? [{ coupon }] : undefined,
             allow_promotion_codes: !coupon, // fallback if no specific code given
             shipping_options,
             success_url: "https://www.karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
             cancel_url: "https://www.karrykraze.com/pages/cancel.html"
         };
+
 
         /*
 // ✅ Now apply either discounts OR allow_promotion_codes
