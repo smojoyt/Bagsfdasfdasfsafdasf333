@@ -9,6 +9,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+
+    <!-- Website Description -->
+    <meta name="description" content="Privacy Policy – Karry Kraze" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.karrykraze.com/" />
+    <meta property="og:title" content="Privacy Policy – Karry Kraze" />
+    <meta property="og:description" content="Privacy Policy – Karry Kraze" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Privacy Policy – Karry Kraze" />
+    <meta name="twitter:description" content="Privacy Policy – Karry Kraze" />
+
+
     <!-- Custom Scripts -->
     <script src="/js/helpers.js"></script>
     <script src="/js/moreItemsCarousel.js"></script>
@@ -112,5 +128,66 @@
         &copy; 2025 Karry Kraze. All rights reserved.
     </footer>
 
+
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    <div id="navbar-container"></div>
+
+    <script>
+        // Other included HTML
+        function includeHTML(id, filePath, callback = null) {
+            fetch(filePath)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    if (callback) callback();
+                });
+        }
+
+        function initNavbar() {
+            const toggleBtn = document.getElementById("mobile-menu-button");
+            const menu = document.getElementById("mobile-menu");
+            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
+
+            const navbar = document.getElementById('mainNavbar');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (!navbar) return;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace('navbar-show', 'navbar-hide');
+                } else {
+                    navbar.classList.replace('navbar-hide', 'navbar-show');
+                }
+                lastScrollY = window.scrollY;
+            });
+        }
+
+        // 🔁 Main Load Flow
+        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
+            initNavbar();
+
+            const addToCartBtn = document.getElementById("add-to-cart-btn");
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener("click", () => {
+                    const variant = document.getElementById("variantSelector")?.value || null;
+                    addToCart(activeProduct, variant);
+                });
+            }
+
+            includeHTML("footer", "/page_inserts/footer.html");
+        });
+
+
+
+
+
+
+    </script>
 </body>
 </html>
