@@ -221,7 +221,7 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                 if (status === 'used') {
                     messageText.innerHTML = `
             <span class="block text-lg font-semibold text-red-600">You’ve used your coupon!</span>
-            <span class="text-sm text-gray-700">Your code <strong class="text-black">${code}</strong> has already been redeemd</span>
+            <span class="text-sm text-gray-700">Your code <strong class="text-black">${code}</strong> has already been redeemed.</span>
         `;
                     useNowBtn.classList.remove('hidden');
 
@@ -235,7 +235,14 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                 } else if (status === 'active') {
                     messageText.innerHTML = `
             <span class="block text-lg font-semibold text-green-700">🎉 Your coupon has already been claimed!</span>
-            <span class="text-sm text-gray-700">Your code is:<strong class="text-black">${code}</strong> it expires <strong>${expires}</strong>.</span>
+            <span class="text-sm text-gray-700">Your code is: <strong class="text-black">${code}</strong> and expires <strong>${expires}</strong>.</span>
+        `;
+                    useNowBtn.classList.remove('hidden');
+
+                } else if (status === 'new') {
+                    messageText.innerHTML = `
+            <span class="block text-lg font-semibold text-green-700">🎉 Welcome! Your coupon has been created!</span>
+            <span class="text-sm text-gray-700">Your code is: <strong class="text-black">${code}</strong> and expires on <strong>${expires}</strong>.</span>
         `;
                     useNowBtn.classList.remove('hidden');
 
@@ -246,6 +253,7 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
             } else {
                 alert('Something went wrong. Please try again.');
             }
+
 
         });
 
