@@ -44,18 +44,32 @@ function saveCart(cart) {
 }
 async function bundleDetector(cart) {
     try {
-        const res = await fetch("/products/bundles.json");
-        const bundles = await res.json();
+        const [bundleRes, productRes] = await Promise.all([
+            fetch("/products/bundles.json"),
+            fetch("/products/products.json")
+        ]);
 
-        const flatCart = [];
-        for (const item of cart) {
-            const qty = item.qty || 1;
-            for (let i = 0; i < qty; i++) {
-                flatCart.push({ ...item, _used: false });
+        const bundles = await bundleRes.json();
+        const products = await productRes.json();
+
+        // Build lookup table for product ID to category
+        const idToCategory = {};
+        for (const key in products) {
+            const prod = products[key];
+            if (prod.product_id && prod.category) {
+                idToCategory[prod.product_id] = prod.category;
             }
         }
 
-        const getCategory = (item) => item.category || "";
+        // Flatten cart
+        const flatCart = [];
+        for (const item of cart) {
+            const qty = item.qty || 1;
+            const category = idToCategory[item.id] || "";
+            for (let i = 0; i < qty; i++) {
+                flatCart.push({ ...item, _used: false, category });
+            }
+        }
 
         for (const bundle of bundles) {
             const maxUses = bundle.maxUses || 1;
@@ -64,31 +78,35 @@ async function bundleDetector(cart) {
                 let match = [];
 
                 if (bundle.category && bundle.minQuantity) {
-                    match = flatCart.filter(i => !i._used && getCategory(i) === bundle.category &&
-                        (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))).slice(0, bundle.minQuantity);
+                    match = flatCart.filter(i =>
+                        !i._used &&
+                        i.category === bundle.category &&
+                        (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
+                    ).slice(0, bundle.minQuantity);
                 } else if (bundle.requiredCategories) {
                     match = bundle.requiredCategories.map(cat =>
-                        flatCart.find(i => !i._used && getCategory(i) === cat &&
-                            !(bundle.excludeSkus || []).includes(i.id))
+                        flatCart.find(i =>
+                            !i._used &&
+                            i.category === cat &&
+                            !(bundle.excludeSkus || []).includes(i.id)
+                        )
                     );
                     if (match.includes(undefined)) match = [];
                 }
 
                 if (match.length > 0 && !match.includes(undefined)) {
-                    match.forEach(i => i._used = true);
-
-                    let newPrice = null;
                     match.forEach(i => {
+                        i._used = true;
                         i.bundleLabel = bundle.name;
                     });
                 }
             }
         }
 
-        // Group flat cart back by item
+        // Re-group items by id, variant, and bundle
         const grouped = {};
         for (const item of flatCart) {
-            const key = `${item.id}_${item.variant || ''}_${item.bundleLabel || ''}`;
+            const key = `${item.id}_${item.variant || ""}_${item.bundleLabel || ""}`;
             if (!grouped[key]) {
                 grouped[key] = { ...item, qty: 1 };
             } else {
@@ -103,6 +121,7 @@ async function bundleDetector(cart) {
         return cart;
     }
 }
+
 
 
 async function renderCart() {
