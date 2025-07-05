@@ -1,11 +1,11 @@
 [
   {
-    "id": "2charms_halfprice",
-    "name": "2 Charms - 50% Off",
-    "description": "Buy any 2 charms and get 50% off total.",
+    "id": "2charms_5",
+    "name": "2 Charms - $5",
+    "description": "Buy any 2 charms for $5",
     "category": "charms",
     "minQuantity": 2,
-    "bundlePercentOff": 50,
+    "bundlePriceTotal": 5.00,
     "excludeSkus": [ "Charms_AlienPlushies" ],
     "maxUses": 1
   }
