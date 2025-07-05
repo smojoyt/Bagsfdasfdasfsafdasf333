@@ -73,12 +73,28 @@
                 }
 
                 if (match.length === (bundle.minQuantity || match.length) && !match.includes(undefined)) {
-                    const unitPrice = bundle.bundlePriceTotal / match.length;
+                    let newPrice = null;
+
+                    if (bundle.bundlePriceTotal) {
+                        // Split fixed total price across matched items
+                        const unitPrice = bundle.bundlePriceTotal / match.length;
+                        match.forEach(i => {
+                            i.price = parseFloat(unitPrice.toFixed(2));
+                        });
+                    } else if (bundle.bundlePercentOff) {
+                        // Apply percent discount across total price of matched items
+                        const totalPrice = match.reduce((sum, item) => sum + item.price, 0);
+                        const discountPerItem = (totalPrice * (bundle.bundlePercentOff / 100)) / match.length;
+                        match.forEach(i => {
+                            i.price = parseFloat((i.price - discountPerItem).toFixed(2));
+                        });
+                    }
+
                     match.forEach(i => {
-                        i.price = parseFloat(unitPrice.toFixed(2));
                         i.bundleLabel = bundle.name;
                         i._used = true;
                     });
+
                 }
             }
         }
