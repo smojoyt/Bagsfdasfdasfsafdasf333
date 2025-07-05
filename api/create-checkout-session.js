@@ -1,7 +1,7 @@
 ﻿import Stripe from 'stripe';
 import path from 'path';
 import fs from 'fs';
-import { bundleDetector } from "../../js/CartUtilsServer.js"; // correct path for Vercel server
+import { bundleDetector } from "./CartUtilsServer.js";
 
 
 
