@@ -42,11 +42,14 @@ async function bundleDetector(cart) {
 
         const idToCategory = {};
         const idToPrice = {};
+        const idToKey = {}; // product_id → product key
+
         for (const key in products) {
             const prod = products[key];
             if (prod.product_id && prod.category) {
                 idToCategory[prod.product_id] = prod.category;
                 idToPrice[prod.product_id] = prod.price;
+                idToKey[prod.product_id] = key;
             }
         }
 
@@ -54,34 +57,28 @@ async function bundleDetector(cart) {
         for (const item of cart) {
             const qty = item.qty || 1;
             const category = idToCategory[item.id] || "";
+            const productKey = idToKey[item.id] || "";
             for (let i = 0; i < qty; i++) {
-                flatCart.push({ ...item, qty: 1, _used: false, category, price: idToPrice[item.id] });
+                flatCart.push({
+                    ...item,
+                    qty: 1,
+                    _used: false,
+                    category,
+                    productKey,
+                    price: idToPrice[item.id]
+                });
             }
         }
 
-        // Apply Bundles
+        // --- APPLY BUNDLES ---
         for (const bundle of bundles) {
             const maxUses = bundle.maxUses || 1;
 
             for (let useCount = 0; useCount < maxUses; useCount++) {
                 let match = [];
 
-                // Case: specific SKUs (e.g., 2 of same item)
-                if (bundle.specificSkus && bundle.minQuantity) {
-                    for (const sku of bundle.specificSkus) {
-                        const matching = flatCart.filter(i =>
-                            !i._used && i.id === sku
-                        ).slice(0, bundle.minQuantity); // Only take exact minQuantity
-
-                        if (matching.length === bundle.minQuantity) {
-                            match = matching;
-                            break; // Stop after finding first matching sku group
-                        }
-                    }
-                }
-
-                // Case: by category (your other bundle format)
-                else if (bundle.category && bundle.minQuantity) {
+                // Category-based
+                if (bundle.category && bundle.minQuantity) {
                     match = flatCart.filter(i =>
                         !i._used &&
                         i.category === bundle.category &&
@@ -89,7 +86,16 @@ async function bundleDetector(cart) {
                     ).slice(0, bundle.minQuantity);
                 }
 
-                // Case: combo of categories
+                // SKU-based
+                else if (bundle.specificSkus && bundle.minQuantity) {
+                    match = flatCart.filter(i =>
+                        !i._used &&
+                        bundle.specificSkus.includes(i.productKey) &&
+                        (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
+                    ).slice(0, bundle.minQuantity);
+                }
+
+                // Multi-category combo (e.g. ["hat", "charm"])
                 else if (bundle.requiredCategories) {
                     match = bundle.requiredCategories.map(cat =>
                         flatCart.find(i =>
@@ -101,7 +107,7 @@ async function bundleDetector(cart) {
                     if (match.includes(undefined)) match = [];
                 }
 
-                // Apply if we found a complete match
+                // Apply bundle if valid
                 if (match.length === bundle.minQuantity && !match.includes(undefined)) {
                     const unitPrice = bundle.bundlePriceTotal / match.length;
                     match.forEach(i => {
@@ -113,8 +119,7 @@ async function bundleDetector(cart) {
             }
         }
 
-
-        // Apply Promos to items NOT used in bundle
+        // --- APPLY PROMOS (only to items NOT used in bundle) ---
         for (const promo of promotions) {
             const start = new Date(promo.startDate);
             const end = new Date(promo.endDate);
@@ -134,7 +139,7 @@ async function bundleDetector(cart) {
             }
         }
 
-        // Regroup line items into cart format
+        // --- GROUP LINE ITEMS ---
         const grouped = {};
         flatCart.forEach(item => {
             const key = `${item.id}_${item.variant || ""}_${item.price}_${item.bundleLabel || ""}_${item.promoLabel || ""}`;
@@ -148,6 +153,7 @@ async function bundleDetector(cart) {
         return cart;
     }
 }
+
 
 // All other logic remains the same. Ensure renderCart() uses bundleDetector(cart) before displaying.
 
