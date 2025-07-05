@@ -24,46 +24,73 @@ export default async function handler(req, res) {
         const { sku, selectedVariant, cart, coupon } = req.body;
 
         const products = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'products.json'), 'utf8'));
-        const checkoutToProductKey = Object.fromEntries(Object.entries(products).filter(([_, val]) => val.checkout_product_id).map(([k, v]) => [v.checkout_product_id, k]));
+        const promotionsData = fs.existsSync(path.join(process.cwd(), 'products', 'promotions.json')) ? JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'promotions.json'), 'utf8')) : { promotions: [] };
+        const bundles = fs.existsSync(path.join(process.cwd(), 'products', 'bundles.json')) ? JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'bundles.json'), 'utf8')) : [];
+
         const skuToProductKey = Object.fromEntries(Object.entries(products).filter(([_, val]) => val.product_id).map(([k, v]) => [v.product_id, k]));
 
         let line_items = [];
 
         if (Array.isArray(cart)) {
-            const promo = fs.existsSync(path.join(process.cwd(), 'products', 'promotion.json')) ? JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'promotion.json'), 'utf8').replace(/^﻿/, '')) : null;
-            const bundles = fs.existsSync(path.join(process.cwd(), 'products', 'bundles.json')) ? JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'bundles.json'), 'utf8').replace(/^﻿/, '')) : [];
-
+            const now = new Date();
             const flatCart = cart.flatMap(item => Array.from({ length: item.qty || 1 }, () => ({ ...item, _used: false })));
-            const getProductCategory = id => products[checkoutToProductKey[id] || skuToProductKey[id] || id]?.category || null;
-            const matches = (item, filter) => {
-                const productKey = skuToProductKey[item.id] || item.id;
-                const product = products[productKey];
-                if (!product) return false;
-                return !filter.excludeSkus?.includes(productKey) && (!filter.category || getProductCategory(productKey) === filter.category);
-            };
 
-            const appliedBundles = [];
+            const getCategory = id => products[skuToProductKey[id] || id]?.category;
+
+            // Apply bundles
             for (const bundle of bundles) {
                 for (let useCount = 0; useCount < (bundle.maxUses || 1); useCount++) {
-                    let match = bundle.category && bundle.minQuantity
-                        ? flatCart.filter(i => !i._used && matches(i, bundle)).slice(0, bundle.minQuantity)
-                        : bundle.requiredCategories?.map(cat => flatCart.find(i => !i._used && getProductCategory(i.id) === cat && !bundle.excludeSkus?.includes(i.id))) || [];
-                    if (!match.includes(undefined) && match.length) {
-                        match.forEach(i => i._used = true);
-                        appliedBundles.push({ bundle, items: match });
+                    let match = [];
+
+                    if (bundle.category && bundle.minQuantity) {
+                        match = flatCart.filter(i => !i._used && getCategory(i.id) === bundle.category && !bundle.excludeSkus?.includes(i.id)).slice(0, bundle.minQuantity);
+                    } else if (bundle.requiredCategories) {
+                        match = bundle.requiredCategories.map(cat => flatCart.find(i => !i._used && getCategory(i.id) === cat && !bundle.excludeSkus?.includes(i.id)));
+                        if (match.includes(undefined)) match = [];
+                    }
+
+                    if (match.length && !match.includes(undefined)) {
+                        const bundleUnitPrice = bundle.bundlePriceTotal / match.length;
+                        match.forEach(i => {
+                            i.price = parseFloat(bundleUnitPrice.toFixed(2));
+                            i.bundleLabel = bundle.name;
+                            i._used = true;
+                        });
                     }
                 }
             }
 
+            // Apply promotions to non-bundled items
+            for (const promo of promotionsData.promotions || []) {
+                const start = new Date(promo.startDate);
+                const end = new Date(promo.endDate);
+                const isActive = !promo.startDate || (!isNaN(start) && !isNaN(end) && now >= start && now <= end);
+
+                if (isActive) {
+                    flatCart.forEach(i => {
+                        const product = products[skuToProductKey[i.id] || i.id];
+                        if (product && !i._used && getCategory(i.id) === promo.category) {
+                            const meetsMin = !promo.condition?.minPrice || product.price >= promo.condition.minPrice;
+                            const meetsMax = !promo.condition?.maxPrice || product.price <= promo.condition.maxPrice;
+                            if (meetsMin && meetsMax) {
+                                const discount = promo.type === 'percent' ? product.price * (promo.amount / 100) : promo.amount;
+                                i.price = parseFloat((product.price - discount).toFixed(2));
+                                i.promoLabel = promo.name;
+                            }
+                        }
+                    });
+                }
+            }
+
             const groupedItems = flatCart.reduce((acc, item) => {
-                const key = `${item.id}_${item.variant || ''}_${item._used}`;
-                acc[key] = acc[key] ? { ...acc[key], quantity: acc[key].quantity + 1 } : { ...item, quantity: 1 };
+                const key = `${item.id}_${item.variant || ''}_${item.bundleLabel || ''}_${item.promoLabel || ''}`;
+                if (!acc[key]) acc[key] = { ...item, quantity: 1 };
+                else acc[key].quantity += 1;
                 return acc;
             }, {});
 
             for (const item of Object.values(groupedItems)) {
-                const productKey = checkoutToProductKey[item.id] || skuToProductKey[item.id] || item.id;
-                const product = products[productKey];
+                const product = products[skuToProductKey[item.id] || item.id];
                 if (!product) continue;
 
                 const variant = item.variant?.trim();
@@ -79,10 +106,11 @@ export default async function handler(req, res) {
                         images: [image],
                         metadata: {
                             variant: variant || "N/A",
-                            product_id: productKey,
+                            product_id: skuToProductKey[item.id] || item.id,
                             requires_shipping: "true",
                             clean_name: product.name,
-                            ...(item.bundleLabel ? { bundle_applied: item.bundleLabel } : {})
+                            ...(item.bundleLabel ? { bundle_applied: item.bundleLabel } : {}),
+                            ...(item.promoLabel ? { promotion_applied: item.promoLabel } : {})
                         }
                     },
                     unit_amount: Math.round(Math.max(0, unitAmount) * 100)
@@ -90,7 +118,6 @@ export default async function handler(req, res) {
 
                 line_items.push({ price_data: priceData, quantity: item.quantity });
             }
-
 
         } else if (sku) {
             const product = products[sku];
@@ -110,11 +137,10 @@ export default async function handler(req, res) {
                             variant: variant || "N/A",
                             product_id: sku,
                             requires_shipping: "true",
-                            clean_name: product.name,
-                            ...(product.tags?.includes("Onsale") ? { onsale: "true" } : {})
+                            clean_name: product.name
                         }
                     },
-                    unit_amount: Math.round((product.tags?.includes("Onsale") && product.sale_price < product.price ? product.sale_price : product.price) * 100)
+                    unit_amount: Math.round(product.price * 100)
                 },
                 quantity: 1
             }];
