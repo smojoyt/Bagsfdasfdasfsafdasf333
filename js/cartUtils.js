@@ -121,12 +121,39 @@
         }
 
         // --- CLEAN LABELS BEFORE GROUPING ---
-        flatCart.forEach(i => {
-            if (!i._used) {
-                i.bundleLabel = "";
-                i.promoLabel = "";
+        // At the end of bundleDetector
+        flatCart.forEach(item => {
+            if (!item._used && bundles) {
+                for (const bundle of bundles) {
+                    let isMatch = false;
+                    let remaining = 0;
+
+                    if (bundle.category && item.category === bundle.category) {
+                        const eligibleItems = flatCart.filter(i =>
+                            !i._used &&
+                            i.category === item.category &&
+                            (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
+                        );
+                        remaining = (bundle.minQuantity || 0) - eligibleItems.length;
+                        isMatch = remaining > 0;
+                    } else if (bundle.specificSkus && bundle.specificSkus.includes(item.productKey)) {
+                        const eligibleItems = flatCart.filter(i =>
+                            !i._used &&
+                            bundle.specificSkus.includes(i.productKey) &&
+                            (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
+                        );
+                        remaining = (bundle.minQuantity || 0) - eligibleItems.length;
+                        isMatch = remaining > 0;
+                    }
+
+                    if (isMatch && remaining > 0) {
+                        item.hint = `✨ Add ${remaining} more to get ${bundle.name}`;
+                    }
+                }
             }
+
         });
+
 
         // --- GROUP BY FINAL PRICE + LABELS ---
         const grouped = {};
