@@ -132,6 +132,31 @@ export default async function handler(req, res) {
                 const description = product.descriptionList?.join(" | ") || product.description || "Karry Kraze item";
 
                 let unitAmount = product.price;
+
+                // 🔽 Apply active promotions from promotion.json
+                if (promo?.promotions?.length) {
+                    const now = new Date();
+                    for (const p of promo.promotions) {
+                        const promoStart = new Date(p.startDate || '1900-01-01');
+                        const promoEnd = new Date(p.endDate || '2100-01-01');
+
+                        const isInDateRange = now >= promoStart && now <= promoEnd;
+                        const isCorrectCategory = product.category === p.category;
+                        const meetsMinPrice = p.condition?.minPrice == null || unitAmount >= p.condition.minPrice;
+                        const meetsMaxPrice = p.condition?.maxPrice == null || unitAmount <= p.condition.maxPrice;
+
+                        if (isInDateRange && isCorrectCategory && meetsMinPrice && meetsMaxPrice) {
+                            if (p.type === "percent") {
+                                unitAmount *= (1 - p.amount / 100);
+                            } else if (p.type === "fixed") {
+                                unitAmount -= p.amount;
+                            }
+                            break; // stop after applying first match
+                        }
+                    }
+                }
+
+
                 let bundleNote = null;
 
                 for (const { bundle, items } of appliedBundles) {
