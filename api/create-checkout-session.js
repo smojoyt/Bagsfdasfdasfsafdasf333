@@ -84,7 +84,7 @@ export default async function handler(req, res) {
                     unit_amount: Math.round(Math.max(0, unitAmount) * 100)
                 };
 
-                line_items.push({ price_data: priceData, quantity: item.quantity });
+                line_items.push({ price_data: priceData, quantity: item.qty });
             }
 
         } else if (sku) {

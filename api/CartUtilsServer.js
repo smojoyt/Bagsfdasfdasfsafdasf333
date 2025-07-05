@@ -5,7 +5,7 @@ export async function bundleDetector(cart) {
     try {
         const bundlePath = path.join(process.cwd(), 'products', 'bundles.json');
         const productPath = path.join(process.cwd(), 'products', 'products.json');
-        const promoPath = path.join(process.cwd(), 'products', 'promotions.json');
+        const promoPath = path.join(process.cwd(), 'products', 'promotion.json');
 
         const bundles = JSON.parse(fs.readFileSync(bundlePath, 'utf8'));
         const products = JSON.parse(fs.readFileSync(productPath, 'utf8'));
