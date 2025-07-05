@@ -68,53 +68,29 @@ export default async function handler(req, res) {
 
                 const variant = item.variant?.trim();
                 const image = product.variantImages?.[variant] || product.image;
-                const name = variant ? `${product.name} - ${variant}` : product.name;
                 const description = product.descriptionList?.join(" | ") || product.description || "Karry Kraze item";
-                let unitAmount = product.price;
 
-                if (promo?.promotions?.length) {
-                    const now = new Date();
-                    for (const p of promo.promotions) {
-                        const inRange = now >= new Date(p.startDate || '1900') && now <= new Date(p.endDate || '2100');
-                        if (inRange && product.category === p.category && (!p.condition?.minPrice || unitAmount >= p.condition.minPrice) && (!p.condition?.maxPrice || unitAmount <= p.condition.maxPrice)) {
-                            unitAmount = p.type === "percent" ? unitAmount * (1 - p.amount / 100) : unitAmount - p.amount;
-                            break;
+                const unitAmount = item.price;
+                const priceData = {
+                    currency: "usd",
+                    product_data: {
+                        name: item.bundleLabel ? `${item.name} (${item.bundleLabel})` : item.name,
+                        description,
+                        images: [image],
+                        metadata: {
+                            variant: variant || "N/A",
+                            product_id: productKey,
+                            requires_shipping: "true",
+                            clean_name: product.name,
+                            ...(item.bundleLabel ? { bundle_applied: item.bundleLabel } : {})
                         }
-                    }
-                }
-
-                let bundleNote = null;
-                for (const { bundle, items } of appliedBundles) {
-                    if (items.includes(item)) {
-                        if (bundle.bundlePriceTotal) unitAmount = bundle.bundlePriceTotal / items.length;
-                        else if (bundle.discountType === "flat") unitAmount -= bundle.discountAmount / items.length;
-                        else if (bundle.discountType === "percent") unitAmount *= (1 - bundle.discountPercent / 100);
-                        else if (bundle.discountType === "setPriceToZero" && bundle.applyTo === getProductCategory(item.id)) unitAmount = 0;
-                        bundleNote = bundle.name;
-                        break;
-                    }
-                }
-
-                line_items.push({
-                    price_data: {
-                        currency: "usd",
-                        product_data: {
-                            name: bundleNote ? `${name} (${bundleNote})` : name,
-                            description,
-                            images: [image],
-                            metadata: {
-                                variant: variant || "N/A",
-                                product_id: productKey,
-                                requires_shipping: "true",
-                                clean_name: product.name,
-                                ...(bundleNote ? { bundle_applied: bundleNote } : {})
-                            }
-                        },
-                        unit_amount: Math.round(Math.max(0, unitAmount) * 100)
                     },
-                    quantity: item.quantity || 1
-                });
+                    unit_amount: Math.round(Math.max(0, unitAmount) * 100)
+                };
+
+                line_items.push({ price_data: priceData, quantity: item.quantity });
             }
+
 
         } else if (sku) {
             const product = products[sku];

@@ -95,13 +95,23 @@ async function bundleDetector(cart) {
                 }
 
                 if (match.length > 0 && !match.includes(undefined)) {
-                    match.forEach(i => {
-                        i._used = true;
-                        i.bundleLabel = bundle.name;
-                    });
+                    if (bundle.bundlePriceTotal) {
+                        const bundleUnitPrice = bundle.bundlePriceTotal / match.length;
+                        match.forEach(i => {
+                            i.price = parseFloat(bundleUnitPrice.toFixed(2));
+                            i.bundleLabel = bundle.name;
+                            i._used = true;
+                        });
+                    } else {
+                        match.forEach(i => {
+                            i.bundleLabel = bundle.name;
+                            i._used = true;
+                        });
+                    }
                 }
             }
         }
+
 
         // Re-group items by id, variant, and bundle
         const grouped = {};
