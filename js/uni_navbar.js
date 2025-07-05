@@ -132,7 +132,7 @@ async function bundleDetector(cart) {
         // ⬇️ Apply promotions to items not used in bundle
         try {
             const promoRes = await fetch("/products/promotion.json");
-            const promotions = await promoRes.json();
+            const { promotions } = await promoRes.json();
             const now = new Date();
 
             for (const promo of promotions) {
