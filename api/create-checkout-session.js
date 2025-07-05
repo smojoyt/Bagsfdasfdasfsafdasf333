@@ -1,7 +1,8 @@
 ﻿import Stripe from 'stripe';
 import path from 'path';
 import fs from 'fs';
-const { bundleDetector } = require('../../js/CartUtils.js');
+import { bundleDetector } from "../../js/CartUtilsServer.js"; // correct path for Vercel server
+
 
 
 
@@ -13,18 +14,24 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-    const allowedOrigins = ["https://karrykraze.com", "https://www.karrykraze.com"];
     const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-        res.setHeader("Access-Control-Allow-Origin", origin);
-    }
+    res.setHeader("Access-Control-Allow-Origin", origin || "*");
+    res.setHeader("Vary", "Origin");
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    if (req.method === "OPTIONS") return res.status(200).end();
-    if (req.method !== "POST") return res.status(405).end("Method Not Allowed");
+
+    if (req.method === "OPTIONS") {
+        return res.status(200).end(); // Respond to CORS preflight
+    }
+
+    if (req.method !== "POST") {
+        return res.status(405).end("Method Not Allowed");
+    }
 
     try {
+    // ...your logic starts here
+
         const { sku, selectedVariant, cart, coupon } = req.body;
 
         const products = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'products.json'), 'utf8'));
