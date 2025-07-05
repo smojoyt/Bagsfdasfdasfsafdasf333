@@ -125,7 +125,36 @@ async function bundleDetector(cart) {
                 grouped[key] = { ...item, qty: 1 };
             } else {
                 grouped[key].qty += 1;
+                // optional: preserve lowest price or highest discount promoLabel
+                grouped[key].promoLabel ||= item.promoLabel;
             }
+        }
+        // ⬇️ Apply promotions to items not used in bundle
+        try {
+            const promoRes = await fetch("/products/promotions.json");
+            const promotions = await promoRes.json();
+            const now = new Date();
+
+            for (const promo of promotions) {
+                const start = new Date(promo.startDate);
+                const end = new Date(promo.endDate);
+
+                if (now >= start && now <= end && promo.type === "percent") {
+                    flatCart.forEach(i => {
+                        if (
+                            !i._used &&
+                            i.category === promo.category &&
+                            (!promo.condition?.minPrice || i.price >= promo.condition.minPrice)
+                        ) {
+                            const discount = i.price * (promo.amount / 100);
+                            i.price = parseFloat((i.price - discount).toFixed(2));
+                            i.promoLabel = promo.name;
+                        }
+                    });
+                }
+            }
+        } catch (e) {
+            console.warn("Promo fetch failed:", e);
         }
 
         return Object.values(grouped);
