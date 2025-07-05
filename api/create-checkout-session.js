@@ -178,10 +178,12 @@ export default async function handler(req, res) {
                     }
                 }
 
+                const finalName = bundleNote ? `${name} (${bundleNote})` : name;
+
                 const priceData = {
                     currency: "usd",
                     product_data: {
-                        name,
+                        name: finalName,
                         description,
                         images: [image],
                         metadata: {
@@ -194,6 +196,7 @@ export default async function handler(req, res) {
                     },
                     unit_amount: Math.round(Math.max(0, unitAmount) * 100)
                 };
+
 
 
                 // ✅ Attach bundle label to original item (for localStorage if needed)

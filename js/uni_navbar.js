@@ -113,7 +113,8 @@ async function renderCart() {
 
     // 🔍 Check for bundle deals before rendering
     cart = await bundleDetector(cart);
-    saveCart(cart); // Update cart in localStorage
+    localStorage.setItem("savedCart", JSON.stringify(cart)); // just update storage
+
 
     const cartItemsEl = document.getElementById("cartItems");
     const cartTotalEl = document.getElementById("cartTotal");
