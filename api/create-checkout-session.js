@@ -35,7 +35,13 @@ export default async function handler(req, res) {
         const { sku, selectedVariant, cart, coupon } = req.body;
 
         const products = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'products.json'), 'utf8'));
-        const promotionsData = fs.existsSync(path.join(process.cwd(), 'products', 'promotion.json')) ? JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'promotion.json'), 'utf8')) : { promotions: [] };
+        const promotionsData = fs.existsSync(path.join(process.cwd(), 'products', 'promotion.json'))
+            ? JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'promotion.json'), 'utf8'))
+            : { promotions: [] };
+
+        const { promotions } = promotionsData;
+
+
         const bundles = fs.existsSync(path.join(process.cwd(), 'products', 'bundles.json')) ? JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'bundles.json'), 'utf8')) : [];
 
         const skuToProductKey = Object.fromEntries(Object.entries(products).filter(([_, val]) => val.product_id).map(([k, v]) => [v.product_id, k]));
