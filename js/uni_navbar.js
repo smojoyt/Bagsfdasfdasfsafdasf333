@@ -93,20 +93,20 @@ async function bundleDetector(cart) {
                 if (match.length > 0 && !match.includes(undefined)) {
                     if (bundle.bundlePriceTotal) {
                         const bundleUnitPrice = bundle.bundlePriceTotal / match.length;
-                        match.forEach(i => {
-                            const forcedPrice = parseFloat(bundleUnitPrice.toFixed(2));
-                            if (!i.price || i.price > forcedPrice) {
-                                i.price = forcedPrice;
+
+                        match.forEach(matchItem => {
+                            const index = flatCart.findIndex(i => i === matchItem);
+                            if (index !== -1) {
+                                flatCart[index] = {
+                                    ...flatCart[index],
+                                    price: parseFloat(bundleUnitPrice.toFixed(2)),
+                                    bundleLabel: bundle.name,
+                                    _used: true
+                                };
                             }
-                            i.bundleLabel = bundle.name;
-                            i._used = true;
-                        });
-                    } else {
-                        match.forEach(i => {
-                            i.bundleLabel = bundle.name;
-                            i._used = true;
                         });
                     }
+
                 }
             }
         }
@@ -119,14 +119,22 @@ async function bundleDetector(cart) {
 
             if (now >= start && now <= end && promo.type === "percent") {
                 flatCart.forEach(i => {
-                    if (!i._used && i.category === promo.category && (!promo.condition?.minPrice || i.price >= promo.condition.minPrice)) {
-                        const discount = i.price * (promo.amount / 100);
-                        i.price = parseFloat((i.price - discount).toFixed(2));
+                    const alreadyForced = i.bundleLabel || i._used || typeof i.price === "number";
+
+                    if (
+                        !alreadyForced &&
+                        i.category === promo.category &&
+                        (!promo.condition?.minPrice || i.price >= promo.condition.minPrice)
+                    ) {
+                        const productBasePrice = products[i.id]?.price || 0;
+                        const discount = productBasePrice * (promo.amount / 100);
+                        i.price = parseFloat((productBasePrice - discount).toFixed(2));
                         i.promoLabel = promo.name;
                     }
                 });
             }
         }
+
 
         const grouped = {};
         for (const item of flatCart) {
