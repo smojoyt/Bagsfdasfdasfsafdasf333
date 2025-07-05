@@ -253,6 +253,28 @@ function renderCart() {
     });
 }
 
+// Toggles the side cart drawer open or closed
+window.toggleCart = function (show = null) {
+    const cartEl = document.getElementById("sideCart");
+    const overlay = document.getElementById("cartOverlay");
+    if (!cartEl || !overlay) return;
+
+    const isVisible = cartEl.classList.contains("translate-x-0");
+
+    if (show === true || (show === null && !isVisible)) {
+        cartEl.classList.remove("translate-x-full");
+        cartEl.classList.add("translate-x-0");
+        overlay.classList.remove("hidden");
+    } else {
+        cartEl.classList.remove("translate-x-0");
+        cartEl.classList.add("translate-x-full");
+        overlay.classList.add("hidden");
+    }
+
+    renderCart?.(); // optional: refresh cart when opening
+};
+
+
 document.addEventListener("DOMContentLoaded", () => {
     updateCartCount();
 
