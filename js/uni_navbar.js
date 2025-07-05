@@ -66,13 +66,31 @@ async function bundleDetector(cart) {
             for (let useCount = 0; useCount < maxUses; useCount++) {
                 let match = [];
 
-                if (bundle.category && bundle.minQuantity) {
+                // Case: specific SKUs (e.g., 2 of same item)
+                if (bundle.specificSkus && bundle.minQuantity) {
+                    for (const sku of bundle.specificSkus) {
+                        const matching = flatCart.filter(i =>
+                            !i._used && i.id === sku
+                        ).slice(0, bundle.minQuantity); // Only take exact minQuantity
+
+                        if (matching.length === bundle.minQuantity) {
+                            match = matching;
+                            break; // Stop after finding first matching sku group
+                        }
+                    }
+                }
+
+                // Case: by category (your other bundle format)
+                else if (bundle.category && bundle.minQuantity) {
                     match = flatCart.filter(i =>
                         !i._used &&
                         i.category === bundle.category &&
                         (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
                     ).slice(0, bundle.minQuantity);
-                } else if (bundle.requiredCategories) {
+                }
+
+                // Case: combo of categories
+                else if (bundle.requiredCategories) {
                     match = bundle.requiredCategories.map(cat =>
                         flatCart.find(i =>
                             !i._used &&
@@ -83,6 +101,7 @@ async function bundleDetector(cart) {
                     if (match.includes(undefined)) match = [];
                 }
 
+                // Apply if we found a complete match
                 if (match.length === bundle.minQuantity && !match.includes(undefined)) {
                     const unitPrice = bundle.bundlePriceTotal / match.length;
                     match.forEach(i => {
@@ -93,6 +112,7 @@ async function bundleDetector(cart) {
                 }
             }
         }
+
 
         // Apply Promos to items NOT used in bundle
         for (const promo of promotions) {
