@@ -51,18 +51,16 @@ export default async function handler(req, res) {
             let promo = null;
             if (fs.existsSync(promoPath)) {
                 const promoRaw = fs.readFileSync(promoPath, 'utf8');
-                promo = JSON.parse(promoRaw.replace(/^\uFEFF/, ''));
+                promo = JSON.parse(promoRaw.replace(/^﻿/, ''));
             }
 
-            // 📦 Load bundle definitions
             const bundlePath = path.join(process.cwd(), 'products', 'bundles.json');
             let bundles = [];
             if (fs.existsSync(bundlePath)) {
                 const rawBundle = fs.readFileSync(bundlePath, 'utf8');
-                bundles = JSON.parse(rawBundle.replace(/^\uFEFF/, ''));
+                bundles = JSON.parse(rawBundle.replace(/^﻿/, ''));
             }
 
-            // 🧮 Flatten cart
             const flatCart = [];
             for (const item of cart) {
                 const quantity = item.qty || 1;
@@ -88,7 +86,6 @@ export default async function handler(req, res) {
                 return true;
             };
 
-            // 🧠 Apply bundles
             for (const bundle of bundles) {
                 let matchedItems = [];
                 const maxUses = bundle.maxUses || 1;
@@ -113,8 +110,18 @@ export default async function handler(req, res) {
                 }
             }
 
-            // 🧾 Build line items
+            const groupedItems = new Map();
+
             for (const item of flatCart) {
+                const key = `${item.id}_${item.variant || ''}_${item._used}`;
+                if (groupedItems.has(key)) {
+                    groupedItems.get(key).quantity++;
+                } else {
+                    groupedItems.set(key, { ...item, quantity: 1 });
+                }
+            }
+
+            for (const item of groupedItems.values()) {
                 const productKey = checkoutToProductKey[item.id] || skuToProductKey[item.id] || item.id;
                 const product = products[productKey];
                 if (!product) continue;
@@ -161,7 +168,7 @@ export default async function handler(req, res) {
                     unit_amount: Math.round(Math.max(0, unitAmount) * 100)
                 };
 
-                line_items.push({ price_data: priceData, quantity: 1 });
+                line_items.push({ price_data: priceData, quantity: item.quantity });
             }
 
         } else if (sku) {
@@ -235,6 +242,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: "Internal Server Error" });
     }
 }
+
 
 
 /*
