@@ -195,6 +195,7 @@ export default async function handler(req, res) {
                     unit_amount: Math.round(Math.max(0, unitAmount) * 100)
                 };
 
+
                 // ✅ Attach bundle label to original item (for localStorage if needed)
                 if (!item.bundleLabel && bundleNote) {
                     item.bundleLabel = bundleNote;
@@ -202,8 +203,9 @@ export default async function handler(req, res) {
 
                 line_items.push({
                     price_data: priceData,
-                    quantity: 1
+                    quantity: item.quantity || 1
                 });
+
 
             }
 
@@ -227,7 +229,8 @@ export default async function handler(req, res) {
                             variant: variant || "N/A",
                             product_id: sku,
                             requires_shipping: "true",
-                            clean_name: product.name
+                            clean_name: product.name,
+                            ...(product.tags?.includes("Onsale") ? { onsale: "true" } : {})
                         }
                     },
                     unit_amount: Math.round(
@@ -238,6 +241,7 @@ export default async function handler(req, res) {
                 },
                 quantity: 1
             }];
+
         } else {
             return res.status(400).json({ error: "No valid cart or SKU provided." });
         }
