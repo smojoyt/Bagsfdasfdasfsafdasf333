@@ -165,7 +165,7 @@ export default async function handler(req, res) {
             { shipping_rate: 'shr_1RO9kSLzNgqX2t8K0SOnswvh' }  // Express
         ];
 
-        if (subtotal >= 5000) {
+        if (subtotal >= 2500) {
             shipping_options.unshift({ shipping_rate: 'shr_1RO9lyLzNgqX2t8KUr7X1RJh' }); // Free shipping
         }
 
