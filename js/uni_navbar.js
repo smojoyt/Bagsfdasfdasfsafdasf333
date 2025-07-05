@@ -74,15 +74,20 @@ async function bundleDetector(cart) {
         }
 
         for (const bundle of bundles) {
-            const maxUses = bundle.maxUses || 1;
+            const maxUses = bundle.maxUses || 10;
+
             for (let useCount = 0; useCount < maxUses; useCount++) {
                 let match = [];
 
                 if (bundle.category && bundle.minQuantity) {
-                    match = flatCart.filter(i => !i._used && i.category === bundle.category && (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))).slice(0, bundle.minQuantity);
-                } else if (bundle.requiredCategories) {
-                    match = bundle.requiredCategories.map(cat => flatCart.find(i => !i._used && i.category === cat && !(bundle.excludeSkus || []).includes(i.id)));
-                    if (match.includes(undefined)) match = [];
+                    match = flatCart.filter(i =>
+                        !i._used &&
+                        i.category === bundle.category &&
+                        (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
+                    ).slice(0, bundle.minQuantity);
+
+                    // ✅ Only apply if we got an exact set
+                    if (match.length < bundle.minQuantity) break;
                 }
 
                 if (match.length > 0 && !match.includes(undefined)) {
@@ -105,6 +110,7 @@ async function bundleDetector(cart) {
                 }
             }
         }
+
 
         // Apply promotions
         for (const promo of promotions) {
