@@ -98,11 +98,15 @@ async function bundleDetector(cart) {
                     if (bundle.bundlePriceTotal) {
                         const bundleUnitPrice = bundle.bundlePriceTotal / match.length;
                         match.forEach(i => {
-                            i.price = parseFloat(bundleUnitPrice.toFixed(2));
+                            const forcedPrice = parseFloat(bundleUnitPrice.toFixed(2));
+                            if (!i.price || i.price > forcedPrice) {
+                                i.price = forcedPrice;
+                            }
                             i.bundleLabel = bundle.name;
                             i._used = true;
                         });
-                    } else {
+                    }
+                        else {
                         match.forEach(i => {
                             i.bundleLabel = bundle.name;
                             i._used = true;
