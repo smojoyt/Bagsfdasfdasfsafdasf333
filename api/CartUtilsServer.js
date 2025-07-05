@@ -13,6 +13,7 @@ export async function bundleDetector(cart) {
         const now = new Date();
 
         const idToCategory = {};
+        const idToSubCategory = {};
         const idToPrice = {};
         const idToKey = {};
 
@@ -20,6 +21,7 @@ export async function bundleDetector(cart) {
             const prod = products[key];
             if (prod.product_id && prod.category) {
                 idToCategory[prod.product_id] = prod.category;
+                idToSubCategory[prod.product_id] = prod.subCategory || "";
                 idToPrice[prod.product_id] = prod.price;
                 idToKey[prod.product_id] = key;
             }
@@ -29,6 +31,7 @@ export async function bundleDetector(cart) {
         for (const item of cart) {
             const qty = item.qty || 1;
             const category = idToCategory[item.id] || "";
+            const subCategory = idToSubCategory[item.id] || "";
             const productKey = idToKey[item.id] || "";
             const basePrice = idToPrice[item.id];
             for (let i = 0; i < qty; i++) {
@@ -37,6 +40,7 @@ export async function bundleDetector(cart) {
                     qty: 1,
                     _used: false,
                     category,
+                    subCategory,
                     productKey,
                     price: basePrice
                 });
@@ -50,7 +54,13 @@ export async function bundleDetector(cart) {
             for (let useCount = 0; useCount < maxUses; useCount++) {
                 let match = [];
 
-                if (bundle.category && bundle.minQuantity) {
+                if (bundle.subCategory && bundle.minQuantity) {
+                    match = flatCart.filter(i =>
+                        !i._used &&
+                        i.subCategory === bundle.subCategory &&
+                        (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
+                    ).slice(0, bundle.minQuantity);
+                } else if (bundle.category && bundle.minQuantity) {
                     match = flatCart.filter(i =>
                         !i._used &&
                         i.category === bundle.category &&
@@ -74,16 +84,12 @@ export async function bundleDetector(cart) {
                 }
 
                 if (match.length === (bundle.minQuantity || match.length) && !match.includes(undefined)) {
-                    let newPrice = null;
-
                     if (bundle.bundlePriceTotal) {
-                        // Split fixed total price across matched items
                         const unitPrice = bundle.bundlePriceTotal / match.length;
                         match.forEach(i => {
                             i.price = parseFloat(unitPrice.toFixed(2));
                         });
                     } else if (bundle.bundlePercentOff) {
-                        // Ensure all prices are valid numbers before calculating
                         const totalPrice = match.reduce((sum, item) => {
                             const price = Number(item.price);
                             return !isNaN(price) ? sum + price : sum;
@@ -103,12 +109,10 @@ export async function bundleDetector(cart) {
                         });
                     }
 
-
                     match.forEach(i => {
                         i.bundleLabel = bundle.name;
                         i._used = true;
                     });
-
                 }
             }
         }
@@ -134,14 +138,22 @@ export async function bundleDetector(cart) {
             }
         }
 
-        // At the end of bundleDetector
+        // --- HINTS FOR ALMOST ELIGIBLE ITEMS ---
         flatCart.forEach(item => {
             if (!item._used && bundles) {
                 for (const bundle of bundles) {
                     let isMatch = false;
                     let remaining = 0;
 
-                    if (bundle.category && item.category === bundle.category) {
+                    if (bundle.subCategory && item.subCategory === bundle.subCategory) {
+                        const eligibleItems = flatCart.filter(i =>
+                            !i._used &&
+                            i.subCategory === item.subCategory &&
+                            (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
+                        );
+                        remaining = (bundle.minQuantity || 0) - eligibleItems.length;
+                        isMatch = remaining > 0;
+                    } else if (bundle.category && item.category === bundle.category) {
                         const eligibleItems = flatCart.filter(i =>
                             !i._used &&
                             i.category === item.category &&
@@ -164,9 +176,7 @@ export async function bundleDetector(cart) {
                     }
                 }
             }
-
         });
-
 
         const grouped = {};
         flatCart.forEach(item => {

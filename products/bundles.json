@@ -1,23 +1,19 @@
 [
   {
-    "id": "2charms_6",
-    "name": "2 Charms - $6",
-    "description": "Buy any 2 charms for $6",
-    "category": "small_charms",
+    "id": "bundle_2smallcharms_5dollars",
+    "name": "2 Small Charms for $5",
+    "subCategory": "smallCharms",
     "minQuantity": 2,
-    "bundlePriceTotal": 6.00,
-    "excludeSkus": [ "" ],
-    "maxUses": 1
+    "bundlePriceTotal": 5.00,
+    "maxUses": 2
   },
   {
-    "id": "2charms_15",
-    "name": "2 Charms - $15",
-    "description": "Buy any 2 charms for $15",
-    "category": "med_charms",
+    "id": "bundle_2largecharms_15dollars",
+    "name": "2 Large Charms for $15",
+    "subCategory": "largeCharms",
     "minQuantity": 2,
     "bundlePriceTotal": 15.00,
-    "excludeSkus": [ "" ],
-    "maxUses": 1
+    "maxUses": 2
   },
   {
     "id": "bundle_same_sku_pair",

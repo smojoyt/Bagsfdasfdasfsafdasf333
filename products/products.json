@@ -292,10 +292,8 @@
 	},
 	"Charms_PearChain": {
 		"name": "Pear Drop Glitter Charm",
-		"category": [
-			"charms",
-			"med_charms"
-		],
+		"category": "charms",
+		"subCategory": "largeCharms",
 		"product_id": "KK-1008",
 		"price": 12.97,
 		"weight_oz": 1.34,
@@ -335,10 +333,8 @@
 	},
 	"Charms_AlienPlushies": {
 		"name": "Mini Alien Plushies",
-		"category": [
-			"charms",
-			"med_charms"
-		],
+		"category": "charms",
+		"subCategory": "largeCharms",
 		"product_id": "KK-1009",
 		"price": 14.97,
 		"weight_oz": 1.34,
@@ -529,10 +525,8 @@
 
 	"Charms_CherryChain": {
 		"name": "Cherry Bag Charm",
-		"category": [
-			"charms",
-			"med_charms"
-		],
+		"category": "charms",
+		"subCategory": "largeCharms",
 		"product_id": "KK-1013",
 		"price": 12.97,
 		"weight_oz": 2.12,
@@ -770,10 +764,8 @@
 	},
 	"Charms_HeartClaspHook": {
 		"name": "Heart Clasp Hook",
-		"category": [
-			"charms",
-			"small_charms"
-		],
+		"category": "charms",
+		"subCategory": "smallCharms",
 		"product_id": "KK-1018",
 		"price": 5.47,
 		"weight_oz": 0.18,
@@ -807,10 +799,8 @@
 	},
 	"Charms_RoundedHeartClasp": {
 		"name": "Rounded Heart Clasp",
-		"category": [
-			"charms",
-			"small_charms"
-		],
+		"category": "charms",
+		"subCategory": "smallCharms",
 		"product_id": "KK-1019",
 		"price": 7.47,
 		"weight_oz": 2.75,
@@ -883,10 +873,8 @@
 	},
 	"Charms_MiniCrocs": {
 		"name": "Mini Croc Charms",
-		"category": [
-			"charms",
-			"small_charms"
-		],
+		"category": "charms",
+		"subCategory": "smallCharms",
 		"product_id": "KK-1045",
 		"price": 5.97,
 		"weight_oz": 1.13,
