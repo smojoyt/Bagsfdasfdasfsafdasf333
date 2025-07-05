@@ -1,6 +1,10 @@
 ﻿import Stripe from 'stripe';
 import path from 'path';
 import fs from 'fs';
+const { bundleDetector } = require('../../js/CartUtils.js');
+
+
+
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -33,20 +37,14 @@ export default async function handler(req, res) {
 
         if (Array.isArray(cart)) {
             const now = new Date();
-            const flatCart = cart.flatMap(item => Array.from({ length: item.qty || 1 }, () => ({ ...item, _used: false })));
+            const finalCart = await bundleDetector(cart);
 
-            const getCategory = id => products[skuToProductKey[id] || id]?.category;
 
             
 
-            const groupedItems = flatCart.reduce((acc, item) => {
-                const key = `${item.id}_${item.variant || ''}_${item.bundleLabel || ''}_${item.promoLabel || ''}`;
-                if (!acc[key]) acc[key] = { ...item, quantity: 1 };
-                else acc[key].quantity += 1;
-                return acc;
-            }, {});
 
-            for (const item of Object.values(groupedItems)) {
+
+            for (const item of finalCart) {
                 const product = products[skuToProductKey[item.id] || item.id];
                 if (!product) continue;
 
