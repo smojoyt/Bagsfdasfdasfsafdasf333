@@ -5,13 +5,16 @@
 // uni_navbar.js — updated logic for splitting bundles and applying promos properly
 
 async function triggerStripeCheckout() {
-    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+    const rawCart = JSON.parse(localStorage.getItem("savedCart")) || [];
+    const finalCart = await bundleDetector(rawCart);
+
 
     const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cart })
+        body: JSON.stringify({ cart: finalCart })
     });
+
 
     const data = await res.json();
     if (data.url) {

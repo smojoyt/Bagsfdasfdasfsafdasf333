@@ -37,50 +37,7 @@ export default async function handler(req, res) {
 
             const getCategory = id => products[skuToProductKey[id] || id]?.category;
 
-            // Apply bundles
-            for (const bundle of bundles) {
-                for (let useCount = 0; useCount < (bundle.maxUses || 1); useCount++) {
-                    let match = [];
-
-                    if (bundle.category && bundle.minQuantity) {
-                        match = flatCart.filter(i => !i._used && getCategory(i.id) === bundle.category && !bundle.excludeSkus?.includes(i.id)).slice(0, bundle.minQuantity);
-                    } else if (bundle.requiredCategories) {
-                        match = bundle.requiredCategories.map(cat => flatCart.find(i => !i._used && getCategory(i.id) === cat && !bundle.excludeSkus?.includes(i.id)));
-                        if (match.includes(undefined)) match = [];
-                    }
-
-                    if (match.length && !match.includes(undefined)) {
-                        const bundleUnitPrice = bundle.bundlePriceTotal / match.length;
-                        match.forEach(i => {
-                            i.price = parseFloat(bundleUnitPrice.toFixed(2));
-                            i.bundleLabel = bundle.name;
-                            i._used = true;
-                        });
-                    }
-                }
-            }
-
-            // Apply promotions to non-bundled items
-            for (const promo of promotionsData.promotions || []) {
-                const start = new Date(promo.startDate);
-                const end = new Date(promo.endDate);
-                const isActive = !promo.startDate || (!isNaN(start) && !isNaN(end) && now >= start && now <= end);
-
-                if (isActive) {
-                    flatCart.forEach(i => {
-                        const product = products[skuToProductKey[i.id] || i.id];
-                        if (product && !i._used && getCategory(i.id) === promo.category) {
-                            const meetsMin = !promo.condition?.minPrice || product.price >= promo.condition.minPrice;
-                            const meetsMax = !promo.condition?.maxPrice || product.price <= promo.condition.maxPrice;
-                            if (meetsMin && meetsMax) {
-                                const discount = promo.type === 'percent' ? product.price * (promo.amount / 100) : promo.amount;
-                                i.price = parseFloat((product.price - discount).toFixed(2));
-                                i.promoLabel = promo.name;
-                            }
-                        }
-                    });
-                }
-            }
+            
 
             const groupedItems = flatCart.reduce((acc, item) => {
                 const key = `${item.id}_${item.variant || ''}_${item.bundleLabel || ''}_${item.promoLabel || ''}`;
@@ -97,7 +54,7 @@ export default async function handler(req, res) {
                 const image = product.variantImages?.[variant] || product.image;
                 const description = product.descriptionList?.join(" | ") || product.description || "Karry Kraze item";
 
-                const unitAmount = item.price;
+                const unitAmount = typeof item.price === 'number' ? item.price : product.price;
                 const priceData = {
                     currency: "usd",
                     product_data: {
