@@ -42,9 +42,90 @@ function saveCart(cart) {
     updateCartCount();
     renderCart();
 }
+async function bundleDetector(cart) {
+    try {
+        const res = await fetch("/products/bundles.json");
+        const bundles = await res.json();
 
-function renderCart() {
-    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+        const flatCart = [];
+        for (const item of cart) {
+            const qty = item.qty || 1;
+            for (let i = 0; i < qty; i++) {
+                flatCart.push({ ...item, _used: false });
+            }
+        }
+
+        const getCategory = (item) => item.category || "";
+
+        for (const bundle of bundles) {
+            const maxUses = bundle.maxUses || 1;
+
+            for (let useCount = 0; useCount < maxUses; useCount++) {
+                let match = [];
+
+                if (bundle.category && bundle.minQuantity) {
+                    match = flatCart.filter(i => !i._used && getCategory(i) === bundle.category &&
+                        (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))).slice(0, bundle.minQuantity);
+                } else if (bundle.requiredCategories) {
+                    match = bundle.requiredCategories.map(cat =>
+                        flatCart.find(i => !i._used && getCategory(i) === cat &&
+                            !(bundle.excludeSkus || []).includes(i.id))
+                    );
+                    if (match.includes(undefined)) match = [];
+                }
+
+                if (match.length > 0 && !match.includes(undefined)) {
+                    match.forEach(i => i._used = true);
+
+                    let newPrice = null;
+                    if (bundle.bundlePriceTotal) {
+                        newPrice = bundle.bundlePriceTotal / match.length;
+                    } else if (bundle.discountType === "flat") {
+                        const flatAmount = bundle.discountAmount / match.length;
+                        match.forEach(i => i.price -= flatAmount);
+                    } else if (bundle.discountType === "percent") {
+                        match.forEach(i => i.price *= (1 - bundle.discountPercent / 100));
+                    } else if (bundle.discountType === "setPriceToZero") {
+                        match.forEach(i => {
+                            if (getCategory(i) === bundle.applyTo) i.price = 0;
+                        });
+                    }
+
+                    match.forEach(i => {
+                        if (newPrice != null) i.price = newPrice;
+                        i.bundleLabel = bundle.name;
+                    });
+                }
+            }
+        }
+
+        // Group flat cart back by item
+        const grouped = {};
+        for (const item of flatCart) {
+            const key = `${item.id}_${item.variant || ''}_${item.bundleLabel || ''}`;
+            if (!grouped[key]) {
+                grouped[key] = { ...item, qty: 1 };
+            } else {
+                grouped[key].qty += 1;
+            }
+        }
+
+        return Object.values(grouped);
+
+    } catch (err) {
+        console.error("Bundle detection failed:", err);
+        return cart;
+    }
+}
+
+
+async function renderCart() {
+    let cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+
+    // 🔍 Check for bundle deals before rendering
+    cart = await bundleDetector(cart);
+    saveCart(cart); // Update cart in localStorage
+
     const cartItemsEl = document.getElementById("cartItems");
     const cartTotalEl = document.getElementById("cartTotal");
     const freeShippingBar = document.getElementById("freeShippingBar");
@@ -73,28 +154,7 @@ function renderCart() {
 
     let total = 0;
 
-    // 🧠 Detect bundles first (before rendering)
-    const cartCategories = cart.reduce((acc, item) => {
-        const cat = item.category || "";
-        if (!acc[cat]) acc[cat] = [];
-        acc[cat].push(item);
-        return acc;
-    }, {});
-
-    // 🎯 Example bundle: 2 charms under $3 = $5 total
-    const charmBundleEligible = cartCategories["charms"]?.filter(i => i.price <= 3.00) || [];
-    if (charmBundleEligible.length >= 2) {
-        const bundleItems = charmBundleEligible.slice(0, 2);
-        const sharedLabel = "2 Charms for $5";
-        const perItemPrice = 2.50;
-
-        for (const item of bundleItems) {
-            item.bundleLabel = sharedLabel;
-            item.price = perItemPrice;
-        }
-    }
-
-    // 🛒 Now render the cart items
+    // 🛒 Render updated cart with bundles applied
     cart.forEach((item, index) => {
         total += item.price * item.qty;
         cartItemsEl.innerHTML += `
@@ -120,8 +180,7 @@ function renderCart() {
 
     cartTotalEl.textContent = `$${total.toFixed(2)}`;
 
-
-    // Free shipping bar logic...
+    // 🎁 Free shipping bar
     const goal = 25;
     const progress = Math.min((total / goal) * 100, 100);
     if (freeShippingBar && freeShippingProgress) {
@@ -139,7 +198,7 @@ function renderCart() {
         }
     }
 
-    // ✅ Bind buttons *after* they exist
+    // ✅ Bind qty/remove buttons
     document.querySelectorAll(".qty-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             const action = btn.dataset.action;
@@ -155,6 +214,7 @@ function renderCart() {
         });
     });
 }
+
 
 
 
