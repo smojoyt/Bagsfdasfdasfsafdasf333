@@ -1,15 +1,5 @@
 [
   {
-    "id": "bundle_beanie_charm_freecharm",
-    "name": "Beanie + Charm Bundle",
-    "description": "Buy any beanie and get a charm for free.",
-    "requiredCategories": [ "headwear", "charms" ],
-    "minEach": 1,
-    "discountType": "setPriceToZero",
-    "applyTo": "charms",
-    "maxUses": 2
-  },
-  {
     "id": "bundle_2charms_5dollars",
     "name": "2 Charms for $5",
     "description": "Any 2 charms for $5. Some premium charms excluded.",
