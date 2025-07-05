@@ -1,15 +1,24 @@
 [
   {
-    "id": "2charms_5",
-    "name": "2 Charms - $5",
-    "description": "Buy any 2 charms for $5",
-    "category": "charms",
+    "id": "2charms_6",
+    "name": "2 Charms - $6",
+    "description": "Buy any 2 charms for $6",
+    "category": "small_charms",
     "minQuantity": 2,
-    "bundlePriceTotal": 5.00,
-    "excludeSkus": [ "Charms_AlienPlushies" ],
+    "bundlePriceTotal": 6.00,
+    "excludeSkus": [ "" ],
     "maxUses": 1
-  }
-,
+  },
+  {
+    "id": "2charms_15",
+    "name": "2 Charms - $15",
+    "description": "Buy any 2 charms for $15",
+    "category": "med_charms",
+    "minQuantity": 2,
+    "bundlePriceTotal": 15.00,
+    "excludeSkus": [ "" ],
+    "maxUses": 1
+  },
   {
     "id": "bundle_same_sku_pair",
     "name": "2 of Same Item Discount",
