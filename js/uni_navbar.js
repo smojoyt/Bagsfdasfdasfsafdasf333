@@ -98,7 +98,7 @@ function renderCart() {
     cartTotalEl.textContent = `$${total.toFixed(2)}`;
 
     // Free shipping bar logic...
-    const goal = 50;
+    const goal = 25;
     const progress = Math.min((total / goal) * 100, 100);
     if (freeShippingBar && freeShippingProgress) {
         if (total >= goal) {
