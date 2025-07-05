@@ -83,13 +83,26 @@ export async function bundleDetector(cart) {
                             i.price = parseFloat(unitPrice.toFixed(2));
                         });
                     } else if (bundle.bundlePercentOff) {
-                        // Apply percent discount across total price of matched items
-                        const totalPrice = match.reduce((sum, item) => sum + item.price, 0);
-                        const discountPerItem = (totalPrice * (bundle.bundlePercentOff / 100)) / match.length;
+                        // Ensure all prices are valid numbers before calculating
+                        const totalPrice = match.reduce((sum, item) => {
+                            const price = Number(item.price);
+                            return !isNaN(price) ? sum + price : sum;
+                        }, 0);
+
+                        const discountTotal = totalPrice * (bundle.bundlePercentOff / 100);
+                        const discountPerItem = match.length > 0 ? discountTotal / match.length : 0;
+
                         match.forEach(i => {
-                            i.price = parseFloat((i.price - discountPerItem).toFixed(2));
+                            const price = Number(i.price);
+                            if (!isNaN(price)) {
+                                i.price = parseFloat((price - discountPerItem).toFixed(2));
+                            } else {
+                                console.warn("Invalid item price in bundle discount:", i);
+                                i.price = 0;
+                            }
                         });
                     }
+
 
                     match.forEach(i => {
                         i.bundleLabel = bundle.name;
