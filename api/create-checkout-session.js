@@ -4,7 +4,6 @@ import fs from 'fs';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-
 export const config = {
     api: { bodyParser: true }
 };
@@ -24,13 +23,8 @@ export default async function handler(req, res) {
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.setHeader("Access-Control-Allow-Credentials", "true");
 
-    if (req.method === "OPTIONS") {
-        return res.status(200).end(); // Handle preflight
-    }
-
-    if (req.method !== "POST") {
-        return res.status(405).end("Method Not Allowed");
-    }
+    if (req.method === "OPTIONS") return res.status(200).end();
+    if (req.method !== "POST") return res.status(405).end("Method Not Allowed");
 
     try {
         console.log("Incoming body:", req.body);
@@ -40,24 +34,19 @@ export default async function handler(req, res) {
         const rawData = fs.readFileSync(filePath, 'utf8');
         const products = JSON.parse(rawData);
 
-        // 🔁 Build reverse lookup: { checkout_product_id: productKey }
         const checkoutToProductKey = Object.entries(products).reduce((acc, [key, val]) => {
             if (val.checkout_product_id) acc[val.checkout_product_id] = key;
             return acc;
         }, {});
 
-
-        // 🔁 Build reverse lookup: { SKU: productKey }
         const skuToProductKey = Object.entries(products).reduce((acc, [key, val]) => {
-            if (val.product_id) acc[val.product_id] = key; // product_id = SKU
+            if (val.product_id) acc[val.product_id] = key;
             return acc;
         }, {});
-
 
         let line_items = [];
 
         if (Array.isArray(cart)) {
-            // Load promotion.json once outside the loop
             const promoPath = path.join(process.cwd(), 'products', 'promotion.json');
             let promo = null;
             if (fs.existsSync(promoPath)) {
@@ -65,65 +54,117 @@ export default async function handler(req, res) {
                 promo = JSON.parse(promoRaw.replace(/^\uFEFF/, ''));
             }
 
-            line_items = cart.map(item => {
-                const originalId = item.id;
-                const productKey = checkoutToProductKey[originalId] || skuToProductKey[originalId] || originalId;
+            // 📦 Load bundle definitions
+            const bundlePath = path.join(process.cwd(), 'products', 'bundles.json');
+            let bundles = [];
+            if (fs.existsSync(bundlePath)) {
+                const rawBundle = fs.readFileSync(bundlePath, 'utf8');
+                bundles = JSON.parse(rawBundle.replace(/^\uFEFF/, ''));
+            }
 
-                const mainProduct = products[productKey]; // used for logic (price, promos, etc.)
-                const displayProduct = products[originalId] || mainProduct; // used for name, image, description
-
-                if (!mainProduct) {
-                    console.warn("❌ Product not found for:", originalId);
-                    return null;
+            // 🧮 Flatten cart
+            const flatCart = [];
+            for (const item of cart) {
+                const quantity = item.qty || 1;
+                for (let i = 0; i < quantity; i++) {
+                    flatCart.push({ ...item, _used: false });
                 }
+            }
+
+            const appliedBundles = [];
+            const bundleLimit = {};
+
+            const getProductCategory = (id) => {
+                const key = checkoutToProductKey[id] || skuToProductKey[id] || id;
+                return products[key]?.category || null;
+            };
+
+            const matches = (item, filter) => {
+                const productKey = skuToProductKey[item.id] || item.id;
+                const product = products[productKey];
+                if (!product) return false;
+                if (filter.excludeSkus?.includes(productKey)) return false;
+                if (filter.category && getProductCategory(productKey) !== filter.category) return false;
+                return true;
+            };
+
+            // 🧠 Apply bundles
+            for (const bundle of bundles) {
+                let matchedItems = [];
+                const maxUses = bundle.maxUses || 1;
+
+                for (let useCount = 0; useCount < maxUses; useCount++) {
+                    let match = [];
+
+                    if (bundle.category && bundle.minQuantity) {
+                        match = flatCart.filter(i => !i._used && matches(i, bundle)).slice(0, bundle.minQuantity);
+                    } else if (bundle.requiredCategories) {
+                        match = bundle.requiredCategories.map(cat =>
+                            flatCart.find(i => !i._used && getProductCategory(i.id) === cat &&
+                                !(bundle.excludeSkus || []).includes(i.id))
+                        );
+                        if (match.includes(undefined)) match = [];
+                    }
+
+                    if (match.length > 0 && !match.includes(undefined)) {
+                        match.forEach(i => i._used = true);
+                        appliedBundles.push({ bundle, items: match });
+                    }
+                }
+            }
+
+            // 🧾 Build line items
+            for (const item of flatCart) {
+                const productKey = checkoutToProductKey[item.id] || skuToProductKey[item.id] || item.id;
+                const product = products[productKey];
+                if (!product) continue;
 
                 const variant = item.variant?.trim();
-                const image = displayProduct.variantImages?.[variant] || displayProduct.image;
-                const name = variant ? `${displayProduct.name} - ${variant}` : displayProduct.name;
-                const description = displayProduct.descriptionList?.join(" | ") || displayProduct.description || "Karry Kraze item";
+                const image = product.variantImages?.[variant] || product.image;
+                const name = variant ? `${product.name} - ${variant}` : product.name;
+                const description = product.descriptionList?.join(" | ") || product.description || "Karry Kraze item";
 
-                // Find promos
-                const activePromos = (promo?.promotions || []).filter(p =>
-                    (!p.startDate || new Date() >= new Date(p.startDate)) &&
-                    (!p.endDate || new Date() <= new Date(p.endDate)) &&
-                    (!p.category || p.category === mainProduct.category) &&
-                    (!p.condition?.minPrice || mainProduct.price >= p.condition.minPrice) &&
-                    (!p.condition?.maxPrice || mainProduct.price <= p.condition.maxPrice)
-                );
+                let unitAmount = product.price;
+                let bundleNote = null;
 
-                const activePromo = activePromos[0];
-                let finalPrice = mainProduct.price;
-
-                if (activePromo) {
-                    if (activePromo.type === "percent") {
-                        finalPrice = mainProduct.price * (1 - activePromo.amount / 100);
-                    } else if (activePromo.type === "fixed") {
-                        finalPrice = Math.max(0, mainProduct.price - activePromo.amount);
+                for (const { bundle, items } of appliedBundles) {
+                    if (items.includes(item)) {
+                        if (bundle.bundlePriceTotal) {
+                            unitAmount = bundle.bundlePriceTotal / items.length;
+                        } else if (bundle.discountType === "flat" && bundle.discountAmount) {
+                            unitAmount -= bundle.discountAmount / items.length;
+                        } else if (bundle.discountType === "percent" && bundle.discountPercent) {
+                            unitAmount *= (1 - bundle.discountPercent / 100);
+                        } else if (bundle.discountType === "setPriceToZero" &&
+                            bundle.applyTo === getProductCategory(item.id)) {
+                            unitAmount = 0;
+                        }
+                        bundleNote = bundle.name;
+                        break;
                     }
                 }
 
-                return {
-                    price_data: {
-                        currency: "usd",
-                        product_data: {
-                            name,
-                            description,
-                            images: [image],
-                            metadata: {
-                                variant: variant || "N/A",
-                                product_id: originalId,
-                                requires_shipping: "true",
-                                clean_name: displayProduct.name
-                            }
-                        },
-                        unit_amount: Math.round(finalPrice * 100)
+                const priceData = {
+                    currency: "usd",
+                    product_data: {
+                        name,
+                        description,
+                        images: [image],
+                        metadata: {
+                            variant: variant || "N/A",
+                            product_id: productKey,
+                            requires_shipping: "true",
+                            clean_name: product.name,
+                            ...(bundleNote ? { bundle_applied: bundleNote } : {})
+                        }
                     },
-                    quantity: item.qty || 1
+                    unit_amount: Math.round(Math.max(0, unitAmount) * 100)
                 };
-            }).filter(Boolean);
 
-        }   
-         else if (sku) {
+                line_items.push({ price_data: priceData, quantity: 1 });
+            }
+
+        } else if (sku) {
             const product = products[sku];
             if (!product) return res.status(404).json({ error: "Product not found" });
 
@@ -161,12 +202,12 @@ export default async function handler(req, res) {
         const subtotal = line_items.reduce((sum, item) => sum + item.price_data.unit_amount * item.quantity, 0);
 
         const shipping_options = [
-            { shipping_rate: 'shr_1RO9juLzNgqX2t8KonaNgulK' }, // Standard
-            { shipping_rate: 'shr_1RO9kSLzNgqX2t8K0SOnswvh' }  // Express
+            { shipping_rate: 'shr_1RO9juLzNgqX2t8KonaNgulK' },
+            { shipping_rate: 'shr_1RO9kSLzNgqX2t8K0SOnswvh' }
         ];
 
         if (subtotal >= 2500) {
-            shipping_options.unshift({ shipping_rate: 'shr_1RO9lyLzNgqX2t8KUr7X1RJh' }); // Free shipping
+            shipping_options.unshift({ shipping_rate: 'shr_1RO9lyLzNgqX2t8KUr7X1RJh' });
         }
 
         const sessionOptions = {
@@ -178,27 +219,13 @@ export default async function handler(req, res) {
             shipping_address_collection: {
                 allowed_countries: ['US', 'CA']
             },
-            phone_number_collection: {
-                enabled: true
-            },
+            phone_number_collection: { enabled: true },
             discounts: coupon ? [{ coupon }] : undefined,
-            allow_promotion_codes: !coupon, // fallback if no specific code given
+            allow_promotion_codes: !coupon,
             shipping_options,
             success_url: "https://www.karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
             cancel_url: "https://www.karrykraze.com/pages/cancel.html"
         };
-
-
-        /*
-// ✅ Now apply either discounts OR allow_promotion_codes
-if (subtotal >= 6000) {
-    sessionOptions.discounts = [
-        { promotion_code: "promo_1RQGELLzNgqX2t8K1ROge1Er" }
-    ];
-} else {
-    sessionOptions.allow_promotion_codes = true;
-}
-*/
 
         const session = await stripe.checkout.sessions.create(sessionOptions);
         return res.status(200).json({ url: session.url });
@@ -208,3 +235,15 @@ if (subtotal >= 6000) {
         return res.status(500).json({ error: "Internal Server Error" });
     }
 }
+
+
+/*
+// ✅ Now apply either discounts OR allow_promotion_codes
+if (subtotal >= 6000) {
+sessionOptions.discounts = [
+{ promotion_code: "promo_1RQGELLzNgqX2t8K1ROge1Er" }
+];
+} else {
+sessionOptions.allow_promotion_codes = true;
+}
+*/
