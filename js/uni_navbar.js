@@ -1,5 +1,9 @@
 ﻿// 🛠️ Fixed and enhanced uni_navbar.js
 
+// create-checkout-session.js — no change needed for splitting bundles
+
+// uni_navbar.js — updated logic for splitting bundles and applying promos properly
+
 async function triggerStripeCheckout() {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
@@ -15,26 +19,6 @@ async function triggerStripeCheckout() {
     } else {
         alert("Checkout failed.");
     }
-}
-
-function updateDiscountTracker(_) { }
-
-function toggleCart(show = null) {
-    const cartEl = document.getElementById("sideCart");
-    const overlay = document.getElementById("cartOverlay");
-    const isVisible = cartEl.classList.contains("translate-x-0");
-
-    if (show === true || (!isVisible && show === null)) {
-        cartEl.classList.remove("translate-x-full");
-        cartEl.classList.add("translate-x-0");
-        overlay.classList.remove("hidden");
-    } else {
-        cartEl.classList.remove("translate-x-0");
-        cartEl.classList.add("translate-x-full");
-        overlay.classList.add("hidden");
-    }
-
-    renderCart();
 }
 
 function saveCart(cart) {
@@ -57,24 +41,27 @@ async function bundleDetector(cart) {
         const now = new Date();
 
         const idToCategory = {};
+        const idToPrice = {};
         for (const key in products) {
             const prod = products[key];
             if (prod.product_id && prod.category) {
                 idToCategory[prod.product_id] = prod.category;
+                idToPrice[prod.product_id] = prod.price;
             }
         }
 
         const flatCart = [];
         for (const item of cart) {
             const qty = item.qty || 1;
-            const category = idToCategory[item.id] || "uncategorized";
+            const category = idToCategory[item.id] || "";
             for (let i = 0; i < qty; i++) {
-                flatCart.push({ ...item, _used: false, category });
+                flatCart.push({ ...item, qty: 1, _used: false, category, price: idToPrice[item.id] });
             }
         }
 
+        // Apply Bundles
         for (const bundle of bundles) {
-            const maxUses = bundle.maxUses || 10;
+            const maxUses = bundle.maxUses || 1;
 
             for (let useCount = 0; useCount < maxUses; useCount++) {
                 let match = [];
@@ -85,75 +72,65 @@ async function bundleDetector(cart) {
                         i.category === bundle.category &&
                         (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
                     ).slice(0, bundle.minQuantity);
-
-                    // ✅ Only apply if we got an exact set
-                    if (match.length < bundle.minQuantity) break;
+                } else if (bundle.requiredCategories) {
+                    match = bundle.requiredCategories.map(cat =>
+                        flatCart.find(i =>
+                            !i._used &&
+                            i.category === cat &&
+                            !(bundle.excludeSkus || []).includes(i.id)
+                        )
+                    );
+                    if (match.includes(undefined)) match = [];
                 }
 
-                if (match.length > 0 && !match.includes(undefined)) {
-                    if (bundle.bundlePriceTotal) {
-                        const bundleUnitPrice = bundle.bundlePriceTotal / match.length;
-
-                        match.forEach(matchItem => {
-                            const index = flatCart.findIndex(i => i === matchItem);
-                            if (index !== -1) {
-                                flatCart[index] = {
-                                    ...flatCart[index],
-                                    price: parseFloat(bundleUnitPrice.toFixed(2)),
-                                    bundleLabel: bundle.name,
-                                    _used: true
-                                };
-                            }
-                        });
-                    }
-
+                if (match.length === bundle.minQuantity && !match.includes(undefined)) {
+                    const unitPrice = bundle.bundlePriceTotal / match.length;
+                    match.forEach(i => {
+                        i.price = parseFloat(unitPrice.toFixed(2));
+                        i.bundleLabel = bundle.name;
+                        i._used = true;
+                    });
                 }
             }
         }
 
-
-        // Apply promotions
+        // Apply Promos to items NOT used in bundle
         for (const promo of promotions) {
             const start = new Date(promo.startDate);
             const end = new Date(promo.endDate);
 
             if (now >= start && now <= end && promo.type === "percent") {
                 flatCart.forEach(i => {
-                    const alreadyForced = i.bundleLabel || i._used || typeof i.price === "number";
-
                     if (
-                        !alreadyForced &&
+                        !i._used &&
                         i.category === promo.category &&
                         (!promo.condition?.minPrice || i.price >= promo.condition.minPrice)
                     ) {
-                        const productBasePrice = products[i.id]?.price || 0;
-                        const discount = productBasePrice * (promo.amount / 100);
-                        i.price = parseFloat((productBasePrice - discount).toFixed(2));
+                        const discount = i.price * (promo.amount / 100);
+                        i.price = parseFloat((i.price - discount).toFixed(2));
                         i.promoLabel = promo.name;
                     }
                 });
             }
         }
 
-
+        // Regroup line items into cart format
         const grouped = {};
-        for (const item of flatCart) {
-            const key = `${item.id}_${item.variant || ""}_${item.bundleLabel || ""}`;
-            if (!grouped[key]) {
-                grouped[key] = { ...item, qty: 1 };
-            } else {
-                grouped[key].qty += 1;
-                grouped[key].promoLabel ||= item.promoLabel;
-            }
-        }
+        flatCart.forEach(item => {
+            const key = `${item.id}_${item.variant || ""}_${item.price}_${item.bundleLabel || ""}_${item.promoLabel || ""}`;
+            if (!grouped[key]) grouped[key] = { ...item, qty: 1 };
+            else grouped[key].qty++;
+        });
 
         return Object.values(grouped);
-
-    } catch (err) {
-        console.error("Bundle detection failed:", err);
+    } catch (e) {
+        console.error("bundleDetector failed:", e);
         return cart;
     }
 }
+
+// All other logic remains the same. Ensure renderCart() uses bundleDetector(cart) before displaying.
+
 
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
