@@ -81,9 +81,6 @@ async function bundleDetector(cart) {
                     match.forEach(i => {
                         i.bundleLabel = bundle.name;
                     });
-
-
-                   
                 }
             }
         }
