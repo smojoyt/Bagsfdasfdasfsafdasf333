@@ -136,6 +136,7 @@ export default async function handler(req, res) {
 
                 for (const { bundle, items } of appliedBundles) {
                     if (items.includes(item)) {
+                        // Apply bundle pricing
                         if (bundle.bundlePriceTotal) {
                             unitAmount = bundle.bundlePriceTotal / items.length;
                         } else if (bundle.discountType === "flat" && bundle.discountAmount) {
@@ -146,6 +147,7 @@ export default async function handler(req, res) {
                             bundle.applyTo === getProductCategory(item.id)) {
                             unitAmount = 0;
                         }
+
                         bundleNote = bundle.name;
                         break;
                     }
@@ -168,7 +170,16 @@ export default async function handler(req, res) {
                     unit_amount: Math.round(Math.max(0, unitAmount) * 100)
                 };
 
-                line_items.push({ price_data: priceData, quantity: item.quantity });
+                // ✅ Attach bundle label to original item (for localStorage if needed)
+                if (!item.bundleLabel && bundleNote) {
+                    item.bundleLabel = bundleNote;
+                }
+
+                line_items.push({
+                    price_data: priceData,
+                    quantity: 1
+                });
+
             }
 
         } else if (sku) {

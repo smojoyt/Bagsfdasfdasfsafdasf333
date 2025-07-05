@@ -73,29 +73,53 @@ function renderCart() {
 
     let total = 0;
 
+    // 🧠 Detect bundles first (before rendering)
+    const cartCategories = cart.reduce((acc, item) => {
+        const cat = item.category || "";
+        if (!acc[cat]) acc[cat] = [];
+        acc[cat].push(item);
+        return acc;
+    }, {});
+
+    // 🎯 Example bundle: 2 charms under $3 = $5 total
+    const charmBundleEligible = cartCategories["charms"]?.filter(i => i.price <= 3.00) || [];
+    if (charmBundleEligible.length >= 2) {
+        const bundleItems = charmBundleEligible.slice(0, 2);
+        const sharedLabel = "2 Charms for $5";
+        const perItemPrice = 2.50;
+
+        for (const item of bundleItems) {
+            item.bundleLabel = sharedLabel;
+            item.price = perItemPrice;
+        }
+    }
+
+    // 🛒 Now render the cart items
     cart.forEach((item, index) => {
         total += item.price * item.qty;
         cartItemsEl.innerHTML += `
-            <div class="flex gap-4 items-start justify-between">
-                <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded border" />
-                <div class="flex-1">
-                    <p class="font-semibold text-sm">${item.name}</p>
-                    <p class="text-xs text-gray-500">${item.variant || ""}</p>
-                    <div class="flex items-center gap-2 mt-1">
-                        <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="decrease" data-index="${index}">−</button>
-                        <span class="text-sm">${item.qty}</span>
-                        <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="increase" data-index="${index}">+</button>
-                        <button class="text-red-500 text-xs hover:underline ml-4 remove-btn" data-index="${index}">Remove</button>
-                    </div>
-                </div>
-                <div class="text-right font-medium text-sm whitespace-nowrap">
-                    $${(item.price * item.qty).toFixed(2)}
+        <div class="flex gap-4 items-start justify-between">
+            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded border" />
+            <div class="flex-1">
+                <p class="font-semibold text-sm">${item.name}</p>
+                ${item.bundleLabel ? `<p class="text-xs text-purple-600 font-semibold mt-1">📦 Bundle: ${item.bundleLabel}</p>` : ""}
+                <p class="text-xs text-gray-500">${item.variant || ""}</p>
+                <div class="flex items-center gap-2 mt-1">
+                    <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="decrease" data-index="${index}">−</button>
+                    <span class="text-sm">${item.qty}</span>
+                    <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="increase" data-index="${index}">+</button>
+                    <button class="text-red-500 text-xs hover:underline ml-4 remove-btn" data-index="${index}">Remove</button>
                 </div>
             </div>
-        `;
+            <div class="text-right font-medium text-sm whitespace-nowrap">
+                $${(item.price * item.qty).toFixed(2)}
+            </div>
+        </div>
+    `;
     });
 
     cartTotalEl.textContent = `$${total.toFixed(2)}`;
+
 
     // Free shipping bar logic...
     const goal = 25;
