@@ -694,19 +694,26 @@ window.toggleCart = function (show = null) {
     if (!cartEl || !overlay) return;
 
     const isVisible = cartEl.classList.contains("translate-x-0");
+    const shouldShow = show !== null ? show : !isVisible;
 
-    if (show === true || (show === null && !isVisible)) {
-        cartEl.classList.remove("translate-x-full");
+    if (shouldShow) {
+        cartEl.classList.remove("hidden", "translate-x-full");
         cartEl.classList.add("translate-x-0");
         overlay.classList.remove("hidden");
     } else {
         cartEl.classList.remove("translate-x-0");
         cartEl.classList.add("translate-x-full");
         overlay.classList.add("hidden");
+
+        // Delay hiding until after transition
+        setTimeout(() => {
+            cartEl.classList.add("hidden");
+        }, 300); // Match transition duration
     }
 
     renderCart?.(); // optional: refresh cart when opening
 };
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
