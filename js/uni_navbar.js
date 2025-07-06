@@ -258,6 +258,7 @@ function loadBundlesAndRenderCart() {
 
 
 
+// 🛠️ Full DOM-based renderCart for precise control
 function renderCart() {
     let cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
@@ -298,87 +299,117 @@ function renderCart() {
             if (!item.originalPrice) item.originalPrice = item.price;
             total += item.price * item.qty;
 
-            const eligibleBundles = item.bundleLabel ? [] : getAvailableBundlesForItem(item, cart);
+            const itemEl = document.createElement("div");
+            itemEl.className = "flex items-start gap-3 border-b-4 border-gray-300 pb-4 last:border-none group";
 
-            const bundleTxt = eligibleBundles.map(b => {
-                return `
-    <button onclick="applyBundle('${b.id}')" 
-            class="mt-1 p-1 px-2 border border-black text-black uppercase text-[11px] font-bold rounded w-fit hover:bg-black hover:text-white transition">
-      ${b.carttxt}
-    </button>
-  `;
-            }).join("");
+            // Image + Remove + Bundle
+            const leftCol = document.createElement("div");
+            leftCol.className = "flex flex-col justify-between h-full min-w-[6rem] max-w-[6rem] items-center gap-2";
 
+            const imageWrapper = document.createElement("div");
+            imageWrapper.className = "relative w-full aspect-square";
 
-            const itemHTML = `
-<!-- 🛍️ Start of cart item block -->
-<div class="flex items-start gap-3 border-b-4 border-gray-300 pb-4 last:border-none group">
+            const img = document.createElement("img");
+            img.src = item.image;
+            img.alt = item.name;
+            img.className = "w-full h-full object-cover rounded";
 
-<!-- 🖼️ Image + Remove Button + BundleTxt in one vertical column -->
-<div class="flex flex-col justify-between h-full min-w-[6rem] max-w-[6rem] items-center gap-2">
+            const removeBtn = document.createElement("button");
+            removeBtn.className = "absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-s text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all";
+            removeBtn.textContent = "×";
+            removeBtn.onclick = () => removeFromCart(item.id);
 
-  <!-- Image inside a square box -->
-  <div class="relative w-full aspect-square">
-    <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover rounded" />
+            imageWrapper.appendChild(img);
+            imageWrapper.appendChild(removeBtn);
+            leftCol.appendChild(imageWrapper);
 
-    <!-- Remove button -->
-    <button onclick="removeFromCart('${item.id}')"
-      class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-s text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all">
-      ×
-    </button>
-  </div>
+            // Bundle Suggestion Buttons
+            const bundleTxtContainer = document.createElement("div");
+            bundleTxtContainer.className = "w-full text-center space-y-1";
 
-  <!-- Bundle Button (if any) -->
-  ${bundleTxt ? `
-    <div class="w-full text-center">
-      ${bundleTxt}
-    </div>
-  ` : ""}
-</div>
+            if (!item.bundleLabel) {
+                const eligibleBundles = getAvailableBundlesForItem(item, cart);
 
+                for (const b of eligibleBundles) {
+                    const btn = document.createElement("button");
+                    btn.className = "p-1 px-2 border border-black text-black uppercase text-[11px] font-bold rounded w-fit hover:bg-black hover:text-white transition";
+                    btn.textContent = b.carttxt;
+                    btn.onclick = () => applyBundle(b.id);
 
+                    checkBundleAvailability(b.id).then(isAvailable => {
+                        if (!isAvailable) {
+                            btn.disabled = true;
+                            btn.classList.add("opacity-50", "cursor-not-allowed");
+                            btn.title = "Bundle unavailable – out of stock";
+                        }
+                    });
 
+                    bundleTxtContainer.appendChild(btn);
+                }
+            }
 
-  <!-- 📦 Item Details -->
-  <div class="flex-1">
-    
-    <!-- 🏷️ Product Name -->
-    <div class="text-xl uppercase font-extrabold leading-tight text-black drop-shadow-lg">
-      ${item.name}
-    </div>
-    
-    <!-- 🎁 Bundle Label (if applicable) -->
-    ${item.bundleLabel ? `<div class="uppercase text-xs text-black">Bundle: <span class="font-bold">${item.bundleLabel}</span></div>` : ""}
-    
-    <!-- 🎨 Variant (if any) -->
-    <div class="text-sm font-normal text-black">${item.variant || ""}</div>
+            leftCol.appendChild(bundleTxtContainer);
 
-    <!-- 🔢 Quantity Selector and 💲 Price Row -->
-    <div class="flex items-center justify-between mt-2">
-      
-      <!-- ➕➖ Quantity Controls -->
-      <div class="flex items-center gap-2 border-4 border-gray-300 rounded-lg px-2 py-1">
-        <button onclick="updateCartQty('${item.id}', -1)" class="text-black font-bold text-xl px-2">−</button>
-        <span class="text-black font-medium min-w-[24px] text-center">${item.qty}</span>
-        <button onclick="updateCartQty('${item.id}', 1)" class="text-black font-bold text-xl px-2">+</button>
-      </div>
+            // Right column (details)
+            const rightCol = document.createElement("div");
+            rightCol.className = "flex-1";
 
-      <!-- 💰 Item Price and Original Price (if discounted) -->
-      <div class="text-right text-lg font-bold ml-3">
-        <span class="text-black">$${(item.price).toFixed(2)}</span>
-        ${item.originalPrice > item.price ? `<span class="text-xs text-gray-200 line-through ml-1">$${(item.originalPrice).toFixed(2)}</span>` : ""}
-      </div>
-    </div>
+            const name = document.createElement("div");
+            name.className = "text-xl uppercase font-extrabold leading-tight text-black drop-shadow-lg";
+            name.textContent = item.name;
 
-  </div>
-</div>
-<!-- 🛍️ End of cart item block -->
-`;
+            const bundleLabel = item.bundleLabel ? document.createElement("div") : null;
+            if (bundleLabel) {
+                bundleLabel.className = "uppercase text-xs text-black";
+                bundleLabel.innerHTML = `Bundle: <span class="font-bold">${item.bundleLabel}</span>`;
+            }
 
+            const variant = document.createElement("div");
+            variant.className = "text-sm font-normal text-black";
+            variant.textContent = item.variant || "";
 
+            const qtyRow = document.createElement("div");
+            qtyRow.className = "flex items-center justify-between mt-2";
 
+            const qtyControl = document.createElement("div");
+            qtyControl.className = "flex items-center gap-2 border-4 border-gray-300 rounded-lg px-2 py-1";
 
-            cartItemsContainer.insertAdjacentHTML("beforeend", itemHTML);
+            const minusBtn = document.createElement("button");
+            minusBtn.className = "text-black font-bold text-xl px-2";
+            minusBtn.textContent = "−";
+            minusBtn.onclick = () => updateCartQty(item.id, -1);
+
+            const qtyText = document.createElement("span");
+            qtyText.className = "text-black font-medium min-w-[24px] text-center";
+            qtyText.textContent = item.qty;
+
+            const plusBtn = document.createElement("button");
+            plusBtn.className = "text-black font-bold text-xl px-2";
+            plusBtn.textContent = "+";
+            plusBtn.onclick = () => updateCartQty(item.id, 1);
+
+            qtyControl.appendChild(minusBtn);
+            qtyControl.appendChild(qtyText);
+            qtyControl.appendChild(plusBtn);
+
+            const priceEl = document.createElement("div");
+            priceEl.className = "text-right text-lg font-bold ml-3";
+            priceEl.innerHTML = `
+                <span class="text-black">$${item.price.toFixed(2)}</span>
+                ${item.originalPrice > item.price ? `<span class="text-xs text-gray-200 line-through ml-1">$${item.originalPrice.toFixed(2)}</span>` : ""}
+            `;
+
+            qtyRow.appendChild(qtyControl);
+            qtyRow.appendChild(priceEl);
+
+            rightCol.appendChild(name);
+            if (bundleLabel) rightCol.appendChild(bundleLabel);
+            rightCol.appendChild(variant);
+            rightCol.appendChild(qtyRow);
+
+            itemEl.appendChild(leftCol);
+            itemEl.appendChild(rightCol);
+            cartItemsContainer.appendChild(itemEl);
         });
 
         cartTotalEl.textContent = `$${total.toFixed(2)}`;
@@ -401,6 +432,7 @@ function renderCart() {
         }
     });
 }
+
 
 function getAvailableBundlesForItem(item, cart) {
     const bundles = window.bundlesData || [];
@@ -437,6 +469,50 @@ function getAvailableBundlesForItem(item, cart) {
     return applicableBundles;
 }
 
+
+
+window.checkBundleAvailability = async function (bundleId) {
+    const [bundleRes, productRes] = await Promise.all([
+        fetch("/products/bundles.json"),
+        fetch("/products/products.json")
+    ]);
+
+    const bundles = await bundleRes.json();
+    const products = await productRes.json();
+    const bundle = bundles.find(b => b.id === bundleId);
+    if (!bundle) return false;
+
+    // Check for required subcategories
+    if (bundle.requiredSubCategories) {
+        return bundle.requiredSubCategories.every(sub => {
+            return Object.values(products).some(p =>
+                p.subCategory === sub &&
+                Object.values(p.variantStock || {}).some(stock => stock > 0)
+            );
+        });
+    }
+
+    // Check subCategory bundles
+    if (bundle.subCategory) {
+        return Object.values(products).some(p =>
+            p.subCategory === bundle.subCategory &&
+            Object.values(p.variantStock || {}).some(stock => stock > 0)
+        );
+    }
+
+    // Check specificSkus bundles
+    if (bundle.specificSkus) {
+        return bundle.specificSkus.some(sku => {
+            const product = products[sku];
+            return product && Object.values(product.variantStock || {}).some(stock => stock > 0);
+        });
+    }
+
+    return true; // fallback
+};
+
+
+
 window.applyBundle = async function (bundleId) {
     console.log("🧪 Bundle button clicked:", bundleId);
 
@@ -453,64 +529,102 @@ window.applyBundle = async function (bundleId) {
     const bundle = bundles.find(b => b.id === bundleId);
     if (!bundle) return alert("Bundle not found");
 
-    // Build lookup maps
-    const idToSubCategory = {}, idToProductKey = {}, productIdToFull = {};
+    // Build maps
+    const idToSubCategory = {}, idToProductKey = {}, idToVariantStock = {};
     for (const key in products) {
         const p = products[key];
-        if (!p.product_id) continue;
         idToSubCategory[p.product_id] = p.subCategory || "";
         idToProductKey[p.product_id] = key;
-        productIdToFull[p.product_id] = p;
+        idToVariantStock[p.product_id] = p.variantStock || {};
     }
 
-    // 🔍 Count how many matching items are already in cart
-    const matchCount = savedCart.reduce((sum, item) => {
-        const sub = idToSubCategory[item.id];
-        return (sub === bundle.subCategory) ? sum + item.qty : sum;
-    }, 0);
+    const addToCart = [];
 
-    const needed = bundle.minQuantity - matchCount;
-    console.log(`🔍 You need ${bundle.minQuantity}, have ${matchCount}, so need to add ${needed}`);
+    // 🔁 Logic for requiredSubCategories (e.g., beanie + charm)
+    if (bundle.requiredSubCategories) {
+        for (const sub of bundle.requiredSubCategories) {
+            const hasItem = savedCart.some(i => idToSubCategory[i.id] === sub);
+            if (!hasItem) {
+                // Find a product in this subcategory
+                const [key, product] = Object.entries(products).find(
+                    ([_, p]) => p.subCategory === sub
+                ) || [];
 
-    if (needed > 0) {
-        // ✅ Find a product in this subcategory
-        const productEntry = Object.entries(products).find(([_, p]) =>
-            p.subCategory === bundle.subCategory &&
-            p.variantStock && Object.values(p.variantStock).some(v => v > 0)
+                if (product) {
+                    const variant = Object.entries(product.variantStock || {}).find(
+                        ([_, stock]) => stock > 0
+                    )?.[0];
+
+                    if (variant) {
+                        addToCart.push({ id: product.product_id, variant, qty: 1 });
+                    }
+                }
+            }
+        }
+    }
+
+    // 🔁 Logic for subCategory (e.g., 2 smallCharms for $5)
+    else if (bundle.subCategory && bundle.minQuantity) {
+        const inCartQty = savedCart.reduce((sum, item) =>
+            idToSubCategory[item.id] === bundle.subCategory ? sum + item.qty : sum, 0
         );
 
-        if (!productEntry) {
-            alert("No product with available stock found for this bundle.");
-            return;
-        }
+        const needed = bundle.minQuantity - inCartQty;
+        if (needed > 0) {
+            const [key, product] = Object.entries(products).find(
+                ([_, p]) => p.subCategory === bundle.subCategory
+            ) || [];
 
-        const [productKey, product] = productEntry;
-        const firstInStockVariant = Object.entries(product.variantStock).find(([variant, stock]) => stock > 0)?.[0] || "";
+            if (product) {
+                const variant = Object.entries(product.variantStock || {}).find(
+                    ([_, stock]) => stock > 0
+                )?.[0];
 
-        if (!firstInStockVariant) {
-            alert("No available variant in stock for the bundle item.");
-            return;
-        }
-
-        console.log("✅ Adding:", product.product_id, "Variant:", firstInStockVariant);
-
-        const existing = savedCart.find(i => i.id === product.product_id && i.variant === firstInStockVariant);
-        if (existing) {
-            existing.qty += needed;
-        } else {
-            savedCart.push({
-                id: product.product_id,
-                variant: firstInStockVariant,
-                qty: needed
-            });
+                if (variant) {
+                    addToCart.push({ id: product.product_id, variant, qty: needed });
+                }
+            }
         }
     }
 
-    // 🧠 Apply bundle logic to updated cart
+    // 🔁 Logic for specificSkus (e.g., 2 of same beanie for $30)
+    else if (bundle.specificSkus && bundle.minQuantity) {
+        const inCartQty = savedCart.reduce((sum, item) =>
+            bundle.specificSkus.includes(idToProductKey[item.id]) ? sum + item.qty : sum, 0
+        );
+
+        const needed = bundle.minQuantity - inCartQty;
+        if (needed > 0) {
+            const sku = bundle.specificSkus[0];
+            const product = products[sku];
+            if (product) {
+                const variant = Object.entries(product.variantStock || {}).find(
+                    ([_, stock]) => stock > 0
+                )?.[0];
+
+                if (variant) {
+                    addToCart.push({ id: product.product_id, variant, qty: needed });
+                }
+            }
+        }
+    }
+
+    // Add new items to savedCart
+    for (const item of addToCart) {
+        const existing = savedCart.find(i => i.id === item.id && i.variant === item.variant);
+        if (existing) {
+            existing.qty += item.qty;
+        } else {
+            savedCart.push(item);
+        }
+    }
+
+    // 🧠 Let bundleDetector reprocess
     const updatedCart = await bundleDetector(savedCart);
     localStorage.setItem("savedCart", JSON.stringify(updatedCart));
     renderCart();
 };
+
 
 
 
