@@ -13,19 +13,19 @@ export async function bundleDetector(cart) {
         const now = new Date();
 
         const idToCategory = {};
-        const idToSubCategory = {};
-        const idToPrice = {};
+        const idToSubCategory = {};  // ← add this
         const idToKey = {};
-
+        const idToPrice = {};
         for (const key in products) {
             const prod = products[key];
-            if (prod.product_id && prod.category) {
+            if (prod.product_id) {
                 idToCategory[prod.product_id] = prod.category;
-                idToSubCategory[prod.product_id] = prod.subCategory || "";
+                idToSubCategory[prod.product_id] = prod.subCategory || ""; // ← grab it
                 idToPrice[prod.product_id] = prod.price;
                 idToKey[prod.product_id] = key;
             }
         }
+
 
         const flatCart = [];
         for (const item of cart) {
@@ -40,7 +40,7 @@ export async function bundleDetector(cart) {
                     qty: 1,
                     _used: false,
                     category,
-                    subCategory,
+                    subCategory: idToSubCategory[item.id], // ← add this
                     productKey,
                     price: basePrice
                 });
