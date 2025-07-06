@@ -213,10 +213,15 @@ function adjustQuantity(index, action) {
 
 function removeFromCart(id, variant) {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-    const filteredCart = cart.filter(item => !(item.id === id && item.variant === variant));
-    saveCart(filteredCart);
-    renderCart();
+    const index = cart.findIndex(item => item.id === id && item.variant === variant);
+    if (index !== -1) {
+        cart.splice(index, 1);
+        saveCart(cart);
+        renderCart();
+    }
 }
+
+
 
 
 function updateCartQty(id, change) {
