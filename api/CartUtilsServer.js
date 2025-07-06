@@ -139,21 +139,14 @@ export async function bundleDetector(cart) {
         }
 
         // --- HINTS FOR ALMOST ELIGIBLE ITEMS ---
+        // After all bundles and promos are applied
         flatCart.forEach(item => {
             if (!item._used && bundles) {
                 for (const bundle of bundles) {
                     let isMatch = false;
                     let remaining = 0;
 
-                    if (bundle.subCategory && item.subCategory === bundle.subCategory) {
-                        const eligibleItems = flatCart.filter(i =>
-                            !i._used &&
-                            i.subCategory === item.subCategory &&
-                            (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
-                        );
-                        remaining = (bundle.minQuantity || 0) - eligibleItems.length;
-                        isMatch = remaining > 0;
-                    } else if (bundle.category && item.category === bundle.category) {
+                    if (bundle.category && item.category === bundle.category) {
                         const eligibleItems = flatCart.filter(i =>
                             !i._used &&
                             i.category === item.category &&
@@ -177,6 +170,7 @@ export async function bundleDetector(cart) {
                 }
             }
         });
+
 
         const grouped = {};
         flatCart.forEach(item => {
