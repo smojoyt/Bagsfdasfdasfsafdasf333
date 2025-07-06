@@ -25,7 +25,7 @@
     "minQuantity": 2,
     "bundlePriceTotal": 30.00,
     "maxUses": 1,
-    "matchMode": "sameSKU", // 🆕 Enforces 2 of same SKU
+    "matchMode": "sameSKU",
     "carttxt": "Buy 2 for $30"
   },
   {
@@ -40,5 +40,4 @@
     "discountTarget": "largeCharms",
     "carttxt": "Add a beanie — get charm FREE!"
   }
-
 ]
