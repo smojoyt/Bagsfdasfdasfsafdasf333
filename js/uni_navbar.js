@@ -453,15 +453,17 @@ window.applyBundle = async function (bundleId) {
     const bundle = bundles.find(b => b.id === bundleId);
     if (!bundle) return alert("Bundle not found");
 
-    // Build maps
-    const idToSubCategory = {}, idToProductKey = {};
+    // Build lookup maps
+    const idToSubCategory = {}, idToProductKey = {}, productIdToFull = {};
     for (const key in products) {
         const p = products[key];
+        if (!p.product_id) continue;
         idToSubCategory[p.product_id] = p.subCategory || "";
         idToProductKey[p.product_id] = key;
+        productIdToFull[p.product_id] = p;
     }
 
-    // 🔍 Find how many matching items are in cart
+    // 🔍 Count how many matching items are already in cart
     const matchCount = savedCart.reduce((sum, item) => {
         const sub = idToSubCategory[item.id];
         return (sub === bundle.subCategory) ? sum + item.qty : sum;
@@ -471,32 +473,45 @@ window.applyBundle = async function (bundleId) {
     console.log(`🔍 You need ${bundle.minQuantity}, have ${matchCount}, so need to add ${needed}`);
 
     if (needed > 0) {
-        // 🔄 Try to find any matching product in products.json
-        const matchableProductId = Object.keys(idToSubCategory).find(
-            id => idToSubCategory[id] === bundle.subCategory
+        // ✅ Find a product in this subcategory
+        const productEntry = Object.entries(products).find(([_, p]) =>
+            p.subCategory === bundle.subCategory &&
+            p.variantStock && Object.values(p.variantStock).some(v => v > 0)
         );
 
-        if (!matchableProductId) {
-            alert("No matching product available to add for bundle.");
+        if (!productEntry) {
+            alert("No product with available stock found for this bundle.");
             return;
         }
 
-        const existing = savedCart.find(i => i.id === matchableProductId);
+        const [productKey, product] = productEntry;
+        const firstInStockVariant = Object.entries(product.variantStock).find(([variant, stock]) => stock > 0)?.[0] || "";
+
+        if (!firstInStockVariant) {
+            alert("No available variant in stock for the bundle item.");
+            return;
+        }
+
+        console.log("✅ Adding:", product.product_id, "Variant:", firstInStockVariant);
+
+        const existing = savedCart.find(i => i.id === product.product_id && i.variant === firstInStockVariant);
         if (existing) {
             existing.qty += needed;
         } else {
             savedCart.push({
-                id: matchableProductId,
+                id: product.product_id,
+                variant: firstInStockVariant,
                 qty: needed
             });
         }
     }
 
-    // 🧠 Let bundleDetector do its magic now
+    // 🧠 Apply bundle logic to updated cart
     const updatedCart = await bundleDetector(savedCart);
     localStorage.setItem("savedCart", JSON.stringify(updatedCart));
     renderCart();
 };
+
 
 
 
