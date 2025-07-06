@@ -317,24 +317,22 @@ function renderCart() {
 
             img.src = product?.image || item.image || "/imgs/placeholder.png";
             img.alt = product?.name || item.name || "Item";
-
             img.className = "w-full h-full object-cover rounded";
 
             const removeBtn = document.createElement("button");
-            removeBtn.className = "absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-s text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all";
+            removeBtn.className = "absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-xs text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all";
             removeBtn.textContent = "×";
             removeBtn.onclick = () => removeFromCart(item.id, item.variant);
 
-
             imageWrapper.appendChild(img);
             imageWrapper.appendChild(removeBtn);
+            leftCol.appendChild(imageWrapper);
 
-            // Bundle Suggestion Buttons
-            const bundleTxtContainer = document.createElement("div");
-            bundleTxtContainer.className = "w-full text-center space-y-1";
-
-            if (!item.bundleLabel) {
-                const eligibleBundles = getAvailableBundlesForItem(item, cart);
+            // Bundle suggestion section (separated to prevent double appending)
+            const eligibleBundles = getAvailableBundlesForItem(item, cart);
+            if (!item.bundleLabel && eligibleBundles.length > 0) {
+                const bundleTxtContainer = document.createElement("div");
+                bundleTxtContainer.className = "w-full text-center mt-2 space-y-1";
 
                 for (const b of eligibleBundles) {
                     const btn = document.createElement("button");
@@ -352,9 +350,9 @@ function renderCart() {
 
                     bundleTxtContainer.appendChild(btn);
                 }
-            }
 
-            leftCol.appendChild(bundleTxtContainer);
+                leftCol.appendChild(bundleTxtContainer);
+            }
 
             // Right column (details)
             const rightCol = document.createElement("div");
@@ -363,7 +361,6 @@ function renderCart() {
             const name = document.createElement("div");
             name.className = "text-xl uppercase font-extrabold leading-tight text-black drop-shadow-lg";
             name.textContent = product?.name || item.name || "Unnamed Product";
-
 
             const bundleLabel = item.bundleLabel ? document.createElement("div") : null;
             if (bundleLabel) {
@@ -416,13 +413,6 @@ function renderCart() {
 
             itemEl.appendChild(leftCol);
             itemEl.appendChild(rightCol);
-            if (!item.bundleLabel && bundleTxtContainer.childNodes.length > 0) {
-                const wrapper = document.createElement("div");
-                wrapper.className = "w-full text-center mt-3";
-                wrapper.appendChild(bundleTxtContainer);
-                itemEl.appendChild(wrapper);
-            }
-
             cartItemsContainer.appendChild(itemEl);
         });
 
@@ -446,6 +436,7 @@ function renderCart() {
         }
     });
 }
+
 
 
 function getAvailableBundlesForItem(item, cart) {
