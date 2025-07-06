@@ -362,7 +362,7 @@ function getAvailableBundlesForItem(item, cart) {
 
         const maxAllowed = bundle.maxUses * bundle.minQuantity;
 
-        if (matchCount < maxAllowed) {
+        if (matchCount <= maxAllowed) {
             applicableBundles.push(bundle);
         }
     }

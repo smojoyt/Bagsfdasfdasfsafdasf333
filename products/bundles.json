@@ -14,16 +14,17 @@
     "subCategory": "largeCharms",
     "minQuantity": 2,
     "bundlePriceTotal": 15.00,
-    "maxUses": 1
+    "maxUses": 1,
+    "carttxt": "Buy 2 for $15"
   },
   {
     "id": "bundle_same_sku_pair",
-    "name": "2 of Same Item Discount",
+    "name": "2 for $30 | Beanies",
     "description": "Buy 2 of the same item and get them for $30.",
     "specificSkus": [ "Headwear_CatEarBeanie", "Headwear_FuzzyBeanie" ],
     "minQuantity": 2,
     "bundlePriceTotal": 30.00,
     "maxUses": 1,
-    "carttxt": "Buy 2 for $15"
+    "carttxt": "Buy 2 for $30"
   }
 ]
