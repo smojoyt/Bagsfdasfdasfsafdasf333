@@ -329,14 +329,15 @@ function renderCart() {
             leftCol.appendChild(imageWrapper);
 
             // Bundle suggestion section (separated to prevent double appending)
+            // Bundle suggestion section (separated to prevent double appending)
             const eligibleBundles = getAvailableBundlesForItem(item, cart);
-            if (!item.bundleLabel && eligibleBundles.length > 0) {
-                const bundleTxtContainer = document.createElement("div");
-                bundleTxtContainer.className = "w-full text-center mt-2 space-y-1";
+            const bundleTxtContainer = document.createElement("div"); // Moved up
+            bundleTxtContainer.className = "w-full text-center mt-2 space-y-1";
 
+            if (!item.bundleLabel && eligibleBundles.length > 0) {
                 for (const b of eligibleBundles) {
                     const btn = document.createElement("button");
-                    btn.className = "p-1 px-2 border border-black text-black uppercase text-[11px] font-bold rounded w-fit hover:bg-black hover:text-white transition";
+                    btn.className = "flex-1 min-w-[120px] p-2 border border-black text-black uppercase text-[11px] font-bold rounded hover:bg-black hover:text-white transition text-center";
                     btn.textContent = b.carttxt;
                     btn.onclick = () => applyBundle(b.id);
 
@@ -350,8 +351,8 @@ function renderCart() {
 
                     bundleTxtContainer.appendChild(btn);
                 }
-
             }
+
 
             // Right column (details)
             const rightCol = document.createElement("div");
