@@ -588,8 +588,40 @@ window.applyBundle = async function (bundleId) {
 
         const needed = bundle.minQuantity - inCartQty;
         if (needed > 0) {
-            const candidates = Object.entries(products)
-                .filter(([_, p]) => p.subCategory === bundle.subCategory);
+            const addToCart = [];
+
+            if (bundle.requiredSubCategories && Array.isArray(bundle.requiredSubCategories)) {
+                for (const sub of bundle.requiredSubCategories) {
+                    const candidates = Object.entries(products)
+                        .filter(([_, p]) => p.subCategory === sub);
+
+                    let added = false;
+
+                    for (const [key, product] of candidates) {
+                        const variant = Object.entries(product.variantStock || {}).find(
+                            ([_, stock]) => stock > 0
+                        )?.[0];
+
+                        if (variant) {
+                            addToCart.push({
+                                id: product.product_id,
+                                variant,
+                                qty: 1,
+                                name: product.name,
+                                image: product.image,
+                                subCategory: product.subCategory
+                            });
+                            added = true;
+                            break; // Only need one from each subCategory
+                        }
+                    }
+
+                    if (!added) {
+                        console.warn(`⚠️ No available stock for required subCategory: ${sub}`);
+                    }
+                }
+            }
+
 
             // 🔁 Prioritize products that are already in the cart
             const cartIds = savedCart.map(i => i.id);
