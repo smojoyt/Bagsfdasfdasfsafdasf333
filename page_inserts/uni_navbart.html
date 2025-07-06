@@ -2,7 +2,6 @@
 <div class="tracking-widest font-bold text-gray-900 shadow-md uppercase fixed bottom-0 w-full bg-yellow-100 text-center text-sm text-gray-800 py-2 px-4 z-50">
     Enjoy Free Shipping Sitewide With Order of $50 Or More
 </div> -->
-
 <!-- Navbar -->
 <nav id="mainNavbar" class="navbar-show bg-transparent text-white fixed top-0 w-full z-50 transition-all duration-300 ease-in-out">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,45 +69,52 @@
         <a href="https://karrykraze.com/pages/contact.html" class="text-gray-600 hover:text-black">Contact</a>
     </div>
 </nav>
-<!-- Cart Overlay and Side Drawer -->
-<div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleCart(false)"></div>
+<!-- Cart Overlay -->
+<div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden" onclick="toggleCart(false)"></div>
 
-<div id="sideCart" class="no-transition fixed right-0 top-0 w-80 max-w-full h-full bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
-    <div class="flex items-center justify-between p-4 border-b">
-        <h2 class="text-xl font-bold">Your Cart</h2>
-        <button onclick="toggleCart(false)" class="text-gray-500 hover:text-black text-2xl">&times;</button>
+<!-- Side Cart Drawer -->
+<div id="sideCart" class="fixed right-0 top-0 w-80 max-w-full h-full bg-black text-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between px-4 py-4 border-b border-gray-700">
+        <h2 class="text-xl font-extrabold tracking-wide">🛒 Your Cart</h2>
+        <button onclick="toggleCart(false)" class="text-white text-2xl hover:text-red-400">&times;</button>
     </div>
-    <p id="emptyCartMessage" class="text-center text-sm text-gray-500 mt-4 hidden">
+
+    <!-- Empty Message -->
+    <p id="emptyCartMessage" class="text-center text-sm text-gray-400 mt-4 hidden">
         Your cart is empty.
     </p>
-    <div id="cartItems" class="p-4 space-y-4 overflow-y-auto max-h-[calc(100%-220px)]"></div>
-    <div class="p-4 border-t">
-        <div class="flex justify-between font-bold text-lg mb-1">
+
+    <!-- Cart Items -->
+    <div id="cartItems" class="p-4 space-y-4 overflow-y-auto flex-1"></div>
+
+    <!-- Footer -->
+    <div class="px-4 py-4 border-t border-gray-700">
+
+        <div class="flex justify-between font-bold text-lg mb-2">
             <span>Total:</span>
-            <span id="cartTotal">$0.00</span>
+            <span id="cartTotal" class="text-green-400">$0.00</span>
         </div>
 
-        <div id="freeShippingBar" class="mb-3 text-sm text-gray-700">
-            <!-- Will be filled by JS -->
+        <div id="freeShippingBar" class="text-sm mb-2 text-yellow-300 text-center font-semibold">
+            <!-- Filled by JS -->
         </div>
 
-        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-3">
-            <div id="freeShippingProgress" class="bg-green-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%;"></div>
+        <div class="w-full bg-gray-800 rounded-full h-2.5 mb-3">
+            <div id="freeShippingProgress" class="bg-green-400 h-2.5 rounded-full transition-all duration-300" style="width: 0%;"></div>
         </div>
-        <!-- $10 OFF PROGRESS BAR
-        <div id="discountBar" class="mb-3 text-sm text-gray-700 hidden"></div>
-        <div id="discountBarWrapper" class="w-full bg-gray-200 rounded-full h-2.5 mb-3 hidden">
-            <div id="discountProgress" class="bg-purple-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%;"></div>
-        </div>  -->
 
-        <button id="checkoutBtn" class="w-full bg-black text-white py-2 rounded hover:bg-gray-800">Checkout</button>
-        <p class="text-xs text-gray-500 text-center mt-2">
+        <button id="checkoutBtn" class="w-full bg-white text-black font-bold py-2 rounded hover:bg-yellow-300 transition-all">
+            Checkout
+        </button>
+
+        <p class="text-xs text-gray-400 text-center mt-2">
             Shipping and taxes calculated at checkout.
         </p>
-
     </div>
-
 </div>
+
 
 <style>
 
