@@ -276,7 +276,15 @@ function renderCart() {
                     ? `<span class="text-xs text-gray-500 line-through ml-1">$${(item.originalPrice).toFixed(2)}</span>`
                     : ""}
                     </div>
-                    <button onclick="removeFromCart('${item.id}')" class="text-gray-500 hover:text-red-400 text-xl leading-none">🗑️</button>
+                    <!-- Image with X button -->
+<div class="relative">
+  <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
+  <button onclick="removeFromCart('${item.id}')" class="absolute top-0 left-0 text-white bg-black bg-opacity-60 hover:bg-red-500 text-xs px-1.5 py-0.5 rounded-br">
+    ×
+  </button>
+</div>
+
+
                 </div>
             </div>
             `;
