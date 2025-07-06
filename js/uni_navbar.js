@@ -571,21 +571,27 @@ window.applyBundle = async function (bundleId) {
 
         const needed = bundle.minQuantity - inCartQty;
         if (needed > 0) {
-            const [key, product] = Object.entries(products).find(
-                ([_, p]) => p.subCategory === bundle.subCategory
-            ) || [];
+            const candidates = Object.entries(products)
+                .filter(([_, p]) => p.subCategory === bundle.subCategory);
 
-            if (product) {
+            let remaining = needed;
+
+            for (const [key, product] of candidates) {
+                if (remaining <= 0) break;
+
                 const variant = Object.entries(product.variantStock || {}).find(
                     ([_, stock]) => stock > 0
                 )?.[0];
 
                 if (variant) {
-                    addToCart.push({ id: product.product_id, variant, qty: needed });
+                    const addQty = Math.min(remaining, product.variantStock[variant]);
+                    addToCart.push({ id: product.product_id, variant, qty: addQty });
+                    remaining -= addQty;
                 }
             }
         }
     }
+
 
     // 🔁 Logic for specificSkus (e.g., 2 of same beanie for $30)
     else if (bundle.specificSkus && bundle.minQuantity) {
