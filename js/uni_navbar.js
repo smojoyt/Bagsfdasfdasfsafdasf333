@@ -277,11 +277,11 @@ function renderCart() {
 
     <!-- Info -->
     <div class="flex-1">
-        <div class="text-2xl font-extrabold leading-tight text-black drop-shadow-lg">
+        <div class="text-xl uppercase font-extrabold leading-tight text-black drop-shadow-lg">
             ${item.name}
         </div>
-        ${item.bundleLabel ? `<div class="text-xs text-yellow-300 font-medium mt-1">Bundle: ${item.bundleLabel}</div>` : ""}
-        <div class="mt-1 text-lg font-bold text-green-700">${item.variant || ""}</div>
+        ${item.bundleLabel ? `<div class="uppercase text-xs text-black font-bold">Bundle: ${item.bundleLabel}</div>` : ""}
+        <div class="text-sm font-normal text-black">${item.variant || ""}</div>
 
         
 
