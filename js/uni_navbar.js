@@ -270,14 +270,14 @@ function renderCart() {
     <div class="relative">
         <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
         <button onclick="removeFromCart('${item.id}')" 
-            class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center text-xs text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all">
+            class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-s text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all">
             ×
         </button>
     </div>
 
     <!-- Info -->
     <div class="flex-1">
-        <div class="text-sm font-semibold text-white leading-snug">
+        <div class="text-2xl font-extrabold leading-tight text-white drop-shadow-lg">
             ${item.name}
         </div>
         <div class="text-xs text-gray-400 mb-1">${item.variant || ""}</div>
