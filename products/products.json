@@ -623,6 +623,7 @@
 	"Headwear_FuzzyBeanie": {
 		"name": "Fuzzy Beanie",
 		"category": "headwear",
+		"subCategory": "headwear",
 		"product_id": "KK-1016",
 		"price": 19.97,
 		"weight_oz": 1.94,

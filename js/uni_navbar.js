@@ -46,16 +46,12 @@ async function bundleDetector(cart) {
         const { promotions } = await promoRes.json();
         const now = new Date();
 
-        const idToCategory = {};
-        const idToSubCategory = {}; // ✅ new
-        const idToPrice = {};
-        const idToKey = {};
-
+        const idToCategory = {}, idToSubCategory = {}, idToPrice = {}, idToKey = {};
         for (const key in products) {
             const prod = products[key];
             if (prod.product_id) {
                 idToCategory[prod.product_id] = prod.category || "";
-                idToSubCategory[prod.product_id] = prod.subCategory || ""; // ✅ grab subCategory
+                idToSubCategory[prod.product_id] = prod.subCategory || "";
                 idToPrice[prod.product_id] = prod.price;
                 idToKey[prod.product_id] = key;
             }
@@ -65,7 +61,7 @@ async function bundleDetector(cart) {
         for (const item of cart) {
             const qty = item.qty || 1;
             const category = idToCategory[item.id] || "";
-            const subCategory = idToSubCategory[item.id] || ""; // ✅ assign subCategory
+            const subCategory = idToSubCategory[item.id] || "";
             const productKey = idToKey[item.id] || "";
             const basePrice = idToPrice[item.id];
             for (let i = 0; i < qty; i++) {
@@ -74,17 +70,15 @@ async function bundleDetector(cart) {
                     qty: 1,
                     _used: false,
                     category,
-                    subCategory, // ✅ now in cart item
+                    subCategory,
                     productKey,
                     price: basePrice
                 });
             }
         }
 
-        // --- APPLY BUNDLES ---
         for (const bundle of bundles) {
             const maxUses = bundle.maxUses || 1;
-
             for (let useCount = 0; useCount < maxUses; useCount++) {
                 let match = [];
 
@@ -94,27 +88,51 @@ async function bundleDetector(cart) {
                         i.subCategory === bundle.subCategory &&
                         (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
                     ).slice(0, bundle.minQuantity);
+
                 } else if (bundle.category && bundle.minQuantity) {
                     match = flatCart.filter(i =>
                         !i._used &&
                         i.category === bundle.category &&
                         (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
                     ).slice(0, bundle.minQuantity);
+
                 } else if (bundle.specificSkus && bundle.minQuantity) {
                     match = flatCart.filter(i =>
                         !i._used &&
                         bundle.specificSkus.includes(i.productKey) &&
                         (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
                     ).slice(0, bundle.minQuantity);
-                } else if (bundle.requiredCategories) {
-                    match = bundle.requiredCategories.map(cat =>
-                        flatCart.find(i =>
+
+                } else if (bundle.requiredSubCategories) {
+                    let matchList = [];
+                    for (const sub of bundle.requiredSubCategories) {
+                        const found = flatCart.find(i =>
                             !i._used &&
-                            i.category === cat &&
+                            i.subCategory === sub &&
                             !(bundle.excludeSkus || []).includes(i.id)
-                        )
-                    );
-                    if (match.includes(undefined)) match = [];
+                        );
+                        if (found) matchList.push(found);
+                    }
+
+                    if (matchList.length === bundle.requiredSubCategories.length) {
+                        if (bundle.priceRule === "charmFree" && bundle.discountTarget) {
+                            matchList.forEach(i => {
+                                if (i.subCategory === bundle.discountTarget) {
+                                    i.price = 0;
+                                    i.bundleLabel = bundle.name;
+                                    i._used = true;
+                                }
+                            });
+                        } else {
+                            const unit = bundle.bundlePriceTotal / matchList.length;
+                            matchList.forEach(i => {
+                                i.price = parseFloat(unit.toFixed(2));
+                                i.bundleLabel = bundle.name;
+                                i._used = true;
+                            });
+                        }
+                        continue; // skip default match logic if already applied
+                    }
                 }
 
                 if (match.length === (bundle.minQuantity || match.length) && !match.includes(undefined)) {
@@ -128,7 +146,6 @@ async function bundleDetector(cart) {
             }
         }
 
-        // --- APPLY PROMOTIONS (not used in bundles) ---
         for (const promo of promotions) {
             const start = new Date(promo.startDate);
             const end = new Date(promo.endDate);
@@ -136,11 +153,7 @@ async function bundleDetector(cart) {
 
             if (isActive && promo.type === "percent") {
                 flatCart.forEach(i => {
-                    if (
-                        !i._used &&
-                        i.category === promo.category &&
-                        (!promo.condition?.minPrice || i.price >= promo.condition.minPrice)
-                    ) {
+                    if (!i._used && i.category === promo.category && (!promo.condition?.minPrice || i.price >= promo.condition.minPrice)) {
                         const discount = i.price * (promo.amount / 100);
                         i.price = parseFloat((i.price - discount).toFixed(2));
                         i.promoLabel = promo.name;
@@ -149,7 +162,6 @@ async function bundleDetector(cart) {
             }
         }
 
-        // --- CLEAN LABELS BEFORE GROUPING ---
         flatCart.forEach(i => {
             if (!i._used) {
                 i.bundleLabel = "";
@@ -157,7 +169,6 @@ async function bundleDetector(cart) {
             }
         });
 
-        // --- GROUP BY FINAL PRICE + LABELS ---
         const grouped = {};
         flatCart.forEach(item => {
             const key = `${item.id}_${item.variant || ""}_${item.price}_${item.bundleLabel || ""}_${item.promoLabel || ""}`;
@@ -171,6 +182,7 @@ async function bundleDetector(cart) {
         return cart;
     }
 }
+
 
 
 
@@ -426,92 +438,66 @@ function getAvailableBundlesForItem(item, cart) {
 }
 
 window.applyBundle = async function (bundleId) {
-    console.log("🧪 applyBundle clicked:", bundleId);
+    console.log("🧪 Bundle button clicked:", bundleId);
 
-    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+    const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
-    // Load all bundles and products
+    // Fetch bundles + products
     const [bundleRes, productRes] = await Promise.all([
         fetch("/products/bundles.json"),
         fetch("/products/products.json")
     ]);
-
     const bundles = await bundleRes.json();
     const products = await productRes.json();
+
     const bundle = bundles.find(b => b.id === bundleId);
+    if (!bundle) return alert("Bundle not found");
 
-    if (!bundle) {
-        alert("Bundle not found");
-        return;
-    }
-
-    // Build product mappings
-    const idToCategory = {}, idToSubCategory = {}, idToPrice = {}, idToKey = {};
+    // Build maps
+    const idToSubCategory = {}, idToProductKey = {};
     for (const key in products) {
         const p = products[key];
-        idToCategory[p.product_id] = p.category || "";
         idToSubCategory[p.product_id] = p.subCategory || "";
-        idToPrice[p.product_id] = p.price;
-        idToKey[p.product_id] = key;
+        idToProductKey[p.product_id] = key;
     }
 
-    // Flatten the cart
-    const flatCart = [];
-    for (const item of cart) {
-        const qty = item.qty || 1;
-        const category = idToCategory[item.id] || "";
-        const subCategory = idToSubCategory[item.id] || "";
-        const productKey = idToKey[item.id] || "";
-        const basePrice = idToPrice[item.id];
+    // 🔍 Find how many matching items are in cart
+    const matchCount = savedCart.reduce((sum, item) => {
+        const sub = idToSubCategory[item.id];
+        return (sub === bundle.subCategory) ? sum + item.qty : sum;
+    }, 0);
 
-        for (let i = 0; i < qty; i++) {
-            flatCart.push({
-                ...item,
-                qty: 1,
-                _used: false,
-                category,
-                subCategory,
-                productKey,
-                price: basePrice
+    const needed = bundle.minQuantity - matchCount;
+    console.log(`🔍 You need ${bundle.minQuantity}, have ${matchCount}, so need to add ${needed}`);
+
+    if (needed > 0) {
+        // 🔄 Try to find any matching product in products.json
+        const matchableProductId = Object.keys(idToSubCategory).find(
+            id => idToSubCategory[id] === bundle.subCategory
+        );
+
+        if (!matchableProductId) {
+            alert("No matching product available to add for bundle.");
+            return;
+        }
+
+        const existing = savedCart.find(i => i.id === matchableProductId);
+        if (existing) {
+            existing.qty += needed;
+        } else {
+            savedCart.push({
+                id: matchableProductId,
+                qty: needed
             });
         }
     }
 
-    // 🧠 Apply only the selected bundle
-    let match = [];
-    const maxUses = bundle.maxUses || 1;
-
-    for (let useCount = 0; useCount < maxUses; useCount++) {
-        if (bundle.subCategory && bundle.minQuantity) {
-            match = flatCart.filter(i =>
-                !i._used &&
-                i.subCategory === bundle.subCategory &&
-                (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
-            ).slice(0, bundle.minQuantity);
-        }
-
-        if (match.length === bundle.minQuantity) {
-            const unitPrice = bundle.bundlePriceTotal / match.length;
-            match.forEach(i => {
-                i.price = parseFloat(unitPrice.toFixed(2));
-                i.bundleLabel = bundle.name;
-                i._used = true;
-            });
-        }
-    }
-
-    // Regroup cart
-    const grouped = {};
-    flatCart.forEach(item => {
-        const key = `${item.id}_${item.variant || ""}_${item.price}_${item.bundleLabel || ""}`;
-        if (!grouped[key]) grouped[key] = { ...item, qty: 1 };
-        else grouped[key].qty++;
-    });
-
-    const newCart = Object.values(grouped);
-    localStorage.setItem("savedCart", JSON.stringify(newCart));
+    // 🧠 Let bundleDetector do its magic now
+    const updatedCart = await bundleDetector(savedCart);
+    localStorage.setItem("savedCart", JSON.stringify(updatedCart));
     renderCart();
 };
+
 
 
 
