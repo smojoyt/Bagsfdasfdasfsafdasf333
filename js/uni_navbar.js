@@ -323,7 +323,6 @@ function renderCart() {
 
             imageWrapper.appendChild(img);
             imageWrapper.appendChild(removeBtn);
-            leftCol.appendChild(imageWrapper);
 
             // Bundle Suggestion Buttons
             const bundleTxtContainer = document.createElement("div");
@@ -412,6 +411,13 @@ function renderCart() {
 
             itemEl.appendChild(leftCol);
             itemEl.appendChild(rightCol);
+            if (!item.bundleLabel && bundleTxtContainer.childNodes.length > 0) {
+                const wrapper = document.createElement("div");
+                wrapper.className = "w-full text-center mt-3";
+                wrapper.appendChild(bundleTxtContainer);
+                itemEl.appendChild(wrapper);
+            }
+
             cartItemsContainer.appendChild(itemEl);
         });
 
