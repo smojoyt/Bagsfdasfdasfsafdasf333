@@ -351,7 +351,6 @@ function renderCart() {
                     bundleTxtContainer.appendChild(btn);
                 }
 
-                leftCol.appendChild(bundleTxtContainer);
             }
 
             // Right column (details)
@@ -413,6 +412,13 @@ function renderCart() {
 
             itemEl.appendChild(leftCol);
             itemEl.appendChild(rightCol);
+            if (!item.bundleLabel && bundleTxtContainer.childNodes.length > 0) {
+                const wrapper = document.createElement("div");
+                wrapper.className = "w-full flex flex-wrap gap-2 mt-3"; // full width layout
+                wrapper.appendChild(bundleTxtContainer);
+                itemEl.appendChild(wrapper);
+            }
+
             cartItemsContainer.appendChild(itemEl);
         });
 
