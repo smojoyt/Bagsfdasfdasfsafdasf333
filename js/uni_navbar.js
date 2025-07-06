@@ -219,17 +219,7 @@ function updateCartQty(id, change) {
     }
 }
 
-window.bundlesData = [
-    {
-        name: "Charm Bundle",
-        subCategory: "largeCharms",
-        minQuantity: 1,
-        bundlePriceTotal: 5,
-        maxUses: 1,
-        carttxt: "Large Charms for $5"
-    }
-];
-renderCart();
+
 
 
 function loadBundlesAndRenderCart() {
@@ -450,5 +440,5 @@ document.addEventListener("DOMContentLoaded", () => {
         cartEl?.classList.remove("no-transition");
     });
 
-    loadBundlesAndRenderCart();
+    renderCart(); ();
 });
