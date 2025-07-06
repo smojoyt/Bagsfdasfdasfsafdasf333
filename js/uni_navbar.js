@@ -246,48 +246,47 @@ function renderCart() {
             total += item.price * item.qty;
 
             const itemHTML = `
-            <div class="flex items-start gap-3 border-b border-gray-700 pb-4 last:border-none group">
+<div class="flex items-start gap-3 border-b border-gray-700 pb-4 last:border-none group">
 
-                <!-- Image -->
-                <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
+    <!-- Image + Delete Button -->
+    <div class="relative">
+        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
+        <button onclick="removeFromCart('${item.id}')" 
+            class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center text-xs text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all">
+            ×
+        </button>
+    </div>
 
-                <!-- Info -->
-                <div class="flex-1">
-                    <div class="text-sm font-semibold text-white leading-snug">
-                        ${item.name}
-                    </div>
-                    <div class="text-xs text-gray-400 mb-1">${item.variant || ""}</div>
+    <!-- Info -->
+    <div class="flex-1">
+        <div class="text-sm font-semibold text-white leading-snug">
+            ${item.name}
+        </div>
+        <div class="text-xs text-gray-400 mb-1">${item.variant || ""}</div>
 
-                    ${item.bundleLabel ? `<div class="text-xs text-yellow-300 font-medium mt-1">🎁 ${item.bundleLabel}</div>` : ""}
+        ${item.bundleLabel ? `<div class="text-xs text-yellow-300 font-medium mt-1">🎁 ${item.bundleLabel}</div>` : ""}
 
-                    <!-- Qty -->
-                    <div class="flex items-center gap-2 mt-1">
-                        <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">−</button>
-                        <span class="w-6 text-center text-white text-sm">${item.qty}</span>
-                        <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">+</button>
-                    </div>
-                </div>
+        <!-- Qty -->
+        <div class="flex items-center gap-2 mt-1">
+            <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">−</button>
+            <span class="w-6 text-center text-white text-sm">${item.qty}</span>
+            <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">+</button>
+        </div>
+    </div>
 
-                <!-- Price + Delete -->
-                <div class="flex flex-col items-end gap-1 min-w-[65px]">
-                    <div class="text-right text-sm font-semibold">
-                        <span class="text-red-400">$${(item.price).toFixed(2)}</span>
-                        ${item.originalPrice > item.price
+    <!-- Price -->
+    <div class="flex flex-col items-end justify-between min-w-[65px]">
+        <div class="text-right text-sm font-semibold">
+            <span class="text-red-400">$${(item.price).toFixed(2)}</span>
+            ${item.originalPrice > item.price
                     ? `<span class="text-xs text-gray-500 line-through ml-1">$${(item.originalPrice).toFixed(2)}</span>`
                     : ""}
-                    </div>
-                    <!-- Image with X button -->
-<div class="relative">
-  <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
-  <button onclick="removeFromCart('${item.id}')" class="absolute top-0 left-0 text-white bg-black bg-opacity-60 hover:bg-red-500 text-xs px-1.5 py-0.5 rounded-br">
-    ×
-  </button>
+        </div>
+    </div>
+
 </div>
+`;
 
-
-                </div>
-            </div>
-            `;
             cartItemsContainer.insertAdjacentHTML("beforeend", itemHTML);
         });
 
