@@ -229,7 +229,7 @@ function renderCart() {
         localStorage.setItem("savedCart", JSON.stringify(cart));
         updateCartCount();
 
-        const cartItemsContainer = document.getElementById("cartItems"); // was cartItemsEl in your original
+        const cartItemsContainer = document.getElementById("cartItems");
         const cartTotalEl = document.getElementById("cartTotal");
         const freeShippingBar = document.getElementById("freeShippingBar");
         const freeShippingProgress = document.getElementById("freeShippingProgress");
@@ -258,56 +258,49 @@ function renderCart() {
         let total = 0;
 
         cart.forEach(item => {
-            // Ensure originalPrice exists for strike-through
             if (!item.originalPrice) item.originalPrice = item.price;
-
             total += item.price * item.qty;
+
+            const eligibleBundles = getAvailableBundlesForItem(item, cart);
+
+            const bundleTxt = eligibleBundles.map(b => {
+                return `<div class="mt-1 p-1 px-2 border border-black text-black uppercase text-[11px] font-bold rounded">${b.carttxt}</div>`;
+            }).join("");
 
             const itemHTML = `
 <div class="flex items-start gap-3 border-b-4 border-gray-300 pb-4 last:border-none group">
-
-    <!-- Image + Delete Button -->
     <div class="relative">
         <img src="${item.image}" alt="${item.name}" class="w-16 h-[6rem] object-cover rounded" />
-        <button onclick="removeFromCart('${item.id}')" 
+        <button onclick="removeFromCart('${item.id}')"
             class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-s text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all">
             ×
         </button>
     </div>
 
-    <!-- Info -->
     <div class="flex-1">
         <div class="text-xl uppercase font-extrabold leading-tight text-black drop-shadow-lg">
             ${item.name}
         </div>
-        ${item.bundleLabel ? `<div class="uppercase text-xs text-black font-bold">Bundle: ${item.bundleLabel}</div>` : ""}
+        ${item.bundleLabel ? `<div class="uppercase text-xs text-black">Bundle: <span class="font-bold">${item.bundleLabel}</span></div>` : ""}
         <div class="text-sm font-normal text-black">${item.variant || ""}</div>
 
-        
+        <div class="flex items-center justify-between mt-2">
+            <div class="flex flex-col">
+                <div class="flex items-center gap-2 border-4 border-gray-300 rounded-lg p-0">
+                    <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">−</button>
+                    <span class="w-6 text-center font-bold text-black text-sm">${item.qty}</span>
+                    <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">+</button>
+                </div>
+                ${bundleTxt}
+            </div>
 
-        <!-- Qty + Price Row -->
-<div class="flex items-center justify-between mt-2">
-
-    <!-- Quantity Controls -->
-    <div class="flex items-center gap-2 border-4 border-gray-300 rounded-lg p-0">
-        <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">−</button>
-        <span class="w-6 text-center font-bold text-black text-sm">${item.qty}</span>
-        <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">+</button>
+            <div class="text-right text-lg font-bold ml-3">
+                <span class="text-black">$${(item.price).toFixed(2)}</span>
+                ${item.originalPrice > item.price ? `<span class="text-xs text-gray-200 line-through ml-1">$${(item.originalPrice).toFixed(2)}</span>` : ""}
+            </div>
+        </div>
     </div>
-
-    <!-- Price -->
-    <div class="text-right text-lg font-bold ml-3">
-        <span class="text-black">$${(item.price).toFixed(2)}</span>
-        ${item.originalPrice > item.price
-                    ? `<span class="text-xs text-gray-200 line-through ml-1">$${(item.originalPrice).toFixed(2)}</span>`
-                    : ""}
-    </div>
-
-</div>
-
-
-</div>
-`;
+</div>`;
 
             cartItemsContainer.insertAdjacentHTML("beforeend", itemHTML);
         });
@@ -332,6 +325,35 @@ function renderCart() {
         }
     });
 }
+
+function getAvailableBundlesForItem(item, cart) {
+    const bundles = window.bundlesData || [];
+    const applicableBundles = [];
+
+    for (const bundle of bundles) {
+        if (!bundle.carttxt) continue;
+
+        let matches = false;
+        if (bundle.specificSkus?.includes(item.id)) matches = true;
+        if (bundle.subCategory && bundle.subCategory === item.subCategory) matches = true;
+
+        if (!matches) continue;
+
+        const matchCount = cart.filter(ci => {
+            if (bundle.specificSkus?.includes(ci.id)) return true;
+            if (bundle.subCategory && ci.subCategory === bundle.subCategory) return true;
+            return false;
+        }).reduce((sum, ci) => sum + ci.qty, 0);
+
+        const maxAllowed = bundle.maxUses * bundle.minQuantity;
+
+        if (matchCount < maxAllowed) {
+            applicableBundles.push(bundle);
+        }
+    }
+    return applicableBundles;
+}
+
 
 
 // Toggles the side cart drawer open or closed
