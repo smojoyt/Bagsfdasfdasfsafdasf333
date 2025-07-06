@@ -84,12 +84,12 @@
     </div>
 
     <!-- Shipping Progress Bar -->
-    <div class="px-4 pb-2">
+    <div class="p-4">
         <div id="freeShippingBar" class="text-md text-black text-center font-bold mb-1">
             <!-- Will be filled by JS -->
         </div>
-        <div class="w-full bg-[#fedcc1] rounded-full h-2.5">
-            <div id="freeShippingProgress" class="bg-white h-2.5 rounded-full transition-all duration-300" style="width: 0%;"></div>
+        <div class="w-full bg-[#2b2d31] rounded-full h-5 shadow-inner">
+            <div id="freeShippingProgress" class="border-4 border-[#2b2d31] bg-[#f4756d] h-5 rounded-full transition-all duration-300" style="width: 0%;"></div>
         </div>
     </div>
 
@@ -105,17 +105,18 @@
     <div class="px-4 py-4 border-t border-white/30">
 
         <div class="flex justify-between text-black font-bold text-lg mb-2">
-            <span>Total:</span>
+            <span>Subtotal</span>
             <span id="cartTotal" class="text-black">$0.00</span>
         </div>
+        <p class="text-xs text-black/70 text-center mt-2">
+            Shipping and taxes calculated at checkout.
+        </p>
 
         <button id="checkoutBtn" class="w-full bg-black text-white font-bold py-2 rounded hover:bg-[#121212]-300 transition-all">
             Checkout
         </button>
 
-        <p class="text-xs text-black/70 text-center mt-2">
-            Shipping and taxes calculated at checkout.
-        </p>
+
     </div>
 </div>
 
