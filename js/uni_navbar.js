@@ -362,11 +362,13 @@ function renderCart() {
             name.className = "text-xl uppercase font-extrabold leading-tight text-black drop-shadow-lg";
             name.textContent = product?.name || item.name || "Unnamed Product";
 
-            const bundleLabel = item.bundleLabel ? document.createElement("div") : null;
-            if (bundleLabel) {
+            let bundleLabel = null;
+            if (item.bundleLabel) {
+                bundleLabel = document.createElement("div");
                 bundleLabel.className = "uppercase text-xs text-black";
                 bundleLabel.innerHTML = `Bundle: <span class="font-bold">${item.bundleLabel}</span>`;
             }
+
 
             const variant = document.createElement("div");
             variant.className = "text-sm font-normal text-black";
