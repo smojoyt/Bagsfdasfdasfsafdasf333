@@ -296,16 +296,18 @@ function renderCart() {
 <!-- 🛍️ Start of cart item block -->
 <div class="flex items-start gap-3 border-b-4 border-gray-300 pb-4 last:border-none group">
 
-  <!-- 🖼️ Product Image and Remove Button -->
-  <div class="relative">
-    <img src="${item.image}" alt="${item.name}" class="w-16 h-[6rem] object-cover rounded" />
-    
-    <!-- ❌ Remove from cart button -->
-    <button onclick="removeFromCart('${item.id}')"
-      class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-s text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all">
-      ×
-    </button>
-  </div>
+  <!-- 🖼️ Image and Remove Button -->
+<div class="relative aspect-square h-full min-w-[6rem] max-w-[6rem]">
+  <img src="${item.image}" alt="${item.name}" 
+       class="w-full h-full object-cover rounded" />
+
+  <!-- ❌ Remove button -->
+  <button onclick="removeFromCart('${item.id}')"
+    class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-s text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all">
+    ×
+  </button>
+</div>
+
 
   <!-- 📦 Item Details -->
   <div class="flex-1">
