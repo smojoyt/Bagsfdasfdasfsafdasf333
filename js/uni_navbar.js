@@ -219,6 +219,21 @@ function updateCartQty(id, change) {
     }
 }
 
+window.bundlesData = [];
+
+function loadBundlesAndRenderCart() {
+    fetch('/products/bundles.json')
+        .then(res => res.json())
+        .then(data => {
+            window.bundlesData = data;
+            renderCart();
+        })
+        .catch(err => {
+            console.error("Failed to load bundles.json", err);
+            renderCart(); // fallback if fetch fails
+        });
+}
+
 
 
 function renderCart() {
