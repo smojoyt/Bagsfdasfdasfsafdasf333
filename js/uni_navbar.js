@@ -581,6 +581,14 @@ window.applyBundle = async function (bundleId) {
             const candidates = Object.entries(products)
                 .filter(([_, p]) => p.subCategory === bundle.subCategory);
 
+            // 🔁 Prioritize products that are already in the cart
+            const cartIds = savedCart.map(i => i.id);
+            candidates.sort(([_, a], [__, b]) => {
+                const aInCart = cartIds.includes(a.product_id);
+                const bInCart = cartIds.includes(b.product_id);
+                return (aInCart === bInCart) ? 0 : aInCart ? -1 : 1;
+            });
+
             let remaining = needed;
 
             for (const [key, product] of candidates) {
@@ -597,6 +605,7 @@ window.applyBundle = async function (bundleId) {
                 }
             }
         }
+
     }
 
 
