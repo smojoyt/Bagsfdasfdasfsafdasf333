@@ -47,13 +47,15 @@ async function bundleDetector(cart) {
         const now = new Date();
 
         const idToCategory = {};
+        const idToSubCategory = {}; // ✅ new
         const idToPrice = {};
-        const idToKey = {}; // product_id → product key
+        const idToKey = {};
 
         for (const key in products) {
             const prod = products[key];
-            if (prod.product_id && prod.category) {
-                idToCategory[prod.product_id] = prod.category;
+            if (prod.product_id) {
+                idToCategory[prod.product_id] = prod.category || "";
+                idToSubCategory[prod.product_id] = prod.subCategory || ""; // ✅ grab subCategory
                 idToPrice[prod.product_id] = prod.price;
                 idToKey[prod.product_id] = key;
             }
@@ -63,6 +65,7 @@ async function bundleDetector(cart) {
         for (const item of cart) {
             const qty = item.qty || 1;
             const category = idToCategory[item.id] || "";
+            const subCategory = idToSubCategory[item.id] || ""; // ✅ assign subCategory
             const productKey = idToKey[item.id] || "";
             const basePrice = idToPrice[item.id];
             for (let i = 0; i < qty; i++) {
@@ -71,6 +74,7 @@ async function bundleDetector(cart) {
                     qty: 1,
                     _used: false,
                     category,
+                    subCategory, // ✅ now in cart item
                     productKey,
                     price: basePrice
                 });
@@ -84,7 +88,13 @@ async function bundleDetector(cart) {
             for (let useCount = 0; useCount < maxUses; useCount++) {
                 let match = [];
 
-                if (bundle.category && bundle.minQuantity) {
+                if (bundle.subCategory && bundle.minQuantity) {
+                    match = flatCart.filter(i =>
+                        !i._used &&
+                        i.subCategory === bundle.subCategory &&
+                        (!bundle.excludeSkus || !bundle.excludeSkus.includes(i.id))
+                    ).slice(0, bundle.minQuantity);
+                } else if (bundle.category && bundle.minQuantity) {
                     match = flatCart.filter(i =>
                         !i._used &&
                         i.category === bundle.category &&
@@ -155,13 +165,13 @@ async function bundleDetector(cart) {
             else grouped[key].qty++;
         });
 
-
         return Object.values(grouped);
     } catch (e) {
         console.error("bundleDetector failed:", e);
         return cart;
     }
 }
+
 
 
 // All other logic remains the same. Ensure renderCart() uses bundleDetector(cart) before displaying.
