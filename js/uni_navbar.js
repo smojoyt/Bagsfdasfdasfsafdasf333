@@ -302,23 +302,28 @@ function renderCart() {
 <!-- 🛍️ Start of cart item block -->
 <div class="flex items-start gap-3 border-b-4 border-gray-300 pb-4 last:border-none group">
 
- <!-- 🖼️ Image + Remove Button + BundleTxt -->
-<div class="flex flex-col items-center aspect-square h-full min-w-[6rem] max-w-[6rem]">
+<!-- 🖼️ Image + Remove Button + BundleTxt in one vertical column -->
+<div class="flex flex-col justify-between h-full min-w-[6rem] max-w-[6rem] items-center gap-2">
 
-  <!-- Image Container -->
-  <div class="relative w-full h-full">
+  <!-- Image inside a square box -->
+  <div class="relative w-full aspect-square">
     <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover rounded" />
 
-    <!-- ❌ Remove button -->
+    <!-- Remove button -->
     <button onclick="removeFromCart('${item.id}')"
       class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-s text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all">
       ×
     </button>
   </div>
 
-<!-- 💬 Bundle Prompt Text (only if not bundled) -->
-${bundleTxt ? bundleTxt : ""}
+  <!-- Bundle Button (if any) -->
+  ${bundleTxt ? `
+    <div class="w-full text-center">
+      ${bundleTxt}
+    </div>
+  ` : ""}
 </div>
+
 
 
 
