@@ -266,23 +266,26 @@ function renderCart() {
 
         ${item.bundleLabel ? `<div class="text-xs text-yellow-300 font-medium mt-1">🎁 ${item.bundleLabel}</div>` : ""}
 
-        <!-- Qty -->
-        <div class="flex items-center gap-2 mt-1">
-            <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">−</button>
-            <span class="w-6 text-center text-white text-sm">${item.qty}</span>
-            <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">+</button>
-        </div>
+        <!-- Qty + Price Row -->
+<div class="flex items-center justify-between mt-2">
+
+    <!-- Quantity Controls -->
+    <div class="flex items-center gap-2">
+        <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">−</button>
+        <span class="w-6 text-center text-white text-sm">${item.qty}</span>
+        <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">+</button>
     </div>
 
     <!-- Price -->
-    <div class="flex flex-col items-end justify-between min-w-[65px]">
-        <div class="text-right text-sm font-semibold">
-            <span class="text-red-400">$${(item.price).toFixed(2)}</span>
-            ${item.originalPrice > item.price
-                    ? `<span class="text-xs text-gray-500 line-through ml-1">$${(item.originalPrice).toFixed(2)}</span>`
+    <div class="text-right text-sm font-semibold ml-3">
+        <span class="text-white">$${(item.price).toFixed(2)}</span>
+        ${item.originalPrice > item.price
+                    ? `<span class="text-xs text-gray-200 line-through ml-1">$${(item.originalPrice).toFixed(2)}</span>`
                     : ""}
-        </div>
     </div>
+
+</div>
+
 
 </div>
 `;
