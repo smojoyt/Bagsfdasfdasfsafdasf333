@@ -280,9 +280,10 @@ function renderCart() {
         <div class="text-2xl font-extrabold leading-tight text-black drop-shadow-lg">
             ${item.name}
         </div>
+        ${item.bundleLabel ? `<div class="text-xs text-yellow-300 font-medium mt-1">Bundle: ${item.bundleLabel}</div>` : ""}
         <div class="mt-1 text-lg font-bold text-green-700">${item.variant || ""}</div>
 
-        ${item.bundleLabel ? `<div class="text-xs text-yellow-300 font-medium mt-1">🎁 ${item.bundleLabel}</div>` : ""}
+        
 
         <!-- Qty + Price Row -->
 <div class="flex items-center justify-between mt-2">
@@ -290,7 +291,7 @@ function renderCart() {
     <!-- Quantity Controls -->
     <div class="flex items-center gap-2 border-4 border-gray-300 rounded-lg p-0">
         <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">−</button>
-        <span class="w-6 text-center text-black text-sm">${item.qty}</span>
+        <span class="w-6 text-center font-bold text-black text-sm">${item.qty}</span>
         <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">+</button>
     </div>
 

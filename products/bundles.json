@@ -1,19 +1,19 @@
 [
   {
     "id": "bundle_2smallcharms_5dollars",
-    "name": "2 Small Charms for $5",
+    "name": "2 for $5 | Small Charms",
     "subCategory": "smallCharms",
     "minQuantity": 2,
     "bundlePriceTotal": 5.00,
-    "maxUses": 2
+    "maxUses": 1
   },
   {
     "id": "bundle_2largecharms_15dollars",
-    "name": "2 Large Charms for $15",
+    "name": "2 for $15 | Large Charms",
     "subCategory": "largeCharms",
     "minQuantity": 2,
     "bundlePriceTotal": 15.00,
-    "maxUses": 2
+    "maxUses": 1
   },
   {
     "id": "bundle_same_sku_pair",
