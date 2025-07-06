@@ -300,14 +300,19 @@ function renderCart() {
         <div class="text-sm font-normal text-black">${item.variant || ""}</div>
 
         <div class="flex items-center justify-between mt-2">
-            <div class="flex flex-col">
-                <div class="flex items-center gap-2 border-4 border-gray-300 rounded-lg p-0">
-                    <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">−</button>
-                    <span class="w-6 text-center font-bold text-black text-sm">${item.qty}</span>
-                    <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">+</button>
-                </div>
-                ${bundleTxt}
-            </div>
+  <div class="flex flex-col">
+    <div class="flex items-center gap-2 border-4 border-gray-300 rounded-lg p-0">
+      <!-- qty buttons -->
+    </div>
+  </div>
+
+  <div class="text-right text-lg font-bold ml-3">
+    <!-- price -->
+  </div>
+</div>
+
+${bundleTxt} <!-- move it here -->
+
 
             <div class="text-right text-lg font-bold ml-3">
                 <span class="text-black">$${(item.price).toFixed(2)}</span>
