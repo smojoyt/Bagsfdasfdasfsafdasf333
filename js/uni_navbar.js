@@ -211,15 +211,13 @@ function adjustQuantity(index, action) {
 }
 
 
-function removeFromCart(id) {
+function removeFromCart(id, variant) {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-    const index = cart.findIndex(item => item.id === id);
-    if (index !== -1) {
-        cart.splice(index, 1);
-        saveCart(cart);
-        renderCart();
-    }
+    const filteredCart = cart.filter(item => !(item.id === id && item.variant === variant));
+    saveCart(filteredCart);
+    renderCart();
 }
+
 
 function updateCartQty(id, change) {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
@@ -320,7 +318,8 @@ function renderCart() {
             const removeBtn = document.createElement("button");
             removeBtn.className = "absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-s text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all";
             removeBtn.textContent = "×";
-            removeBtn.onclick = () => removeFromCart(item.id);
+            removeBtn.onclick = () => removeFromCart(item.id, item.variant);
+
 
             imageWrapper.appendChild(img);
             imageWrapper.appendChild(removeBtn);
