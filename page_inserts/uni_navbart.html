@@ -75,17 +75,17 @@
 <div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden" onclick="toggleCart(false)"></div>
 
 <!-- Side Cart Drawer -->
-<div id="sideCart" class="fixed right-0 top-0 w-80 max-w-full h-full bg-[#F4756D] text-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+<div id="sideCart" class="fixed right-0 top-0 w-80 max-w-full h-full bg-[#fedcc1] text-black shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
 
     <!-- Header -->
     <div class="flex items-center justify-between px-4 py-4 border-b border-gray-700">
-        <h2 class="text-xl font-extrabold tracking-wide">🛒 Your Cart</h2>
-        <button onclick="toggleCart(false)" class="text-white text-2xl hover:text-red-400">&times;</button>
+        <h2 class="text-xl uppercase font-extrabold tracking-wide m-auto">Cart</h2>
+        <button onclick="toggleCart(false)" class="text-black text-2xl hover:text-red-400">&times;</button>
     </div>
 
     <!-- Shipping Progress Bar -->
     <div class="px-4 pb-2">
-        <div id="freeShippingBar" class="text-sm text-white text-center font-semibold mb-1">
+        <div id="freeShippingBar" class="text-sm text-black text-center font-semibold mb-1">
             <!-- Will be filled by JS -->
         </div>
         <div class="w-full bg-white/40 rounded-full h-2.5">
@@ -94,7 +94,7 @@
     </div>
 
     <!-- Empty Message -->
-    <p id="emptyCartMessage" class="text-center text-sm text-white/70 mt-4 hidden">
+    <p id="emptyCartMessage" class="text-center text-sm text-black/70 mt-4 hidden">
         Your cart is empty.
     </p>
 
@@ -106,14 +106,14 @@
 
         <div class="flex justify-between font-bold text-lg mb-2">
             <span>Total:</span>
-            <span id="cartTotal" class="text-white">$0.00</span>
+            <span id="cartTotal" class="text-black">$0.00</span>
         </div>
 
-        <button id="checkoutBtn" class="w-full bg-white text-black font-bold py-2 rounded hover:bg-yellow-300 transition-all">
+        <button id="checkoutBtn" class="w-full bg-black text-white font-bold py-2 rounded hover:bg-[#121212]-300 transition-all">
             Checkout
         </button>
 
-        <p class="text-xs text-white/70 text-center mt-2">
+        <p class="text-xs text-black/70 text-center mt-2">
             Shipping and taxes calculated at checkout.
         </p>
     </div>

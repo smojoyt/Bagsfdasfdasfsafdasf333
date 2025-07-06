@@ -289,14 +289,14 @@ function renderCart() {
 
     <!-- Quantity Controls -->
     <div class="flex items-center gap-2">
-        <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">−</button>
+        <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-black text-white rounded text-sm font-extrabold">−</button>
         <span class="w-6 text-center text-white text-sm">${item.qty}</span>
-        <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">+</button>
+        <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-black text-white rounded text-sm font-extrabold">+</button>
     </div>
 
     <!-- Price -->
-    <div class="text-right text-sm font-semibold ml-3">
-        <span class="text-white">$${(item.price).toFixed(2)}</span>
+    <div class="text-right text-sm font-bold ml-3">
+        <span class="text-black">$${(item.price).toFixed(2)}</span>
         ${item.originalPrice > item.price
                     ? `<span class="text-xs text-gray-200 line-through ml-1">$${(item.originalPrice).toFixed(2)}</span>`
                     : ""}
