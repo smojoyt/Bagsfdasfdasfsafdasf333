@@ -264,7 +264,7 @@ function renderCart() {
             total += item.price * item.qty;
 
             const itemHTML = `
-<div class="flex items-start gap-3 border-b border-gray-700 pb-4 last:border-none group">
+<div class="flex items-start gap-3 border-b-4 border-gray-300 pb-4 last:border-none group">
 
     <!-- Image + Delete Button -->
     <div class="relative">
@@ -288,14 +288,14 @@ function renderCart() {
 <div class="flex items-center justify-between mt-2">
 
     <!-- Quantity Controls -->
-    <div class="flex items-center gap-2 border border-gray-300 border-t-4 rounded-lg p-0">
+    <div class="flex items-center gap-2 border-4 border-gray-300 rounded-lg p-0">
         <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">−</button>
         <span class="w-6 text-center text-black text-sm">${item.qty}</span>
         <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">+</button>
     </div>
 
     <!-- Price -->
-    <div class="text-right text-sm font-bold ml-3">
+    <div class="text-right text-lg font-bold ml-3">
         <span class="text-black">$${(item.price).toFixed(2)}</span>
         ${item.originalPrice > item.price
                     ? `<span class="text-xs text-gray-200 line-through ml-1">$${(item.originalPrice).toFixed(2)}</span>`
