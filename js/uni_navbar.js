@@ -551,36 +551,40 @@ window.applyBundle = async function (bundleId) {
 
     const addToCart = [];
 
-    // 🔁 Logic for requiredSubCategories (e.g., beanie + charm)
-    if (bundle.requiredSubCategories) {
+    // Handle requiredSubCategories logic (e.g., beanie + charm)
+    if (bundle.requiredSubCategories && Array.isArray(bundle.requiredSubCategories)) {
         for (const sub of bundle.requiredSubCategories) {
-            const hasItem = savedCart.some(i => idToSubCategory[i.id] === sub);
-            if (!hasItem) {
-                // Find a product in this subcategory
-                const [key, product] = Object.entries(products).find(
-                    ([_, p]) => p.subCategory === sub
-                ) || [];
+            const alreadyInCart = savedCart.some(ci => ci.subCategory === sub);
+            if (alreadyInCart) continue;
 
-                if (product) {
-                    const variant = Object.entries(product.variantStock || {}).find(
-                        ([_, stock]) => stock > 0
-                    )?.[0];
+            const productEntry = Object.entries(products).find(([_, p]) =>
+                p.subCategory === sub &&
+                Object.values(p.variantStock || {}).some(stock => stock > 0)
+            );
 
-                    if (variant) {
-                        addToCart.push({
-                            id: product.product_id,
-                            variant,
-                            qty: 1,
-                            subCategory: product.subCategory || ""
-                        });
+            if (productEntry) {
+                const [key, product] = productEntry;
+                const variant = Object.entries(product.variantStock || {}).find(
+                    ([_, stock]) => stock > 0
+                )?.[0];
 
-                    }
+                if (variant) {
+                    addToCart.push({
+                        id: product.product_id,
+                        variant,
+                        qty: 1,
+                        name: product.name,
+                        image: product.image,
+                        subCategory: product.subCategory
+                    });
                 }
+            } else {
+                console.warn(`❌ No in-stock item found for subcategory "${sub}"`);
             }
         }
     }
 
-    // 🔁 Logic for subCategory (e.g., 2 smallCharms for $5)
+    // Handle subCategory + minQuantity logic (e.g., 2 small charms)
     else if (bundle.subCategory && bundle.minQuantity) {
         const inCartQty = savedCart.reduce((sum, item) =>
             idToSubCategory[item.id] === bundle.subCategory ? sum + item.qty : sum, 0
@@ -588,42 +592,10 @@ window.applyBundle = async function (bundleId) {
 
         const needed = bundle.minQuantity - inCartQty;
         if (needed > 0) {
-            const addToCart = [];
+            const candidates = Object.entries(products)
+                .filter(([_, p]) => p.subCategory === bundle.subCategory);
 
-            if (bundle.requiredSubCategories && Array.isArray(bundle.requiredSubCategories)) {
-                for (const sub of bundle.requiredSubCategories) {
-                    const candidates = Object.entries(products)
-                        .filter(([_, p]) => p.subCategory === sub);
-
-                    let added = false;
-
-                    for (const [key, product] of candidates) {
-                        const variant = Object.entries(product.variantStock || {}).find(
-                            ([_, stock]) => stock > 0
-                        )?.[0];
-
-                        if (variant) {
-                            addToCart.push({
-                                id: product.product_id,
-                                variant,
-                                qty: 1,
-                                name: product.name,
-                                image: product.image,
-                                subCategory: product.subCategory
-                            });
-                            added = true;
-                            break; // Only need one from each subCategory
-                        }
-                    }
-
-                    if (!added) {
-                        console.warn(`⚠️ No available stock for required subCategory: ${sub}`);
-                    }
-                }
-            }
-
-
-            // 🔁 Prioritize products that are already in the cart
+            // Sort to prioritize products already in cart
             const cartIds = savedCart.map(i => i.id);
             candidates.sort(([_, a], [__, b]) => {
                 const aInCart = cartIds.includes(a.product_id);
@@ -642,16 +614,21 @@ window.applyBundle = async function (bundleId) {
 
                 if (variant) {
                     const addQty = Math.min(remaining, product.variantStock[variant]);
-                    addToCart.push({ id: product.product_id, variant, qty: addQty });
+                    addToCart.push({
+                        id: product.product_id,
+                        variant,
+                        qty: addQty,
+                        name: product.name,
+                        image: product.image,
+                        subCategory: product.subCategory
+                    });
                     remaining -= addQty;
                 }
             }
         }
-
     }
 
-
-    // 🔁 Logic for specificSkus (e.g., 2 of same beanie for $30)
+    // Handle specificSkus + minQuantity logic
     else if (bundle.specificSkus && bundle.minQuantity) {
         const inCartQty = savedCart.reduce((sum, item) =>
             bundle.specificSkus.includes(idToProductKey[item.id]) ? sum + item.qty : sum, 0
@@ -667,11 +644,20 @@ window.applyBundle = async function (bundleId) {
                 )?.[0];
 
                 if (variant) {
-                    addToCart.push({ id: product.product_id, variant, qty: needed });
+                    addToCart.push({
+                        id: product.product_id,
+                        variant,
+                        qty: needed,
+                        name: product.name,
+                        image: product.image,
+                        subCategory: product.subCategory
+                    });
                 }
             }
         }
     }
+
+    console.log("🛒 Adding products to cart:", addToCart);
 
     // Add new items to savedCart
     for (const item of addToCart) {
@@ -681,20 +667,14 @@ window.applyBundle = async function (bundleId) {
         } else {
             savedCart.push(item);
         }
-
-        // ✅ Log each item correctly
-        const prodKey = Object.keys(products).find(key => products[key].product_id === item.id);
-        const product = products[prodKey];
-        console.log("🛒 Adding products to cart:", addToCart);
-
     }
-
 
     // 🧠 Let bundleDetector reprocess
     const updatedCart = await bundleDetector(savedCart);
     localStorage.setItem("savedCart", JSON.stringify(updatedCart));
     renderCart();
 };
+
 
 
 
