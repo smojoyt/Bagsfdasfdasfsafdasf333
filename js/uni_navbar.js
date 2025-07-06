@@ -195,13 +195,31 @@ function adjustQuantity(index, action) {
         }
     }
     saveCart(cart);
+    renderCart(); // 👈 add this to reflect changes instantly
 }
 
-function removeFromCart(index) {
+
+function removeFromCart(id) {
     const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-    cart.splice(index, 1);
-    saveCart(cart);
+    const index = cart.findIndex(item => item.id === id);
+    if (index !== -1) {
+        cart.splice(index, 1);
+        saveCart(cart);
+        renderCart();
+    }
 }
+
+function updateCartQty(id, change) {
+    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+    const index = cart.findIndex(item => item.id === id);
+    if (index !== -1) {
+        const action = change > 0 ? "increase" : "decrease";
+        adjustQuantity(index, action);
+        renderCart();
+    }
+}
+
+
 
 function renderCart() {
     let cart = JSON.parse(localStorage.getItem("savedCart")) || [];
