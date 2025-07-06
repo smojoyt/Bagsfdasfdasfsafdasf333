@@ -448,26 +448,36 @@ function getAvailableBundlesForItem(item, cart) {
 
         const skus = bundle.specificSkus?.map(s => s.toLowerCase()) || [];
         const bundleSub = bundle.subCategory?.toLowerCase();
+        const requiredSubs = bundle.requiredSubCategories?.map(s => s.toLowerCase());
 
+        // 🔍 Match logic
         if (skus.includes(itemId)) matches = true;
         if (bundleSub && bundleSub === itemSub) matches = true;
+        if (requiredSubs?.includes(itemSub)) matches = true;
 
         if (!matches) continue;
 
-        const matchCount = cart.filter(ci => {
+        // 🧮 Count how many qualifying items are already in the cart
+        let matchCount = 0;
+        for (const ci of cart) {
             const ciId = ci.id?.toLowerCase();
             const ciSub = ci.subCategory?.toLowerCase();
-            return skus.includes(ciId) || (bundleSub && ciSub === bundleSub);
-        }).reduce((sum, ci) => sum + ci.qty, 0);
 
-        const maxAllowed = bundle.maxUses * bundle.minQuantity;
+            if (skus.includes(ciId)) matchCount += ci.qty;
+            else if (bundleSub && ciSub === bundleSub) matchCount += ci.qty;
+            else if (requiredSubs?.includes(ciSub)) matchCount += ci.qty;
+        }
 
-        if (matchCount <= maxAllowed) {
+        const maxAllowed = (bundle.maxUses || 1) * (bundle.minQuantity || 1);
+
+        if (matchCount < maxAllowed) {
             applicableBundles.push(bundle);
         }
     }
+
     return applicableBundles;
 }
+
 
 
 
@@ -482,30 +492,27 @@ window.checkBundleAvailability = async function (bundleId) {
     const bundle = bundles.find(b => b.id === bundleId);
     if (!bundle) return false;
 
-    // Check for required subcategories
-    if (bundle.requiredSubCategories) {
-        return bundle.requiredSubCategories.every(sub => {
-            return Object.values(products).some(p =>
-                p.subCategory === sub &&
-                Object.values(p.variantStock || {}).some(stock => stock > 0)
-            );
-        });
-    }
+    // Helper to check if a product has any in-stock variant
+    const hasInStockVariant = product =>
+        product && Object.values(product.variantStock || {}).some(qty => qty > 0);
 
-    // Check subCategory bundles
-    if (bundle.subCategory) {
-        return Object.values(products).some(p =>
-            p.subCategory === bundle.subCategory &&
-            Object.values(p.variantStock || {}).some(stock => stock > 0)
+    // 🔁 requiredSubCategories
+    if (bundle.requiredSubCategories) {
+        return bundle.requiredSubCategories.every(sub =>
+            Object.values(products).some(p => p.subCategory === sub && hasInStockVariant(p))
         );
     }
 
-    // Check specificSkus bundles
+    // 🔁 subCategory
+    if (bundle.subCategory) {
+        return Object.values(products).some(p =>
+            p.subCategory === bundle.subCategory && hasInStockVariant(p)
+        );
+    }
+
+    // 🔁 specificSkus
     if (bundle.specificSkus) {
-        return bundle.specificSkus.some(sku => {
-            const product = products[sku];
-            return product && Object.values(product.variantStock || {}).some(stock => stock > 0);
-        });
+        return bundle.specificSkus.some(sku => hasInStockVariant(products[sku]));
     }
 
     return true; // fallback
@@ -623,7 +630,14 @@ window.applyBundle = async function (bundleId) {
         } else {
             savedCart.push(item);
         }
+
+        // ✅ Log each item correctly
+        const prodKey = Object.keys(products).find(key => products[key].product_id === item.id);
+        const product = products[prodKey];
+        console.log("🛒 Adding products to cart:", addToCart);
+
     }
+
 
     // 🧠 Let bundleDetector reprocess
     const updatedCart = await bundleDetector(savedCart);
