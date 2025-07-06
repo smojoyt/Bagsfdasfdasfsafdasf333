@@ -345,19 +345,26 @@ function getAvailableBundlesForItem(item, cart) {
     const bundles = window.bundlesData || [];
     const applicableBundles = [];
 
+    const itemId = item.id?.toLowerCase();
+    const itemSub = item.subCategory?.toLowerCase();
+
     for (const bundle of bundles) {
         if (!bundle.carttxt) continue;
 
         let matches = false;
-        if (bundle.specificSkus?.includes(item.id)) matches = true;
-        if (bundle.subCategory && bundle.subCategory === item.subCategory) matches = true;
+
+        const skus = bundle.specificSkus?.map(s => s.toLowerCase()) || [];
+        const bundleSub = bundle.subCategory?.toLowerCase();
+
+        if (skus.includes(itemId)) matches = true;
+        if (bundleSub && bundleSub === itemSub) matches = true;
 
         if (!matches) continue;
 
         const matchCount = cart.filter(ci => {
-            if (bundle.specificSkus?.includes(ci.id)) return true;
-            if (bundle.subCategory && ci.subCategory === bundle.subCategory) return true;
-            return false;
+            const ciId = ci.id?.toLowerCase();
+            const ciSub = ci.subCategory?.toLowerCase();
+            return skus.includes(ciId) || (bundleSub && ciSub === bundleSub);
         }).reduce((sum, ci) => sum + ci.qty, 0);
 
         const maxAllowed = bundle.maxUses * bundle.minQuantity;
@@ -368,6 +375,7 @@ function getAvailableBundlesForItem(item, cart) {
     }
     return applicableBundles;
 }
+
 
 
 
