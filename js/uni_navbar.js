@@ -286,10 +286,10 @@ function renderCart() {
             if (!item.originalPrice) item.originalPrice = item.price;
             total += item.price * item.qty;
 
-            const eligibleBundles = getAvailableBundlesForItem(item, cart);
+            const eligibleBundles = item.bundleLabel ? [] : getAvailableBundlesForItem(item, cart);
 
             const bundleTxt = eligibleBundles.map(b => {
-                return `<div class="bg-white mt-1 p-1 px-2 border-2 border-black text-black uppercase text-[11px] font-bold rounded">${b.carttxt}</div>`;
+                return `<div class="bg-white mt-1 p-1 px-2 border-2 border-black text-black uppercase text-[11px] font-bold rounded w-fit">${b.carttxt}</div>`;
             }).join("");
 
             const itemHTML = `
