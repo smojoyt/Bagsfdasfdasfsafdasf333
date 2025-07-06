@@ -430,5 +430,5 @@ document.addEventListener("DOMContentLoaded", () => {
         cartEl?.classList.remove("no-transition");
     });
 
-    renderCart();
+    loadBundlesAndRenderCart();
 });
