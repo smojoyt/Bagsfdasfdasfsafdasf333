@@ -211,16 +211,16 @@ function renderCart() {
         localStorage.setItem("savedCart", JSON.stringify(cart));
         updateCartCount();
 
-        const cartItemsEl = document.getElementById("cartItems");
+        const cartItemsContainer = document.getElementById("cartItems"); // was cartItemsEl in your original
         const cartTotalEl = document.getElementById("cartTotal");
         const freeShippingBar = document.getElementById("freeShippingBar");
         const freeShippingProgress = document.getElementById("freeShippingProgress");
         const checkoutBtn = document.getElementById("checkoutBtn");
         const emptyMsg = document.getElementById("emptyCartMessage");
 
-        if (!cartItemsEl || !cartTotalEl) return;
+        if (!cartItemsContainer || !cartTotalEl) return;
 
-        cartItemsEl.innerHTML = "";
+        cartItemsContainer.innerHTML = "";
 
         if (cart.length === 0) {
             emptyMsg?.classList.remove("hidden");
@@ -239,29 +239,48 @@ function renderCart() {
 
         let total = 0;
 
-        cart.forEach((item, index) => {
-            total += item.price * item.qty;
-            cartItemsEl.innerHTML += `
-<div class="flex gap-4 items-start justify-between">
-    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded border" />
-    <div class="flex-1">
-        <p class="font-semibold text-sm">${item.name}</p>
-        ${item.bundleLabel ? `<p class="text-xs text-purple-600 font-semibold mt-1">📦 Bundle: ${item.bundleLabel}</p>` : ""}
-        ${item.hint ? `<p class="text-xs text-yellow-600 font-semibold mt-1">✨ ${item.hint}</p>` : ""}
-        <p class="text-xs text-gray-500">${item.variant || ""}</p>
-        <div class="flex items-center gap-2 mt-1">
-            <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="decrease" data-index="${index}">−</button>
-            <span class="text-sm">${item.qty}</span>
-            <button class="text-xs px-2 py-1 border rounded qty-btn" data-action="increase" data-index="${index}">+</button>
-            <button class="text-red-500 text-xs hover:underline ml-4 remove-btn" data-index="${index}">Remove</button>
-        </div>
-    </div>
-    <div class="text-right font-medium text-sm whitespace-nowrap">
-        $${(item.price * item.qty).toFixed(2)}
-    </div>
-</div>
-`;
+        cart.forEach(item => {
+            // Ensure originalPrice exists for strike-through
+            if (!item.originalPrice) item.originalPrice = item.price;
 
+            total += item.price * item.qty;
+
+            const itemHTML = `
+            <div class="flex items-start gap-3 border-b border-gray-700 pb-4 last:border-none group">
+
+                <!-- Image -->
+                <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
+
+                <!-- Info -->
+                <div class="flex-1">
+                    <div class="text-sm font-semibold text-white leading-snug">
+                        ${item.name}
+                    </div>
+                    <div class="text-xs text-gray-400 mb-1">${item.variant || ""}</div>
+
+                    ${item.bundleLabel ? `<div class="text-xs text-yellow-300 font-medium mt-1">🎁 ${item.bundleLabel}</div>` : ""}
+
+                    <!-- Qty -->
+                    <div class="flex items-center gap-2 mt-1">
+                        <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">−</button>
+                        <span class="w-6 text-center text-white text-sm">${item.qty}</span>
+                        <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-bold">+</button>
+                    </div>
+                </div>
+
+                <!-- Price + Delete -->
+                <div class="flex flex-col items-end gap-1 min-w-[65px]">
+                    <div class="text-right text-sm font-semibold">
+                        <span class="text-red-400">$${(item.price).toFixed(2)}</span>
+                        ${item.originalPrice > item.price
+                    ? `<span class="text-xs text-gray-500 line-through ml-1">$${(item.originalPrice).toFixed(2)}</span>`
+                    : ""}
+                    </div>
+                    <button onclick="removeFromCart('${item.id}')" class="text-gray-500 hover:text-red-400 text-xl leading-none">🗑️</button>
+                </div>
+            </div>
+            `;
+            cartItemsContainer.insertAdjacentHTML("beforeend", itemHTML);
         });
 
         cartTotalEl.textContent = `$${total.toFixed(2)}`;
@@ -282,23 +301,9 @@ function renderCart() {
                 freeShippingProgress.classList.add("bg-yellow-400");
             }
         }
-
-        document.querySelectorAll(".qty-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                const action = btn.dataset.action;
-                const index = parseInt(btn.dataset.index);
-                adjustQuantity(index, action);
-            });
-        });
-
-        document.querySelectorAll(".remove-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                const index = parseInt(btn.dataset.index);
-                removeFromCart(index);
-            });
-        });
     });
 }
+
 
 // Toggles the side cart drawer open or closed
 window.toggleCart = function (show = null) {
