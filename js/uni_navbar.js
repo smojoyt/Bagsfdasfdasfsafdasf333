@@ -268,7 +268,7 @@ function renderCart() {
 
     <!-- Image + Delete Button -->
     <div class="relative">
-        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
+        <img src="${item.image}" alt="${item.name}" class="w-16 h-[6rem] object-cover rounded" />
         <button onclick="removeFromCart('${item.id}')" 
             class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-s text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all">
             ×
@@ -277,10 +277,10 @@ function renderCart() {
 
     <!-- Info -->
     <div class="flex-1">
-        <div class="text-2xl font-extrabold leading-tight text-white drop-shadow-lg">
+        <div class="text-2xl font-extrabold leading-tight text-black drop-shadow-lg">
             ${item.name}
         </div>
-        <div class="text-xs text-gray-400 mb-1">${item.variant || ""}</div>
+        <div class="mt-1 text-lg font-bold text-green-700">${item.variant || ""}</div>
 
         ${item.bundleLabel ? `<div class="text-xs text-yellow-300 font-medium mt-1">🎁 ${item.bundleLabel}</div>` : ""}
 
@@ -288,10 +288,10 @@ function renderCart() {
 <div class="flex items-center justify-between mt-2">
 
     <!-- Quantity Controls -->
-    <div class="flex items-center gap-2">
-        <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-black text-white rounded text-sm font-extrabold">−</button>
-        <span class="w-6 text-center text-white text-sm">${item.qty}</span>
-        <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-black text-white rounded text-sm font-extrabold">+</button>
+    <div class="flex items-center gap-2 border border-gray-300 border-t-4 rounded-lg p-0">
+        <button onclick="updateCartQty('${item.id}', -1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">−</button>
+        <span class="w-6 text-center text-black text-sm">${item.qty}</span>
+        <button onclick="updateCartQty('${item.id}', 1)" class="px-2 py-0.5 bg-white text-black rounded text-sm font-extrabold">+</button>
     </div>
 
     <!-- Price -->
