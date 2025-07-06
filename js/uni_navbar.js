@@ -289,42 +289,66 @@ function renderCart() {
             const eligibleBundles = getAvailableBundlesForItem(item, cart);
 
             const bundleTxt = eligibleBundles.map(b => {
-                return `<div class="mt-1 p-1 px-2 border border-black text-black uppercase text-[11px] font-bold rounded">${b.carttxt}</div>`;
+                return `<div class="bg-white mt-1 p-1 px-2 border-2 border-black text-black uppercase text-[11px] font-bold rounded">${b.carttxt}</div>`;
             }).join("");
 
             const itemHTML = `
+<!-- 🛍️ Start of cart item block -->
 <div class="flex items-start gap-3 border-b-4 border-gray-300 pb-4 last:border-none group">
+
+  <!-- 🖼️ Product Image and Remove Button -->
   <div class="relative">
     <img src="${item.image}" alt="${item.name}" class="w-16 h-[6rem] object-cover rounded" />
+    
+    <!-- ❌ Remove from cart button -->
     <button onclick="removeFromCart('${item.id}')"
       class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-s text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all">
       ×
     </button>
   </div>
 
+  <!-- 📦 Item Details -->
   <div class="flex-1">
+    
+    <!-- 🏷️ Product Name -->
     <div class="text-xl uppercase font-extrabold leading-tight text-black drop-shadow-lg">
       ${item.name}
     </div>
+    
+    <!-- 🎁 Bundle Label (if applicable) -->
     ${item.bundleLabel ? `<div class="uppercase text-xs text-black">Bundle: <span class="font-bold">${item.bundleLabel}</span></div>` : ""}
+    
+    <!-- 🎨 Variant (if any) -->
     <div class="text-sm font-normal text-black">${item.variant || ""}</div>
 
-    ${bundleTxt}
-
+    <!-- 🔢 Quantity Selector and 💲 Price Row -->
     <div class="flex items-center justify-between mt-2">
+      
+      <!-- ➕➖ Quantity Controls -->
       <div class="flex items-center gap-2 border-4 border-gray-300 rounded-lg px-2 py-1">
         <button onclick="updateCartQty('${item.id}', -1)" class="text-black font-bold text-xl px-2">−</button>
         <span class="text-black font-medium min-w-[24px] text-center">${item.qty}</span>
         <button onclick="updateCartQty('${item.id}', 1)" class="text-black font-bold text-xl px-2">+</button>
       </div>
 
+      <!-- 💰 Item Price and Original Price (if discounted) -->
       <div class="text-right text-lg font-bold ml-3">
         <span class="text-black">$${(item.price).toFixed(2)}</span>
         ${item.originalPrice > item.price ? `<span class="text-xs text-gray-200 line-through ml-1">$${(item.originalPrice).toFixed(2)}</span>` : ""}
       </div>
     </div>
+
+    <!-- 💬 Optional Bundle Promo Text (carttxt) under quantity -->
+    <div class="mt-2">
+      ${bundleTxt}
+    </div>
+
   </div>
-</div>`;
+</div>
+<!-- 🛍️ End of cart item block -->
+`;
+
+
 
 
             cartItemsContainer.insertAdjacentHTML("beforeend", itemHTML);
