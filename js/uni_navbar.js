@@ -219,20 +219,40 @@ function updateCartQty(id, change) {
     }
 }
 
-window.bundlesData = [];
+window.bundlesData = [
+    {
+        name: "Charm Bundle",
+        subCategory: "largeCharms",
+        minQuantity: 1,
+        bundlePriceTotal: 5,
+        maxUses: 1,
+        carttxt: "Large Charms for $5"
+    }
+];
+renderCart();
+
 
 function loadBundlesAndRenderCart() {
-    fetch('/products/bundles.json')
-        .then(res => res.json())
+    fetch('https://karrykraze.com/products/bundles.json')
+        .then(res => {
+            if (!res.ok) {
+                console.error(`❌ HTTP error loading bundles.json: ${res.status}`);
+                throw new Error("Network response was not ok");
+            }
+            return res.json();
+        })
         .then(data => {
+            console.log("✅ Loaded bundles:", data);
             window.bundlesData = data;
             renderCart();
         })
         .catch(err => {
-            console.error("Failed to load bundles.json", err);
-            renderCart(); // fallback if fetch fails
+            console.error("❌ Failed to load bundles.json", err);
+            renderCart(); // still show cart
         });
 }
+
+
 
 
 
