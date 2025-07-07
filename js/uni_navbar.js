@@ -303,7 +303,7 @@ function renderCart() {
             total += item.price * item.qty;
 
             const itemEl = document.createElement("div");
-            itemEl.className = "flex items-start gap-3 border-b-4 border-gray-300 pb-4 last:border-none group";
+            itemEl.className = "flex items-start gap-3";
 
             // Image + Remove
             const leftCol = document.createElement("div");
@@ -389,7 +389,7 @@ function renderCart() {
             itemEl.appendChild(leftCol);
             itemEl.appendChild(rightCol);
             const cartItemWrapper = document.createElement("div");
-            cartItemWrapper.className = "w-full border-b border-gray-300 pb-4 mb-6"; // outer wrapper
+            cartItemWrapper.className = "w-full border-b-4 border-gray-300 pb-4 mb-6"; // outer wrapper
 
             cartItemWrapper.appendChild(itemEl);
 
