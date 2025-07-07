@@ -399,17 +399,16 @@ function renderCart() {
                 const bundleWrapper = document.createElement("div");
                 bundleWrapper.className = "w-full mt-2 px-0";
 
-                const scrollContainer = document.createElement("div");
-                scrollContainer.className = "relative w-full";
-
-                const bundleTxtContainer = document.createElement("div");
-                bundleTxtContainer.className =
-                    "flex flex-nowrap overflow-x-auto scroll-smooth gap-2 scrollbar-hide px-3 py-2";
+                const flickityContainer = document.createElement("div");
+                flickityContainer.className = "bundle-carousel"; // we'll use this for targeting
 
                 for (const b of eligibleBundles) {
+                    const cell = document.createElement("div");
+                    cell.className = "carousel-cell"; // required by Flickity
+
                     const btn = document.createElement("button");
                     btn.className =
-                        "shrink-0 whitespace-nowrap min-w-[140px] px-4 py-2 bg-white text-black border-2 border-black rounded-full text-[11px] uppercase font-bold hover:bg-[#f4f4f4] transition shadow-sm";
+                        "min-w-[140px] px-4 py-2 bg-white text-black border-2 border-black rounded-full text-[11px] uppercase font-bold hover:bg-[#f4f4f4] transition shadow-sm";
                     btn.textContent = b.carttxt;
                     btn.onclick = () => applyBundle(b.id);
 
@@ -421,12 +420,24 @@ function renderCart() {
                         }
                     });
 
-                    bundleTxtContainer.appendChild(btn);
+                    cell.appendChild(btn);
+                    flickityContainer.appendChild(cell);
                 }
 
-                scrollContainer.appendChild(bundleTxtContainer);
-                bundleWrapper.appendChild(scrollContainer);
+                bundleWrapper.appendChild(flickityContainer);
                 cartItemWrapper.appendChild(bundleWrapper);
+
+                // Initialize Flickity after DOM update
+                setTimeout(() => {
+                    new Flickity(flickityContainer, {
+                        cellAlign: "left",
+                        contain: true,
+                        pageDots: false,
+                        prevNextButtons: false,
+                        draggable: true,
+                        freeScroll: true
+                    });
+                }, 0);
             }
 
 
