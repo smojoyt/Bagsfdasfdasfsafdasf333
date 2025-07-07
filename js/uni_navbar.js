@@ -396,16 +396,24 @@ function renderCart() {
             // If bundle suggestion exists
             const eligibleBundles = getAvailableBundlesForItem(item, cart);
             if (!item.bundleLabel && eligibleBundles.length > 0) {
+                const bundleWrapper = document.createElement("div");
+                bundleWrapper.className = "w-full mt-2 px-0";
+
+                const scrollContainer = document.createElement("div");
+                scrollContainer.className = "relative w-full";
+
                 const bundleTxtContainer = document.createElement("div");
-                bundleTxtContainer.className = "flex flex-nowrap items-center gap-2 w-full overflow-x-auto scrollbar-hide scroll-smooth py-1 px-1";
+                bundleTxtContainer.className =
+                    "flex flex-nowrap overflow-x-auto scroll-smooth gap-2 scrollbar-hide px-3 py-2";
 
                 for (const b of eligibleBundles) {
                     const btn = document.createElement("button");
-                    btn.className = "min-w-[120px] px-3 py-2 bg-white text-black border-2 border-black rounded-full text-[11px] uppercase font-bold hover:bg-[#f4f4f4] transition shadow-sm";
+                    btn.className =
+                        "shrink-0 whitespace-nowrap min-w-[140px] px-4 py-2 bg-white text-black border-2 border-black rounded-full text-[11px] uppercase font-bold hover:bg-[#f4f4f4] transition shadow-sm";
                     btn.textContent = b.carttxt;
                     btn.onclick = () => applyBundle(b.id);
 
-                    checkBundleAvailability(b.id).then(isAvailable => {
+                    checkBundleAvailability(b.id).then((isAvailable) => {
                         if (!isAvailable) {
                             btn.disabled = true;
                             btn.classList.add("opacity-50", "cursor-not-allowed");
@@ -415,6 +423,12 @@ function renderCart() {
 
                     bundleTxtContainer.appendChild(btn);
                 }
+
+                scrollContainer.appendChild(bundleTxtContainer);
+                bundleWrapper.appendChild(scrollContainer);
+                cartItemWrapper.appendChild(bundleWrapper);
+            }
+
 
                 const bundleWrapper = document.createElement("div");
                 bundleWrapper.className = "w-full px-4 py-2 mt-2 bg-yellow-100 rounded-xl shadow-sm";
