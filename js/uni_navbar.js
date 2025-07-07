@@ -430,11 +430,7 @@ function renderCart() {
             }
 
 
-                const bundleWrapper = document.createElement("div");
-                bundleWrapper.className = "w-full px-4 py-2 mt-2 bg-yellow-100 rounded-xl shadow-sm";
-                bundleWrapper.appendChild(bundleTxtContainer);
-                cartItemWrapper.appendChild(bundleWrapper);
-            }
+                
 
 
             // Append final wrapper to container
