@@ -305,7 +305,7 @@ function renderCart() {
             const itemEl = document.createElement("div");
             itemEl.className = "flex items-start gap-3 border-b-4 border-gray-300 pb-4 last:border-none group";
 
-            // Image + Remove + Bundle
+            // Image + Remove
             const leftCol = document.createElement("div");
             leftCol.className = "flex flex-col justify-between h-full min-w-[6rem] max-w-[6rem] items-center gap-2";
 
@@ -328,33 +328,7 @@ function renderCart() {
             imageWrapper.appendChild(removeBtn);
             leftCol.appendChild(imageWrapper);
 
-            // Bundle suggestion section (separated to prevent double appending)
-            // Bundle suggestion section (separated to prevent double appending)
-            const eligibleBundles = getAvailableBundlesForItem(item, cart);
-            const bundleTxtContainer = document.createElement("div"); // Moved up
-            bundleTxtContainer.className = "w-full text-center mt-2 space-y-1";
-
-            if (!item.bundleLabel && eligibleBundles.length > 0) {
-                for (const b of eligibleBundles) {
-                    const btn = document.createElement("button");
-                    btn.className = "flex-1 min-w-[120px] p-2 border border-black text-black uppercase text-[11px] font-bold rounded hover:bg-black hover:text-white transition text-center";
-                    btn.textContent = b.carttxt;
-                    btn.onclick = () => applyBundle(b.id);
-
-                    checkBundleAvailability(b.id).then(isAvailable => {
-                        if (!isAvailable) {
-                            btn.disabled = true;
-                            btn.classList.add("opacity-50", "cursor-not-allowed");
-                            btn.title = "Bundle unavailable – out of stock";
-                        }
-                    });
-
-                    bundleTxtContainer.appendChild(btn);
-                }
-            }
-
-
-            // Right column (details)
+            // Right Column
             const rightCol = document.createElement("div");
             rightCol.className = "flex-1";
 
@@ -368,7 +342,6 @@ function renderCart() {
                 bundleLabel.className = "uppercase text-xs text-black";
                 bundleLabel.innerHTML = `Bundle: <span class="font-bold">${item.bundleLabel}</span>`;
             }
-
 
             const variant = document.createElement("div");
             variant.className = "text-sm font-normal text-black";
@@ -415,14 +388,36 @@ function renderCart() {
 
             itemEl.appendChild(leftCol);
             itemEl.appendChild(rightCol);
-            if (!item.bundleLabel && bundleTxtContainer.childNodes.length > 0) {
-                const wrapper = document.createElement("div");
-                wrapper.className = "w-full flex flex-wrap gap-2 mt-3"; // full width layout
-                wrapper.appendChild(bundleTxtContainer);
-                itemEl.appendChild(wrapper);
-            }
-
             cartItemsContainer.appendChild(itemEl);
+
+            // Render bundle buttons BELOW cart item (outside itemEl)
+            const eligibleBundles = getAvailableBundlesForItem(item, cart);
+            if (!item.bundleLabel && eligibleBundles.length > 0) {
+                const bundleTxtContainer = document.createElement("div");
+                bundleTxtContainer.className = "flex flex-wrap gap-2 justify-center w-full";
+
+                for (const b of eligibleBundles) {
+                    const btn = document.createElement("button");
+                    btn.className = "min-w-[120px] px-3 py-2 bg-yellow-200 text-yellow-900 border border-yellow-400 rounded-full text-[11px] uppercase font-bold hover:bg-yellow-300 transition shadow-sm";
+                    btn.textContent = b.carttxt;
+                    btn.onclick = () => applyBundle(b.id);
+
+                    checkBundleAvailability(b.id).then(isAvailable => {
+                        if (!isAvailable) {
+                            btn.disabled = true;
+                            btn.classList.add("opacity-50", "cursor-not-allowed");
+                            btn.title = "Bundle unavailable – out of stock";
+                        }
+                    });
+
+                    bundleTxtContainer.appendChild(btn);
+                }
+
+                const bundleWrapper = document.createElement("div");
+                bundleWrapper.className = "w-full px-4 py-4 mt-2 mb-4 flex flex-wrap gap-3 justify-center border-t border-yellow-300 bg-yellow-100 rounded-xl shadow-sm";
+                bundleWrapper.appendChild(bundleTxtContainer);
+                cartItemsContainer.appendChild(bundleWrapper);
+            }
         });
 
         cartTotalEl.textContent = `$${total.toFixed(2)}`;
@@ -445,6 +440,7 @@ function renderCart() {
         }
     });
 }
+
 
 
 
