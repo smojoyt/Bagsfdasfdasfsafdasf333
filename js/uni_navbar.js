@@ -388,9 +388,12 @@ function renderCart() {
 
             itemEl.appendChild(leftCol);
             itemEl.appendChild(rightCol);
-            cartItemsContainer.appendChild(itemEl);
+            const cartItemWrapper = document.createElement("div");
+            cartItemWrapper.className = "w-full border-b border-gray-300 pb-4 mb-6"; // outer wrapper
 
-            // Render bundle buttons BELOW cart item (outside itemEl)
+            cartItemWrapper.appendChild(itemEl);
+
+            // If bundle suggestion exists
             const eligibleBundles = getAvailableBundlesForItem(item, cart);
             if (!item.bundleLabel && eligibleBundles.length > 0) {
                 const bundleTxtContainer = document.createElement("div");
@@ -414,10 +417,14 @@ function renderCart() {
                 }
 
                 const bundleWrapper = document.createElement("div");
-                bundleWrapper.className = "w-full px-4 py-4 mt-2 mb-4 flex flex-wrap gap-3 justify-center border-t border-yellow-300 bg-yellow-100 rounded-xl shadow-sm";
+                bundleWrapper.className = "w-full px-4 py-4 mt-2 flex flex-wrap gap-3 justify-center bg-yellow-100 rounded-xl shadow-sm";
                 bundleWrapper.appendChild(bundleTxtContainer);
-                cartItemsContainer.appendChild(bundleWrapper);
+                cartItemWrapper.appendChild(bundleWrapper);
             }
+
+            // Append final wrapper to container
+            cartItemsContainer.appendChild(cartItemWrapper);
+
         });
 
         cartTotalEl.textContent = `$${total.toFixed(2)}`;
