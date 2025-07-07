@@ -389,7 +389,7 @@ function renderCart() {
             itemEl.appendChild(leftCol);
             itemEl.appendChild(rightCol);
             const cartItemWrapper = document.createElement("div");
-            cartItemWrapper.className = "w-full border-b-4 border-gray-300 pb-4 mb-6"; // outer wrapper
+            cartItemWrapper.className = "w-full border-b-4 border-gray-300 pb-4 last:border-none group mb-6"; // outer wrapper
 
             cartItemWrapper.appendChild(itemEl);
 
@@ -397,11 +397,11 @@ function renderCart() {
             const eligibleBundles = getAvailableBundlesForItem(item, cart);
             if (!item.bundleLabel && eligibleBundles.length > 0) {
                 const bundleTxtContainer = document.createElement("div");
-                bundleTxtContainer.className = "flex flex-wrap gap-2 justify-center w-full";
+                bundleTxtContainer.className = "flex flex-nowrap items-center gap-2 w-full overflow-x-auto scrollbar-hide scroll-smooth py-1 px-1";
 
                 for (const b of eligibleBundles) {
                     const btn = document.createElement("button");
-                    btn.className = "min-w-[120px] px-3 py-2 bg-yellow-200 text-yellow-900 border border-yellow-400 rounded-full text-[11px] uppercase font-bold hover:bg-yellow-300 transition shadow-sm";
+                    btn.className = "min-w-[120px] px-3 py-2 bg-white text-black border-2 border-black rounded-full text-[11px] uppercase font-bold hover:bg-[#f4f4f4] transition shadow-sm";
                     btn.textContent = b.carttxt;
                     btn.onclick = () => applyBundle(b.id);
 
@@ -417,10 +417,11 @@ function renderCart() {
                 }
 
                 const bundleWrapper = document.createElement("div");
-                bundleWrapper.className = "w-full px-4 py-4 mt-2 flex flex-wrap gap-3 justify-center bg-yellow-100 rounded-xl shadow-sm";
+                bundleWrapper.className = "w-full px-4 py-2 mt-2 bg-yellow-100 rounded-xl shadow-sm";
                 bundleWrapper.appendChild(bundleTxtContainer);
                 cartItemWrapper.appendChild(bundleWrapper);
             }
+
 
             // Append final wrapper to container
             cartItemsContainer.appendChild(cartItemWrapper);
