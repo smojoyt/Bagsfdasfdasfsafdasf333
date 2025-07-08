@@ -269,7 +269,21 @@ function renderSidebarRecommendation(containerSelector, allProducts, cart = []) 
         const btn = document.createElement("button");
         btn.className = "mt-2 text-xs px-3 py-1 rounded-full bg-black text-white hover:bg-gray-900 font-semibold";
         btn.textContent = "Add to Cart";
-        btn.onclick = () => addToCart(p.product_id, selectedVariant);
+        btn.onclick = () => {
+            const variant = selectedVariant;
+            const price = p.sale_price !== undefined ? p.sale_price : p.price;
+
+            addToCart({
+                product_id: p.product_id,
+                name: p.name,
+                price: price,
+                image: p.variantImages?.[variant] || p.image,
+                variantImages: p.variantImages
+            }, variant);
+
+            renderCart(); // refresh the cart UI
+        };
+
 
         info.appendChild(name);
         info.appendChild(price);

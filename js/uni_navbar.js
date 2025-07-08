@@ -311,8 +311,15 @@ function renderCart() {
         let total = 0;
 
         cart.forEach(item => {
+            // Fallback: if item.price is missing, use originalPrice
+            if (!item.price && item.originalPrice) {
+                item.price = item.originalPrice;
+            }
+
             if (!item.originalPrice) item.originalPrice = item.price;
+
             total += item.price * item.qty;
+
 
             const itemEl = document.createElement("div");
             itemEl.className = "flex items-start gap-3";
