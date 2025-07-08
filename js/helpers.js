@@ -248,6 +248,7 @@ function renderMiniProductCard(p, cart) {
     btn.onclick = () => {
         if (typeof addToCart === "function") {
             addToCart(p.product_id, selectedVariant, {
+                id: p.product_id, // ✅ include this
                 name: p.name,
                 image: p.image,
                 price: typeof p.sale_price === "number" ? p.sale_price : p.price,
@@ -257,6 +258,7 @@ function renderMiniProductCard(p, cart) {
             console.error("addToCart is not defined!");
         }
     };
+
 
 
     info.appendChild(name);
