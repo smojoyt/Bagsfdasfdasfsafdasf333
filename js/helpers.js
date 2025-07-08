@@ -329,6 +329,28 @@ window.renderSidebarRecommendation = function (containerSelector, allProducts, c
     container.appendChild(wrapper);
 };
 
+window.addToCart = function (key, variant, itemDetails) {
+    let cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+
+    const existingIndex = cart.findIndex(i => i.id === key && i.variant === variant);
+
+    if (existingIndex !== -1) {
+        cart[existingIndex].qty += 1;
+    } else {
+        cart.push({
+            ...itemDetails,
+            variant,
+            qty: 1
+        });
+    }
+
+    localStorage.setItem("savedCart", JSON.stringify(cart));
+
+    if (typeof renderCart === "function") renderCart();
+    if (typeof updateCartCount === "function") updateCartCount();
+};
+
+
 window.renderColorDots = renderColorDots;
 window.applyPromotionsToProducts = applyPromotionsToProducts;
 window.formatShortName = formatShortName;
