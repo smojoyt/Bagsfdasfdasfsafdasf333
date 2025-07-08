@@ -272,7 +272,20 @@ function renderSidebarRecommendation(containerSelector, allProducts, cart = []) 
         const btn = document.createElement("button");
         btn.className = "mt-2 text-xs px-3 py-1 rounded-full bg-black text-white hover:bg-gray-900 font-semibold";
         btn.textContent = "Add to Cart";
-        btn.onclick = () => addToCart(p.product_id, selectedVariant);
+        btn.onclick = () => {
+            const fullProduct = window.allProducts[key]; // `key` is the product key
+            if (!fullProduct) return;
+
+            const variant = variantSelect?.value || "";
+
+            addToCart(fullProduct.product_id, variant, {
+                name: fullProduct.name,
+                image: fullProduct.image,
+                price: fullProduct.price,
+                originalPrice: fullProduct.originalPrice || fullProduct.price
+            });
+        };
+
 
         info.appendChild(name);
         info.appendChild(price);
@@ -287,4 +300,38 @@ function renderSidebarRecommendation(containerSelector, allProducts, cart = []) 
     container.appendChild(wrapper);
 }
 
+window.addToCart = function (productId, variant = "", extraData = {}) {
+    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+
+    const existing = cart.find(item => item.id === productId && item.variant === variant);
+    if (existing) {
+        existing.qty += 1;
+    } else {
+        const product = window.allProducts ? Object.values(window.allProducts).find(p => p.product_id === productId) : null;
+        const name = extraData.name || product?.name || "Unnamed Product";
+        const image = extraData.image || product?.image || "/imgs/placeholder.png";
+        const price = extraData.price ?? product?.sale_price ?? product?.price ?? 0;
+        const originalPrice = extraData.originalPrice ?? product?.price ?? price;
+
+        cart.push({
+            id: productId,
+            variant,
+            qty: 1,
+            name,
+            image,
+            price,
+            originalPrice
+        });
+    }
+
+    localStorage.setItem("savedCart", JSON.stringify(cart));
+
+    if (typeof renderCart === "function") {
+        renderCart();
+    }
+
+    if (typeof updateCartCount === "function") {
+        updateCartCount();
+    }
+};
 
