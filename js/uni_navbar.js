@@ -312,13 +312,15 @@ function renderCart() {
 
         cart.forEach(item => {
             // Fallback: if item.price is missing, use originalPrice
-            if (!item.price && item.originalPrice) {
-                item.price = item.originalPrice;
-            }
+            item.price = parseFloat(item.price ?? item.originalPrice ?? 0);
+            item.originalPrice = parseFloat(item.originalPrice ?? item.price);
+
 
             if (!item.originalPrice) item.originalPrice = item.price;
 
-            total += item.price * item.qty;
+            const qty = parseInt(item.qty) || 1;
+            total += item.price * qty;
+
 
 
             const itemEl = document.createElement("div");
@@ -392,10 +394,14 @@ function renderCart() {
 
             const priceEl = document.createElement("div");
             priceEl.className = "text-right text-lg font-bold ml-3";
+            const displayPrice = isNaN(item.price) ? "0.00" : item.price.toFixed(2);
+            const displayOriginal = isNaN(item.originalPrice) ? null : item.originalPrice.toFixed(2);
+
             priceEl.innerHTML = `
-                <span class="text-black">$${item.price.toFixed(2)}</span>
-                ${item.originalPrice > item.price ? `<span class="text-xs text-gray-200 line-through ml-1">$${item.originalPrice.toFixed(2)}</span>` : ""}
-            `;
+    <span class="text-black">$${displayPrice}</span>
+    ${displayOriginal && item.originalPrice > item.price ? `<span class="text-xs text-gray-200 line-through ml-1">$${displayOriginal}</span>` : ""}
+`;
+
 
             qtyRow.appendChild(qtyControl);
             qtyRow.appendChild(priceEl);
