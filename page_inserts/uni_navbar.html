@@ -81,20 +81,19 @@
         Your cart is empty.
     </p>
 
-    <div id="sidebar" class="flex flex-col h-full overflow-y-auto">
+    <div id="sidebar" class="max-h-screen overflow-y-auto px-4 pb-6">
+        <div class="flex flex-col gap-6">
+            <!-- Cart Items -->
+            <div id="cartItems" class="space-y-4"></div>
 
-        <!-- Cart Items (grows naturally) -->
-        <div id="cartItems" class="p-4 space-y-4">
-            <!-- JS-injected cart items -->
+            <!-- Recommended Section -->
+            <div id="sidebarRecommended">
+                <h3 class="text-sm font-bold text-black mb-2">You May Also Like</h3>
+                <!-- JS-injected items here -->
+            </div>
         </div>
-
-        <!-- Recommended Items (naturally follows) -->
-        <div id="sidebarRecommended" class="px-4 pb-4">
-            <h3 class="text-sm font-bold text-black mb-2">You May Also Like</h3>
-            <!-- JS-injected recommended items -->
-        </div>
-
     </div>
+
 
 
 
