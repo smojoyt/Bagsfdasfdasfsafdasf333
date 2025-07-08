@@ -408,7 +408,7 @@ function renderCart() {
 
                     const btn = document.createElement("button");
                     btn.className =
-                        "min-w-[140px] px-4 py-2 bg-white text-black border-2 border-black rounded-full text-[11px] uppercase font-bold hover:bg-[#f4f4f4] transition shadow-sm";
+                        "min-w-[140px] px-4 py-2 bg-white text-black border-2 border-black rounded-lg text-[11px] uppercase font-bold hover:bg-[#f4f4f4] transition shadow-sm";
                     btn.textContent = b.carttxt;
                     btn.onclick = () => applyBundle(b.id);
 
