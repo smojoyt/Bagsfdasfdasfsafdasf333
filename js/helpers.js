@@ -202,31 +202,36 @@ window.renderCatalogCard = renderCatalogCard;
 
 function renderSidebarRecommendation(containerSelector, allProducts, cart = []) {
     console.log("🧠 Called renderSidebarRecommendation");
-    console.log("📦 Cart contents:", cart);
-    console.log("🛒 Skipping product_ids:", cart.map(i => i.id));
-    console.log("🗂️ All products:", allProducts);
 
     const container = document.querySelector(containerSelector);
-    if (!container || !allProducts) {
-        console.warn("⚠️ Sidebar recommendation container or allProducts missing.");
-        return;
-    }
+    if (!container || !allProducts) return;
 
-    const cartIds = cart.map(i => i.id); // skip duplicates
-    const eligibleProducts = Object.values(allProducts).filter(p =>
-        !cartIds.includes(p.product_id) && !p.tags?.includes("Outofstock")
-    );
+    const cartIds = cart.map(i => i.id);
 
-    console.log("✅ Eligible recommendations:", eligibleProducts.map(p => p.name));
+    // Filter out-of-stock and in-cart items
+    const eligible = (category) =>
+        Object.values(allProducts).filter(p =>
+            p.category === category &&
+            !cartIds.includes(p.product_id) &&
+            !p.tags?.includes("Outofstock")
+        );
 
-    container.innerHTML = ""; // Clear previous
+    // Randomly select one item from each category
+    const pickOne = (list) => list[Math.floor(Math.random() * list.length)];
+
+    const recs = ["bags", "headwear", "charms"]
+        .map(cat => pickOne(eligible(cat)))
+        .filter(Boolean); // remove undefined
+
+    container.innerHTML = ""; // Clear
 
     const wrapper = document.createElement("div");
-    wrapper.className = "flex flex-col gap-4 max-h-[260px] overflow-y-auto pr-2";
+    wrapper.className = "flex flex-col gap-4";
 
-    for (const p of eligibleProducts) {
+    for (const p of recs) {
         const priceHTML = getCompactPriceHTML(p);
-        const hasVariants = p.custom1Options && p.custom1Options.includes("|");
+        const hasVariants = p.custom1Options?.includes("|");
+        let selectedVariant = p.custom1Options?.split("|")[0]?.trim() || "";
 
         const item = document.createElement("div");
         item.className = "flex gap-3 items-start";
@@ -250,8 +255,6 @@ function renderSidebarRecommendation(containerSelector, allProducts, cart = []) 
         swatchRow.className = "flex gap-1 mt-1";
         const colors = p.custom1Options?.split("|").map(c => c.trim()) || [];
 
-        let selectedVariant = colors[0];
-
         colors.forEach(color => {
             const dot = document.createElement("span");
             dot.className = `w-5 h-5 rounded-full border ${getColorClass(color)} cursor-pointer`;
@@ -269,21 +272,7 @@ function renderSidebarRecommendation(containerSelector, allProducts, cart = []) 
         const btn = document.createElement("button");
         btn.className = "mt-2 text-xs px-3 py-1 rounded-full bg-black text-white hover:bg-gray-900 font-semibold";
         btn.textContent = "Add to Cart";
-        btn.onclick = () => {
-            const variant = selectedVariant;
-            const price = p.sale_price !== undefined ? p.sale_price : p.price;
-
-            addToCart({
-                product_id: p.product_id,
-                name: p.name,
-                price: price,
-                image: p.variantImages?.[variant] || p.image,
-                variantImages: p.variantImages
-            }, variant);
-
-            renderCart(); // refresh the cart UI
-        };
-
+        btn.onclick = () => addToCart(p.product_id, selectedVariant);
 
         info.appendChild(name);
         info.appendChild(price);
