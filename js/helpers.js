@@ -199,136 +199,106 @@ function capitalize(str = "") {
 // Export globally so other scripts (like catalog.js) can use it
 window.renderCatalogCard = renderCatalogCard;
 
+// 🔄 Render a compact recommended product card
+function renderMiniProductCard(p, cart) {
+    if (!p || !p.name || !p.product_id || !p.price) return "";
 
-function renderSidebarRecommendation(containerSelector, allProducts, cart = []) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "flex gap-3 items-start";
+
+    const img = document.createElement("img");
+    img.src = p.image;
+    img.alt = p.name;
+    img.className = "w-16 h-16 rounded object-cover border";
+
+    const info = document.createElement("div");
+    info.className = "flex flex-col text-sm flex-1";
+
+    const name = document.createElement("p");
+    name.className = "font-bold leading-snug text-black";
+    name.textContent = p.name;
+
+    const price = document.createElement("div");
+    price.innerHTML = getCompactPriceHTML(p);
+
+    let selectedVariant = p.custom1Options?.split("|")[0]?.trim() || "";
+    const swatchRow = document.createElement("div");
+    swatchRow.className = "flex gap-1 mt-1";
+
+    const colors = p.custom1Options?.split("|").map(c => c.trim()) || [];
+    colors.forEach(color => {
+        const dot = document.createElement("span");
+        dot.className = `w-5 h-5 rounded-full border ${getColorClass(color)} cursor-pointer`;
+        dot.title = color;
+
+        dot.onclick = () => {
+            selectedVariant = color;
+            [...swatchRow.children].forEach(d => d.classList.remove("ring-2", "ring-black"));
+            dot.classList.add("ring-2", "ring-black");
+        };
+
+        swatchRow.appendChild(dot);
+    });
+
+    const btn = document.createElement("button");
+    btn.className = "mt-2 text-xs px-3 py-1 rounded-full bg-black text-white hover:bg-gray-900 font-semibold";
+    btn.textContent = "Add to Cart";
+
+    btn.onclick = () => {
+        addToCart(p.product_id, selectedVariant, {
+            name: p.name,
+            image: p.image,
+            price: typeof p.sale_price === "number" ? p.sale_price : p.price,
+            originalPrice: p.price
+        });
+    };
+
+    info.appendChild(name);
+    info.appendChild(price);
+    if (colors.length > 1) info.appendChild(swatchRow);
+    info.appendChild(btn);
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(info);
+
+    return wrapper;
+}
+
+
+// 🎯 Filter for eligible products not in cart
+function getEligibleRecommendations(allProducts, cart, limit = 3) {
+    const cartIds = cart.map(i => i.id);
+    return Object.values(allProducts)
+        .filter(p =>
+            p &&
+            !cartIds.includes(p.product_id) &&
+            !p.tags?.includes("Outofstock") &&
+            p.image &&
+            p.name &&
+            typeof p.price === "number"
+        )
+        .sort(() => 0.5 - Math.random())
+        .slice(0, limit);
+}
+
+
+// 🚀 Final renderSidebarRecommendation
+window.renderSidebarRecommendation = function (containerSelector, allProducts, cart = []) {
     console.log("🧠 Called renderSidebarRecommendation");
 
     const container = document.querySelector(containerSelector);
-    if (!container || !allProducts) return;
+    if (!container) return;
 
-    const cartIds = cart.map(i => i.id);
-
-    // Filter out-of-stock and in-cart items
-    const eligible = (category) =>
-        Object.values(allProducts).filter(p =>
-            p.category === category &&
-            !cartIds.includes(p.product_id) &&
-            !p.tags?.includes("Outofstock")
-        );
-
-    // Randomly select one item from each category
-    const pickOne = (list) => list[Math.floor(Math.random() * list.length)];
-
-    const recs = ["bags", "headwear", "charms"]
-        .map(cat => pickOne(eligible(cat)))
-        .filter(Boolean); // remove undefined
-
-    container.innerHTML = ""; // Clear
+    const recommended = getEligibleRecommendations(allProducts, cart);
+    container.innerHTML = "";
 
     const wrapper = document.createElement("div");
     wrapper.className = "flex flex-col gap-4";
 
-    for (const p of recs) {
-        const priceHTML = getCompactPriceHTML(p);
-        const hasVariants = p.custom1Options?.includes("|");
-        let selectedVariant = p.custom1Options?.split("|")[0]?.trim() || "";
-
-        const item = document.createElement("div");
-        item.className = "flex gap-3 items-start";
-
-        const img = document.createElement("img");
-        img.src = p.image;
-        img.alt = p.name;
-        img.className = "w-16 h-16 rounded object-cover border";
-
-        const info = document.createElement("div");
-        info.className = "flex flex-col text-sm flex-1";
-
-        const name = document.createElement("p");
-        name.className = "font-bold leading-snug text-black";
-        name.textContent = p.name;
-
-        const price = document.createElement("div");
-        price.innerHTML = priceHTML;
-
-        const swatchRow = document.createElement("div");
-        swatchRow.className = "flex gap-1 mt-1";
-        const colors = p.custom1Options?.split("|").map(c => c.trim()) || [];
-
-        colors.forEach(color => {
-            const dot = document.createElement("span");
-            dot.className = `w-5 h-5 rounded-full border ${getColorClass(color)} cursor-pointer`;
-            dot.title = color;
-
-            dot.onclick = () => {
-                selectedVariant = color;
-                Array.from(swatchRow.children).forEach(d => d.classList.remove("ring-2", "ring-black"));
-                dot.classList.add("ring-2", "ring-black");
-            };
-
-            swatchRow.appendChild(dot);
-        });
-
-        const btn = document.createElement("button");
-        btn.className = "mt-2 text-xs px-3 py-1 rounded-full bg-black text-white hover:bg-gray-900 font-semibold";
-        btn.textContent = "Add to Cart";
-        btn.onclick = () => {
-            const variant = selectedVariant || "";
-            addToCart(p.product_id, variant, {
-                name: p.name,
-                image: p.image,
-                price: p.sale_price ?? p.price,
-                originalPrice: p.price
-            });
-        };
-
-
-
-        info.appendChild(name);
-        info.appendChild(price);
-        if (colors.length > 1) info.appendChild(swatchRow);
-        info.appendChild(btn);
-
-        item.appendChild(img);
-        item.appendChild(info);
-        wrapper.appendChild(item);
-    }
+    recommended.forEach(p => {
+        const card = renderMiniProductCard(p, cart);
+        if (card) wrapper.appendChild(card);
+    });
 
     container.appendChild(wrapper);
-}
-
-window.addToCart = function (productId, variant = "", extraData = {}) {
-    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-
-    const existing = cart.find(item => item.id === productId && item.variant === variant);
-    if (existing) {
-        existing.qty += 1;
-    } else {
-        const product = window.allProducts ? Object.values(window.allProducts).find(p => p.product_id === productId) : null;
-        const name = extraData.name || product?.name || "Unnamed Product";
-        const image = extraData.image || product?.image || "/imgs/placeholder.png";
-        const price = extraData.price ?? product?.sale_price ?? product?.price ?? 0;
-        const originalPrice = extraData.originalPrice ?? product?.price ?? price;
-
-        cart.push({
-            id: productId,
-            variant,
-            qty: 1,
-            name,
-            image,
-            price,
-            originalPrice
-        });
-    }
-
-    localStorage.setItem("savedCart", JSON.stringify(cart));
-
-    if (typeof renderCart === "function") {
-        renderCart();
-    }
-
-    if (typeof updateCartCount === "function") {
-        updateCartCount();
-    }
 };
-
