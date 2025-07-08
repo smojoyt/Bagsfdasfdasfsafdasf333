@@ -477,7 +477,16 @@ function renderCart() {
                 freeShippingProgress.classList.add("bg-yellow-400");
             }
         }
-        renderSidebarRecommendation("#sidebarRecommended", window.allProducts, cart);
+        console.log("📦 Calling renderSidebarRecommendation...");
+        console.log("➡️ Cart contents:", cart);
+        console.log("➡️ All products available:", window.allProducts);
+
+        if (typeof renderSidebarRecommendation === "function") {
+            renderSidebarRecommendation("#sidebarRecommended", window.allProducts, cart);
+        } else {
+            console.warn("⚠️ renderSidebarRecommendation is not defined.");
+        }
+
     });
 }
 

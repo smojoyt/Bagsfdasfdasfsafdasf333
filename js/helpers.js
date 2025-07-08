@@ -201,13 +201,23 @@ window.renderCatalogCard = renderCatalogCard;
 
 
 function renderSidebarRecommendation(containerSelector, allProducts, cart = []) {
+    console.log("🧠 Called renderSidebarRecommendation");
+    console.log("📦 Cart contents:", cart);
+    console.log("🛒 Skipping product_ids:", cart.map(i => i.id));
+    console.log("🗂️ All products:", allProducts);
+
     const container = document.querySelector(containerSelector);
-    if (!container || !allProducts) return;
+    if (!container || !allProducts) {
+        console.warn("⚠️ Sidebar recommendation container or allProducts missing.");
+        return;
+    }
 
     const cartIds = cart.map(i => i.id); // skip duplicates
     const eligibleProducts = Object.values(allProducts).filter(p =>
         !cartIds.includes(p.product_id) && !p.tags?.includes("Outofstock")
     );
+
+    console.log("✅ Eligible recommendations:", eligibleProducts.map(p => p.name));
 
     container.innerHTML = ""; // Clear previous
 
