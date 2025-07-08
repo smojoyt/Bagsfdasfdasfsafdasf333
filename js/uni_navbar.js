@@ -401,13 +401,12 @@ function renderCart() {
 
                 const flickityContainer = document.createElement("div");
                 flickityContainer.className = "bundle-carousel"; // flickity targets this
-                let isDragging = false;
+                let dragStartTime = 0;
 
-                flickityContainer.addEventListener("mousedown", () => isDragging = false);
-                flickityContainer.addEventListener("mousemove", () => isDragging = true);
-                flickityContainer.addEventListener("mouseup", () => isDragging = false);
-                flickityContainer.addEventListener("touchmove", () => isDragging = true);
-                flickityContainer.addEventListener("touchend", () => isDragging = false);
+                flickityContainer.addEventListener("pointerdown", () => {
+                    dragStartTime = Date.now();
+                });
+
 
                 for (const b of eligibleBundles) {
                     const cell = document.createElement("div");
@@ -419,13 +418,15 @@ function renderCart() {
 
                     // Prevent click if dragging
                     btn.addEventListener("click", (e) => {
-                        if (isDragging) {
+                        const dragDuration = Date.now() - dragStartTime;
+                        if (dragDuration > 150) {
                             e.preventDefault();
                             e.stopPropagation();
                             return;
                         }
                         applyBundle(b.id);
                     });
+
 
                     checkBundleAvailability(b.id).then(isAvailable => {
                         if (!isAvailable) {
