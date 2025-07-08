@@ -351,10 +351,10 @@ function renderCart() {
             qtyRow.className = "flex items-center justify-between mt-2";
 
             const qtyControl = document.createElement("div");
-            qtyControl.className = "flex items-center gap-2 border-4 border-gray-300 rounded-lg px-2 py-1";
+            qtyControl.className = "flex items-center gap-2 border-4 border-gray-300 rounded-lg ";
 
             const minusBtn = document.createElement("button");
-            minusBtn.className = "text-black font-bold text-xl px-2";
+            minusBtn.className = "text-black bg-white font-bold text-xl px-2 rounded-l-lg hover:bg-black hover:text-white";
             minusBtn.textContent = "−";
             minusBtn.onclick = () => updateCartQty(item.id, -1);
 
@@ -363,7 +363,7 @@ function renderCart() {
             qtyText.textContent = item.qty;
 
             const plusBtn = document.createElement("button");
-            plusBtn.className = "text-black font-bold text-xl px-2";
+            plusBtn.className = "text-black bg-white font-bold text-xl px-2 rounded-r-lg hover:bg-black hover:text-white";
             plusBtn.textContent = "+";
             plusBtn.onclick = () => updateCartQty(item.id, 1);
 
@@ -414,7 +414,7 @@ function renderCart() {
                     cell.className = "carousel-cell shrink-0 mr-3";
 
                     const btn = document.createElement("button");
-                    btn.className = "min-w-[140px] px-4 py-2 bg-white text-black border-2 border-black rounded-full text-[11px] uppercase font-bold hover:bg-[#f4f4f4] transition shadow-sm";
+                    btn.className = "min-w-[100px] px-2 py-1 bg-white text-black border-4 border-gray-300 rounded-lg text-sm uppercase font-bold hover:bg-black hover:text-white hover:border-black transition shadow-sm";
                     btn.textContent = b.carttxt;
 
                     // Prevent click if dragging
