@@ -273,18 +273,15 @@ function renderSidebarRecommendation(containerSelector, allProducts, cart = []) 
         btn.className = "mt-2 text-xs px-3 py-1 rounded-full bg-black text-white hover:bg-gray-900 font-semibold";
         btn.textContent = "Add to Cart";
         btn.onclick = () => {
-            const fullProduct = window.allProducts[key]; // `key` is the product key
-            if (!fullProduct) return;
-
-            const variant = variantSelect?.value || "";
-
-            addToCart(fullProduct.product_id, variant, {
-                name: fullProduct.name,
-                image: fullProduct.image,
-                price: fullProduct.price,
-                originalPrice: fullProduct.originalPrice || fullProduct.price
+            const variant = selectedVariant || "";
+            addToCart(p.product_id, variant, {
+                name: p.name,
+                image: p.image,
+                price: p.sale_price ?? p.price,
+                originalPrice: p.price
             });
         };
+
 
 
         info.appendChild(name);
