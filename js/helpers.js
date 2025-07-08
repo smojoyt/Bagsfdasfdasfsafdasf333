@@ -177,13 +177,14 @@ async function loadAllReviews() {
     }
 }
 
-
 function formatShortName(name = "") {
+    if (!name) return "Anonymous";
     const parts = name.trim().split(" ");
     const first = parts[0];
     const lastInitial = parts[1]?.charAt(0).toUpperCase();
     return lastInitial ? `${capitalize(first)} ${lastInitial}.` : capitalize(first);
 }
+
 
 function capitalize(str = "") {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -245,13 +246,18 @@ function renderMiniProductCard(p, cart) {
     btn.textContent = "Add to Cart";
 
     btn.onclick = () => {
-        addToCart(p.product_id, selectedVariant, {
-            name: p.name,
-            image: p.image,
-            price: typeof p.sale_price === "number" ? p.sale_price : p.price,
-            originalPrice: p.price
-        });
+        if (typeof addToCart === "function") {
+            addToCart(p.product_id, selectedVariant, {
+                name: p.name,
+                image: p.image,
+                price: typeof p.sale_price === "number" ? p.sale_price : p.price,
+                originalPrice: p.price
+            });
+        } else {
+            console.error("addToCart is not defined!");
+        }
     };
+
 
     info.appendChild(name);
     info.appendChild(price);
@@ -284,7 +290,15 @@ function getEligibleRecommendations(allProducts, cart, limit = 3) {
 
 // 🚀 Final renderSidebarRecommendation
 window.renderSidebarRecommendation = function (containerSelector, allProducts, cart = []) {
-    console.log("🧠 Called renderSidebarRecommendation");
+    console.group("🧠 Recommended Render");
+    console.log("Available products:", Object.keys(allProducts).length);
+    console.log("Cart items:", cart.map(i => i.id));
+    const recommended = getEligibleRecommendations(allProducts, cart);
+    console.log("Final recommendations:", recommended.map(p => p.product_id));
+    console.groupEnd();
+
+
+
 
     const container = document.querySelector(containerSelector);
     if (!container) return;
