@@ -204,6 +204,11 @@ window.renderCatalogCard = renderCatalogCard;
 function renderMiniProductCard(p, cart) {
     if (!p || !p.name || !p.product_id || !p.price) return "";
 
+    // 🔐 Ensure the original key from window.allProducts is attached
+    if (!p._key) {
+        p._key = Object.keys(window.allProducts).find(k => window.allProducts[k].product_id === p.product_id);
+    }
+
     const wrapper = document.createElement("div");
     wrapper.className = "flex gap-3 items-start";
 
@@ -247,19 +252,15 @@ function renderMiniProductCard(p, cart) {
 
     btn.onclick = () => {
         if (typeof addToCart === "function") {
-            addToCart(p.product_id, selectedVariant, {
-                id: p.product_id, // ✅ include this
+            addToCart(p._key, selectedVariant, {
+                id: p.product_id,
                 name: p.name,
                 image: p.image,
                 price: typeof p.sale_price === "number" ? p.sale_price : p.price,
                 originalPrice: p.price
             });
-        } else {
-            console.error("addToCart is not defined!");
         }
     };
-
-
 
     info.appendChild(name);
     info.appendChild(price);
@@ -273,6 +274,7 @@ function renderMiniProductCard(p, cart) {
 }
 
 
+
 // 🎯 Filter for eligible products not in cart
 function getEligibleRecommendations(allProducts, cart) {
     const cartIds = cart.map(i => i.id);
@@ -280,9 +282,9 @@ function getEligibleRecommendations(allProducts, cart) {
     const picks = [];
 
     for (const category of categories) {
-        const eligible = Object.values(allProducts).filter(p =>
+        const eligible = Object.entries(allProducts).filter(([key, p]) =>
             p.category === category &&
-            !cartIds.includes(p.product_id) &&
+            !cartIds.includes(key) &&
             !p.tags?.includes("Outofstock") &&
             p.image &&
             p.name &&
@@ -290,13 +292,15 @@ function getEligibleRecommendations(allProducts, cart) {
         );
 
         if (eligible.length > 0) {
-            const random = eligible[Math.floor(Math.random() * eligible.length)];
-            picks.push(random);
+            const [key, product] = eligible[Math.floor(Math.random() * eligible.length)];
+            product._key = key; // 🔑 Save the original key
+            picks.push(product);
         }
     }
 
     return picks;
 }
+
 
 
 
