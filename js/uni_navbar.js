@@ -477,6 +477,7 @@ function renderCart() {
                 freeShippingProgress.classList.add("bg-yellow-400");
             }
         }
+        renderSidebarRecommendation("#sidebarRecommended", window.allProducts, cart);
     });
 }
 

@@ -198,3 +198,80 @@ function capitalize(str = "") {
 
 // Export globally so other scripts (like catalog.js) can use it
 window.renderCatalogCard = renderCatalogCard;
+
+
+function renderSidebarRecommendation(containerSelector, allProducts, cart = []) {
+    const container = document.querySelector(containerSelector);
+    if (!container || !allProducts) return;
+
+    const cartIds = cart.map(i => i.id); // skip duplicates
+    const eligibleProducts = Object.values(allProducts).filter(p =>
+        !cartIds.includes(p.product_id) && !p.tags?.includes("Outofstock")
+    );
+
+    container.innerHTML = ""; // Clear previous
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "flex flex-col gap-4 max-h-[260px] overflow-y-auto pr-2";
+
+    for (const p of eligibleProducts) {
+        const priceHTML = getCompactPriceHTML(p);
+        const hasVariants = p.custom1Options && p.custom1Options.includes("|");
+
+        const item = document.createElement("div");
+        item.className = "flex gap-3 items-start";
+
+        const img = document.createElement("img");
+        img.src = p.image;
+        img.alt = p.name;
+        img.className = "w-16 h-16 rounded object-cover border";
+
+        const info = document.createElement("div");
+        info.className = "flex flex-col text-sm flex-1";
+
+        const name = document.createElement("p");
+        name.className = "font-bold leading-snug text-black";
+        name.textContent = p.name;
+
+        const price = document.createElement("div");
+        price.innerHTML = priceHTML;
+
+        const swatchRow = document.createElement("div");
+        swatchRow.className = "flex gap-1 mt-1";
+        const colors = p.custom1Options?.split("|").map(c => c.trim()) || [];
+
+        let selectedVariant = colors[0];
+
+        colors.forEach(color => {
+            const dot = document.createElement("span");
+            dot.className = `w-5 h-5 rounded-full border ${getColorClass(color)} cursor-pointer`;
+            dot.title = color;
+
+            dot.onclick = () => {
+                selectedVariant = color;
+                Array.from(swatchRow.children).forEach(d => d.classList.remove("ring-2", "ring-black"));
+                dot.classList.add("ring-2", "ring-black");
+            };
+
+            swatchRow.appendChild(dot);
+        });
+
+        const btn = document.createElement("button");
+        btn.className = "mt-2 text-xs px-3 py-1 rounded-full bg-black text-white hover:bg-gray-900 font-semibold";
+        btn.textContent = "Add to Cart";
+        btn.onclick = () => addToCart(p.product_id, selectedVariant);
+
+        info.appendChild(name);
+        info.appendChild(price);
+        if (colors.length > 1) info.appendChild(swatchRow);
+        info.appendChild(btn);
+
+        item.appendChild(img);
+        item.appendChild(info);
+        wrapper.appendChild(item);
+    }
+
+    container.appendChild(wrapper);
+}
+
+
