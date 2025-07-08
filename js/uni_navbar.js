@@ -339,7 +339,7 @@ function renderCart() {
             let bundleLabel = null;
             if (item.bundleLabel) {
                 bundleLabel = document.createElement("div");
-                bundleLabel.className = "uppercase text-xs text-black";
+                bundleLabel.className = " w-fit bg-white py-1 px-2 uppercase text-xs text-black";
                 bundleLabel.innerHTML = `Bundle: <span class="font-bold">${item.bundleLabel}</span>`;
             }
 
@@ -410,7 +410,7 @@ function renderCart() {
 
                 for (const b of eligibleBundles) {
                     const cell = document.createElement("div");
-                    cell.className = "carousel-cell shrink-0 mr-3";
+                    cell.className = "carousel-cell shrink-0 mr-2";
 
                     const btn = document.createElement("button");
                     btn.className = "min-w-[100px] px-2 py-1 bg-white text-black border-4 border-gray-300 rounded-lg text-sm uppercase font-bold hover:bg-black hover:text-white hover:border-black transition shadow-sm";
