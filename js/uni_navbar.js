@@ -388,31 +388,46 @@ function renderCart() {
 
             itemEl.appendChild(leftCol);
             itemEl.appendChild(rightCol);
-            const cartItemWrapper = document.createElement("div");
-            cartItemWrapper.className = "w-full border-b-4 border-gray-300 pb-4 last:border-none group mb-6"; // outer wrapper
 
+            const cartItemWrapper = document.createElement("div");
+            cartItemWrapper.className = "w-full border-b-4 border-gray-300 pb-4 last:border-none group mb-6";
             cartItemWrapper.appendChild(itemEl);
 
-            // If bundle suggestion exists
+            // BUNDLE BUTTONS W/ FLICKITY
             const eligibleBundles = getAvailableBundlesForItem(item, cart);
             if (!item.bundleLabel && eligibleBundles.length > 0) {
                 const bundleWrapper = document.createElement("div");
-                bundleWrapper.className = "w-full mt-2 px-0";
+                bundleWrapper.className = "w-full mt-2";
 
                 const flickityContainer = document.createElement("div");
-                flickityContainer.className = "bundle-carousel"; // we'll use this for targeting
+                flickityContainer.className = "bundle-carousel"; // flickity targets this
+                let isDragging = false;
+
+                flickityContainer.addEventListener("mousedown", () => isDragging = false);
+                flickityContainer.addEventListener("mousemove", () => isDragging = true);
+                flickityContainer.addEventListener("mouseup", () => isDragging = false);
+                flickityContainer.addEventListener("touchmove", () => isDragging = true);
+                flickityContainer.addEventListener("touchend", () => isDragging = false);
 
                 for (const b of eligibleBundles) {
                     const cell = document.createElement("div");
-                    cell.className = "carousel-cell shrink-0 mr-3"; // Add margin here
+                    cell.className = "carousel-cell shrink-0 mr-3";
 
                     const btn = document.createElement("button");
-                    btn.className =
-                        "min-w-[140px] px-4 py-2 bg-white text-black border-2 border-black rounded-lg text-[11px] uppercase font-bold hover:bg-[#f4f4f4] transition shadow-sm";
+                    btn.className = "min-w-[140px] px-4 py-2 bg-white text-black border-2 border-black rounded-full text-[11px] uppercase font-bold hover:bg-[#f4f4f4] transition shadow-sm";
                     btn.textContent = b.carttxt;
-                    btn.onclick = () => applyBundle(b.id);
 
-                    checkBundleAvailability(b.id).then((isAvailable) => {
+                    // Prevent click if dragging
+                    btn.addEventListener("click", (e) => {
+                        if (isDragging) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return;
+                        }
+                        applyBundle(b.id);
+                    });
+
+                    checkBundleAvailability(b.id).then(isAvailable => {
                         if (!isAvailable) {
                             btn.disabled = true;
                             btn.classList.add("opacity-50", "cursor-not-allowed");
@@ -427,7 +442,7 @@ function renderCart() {
                 bundleWrapper.appendChild(flickityContainer);
                 cartItemWrapper.appendChild(bundleWrapper);
 
-                // Initialize Flickity after DOM update
+                // Initialize Flickity
                 setTimeout(() => {
                     new Flickity(flickityContainer, {
                         cellAlign: "left",
@@ -440,13 +455,7 @@ function renderCart() {
                 }, 0);
             }
 
-
-                
-
-
-            // Append final wrapper to container
             cartItemsContainer.appendChild(cartItemWrapper);
-
         });
 
         cartTotalEl.textContent = `$${total.toFixed(2)}`;
@@ -469,6 +478,7 @@ function renderCart() {
         }
     });
 }
+
 
 
 
