@@ -282,94 +282,251 @@ function renderCart() {
         localStorage.setItem("savedCart", JSON.stringify(cart));
         updateCartCount();
 
-        const container = document.getElementById("cartItems");
+        const cartItemsContainer = document.getElementById("cartItems");
         const cartTotalEl = document.getElementById("cartTotal");
-        const emptyMsg = document.getElementById("emptyCartMessage");
-        const checkoutBtn = document.getElementById("checkoutBtn");
         const freeShippingBar = document.getElementById("freeShippingBar");
         const freeShippingProgress = document.getElementById("freeShippingProgress");
+        const checkoutBtn = document.getElementById("checkoutBtn");
+        const emptyMsg = document.getElementById("emptyCartMessage");
 
-        if (!container || !cartTotalEl) return;
+        if (!cartItemsContainer || !cartTotalEl) return;
 
-        container.innerHTML = "";
+        cartItemsContainer.innerHTML = "";
 
         if (cart.length === 0) {
             emptyMsg?.classList.remove("hidden");
+            cartTotalEl.parentElement?.classList.add("hidden");
+            freeShippingBar?.classList.add("hidden");
+            freeShippingProgress?.parentElement?.classList.add("hidden");
             checkoutBtn?.classList.add("hidden");
             return;
         }
 
         emptyMsg?.classList.add("hidden");
+        cartTotalEl.parentElement?.classList.remove("hidden");
+        freeShippingBar?.classList.remove("hidden");
+        freeShippingProgress?.parentElement?.classList.remove("hidden");
         checkoutBtn?.classList.remove("hidden");
 
         let total = 0;
 
-        for (const item of cart) {
-            const product = Object.values(window.allProducts || {}).find(p => p.product_id === item.id) || {};
-            const name = item.name || product.name || "Unnamed Product";
-            const image = item.image || product.image || "/imgs/placeholder.png";
-            const price = parseFloat(item.price ?? item.originalPrice ?? 0);
-            const originalPrice = parseFloat(item.originalPrice ?? item.price);
-            const variant = item.variant || "";
+        cart.forEach(item => {
+            // Fallback: if item.price is missing, use originalPrice
+            item.price = parseFloat(item.price ?? item.originalPrice ?? 0);
+            item.originalPrice = parseFloat(item.originalPrice ?? item.price);
+
+
+            if (!item.originalPrice) item.originalPrice = item.price;
+
             const qty = parseInt(item.qty) || 1;
+            total += item.price * qty;
 
-            total += price * qty;
 
-            const el = document.createElement("div");
-            el.className = "w-full border-b-4 border-gray-300 pb-4 last:border-none group mb-6";
 
-            el.innerHTML = `
-                <div class="flex items-start gap-3">
-                    <div class="flex flex-col justify-between h-full min-w-[6rem] max-w-[6rem] items-center gap-2">
-                        <div class="relative w-full aspect-square">
-                            <img src="${image}" alt="${name}" class="w-full h-full object-cover rounded" />
-                            <button class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-xs text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all" onclick="removeFromCart('${item.id}', '${variant}')">×</button>
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <div class="text-xl uppercase font-extrabold leading-tight text-black">${name}</div>
-                        <div class="text-sm font-normal text-black">${variant}</div>
-                        <div class="flex items-center justify-between mt-2">
-                            <div class="flex items-center gap-2 border-4 border-gray-300 rounded-lg">
-                                <button class="text-black bg-white font-bold text-xl px-2 rounded-l-lg hover:bg-black hover:text-white" onclick="updateCartQty('${item.id}', -1)">−</button>
-                                <span class="text-black font-medium min-w-[24px] text-center">${qty}</span>
-                                <button class="text-black bg-white font-bold text-xl px-2 rounded-r-lg hover:bg-black hover:text-white" onclick="updateCartQty('${item.id}', 1)">+</button>
-                            </div>
-                            <div class="text-right text-lg font-bold ml-3">
-                                <span class="text-black">$${price.toFixed(2)}</span>
-                                ${originalPrice > price ? `<span class="text-xs text-gray-200 line-through ml-1">$${originalPrice.toFixed(2)}</span>` : ""}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
+            const itemEl = document.createElement("div");
+            itemEl.className = "flex items-start gap-3";
 
-            container.appendChild(el);
-        }
+            // Image + Remove
+            const leftCol = document.createElement("div");
+            leftCol.className = "flex flex-col justify-between h-full min-w-[6rem] max-w-[6rem] items-center gap-2";
+
+            const imageWrapper = document.createElement("div");
+            imageWrapper.className = "relative w-full aspect-square";
+
+            const img = document.createElement("img");
+            const product = window.allProducts?.[item.key] || Object.values(window.allProducts || {}).find(p => p.product_id === item.id);
+
+
+            img.src = product?.image || item.image || "/imgs/placeholder.png";
+            img.alt = product?.name || item.name || "Item";
+            img.className = "w-full h-full object-cover rounded";
+
+            const removeBtn = document.createElement("button");
+            removeBtn.className = "absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center font-bold text-xs text-white bg-red-500 hover:bg-red-600 rounded-full shadow-md transition-all";
+            removeBtn.textContent = "×";
+            removeBtn.onclick = () => removeFromCart(item.id, item.variant);
+
+            imageWrapper.appendChild(img);
+            imageWrapper.appendChild(removeBtn);
+            leftCol.appendChild(imageWrapper);
+
+            // Right Column
+            const rightCol = document.createElement("div");
+            rightCol.className = "flex-1";
+
+            const name = document.createElement("div");
+            name.className = "text-xl uppercase font-extrabold leading-tight text-black drop-shadow-lg";
+            name.textContent = product?.name || item.name || "Unnamed Product";
+
+            let bundleLabel = null;
+            if (item.bundleLabel) {
+                bundleLabel = document.createElement("div");
+                bundleLabel.className = " w-fit bg-white py-1 px-2 uppercase text-xs text-black";
+                bundleLabel.innerHTML = `Bundle: <span class="font-bold">${item.bundleLabel}</span>`;
+            }
+
+            const variant = document.createElement("div");
+            variant.className = "text-sm font-normal text-black";
+            variant.textContent = item.variant || "";
+
+            const qtyRow = document.createElement("div");
+            qtyRow.className = "flex items-center justify-between mt-2";
+
+            const qtyControl = document.createElement("div");
+            qtyControl.className = "flex items-center gap-2 border-4 border-gray-300 rounded-lg ";
+
+            const minusBtn = document.createElement("button");
+            minusBtn.className = "text-black bg-white font-bold text-xl px-2 rounded-l-lg hover:bg-black hover:text-white";
+            minusBtn.textContent = "−";
+            minusBtn.onclick = () => updateCartQty(item.id, -1);
+
+            const qtyText = document.createElement("span");
+            qtyText.className = "text-black font-medium min-w-[24px] text-center";
+            qtyText.textContent = item.qty;
+
+            const plusBtn = document.createElement("button");
+            plusBtn.className = "text-black bg-white font-bold text-xl px-2 rounded-r-lg hover:bg-black hover:text-white";
+            plusBtn.textContent = "+";
+            plusBtn.onclick = () => updateCartQty(item.id, 1);
+
+            qtyControl.appendChild(minusBtn);
+            qtyControl.appendChild(qtyText);
+            qtyControl.appendChild(plusBtn);
+
+            const priceEl = document.createElement("div");
+            priceEl.className = "text-right text-lg font-bold ml-3";
+            const displayPrice = isNaN(item.price) ? "0.00" : item.price.toFixed(2);
+            const displayOriginal = isNaN(item.originalPrice) ? null : item.originalPrice.toFixed(2);
+
+            priceEl.innerHTML = `
+    <span class="text-black">$${displayPrice}</span>
+    ${displayOriginal && item.originalPrice > item.price ? `<span class="text-xs text-gray-200 line-through ml-1">$${displayOriginal}</span>` : ""}
+`;
+
+
+            qtyRow.appendChild(qtyControl);
+            qtyRow.appendChild(priceEl);
+
+            rightCol.appendChild(name);
+            if (bundleLabel) rightCol.appendChild(bundleLabel);
+            rightCol.appendChild(variant);
+            rightCol.appendChild(qtyRow);
+
+            itemEl.appendChild(leftCol);
+            itemEl.appendChild(rightCol);
+
+            const cartItemWrapper = document.createElement("div");
+            cartItemWrapper.className = "w-full border-b-4 border-gray-300 pb-4 last:border-none group mb-6";
+            cartItemWrapper.appendChild(itemEl);
+
+            // BUNDLE BUTTONS W/ FLICKITY
+            const eligibleBundles = getAvailableBundlesForItem(item, cart);
+            if (!item.bundleLabel && eligibleBundles.length > 0) {
+                const bundleWrapper = document.createElement("div");
+                bundleWrapper.className = "w-full mt-2";
+
+                const flickityContainer = document.createElement("div");
+                flickityContainer.className = "bundle-carousel"; // flickity targets this
+                let dragStartTime = 0;
+
+                flickityContainer.addEventListener("pointerdown", () => {
+                    dragStartTime = Date.now();
+                });
+
+
+                for (const b of eligibleBundles) {
+                    const cell = document.createElement("div");
+                    cell.className = "carousel-cell shrink-0 mr-2";
+
+                    const btn = document.createElement("button");
+                    btn.className = "min-w-[100px] px-2 py-1 bg-white text-black border-4 border-gray-300 rounded-lg text-sm uppercase font-bold hover:bg-black hover:text-white hover:border-black transition shadow-sm";
+                    btn.textContent = b.carttxt;
+
+                    // Prevent click if dragging
+                    btn.addEventListener("click", (e) => {
+                        const dragDuration = Date.now() - dragStartTime;
+                        if (dragDuration > 150) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return;
+                        }
+                        applyBundle(b.id);
+                    });
+
+
+                    checkBundleAvailability(b.id).then(isAvailable => {
+                        if (!isAvailable) {
+                            btn.disabled = true;
+                            btn.classList.add("opacity-50", "cursor-not-allowed");
+                            btn.title = "Bundle unavailable – out of stock";
+                        }
+                    });
+
+                    cell.appendChild(btn);
+                    flickityContainer.appendChild(cell);
+                }
+
+                bundleWrapper.appendChild(flickityContainer);
+                cartItemWrapper.appendChild(bundleWrapper);
+
+                // Initialize Flickity
+                setTimeout(() => {
+                    new Flickity(flickityContainer, {
+                        cellAlign: "left",
+                        contain: true,
+                        pageDots: false,
+                        prevNextButtons: false,
+                        draggable: true,
+                        freeScroll: true
+                    });
+                }, 0);
+            }
+
+            cartItemsContainer.appendChild(cartItemWrapper);
+        });
 
         cartTotalEl.textContent = `$${total.toFixed(2)}`;
 
-        // Free shipping logic
         const goal = 25;
         const progress = Math.min((total / goal) * 100, 100);
-        if (total >= goal) {
-            freeShippingBar.textContent = "🎉 You’ve unlocked FREE shipping!";
-            freeShippingProgress.style.width = "100%";
-            freeShippingProgress.classList.replace("bg-yellow-400", "bg-green-500");
-        } else {
-            const diff = (goal - total).toFixed(2);
-            freeShippingBar.textContent = `You're $${diff} away from free shipping!`;
-            freeShippingProgress.style.width = `${progress}%`;
-            freeShippingProgress.classList.replace("bg-green-500", "bg-yellow-400");
+        if (freeShippingBar && freeShippingProgress) {
+            if (total >= goal) {
+                freeShippingBar.textContent = "🎉 You’ve unlocked FREE shipping!";
+                freeShippingProgress.style.width = "100%";
+                freeShippingProgress.classList.remove("bg-yellow-400");
+                freeShippingProgress.classList.add("bg-green-500");
+            } else {
+                const diff = (goal - total).toFixed(2);
+                freeShippingBar.textContent = `You're $${diff} away from free shipping!`;
+                freeShippingProgress.style.width = `${progress}%`;
+                freeShippingProgress.classList.remove("bg-green-500");
+                freeShippingProgress.classList.add("bg-yellow-400");
+            }
         }
+        console.log("📦 Calling renderSidebarRecommendation...");
+        console.log("➡️ Cart contents:", cart);
+        console.log("➡️ All products available:", window.allProducts);
 
-        // Re-render recommendations
-        if (typeof renderSidebarRecommendation === "function") {
-            renderSidebarRecommendation("#sidebarRecommended", window.allProducts, cart);
-        }
+        const tryRenderSidebar = () => {
+            const sidebar = document.querySelector("#sidebarRecommended");
+            if (!sidebar || !window.allProducts) {
+                console.log("⏳ Waiting for sidebar and products to be ready...");
+                return setTimeout(tryRenderSidebar, 100);
+            }
+
+            if (typeof renderSidebarRecommendation === "function") {
+                console.log("🚀 Calling renderSidebarRecommendation...");
+                renderSidebarRecommendation("#sidebarRecommended", window.allProducts, cart);
+            } else {
+                console.warn("⚠️ renderSidebarRecommendation is not defined.");
+            }
+        };
+
+        tryRenderSidebar();
+
+
     });
 }
-
 
 
 

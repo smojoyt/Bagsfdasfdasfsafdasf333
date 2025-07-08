@@ -329,39 +329,33 @@ window.renderSidebarRecommendation = function (containerSelector, allProducts, c
     container.appendChild(wrapper);
 };
 
-window.addToCart = function (productKey, variant, extra = {}) {
-    const product = window.allProducts?.[productKey];
-
-    if (!product) {
-        console.error("❌ Product not found in allProducts for key:", productKey);
-        return;
-    }
-
+window.addToCart = function (key, variant, itemDetails = {}) {
     let cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
-    const existingIndex = cart.findIndex(i => i.id === product.product_id && i.variant === variant);
+    const product = window.allProducts?.[key];
+    const existingIndex = cart.findIndex(i => i.id === key && i.variant === variant);
+
+    const enrichedItem = {
+        id: key,
+        name: itemDetails.name || product?.name || "Unnamed",
+        image: itemDetails.image || product?.variantImages?.[variant] || product?.image || "/imgs/placeholder.png",
+        price: itemDetails.price ?? (typeof product?.sale_price === "number" ? product.sale_price : product?.price ?? 0),
+        originalPrice: itemDetails.originalPrice ?? product?.price ?? 0,
+        variant,
+        qty: 1
+    };
 
     if (existingIndex !== -1) {
         cart[existingIndex].qty += 1;
     } else {
-        cart.push({
-            id: product.product_id,
-            key: productKey,
-            name: product.name,
-            image: product.image,
-            price: typeof product.sale_price === "number" ? product.sale_price : product.price,
-            originalPrice: product.price,
-            variant: variant,
-            qty: 1,
-            ...extra
-        });
+        cart.push(enrichedItem);
     }
 
     localStorage.setItem("savedCart", JSON.stringify(cart));
+
     if (typeof renderCart === "function") renderCart();
     if (typeof updateCartCount === "function") updateCartCount();
 };
-
 
 
 
