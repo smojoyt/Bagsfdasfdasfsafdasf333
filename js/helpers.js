@@ -251,22 +251,27 @@ function renderMiniProductCard(p, cart) {
     btn.textContent = "Add to Cart";
 
     btn.onclick = () => {
-        if (typeof addToCart === "function") {
-            console.log("🧪 Add to cart triggered from sidebar", {
-                key: p._key,
-                variant: selectedVariant,
-                fullProduct: window.allProducts?.[p._key]
-            });
-
-            addToCart(p._key, selectedVariant, {
-                id: p.product_id,
-                name: p.name,
-                image: p.image,
-                price: typeof p.sale_price === "number" ? p.sale_price : p.price,
-                originalPrice: p.price
-            });
+        const fullProduct = window.allProducts?.[p._key];
+        if (!fullProduct) {
+            console.error("⚠️ Full product not found for key:", p._key);
+            return;
         }
+
+        console.log("🧪 Add to cart triggered from sidebar", {
+            key: p._key,
+            variant: selectedVariant,
+            fullProduct
+        });
+
+        addToCart(p._key, selectedVariant, {
+            id: fullProduct.product_id,
+            name: fullProduct.name,
+            image: fullProduct.variantImages?.[selectedVariant] || fullProduct.image,
+            price: typeof fullProduct.sale_price === "number" ? fullProduct.sale_price : fullProduct.price,
+            originalPrice: fullProduct.price
+        });
     };
+
 
 
     info.appendChild(name);
