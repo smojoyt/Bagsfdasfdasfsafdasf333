@@ -329,27 +329,39 @@ window.renderSidebarRecommendation = function (containerSelector, allProducts, c
     container.appendChild(wrapper);
 };
 
-window.addToCart = function (key, variant, itemDetails) {
+window.addToCart = function (productKey, variant, extra = {}) {
+    const product = window.allProducts?.[productKey];
+
+    if (!product) {
+        console.error("❌ Product not found in allProducts for key:", productKey);
+        return;
+    }
+
     let cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
-    const existingIndex = cart.findIndex(i => i.key === key && i.variant === variant);
+    const existingIndex = cart.findIndex(i => i.id === product.product_id && i.variant === variant);
 
     if (existingIndex !== -1) {
         cart[existingIndex].qty += 1;
     } else {
         cart.push({
-            ...itemDetails,
-            key, // 🔑 this is the object key from allProducts
-            variant,
-            qty: 1
+            id: product.product_id,
+            key: productKey,
+            name: product.name,
+            image: product.image,
+            price: typeof product.sale_price === "number" ? product.sale_price : product.price,
+            originalPrice: product.price,
+            variant: variant,
+            qty: 1,
+            ...extra
         });
     }
 
     localStorage.setItem("savedCart", JSON.stringify(cart));
-
     if (typeof renderCart === "function") renderCart();
     if (typeof updateCartCount === "function") updateCartCount();
 };
+
 
 
 
