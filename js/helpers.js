@@ -332,13 +332,14 @@ window.renderSidebarRecommendation = function (containerSelector, allProducts, c
 window.addToCart = function (key, variant, itemDetails) {
     let cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
-    const existingIndex = cart.findIndex(i => i.id === key && i.variant === variant);
+    const existingIndex = cart.findIndex(i => i.key === key && i.variant === variant);
 
     if (existingIndex !== -1) {
         cart[existingIndex].qty += 1;
     } else {
         cart.push({
             ...itemDetails,
+            key, // 🔑 this is the object key from allProducts
             variant,
             qty: 1
         });
@@ -349,6 +350,7 @@ window.addToCart = function (key, variant, itemDetails) {
     if (typeof renderCart === "function") renderCart();
     if (typeof updateCartCount === "function") updateCartCount();
 };
+
 
 
 window.renderColorDots = renderColorDots;

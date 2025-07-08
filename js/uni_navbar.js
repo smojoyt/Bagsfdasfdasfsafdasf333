@@ -334,7 +334,7 @@ function renderCart() {
             imageWrapper.className = "relative w-full aspect-square";
 
             const img = document.createElement("img");
-            const product = Object.values(window.allProducts || {}).find(p => p.product_id === item.id);
+            const product = window.allProducts?.[item.key] || Object.values(window.allProducts || {}).find(p => p.product_id === item.id);
 
             img.src = product?.image || item.image || "/imgs/placeholder.png";
             img.alt = product?.name || item.name || "Item";
