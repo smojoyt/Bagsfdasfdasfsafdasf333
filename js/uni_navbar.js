@@ -503,26 +503,6 @@ function renderCart() {
                 freeShippingProgress.classList.add("bg-yellow-400");
             }
         }
-        console.log("📦 Calling renderSidebarRecommendation...");
-        console.log("➡️ Cart contents:", cart);
-        console.log("➡️ All products available:", window.allProducts);
-
-        const tryRenderSidebar = () => {
-            const sidebar = document.querySelector("#sidebarRecommended");
-            if (!sidebar || !window.allProducts) {
-                console.log("⏳ Waiting for sidebar and products to be ready...");
-                return setTimeout(tryRenderSidebar, 100);
-            }
-
-            if (typeof renderSidebarRecommendation === "function") {
-                console.log("🚀 Calling renderSidebarRecommendation...");
-                renderSidebarRecommendation("#sidebarRecommended", window.allProducts, cart);
-            } else {
-                console.warn("⚠️ renderSidebarRecommendation is not defined.");
-            }
-        };
-
-        tryRenderSidebar();
 
 
     });

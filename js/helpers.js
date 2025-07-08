@@ -30,9 +30,6 @@ window.renderColorDots = function (optionsStr, stockObj = {}) {
 };
 
 // Apply promotion.json discounts
-// 🛠 FIXED: Now deducts amount instead of setting price to amount
-// ✅ FINAL version — only this should be used
-// ✅ Final version — returns a cloned and updated product list
 window.applyPromotionsToProducts = function (products, promotions) {
     const now = new Date();
     const updated = structuredClone(products);
@@ -59,9 +56,6 @@ window.applyPromotionsToProducts = function (products, promotions) {
 
     return updated;
 };
-
-
-
 
 // Compact price for carousel, cards, etc.
 window.getCompactPriceHTML = function (product) {
@@ -110,7 +104,6 @@ window.getFullPriceHTML = function (product) {
     }
 };
 
-
 function renderCatalogCard(p) {
     const tagClasses = [
         ...(p.tags ? p.tags.map(t => t.toLowerCase()) : []),
@@ -120,7 +113,7 @@ function renderCatalogCard(p) {
     const hasVariants = p.custom1Options && p.custom1Options.split("|").length > 1;
     const regular = p.price;
     const sale = p.sale_price ?? regular;
-    const isOnSale = sale < regular; // ✅ Fixed this
+    const isOnSale = sale < regular;
 
     const priceBlock = isOnSale
         ? `<div class="mt-2">
@@ -170,7 +163,7 @@ async function loadAllReviews() {
     try {
         const res = await fetch(url);
         const reviews = await res.json();
-        return reviews; // { productId: [ { name, rating, review, ... } ] }
+        return reviews;
     } catch (err) {
         console.error("Failed to load reviews:", err);
         return {};
@@ -185,194 +178,11 @@ function formatShortName(name = "") {
     return lastInitial ? `${capitalize(first)} ${lastInitial}.` : capitalize(first);
 }
 
-
 function capitalize(str = "") {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-
-
-// You save part
-//<span class="bg-green-100 text-green-700 text-xs italic px-2 py-0.5 rounded">
-//                        You save $${ (regular - sale).toFixed(2) }
-//
-
-// Export globally so other scripts (like catalog.js) can use it
 window.renderCatalogCard = renderCatalogCard;
-
-// 🔄 Render a compact recommended product card
-function renderMiniProductCard(p, cart) {
-    if (!p || !p.name || !p.product_id || !p.price) return "";
-
-    // 🔐 Ensure the original key from window.allProducts is attached
-    if (!p._key) {
-        p._key = Object.keys(window.allProducts).find(k => window.allProducts[k].product_id === p.product_id);
-    }
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "flex gap-3 items-start";
-
-    const img = document.createElement("img");
-    img.src = p.image;
-    img.alt = p.name;
-    img.className = "w-16 h-16 rounded object-cover border";
-
-    const info = document.createElement("div");
-    info.className = "flex flex-col text-sm flex-1";
-
-    const name = document.createElement("p");
-    name.className = "font-bold leading-snug text-black";
-    name.textContent = p.name;
-
-    const price = document.createElement("div");
-    price.innerHTML = getCompactPriceHTML(p);
-
-    let selectedVariant = p.custom1Options?.split("|")[0]?.trim() || "";
-    const swatchRow = document.createElement("div");
-    swatchRow.className = "flex gap-1 mt-1";
-
-    const colors = p.custom1Options?.split("|").map(c => c.trim()) || [];
-    colors.forEach(color => {
-        const dot = document.createElement("span");
-        dot.className = `w-5 h-5 rounded-full border ${getColorClass(color)} cursor-pointer`;
-        dot.title = color;
-
-        dot.onclick = () => {
-            selectedVariant = color;
-            [...swatchRow.children].forEach(d => d.classList.remove("ring-2", "ring-black"));
-            dot.classList.add("ring-2", "ring-black");
-        };
-
-        swatchRow.appendChild(dot);
-    });
-
-    const btn = document.createElement("button");
-    btn.className = "mt-2 text-xs px-3 py-1 rounded-full bg-black text-white hover:bg-gray-900 font-semibold";
-    btn.textContent = "Add to Cart";
-
-    btn.onclick = () => {
-        const fullProduct = window.allProducts?.[p._key];
-        if (!fullProduct) {
-            console.error("⚠️ Full product not found for key:", p._key);
-            return;
-        }
-
-        console.log("🧪 Add to cart triggered from sidebar", {
-            key: p._key,
-            variant: selectedVariant,
-            fullProduct
-        });
-
-        addToCart(p._key, selectedVariant, {
-            id: fullProduct.product_id,
-            name: fullProduct.name,
-            image: fullProduct.variantImages?.[selectedVariant] || fullProduct.image,
-            price: typeof fullProduct.sale_price === "number" ? fullProduct.sale_price : fullProduct.price,
-            originalPrice: fullProduct.price
-        });
-    };
-
-
-
-    info.appendChild(name);
-    info.appendChild(price);
-    if (colors.length > 1) info.appendChild(swatchRow);
-    info.appendChild(btn);
-
-    wrapper.appendChild(img);
-    wrapper.appendChild(info);
-
-    return wrapper;
-}
-
-
-
-// 🎯 Filter for eligible products not in cart
-function getEligibleRecommendations(allProducts, cart) {
-    const cartIds = cart.map(i => i.id);
-    const categories = ["bags", "headwear", "charms"];
-    const picks = [];
-
-    for (const category of categories) {
-        const eligible = Object.entries(allProducts).filter(([key, p]) =>
-            p.category === category &&
-            !cartIds.includes(key) &&
-            !p.tags?.includes("Outofstock") &&
-            p.image &&
-            p.name &&
-            typeof p.price === "number"
-        );
-
-        if (eligible.length > 0) {
-            const [key, product] = eligible[Math.floor(Math.random() * eligible.length)];
-            product._key = key; // 🔑 Save the original key
-            picks.push(product);
-        }
-    }
-
-    return picks;
-}
-
-
-
-
-window.renderSidebarRecommendation = function (containerSelector, allProducts, cart = []) {
-    console.group("🧠 Recommended Render");
-    console.log("Available products:", Object.keys(allProducts).length);
-    console.log("Cart items:", cart.map(i => i.id));
-
-    let recommended = getEligibleRecommendations(allProducts, cart);
-
-    console.log("Final recommendations:", recommended.map(p => p.product_id));
-    console.groupEnd();
-
-    const container = document.querySelector(containerSelector);
-    if (!container) return;
-
-    container.innerHTML = "";
-    const wrapper = document.createElement("div");
-    wrapper.className = "flex flex-col gap-4";
-
-    recommended.forEach(p => {
-        const card = renderMiniProductCard(p, cart);
-        if (card) wrapper.appendChild(card);
-    });
-
-    container.appendChild(wrapper);
-};
-
-window.addToCart = function (key, variant, itemDetails = {}) {
-    let cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-
-    const product = window.allProducts?.[key];
-    const existingIndex = cart.findIndex(i => i.id === key && i.variant === variant);
-
-    const enrichedItem = {
-        id: key,
-        name: itemDetails.name || product?.name || "Unnamed",
-        image: itemDetails.image || product?.variantImages?.[variant] || product?.image || "/imgs/placeholder.png",
-        price: itemDetails.price ?? (typeof product?.sale_price === "number" ? product.sale_price : product?.price ?? 0),
-        originalPrice: itemDetails.originalPrice ?? product?.price ?? 0,
-        variant,
-        qty: 1
-    };
-
-    if (existingIndex !== -1) {
-        cart[existingIndex].qty += 1;
-    } else {
-        cart.push(enrichedItem);
-    }
-
-    localStorage.setItem("savedCart", JSON.stringify(cart));
-
-    if (typeof renderCart === "function") renderCart();
-    if (typeof updateCartCount === "function") updateCartCount();
-};
-
-
-
 window.renderColorDots = renderColorDots;
 window.applyPromotionsToProducts = applyPromotionsToProducts;
 window.formatShortName = formatShortName;
-window.renderCatalogCard = renderCatalogCard;
-window.renderSidebarRecommendation = renderSidebarRecommendation;
