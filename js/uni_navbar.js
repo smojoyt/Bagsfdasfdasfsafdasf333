@@ -404,7 +404,7 @@ function renderCart() {
 
                 for (const b of eligibleBundles) {
                     const cell = document.createElement("div");
-                    cell.className = "carousel-cell"; // required by Flickity
+                    cell.className = "carousel-cell shrink-0 mr-3"; // Add margin here
 
                     const btn = document.createElement("button");
                     btn.className =
