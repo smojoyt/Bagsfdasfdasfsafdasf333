@@ -4,6 +4,18 @@
 
 // uni_navbar.js — updated logic for splitting bundles and applying promos properly
 
+// ✅ Only run once and make sure it's globally available
+if (!window.allProducts) {
+    fetch('/products/products.json')
+        .then(res => res.json())
+        .then(data => {
+            window.allProducts = data;
+            console.log("🌍 window.allProducts loaded:", Object.keys(data).length);
+            renderCart(); // ✅ Now safe to render
+        });
+}
+
+
 async function triggerStripeCheckout() {
     const rawCart = JSON.parse(localStorage.getItem("savedCart")) || [];
     const finalCart = await bundleDetector(rawCart);
@@ -481,11 +493,23 @@ function renderCart() {
         console.log("➡️ Cart contents:", cart);
         console.log("➡️ All products available:", window.allProducts);
 
-        if (typeof renderSidebarRecommendation === "function") {
-            renderSidebarRecommendation("#sidebarRecommended", window.allProducts, cart);
-        } else {
-            console.warn("⚠️ renderSidebarRecommendation is not defined.");
-        }
+        const tryRenderSidebar = () => {
+            const sidebar = document.querySelector("#sidebarRecommended");
+            if (!sidebar || !window.allProducts) {
+                console.log("⏳ Waiting for sidebar and products to be ready...");
+                return setTimeout(tryRenderSidebar, 100);
+            }
+
+            if (typeof renderSidebarRecommendation === "function") {
+                console.log("🚀 Calling renderSidebarRecommendation...");
+                renderSidebarRecommendation("#sidebarRecommended", window.allProducts, cart);
+            } else {
+                console.warn("⚠️ renderSidebarRecommendation is not defined.");
+            }
+        };
+
+        tryRenderSidebar();
+
 
     });
 }
