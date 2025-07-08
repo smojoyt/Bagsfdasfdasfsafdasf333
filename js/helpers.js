@@ -288,24 +288,20 @@ function getEligibleRecommendations(allProducts, cart, limit = 3) {
 }
 
 
-// 🚀 Final renderSidebarRecommendation
 window.renderSidebarRecommendation = function (containerSelector, allProducts, cart = []) {
     console.group("🧠 Recommended Render");
     console.log("Available products:", Object.keys(allProducts).length);
     console.log("Cart items:", cart.map(i => i.id));
+
     const recommended = getEligibleRecommendations(allProducts, cart);
+
     console.log("Final recommendations:", recommended.map(p => p.product_id));
     console.groupEnd();
-
-
-
 
     const container = document.querySelector(containerSelector);
     if (!container) return;
 
-    const recommended = getEligibleRecommendations(allProducts, cart);
     container.innerHTML = "";
-
     const wrapper = document.createElement("div");
     wrapper.className = "flex flex-col gap-4";
 
@@ -316,3 +312,4 @@ window.renderSidebarRecommendation = function (containerSelector, allProducts, c
 
     container.appendChild(wrapper);
 };
+
