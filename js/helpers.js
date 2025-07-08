@@ -253,12 +253,12 @@ function renderMiniProductCard(p, cart) {
     btn.onclick = () => {
         if (typeof addToCart === "function") {
             addToCart(p._key, selectedVariant, {
-                id: p.product_id,
                 name: p.name,
                 image: p.image,
                 price: typeof p.sale_price === "number" ? p.sale_price : p.price,
                 originalPrice: p.price
             });
+
         }
     };
 
