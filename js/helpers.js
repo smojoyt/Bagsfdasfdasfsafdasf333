@@ -272,20 +272,30 @@ function renderMiniProductCard(p, cart) {
 
 
 // 🎯 Filter for eligible products not in cart
-function getEligibleRecommendations(allProducts, cart, limit = 3) {
+function getEligibleRecommendations(allProducts, cart) {
     const cartIds = cart.map(i => i.id);
-    return Object.values(allProducts)
-        .filter(p =>
-            p &&
+    const categories = ["bags", "headwear", "charms"];
+    const picks = [];
+
+    for (const category of categories) {
+        const eligible = Object.values(allProducts).filter(p =>
+            p.category === category &&
             !cartIds.includes(p.product_id) &&
             !p.tags?.includes("Outofstock") &&
             p.image &&
             p.name &&
             typeof p.price === "number"
-        )
-        .sort(() => 0.5 - Math.random())
-        .slice(0, limit);
+        );
+
+        if (eligible.length > 0) {
+            const random = eligible[Math.floor(Math.random() * eligible.length)];
+            picks.push(random);
+        }
+    }
+
+    return picks;
 }
+
 
 
 window.renderSidebarRecommendation = function (containerSelector, allProducts, cart = []) {
@@ -293,7 +303,7 @@ window.renderSidebarRecommendation = function (containerSelector, allProducts, c
     console.log("Available products:", Object.keys(allProducts).length);
     console.log("Cart items:", cart.map(i => i.id));
 
-    const recommended = getEligibleRecommendations(allProducts, cart);
+    let recommended = getEligibleRecommendations(allProducts, cart);
 
     console.log("Final recommendations:", recommended.map(p => p.product_id));
     console.groupEnd();
@@ -313,3 +323,8 @@ window.renderSidebarRecommendation = function (containerSelector, allProducts, c
     container.appendChild(wrapper);
 };
 
+window.renderColorDots = renderColorDots;
+window.applyPromotionsToProducts = applyPromotionsToProducts;
+window.formatShortName = formatShortName;
+window.renderCatalogCard = renderCatalogCard;
+window.renderSidebarRecommendation = renderSidebarRecommendation;
