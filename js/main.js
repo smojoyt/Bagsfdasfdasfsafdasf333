@@ -1,14 +1,13 @@
 // helpers should be early if used globally
-import './helpers.js';
+import '/js/helpers.js';
 
 // Cart logic
-import './cartUtils.js';
-import './bundleEngine.js';
-import './cartRenderer.js';
-import './checkout.js';
+import '/js/cartUtils.js';
+import '/js/bundleEngine.js';
+import '/js/cartRenderer.js';
+import '/js/checkout.js';
 
 // UI and nav
-import './uni_navbar.js';
-import './moreItemsCarousel.js';
-import './loadProductData.js';
-
+import '/js/uni_navbar.js';
+import '/js/moreItemsCarousel.js';
+import '/js/loadProductData.js';
