@@ -43,18 +43,23 @@
         }
     </style>
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind (not recommended for production, but fine for dev) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Flickity Carousel -->
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+    <!-- Flickity + ImagesLoaded -->
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-
-    <!-- ImagesLoaded (for smoother image handling) -->
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
 
-    <!-- Custom Scripts -->
-    <script type="module" src="/js/main.js"></script>
+    <!-- Your JS Files -->
+    <script src="/js/helpers.js"></script>
+    <script src="/js/cartUtils.js"></script>
+    <script src="/js/bundleEngine.js"></script>
+    <script src="/js/cartRenderer.js"></script>
+    <script src="/js/checkout.js"></script>
+    <script src="/js/uni_navbar.js"></script>
+    <script src="/js/moreItemsCarousel.js"></script>
+    <script src="/js/loadProductData.js"></script>
 
 </head>
 
@@ -1043,17 +1048,6 @@
         });
     </script>
 
-
-
-    <script>
-        fetch('/partials/footer-scripts.html')
-            .then(res => res.text())
-            .then(html => {
-                document.body.insertAdjacentHTML('beforeend', html);
-                console.log('Scripts injected');
-            });
-
-    </script>
 
 
 
