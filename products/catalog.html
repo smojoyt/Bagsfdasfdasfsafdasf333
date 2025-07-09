@@ -73,73 +73,70 @@
 </head>
 
 <body class="bg-[#ffeddf] text-gray-900">
-    <!-- 🔥 Dynamic Banner Section -->
-    <div class="relative w-full pt-16 overflow-hidden">
-        <img id="catalog-banner" src="" alt="Catalog Banner" class="w-full h-auto object-cover hidden transition-opacity duration-500">
-        <div id="banner-text"
-             class="absolute bottom-4 left-4 text-3xl md:text-[10rem] font-extrabold text-white drop-shadow-lg bg-black bg-opacity-40 px-3 py-1 md:px-6 md:py-2 rounded tracking-wide capitalize hidden">
-            <!-- Category text appears here -->
+    <div class="relative w-full pt-16">
+        <img id="catalog-banner" src="" alt="Catalog Banner" class="w-full h-auto object-cover hidden">
+        <div id="banner-text" class="text-5xl md:text-[15rem] font-extrabold leading-tight text-white drop-shadow-lg absolute bottom-0 md:bottom-4 left-4 capitalize bg-opacity-60 px-0 md:px-4 py-0 md:py-2 rounded tracking-wide">
+            <!-- Category text will be inserted here -->
         </div>
     </div>
 
-    <!-- 🔲 Layout Container -->
+
+    <!-- Layout -->
     <div id="catalog-layout" class="flex relative transition-all duration-300 ease-in-out">
-
-        <!-- 📂 Filter Sidebar -->
+        <!-- Sidebar -->
         <aside id="filter-sidebar"
-               class="fixed top-16 left-0 w-[90%] sm:w-80 md:w-64 h-full bg-white border-r border-gray-200 shadow-lg z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
+               class="fixed top-16 left-0 w-[90%] sm:w-80 md:w-64 h-full bg-white border-r border-gray-200 shadow-lg z-40
+             transform -translate-x-full transition-transform duration-300 ease-in-out">
             <div class="p-4 h-full overflow-y-auto">
-
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="font-semibold text-lg">Filters</h2>
-                    <button id="close-filters" aria-label="Close filters"
-                            class="text-gray-600 hover:text-black text-xl focus:outline-none">
-                        &times;
-                    </button>
+                    <button id="close-filters" class="text-gray-600 hover:text-black text-xl">&times;</button>
                 </div>
 
-                <!-- 🏷 Category Filter Group -->
                 <div class="mb-6" data-filter-group="category">
                     <h3 class="text-sm font-medium mb-2">Category</h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" class="filter-checkbox" data-group="category" value=".bags" />
-                            <span>Bags</span>
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" class="filter-checkbox" data-group="category" value=".headwear" />
-                            <span>Headwear</span>
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" class="filter-checkbox" data-group="category" value=".charms" />
-                            <span>Charms</span>
-                        </label>
-                    </div>
+
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="category" value=".bags" />
+                        <span>Bags</span>
+                    </label>
+
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="category" value=".headwear" />
+                        <span>Headwear</span>
+                    </label>
+
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="category" value=".charms" />
+                        <span>Charms</span>
+                    </label>
+
                 </div>
 
-                <!-- 🧷 Tags Filter Group -->
                 <div class="mb-6" data-filter-group="tags">
                     <h3 class="text-sm font-medium mb-2">Tags</h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" class="filter-checkbox" data-group="tags" value=".bestseller" />
-                            <span>Best Sellers</span>
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" class="filter-checkbox" data-group="tags" value=".onsale" />
-                            <span>On Sale</span>
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" class="filter-checkbox" data-group="tags" value=".instock" />
-                            <span>In Stock</span>
-                        </label>
-                    </div>
+
+
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".bestseller" />
+                        <span>Best Sellers</span>
+                    </label>
+
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".onsale" />
+                        <span>On Sale</span>
+                    </label>
+                    <label class="flex items-center space-x-2 mb-1">
+                        <input type="checkbox" class="filter-checkbox" data-group="tags" value=".instock" />
+                        <span>In Stock</span>
+
+                    </label>
+
                 </div>
 
-                <!-- 🔽 Sort Dropdown -->
                 <div>
                     <label for="sort-select" class="block text-sm font-medium mb-2">Sort By</label>
-                    <select id="sort-select" class="w-full border p-2 rounded focus:outline-none focus:ring focus:border-gray-400">
+                    <select id="sort-select" class="w-full border p-2 rounded">
                         <option value="original-order">Default</option>
                         <option value="name">Name A–Z</option>
                         <option value="price-low">Price Low–High</option>
@@ -147,42 +144,33 @@
                         <option value="best-deals">Best Deals</option>
                     </select>
                 </div>
-
-                <!-- 🔘 Apply Filters Button -->
-                <button id="apply-filters"
-                        class="mt-4 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded w-full focus:outline-none focus:ring">
+                <button id="apply-filters" class="mt-4 bg-gray-800 text-white px-4 py-2 rounded w-full">
                     Apply Filters
                 </button>
             </div>
+
         </aside>
 
-        <!-- 🌫 Backdrop for Mobile Sidebar -->
+        <!-- Backdrop -->
         <div id="filter-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden"></div>
 
-        <!-- 🛍 Main Product Grid Section -->
+        <!-- Main -->
         <main id="catalog-main" class="flex-1 transition-all duration-300 ease-in-out">
-            <div class="flex justify-between items-center p-3 sticky top-0 z-20 bg-white border-b">
-                <button id="toggle-filters"
-                        class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:ring">
-                    Filters
-                </button>
+            <div class="flex justify-between items-center p-2">
+                <button id="toggle-filters" class="bg-gray-800 text-white px-4 py-2 rounded z-20">Filters</button>
             </div>
-
-            <div class="w-full px-2 md:px-4 pb-8">
-                <div id="product-grid" class="grid gap-6 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-                    <!-- Products injected here -->
+            <div class="w-full">
+                <div id="product-grid" class="grid gap-6 p-2 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- 🔻 Footer & Navbar Inserts -->
+    <!-- Footer -->
     <div id="footer"></div>
     <div id="navbar-container"></div>
 
-
     <script>
-        //  Global DOM references
         const toggleBtn = document.getElementById("toggle-filters");
         const sidebar = document.getElementById("filter-sidebar");
         const backdrop = document.getElementById("filter-backdrop");
@@ -191,186 +179,243 @@
 
         let sidebarOpen = false;
         let filters = {};
-        let iso; // Isotope instance
+        let iso; // ✅ Isotope instance (declared globally)
 
-        //  Utility: detect mobile viewport
-        const isMobile = () => window.matchMedia("(max-width: 767px)").matches;
-
-        //  Set banner dynamically from selected category
         function setBannerFromCategory(category, products) {
             if (!category) return;
 
-            const labelMap = {
+            const categoryTextMap = {
                 headwear: "Hats",
                 charms: "Charms",
                 bags: "Bags"
             };
 
-            const matches = Object.values(products).filter(p =>
-                p.category?.toLowerCase() === category.toLowerCase() && p.banner
+            const matching = Object.values(products).filter(p =>
+                typeof p.category === "string" &&
+                p.category.toLowerCase() === category.toLowerCase() &&
+                p.banner
             );
 
-            if (matches.length) {
-                const selected = matches[Math.floor(Math.random() * matches.length)];
+            if (matching.length > 0) {
+                const randomItem = matching[Math.floor(Math.random() * matching.length)];
                 const bannerEl = document.getElementById("catalog-banner");
                 const textEl = document.getElementById("banner-text");
 
                 if (bannerEl && textEl) {
-                    bannerEl.src = selected.banner;
+                    bannerEl.src = randomItem.banner;
                     bannerEl.classList.remove("hidden");
-                    textEl.textContent = labelMap[category.toLowerCase()] || category;
+
+                    textEl.textContent = categoryTextMap[category.toLowerCase()] || category;
                     textEl.classList.remove("hidden");
                 }
             }
         }
 
+
+
+        function isMobile() {
+            return window.matchMedia("(max-width: 767px)").matches;
+        }
+
         function openSidebar() {
             sidebar.classList.remove("-translate-x-full");
             sidebarOpen = true;
-            isMobile() ? backdrop.classList.remove("hidden") : catalogMain.classList.add("ml-64");
-            setTimeout(() => iso?.layout(), 500);
+            if (isMobile()) {
+                backdrop.classList.remove("hidden");
+            } else {
+                catalogMain.classList.add("ml-64");
+            }
+            // ⏱ Delay Isotope layout until after animation finishes
+            let count = 0;
+            const intervalId = setInterval(() => {
+                if (iso) iso.layout();
+                count++;
+                if (count >= 2) clearInterval(intervalId);
+            }, 500); // every 500ms (or whatever timing you prefer)
+
         }
 
         function closeSidebar() {
             sidebar.classList.add("-translate-x-full");
             sidebarOpen = false;
-            isMobile() ? backdrop.classList.add("hidden") : catalogMain.classList.remove("ml-64");
-            setTimeout(() => iso?.layout(), 350);
+            if (isMobile()) {
+                backdrop.classList.add("hidden");
+            } else {
+                catalogMain.classList.remove("ml-64");
+            }
+            // ⏱ Delay Isotope layout until after animation finishes
+            setTimeout(() => {
+                if (iso) iso.layout();
+            }, 350);
         }
 
-        // 🧭 Sidebar event listeners
-        toggleBtn?.addEventListener("click", () => sidebarOpen ? closeSidebar() : openSidebar());
+
+        toggleBtn.addEventListener("click", () => {
+            sidebarOpen ? closeSidebar() : openSidebar();
+        });
+
         closeBtn?.addEventListener("click", closeSidebar);
         backdrop?.addEventListener("click", closeSidebar);
 
-        // 🚀 DOM Content Loaded
         window.addEventListener("DOMContentLoaded", () => {
-            const grid = document.getElementById("product-grid");
-            const urlParams = new URLSearchParams(location.search);
+            const container = document.getElementById("product-grid");
+            const urlParams = new URLSearchParams(window.location.search); // ✅ moved to top
 
             Promise.all([
-                fetch("/products/products.json").then(r => r.json()),
-                fetch("/products/promotion.json").then(r => r.json())
-            ]).then(([products, promoFile]) => {
-                const promos = promoFile.promotions || [];
-                const catalog = applyPromotionsToProducts(products, promos);
+                fetch("/products/products.json").then(res => res.json()),
+                fetch("/products/promotion.json").then(res => res.json())
+            ]).then(([products, promotionsFile]) => {
+                const promotions = promotionsFile.promotions || [];
+                const updatedProducts = applyPromotionsToProducts(products, promotions);
 
-                // 🎯 Show banner if category is in URL
-                const categoryParam = urlParams.get("category");
-                if (categoryParam) setBannerFromCategory(categoryParam, catalog);
-
-                // 🧱 Render each product card
-                for (const product of Object.values(catalog)) {
-                    if (!product.tags?.includes("Discontinued")) {
-                        grid.insertAdjacentHTML("beforeend", renderCatalogCard(product));
-                    }
+                // 🌟 Dynamic Banner from URL category
+                const selectedCategory = urlParams.get("category");
+                if (selectedCategory) {
+                    setBannerFromCategory(selectedCategory, updatedProducts);
                 }
 
-                imagesLoaded(grid, () => {
-                    iso = new Isotope(grid, {
-                        itemSelector: ".item",
-                        layoutMode: "fitRows",
-                        sortBy: "best-deals",
+                // 🧩 Render product cards
+                Object.entries(updatedProducts).forEach(([_, p]) => {
+                    if (p.tags?.includes("Discontinued")) return;
+                    const html = renderCatalogCard(p);
+                    container.insertAdjacentHTML("beforeend", html);
+                });
+
+                imagesLoaded(container, () => {
+                    iso = new Isotope(container, {
+                        sortBy: 'best-deals',
                         sortAscending: false,
+                        itemSelector: '.item',
+                        layoutMode: 'fitRows',
                         getSortData: {
-                            name: "[data-name]",
-                            "price-low": "[data-price] parseFloat",
-                            "price-high": "[data-price] parseFloat",
-                            "best-deals": "[data-discount] parseInt"
+                            name: '[data-name]',
+                            'price-low': '[data-price] parseFloat',
+                            'price-high': '[data-price] parseFloat',
+                            'best-deals': '[data-discount] parseInt'
                         }
                     });
 
-                    // 🌐 Preselect filters from URL params
-                    const preselected = [];
-                    document.querySelectorAll(".filter-checkbox").forEach(cb => {
+                    // ✅ Apply URL-based filters on load (supports multiple values per group)
+                    const preselectedFilters = [];
+
+                    document.querySelectorAll('.filter-checkbox').forEach(cb => {
                         const group = cb.dataset.group;
-                        const param = urlParams.get(group);
-                        param?.split(",").forEach(val => {
-                            if (cb.value.toLowerCase() === `.${val.toLowerCase()}`) {
-                                cb.checked = true;
-                                preselected.push(`.${val}`);
-                            }
-                        });
-                    });
-                    if (preselected.length) iso.arrange({ filter: preselected.join("") });
+                        const paramValue = urlParams.get(group); // supports ?category=bags&tags=onsale,bestseller
 
-                    // 🔃 Sorting
-                    document.getElementById("sort-select")?.addEventListener("change", e => {
-                        const sortVal = e.target.value;
+                        if (paramValue) {
+                            const values = paramValue.split(',');
+                            values.forEach(val => {
+                                if (cb.value.toLowerCase() === `.${val.toLowerCase()}`) {
+                                    cb.checked = true;
+                                    preselectedFilters.push(`.${val}`);
+                                }
+                            });
+                        }
+                    });
+
+                    if (preselectedFilters.length > 0) {
+                        iso.arrange({ filter: preselectedFilters.join('') });
+                    }
+
+
+                    // 🧠 Sort select
+                    document.getElementById('sort-select').addEventListener('change', e => {
+                        const val = e.target.value;
                         iso.updateSortData();
-                        const map = {
-                            "price-high": { sortBy: "price-low", sortAscending: false },
-                            "price-low": { sortBy: "price-low", sortAscending: true },
-                            "best-deals": { sortBy: "best-deals", sortAscending: false }
-                        };
-                        iso.arrange(map[sortVal] || { sortBy: sortVal });
+                        if (val === 'price-high') {
+                            iso.arrange({ sortBy: 'price-low', sortAscending: false });
+                        } else if (val === 'price-low') {
+                            iso.arrange({ sortBy: 'price-low', sortAscending: true });
+                        } else if (val === 'best-deals') {
+                            iso.arrange({ sortBy: 'best-deals', sortAscending: false });
+                        } else {
+                            iso.arrange({ sortBy: val });
+                        }
                     });
 
-                    // ✅ Apply filters
-                    document.getElementById("apply-filters")?.addEventListener("click", () => {
-                        const activeFilters = {};
-                        document.querySelectorAll(".filter-checkbox:checked").forEach(cb => {
+                    // ✅ Filters apply and dynamic banner update
+                    document.getElementById('apply-filters').addEventListener('click', () => {
+                        const allFilters = {};
+                        document.querySelectorAll('.filter-checkbox:checked').forEach(cb => {
                             const group = cb.dataset.group;
-                            activeFilters[group] ||= [];
-                            activeFilters[group].push(cb.value);
+                            const val = cb.value;
+                            if (!allFilters[group]) allFilters[group] = [];
+                            allFilters[group].push(val);
                         });
 
-                        const selector = Object.values(activeFilters)
-                            .map(arr => arr.join(","))
-                            .join("");
+                        const filterSelector = Object.values(allFilters)
+                            .map(groupVals => groupVals.join(','))
+                            .join('');
 
-                        iso.arrange({ filter: selector || "*" });
+                        iso.arrange({ filter: filterSelector || '*' });
 
-                        const selectedCategory = activeFilters["category"]?.[0]?.replace(".", "");
-                        if (selectedCategory) setBannerFromCategory(selectedCategory, catalog);
+                        // 🔄 Banner update from active category filter
+                        const selectedCategory = (allFilters["category"] || [])[0];
+                        if (selectedCategory) {
+                            setBannerFromCategory(selectedCategory.replace(".", ""), updatedProducts);
+                        }
+
                         closeSidebar();
                     });
                 });
             });
         });
 
-        // 🌐 Reusable HTML loader
-        function includeHTML(id, path, cb) {
-            fetch(path).then(res => res.text()).then(html => {
-                document.getElementById(id).innerHTML = html;
-                cb?.();
-            });
+
+
+
+
+
+        // Other included HTML
+        function includeHTML(id, filePath, callback = null) {
+            fetch(filePath)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById(id).innerHTML = html;
+                    if (callback) callback();
+                });
         }
 
         function initNavbar() {
-            const toggle = document.getElementById("mobile-menu-button");
+            const toggleBtn = document.getElementById("mobile-menu-button");
             const menu = document.getElementById("mobile-menu");
-            toggle?.addEventListener("click", () => menu?.classList.toggle("hidden"));
+            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
 
             const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-            const total = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-            const cartCounter = document.getElementById("cart-count");
-            if (cartCounter) cartCounter.textContent = total;
+            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            const countElem = document.getElementById("cart-count");
+            if (countElem) countElem.textContent = totalQty;
 
-            const navbar = document.getElementById("mainNavbar");
-            let lastY = window.scrollY;
-            window.addEventListener("scroll", () => {
+            const navbar = document.getElementById('mainNavbar');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
                 if (!navbar) return;
-                const scrollingDown = window.scrollY > lastY && window.scrollY > 50;
-                navbar.classList.replace(
-                    scrollingDown ? "navbar-show" : "navbar-hide",
-                    scrollingDown ? "navbar-hide" : "navbar-show"
-                );
-                lastY = window.scrollY;
+                if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                    navbar.classList.replace('navbar-show', 'navbar-hide');
+                } else {
+                    navbar.classList.replace('navbar-hide', 'navbar-show');
+                }
+                lastScrollY = window.scrollY;
             });
         }
 
-        // 🔁 Main template inserts
+
+        // 🔁 Main Load Flow
         includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
             initNavbar();
-            document.getElementById("add-to-cart-btn")?.addEventListener("click", () => {
-                const variant = document.getElementById("variantSelector")?.value || null;
-                addToCart(activeProduct, variant);
-            });
+
+            const addToCartBtn = document.getElementById("add-to-cart-btn");
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener("click", () => {
+                    const variant = document.getElementById("variantSelector")?.value || null;
+                    addToCart(activeProduct, variant);
+                });
+            }
+
             includeHTML("footer", "/page_inserts/footer.html");
         });
-    </script>
 
+    </script>
 
 </body>
 </html>
