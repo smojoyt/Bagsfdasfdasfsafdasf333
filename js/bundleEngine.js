@@ -265,16 +265,24 @@ window.applyBundle = async function (bundleId) {
             for (const sub of bundle.requiredSubCategories) {
                 const found = findFirst(cart, item => {
                     const product = products[item.key];
-                    const isMatch = product?.subCategory === sub && !isExcluded(item);
-                    logCart(`🧪 Matching subCategory "${sub}" against "${item.id}" → ${isMatch}`);
+                    const actualSub = product?.subCategory;
+                    const isMatch = actualSub === sub && !isExcluded(item);
+                    logCart(`🧪 Matching subCategory "${sub}" → cart item "${item.id}" w/ key "${item.key}" → product subCategory "${actualSub}" → Match: ${isMatch}`);
                     return isMatch;
                 });
+
                 if (found) matched.push(found);
             }
 
             if (matched.length !== bundle.requiredSubCategories.length) {
-                return warnCart(`⛔ Bundle "${bundle.name}" not applied – missing required subcategories`);
+                const matchedSubs = matched.map(item => products[item.key]?.subCategory);
+                const missingSubs = bundle.requiredSubCategories.filter(sub => !matchedSubs.includes(sub));
+
+                warnCart(`⛔ Bundle "${bundle.name}" not applied – missing subcategories: ${missingSubs.join(", ")}`);
+                alert(`To apply this bundle, add more items from: ${missingSubs.join(", ")}`);
+                return;
             }
+
 
         } else if (bundle.subCategory && bundle.minQuantity) {
             matched = cart.filter(item => {
@@ -322,6 +330,19 @@ window.applyBundle = async function (bundleId) {
     }
 };
 
+function getMissingRequiredSubcategories(cart, bundle) {
+    const subCounts = {};
+    for (const item of cart) {
+        const product = window.allProducts?.[item.key];
+        if (!product) continue;
+        const sub = product.subCategory;
+        if (bundle.requiredSubCategories.includes(sub)) {
+            subCounts[sub] = (subCounts[sub] || 0) + item.qty;
+        }
+    }
+
+    return bundle.requiredSubCategories.filter(sub => !subCounts[sub]);
+}
 
 
 // Export to global scope for other modules (if not using bundler)
