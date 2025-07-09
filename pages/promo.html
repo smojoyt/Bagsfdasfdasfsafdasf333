@@ -18,9 +18,24 @@
     <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Promo/default.jpg" />
 
     <link rel="icon" href="/imgs/Logo/Short/SL_White_01.png" type="image/png" />
+    <!-- Tailwind (not recommended for production, but fine for dev) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Custom Scripts -->
-    <script type="module" src="/js/main.js"></script>
+
+    <!-- Flickity + ImagesLoaded -->
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+
+    <!-- Your JS Files -->
+    <script src="/js/helpers.js"></script>
+    <script src="/js/cartUtils.js"></script>
+    <script src="/js/bundleEngine.js"></script>
+    <script src="/js/cartRenderer.js"></script>
+    <script src="/js/checkout.js"></script>
+    <script src="/js/uni_navbar.js"></script>
+    <script src="/js/moreItemsCarousel.js"></script>
+    <script src="/js/loadProductData.js"></script>
+
 </head>
 <body class="text-gray-800 bg-orange-100">
     <div id="navbar-container"></div>
