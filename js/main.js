@@ -1,13 +1,14 @@
-// Third-party libraries (non-modular, loaded via script tags)
-import 'https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js';
-import 'https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js';
-
-// Your custom scripts
+// helpers should be early if used globally
 import './helpers.js';
+
+// Cart logic
 import './cartUtils.js';
 import './bundleEngine.js';
 import './cartRenderer.js';
 import './checkout.js';
+
+// UI and nav
 import './uni_navbar.js';
 import './moreItemsCarousel.js';
 import './loadProductData.js';
+

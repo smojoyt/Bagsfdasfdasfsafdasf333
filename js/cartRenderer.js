@@ -356,3 +356,4 @@ function updateFreeShippingBar(total) {
         freeShippingProgress.classList.add("bg-yellow-400");
     }
 }
+window.renderCart = renderCart;

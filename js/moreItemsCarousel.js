@@ -110,3 +110,4 @@ function initMoreItemsCarousel() {
         });
 }
 
+window.initMoreItemsCarousel = initMoreItemsCarousel;

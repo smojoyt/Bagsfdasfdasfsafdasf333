@@ -277,3 +277,4 @@ function loadProductData() {
 
 
 
+window.loadProductData = loadProductData;
