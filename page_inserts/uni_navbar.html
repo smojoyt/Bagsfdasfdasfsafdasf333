@@ -59,7 +59,6 @@
 <!-- Side Cart Drawer -->
 <div id="sideCart" class="fixed right-0 top-0 w-[30rem] max-w-full h-full bg-[#f5ece5] text-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col translate-x-full hidden">
 
-
     <!-- Header -->
     <div class="flex items-center justify-between px-4 py-4 border-b-4 border-gray-200">
         <h2 class="text-3xl text-black uppercase font-extrabold tracking-wide">Cart</h2>
@@ -68,51 +67,32 @@
 
     <!-- Shipping Progress Bar -->
     <div class="p-4">
-        <div id="freeShippingBar" class="text-md text-black text-center font-bold mb-1">
-            <!-- Will be filled by JS -->
-        </div>
+        <div id="freeShippingBar" class="text-md text-black text-center font-bold mb-1"></div>
         <div class="w-full bg-[#2b2d31] rounded-full h-5 shadow-inner">
             <div id="freeShippingProgress" class="border-4 border-[#2b2d31] bg-[#f4756d] h-5 rounded-full transition-all duration-300" style="width: 0%;"></div>
         </div>
     </div>
 
     <!-- Empty Message -->
-    <p id="emptyCartMessage" class="text-center text-sm text-black/70 mt-4 hidden">
-        Your cart is empty.
-    </p>
+    <p id="emptyCartMessage" class="text-center text-sm text-black/70 mt-4 hidden">Your cart is empty.</p>
 
-    <div id="sidebar" class="max-h-screen overflow-y-auto px-4 pb-6">
+    <!-- Cart Item Scrollable Area -->
+    <div id="sidebar" class="flex-1 overflow-y-auto px-4 pb-6">
         <div class="flex flex-col gap-6">
-            <!-- Cart Items -->
             <div id="cartItems" class="space-y-4"></div>
-
-            <!-- Recommended Section -->
-            <div id="sidebarRecommended">
-                <h3 class="text-sm font-bold text-black mb-2">You May Also Like</h3>
-                <!-- JS-injected items here -->
-            </div>
         </div>
     </div>
 
-
-
-
-    <!-- Footer -->
-    <div class="px-4 py-4 border-t border-white/30">
-
-        <div class="flex justify-between text-black font-bold text-lg mb-2">
+    <!-- Sticky Subtotal + Checkout -->
+    <div class="border-t border-gray-300 bg-[#f5ece5] text-black p-4 sticky bottom-0 z-10 shadow-inner">
+        <div class="flex justify-between text-lg font-bold mb-2">
             <span>Subtotal</span>
-            <span id="cartTotal" class="text-black">$0.00</span>
+            <span id="cartTotal">$0.00</span>
         </div>
-        <p class="text-xs text-black/70 mb-2">
-            Shipping and taxes calculated at checkout.
-        </p>
-
-        <button id="checkoutBtn" class="w-full bg-black text-white font-bold py-2 rounded hover:bg-[#121212]-300 transition-all">
-            Checkout <span id="cartTotal">(0.00)</span>
+        <p class="text-xs text-black/70 mb-2">Shipping and taxes calculated at checkout.</p>
+        <button id="checkoutBtn" class="w-full bg-black text-white font-bold py-2 rounded hover:bg-[#121212] transition-all">
+            Checkout
         </button>
-
-
     </div>
 </div>
 
