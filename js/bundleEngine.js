@@ -241,30 +241,39 @@ window.applyBundle = async function (bundleId) {
         const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
         const bundle = bundles.find(b => b.id === bundleId);
-        if (!bundle) {
-            warnCart(`⚠️ Bundle "${bundleId}" not found`);
-            return;
+        if (!bundle) return warnCart(`⚠️ Bundle "${bundleId}" not found`);
+
+        // 🔁 Build ID → product key lookup
+        const idToKey = {};
+        for (const key in products) {
+            const p = products[key];
+            if (p?.product_id) idToKey[p.product_id] = key;
         }
 
-        // 🧠 Pick items based on bundle type
-        let matched = [];
+        // 💡 Add `key` field to all cart items
+        cart.forEach(item => {
+            item.key = idToKey[item.id];
+        });
 
         const isExcluded = item => bundle.excludeSkus?.includes(item.id);
-        const findFirst = (arr, filterFn) => arr.find(item => filterFn(item) && !item.bundleLabel);
+        const findFirst = (arr, fn) => arr.find(i => fn(i) && !i.bundleLabel);
 
-        // Match required subcategories (e.g., "buy 1 from A, 1 from B")
+        let matched = [];
+
+        // 🔍 Match by required subcategories (A + B style bundle)
         if (bundle.requiredSubCategories) {
             for (const sub of bundle.requiredSubCategories) {
                 const found = findFirst(cart, item => {
                     const product = products[item.key];
-                    return product?.subCategory === sub && !isExcluded(item);
+                    const isMatch = product?.subCategory === sub && !isExcluded(item);
+                    logCart(`🧪 Matching subCategory "${sub}" against "${item.id}" → ${isMatch}`);
+                    return isMatch;
                 });
                 if (found) matched.push(found);
             }
 
             if (matched.length !== bundle.requiredSubCategories.length) {
-                warnCart(`⛔ Bundle "${bundleId}" not applied – missing required subcategories`);
-                return;
+                return warnCart(`⛔ Bundle "${bundle.name}" not applied – missing required subcategories`);
             }
 
         } else if (bundle.subCategory && bundle.minQuantity) {
@@ -286,24 +295,22 @@ window.applyBundle = async function (bundleId) {
         }
 
         if (matched.length === 0) {
-            warnCart(`⚠️ No eligible items found for bundle "${bundleId}"`);
-            return;
+            return warnCart(`⚠️ No eligible items found for bundle "${bundle.name}"`);
         }
 
+        // 💰 Apply pricing
         const totalBefore = matched.reduce((sum, i) => sum + (i.price * i.qty), 0);
-        const totalAfter = bundle.bundlePriceTotal;
+        const unitDiscount = parseFloat((bundle.bundlePriceTotal / matched.length).toFixed(2));
         const bundleLabel = bundle.name || "Bundle";
 
-        const unitDiscount = parseFloat((totalAfter / matched.length).toFixed(2));
-
-        for (const item of matched) {
+        matched.forEach(item => {
             item.price = unitDiscount;
             item.bundleLabel = bundleLabel;
-        }
+        });
 
         logCart(`✅ Bundle "${bundleLabel}" applied:`, {
             before: `$${totalBefore.toFixed(2)}`,
-            after: `$${totalAfter.toFixed(2)}`,
+            after: `$${bundle.bundlePriceTotal.toFixed(2)}`,
             appliedTo: matched.map(i => i.name || i.id)
         });
 
@@ -314,6 +321,7 @@ window.applyBundle = async function (bundleId) {
         errorCart(`❌ applyBundle failed for "${bundleId}":`, err);
     }
 };
+
 
 
 // Export to global scope for other modules (if not using bundler)
