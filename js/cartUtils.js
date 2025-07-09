@@ -1,4 +1,12 @@
-﻿let renderTimeout;
+﻿const DEBUG_CART = true;
+
+window.logCart = (...args) => DEBUG_CART && console.log("🛒 [Cart]", ...args);
+window.warnCart = (...args) => DEBUG_CART && console.warn("⚠️ [Cart]", ...args);
+window.errorCart = (...args) => DEBUG_CART && console.error("❌ [Cart]", ...args);
+
+
+
+let renderTimeout;
 
 function saveCart(cart, { render = true } = {}) {
     try {
