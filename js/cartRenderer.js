@@ -148,7 +148,7 @@ function renderCart() {
 
             // DOM Construction
             const itemEl = document.createElement("div");
-            itemEl.className = "flex items-start gap-3";
+            itemEl.className = "p-2 flex items-start gap-3";
 
             const leftCol = buildLeftColumn(product, item);
             const rightCol = buildRightColumn(product, item, qty);

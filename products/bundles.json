@@ -17,27 +17,4 @@
     "maxUses": 1,
     "carttxt": "Buy 2 for $15"
   },
-  {
-    "id": "bundle_same_sku_pair",
-    "name": "2 for $30 | Beanies",
-    "description": "Buy 2 of the same item and get them for $30.",
-    "specificSkus": [ "Headwear_CatEarBeanie", "Headwear_FuzzyBeanie" ],
-    "minQuantity": 2,
-    "bundlePriceTotal": 30.00,
-    "maxUses": 1,
-    "matchMode": "sameSKU",
-    "carttxt": "Buy 2 for $30"
-  },
-  {
-    "id": "bundle_beanie_get_charm_free",
-    "name": "Beanie + Charm Bundle",
-    "description": "Add any beanie to get a charm free.",
-    "requiredSubCategories": [ "headwear", "largeCharms" ],
-    "bundlePriceTotal": 0.00,
-    "minQuantity": 2,
-    "maxUses": 1,
-    "priceRule": "charmFree",
-    "discountTarget": "largeCharms",
-    "carttxt": "Add a beanie — get charm FREE!"
-  }
 ]
