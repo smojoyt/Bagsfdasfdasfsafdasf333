@@ -243,14 +243,13 @@ window.applyBundle = async function (bundleId) {
         const bundle = bundles.find(b => b.id === bundleId);
         if (!bundle) return warnCart(`⚠️ Bundle "${bundleId}" not found`);
 
-        // 🔁 Map product_id → key
+        // 🔁 Build ID → key map
         const idToKey = {};
         for (const key in products) {
             const p = products[key];
             if (p?.product_id) idToKey[p.product_id] = key;
         }
 
-        // 🧠 Attach keys to cart items
         cart.forEach(item => {
             item.key = idToKey[item.id];
         });
@@ -258,8 +257,8 @@ window.applyBundle = async function (bundleId) {
         const isExcluded = item => bundle.excludeSkus?.includes(item.id);
         const eligible = item => !item.bundleLabel && !isExcluded(item);
 
-        // 🔍 Find missing subcategories (if any)
-        const missingSubs = (() => {
+        // ✳️ Add missing required subcategories
+        const addMissingRequiredSubs = () => {
             const subCounts = {};
             for (const item of cart) {
                 const product = products[item.key];
@@ -268,64 +267,92 @@ window.applyBundle = async function (bundleId) {
                     subCounts[sub] = (subCounts[sub] || 0) + item.qty;
                 }
             }
-            return bundle.requiredSubCategories?.filter(sub => !subCounts[sub]) || [];
-        })();
 
-        if (
-            !missingSubs.length &&
-            !(bundle.subCategory && bundle.minQuantity) &&
-            !(bundle.specificSkus && bundle.minQuantity)
-        ) {
-            return warnCart(`⚠️ Bundle already complete or no matching logic`);
-        }
+            const missingSubs = bundle.requiredSubCategories?.filter(sub => !subCounts[sub]) || [];
+            for (const sub of missingSubs) {
+                const productKey = Object.keys(products).find(k => {
+                    const p = products[k];
+                    return p?.subCategory === sub && !bundle.excludeSkus?.includes(p.product_id);
+                });
 
-        // ➕ Add 1 missing item per missing subcategory
-        for (const sub of missingSubs) {
-            const productKey = Object.keys(products).find(k => {
-                const p = products[k];
-                return p?.subCategory === sub && !bundle.excludeSkus?.includes(p.product_id);
+                if (productKey) {
+                    cart.push({
+                        id: products[productKey].product_id,
+                        key: productKey,
+                        qty: 1,
+                        price: products[productKey].price
+                    });
+                    logCart(`➕ Auto-added item for required subcategory "${sub}": ${products[productKey].name}`);
+                } else {
+                    warnCart(`❌ No product found for required subcategory "${sub}"`);
+                }
+            }
+        };
+
+        // ✳️ Add missing items for subCategory + minQuantity bundles
+        const addMissingSubCategoryItems = () => {
+            const eligibleItems = cart.filter(item => {
+                const product = products[item.key];
+                return product?.subCategory === bundle.subCategory && eligible(item);
             });
 
-            if (productKey) {
-                const p = products[productKey];
-                cart.push({
-                    id: p.product_id,
-                    key: productKey,
-                    qty: 1,
-                    price: p.price
+            const neededQty = bundle.minQuantity - eligibleItems.reduce((sum, i) => sum + i.qty, 0);
+            for (let i = 0; i < neededQty; i++) {
+                const productKey = Object.keys(products).find(k => {
+                    const p = products[k];
+                    return p?.subCategory === bundle.subCategory && !bundle.excludeSkus?.includes(p.product_id);
                 });
-                logCart(`➕ Auto-added "${p.name}" to complete "${sub}" requirement`);
-            } else {
-                return warnCart(`❌ No product found for required subcategory "${sub}"`);
+
+                if (productKey) {
+                    cart.push({
+                        id: products[productKey].product_id,
+                        key: productKey,
+                        qty: 1,
+                        price: products[productKey].price
+                    });
+                    logCart(`➕ Auto-added item for "${bundle.subCategory}": ${products[productKey].name}`);
+                } else {
+                    warnCart(`❌ No available product found for "${bundle.subCategory}"`);
+                }
             }
+        };
+
+        // 🔄 Add items as needed
+        if (bundle.requiredSubCategories) {
+            addMissingRequiredSubs();
+        } else if (bundle.subCategory && bundle.minQuantity) {
+            addMissingSubCategoryItems();
         }
 
-        // 🔁 Match eligible items
+        // 🧠 Match eligible items again after adding
         const matched = [];
-
-        const matchBy = (filterFn, needed = bundle.minQuantity) => {
-            const found = cart.filter(item => filterFn(products[item.key]) && eligible(item)).slice(0, needed);
-            matched.push(...found);
-        };
 
         if (bundle.requiredSubCategories) {
             for (const sub of bundle.requiredSubCategories) {
-                const found = cart.find(item =>
-                    products[item.key]?.subCategory === sub && eligible(item) && !matched.includes(item)
-                );
+                const found = cart.find(item => {
+                    const product = products[item.key];
+                    return product?.subCategory === sub && eligible(item) && !matched.includes(item);
+                });
                 if (found) matched.push(found);
             }
         } else if (bundle.subCategory && bundle.minQuantity) {
-            matchBy(p => p.subCategory === bundle.subCategory);
+            const found = cart.filter(item => {
+                const product = products[item.key];
+                return product?.subCategory === bundle.subCategory && eligible(item);
+            }).slice(0, bundle.minQuantity);
+            matched.push(...found);
         } else if (bundle.specificSkus && bundle.minQuantity) {
-            matchBy(p => bundle.specificSkus.includes(p.product_id));
+            const found = cart.filter(item =>
+                bundle.specificSkus.includes(item.key) && eligible(item)
+            ).slice(0, bundle.minQuantity);
+            matched.push(...found);
         }
 
         if (matched.length === 0) {
-            return warnCart(`⚠️ No eligible items matched for bundle "${bundle.name}"`);
+            return warnCart(`⚠️ Still no eligible items for bundle "${bundle.name}"`);
         }
 
-        // 💰 Apply bundle pricing
+        // 💰 Apply pricing
         const totalBefore = matched.reduce((sum, i) => sum + i.price * i.qty, 0);
         const unitDiscount = parseFloat((bundle.bundlePriceTotal / matched.length).toFixed(2));
         const bundleLabel = bundle.name || "Bundle";
@@ -338,7 +365,7 @@ window.applyBundle = async function (bundleId) {
         logCart(`✅ Bundle "${bundleLabel}" applied:`, {
             before: `$${totalBefore.toFixed(2)}`,
             after: `$${bundle.bundlePriceTotal.toFixed(2)}`,
-            items: matched.map(i => i.id)
+            appliedTo: matched.map(i => i.id)
         });
 
         localStorage.setItem("savedCart", JSON.stringify(cart));
@@ -348,6 +375,7 @@ window.applyBundle = async function (bundleId) {
         errorCart(`❌ applyBundle failed for "${bundleId}":`, err);
     }
 };
+
 
 
 
