@@ -145,20 +145,42 @@
 
                 <!-- 🧭 Category Buttons Centered -->
                 <div class="flex flex-col items-center space-y-3 mb-6">
-                    <div class="flex flex-wrap justify-center gap-2">
-                        <button class="category-btn bg-gray-800 text-white px-4 py-2 rounded" data-filter="*">All</button>
-                        <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".bags">Bags</button>
-                        <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".headwear">Headwear</button>
-                        <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".charms">Charms</button>
-                    </div>
-
-                    <!-- 🔘 Filters Button Under Category Buttons -->
-                    <div class="self-start mt-2">
-                        <button id="toggle-filters"
-                                class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:ring">
-                            Filters
+                    <!-- 📂 Category Button Grid -->
+                    <div class="grid grid-cols-2 gap-4 px-4 py-4 max-w-md mx-auto">
+                        <button class="category-btn bg-gray-100 hover:bg-gray-200 text-black text-sm font-medium tracking-widest py-3 rounded-md"
+                                data-filter="*">
+                            SHOP ALL
+                        </button>
+                        <button class="category-btn bg-gray-100 hover:bg-gray-200 text-black text-sm font-medium tracking-widest py-3 rounded-md"
+                                data-filter=".bags">
+                            BAGS
+                        </button>
+                        <button class="category-btn bg-gray-100 hover:bg-gray-200 text-black text-sm font-medium tracking-widest py-3 rounded-md"
+                                data-filter=".headwear">
+                            HEADWEAR
+                        </button>
+                        <button class="category-btn bg-gray-100 hover:bg-gray-200 text-black text-sm font-medium tracking-widest py-3 rounded-md"
+                                data-filter=".charms">
+                            CHARMS
                         </button>
                     </div>
+
+
+                    <!-- 🔘 Filters Button with Icon -->
+                    <div class="self-start mt-2">
+                        <button id="toggle-filters"
+                                class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:ring">
+                            <!-- Slider Icon (Heroicons: AdjustmentsHorizontal) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                 class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M10.5 6h9.75M3.75 6h1.5m3 0h.75m4.5 12h-9.75m16.5 0h-1.5m-3 0h-.75m-4.5-6h9.75m-16.5 0h1.5m3 0h.75" />
+                            </svg>
+                            <span class="font-semibold">Filter</span>
+                        </button>
+                    </div>
+
                 </div>
 
                 <div id="product-grid" class="grid gap-6 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
