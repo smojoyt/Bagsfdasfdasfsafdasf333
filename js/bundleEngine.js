@@ -385,4 +385,4 @@ window.applyBundle = async function (bundleId) {
 window.bundleDetector = bundleDetector;
 window.checkBundleAvailability = checkBundleAvailability;
 window.applyBundle = applyBundle;
-window.loadBundlesAndRenderCart = loadBundlesAndRenderCart;
+
