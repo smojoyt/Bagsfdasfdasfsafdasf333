@@ -162,99 +162,91 @@ window.getFullPriceHTML = function (product) {
 };
 
 async function renderCatalogCard(p) {
-    const tagClasses = [
-        ...(p.tags ? p.tags.map(t => t.toLowerCase()) : []),
-        ...(p.tags?.includes("Outofstock") ? [] : ["instock"])
-    ].join(" ");
-
-    const hasVariants = p.custom1Options && p.custom1Options.split("|").length > 1;
-    const regular = p.price;
-    const sale = p.sale_price ?? regular;
+    // 🧾 Basic info
+    const productId = (p.product_id || p.id || "").trim().toUpperCase();
+    const productName = p.name || "Unnamed";
+    const image = p.catalogImage || p.image || "";
+    const regular = +p.price || 0;
+    const sale = +p.sale_price || regular;
     const isOnSale = sale < regular;
-    const image = p.catalogImage || p.image;
+    const tagClasses = [...(p.tags || []).map(t => t.toLowerCase()), ...(p.tags?.includes("Outofstock") ? [] : ["instock"])].join(" ");
 
-    // 🛍️ Swatch Logic
-    let swatchHTML = "";
-    if (hasVariants) {
-        const options = p.custom1Options;
-        const allOptions = options ? options.split("|") : [];
-        const shown = allOptions.slice(0, 3);
-        const more = allOptions.length - shown.length;
-
-        swatchHTML = `
-    <div class="absolute bottom-2 left-2 flex gap-1 items-center">
-        ${shown.map(color => {
-            const safeClass = window.getColorClass(color.trim());
-            return `<span title="${color}" class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border ${safeClass}"></span>`;
-        }).join("")}
-        ${more > 0 ? `<span class="text-xs bg-gray-600 text-white px-1 rounded-full">+${more}</span>` : ""}
-    </div>`;
-    }
-
-    // ⭐ Ratings Logic
-    const productId = Object.keys(window.productRatings).find(id =>
-        id.includes(p.product_id?.toUpperCase()) || id.includes(p.name?.replaceAll(" ", "").toUpperCase())
-    ) || p.product_id?.toUpperCase();
-
-    const { averageRating = 0, reviewCount = 0 } = window.productRatings?.[productId] || {};
-    const stars = "★".repeat(Math.round(averageRating)) + "☆".repeat(5 - Math.round(averageRating));
-    const ratingBlock = reviewCount ? `
-        <div class="text-yellow-500 text-sm leading-none mt-1">
-            <span>${stars}</span>
-            <span class="text-gray-600 ml-1">(${reviewCount})</span>
-        </div>` : "";
-
-    console.log(`🧪 ${p.name} (${productId}) →`, window.productRatings?.[productId]);
-
-    // 🏷️ Tag Badges
+    // 🏷️ Tags
     const tagBadges = `
         ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-white bg-green-400 px-2 py-0.5 rounded-full font-bold">Bestseller</span>` : ""}
         ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
     `;
 
-    // 🧩 Fetch Bundle Text (by subCategory)
+    // 🎨 Swatches (if variants)
+    let swatchHTML = "";
+    const variants = p.custom1Options?.split("|").map(v => v.trim()).filter(Boolean) || [];
+    if (variants.length > 1) {
+        const shown = variants.slice(0, 3);
+        const more = variants.length - shown.length;
+        swatchHTML = `
+            <div class="absolute bottom-2 left-2 flex gap-1 items-center">
+                ${shown.map(color => {
+            const safeClass = window.getColorClass?.(color) || "bg-gray-200";
+            return `<span title="${color}" class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border ${safeClass}"></span>`;
+        }).join("")}
+                ${more > 0 ? `<span class="text-xs bg-gray-600 text-white px-1 rounded-full">+${more}</span>` : ""}
+            </div>`;
+    }
+
+    // ⭐ Rating
+    const ratingData = window.productRatings?.[productId];
+    const averageRating = Math.round(ratingData?.averageRating || 0);
+    const reviewCount = ratingData?.reviewCount || 0;
+    const stars = "★".repeat(averageRating) + "☆".repeat(5 - averageRating);
+    const ratingHTML = reviewCount > 0
+        ? `<div class="text-yellow-500 text-sm mt-1"><span>${stars}</span><span class="text-gray-600 ml-1">(${reviewCount})</span></div>`
+        : "";
+
+    // 💬 Bundle Text (optional fetch)
     let bundleText = "";
     try {
         const res = await fetch("/products/bundles.json");
         const bundles = await res.json();
-        const bundle = bundles.find(b => b.subCategory === p.subCategory && b.carttxt);
-        if (bundle) {
-            bundleText = `<span class="text-xs text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full font-semibold uppercase">${bundle.carttxt}</span>`;
+        const match = bundles.find(b => b.subCategory === p.subCategory && b.carttxt);
+        if (match) {
+            bundleText = `<span class="text-xs text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full font-semibold uppercase">${match.carttxt}</span>`;
         }
     } catch (e) {
-        console.warn("Bundle fetch failed", e);
+        console.warn("Bundle fetch failed:", e);
     }
 
-    const priceBlock = isOnSale
-        ? `<div class="mt-2">
-                <p class="text-green-700 italic font-semibold text-sm">
-                    Now <span class="text-xl font-bold">$${sale.toFixed(2)}</span>
-                    <span class="text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
-                </p>
-            </div>`
+    // 💰 Price
+    const priceHTML = isOnSale
+        ? `<div class="mt-2 text-sm text-green-700 font-semibold">
+                Now <span class="text-xl font-bold">$${sale.toFixed(2)}</span>
+                <span class="text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
+           </div>`
         : `<div class="mt-1 text-lg font-bold text-gray-800">$${regular.toFixed(2)}</div>`;
 
+    // 🧱 Final HTML
     return `
-    <div class="p-2 item ${p.category} ${tagClasses}"  
-         data-name="${p.name.toLowerCase()}" 
-         data-price="${sale}" 
-         data-discount="${isOnSale ? Math.round(((regular - sale) / regular) * 100) : 0}">
+        <div class="p-2 item ${p.category} ${tagClasses}"  
+            data-name="${productName.toLowerCase()}" 
+            data-price="${sale}" 
+            data-discount="${isOnSale ? Math.round((regular - sale) / regular * 100) : 0}">
 
-        <a href="${p.url}" class="block transition overflow-hidden">
-            <div class="relative flex items-center justify-center">
-                <img src="${image}" alt="${p.name}" class="shadow-sm hover:shadow-lg rounded-xl max-h-72 w-auto object-contain mx-auto">
-                ${swatchHTML}
-            </div>
+            <a href="${p.url}" class="block transition overflow-hidden">
+                <div class="relative flex items-center justify-center">
+                    <img src="${image}" alt="${productName}" class="shadow-sm hover:shadow-lg rounded-xl max-h-72 w-auto object-contain mx-auto">
+                    ${swatchHTML}
+                </div>
 
-            <div class="min-h-[100px] max-w-[288px] p-2">
-                <div class="flex flex-wrap gap-1 mb-1">${tagBadges}${bundleText}</div>
-                <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${p.name}</h2>
-                ${ratingBlock}
-                ${priceBlock}
-            </div>
-        </a>
-    </div>`;
+                <div class="min-h-[100px] max-w-[288px] p-2">
+                    <div class="flex flex-wrap gap-1 mb-1">${tagBadges}${bundleText}</div>
+                    <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${productName}</h2>
+                    ${ratingHTML}
+                    ${priceHTML}
+                </div>
+            </a>
+        </div>
+    `;
 }
+
 
 
 
