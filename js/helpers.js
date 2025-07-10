@@ -192,7 +192,10 @@ async function renderCatalogCard(p) {
     }
 
     // ⭐ Ratings Logic
-    const productId = (p.product_id || "").trim().toUpperCase();
+    const productId = Object.keys(window.productRatings).find(id =>
+        id.includes(p.product_id?.toUpperCase()) || id.includes(p.name?.replaceAll(" ", "").toUpperCase())
+    ) || p.product_id?.toUpperCase();
+
     const { averageRating = 0, reviewCount = 0 } = window.productRatings?.[productId] || {};
     const stars = "★".repeat(Math.round(averageRating)) + "☆".repeat(5 - Math.round(averageRating));
     const ratingBlock = reviewCount ? `
