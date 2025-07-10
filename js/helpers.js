@@ -36,6 +36,7 @@ window.applyPromotionsToProducts = function (products, promotions) {
 
     for (const key in updated) {
         const product = updated[key];
+
         for (const promo of promotions) {
             const matchesCategory = product.category === promo.category;
             const matchesPrice = promo.condition?.maxPrice ? product.price <= promo.condition.maxPrice : true;
@@ -52,10 +53,19 @@ window.applyPromotionsToProducts = function (products, promotions) {
                     : +(product.price * (1 - promo.amount / 100)).toFixed(2);
             }
         }
+
+        // ✅ Tag product as "onsale" if sale_price exists and is lower than base price
+        if (product.sale_price && product.sale_price < product.price) {
+            product.tags = product.tags || [];
+            if (!product.tags.includes("onsale")) {
+                product.tags.push("onsale");
+            }
+        }
     }
 
     return updated;
 };
+
 
 // Compact price for carousel, cards, etc.
 window.getCompactPriceHTML = function (product) {
@@ -135,7 +145,7 @@ function renderCatalogCard(p) {
     `;
 
     return `
-    <div class="p-2 item ${p.category} ${tagClasses} ${isOnSale ? "on-sale" : ""}"  
+    <div class="p-2 item ${p.category} ${tagClasses}"  
      data-name="${p.name.toLowerCase()}" 
      data-price="${sale}" 
      data-discount="${isOnSale ? Math.round(((regular - sale) / regular) * 100) : 0}">
