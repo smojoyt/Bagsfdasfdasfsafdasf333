@@ -31,6 +31,8 @@ window.renderColorDots = function (optionsStr, stockObj = {}) {
 
 
 
+window.productRatings = {};
+
 async function loadProductRatings() {
     const endpoint = "https://api.jsonbin.io/v3/b/6842b73d8561e97a50204314/latest";
     const headers = {
@@ -43,19 +45,13 @@ async function loadProductRatings() {
         const reviews = data?.record?.reviews || [];
 
         const ratings = {};
-
         reviews.forEach(r => {
-            const pid = r.productId;
-            if (!ratings[pid]) {
-                ratings[pid] = { total: 0, count: 0 };
-            }
-
+            const pid = r.productId.trim().toUpperCase();
+            if (!ratings[pid]) ratings[pid] = { total: 0, count: 0 };
             ratings[pid].total += Number(r.rating) || 0;
             ratings[pid].count += 1;
         });
 
-        // Compute average rating per product
-        window.productRatings = {};
         Object.entries(ratings).forEach(([productId, { total, count }]) => {
             window.productRatings[productId] = {
                 averageRating: total / count,
@@ -66,15 +62,16 @@ async function loadProductRatings() {
         console.log("✅ Product ratings loaded:", window.productRatings);
     } catch (err) {
         console.error("❌ Failed to load product ratings:", err);
-        window.productRatings = {};
     }
 }
 
 
+
 (async () => {
     await loadProductRatings();
-    renderCatalog(); // or renderAllCatalog or whatever your init function is
+    await loadProductData(); // whatever loads and calls renderCatalogCard()
 })();
+
 
 
 
