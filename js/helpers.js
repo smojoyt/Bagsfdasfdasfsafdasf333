@@ -71,8 +71,11 @@ async function loadProductRatings() {
 }
 
 
-await loadProductRatings();
-renderCatalog(); // Or whatever your main render function is
+(async () => {
+    await loadProductRatings();
+    renderCatalog(); // or renderAllCatalog or whatever your init function is
+})();
+
 
 
 
