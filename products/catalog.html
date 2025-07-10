@@ -89,7 +89,6 @@
         <aside id="filter-sidebar"
                class="fixed top-16 left-0 w-[90%] sm:w-80 md:w-64 h-full bg-white border-r border-gray-200 shadow-lg z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
             <div class="p-4 h-full overflow-y-auto">
-
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="font-semibold text-lg">Filters</h2>
                     <button id="close-filters" aria-label="Close filters"
@@ -98,24 +97,6 @@
                     </button>
                 </div>
 
-                <!-- 🏷 Category Filter Group
-    <div class="mb-6" data-filter-group="category">
-        <h3 class="text-sm font-medium mb-2">Category</h3>
-        <div class="space-y-2">
-            <label class="flex items-center gap-2">
-                <input type="checkbox" class="filter-checkbox" data-group="category" value=".bags" />
-                <span>Bags</span>
-            </label>
-            <label class="flex items-center gap-2">
-                <input type="checkbox" class="filter-checkbox" data-group="category" value=".headwear" />
-                <span>Headwear</span>
-            </label>
-            <label class="flex items-center gap-2">
-                <input type="checkbox" class="filter-checkbox" data-group="category" value=".charms" />
-                <span>Charms</span>
-            </label>
-        </div>
-    </div>-->
                 <!-- 🧷 Tags Filter Group -->
                 <div class="mb-6" data-filter-group="tags">
                     <h3 class="text-sm font-medium mb-2">Tags</h3>
@@ -160,26 +141,33 @@
 
         <!-- 🛍 Main Product Grid Section -->
         <main id="catalog-main" class="flex-1 transition-all duration-300 ease-in-out">
-            <div class="flex justify-between items-center p-3 sticky top-0 z-20 bg-white border-b">
-                <button id="toggle-filters"
-                        class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:ring">
-                    Filters
-                </button>
-            </div>
+            <div class="w-full px-2 md:px-4 pb-8 pt-4">
 
-            <div class="w-full px-2 md:px-4 pb-8">
-                <div class="flex flex-wrap gap-2 px-4 py-3">
-                    <button class="category-btn bg-gray-800 text-white px-4 py-2 rounded" data-filter="*">All</button>
-                    <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".bags">Bags</button>
-                    <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".headwear">Headwear</button>
-                    <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".charms">Charms</button>
+                <!-- 🧭 Category Buttons Centered -->
+                <div class="flex flex-col items-center space-y-3 mb-6">
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <button class="category-btn bg-gray-800 text-white px-4 py-2 rounded" data-filter="*">All</button>
+                        <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".bags">Bags</button>
+                        <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".headwear">Headwear</button>
+                        <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".charms">Charms</button>
+                    </div>
+
+                    <!-- 🔘 Filters Button Under Category Buttons -->
+                    <div class="self-start mt-2">
+                        <button id="toggle-filters"
+                                class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:ring">
+                            Filters
+                        </button>
+                    </div>
                 </div>
+
                 <div id="product-grid" class="grid gap-6 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                     <!-- Products injected here -->
                 </div>
             </div>
         </main>
     </div>
+
 
     <!-- 🔻 Footer & Navbar Inserts -->
     <div id="footer"></div>
