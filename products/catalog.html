@@ -332,6 +332,23 @@
                         });
                     });
 
+                    // 🔁 Sidebar Tag Filters
+                    document.querySelectorAll(".filter-checkbox[data-group='tags']").forEach(cb => {
+                        cb.addEventListener("change", () => {
+                            const activeTags = Array.from(document.querySelectorAll(".filter-checkbox[data-group='tags']:checked"))
+                                .map(cb => cb.value);
+
+                            const categoryFilter = document.querySelector(".category-btn.bg-gray-800")?.getAttribute("data-filter") || "*";
+
+                            let combinedSelector = categoryFilter;
+                            if (activeTags.length > 0) {
+                                combinedSelector += activeTags.join("");
+                            }
+
+                            iso.arrange({ filter: combinedSelector });
+                        });
+                    });
+
                     // ✅ Set default active style to 'All' button on load
                     const defaultBtn = document.querySelector('.category-btn[data-filter="*"]');
                     if (defaultBtn) {
