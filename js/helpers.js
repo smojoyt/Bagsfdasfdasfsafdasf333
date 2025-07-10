@@ -196,7 +196,9 @@ async function renderCatalogCard(p) {
     }
 
     // ⭐ Ratings Logic
-    const { averageRating = 0, reviewCount = 0 } = (window.productRatings?.[p.product_id] || {});
+
+    const productId = (p.product_id || "").trim().toUpperCase();
+    const { averageRating = 0, reviewCount = 0 } = window.productRatings?.[productId] || {};
     const stars = "★".repeat(Math.round(averageRating)) + "☆".repeat(5 - Math.round(averageRating));
     const ratingBlock = reviewCount ? `
         <div class="text-yellow-500 text-sm leading-none mt-1">
