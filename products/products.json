@@ -233,7 +233,7 @@
 		"custom1Name": "Color",
 		"custom1Options": "White | Black | Blue",
 		"variantStock": {
-			"White": 1,
+			"White": 0,
 			"Black": 0,
 			"Blue": 0
 		},

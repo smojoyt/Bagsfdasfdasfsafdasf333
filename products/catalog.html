@@ -98,25 +98,24 @@
                     </button>
                 </div>
 
-                <!-- 🏷 Category Filter Group -->
-                <div class="mb-6" data-filter-group="category">
-                    <h3 class="text-sm font-medium mb-2">Category</h3>
-                    <div class="space-y-2">
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" class="filter-checkbox" data-group="category" value=".bags" />
-                            <span>Bags</span>
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" class="filter-checkbox" data-group="category" value=".headwear" />
-                            <span>Headwear</span>
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" class="filter-checkbox" data-group="category" value=".charms" />
-                            <span>Charms</span>
-                        </label>
-                    </div>
-                </div>
-
+                <!-- 🏷 Category Filter Group
+    <div class="mb-6" data-filter-group="category">
+        <h3 class="text-sm font-medium mb-2">Category</h3>
+        <div class="space-y-2">
+            <label class="flex items-center gap-2">
+                <input type="checkbox" class="filter-checkbox" data-group="category" value=".bags" />
+                <span>Bags</span>
+            </label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" class="filter-checkbox" data-group="category" value=".headwear" />
+                <span>Headwear</span>
+            </label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" class="filter-checkbox" data-group="category" value=".charms" />
+                <span>Charms</span>
+            </label>
+        </div>
+    </div>-->
                 <!-- 🧷 Tags Filter Group -->
                 <div class="mb-6" data-filter-group="tags">
                     <h3 class="text-sm font-medium mb-2">Tags</h3>
@@ -169,6 +168,12 @@
             </div>
 
             <div class="w-full px-2 md:px-4 pb-8">
+                <div class="flex flex-wrap gap-2 px-4 py-3">
+                    <button class="category-btn bg-gray-800 text-white px-4 py-2 rounded" data-filter="*">All</button>
+                    <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".bags">Bags</button>
+                    <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".headwear">Headwear</button>
+                    <button class="category-btn bg-white border border-gray-300 px-4 py-2 rounded" data-filter=".charms">Charms</button>
+                </div>
                 <div id="product-grid" class="grid gap-6 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                     <!-- Products injected here -->
                 </div>
@@ -310,19 +315,28 @@
                         }
                     });
 
-                    // 🌐 Preselect filters from URL params
-                    const preselected = [];
-                    document.querySelectorAll(".filter-checkbox").forEach(cb => {
-                        const group = cb.dataset.group;
-                        const param = urlParams.get(group);
-                        param?.split(",").forEach(val => {
-                            if (cb.value.toLowerCase() === `.${val.toLowerCase()}`) {
-                                cb.checked = true;
-                                preselected.push(`.${val}`);
-                            }
+                    // 🔘 Category Button Filters
+                    document.querySelectorAll(".category-btn").forEach(btn => {
+                        btn.addEventListener("click", () => {
+                            const filterValue = btn.getAttribute("data-filter");
+                            iso?.arrange({ filter: filterValue });
+
+                            // 🖌 Update active button styling
+                            document.querySelectorAll(".category-btn").forEach(b => {
+                                b.classList.remove("bg-gray-800", "text-white");
+                                b.classList.add("bg-white", "text-gray-800");
+                            });
+
+                            btn.classList.remove("bg-white", "text-gray-800");
+                            btn.classList.add("bg-gray-800", "text-white");
                         });
                     });
-                    if (preselected.length) iso.arrange({ filter: preselected.join("") });
+
+                    // ... your other filter/sort code can follow here ...
+                });
+
+
+
 
                     // 🔃 Sorting
                     document.getElementById("sort-select")?.addEventListener("change", e => {
@@ -336,25 +350,7 @@
                         iso.arrange(map[sortVal] || { sortBy: sortVal });
                     });
 
-                    // ✅ Apply filters
-                    document.getElementById("apply-filters")?.addEventListener("click", () => {
-                        const activeFilters = {};
-                        document.querySelectorAll(".filter-checkbox:checked").forEach(cb => {
-                            const group = cb.dataset.group;
-                            activeFilters[group] ||= [];
-                            activeFilters[group].push(cb.value);
-                        });
 
-                        const selector = Object.values(activeFilters)
-                            .map(arr => arr.join(","))
-                            .join("");
-
-                        iso.arrange({ filter: selector || "*" });
-
-                        const selectedCategory = activeFilters["category"]?.[0]?.replace(".", "");
-                        if (selectedCategory) setBannerFromCategory(selectedCategory, catalog);
-                        closeSidebar();
-                    });
                 });
             });
         });
