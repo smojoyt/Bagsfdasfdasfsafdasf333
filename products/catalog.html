@@ -332,11 +332,12 @@
                         });
                     });
 
-                    // ... your other filter/sort code can follow here ...
-                });
-
-
-
+                    // ✅ Set default active style to 'All' button on load
+                    const defaultBtn = document.querySelector('.category-btn[data-filter="*"]');
+                    if (defaultBtn) {
+                        defaultBtn.classList.remove("bg-white", "text-gray-800");
+                        defaultBtn.classList.add("bg-gray-800", "text-white");
+                    }
 
                     // 🔃 Sorting
                     document.getElementById("sort-select")?.addEventListener("change", e => {
@@ -349,9 +350,8 @@
                         };
                         iso.arrange(map[sortVal] || { sortBy: sortVal });
                     });
-
-
                 });
+
             });
         });
 
