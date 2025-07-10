@@ -29,7 +29,8 @@ window.renderColorDots = function (optionsStr, stockObj = {}) {
     }).join("");
 };
 
-// Load product ratings from remote JSONBin
+
+
 async function loadProductRatings() {
     const endpoint = "https://api.jsonbin.io/v3/b/6842b73d8561e97a50204314/latest";
     const headers = {
@@ -42,13 +43,18 @@ async function loadProductRatings() {
         const reviews = data?.record?.reviews || [];
 
         const ratings = {};
+
         reviews.forEach(r => {
             const pid = r.productId;
-            if (!ratings[pid]) ratings[pid] = { total: 0, count: 0 };
+            if (!ratings[pid]) {
+                ratings[pid] = { total: 0, count: 0 };
+            }
+
             ratings[pid].total += Number(r.rating) || 0;
             ratings[pid].count += 1;
         });
 
+        // Compute average rating per product
         window.productRatings = {};
         Object.entries(ratings).forEach(([productId, { total, count }]) => {
             window.productRatings[productId] = {
@@ -64,7 +70,13 @@ async function loadProductRatings() {
     }
 }
 
-// Promotions
+
+await loadProductRatings();
+renderCatalog(); // Or whatever your main render function is
+
+
+
+// Apply promotion.json discounts
 window.applyPromotionsToProducts = function (products, promotions) {
     const now = new Date();
     const updated = structuredClone(products);
@@ -89,6 +101,7 @@ window.applyPromotionsToProducts = function (products, promotions) {
             }
         }
 
+        // ✅ Tag product as "onsale" if sale_price exists and is lower than base price
         if (product.sale_price && product.sale_price < product.price) {
             product.tags = product.tags || [];
             if (!product.tags.includes("onsale")) {
@@ -100,7 +113,8 @@ window.applyPromotionsToProducts = function (products, promotions) {
     return updated;
 };
 
-// Compact price
+
+// Compact price for carousel, cards, etc.
 window.getCompactPriceHTML = function (product) {
     const regular = product.price;
     const sale = product.sale_price ?? regular;
@@ -122,7 +136,7 @@ window.getCompactPriceHTML = function (product) {
     }
 };
 
-// Full price for detail page
+// Full price for product detail page
 window.getFullPriceHTML = function (product) {
     const regular = product.price;
     const sale = product.sale_price ?? regular;
@@ -147,8 +161,7 @@ window.getFullPriceHTML = function (product) {
     }
 };
 
-// Render catalog card
-async function renderCatalogCard(p, bundleMap = {}) {
+async function renderCatalogCard(p) {
     const tagClasses = [
         ...(p.tags ? p.tags.map(t => t.toLowerCase()) : []),
         ...(p.tags?.includes("Outofstock") ? [] : ["instock"])
@@ -160,12 +173,26 @@ async function renderCatalogCard(p, bundleMap = {}) {
     const isOnSale = sale < regular;
     const image = p.catalogImage || p.image;
 
-    // 🛍️ Swatches
-    const swatchHTML = hasVariants
-        ? `<div class="absolute bottom-2 left-2 flex gap-1 items-center">${renderColorDots(p.custom1Options)}</div>`
-        : "";
+    // 🛍️ Swatch Logic
+    let swatchHTML = "";
+    if (hasVariants) {
+        const options = p.custom1Options;
+        const allOptions = options ? options.split("|") : [];
+        const shown = allOptions.slice(0, 3);
+        const more = allOptions.length - shown.length;
 
-    // ⭐ Ratings
+        swatchHTML = `
+    <div class="absolute bottom-2 left-2 flex gap-1 items-center">
+        ${shown.map(color => {
+            const safeClass = window.getColorClass(color.trim());
+            return `<span title="${color}" class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border ${safeClass}"></span>`;
+        }).join("")}
+        ${more > 0 ? `<span class="text-xs bg-gray-600 text-white px-1 rounded-full">+${more}</span>` : ""}
+    </div>`;
+
+    }
+
+    // ⭐ Ratings Logic
     const { averageRating = 0, reviewCount = 0 } = (window.productRatings?.[p.product_id] || {});
     const stars = "★".repeat(Math.round(averageRating)) + "☆".repeat(5 - Math.round(averageRating));
     const ratingBlock = reviewCount ? `
@@ -174,16 +201,24 @@ async function renderCatalogCard(p, bundleMap = {}) {
             <span class="text-gray-600 ml-1">(${reviewCount})</span>
         </div>` : "";
 
-    // 🏷️ Tags
+    // 🏷️ Tag Badges
     const tagBadges = `
         ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-white bg-green-400 px-2 py-0.5 rounded-full font-bold">Bestseller</span>` : ""}
         ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
     `;
 
-    // 🧩 Bundle Badge
-    const bundleText = bundleMap[p.subCategory]
-        ? `<span class="text-xs text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full font-semibold uppercase">${bundleMap[p.subCategory]}</span>`
-        : "";
+    // 🧩 Fetch Bundle Text (by subCategory)
+    let bundleText = "";
+    try {
+        const res = await fetch("/products/bundles.json");
+        const bundles = await res.json();
+        const bundle = bundles.find(b => b.subCategory === p.subCategory && b.carttxt);
+        if (bundle) {
+            bundleText = `<span class="text-xs text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full font-semibold uppercase">${bundle.carttxt}</span>`;
+        }
+    } catch (e) {
+        console.warn("Bundle fetch failed", e);
+    }
 
     const priceBlock = isOnSale
         ? `<div class="mt-2">
@@ -216,7 +251,19 @@ async function renderCatalogCard(p, bundleMap = {}) {
     </div>`;
 }
 
-// Format name for reviews
+
+async function loadAllReviews() {
+    const url = "https://drive.google.com/uc?export=download&id=1gXl4MX0sQboICfNePWtcY27Ktwnu5jbS";
+    try {
+        const res = await fetch(url);
+        const reviews = await res.json();
+        return reviews;
+    } catch (err) {
+        console.error("Failed to load reviews:", err);
+        return {};
+    }
+}
+
 function formatShortName(name = "") {
     if (!name) return "Anonymous";
     const parts = name.trim().split(" ");
@@ -224,33 +271,12 @@ function formatShortName(name = "") {
     const lastInitial = parts[1]?.charAt(0).toUpperCase();
     return lastInitial ? `${capitalize(first)} ${lastInitial}.` : capitalize(first);
 }
+
 function capitalize(str = "") {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-// Export to window
 window.renderCatalogCard = renderCatalogCard;
 window.renderColorDots = renderColorDots;
 window.applyPromotionsToProducts = applyPromotionsToProducts;
 window.formatShortName = formatShortName;
-
-// 🧠 Main Init
-(async () => {
-    await loadProductRatings();
-
-    let bundles = {};
-    try {
-        const res = await fetch("/products/bundles.json");
-        const data = await res.json();
-        data.forEach(b => {
-            if (b.subCategory && b.carttxt) bundles[b.subCategory] = b.carttxt;
-        });
-    } catch (e) {
-        console.warn("Bundle fetch failed:", e);
-    }
-
-    // Assuming `window.allProducts` and `renderCatalog()` exist
-    if (typeof window.allProducts === "object") {
-        renderCatalog(Object.values(window.allProducts), bundles);
-    }
-})();
