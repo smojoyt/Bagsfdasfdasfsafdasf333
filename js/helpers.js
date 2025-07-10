@@ -237,8 +237,9 @@ async function renderCatalogCard(p) {
                 </div>
 
                 <div class="min-h-[100px] max-w-[288px] p-2">
-                    <div class="flex flex-wrap gap-1 mb-1">${tagBadges}${bundleText}</div>
+                    
                     <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${productName}</h2>
+                    <div class="flex flex-wrap gap-1 mb-1">${tagBadges}${bundleText}</div>
                     ${ratingHTML}
                     ${priceHTML}
                 </div>

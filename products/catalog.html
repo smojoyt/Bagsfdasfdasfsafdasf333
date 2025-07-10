@@ -147,19 +147,19 @@
                 <div class="flex flex-col space-y-3 mb-6">
                     <!-- 📂 Category Button Grid -->
                     <div class="grid grid-cols-2 gap-4 px-4 py-4 max-w-md md:mx-auto">
-                        <button class="min-w-[10rem] category-btn bg-gray-100 hover:bg-gray-200 text-black text-sm font-medium tracking-widest py-3 rounded-md"
+                        <button class="min-w-[10rem] category-btn bg-gray-100 hover:bg-gray-200 hover:text-black text-black text-sm font-medium tracking-widest py-3 rounded-md"
                                 data-filter="*">
                             SHOP ALL
                         </button>
-                        <button class="min-w-[10rem] category-btn bg-gray-100 hover:bg-gray-200 text-black text-sm font-medium tracking-widest py-3 rounded-md"
+                        <button class="min-w-[10rem] category-btn bg-gray-100 hover:bg-gray-200 hover:text-black text-black text-sm font-medium tracking-widest py-3 rounded-md"
                                 data-filter=".bags">
                             BAGS
                         </button>
-                        <button class="min-w-[10rem] category-btn bg-gray-100 hover:bg-gray-200 text-black text-sm font-medium tracking-widest py-3 rounded-md"
+                        <button class="min-w-[10rem] category-btn bg-gray-100 hover:bg-gray-200 hover:text-black text-black text-sm font-medium tracking-widest py-3 rounded-md"
                                 data-filter=".headwear">
                             HEADWEAR
                         </button>
-                        <button class="min-w-[10rem] category-btn bg-gray-100 hover:bg-gray-200 text-black text-sm font-medium tracking-widest py-3 rounded-md"
+                        <button class="min-w-[10rem] category-btn bg-gray-100 hover:bg-gray-200 hover:text-black text-black text-sm font-medium tracking-widest py-3 rounded-md"
                                 data-filter=".charms">
                             CHARMS
                         </button>
@@ -169,7 +169,7 @@
                     <!-- 🔘 Filters Button with Icon + Product Count -->
                     <div class="flex items-center justify-between w-full px-4 py-2">
                         <button id="toggle-filters"
-                                class="flex items-center gap-2 text-black font-extrabold uppercase bg-white px-4 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                                class="flex items-center gap-2 text-black font-extrabold uppercase px-4 py-2 rounded">
                             <!-- Slider Icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -180,8 +180,8 @@
                             Filter
                         </button>
 
-                        <div id="product-count" class="text-gray-700 text-sm font-semibold text-center w-full">
-                            Products (0)
+                        <div id="product-count" class="uppercase text-sm text-black text-sm font-extrabold text-center w-full">
+                             0 Products
                         </div>
                     </div>
 
@@ -316,7 +316,7 @@
 
                 Promise.all(cardPromises).then(cards => {
                     grid.innerHTML = cards.join(""); // ✅ wait for all to resolve
-                    document.getElementById("product-count").textContent = `Products (${grid.children.length})`;
+                    document.getElementById("product-count").textContent = `${grid.children.length} Products `;
 
                     imagesLoaded(grid, () => {
                         iso = new Isotope(grid, {
@@ -338,7 +338,7 @@
 
 
                 // Update count (after rendering)
-                document.getElementById("product-count").textContent = `Products (${grid.children.length})`;
+                document.getElementById("product-count").textContent = `${grid.children.length} Products `;
 
 
                 imagesLoaded(grid, () => {
