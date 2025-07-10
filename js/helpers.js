@@ -114,7 +114,7 @@ window.getFullPriceHTML = function (product) {
     }
 };
 
-function renderCatalogCard(p) {
+async function renderCatalogCard(p) {
     const tagClasses = [
         ...(p.tags ? p.tags.map(t => t.toLowerCase()) : []),
         ...(p.tags?.includes("Outofstock") ? [] : ["instock"])
@@ -124,6 +124,48 @@ function renderCatalogCard(p) {
     const regular = p.price;
     const sale = p.sale_price ?? regular;
     const isOnSale = sale < regular;
+    const image = p.catalogImage || p.image;
+
+    // 🛍️ Swatch Logic
+    let swatchHTML = "";
+    if (hasVariants) {
+        const options = p.custom1Options.split("|");
+        const shown = options.slice(0, 3);
+        const more = options.length - shown.length;
+        swatchHTML = `
+            <div class="absolute bottom-2 left-2 flex gap-1">
+                ${shown.map(opt => `<span class='w-4 h-4 rounded-full border border-gray-300 bg-[${opt}]'></span>`).join("")}
+                ${more > 0 ? `<span class="text-xs bg-gray-300 text-white px-1 rounded">+${more}</span>` : ""}
+            </div>`;
+    }
+
+    // ⭐ Ratings Logic
+    const { averageRating = 0, reviewCount = 0 } = (window.productRatings?.[p.product_id] || {});
+    const stars = "★".repeat(Math.round(averageRating)) + "☆".repeat(5 - Math.round(averageRating));
+    const ratingBlock = reviewCount ? `
+        <div class="text-yellow-500 text-sm leading-none mt-1">
+            <span>${stars}</span>
+            <span class="text-gray-600 ml-1">(${reviewCount})</span>
+        </div>` : "";
+
+    // 🏷️ Tag Badges
+    const tagBadges = `
+        ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-white bg-green-400 px-2 py-0.5 rounded-full font-bold">Bestseller</span>` : ""}
+        ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
+    `;
+
+    // 🧩 Fetch Bundle Text (by subCategory)
+    let bundleText = "";
+    try {
+        const res = await fetch("/products/bundles.json");
+        const bundles = await res.json();
+        const bundle = bundles.find(b => b.subCategory === p.subCategory && b.carttxt);
+        if (bundle) {
+            bundleText = `<span class="text-xs text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full font-semibold uppercase">${bundle.carttxt}</span>`;
+        }
+    } catch (e) {
+        console.warn("Bundle fetch failed", e);
+    }
 
     const priceBlock = isOnSale
         ? `<div class="mt-2">
@@ -131,42 +173,31 @@ function renderCatalogCard(p) {
                     Now <span class="text-xl font-bold">$${sale.toFixed(2)}</span>
                     <span class="text-sm text-gray-500 line-through ml-2">$${regular.toFixed(2)}</span>
                 </p>
-                <div class="flex gap-2 mt-1">
-                    <span class="bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">
-                        ${Math.round(((regular - sale) / regular) * 100)}% OFF
-                    </span>
-                </div>
             </div>`
         : `<div class="mt-1 text-lg font-bold text-gray-800">$${regular.toFixed(2)}</div>`;
 
-    const tagBadges = `
-        ${p.tags?.includes("Bestseller") ? `<span class="text-xs text-white bg-green-400 px-2 py-0.5 rounded-full font-bold">Bestseller</span>` : ""}
-        ${p.tags?.includes("Outofstock") ? `<span class="text-xs text-yellow-700 bg-yellow-100 px-2 py-0.5 rounded-full">Out of Stock</span>` : ""}
-    `;
-
     return `
     <div class="p-2 item ${p.category} ${tagClasses}"  
-     data-name="${p.name.toLowerCase()}" 
-     data-price="${sale}" 
-     data-discount="${isOnSale ? Math.round(((regular - sale) / regular) * 100) : 0}">
+         data-name="${p.name.toLowerCase()}" 
+         data-price="${sale}" 
+         data-discount="${isOnSale ? Math.round(((regular - sale) / regular) * 100) : 0}">
 
         <a href="${p.url}" class="block transition overflow-hidden">
             <div class="relative flex items-center justify-center">
-                <img src="${p.image}" alt="${p.name}" class="shadow-sm hover:shadow-lg rounded-xl max-h-72 w-auto object-contain mx-auto">
-                ${hasVariants ? `
-                    <div class="absolute bottom-2 left-2 flex gap-1">
-                        ${renderColorDots(p.custom1Options)}
-                    </div>` : ""}
+                <img src="${image}" alt="${p.name}" class="shadow-sm hover:shadow-lg rounded-xl max-h-72 w-auto object-contain mx-auto">
+                ${swatchHTML}
             </div>
 
             <div class="min-h-[100px] max-w-[288px] p-2">
+                <div class="flex flex-wrap gap-1 mb-1">${tagBadges}${bundleText}</div>
                 <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800 leading-snug break-words">${p.name}</h2>
+                ${ratingBlock}
                 ${priceBlock}
-                <div class="flex flex-wrap gap-1 mt-2">${tagBadges}</div>
             </div>
         </a>
     </div>`;
 }
+
 
 async function loadAllReviews() {
     const url = "https://drive.google.com/uc?export=download&id=1gXl4MX0sQboICfNePWtcY27Ktwnu5jbS";
