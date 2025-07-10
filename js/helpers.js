@@ -29,6 +29,53 @@ window.renderColorDots = function (optionsStr, stockObj = {}) {
     }).join("");
 };
 
+
+
+async function loadProductRatings() {
+    const endpoint = "https://api.jsonbin.io/v3/b/6842b73d8561e97a50204314/latest";
+    const headers = {
+        "X-Master-Key": "$2a$10$J46OeqIxDrySG761m72SB.jzEHkOGTFlf4tblSOMrzdUS81uiqEzm"
+    };
+
+    try {
+        const res = await fetch(endpoint, { headers });
+        const data = await res.json();
+        const reviews = data?.record?.reviews || [];
+
+        const ratings = {};
+
+        reviews.forEach(r => {
+            const pid = r.productId;
+            if (!ratings[pid]) {
+                ratings[pid] = { total: 0, count: 0 };
+            }
+
+            ratings[pid].total += Number(r.rating) || 0;
+            ratings[pid].count += 1;
+        });
+
+        // Compute average rating per product
+        window.productRatings = {};
+        Object.entries(ratings).forEach(([productId, { total, count }]) => {
+            window.productRatings[productId] = {
+                averageRating: total / count,
+                reviewCount: count
+            };
+        });
+
+        console.log("✅ Product ratings loaded:", window.productRatings);
+    } catch (err) {
+        console.error("❌ Failed to load product ratings:", err);
+        window.productRatings = {};
+    }
+}
+
+
+await loadProductRatings();
+renderCatalog(); // Or whatever your main render function is
+
+
+
 // Apply promotion.json discounts
 window.applyPromotionsToProducts = function (products, promotions) {
     const now = new Date();
@@ -129,14 +176,20 @@ async function renderCatalogCard(p) {
     // 🛍️ Swatch Logic
     let swatchHTML = "";
     if (hasVariants) {
-        const options = p.custom1Options.split("|");
-        const shown = options.slice(0, 3);
-        const more = options.length - shown.length;
+        const options = p.custom1Options;
+        const allOptions = options ? options.split("|") : [];
+        const shown = allOptions.slice(0, 3);
+        const more = allOptions.length - shown.length;
+
         swatchHTML = `
-            <div class="absolute bottom-2 left-2 flex gap-1">
-                ${shown.map(opt => `<span class='w-4 h-4 rounded-full border border-gray-300 bg-[${opt}]'></span>`).join("")}
-                ${more > 0 ? `<span class="text-xs bg-gray-300 text-white px-1 rounded">+${more}</span>` : ""}
-            </div>`;
+    <div class="absolute bottom-2 left-2 flex gap-1 items-center">
+        ${shown.map(color => {
+            const safeClass = window.getColorClass(color.trim());
+            return `<span title="${color}" class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border ${safeClass}"></span>`;
+        }).join("")}
+        ${more > 0 ? `<span class="text-xs bg-gray-600 text-white px-1 rounded-full">+${more}</span>` : ""}
+    </div>`;
+
     }
 
     // ⭐ Ratings Logic
