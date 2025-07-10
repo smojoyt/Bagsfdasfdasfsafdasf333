@@ -192,11 +192,9 @@ async function renderCatalogCard(p) {
         }).join("")}
         ${more > 0 ? `<span class="text-xs bg-gray-600 text-white px-1 rounded-full">+${more}</span>` : ""}
     </div>`;
-
     }
 
     // ⭐ Ratings Logic
-
     const productId = (p.product_id || "").trim().toUpperCase();
     const { averageRating = 0, reviewCount = 0 } = window.productRatings?.[productId] || {};
     const stars = "★".repeat(Math.round(averageRating)) + "☆".repeat(5 - Math.round(averageRating));
@@ -205,6 +203,8 @@ async function renderCatalogCard(p) {
             <span>${stars}</span>
             <span class="text-gray-600 ml-1">(${reviewCount})</span>
         </div>` : "";
+
+    console.log(`🧪 ${p.name} (${productId}) →`, window.productRatings?.[productId]);
 
     // 🏷️ Tag Badges
     const tagBadges = `
@@ -255,6 +255,7 @@ async function renderCatalogCard(p) {
         </a>
     </div>`;
 }
+
 
 
 async function loadAllReviews() {
