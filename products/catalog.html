@@ -166,20 +166,25 @@
                     </div>
 
 
-                    <!-- 🔘 Filters Button with Icon -->
-                    <div class="self-start mt-2">
+                    <!-- 🔘 Filters Button with Icon + Product Count -->
+                    <div class="flex items-center justify-between w-full px-4 py-2">
                         <button id="toggle-filters"
-                                class=" text-black flex items-center gap-2 text-white px-4 py-2 rounded">
-                            <!-- Slider Icon (Heroicons: AdjustmentsHorizontal) -->
+                                class="flex items-center gap-2 text-black font-extrabold uppercase bg-white px-4 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                            <!-- Slider Icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                 class="w-5 h-5 text-black font-extrabold">
+                                 class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                       d="M10.5 6h9.75M3.75 6h1.5m3 0h.75m4.5 12h-9.75m16.5 0h-1.5m-3 0h-.75m-4.5-6h9.75m-16.5 0h1.5m3 0h.75" />
                             </svg>
-                            <span class="font-extrabold uppercase text-black ">Filter</span>
+                            Filter
                         </button>
+
+                        <div id="product-count" class="text-gray-700 text-sm font-semibold text-center w-full">
+                            Products (0)
+                        </div>
                     </div>
+
 
                 </div>
 
@@ -310,6 +315,10 @@
                         grid.insertAdjacentHTML("beforeend", renderCatalogCard(product));
                     }
                 }
+
+                // Update count (after rendering)
+                document.getElementById("product-count").textContent = `Products (${grid.children.length})`;
+
 
                 imagesLoaded(grid, () => {
                     iso = new Isotope(grid, {
