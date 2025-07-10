@@ -310,11 +310,32 @@
                 if (categoryParam) setBannerFromCategory(categoryParam, catalog);
 
                 // 🧱 Render each product card
-                for (const product of Object.values(catalog)) {
-                    if (!product.tags?.includes("Discontinued")) {
-                        grid.insertAdjacentHTML("beforeend", renderCatalogCard(product));
-                    }
-                }
+                const cardPromises = Object.values(catalog)
+                    .filter(product => !product.tags?.includes("Discontinued"))
+                    .map(product => renderCatalogCard(product)); // async
+
+                Promise.all(cardPromises).then(cards => {
+                    grid.innerHTML = cards.join(""); // ✅ wait for all to resolve
+                    document.getElementById("product-count").textContent = `Products (${grid.children.length})`;
+
+                    imagesLoaded(grid, () => {
+                        iso = new Isotope(grid, {
+                            itemSelector: ".item",
+                            layoutMode: "fitRows",
+                            sortBy: "best-deals",
+                            sortAscending: false,
+                            getSortData: {
+                                name: "[data-name]",
+                                "price-low": "[data-price] parseFloat",
+                                "price-high": "[data-price] parseFloat",
+                                "best-deals": "[data-discount] parseInt"
+                            }
+                        });
+
+                        // ✅ Everything below this (categories, filters, sort) stays the same
+                    });
+                });
+
 
                 // Update count (after rendering)
                 document.getElementById("product-count").textContent = `Products (${grid.children.length})`;
