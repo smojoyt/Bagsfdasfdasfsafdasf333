@@ -232,37 +232,39 @@ function loadProductData() {
 
 
             const thumbnailContainer = document.getElementById("thumbnailContainer");
-            if (thumbnailContainer && Array.isArray(activeProduct.thumbnails)) {
-                thumbnailContainer.innerHTML = "";
+if (thumbnailContainer && Array.isArray(activeProduct.thumbnails)) {
+    thumbnailContainer.innerHTML = "";
+    thumbnailContainer.className = "flex gap-2 mt-4"; // 🔥 ADD THIS
 
-                activeProduct.thumbnails.forEach((img, i) => {
-                    const cell = document.createElement("div");
-                    cell.className = "carousel-cell w-[100px] flex-shrink-0";
+    activeProduct.thumbnails.forEach((img, i) => {
+        const cell = document.createElement("div");
+        cell.className = "carousel-cell w-[100px] flex-shrink-0";
 
-                    const thumb = document.createElement("img");
-                    thumb.src = img;
-                    thumb.alt = `${activeProduct.name} thumbnail ${i + 1}`;
-                    thumb.className = "w-16 h-16 object-contain rounded-lg cursor-pointer";
-                    thumb.onclick = () => swapImage(img);
+        const thumb = document.createElement("img");
+        thumb.src = img;
+        thumb.alt = `${activeProduct.name} thumbnail ${i + 1}`;
+        thumb.className = "w-16 h-16 object-contain rounded-lg cursor-pointer";
+        thumb.onclick = () => swapImage(img);
 
-                    cell.appendChild(thumb);
-                    thumbnailContainer.appendChild(cell);
-                });
+        cell.appendChild(thumb);
+        thumbnailContainer.appendChild(cell);
+    });
 
-                imagesLoaded(thumbnailContainer, () => {
-                    const flickity = new Flickity(thumbnailContainer, {
-                        cellAlign: 'left',
-                        contain: true,
-                        groupCells: false,
-                        freeScroll: true,
-                        wrapAround: false,
-                        prevNextButtons: false,
-                        pageDots: false,
-                        dragThreshold: 3
-                    });
-                    flickity.resize();
-                });
-            }
+    imagesLoaded(thumbnailContainer, () => {
+        const flickity = new Flickity(thumbnailContainer, {
+            cellAlign: 'left',
+            contain: true,
+            groupCells: false,
+            freeScroll: true,
+            wrapAround: false,
+            prevNextButtons: false,
+            pageDots: false,
+            dragThreshold: 3
+        });
+        flickity.resize();
+    });
+}
+
 
             const loader = document.getElementById('loader');
             if (loader) loader.style.display = 'none';
