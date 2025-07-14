@@ -103,3 +103,5 @@ function setCart(cart) {
 
 
 
+// Add at the bottom of cartUtils.js
+export { saveCart, getCart, setCart, removeFromCart, updateCartQty };

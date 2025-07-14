@@ -1,4 +1,6 @@
 ﻿// 🧾 Trigger Stripe Checkout
+import { bundleDetector } from "./bundleEngine.js";
+
 async function triggerStripeCheckout() {
     try {
         const rawCart = JSON.parse(localStorage.getItem("savedCart")) || [];

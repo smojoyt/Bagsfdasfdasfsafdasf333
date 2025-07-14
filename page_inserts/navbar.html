@@ -1,0 +1,89 @@
+<!-- ✅ UPDATED NAVBAR.HTML INJECTION -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-transparent px-6 py-10">
+  <div class="flex items-center justify-between max-w-[108rem] mx-auto relative">
+
+    <!-- MENU -->
+    <button id="menu-toggle" class="text-black font-bold uppercase text-sm tracking-wider">Menu</button>
+
+    <!-- LOGO -->
+    <div class="absolute left-1/2 transform -translate-x-1/2">
+      <a href="/" class="block p-1 border-[4px] border-black backdrop-blur-sm bg-white/30">
+        <img src="/imgs/Logo/Short/SL_0607.png" alt="Logo" class="h-10 sm:h-12 object-contain" />
+      </a>
+    </div>
+
+    <!-- CART -->
+    <button id="cart-toggle" class="text-black font-bold uppercase text-sm tracking-wider">
+      Cart <span id="cart-count" class="ml-1 text-xs px-2 py-0.5 rounded-full bg-black text-white">0</span>
+    </button>
+  </div>
+
+  <!-- OVERLAY -->
+  <div id="drawer-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-700 z-40"></div>
+
+  <!-- MENU DRAWER -->
+  <aside id="menu-drawer" class="fixed top-0 left-0 h-full w-96 max-w-[90%] bg-white shadow-lg transform -translate-x-full transition-transform duration-700 ease-in-out z-50 p-6 text-black overflow-y-auto flex flex-col justify-between">
+    <div>
+      <div class="flex justify-between items-center mb-6">
+        <span class="uppercase">Menu</span>
+        <button class="drawer-close font-bold uppercase text-sm">Close</button>
+      </div>
+      <div class="text-xs font-semibold uppercase mb-2">Search Our Site</div>
+      <div class="flex mb-4">
+        <input type="text" id="menu-search" placeholder="What are you looking for?" class="w-full border border-black px-2 py-1 text-sm" />
+      </div>
+      <ul id="menu-links" class="pt-20 space-y-3 uppercase text-sm font-s">
+        <li><a href="#">Chief Keef Collab</a></li>
+        <li><a href="#" class="text-red-600">4th of July Sale</a></li>
+        <li><a href="#">New</a></li>
+        <li><a href="#">Shop All</a></li>
+        <li><a href="#">Jorts & Pants</a></li>
+        <li><a href="#">Bear Claw Collection</a></li>
+        <li><a href="#">Kross Kountry Runners</a></li>
+        <li><a href="#">Clogs & Slippers</a></li>
+        <li><a href="#">Tops & Jerseys</a></li>
+        <li><a href="#">Footwear</a></li>
+        <li><a href="#">Shorts</a></li>
+        <li><a href="#">The Vault</a></li>
+        <li><a href="#">Shipping Updates</a></li>
+      </ul>
+    </div>
+    <div class="space-y-2 text-sm text-gray-600 uppercase mt-6 border-t pt-4">
+      <a href="#" class="block">Contact</a>
+      <a href="#" class="block">Discord</a>
+      <a href="#" class="block">Privacy Policy</a>
+      <a href="#" class="block">FAQ</a>
+    </div>
+  </aside>
+
+<!-- CART DRAWER -->
+<aside id="cart-drawer" class="fixed top-0 right-0 h-full w-96 max-w-[90%] bg-white shadow-lg transform translate-x-full transition-transform duration-700 ease-in-out z-50 p-6 text-black overflow-y-auto flex flex-col">
+  <div class="flex justify-between items-center mb-2">
+    <span class="font uppercase text-sm">Your Cart</span>
+    <button class="drawer-close font-bold uppercase text-sm">Close</button>
+  </div>
+
+  <!-- Empty Cart Message (moved up) -->
+  <div id="cart-empty" class="uppercase text-gray-500 text-sm my-8">Your cart is empty</div>
+
+  <!-- Cart Items -->
+  <div id="cart-items-container" class="space-y-4 text-sm font-medium flex-grow"></div>
+
+  <!-- Subtotal + Checkout -->
+  <div id="cart-footer" class="mt-6 border-t pt-4">
+    <div class="flex justify-between font-semibold text-base mb-3">
+      <span>Subtotal</span>
+      <span id="cart-subtotal">$0.00</span>
+    </div>
+    <button id="checkoutBtn" class="w-full bg-black text-white py-3 rounded font-semibold">
+  Checkout
+</button>
+
+    <p class="text-xs text-gray-500 mt-2 text-center">
+  Shipping and taxes calculated at checkout.
+</p>
+
+  </div>
+</aside>
+
+</nav>

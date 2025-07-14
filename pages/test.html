@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navbar Transparency Test</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <style>
+    /* Simulated long page and background */
+    body {
+      padding-top: 110px; /* Adjust if navbar height changes */
+      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+    }
+  </style>
+</head>
+<body class="font-sans">
+
+  <!-- Navbar mount point -->
+  <div id="navbar"></div>
+
+  <!-- Example content -->
+  <main class="max-w-4xl mx-auto p-8 bg-black/50 backdrop-blur-sm rounded-xl mt-10">
+    <h1 class="text-4xl font-bold mb-4">Testing Transparent Sticky Navbar</h1>
+    <p class="text-lg mb-4">
+      Scroll down to see the sticky navbar remain at the top. The background image should stay visible behind the navbar until you scroll.
+    </p>
+    <p class="text-lg">
+      This is a demo page. You can replace this with your actual page content to see how it behaves with your layout.
+    </p>
+    <div class="h-[2000px]"></div>
+  </main>
+
+  <!-- Navbar JS -->
+<script type="module" src="/js/navbar.js"></script>
+</body>
+</html>
