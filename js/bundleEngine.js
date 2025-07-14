@@ -386,3 +386,5 @@ window.bundleDetector = bundleDetector;
 window.checkBundleAvailability = checkBundleAvailability;
 window.applyBundle = applyBundle;
 window.loadBundlesAndRenderCart = loadBundlesAndRenderCart;
+export { bundleDetector };
+
