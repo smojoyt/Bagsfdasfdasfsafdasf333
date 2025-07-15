@@ -5,7 +5,7 @@ import fs from 'fs';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const config = {
-  api: { bodyParser: true },
+  api: { bodyParser: false }, // We’ll manually parse it
 };
 
 export default async function handler(req, res) {
@@ -19,87 +19,82 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).end("Method Not Allowed");
 
-  if (!req.body || typeof req.body !== "object") {
-    return res.status(400).json({ error: "Missing or invalid JSON body" });
-  }
-
   try {
-    const { sku, selectedVariant, cart, coupon } = req.body;
+    // 🔄 Safely parse the JSON body
+    let rawBody = "";
+    await new Promise((resolve, reject) => {
+      req.on("data", chunk => rawBody += chunk);
+      req.on("end", resolve);
+      req.on("error", reject);
+    });
 
-    const products = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'products.json'), 'utf8'));
+    const body = JSON.parse(rawBody);
+    const { sku, selectedVariant, cart, coupon } = body;
 
-    const skuToProductKey = Object.fromEntries(
-      Object.entries(products)
-        .filter(([_, val]) => val.product_id)
-        .map(([k, v]) => [v.product_id, k])
+    const productsPath = path.join(process.cwd(), 'products', 'products.json');
+    const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
+
+    const skuToKey = Object.fromEntries(
+      Object.entries(products).map(([k, v]) => [v.product_id, k])
     );
 
     let line_items = [];
 
     if (Array.isArray(cart)) {
       for (const item of cart) {
-        const product = products[skuToProductKey[item.id] || item.id];
+        const key = skuToKey[item.id] || item.id;
+        const product = products[key];
         if (!product) continue;
 
         const variant = item.variant?.trim();
         const image = product.variantImages?.[variant] || product.image;
-        const description = product.descriptionList?.join(" | ") || product.description || "Karry Kraze item";
+        const name = variant ? `${product.name} - ${variant}` : product.name;
+        const price = typeof item.price === 'number' ? item.price : product.price;
 
-        const unitAmount = typeof item.price === "number" ? item.price : product.price;
-        const priceData = {
-          currency: "usd",
-          product_data: {
-            name: product.name,
-            description,
-            images: [image],
-            metadata: {
-              variant: variant || "N/A",
-              product_id: skuToProductKey[item.id] || item.id,
-              requires_shipping: "true",
-              clean_name: product.name
+        line_items.push({
+          price_data: {
+            currency: 'usd',
+            unit_amount: Math.round(price * 100),
+            product_data: {
+              name,
+              images: [image],
+              metadata: {
+                product_id: product.product_id || key,
+                variant: variant || "N/A"
+              }
             }
           },
-          unit_amount: Math.round(Math.max(0, unitAmount) * 100)
-        };
-
-        line_items.push({ price_data: priceData, quantity: item.qty });
+          quantity: item.qty || 1
+        });
       }
     } else if (sku) {
       const product = products[sku];
       if (!product) return res.status(404).json({ error: "Product not found" });
 
       const variant = selectedVariant?.trim();
-      const image = product.variantImages?.[variant] || product.image;
       const name = variant ? `${product.name} - ${variant}` : product.name;
-      const description = product.descriptionList?.join(" | ") || product.description || "Karry Kraze item";
+      const image = product.variantImages?.[variant] || product.image;
 
       line_items = [{
         price_data: {
-          currency: "usd",
+          currency: 'usd',
+          unit_amount: Math.round(product.price * 100),
           product_data: {
             name,
-            description,
             images: [image],
             metadata: {
-              variant: variant || "N/A",
               product_id: sku,
-              requires_shipping: "true",
-              clean_name: product.name
+              variant: variant || "N/A"
             }
-          },
-          unit_amount: Math.round(product.price * 100)
+          }
         },
         quantity: 1
       }];
     } else {
-      return res.status(400).json({ error: "No valid cart or SKU provided." });
+      return res.status(400).json({ error: "Missing cart or sku" });
     }
 
-    if (line_items.length === 0) {
-      return res.status(400).json({ error: "Cart is empty or contains invalid items." });
-    }
-
-    const subtotal = line_items.reduce((sum, i) => sum + i.price_data.unit_amount * i.quantity, 0);
+    const subtotal = line_items.reduce((sum, item) => sum + item.price_data.unit_amount * item.quantity, 0);
     const shipping_options = [
       { shipping_rate: 'shr_1RO9juLzNgqX2t8KonaNgulK' },
       { shipping_rate: 'shr_1RO9kSLzNgqX2t8K0SOnswvh' }
@@ -119,8 +114,8 @@ export default async function handler(req, res) {
       discounts: coupon ? [{ coupon }] : undefined,
       allow_promotion_codes: !coupon,
       shipping_options,
-      success_url: "https://www.karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "https://www.karrykraze.com/pages/cancel.html"
+      success_url: `https://www.karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `https://www.karrykraze.com/pages/cancel.html`
     });
 
     return res.status(200).json({ url: session.url });
