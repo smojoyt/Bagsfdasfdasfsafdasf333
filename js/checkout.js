@@ -1,28 +1,24 @@
-﻿async function triggerStripeCheckout() {
+﻿document.getElementById("checkoutBtn")?.addEventListener("click", async () => {
   try {
-    const rawCart = JSON.parse(localStorage.getItem("savedCart")) || [];
-
-    if (!Array.isArray(rawCart) || rawCart.length === 0) {
-      alert("Your cart is empty.");
-      return;
-    }
+    const savedCart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
     const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cart: rawCart })
+      body: JSON.stringify({ cart: savedCart })
     });
 
-    if (!res.ok) throw new Error(`Server responded with status ${res.status}`);
-
+    if (!res.ok) throw new Error("Failed to create Stripe session");
     const data = await res.json();
+
     if (data.url) {
       window.location.href = data.url;
     } else {
-      alert("Something went wrong with checkout.");
+      alert("Something went wrong with Stripe.");
     }
   } catch (err) {
-    console.error("❌ triggerStripeCheckout failed:", err);
-    alert("Checkout failed. Please refresh and try again.");
+    console.error("❌ Checkout error:", err);
+    alert("Checkout failed. Please try again.");
   }
-}
+});
+
