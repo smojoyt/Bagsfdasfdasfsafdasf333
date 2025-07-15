@@ -1,12 +1,11 @@
 ﻿import Stripe from 'stripe';
 import path from 'path';
 import fs from 'fs';
-import { bundleDetector } from "./CartUtilsServer.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const config = {
-  api: { bodyParser: true }
+  api: { bodyParser: true },
 };
 
 export default async function handler(req, res) {
@@ -17,30 +16,18 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
+  if (req.method === "OPTIONS") return res.status(200).end();
+  if (req.method !== "POST") return res.status(405).end("Method Not Allowed");
 
-  if (req.method !== "POST") {
-    return res.status(405).end("Method Not Allowed");
+  if (!req.body || typeof req.body !== "object") {
+    return res.status(400).json({ error: "Missing or invalid JSON body" });
   }
 
   try {
     const { sku, selectedVariant, cart, coupon } = req.body;
 
-    const productsPath = path.join(process.cwd(), 'products', 'products.json');
-    const promosPath = path.join(process.cwd(), 'products', 'promotion.json');
-    const bundlesPath = path.join(process.cwd(), 'products', 'bundles.json');
+    const products = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'products', 'products.json'), 'utf8'));
 
-    const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
-    const promotionsData = fs.existsSync(promosPath)
-      ? JSON.parse(fs.readFileSync(promosPath, 'utf8'))
-      : { promotions: [] };
-    const bundles = fs.existsSync(bundlesPath)
-      ? JSON.parse(fs.readFileSync(bundlesPath, 'utf8'))
-      : [];
-
-    const { promotions } = promotionsData;
     const skuToProductKey = Object.fromEntries(
       Object.entries(products)
         .filter(([_, val]) => val.product_id)
@@ -50,41 +37,33 @@ export default async function handler(req, res) {
     let line_items = [];
 
     if (Array.isArray(cart)) {
-      const finalCart = await bundleDetector(cart);
-
-      for (const item of finalCart) {
+      for (const item of cart) {
         const product = products[skuToProductKey[item.id] || item.id];
         if (!product) continue;
 
         const variant = item.variant?.trim();
         const image = product.variantImages?.[variant] || product.image;
         const description = product.descriptionList?.join(" | ") || product.description || "Karry Kraze item";
-        const unitAmount = typeof item.price === 'number' ? item.price : product.price;
 
-        line_items.push({
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: item.bundleLabel
-                ? `${item.name || product.name} (${item.bundleLabel})`
-                : item.name || product.name,
-              description,
-              images: [image],
-              metadata: {
-                variant: variant || "N/A",
-                product_id: skuToProductKey[item.id] || item.id,
-                requires_shipping: "true",
-                clean_name: product.name,
-                ...(item.bundleLabel && { bundle_applied: item.bundleLabel }),
-                ...(item.promoLabel && { promotion_applied: item.promoLabel })
-              }
-            },
-            unit_amount: Math.round(Math.max(0, unitAmount) * 100)
+        const unitAmount = typeof item.price === "number" ? item.price : product.price;
+        const priceData = {
+          currency: "usd",
+          product_data: {
+            name: product.name,
+            description,
+            images: [image],
+            metadata: {
+              variant: variant || "N/A",
+              product_id: skuToProductKey[item.id] || item.id,
+              requires_shipping: "true",
+              clean_name: product.name
+            }
           },
-          quantity: item.qty || 1
-        });
-      }
+          unit_amount: Math.round(Math.max(0, unitAmount) * 100)
+        };
 
+        line_items.push({ price_data: priceData, quantity: item.qty });
+      }
     } else if (sku) {
       const product = products[sku];
       if (!product) return res.status(404).json({ error: "Product not found" });
@@ -116,9 +95,8 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "No valid cart or SKU provided." });
     }
 
-    if (!Array.isArray(line_items) || line_items.length === 0) {
-      console.error("❌ No valid line_items generated:", line_items);
-      return res.status(400).json({ error: "Your cart is empty or invalid." });
+    if (line_items.length === 0) {
+      return res.status(400).json({ error: "Cart is empty or contains invalid items." });
     }
 
     const subtotal = line_items.reduce((sum, i) => sum + i.price_data.unit_amount * i.quantity, 0);
@@ -126,7 +104,9 @@ export default async function handler(req, res) {
       { shipping_rate: 'shr_1RO9juLzNgqX2t8KonaNgulK' },
       { shipping_rate: 'shr_1RO9kSLzNgqX2t8K0SOnswvh' }
     ];
-    if (subtotal >= 2500) shipping_options.unshift({ shipping_rate: 'shr_1RO9lyLzNgqX2t8KUr7X1RJh' });
+    if (subtotal >= 2500) {
+      shipping_options.unshift({ shipping_rate: 'shr_1RO9lyLzNgqX2t8KUr7X1RJh' });
+    }
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card', 'link', 'klarna', 'cashapp', 'affirm', 'afterpay_clearpay'],
@@ -146,7 +126,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ url: session.url });
 
   } catch (err) {
-    console.error("❌ Stripe session error:", err);
+    console.error("Stripe session error:", err);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 }
