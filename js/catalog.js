@@ -1,5 +1,4 @@
 import { renderColorDots } from "./utils/variantHelpers.js";
-import { saveCart } from "./cartUtils.js";
 
 let originalProductEntries = [];
 let products = {};
