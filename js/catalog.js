@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const sortLabel = document.getElementById("sortLabel");
   if (!grid) return;
 
-  // Sorting toggle dropdown
+  // Sorting toggle dropdownss
   sortToggle?.addEventListener("click", () => {
     sortOptions?.classList.toggle("hidden");
   });
