@@ -71,7 +71,7 @@ export default async function handler(req, res) {
     }
 
     const sessionParams = {
-      payment_method_types: ["card", "afterpay_clearpay", "paypal", "us_bank_account"],
+      payment_method_types: ["card", "afterpay_clearpay", "us_bank_account"],
       mode: "payment",
       line_items,
       customer_email: email,
