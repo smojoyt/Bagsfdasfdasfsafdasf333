@@ -31,9 +31,9 @@ export default async function handler(req, res) {
     const line_items = [];
 
     for (const item of cart) {
-      const product = products[item.id];
+      const product = products[item.sku]; // ✅ CORRECT
       if (!product) {
-        console.warn(`⚠️ Product not found for ID: ${item.id}`);
+console.warn(`⚠️ Product not found for SKU: ${item.sku}`);
         continue;
       }
 
