@@ -1,5 +1,5 @@
 import { renderColorDots } from "./utils/variantHelpers.js";
-import { saveCart, updateCartCount } from "./Navbar/cart.js"; // ✅ make sure both are imported
+import { saveCart, updateCartCount } from "./Navbar/cart.js"; 
 
 
 
