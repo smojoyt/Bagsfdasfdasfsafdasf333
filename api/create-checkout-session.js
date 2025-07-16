@@ -74,14 +74,61 @@ export default async function handler(req, res) {
 
     // 10. Prepare session data
     const sessionParams = {
-      payment_method_types: ["card"],
-      mode: "payment",
-      line_items,
-      customer_email: email,
-      success_url: "https://karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "https://karrykraze.com/pages/cancel.html",
-      expires_at: Math.floor(Date.now() / 1000) + 30 * 60 // 30 minutes
-    };
+  // ✅ Accept more payment types
+  payment_method_types: ["card", "afterpay_clearpay", "paypal", "us_bank_account"],
+
+  // ✅ One-time payment (required)
+  mode: "payment",
+
+  // ✅ Products
+  line_items,
+
+  // ✅ Capture customer email (enables Stripe receipts)
+  customer_email: email,
+
+  // ✅ Success + cancel redirect URLs
+  success_url: "https://karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
+  cancel_url: "https://karrykraze.com/pages/cancel.html",
+
+  // ✅ Limit session validity (30 minutes)
+  expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
+
+  // ✅ Branding
+  billing_address_collection: "auto", // or "required"
+  shipping_address_collection: {
+    allowed_countries: ["US", "CA"] // Adjust as needed
+  },
+  shipping_options: [
+    {
+      shipping_rate_data: {
+        type: "fixed_amount",
+        fixed_amount: {
+          amount: 0.1, // $5 shipping
+          currency: "usd"
+        },
+        display_name: "Standard Shipping",
+        delivery_estimate: {
+          minimum: { unit: "business_day", value: 3 },
+          maximum: { unit: "business_day", value: 7 }
+        }
+      }
+    }
+  ],
+
+  // ✅ Metadata for internal tracking
+  metadata: {
+    source: "karrykraze.com",
+    campaign: "main-site",
+    customer_email: email
+  },
+
+  // ✅ Automatic tax support (optional, requires setup)
+  automatic_tax: { enabled: false },
+
+  // ✅ Custom UI (future: checkout.custom_text, etc.)
+  invoice_creation: { enabled: false }
+};
+
 
     // 11. Apply coupon if provided
     if (couponCode) {
