@@ -202,7 +202,7 @@ export default async function handler(req, res) {
           origin: origin || "Unknown"
         };
 
-        await fetch("https://hooks.make.com/your-make-url-here", {
+        await fetch("https://hook.us2.make.com/3nib97x1s7tc5735ke5140nofb6wv7v5", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(sessionLog)
