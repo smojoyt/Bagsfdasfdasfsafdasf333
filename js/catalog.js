@@ -1,5 +1,6 @@
 import { renderColorDots } from "./utils/variantHelpers.js";
-import { saveCart, updateCartCount } from "./Navbar/cart.js";
+import { saveCart, updateCartCount } from "./Navbar/cart.js"; // ✅ make sure both are imported
+
 
 
 let originalProductEntries = [];
@@ -160,6 +161,3 @@ function renderSortedCatalog(entries) {
 
   grid.appendChild(fragment);
 }
-window.addEventListener("pageshow", () => {
-  updateCartCount();
-});
