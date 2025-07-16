@@ -97,6 +97,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         saveCart(cart);
+        updateCartCount();
 
         cartText.textContent = "Added!";
         cartText.classList.add("text-green-600");
