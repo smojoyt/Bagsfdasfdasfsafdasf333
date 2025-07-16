@@ -68,13 +68,13 @@ line_items.push({
       console.log("🧾 Final line_items sent to Stripe:", line_items); // ← ADD THIS
 
     const session = await stripe.checkout.sessions.create({
-  payment_method_types: ["card", "link", "afterpay_clearpay"],
+  payment_method_types: ["card", "link", "afterpay_clearpay", "klarna"],
   mode: "payment",
   line_items,
   allow_promotion_codes: true,
   customer_creation: "always",
   phone_number_collection: { enabled: true },
-  billing_address_collection: "auto",
+  billing_address_collection: "required",
   shipping_address_collection: { allowed_countries: ["US", "CA"] },
   shipping_options: [
     {
