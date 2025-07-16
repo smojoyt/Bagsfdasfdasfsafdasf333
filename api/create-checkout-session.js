@@ -68,12 +68,31 @@ line_items.push({
       console.log("🧾 Final line_items sent to Stripe:", line_items); // ← ADD THIS
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      mode: "payment",
-      line_items,
-      success_url: "https://karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "https://karrykraze.com/pages/cancel.html"
-    });
+  payment_method_types: ["card", "link", "afterpay_clearpay"],
+  mode: "payment",
+  line_items,
+  allow_promotion_codes: true,
+  customer_creation: "always",
+  phone_number_collection: { enabled: true },
+  billing_address_collection: "auto",
+  shipping_address_collection: { allowed_countries: ["US", "CA"] },
+  shipping_options: [
+    {
+      shipping_rate_data: {
+        display_name: "Free Shipping",
+        type: "fixed_amount",
+        fixed_amount: { amount: 0, currency: "usd" },
+        delivery_estimate: {
+          minimum: { unit: "business_day", value: 3 },
+          maximum: { unit: "business_day", value: 10 }
+        }
+      }
+    }
+  ],
+  success_url: "https://karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
+  cancel_url: "https://karrykraze.com/pages/cancel.html"
+});
+
 
     return res.status(200).json({ url: session.url });
 
