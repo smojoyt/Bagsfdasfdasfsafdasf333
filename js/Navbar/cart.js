@@ -18,10 +18,6 @@ function getCart() {
   }
 }
 
-function saveCart(cart) {
-  localStorage.setItem("savedCart", JSON.stringify(cart));
-}
-
 function animateFadeOut(el, callback) {
   el.classList.add("transition", "duration-300", "opacity-0", "-translate-y-2");
   setTimeout(() => {
