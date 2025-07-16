@@ -1,5 +1,5 @@
 import { renderColorDots } from "./utils/variantHelpers.js";
-import { saveCart } from "./cart.js"; // adjust path if needed
+import { saveCart } from "./Navbar/cart.js"; // adjust path if needed
 
 let originalProductEntries = [];
 let products = {};
