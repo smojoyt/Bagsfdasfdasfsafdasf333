@@ -1,26 +1,26 @@
-﻿async function triggerStripeCheckout() {
-  try {
-    const rawCart = JSON.parse(localStorage.getItem("savedCart")) || [];
-    console.log("🛒 Raw cart:", rawCart);
+﻿window.triggerStripeCheckout = async function () {
+  const rawCart = JSON.parse(localStorage.getItem("savedCart")) || [];
 
-    const response = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cart: rawCart })
-    });
+  // optional console log
+  console.log("🛒 Sending cart to checkout:", rawCart);
 
-    if (!response.ok) {
-      throw new Error(`Server responded with status ${response.status}`);
-    }
-
-    const data = await response.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      alert("Checkout failed to start.");
-    }
-  } catch (error) {
-    console.error("❌ triggerStripeCheckout failed:", error);
-    alert("There was a problem with checkout.");
+  const finalCart = await bundleDetector(rawCart); // if you have this
+  if (!Array.isArray(finalCart) || finalCart.length === 0) {
+    alert("Your cart is empty or invalid.");
+    return;
   }
-}
+
+  const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ cart: finalCart })
+  });
+
+  const data = await res.json();
+  if (data.url) {
+    window.location.href = data.url;
+  } else {
+    alert("Checkout failed.");
+    console.error("❌ Stripe error:", data);
+  }
+};
