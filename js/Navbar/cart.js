@@ -184,3 +184,6 @@ function setupCartInteractionHandlers() {
     animateQuantityChange(el);
   });
 }
+export function saveCart(cart) {
+  localStorage.setItem("savedCart", JSON.stringify(cart));
+}
