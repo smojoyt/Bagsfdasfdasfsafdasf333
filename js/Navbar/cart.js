@@ -161,6 +161,12 @@ function setupCartInteractionHandlers() {
       }
 
       saveCart(cart);
+
+// ✅ Ensure re-render happens immediately after DOM update
+requestAnimationFrame(() => {
+  renderCartItems(); // Force UI update on mobile if needed
+});
+
     });
   });
 
@@ -182,7 +188,6 @@ function setupCartInteractionHandlers() {
 }
 export function saveCart(cart) {
   localStorage.setItem("savedCart", JSON.stringify(cart));
-  updateCartCount();         // ✅ Add this
-  renderCartItems();         // ✅ And this
+  updateCartCount(); // Keep this
 }
 
