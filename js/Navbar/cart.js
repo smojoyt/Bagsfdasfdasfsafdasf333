@@ -188,6 +188,11 @@ requestAnimationFrame(() => {
 }
 export function saveCart(cart) {
   localStorage.setItem("savedCart", JSON.stringify(cart));
-  updateCartCount(); // Keep this
+  updateCartCount();
+
+  // ✅ Force immediate UI re-render on mobile
+  requestAnimationFrame(() => {
+    renderCartItems();
+  });
 }
 
