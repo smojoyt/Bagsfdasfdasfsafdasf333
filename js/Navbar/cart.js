@@ -182,4 +182,7 @@ function setupCartInteractionHandlers() {
 }
 export function saveCart(cart) {
   localStorage.setItem("savedCart", JSON.stringify(cart));
+  updateCartCount();         // ✅ Add this
+  renderCartItems();         // ✅ And this
 }
+
