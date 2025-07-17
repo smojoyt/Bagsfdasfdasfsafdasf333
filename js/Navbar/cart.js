@@ -93,41 +93,40 @@ export function renderCartItems() {
     const total = qty * price;
     subtotal += total;
 
-    const variant = item.variant ? `<div class="text-xs text-gray-500 italic">Variant: ${item.variant}</div>` : "";
+    const variant = item.variant
+      ? `<div class="text-xs text-gray-500 italic">Variant: ${item.variant}</div>`
+      : "";
 
     const div = document.createElement("div");
-    div.className = "border-b pb-4 flex items-start gap-4 relative transition duration-300 opacity-0 translate-y-2";
+    div.className = "border-b pb-4 flex items-start gap-4 relative";
     div.innerHTML = `
       <div class="relative w-20 h-20 shrink-0">
-  <img src="${item.image || "/imgs/placeholder.jpg"}"
-       alt="${item.name || "Item"}"
-       class="w-full h-full object-cover rounded" />
-  <button class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center bg-red-500 text-white text-xs font-bold rounded-full shadow remove-item"
-          data-index="${index}">
-    ×
-  </button>
-</div>
+        <img src="${item.image || "/imgs/placeholder.jpg"}"
+             alt="${item.name || "Item"}"
+             class="w-full h-full object-cover rounded" />
+        <button class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center bg-red-500 text-white text-xs font-bold rounded-full shadow remove-item"
+                data-index="${index}">
+          ×
+        </button>
+      </div>
       <div class="flex-grow">
-  <div class="font-semibold">${item.name || "Unnamed Item"}</div>
-  ${variant}
-  
-  <div class="mt-3 flex items-center justify-between w-full">
-    <div class="flex items-center gap-2 text-sm border rounded overflow-hidden">
-      <button class="qty-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 transition" data-action="decrease" data-index="${index}">−</button>
-      <span class="font-medium quantity-count px-2">${qty}</span>
-      <button class="qty-btn px-3 py-1 bg-gray-100 hover:bg-gray-200 transition" data-action="increase" data-index="${index}">+</button>
-    </div>
-    <div class="text-base font-bold text-right ml-4 whitespace-nowrap">
-      $${total.toFixed(2)}
-    </div>
-  </div>
-</div>
+        <div class="font-semibold">${item.name || "Unnamed Item"}</div>
+        ${variant}
 
+        <div class="mt-3 flex items-center justify-between w-full">
+          <div class="flex items-center gap-2 text-sm border rounded overflow-hidden">
+            <button class="qty-btn px-3 py-1 bg-gray-100 hover:bg-gray-200" data-action="decrease" data-index="${index}">−</button>
+            <span class="font-medium quantity-count px-2">${qty}</span>
+            <button class="qty-btn px-3 py-1 bg-gray-100 hover:bg-gray-200" data-action="increase" data-index="${index}">+</button>
+          </div>
+          <div class="text-base font-bold text-right ml-4 whitespace-nowrap">
+            $${total.toFixed(2)}
+          </div>
+        </div>
+      </div>
     `;
 
     frag.appendChild(div);
-
-
   });
 
   container.appendChild(frag);
@@ -135,6 +134,7 @@ export function renderCartItems() {
 
   setupCartInteractionHandlers();
 }
+
 
 // === Interaction Logic ===
 function setupCartInteractionHandlers() {
