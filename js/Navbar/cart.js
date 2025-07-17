@@ -170,7 +170,7 @@ function setupCartInteractionHandlers() {
 });
 
     });
-  });
+
 
   container.querySelectorAll(".remove-item").forEach((btn) => {
     btn.addEventListener("click", () => {
