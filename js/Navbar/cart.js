@@ -138,7 +138,7 @@ export function renderCartItems() {
   setupCartInteractionHandlers();
 }
 
-// === Interaction Logicc ===
+// === Interaction Logic ===
 function setupCartInteractionHandlers() {
   const container = document.getElementById("cart-items-container");
 
@@ -167,10 +167,8 @@ function setupCartInteractionHandlers() {
       }
 
       saveCart(cart);
-});
-
     });
-
+  });
 
   container.querySelectorAll(".remove-item").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -188,6 +186,7 @@ function setupCartInteractionHandlers() {
     animateQuantityChange(el);
   });
 }
+
 export function saveCart(cart) {
   localStorage.setItem("savedCart", JSON.stringify(cart));
   updateCartCount();
