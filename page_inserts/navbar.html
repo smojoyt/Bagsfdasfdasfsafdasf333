@@ -32,27 +32,41 @@
       <div class="flex mb-4">
         <input type="text" id="menu-search" placeholder="What are you looking for?" class="w-full border border-black px-2 py-1 text-sm" />
       </div>
-      <ul id="menu-links" class="pt-20 space-y-3 uppercase text-sm font-s">
-        <li><a href="#">Chief Keef Collab</a></li>
-        <li><a href="#" class="text-red-600">4th of July Sale</a></li>
-        <li><a href="#">New</a></li>
-        <li><a href="#">Shop All</a></li>
-        <li><a href="#">Jorts & Pants</a></li>
-        <li><a href="#">Bear Claw Collection</a></li>
-        <li><a href="#">Kross Kountry Runners</a></li>
-        <li><a href="#">Clogs & Slippers</a></li>
-        <li><a href="#">Tops & Jerseys</a></li>
-        <li><a href="#">Footwear</a></li>
-        <li><a href="#">Shorts</a></li>
-        <li><a href="#">The Vault</a></li>
-        <li><a href="#">Shipping Updates</a></li>
-      </ul>
+      <!-- 🔹 SECTION 1: GENERAL PAGES -->
+<div class="mb-10">
+  <div class="text-xs font-semibold uppercase text-gray-500 mb-2">Explore</div>
+  <ul class="space-y-3 uppercase text-sm font-s">
+    <li><a href="/pages/sign-up.html">Sign Up</a></li>
+    <li><a href="/pages/leave-a-reviews.html">Leave a Review</a></li>
+    <li><a href="/pages/coupons.html">Coupons</a></li>
+  </ul>
+</div>
+
+<!-- 🔹 SECTION 2: SHOP CATEGORIES -->
+<div>
+  <div class="text-xs font-semibold uppercase text-gray-500 mb-2">Shop by Category</div>
+  <ul id="menu-links" class="space-y-3 uppercase text-sm font-s">
+    <li><a href="/collections/chief-keef">Chief Keef Collab</a></li>
+    <li><a href="/collections/sale" class="text-red-600">4th of July Sale</a></li>
+    <li><a href="/collections/new">New</a></li>
+    <li><a href="/collections/all">Shop All</a></li>
+    <li><a href="/collections/jorts-pants">Jorts & Pants</a></li>
+    <li><a href="/collections/bear-claw">Bear Claw Collection</a></li>
+    <li><a href="/collections/kross-kountry">Kross Kountry Runners</a></li>
+    <li><a href="/collections/clogs">Clogs & Slippers</a></li>
+    <li><a href="/collections/tops">Tops & Jerseys</a></li>
+    <li><a href="/collections/footwear">Footwear</a></li>
+    <li><a href="/collections/shorts">Shorts</a></li>
+    <li><a href="/collections/vault">The Vault</a></li>
+  </ul>
+</div>
+
     </div>
     <div class="space-y-2 text-sm text-gray-600 uppercase mt-6 border-t pt-4">
       <a href="#" class="block">Contact</a>
-      <a href="#" class="block">Discord</a>
-      <a href="#" class="block">Privacy Policy</a>
-      <a href="#" class="block">FAQ</a>
+      <a href="#" id="open-privacy-modal" class="block hover:underline">Privacy Policy</a>
+      <a href="#" id="shipping-link" class="block hover:underline">Shipping Policy</a>
+      <a href="#" id="faq-link" class="block hover:underline">FAQ</a>
     </div>
   </aside>
 

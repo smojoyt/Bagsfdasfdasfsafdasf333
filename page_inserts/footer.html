@@ -1,54 +1,29 @@
-﻿<!-- Newsletter Section -->
-<footer class="bg-[rgb(254_249_195_/var(--tw-bg-opacity,1))] text-gray-700 text-sm border-t mt-10">
-    <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+﻿<footer class="text-black px-6 py-10 text-xs">
+  <!-- Custom horizontal line -->
+  <div class="w-full flex justify-center mb-6">
+    <div class="h-[1px] bg-black w-full max-w-7xl"></div>
+  </div>
 
-        <!-- Logo + About -->
-        <div class="col-span-1 flex flex-col items-center md:items-start">
-            <img src="/imgs/Logo/Short/SL_0607.png" alt="Karry Kraze Logo" class="w-20 h-20 object-contain mb-2" />
-            <p class="text-center md:text-left text-gray-600">
-                Unique bags & accessories designed to turn heads. Fast U.S. shipping, secure checkout, and curated drops.
-            </p>
-        </div>
-
-        <!-- Contact Info -->
-        <div class="col-span-1">
-            <h3 class="text-lg font-semibold mb-2">Contact</h3>
-            <ul class="space-y-1">
-                <li><a href="/pages/contact" class="hover:underline">Contact Us</a></li>
-                <li><a href="mailto:contact@karrykraze.com" class="hover:underline">contact@karrykraze.com</a></li>
-            </ul>
-            <div class="flex gap-4 mt-4 justify-center md:justify-start">
-                <a href="https://www.instagram.com/karrykraze" target="_blank" aria-label="Instagram" class="text-gray-700 hover:text-black transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5c0 3.3-2.45 5.75-5.75 5.75h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2Zm0 1.5C5.4 3.5 3.5 5.4 3.5 7.75v8.5c0 2.35 1.9 4.25 4.25 4.25h8.5c2.35 0 4.25-1.9 4.25-4.25v-8.5c0-2.35-1.9-4.25-4.25-4.25h-8.5Zm8.5 2a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Zm-4.25 1.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5Zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-
-        <!-- Spacer -->
-        <div class="col-span-1 hidden lg:block"></div>
-
-        <!-- Newsletter Form -->
-        <div class="col-span-1">
-            <h2 class="text-base font-bold mb-1">$5 OFF YOUR FIRST PURCHASE!</h2>
-            <p class="text-lg font-semibold mb-3">JOIN THE KRAZE</p>
-            <form id="newsletterForm" onsubmit="return false;" class="flex flex-col sm:flex-row gap-2">
-                <input type="email"
-                       id="newsletterEmail"
-                       required
-                       placeholder="Enter your email"
-                       class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400" />
-                <button type="submit"
-                        class="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-2 rounded font-semibold">
-                    UNLOCK NOW
-                </button>
-            </form>
-        </div>
+  <!-- Main footer row: links on left, logo on right -->
+  <div class="max-w-7xl mx-auto flex flex-row flex-wrap justify-between items-end gap-6">
+    
+    <!-- Left: Links & Copyright -->
+    <div>
+      <div class="flex flex-wrap justify-start gap-6 mb-4 uppercase font-semibold tracking-wide text-[12px]">
+        <a href="#" id="faq-link" class="hover:underline">FAQ</a>
+        <a href="#" id="open-privacy-modal" class="hover:underline">Privacy Policy</a>
+        <a href="#" id="shipping-link" class="hover:underline">Shipping Policy</a>
+      </div>
+      <div class="text-[12px] uppercase">
+        &copy; Karry Kraze <span id="footer-year">2025</span>
+      </div>
     </div>
 
-    <div class="text-center text-gray-500 border-t border-gray-300 py-4 px-4">
-        &copy; 2025 Karry Kraze. All rights reserved.
-        | <a href="https://karrykraze.com/pages/privacy-policy" class="hover:underline text-gray-500">Privacy Policy</a>
+    <!-- Right: Logo with border box style -->
+    <div class="shrink-0 ml-auto">
+      <a href="/" class="block p-1 border-[4px] border-black backdrop-blur-sm bg-white/30">
+        <img src="/imgs/Logo/Short/SL_0607.png" alt="Karry Kraze Logo" class="h-10 object-contain" />
+      </a>
     </div>
+  </div>
 </footer>

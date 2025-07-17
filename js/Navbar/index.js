@@ -2,10 +2,11 @@ import { initDrawers } from "./drawers.js";
 import { observeCart, updateCartCount, renderCartItems } from "./cart.js";
 import { setupMenuSearch } from "./search.js";
 import { animateMenuLinks } from "./animations.js";
+import { initSharedUI } from "../Shared/index.js"; // ✅ Import shared modal logic
 
 let initialized = false;
 
-export function initNavbar() {
+export async function initNavbar() {
   if (initialized) return;
   initialized = true;
 
@@ -37,7 +38,6 @@ export function initNavbar() {
         .then(() => {
           console.log("✅ checkout.js loaded");
 
-          // Optional: attach loading feedback here
           checkoutBtn.addEventListener("click", async () => {
             checkoutBtn.disabled = true;
             checkoutBtn.textContent = "Redirecting...";
@@ -50,6 +50,9 @@ export function initNavbar() {
           console.error("❌ Failed to load checkout.js:", err);
         });
     }
+
+    // ✅ Initialize modal and shared elements
+    await initSharedUI();
 
   } catch (err) {
     console.error("❌ Navbar initialization failed:", err);
