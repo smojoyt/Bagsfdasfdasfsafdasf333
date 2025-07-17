@@ -15,11 +15,10 @@ export async function initNavbar() {
     initDrawers();
 
     // ✅ Initialize cart state + observers
-    if (document.getElementById("cart-toggle")) {
       observeCart();
       updateCartCount();
       renderCartItems();
-    }
+    
 
     // ✅ Setup menu search only if the element exists
     if (document.getElementById("menu-search")) {
