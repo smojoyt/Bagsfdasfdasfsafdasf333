@@ -127,9 +127,7 @@ export function renderCartItems() {
 
     frag.appendChild(div);
 
-    requestAnimationFrame(() => {
-      div.classList.remove("opacity-0", "translate-y-2");
-    });
+
   });
 
   container.appendChild(frag);
