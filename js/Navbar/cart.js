@@ -138,7 +138,7 @@ export function renderCartItems() {
   setupCartInteractionHandlers();
 }
 
-// === Interaction Logic ===
+// === Interaction Logicc ===
 function setupCartInteractionHandlers() {
   const container = document.getElementById("cart-items-container");
 
