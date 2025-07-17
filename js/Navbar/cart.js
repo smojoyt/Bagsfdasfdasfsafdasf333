@@ -19,11 +19,15 @@ function getCart() {
 }
 
 function animateFadeOut(el, callback) {
+  el.style.willChange = "opacity, transform"; // Hint to browser
+  el.getBoundingClientRect(); // 🧠 Force reflow
   el.classList.add("transition", "duration-300", "opacity-0", "-translate-y-2");
+
   setTimeout(() => {
     callback?.();
   }, 300);
 }
+
 
 function animateQuantityChange(el) {
   el.classList.add("scale-110");
@@ -34,10 +38,12 @@ function animateQuantityChange(el) {
 
 export function updateCartCount() {
   const el = document.getElementById("cart-count");
+  if (!el) return;
   const cart = getCart();
   const total = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-  if (el) el.textContent = total || "0";
+  el.textContent = total || "0";
 }
+
 
 export function observeCart() {
   const originalSetItem = localStorage.setItem;
@@ -161,10 +167,6 @@ function setupCartInteractionHandlers() {
       }
 
       saveCart(cart);
-
-// ✅ Ensure re-render happens immediately after DOM update
-requestAnimationFrame(() => {
-  renderCartItems(); // Force UI update on mobile if needed
 });
 
     });
