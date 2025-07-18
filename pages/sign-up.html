@@ -44,53 +44,11 @@
     <script src="/js/moreItemsCarousel.js"></script>
     <script src="/js/loadProductData.js"></script>
 
-    <style>
-        .quality-btn.selected {
-            background-color: black;
-            color: white;
-        }
-
-        mark.bg-yellow-200 {
-            padding: 0 2px;
-            border-radius: 0.25rem;
-        }
-
-        @keyframes blobMotion {
-            0%, 100% {
-                transform: scale(1) translate(0, 0);
-            }
-
-            50% {
-                transform: scale(1.05) translate(10px, -10px);
-            }
-        }
-
-        .animate-blobMotion {
-            animation: blobMotion 10s infinite ease-in-out;
-        }
-
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fadeInUp {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-    </style>
-
 </head>
 <body class="relative bg-[#fef1e7]">
 
     <!-- 🌸 Background Blob -->
+     <main class="px-6 py-36">
     <div class="absolute -z-10 top-0 left-0 w-full h-full overflow-hidden">
         <svg viewBox="0 0 800 800" class="w-[120%] h-[80%] md:h-[120%] opacity-20 animate-blobMotion">
             <!-- Main Blob -->
@@ -204,8 +162,8 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
 
     <!-- Footer -->
     <div id="footer"></div>
-    <div id="navbar-container"></div>
-
+    <div id="navbar"></div>
+</main>
     <script>
         document.getElementById('couponForm').addEventListener('submit', async function (e) {
             e.preventDefault();
@@ -269,69 +227,9 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
 
 
         });
-
-
-
-
-
-
-
-
-
-
-        // Other included HTML
-        function includeHTML(id, filePath, callback = null) {
-            fetch(filePath)
-                .then(res => res.text())
-                .then(html => {
-                    document.getElementById(id).innerHTML = html;
-                    if (callback) callback();
-                });
-        }
-
-        function initNavbar() {
-            const toggleBtn = document.getElementById("mobile-menu-button");
-            const menu = document.getElementById("mobile-menu");
-            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
-
-            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-            const countElem = document.getElementById("cart-count");
-            if (countElem) countElem.textContent = totalQty;
-
-            const navbar = document.getElementById('mainNavbar');
-            let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                if (!navbar) return;
-                if (window.scrollY > lastScrollY && window.scrollY > 50) {
-                    navbar.classList.replace('navbar-show', 'navbar-hide');
-                } else {
-                    navbar.classList.replace('navbar-hide', 'navbar-show');
-                }
-                lastScrollY = window.scrollY;
-            });
-        }
-
-        // 🔁 Main Load Flow
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-            initNavbar();
-
-            const addToCartBtn = document.getElementById("add-to-cart-btn");
-            if (addToCartBtn) {
-                addToCartBtn.addEventListener("click", () => {
-                    const variant = document.getElementById("variantSelector")?.value || null;
-                    addToCart(activeProduct, variant);
-                });
-            }
-
-            includeHTML("footer", "/page_inserts/footer.html");
-        });
-
-
-
-
-
-
     </script>
+<script type="module" src="/js/footer.js"></script>
+  <script type="module" src="/js/catalog.js"></script>
+  <script src="/js/navbar.js" type="module"></script>
 </body>
 </html>

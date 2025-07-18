@@ -1,8 +1,7 @@
 import { renderColorDots } from "./utils/variantHelpers.js";
-import { saveCart, updateCartCount } from "./Navbar/cart.js"; 
+import { saveCart, updateCartCount } from "./Navbar/cart.js";
 
-
-
+let currentFilteredEntries = []; // holds current filtered products for sorting
 let originalProductEntries = [];
 let products = {};
 
@@ -13,37 +12,90 @@ document.addEventListener("DOMContentLoaded", async () => {
   const sortLabel = document.getElementById("sortLabel");
   if (!grid) return;
 
-  // Sorting toggle dropdownss
+  // Sort dropdown toggle
   sortToggle?.addEventListener("click", () => {
     sortOptions?.classList.toggle("hidden");
   });
 
-  // Sort option click handler
-  sortOptions?.addEventListener("click", (e) => {
-    const btn = e.target.closest("button[data-sort]");
-    if (!btn) return;
+  // Sort option selection
+sortOptions?.addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-sort]");
+  if (!btn) return;
 
-    const sortType = btn.dataset.sort;
-    sortLabel.textContent = btn.textContent;
-    sortOptions.classList.add("hidden");
+  const sortType = btn.dataset.sort;
+  sortLabel.textContent = btn.textContent;
+  sortOptions.classList.add("hidden");
 
-    let sorted = [...originalProductEntries];
-    if (sortType === "asc") {
-      sorted.sort((a, b) => a[1].price - b[1].price);
-    } else if (sortType === "desc") {
-      sorted.sort((a, b) => b[1].price - a[1].price);
-    }
+  if (currentFilteredEntries.length === 0) {
+    console.warn("⚠️ No items to sort.");
+    return;
+  }
 
-    renderSortedCatalog(sorted);
-  });
+  let sorted = [...currentFilteredEntries];
 
+  if (sortType === "asc") {
+    sorted.sort((a, b) => a[1].price - b[1].price);
+  } else if (sortType === "desc") {
+    sorted.sort((a, b) => b[1].price - a[1].price);
+  } else if (sortType === "default") {
+    const category = getCategoryFromURL();
+    currentFilteredEntries = filterByCategory(originalProductEntries, category);
+    sorted = [...currentFilteredEntries];
+  }
+
+  console.log("🔍 Sorted:", sortType, sorted.length, "items");
+  renderSortedCatalog(sorted);
+});
+
+
+
+
+  // ✅ Load products and apply filters, banners, and interactions
   try {
     const res = await fetch("/products/products.json");
     products = await res.json();
     originalProductEntries = Object.entries(products);
-    renderSortedCatalog(originalProductEntries);
 
-    // Swatch and Cart Click Handler
+    const category = getCategoryFromURL();
+    currentFilteredEntries = filterByCategory(originalProductEntries, category);
+
+
+    // Set banner background
+    const bannerSection = document.getElementById("catalog-banner");
+    const bannerTitle = document.getElementById("category-title");
+    const defaultBanner = "https://www.karrykraze.com/imgs/default-category-banner.jpg";
+
+const bannerCandidates = currentFilteredEntries
+  .map(([_, product]) => product.banner)
+  .filter(Boolean);
+
+
+    const bannerToUse = bannerCandidates.length > 0
+      ? bannerCandidates[Math.floor(Math.random() * bannerCandidates.length)]
+      : defaultBanner;
+
+    if (bannerSection) {
+      bannerSection.style.backgroundImage = `url('${bannerToUse}')`;
+    }
+
+    // Set dynamic title
+    function formatCategoryTitle(cat) {
+      if (!cat || cat === "all") return "Shop All";
+      const words = cat.split("-").map(word =>
+        word.charAt(0).toUpperCase() + word.slice(1)
+      );
+      return "Shop " + words.join(" ");
+    }
+
+    if (bannerTitle) {
+      bannerTitle.textContent = formatCategoryTitle(category);
+    }
+
+    // Render filtered products
+renderSortedCatalog(currentFilteredEntries);
+
+
+    // ✅ Setup swatch & cart interactions
     grid.addEventListener("click", async (e) => {
       const btn = e.target.closest("button[data-color]");
       if (btn) {
@@ -120,6 +172,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     grid.innerHTML = `<div class="text-red-600 font-bold">Failed to load products.</div>`;
   }
 });
+
+// 🔧 Utilities below
+
+function getCategoryFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("category") || "all";
+}
+
+function filterByCategory(entries, category) {
+  if (category === "all") return entries;
+
+  return entries.filter(([_, product]) => {
+    const tags = (product.tags || []).map(tag => tag.toLowerCase());
+    return tags.includes(category.toLowerCase());
+  });
+}
 
 function renderSortedCatalog(entries) {
   const grid = document.getElementById("product-grid");
