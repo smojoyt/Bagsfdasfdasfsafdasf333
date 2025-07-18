@@ -15,27 +15,23 @@ export function getColorClass(colorName) {
 }
 
 // utils/variantHelpers.js
-export function renderColorDots(optionsStr, stockObj = {}, imageObj = {}) {
-  return optionsStr.split("|").map(opt => {
-    const name = opt.trim();
-    const isOut = stockObj[name] === 0;
-    const image = imageObj?.[name] || "";
+export function renderColorDots(options = [], stock = {}, images = {}, sku = "") {
+  if (!Array.isArray(options)) return "";
 
-    if (isOut) {
-      return `<button 
-        type="button" 
-        class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border ${getColorClass(name)} grayscale opacity-50 cursor-not-allowed block transition" 
-        title="${name} (Out of Stock)" 
-        disabled>
-      </button>`;
-    }
+  return options.map((color) => {
+    const inStock = stock[color] > 0;
+    const image = images[color] || "/imgs/placeholder.jpg";
 
-    return `<button 
-      type="button" 
-      class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border ${getColorClass(name)} hover:ring-2 hover:scale-110 transition cursor-pointer" 
-      title="${name}" 
-      data-color="${name}" 
-      data-image="${image}">
-    </button>`;
+    return `
+      <button
+        class="color-dot w-5 h-5 rounded-full border border-gray-300"
+        style="background-color: ${color.toLowerCase()}; opacity: ${inStock ? "1" : "0.3"}"
+        data-sku="${sku}"
+        data-variant="${color}"
+        data-image="${image}"
+        ${!inStock ? "disabled" : ""}
+      ></button>
+    `;
   }).join("");
 }
+

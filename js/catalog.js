@@ -1,6 +1,8 @@
 import { renderColorDots } from "./utils/variantHelpers.js";
 import { saveCart, updateCartCount } from "./Navbar/cart.js";
 
+let currentSortType = "default";
+let currentSearchQuery = "";
 let currentFilteredEntries = []; // holds current filtered products for sorting
 let originalProductEntries = [];
 let products = {};
@@ -12,6 +14,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   const sortLabel = document.getElementById("sortLabel");
   if (!grid) return;
 
+  const searchInput = document.getElementById("productSearch");
+const clearBtn = document.getElementById("clearSearch");
+
+searchInput?.addEventListener("input", (e) => {
+  currentSearchQuery = e.target.value.trim().toLowerCase();
+  clearBtn.classList.toggle("hidden", currentSearchQuery === "");
+  applySearchAndSort();
+});
+
+clearBtn?.addEventListener("click", () => {
+  searchInput.value = "";
+  currentSearchQuery = "";
+  clearBtn.classList.add("hidden");
+  applySearchAndSort();
+});
+
+
   // Sort dropdown toggle
   sortToggle?.addEventListener("click", () => {
     sortOptions?.classList.toggle("hidden");
@@ -22,30 +41,13 @@ sortOptions?.addEventListener("click", (e) => {
   const btn = e.target.closest("button[data-sort]");
   if (!btn) return;
 
-  const sortType = btn.dataset.sort;
+  currentSortType = btn.dataset.sort;
   sortLabel.textContent = btn.textContent;
   sortOptions.classList.add("hidden");
 
-  if (currentFilteredEntries.length === 0) {
-    console.warn("⚠️ No items to sort.");
-    return;
-  }
-
-  let sorted = [...currentFilteredEntries];
-
-  if (sortType === "asc") {
-    sorted.sort((a, b) => a[1].price - b[1].price);
-  } else if (sortType === "desc") {
-    sorted.sort((a, b) => b[1].price - a[1].price);
-  } else if (sortType === "default") {
-    const category = getCategoryFromURL();
-    currentFilteredEntries = filterByCategory(originalProductEntries, category);
-    sorted = [...currentFilteredEntries];
-  }
-
-  console.log("🔍 Sorted:", sortType, sorted.length, "items");
-  renderSortedCatalog(sorted);
+  applySearchAndSort(); // ✅ unified filter + sort logic
 });
+
 
 
 
@@ -188,8 +190,21 @@ function filterByCategory(entries, category) {
     return tags.includes(category.toLowerCase());
   });
 }
+const searchInput = document.getElementById("productSearch");
 
-function renderSortedCatalog(entries) {
+searchInput?.addEventListener("input", (e) => {
+  const query = e.target.value.trim().toLowerCase();
+
+  const filtered = currentFilteredEntries.filter(([_, product]) => {
+    const name = product.name?.toLowerCase() || "";
+    const tags = (product.tags || []).join(" ").toLowerCase();
+    return name.includes(query) || tags.includes(query);
+  });
+
+  renderSortedCatalog(filtered);
+});
+
+function renderSortedCatalog(entries, query = "") {
   const grid = document.getElementById("product-grid");
   if (!grid) return;
 
@@ -214,7 +229,9 @@ function renderSortedCatalog(entries) {
           </div>
         </a>
         <div class="flex flex-col items-center gap-0.5 text-sm mt-5">
-          <div class="font-medium text-black uppercase">${product.name}</div>
+          <div class="font-medium text-black uppercase">
+            ${highlightMatch(product.name, query)}
+          </div>
           <div class="text-black">$${product.price.toFixed(2)}</div>
           <div class="flex flex-wrap justify-center gap-x-1 gap-y-1.5 mt-3 swatch-group">
             ${renderColorDots(product.custom1Options, product.variantStock, product.variantImages)}
@@ -228,4 +245,35 @@ function renderSortedCatalog(entries) {
   }
 
   grid.appendChild(fragment);
+}
+
+
+function highlightMatch(text, query) {
+  if (!query) return text;
+  const regex = new RegExp(`(${query})`, "gi");
+  return text.replace(regex, `<span class="bg-yellow-200">$1</span>`);
+}
+
+
+function applySearchAndSort() {
+  let filtered = currentFilteredEntries;
+
+  // Apply search
+  if (currentSearchQuery) {
+    filtered = filtered.filter(([_, product]) => {
+      const name = product.name?.toLowerCase() || "";
+      const tags = (product.tags || []).join(" ").toLowerCase();
+      return name.includes(currentSearchQuery) || tags.includes(currentSearchQuery);
+    });
+  }
+
+  // Apply sort
+  if (currentSortType === "asc") {
+    filtered.sort((a, b) => a[1].price - b[1].price);
+  } else if (currentSortType === "desc") {
+    filtered.sort((a, b) => b[1].price - a[1].price);
+  }
+
+renderSortedCatalog(filtered, currentSearchQuery);
+
 }
