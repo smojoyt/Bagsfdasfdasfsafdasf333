@@ -1,3 +1,5 @@
+// utils/variantHelpers.js
+
 export function getColorClass(colorName) {
   const colorMap = {
     pink: 'bg-pink-400', white: 'bg-white border', black: 'bg-black',
@@ -14,18 +16,17 @@ export function getColorClass(colorName) {
   return colorMap[colorName.toLowerCase()] || 'bg-gray-200';
 }
 
-// utils/variantHelpers.js
 export function renderColorDots(options = [], stock = {}, images = {}, sku = "") {
   if (!Array.isArray(options)) return "";
 
   return options.map((color) => {
     const inStock = stock[color] > 0;
     const image = images[color] || "/imgs/placeholder.jpg";
+    const colorClass = getColorClass(color);
 
     return `
       <button
-        class="color-dot w-5 h-5 rounded-full border border-gray-300"
-        style="background-color: ${color.toLowerCase()}; opacity: ${inStock ? "1" : "0.3"}"
+        class="color-dot w-5 h-5 rounded-full border border-gray-300 ${colorClass} ${!inStock ? 'opacity-30' : ''}"
         data-sku="${sku}"
         data-variant="${color}"
         data-image="${image}"
@@ -34,4 +35,3 @@ export function renderColorDots(options = [], stock = {}, images = {}, sku = "")
     `;
   }).join("");
 }
-

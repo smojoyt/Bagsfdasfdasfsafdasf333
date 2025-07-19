@@ -1,24 +1,37 @@
 import { initDrawers } from "./drawers.js";
-import { observeCart, updateCartCount, renderCartItems } from "./cart.js";
+import { updateCartCount, observeCart, renderCartItems } from "./cart.js";
 import { setupMenuSearch } from "./search.js";
 import { animateMenuLinks } from "./animations.js";
-import { initSharedUI } from "../Shared/index.js"; // ✅ Import shared modal logic
+import { initSharedUI } from "../Shared/index.js";
 
 let initialized = false;
+
+async function loadNavbarHTML() {
+  const navContainer = document.getElementById("navbar");
+  if (!navContainer) return;
+
+  try {
+    const res = await fetch("/page_inserts/navbar.html");
+    navContainer.innerHTML = await res.text();
+  } catch (err) {
+    console.error("❌ Failed to load navbar.html:", err);
+  }
+}
 
 export async function initNavbar() {
   if (initialized) return;
   initialized = true;
 
+
+
   try {
-    // ✅ Setup menu/cart drawers
-    initDrawers();
+  console.log("⚙️ Calling initDrawers()");
+initDrawers();
 
     // ✅ Initialize cart state + observers
-      observeCart();
-      updateCartCount();
-      renderCartItems();
-    
+    observeCart();
+    updateCartCount();
+    renderCartItems();
 
     // ✅ Setup menu search only if the element exists
     if (document.getElementById("menu-search")) {
@@ -57,3 +70,9 @@ export async function initNavbar() {
     console.error("❌ Navbar initialization failed:", err);
   }
 }
+
+loadNavbarHTML().then(() => {
+  requestAnimationFrame(() => initNavbar());
+});
+
+

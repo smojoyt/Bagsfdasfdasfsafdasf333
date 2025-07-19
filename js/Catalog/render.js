@@ -25,27 +25,28 @@ export function renderSortedCatalog(entries) {
     card.className = "flex flex-col gap-2 w-full max-w-[30rem] items-center text-center";
 
     card.innerHTML = `
-      <div class="w-full" data-sku="${key}">
-        <a href="/products/${key}.html" class="block w-full">
-          <div class="relative w-full aspect-square bg-gray-100 overflow-hidden group image-hover-group">
-            <img src="${imageUrl}" alt="${product.name}" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0 product-img" />
-            <img src="${hoverImage}" alt="${product.name}" class="w-full h-full object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </div>
-        </a>
-        <div class="flex flex-col items-center gap-0.5 text-sm mt-5">
-          <div class="font-medium text-black uppercase">
-            ${highlightMatch(product.name, currentState?.currentSearchQuery || "")}
-          </div>
-          <div class="text-black">$${product.price.toFixed(2)}</div>
-          <div class="flex flex-wrap justify-center gap-x-1 gap-y-1.5 mt-3 swatch-group">
-            ${renderColorDots(colorOptions, product.variantStock, product.variantImages, key)}
-          </div>
-          <div class="text-xs mt-1 select-color-text uppercase text-gray-500 cursor-not-allowed transition-all duration-300" data-sku="${key}">
-            Select Color
-          </div>
-        </div>
+  <div class="w-full">
+    <a href="/products/${key}.html" class="block w-full" data-sku="${key}">
+      <div class="relative w-full aspect-square bg-gray-100 overflow-hidden group image-hover-group">
+        <img src="${imageUrl}" alt="${product.name}" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0 product-img" />
+        <img src="${hoverImage}" alt="${product.name}" class="w-full h-full object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
-    `;
+    </a>
+    <div class="flex flex-col items-center gap-0.5 text-sm mt-5">
+      <div class="font-medium text-black uppercase">
+        ${highlightMatch(product.name, currentState?.currentSearchQuery || "")}
+      </div>
+      <div class="text-black">$${product.price.toFixed(2)}</div>
+      <div class="flex flex-wrap justify-center gap-x-1 gap-y-1.5 mt-3 swatch-group">
+        ${renderColorDots(colorOptions, product.variantStock, product.variantImages, key)}
+      </div>
+      <div class="text-xs mt-1 select-color-text uppercase text-gray-500 cursor-not-allowed transition-all duration-300" data-sku="${key}">
+        Select Color
+      </div>
+    </div>
+  </div>
+`;
+
 
     fragment.appendChild(card);
   }
@@ -58,31 +59,41 @@ export function renderSortedCatalog(entries) {
     const addBtn = e.target.closest(".select-color-text");
 
     // 🔹 Swatch clicked
-    if (dot) {
-      const sku = dot.dataset.sku;
-      const variant = dot.dataset.variant;
-      const image = dot.dataset.image;
-      const card = dot.closest("[data-sku]");
-      const msgEl = document.querySelector(`.select-color-text[data-sku="${sku}"]`);
+if (dot) {
+  const sku = dot.dataset.sku;
+  const variant = dot.dataset.variant;
+  const image = dot.dataset.image;
 
-      document.querySelectorAll(`.color-dot[data-sku="${sku}"]`).forEach(btn => {
-        btn.classList.remove("ring-2", "ring-black");
-      });
-      dot.classList.add("ring-2", "ring-black");
+  const card = dot.closest(".flex.flex-col"); // ← the actual root card
+  const msgEl = card?.querySelector(".select-color-text");
 
-      const img = card.querySelector(".product-img");
-      if (img && image) img.src = image;
+  document.querySelectorAll(`.color-dot[data-sku="${sku}"]`).forEach(btn => {
+    btn.classList.remove("ring-2", "ring-black");
+  });
+  dot.classList.add("ring-2", "ring-black");
 
-      if (msgEl) {
-        msgEl.textContent = "Add to Cart";
-        msgEl.dataset.variant = variant;
-        msgEl.classList.remove("text-gray-500", "cursor-not-allowed");
-        msgEl.classList.add("text-black", "cursor-pointer");
-      }
+const img = document.querySelector(`a[data-sku="${sku}"] .image-hover-group > img`);
 
-      console.log(`Selected variant "${variant}" for SKU "${sku}"`);
-      return;
-    }
+
+  if (img && image) {
+    console.log("✅ Updating image:", img.src, "→", image);
+    img.src = image;
+  } else {
+    console.warn("❌ Could not update image", { img, image });
+  }
+
+  if (msgEl) {
+    msgEl.textContent = "Add to Cart";
+    msgEl.dataset.variant = variant;
+    msgEl.classList.remove("text-gray-500", "cursor-not-allowed");
+    msgEl.classList.add("text-black", "cursor-pointer");
+  }
+
+  return;
+}
+
+
+
 
     // 🔹 Add to Cart clicked
     if (addBtn && addBtn.textContent === "Add to Cart") {

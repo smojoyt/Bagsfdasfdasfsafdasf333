@@ -1,8 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- Favicon -->
     <link rel="icon" href="/imgs/Logo/Short/SL_0603.png" type="image/png" />
     <title>Sign Up – Karry Kraze</title>
@@ -28,208 +30,85 @@
 
     <!-- Tailwind (not recommended for production, but fine for dev) -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Flickity + ImagesLoaded -->
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
-
-    <!-- Your JS Files -->
-    <script src="/js/helpers.js"></script>
-    <script src="/js/cartUtils.js"></script>
-    <script src="/js/bundleEngine.js"></script>
-    <script src="/js/cartRenderer.js"></script>
-    <script src="/js/checkout.js"></script>
-    <script src="/js/uni_navbar.js"></script>
-    <script src="/js/moreItemsCarousel.js"></script>
-    <script src="/js/loadProductData.js"></script>
-
 </head>
-<body class="relative bg-[#fef1e7]">
+<!-- NAVBAR MOUNT -->
 
-    <!-- 🌸 Background Blob -->
-     <main class="px-6 py-36">
-    <div class="absolute -z-10 top-0 left-0 w-full h-full overflow-hidden">
-        <svg viewBox="0 0 800 800" class="w-[120%] h-[80%] md:h-[120%] opacity-20 animate-blobMotion">
-            <!-- Main Blob -->
-            <path fill="#f88379">
-                <animate attributeName="d" dur="10s" repeatCount="indefinite"
-                         values="
-M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170,437,296Z;
-M417,300Q383,420,280,429Q177,438,164,369Q151,300,199,228Q247,156,344,166Q441,176,417,300Z;
-M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170,437,296Z" />
-            </path>
+<body class="bg-white text-black font-sans">
+    <main class="px-6 py-36">
+        <div class="max-w-[108rem] mx-auto ">
 
-            <!-- 🎈 Bubble 1: Up-right -->
-            <circle cx="400" cy="300" r="8" fill="#f88379">
-                <animate attributeName="cx" values="300; 310" dur="6s" repeatCount="indefinite" />
-                <animate attributeName="cy" values="300; 900" dur="6s" repeatCount="indefinite" />
-                <animate attributeName="r" values="50; 25; 10" dur="6s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1; 0.5; 0" dur="6s" repeatCount="indefinite" />
-            </circle>
+            <!-- 🏷️ Banner Section with Title -->
+            <section id="signup-banner"
+                class="w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center relative">
+                <img src="/imgs/Banner/KK_01.jpg" alt="Signup Banner"
+                    class="absolute inset-0 w-full h-full object-cover" />
+                <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%] text-white">
+                    <h1
+                        class="text-black font-bold text-2xl sm:text-1xl tracking-wider uppercase bg-white m-4 px-3 py-2 sm:px-6 sm:py-3">
+                        $5 Off Your Next Order
+                    </h1>
 
-            <!-- 🎈 Bubble 2: Up-left -->
-            <circle cx="400" cy="300" r="7" fill="#f88379">
-                <animate attributeName="cx" values="300; 330" dur="5s" begin="1s" repeatCount="indefinite" />
-                <animate attributeName="cy" values="300; -200" dur="5s" begin="1s" repeatCount="indefinite" />
-                <animate attributeName="r" values="80; 40; 10" dur="5s" begin="1s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1; 0.5; 0" dur="5s" begin="1s" repeatCount="indefinite" />
-            </circle>
+                </div>
+            </section>
 
-            <!-- 🎈 Bubble 3: Up-right-far -->
-            <circle cx="400" cy="300" r="6" fill="#f88379">
-                <animate attributeName="cx" values="300; 800" dur="7s" begin="2s" repeatCount="indefinite" />
-                <animate attributeName="cy" values="300; 220" dur="7s" begin="2s" repeatCount="indefinite" />
-                <animate attributeName="r" values="70; 35; 10" dur="7s" begin="2s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1; 0.5; 0" dur="7s" begin="2s" repeatCount="indefinite" />
-            </circle>
+            <!-- 📨 Signup Form Section -->
+            <section class="relative text-gray-800 font-sans px-4 py-10 max-w-3xl mx-auto animate-fadeInUp">
 
+                <form id="couponForm" class="space-y-6">
+                    <p class="text-center my-3 text-sm md:text-xl font-medium">
+                        Sign up below and your exclusive coupon will be emailed instantly.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" name="firstName" placeholder="First Name" required
+                            class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+                        <input type="text" name="lastName" placeholder="Last Name" required
+                            class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+                    </div>
 
+                    <input type="email" name="email" placeholder="Email" required
+                        class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+                    <input type="tel" name="phone" placeholder="Phone Number" required
+                        class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
 
-        </svg>
-    </div>
+                    <div class="text-left space-y-3 text-sm text-gray-700">
+                        <label class="flex items-start gap-2">
+                            <input type="checkbox" name="smsConsent" required class="accent-[#f88379] mt-1" />
+                            <span>I agree to get recurring texts from Karry Kraze. Msg & data rates may apply. Reply
+                                STOP to unsubscribe.</span>
+                        </label>
+                        <label class="flex items-start gap-2">
+                            <input type="checkbox" name="emailConsent" required class="accent-[#f88379] mt-1" />
+                            <span>I agree to receive marketing emails from Karry Kraze.</span>
+                        </label>
+                    </div>
 
+                    <button type="submit"
+                        class="w-full bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 font-semibold transition duration-200">
+                        Claim My Coupon
+                    </button>
+                </form>
 
-    <!-- 🔥 Banner with overlayed title -->
-    <div class="mt-[2rem] md:mt-16 relative w-full h-40 md:h-60 sm:h-72 md:h-80 lg:h-[28rem] overflow-hidden shadow-md">
-        <img src="/imgs/Banner/KK_01.jpg" alt="Signup Banner" class="absolute inset-0 w-full h-full object-cover" />
+                <div id="couponMessage" class="hidden mt-10 text-center">
+                    <p class="text-green-700 font-semibold text-lg mb-4">🎉 Your coupon is on the way! Check your inbox.
+                    </p>
+                    <a href="/pages/catalog.html"
+                        class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 font-medium transition duration-200">
+                        Browse the Shop
+                    </a>
+                </div>
+            </section>
 
-        <!-- Title Overlay -->
-        <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 text-white drop-shadow-md max-w-[90%] sm:max-w-[75%]">
-            <h1 class="text-2xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
-                $5 Off Your Next Order
-            </h1>
-            <p class="mt-4 text-l md:text-2xl font-medium text-white drop-shadow">
-                Sign up below and your exclusive coupon will be emailed instantly.
-            </p>
         </div>
-    </div>
+    </main>
 
-
-    <!-- 💌 Signup Section -->
-
-    <section class="relative text-gray-800 font-sans px-4 py-5 md:py-10 max-w-3xl mx-auto animate-fadeInUp">
-
-        <form id="couponForm" class="space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text"
-                       name="firstName"
-                       placeholder="First Name"
-                       required
-                       class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379] focus:border-[#f88379]" />
-                <input type="text"
-                       name="lastName"
-                       placeholder="Last Name"
-                       required
-                       class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379] focus:border-[#f88379]" />
-            </div>
-            <input type="email"
-                   name="email"
-                   placeholder="Email"
-                   required
-                   class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379] focus:border-[#f88379]" />
-            <input type="tel"
-                   name="phone"
-                   placeholder="Phone Number"
-                   required
-                   class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379] focus:border-[#f88379]" />
-
-            <div class="text-left space-y-3 text-sm text-gray-700">
-                <label class="flex items-start gap-2">
-                    <input type="checkbox" name="smsConsent" required class="accent-[#f88379] mt-1" />
-                    <span>I agree to get recurring texts from Karry Kraze. Msg & data rates may apply. Reply STOP to unsubscribe.</span>
-                </label>
-                <label class="flex items-start gap-2">
-                    <input type="checkbox" name="emailConsent" required class="accent-[#f88379] mt-1" />
-                    <span>I agree to receive marketing emails from Karry Kraze.</span>
-                </label>
-            </div>
-
-            <button type="submit" class="w-full bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 rounded-2xl font-semibold transition duration-200">
-                Claim My Coupon
-            </button>
-        </form>
-
-        <div id="couponMessage" class="hidden mt-10 text-center">
-            <p class="text-green-700 font-semibold text-lg mb-4">🎉 Your coupon is on the way! Check your inbox.</p>
-            <a href="/products/catalog.html" class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-xl font-medium transition duration-200">
-                Browse the Shop
-            </a>
-        </div>
-    </section>
-
-
-
-    <!-- Footer -->
-    <div id="footer"></div>
     <div id="navbar"></div>
-</main>
-    <script>
-        document.getElementById('couponForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const form = e.target;
-            const data = Object.fromEntries(new FormData(form).entries());
-
-            const res = await fetch('https://hook.us2.make.com/mebf3tl39n3o3gx11ywaeta6f7eo1yja', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-
-            const messageBox = document.getElementById('couponMessage');
-            const messageText = messageBox.querySelector('p');
-            const useNowBtn = messageBox.querySelector('a');
-
-            if (res.ok) {
-                const json = await res.json();
-
-                form.style.display = 'none';
-                messageBox.classList.remove('hidden');
-
-                const { status, code, expires, message } = json;
-
-                if (status === 'used') {
-                    messageText.innerHTML = `
-            <span class="block text-lg font-semibold text-red-600">You’ve used your coupon!</span>
-            <span class="text-sm text-gray-700">Your code <strong class="text-black">${code}</strong> has already been redeemed.</span>
-        `;
-                    useNowBtn.classList.remove('hidden');
-
-                } else if (status === 'expired') {
-                    messageText.innerHTML = `
-            <span class="block text-lg font-semibold text-red-600">Your previous coupon has expired.</span>
-            <span class="text-sm text-gray-700">Code <strong class="text-black">${code}</strong> expired on <strong>${expires}</strong>.</span>
-        `;
-                    useNowBtn.classList.add('hidden');
-
-                } else if (status === 'active') {
-                    messageText.innerHTML = `
-            <span class="block text-lg font-semibold text-green-700">🎉 Your coupon has already been claimed!</span>
-            <span class="text-sm text-gray-700">Your code is: <strong class="text-black">${code}</strong> and expires <strong>${expires}</strong>.</span>
-        `;
-                    useNowBtn.classList.remove('hidden');
-
-                } else if (status === 'new') {
-                    messageText.innerHTML = `
-            <span class="block text-lg font-semibold text-green-700">🎉 Welcome! Your coupon has been created!</span>
-            <span class="text-sm text-gray-700">Your code is: <strong class="text-black">${code}</strong> and expires on <strong>${expires}</strong>.</span>
-        `;
-                    useNowBtn.classList.remove('hidden');
-
-                } else {
-                    messageText.textContent = message || 'Something unexpected happened.';
-                    useNowBtn.classList.add('hidden');
-                }
-            } else {
-                alert('Something went wrong. Please try again.');
-            }
+    <div id="footer"></div>
 
 
-        });
-    </script>
-<script type="module" src="/js/footer.js"></script>
-  <script type="module" src="/js/catalog.js"></script>
-  <script src="/js/navbar.js" type="module"></script>
+
+    <script src="/js/Signup/signup.js"></script>
+    <script type="module" src="/js/Navbar/navbar.js"></script>
+    <script type="module" src="/js/Footer/footer.js"></script>
 </body>
+
 </html>

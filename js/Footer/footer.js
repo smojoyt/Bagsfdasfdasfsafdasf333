@@ -1,4 +1,4 @@
-import { initFooter } from "./Footer/index.js";
+import { initFooter } from "./index.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("footer");

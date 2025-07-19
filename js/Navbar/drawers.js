@@ -4,6 +4,7 @@ let lastScrollY = 0;
 let lastOpened = null;
 
 export function initDrawers() {
+    console.log("🚪 initDrawers() called"); // ✅ Add this line for visibility
   const overlay = document.getElementById("drawer-overlay");
   const menuDrawer = document.getElementById("menu-drawer");
   const cartDrawer = document.getElementById("cart-drawer");
@@ -68,3 +69,4 @@ export function initDrawers() {
     });
   });
 }
+window.initDrawers = initDrawers;

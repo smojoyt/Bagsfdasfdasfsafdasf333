@@ -1,91 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Catalog</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/imgs/Logo/Short/SL_0603.png" type="image/png" />
+  <title>Catalog – Karry Kraze</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+
+  <!-- Website Description -->
+  <meta name="description" content="Karry Kraze Products" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.karrykraze.com/" />
+  <meta property="og:title" content="Catalog – Karry Kraze" />
+  <meta property="og:description" content="Karry Kraze Products" />
+  <meta property="og:image" content="https://www.karrykraze.com/imgs/Pages/SignUp_01.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Catalog – Karry Kraze" />
+  <meta name="twitter:description" content="Karry Kraze Products" />
+  <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Pages/SignUp_01.jpg" />
+
+  <!-- Tailwind (not recommended for production, but fine for dev) -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-white text-black font-sans">
 
-<!-- NAVBAR MOUNT -->
-<!-- NAVBAR MOUNT -->
-<div id="navbar"></div>
+  <!-- Catalog Section -->
+  <main class="px-6 py-36">
+    <div class="max-w-[108rem] mx-auto">
+      <!-- Banner Section with Title -->
+      <section id="catalog-banner"
+        class="w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center">
+        <h1 id="category-title"
+          class="text-black font-bold text-2xl sm:text-1xl tracking-wider uppercase bg-white m-4 px-3 py-2 sm:px-6 sm:py-3">
 
-<!-- Catalog Section -->
-
-
-<main class="px-6 py-36">
-  <div class="max-w-[108rem] mx-auto">
-    <!-- Banner Section with Title -->
-<section 
-  id="catalog-banner"
-  class="w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center"
->
-  <h1 id="category-title" class="text-black font-bold text-2xl sm:text-1xl tracking-wider uppercase bg-white m-4 px-3 py-2 sm:px-6 sm:py-3">
-    
-  </h1>
-</section>
+        </h1>
+      </section>
 
 
-<!-- 🔍 Search + Sort Container -->
-<div class="w-full flex flex-wrap justify-between items-center gap-4 my-6">
+      <!-- 🔍 Search + Sort Container -->
+      <div class="w-full flex flex-wrap justify-between items-center gap-4 my-6">
 
-  <!-- Search (left) -->
-  <div class="flex-1 min-w-[200px] relative max-w-sm">
-    <input 
-      id="searchInput"
-      type="text" 
-      placeholder="Search products..." 
-      class="w-full border-2 border-gray-300 px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-black"
-    />
-    <button 
-      id="clearSearchBtn" 
-      class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black text-xs hidden"
-    >
-      ✕
-    </button>
-  </div>
+        <!-- Search (left) -->
+        <div class="flex-1 min-w-[200px] relative max-w-sm">
+          <input id="searchInput" type="text" placeholder="Search products..."
+            class="w-full border-2 border-gray-300 px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-black" />
+          <button id="clearSearchBtn"
+            class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black text-xs hidden">
+            ✕
+          </button>
+        </div>
 
-  <!-- Sort (right) -->
-<!-- Sort dropdown -->
-<div class="relative">
-  <div 
-    id="sortToggle" 
-    class="text-sm font-medium text-black uppercase px-4 py-2 rounded hover:bg-gray-100 transition cursor-pointer inline-block"
-  >
-    Sort: <span id="sortLabel">Default</span>
-  </div>
-  <div id="sortOptions" class="absolute right-0 mt-1 w-40 bg-white shadow-md hidden z-10">
-    <ul class="text-sm text-gray-700 divide-y">
-      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="default">Default</button></li>
-      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-low">$ → $$$</button></li>
-      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-high">$$$ → $</button></li>
-    </ul>
-  </div>
-</div>
+        <!-- Sort (right) -->
+        <!-- Sort dropdown -->
+        <div class="relative">
+          <div id="sortToggle"
+            class="text-sm font-medium text-black uppercase px-4 py-2 rounded hover:bg-gray-100 transition cursor-pointer inline-block">
+            Sort: <span id="sortLabel">Default</span>
+          </div>
+          <div id="sortOptions" class="absolute right-0 mt-1 w-40 bg-white shadow-md hidden z-10">
+            <ul class="text-sm text-gray-700 divide-y">
+              <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="default">Default</button></li>
+              <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-low">$ → $$$</button>
+              </li>
+              <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-high">$$$ → $</button>
+              </li>
+            </ul>
+          </div>
+        </div>
 
 
-</div>
+      </div>
 
-</div>
+    </div>
 
 
     <!-- Product Grid -->
-<div class="max-w-[108rem] mx-auto">
-  <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-16 gap-x-6"></div>
-</div>
+    <div class="max-w-[108rem] mx-auto">
+      <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-16 gap-x-6"></div>
+    </div>
 
-  </div>
-</main>
-<div id="footer"></div>
+    </div>
+  </main>
+  <div id="navbar"></div>
+  <div id="footer"></div>
+
+
+  <script type="module" src="/js/Navbar/navbar.js"></script>
+  <script type="module" src="/js/Footer/footer.js"></script>
+  <script type="module" src="/js/Catalog/index.js"></script>
 
 
 
-  <script type="module" src="/js/footer.js"></script>
-<script type="module" src="/js/Catalog/index.js"></script>
-  <script src="/js/navbar.js" type="module"></script>
 
 
 </body>
+
 </html>
