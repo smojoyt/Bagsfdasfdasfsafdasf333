@@ -103,7 +103,7 @@ extraSections.querySelectorAll("button[data-toggle]").forEach(btn => {
 
   swatchContainer.addEventListener("click", (e) => {
   const btn = e.target.closest("button.color-dot");
-  if (!btn || btn.disabled) return; // ⛔ ignore disabled swatches
+  if (!btn || btn.disabled) return;
 
   const variant = btn.dataset.variant;
   const image = btn.dataset.image;
@@ -116,7 +116,12 @@ extraSections.querySelectorAll("button[data-toggle]").forEach(btn => {
 
   const preview = document.getElementById("product-img");
   if (preview && image) preview.src = image;
+
+  // ✅ Also update the first mobile image
+  const mobileFirstImg = document.querySelector("#carousel-track img");
+  if (mobileFirstImg && image) mobileFirstImg.src = image;
 });
+
 
 
   setupAddToCart(product);
