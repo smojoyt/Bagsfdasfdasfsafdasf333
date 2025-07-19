@@ -81,7 +81,7 @@ line_items.push({
       shipping_rate_data: {
         display_name: "Free Shipping",
         type: "fixed_amount",
-        fixed_amount: { amount: 0, currency: "usd" },
+        fixed_amount: { amount: 20, currency: "usd" },
         delivery_estimate: {
           minimum: { unit: "business_day", value: 3 },
           maximum: { unit: "business_day", value: 10 }
