@@ -21,7 +21,7 @@ export function createProductCard(sku, product, currentQuery = "") {
 
   card.innerHTML = `
     <div class="w-full">
-      <a href="/products/${sku}.html" class="block w-full" data-sku="${sku}">
+      <a href="/pages/product.html?sku=${sku}" class="block w-full" data-sku="${sku}">
         <div class="relative w-full aspect-square bg-gray-100 overflow-hidden group image-hover-group">
           <img src="${imageUrl}" alt="${product.name}" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0 product-img" />
           <img src="${hoverImage}" alt="${product.name}" class="w-full h-full object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

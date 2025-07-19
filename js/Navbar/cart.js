@@ -10,7 +10,7 @@ checkoutBtn?.addEventListener("click", async () => {
 
 
 // === Utility Functions ===
-function getCart() {
+export function getCart() {
   try {
     return JSON.parse(localStorage.getItem("savedCart")) || [];
   } catch {

@@ -18,11 +18,11 @@ export function createFeaturedCard(sku, product, currentQuery = "") {
 
   const card = document.createElement("div");
   card.className =
-    "mx-auto snap-start flex-shrink-0 w-[48%] sm:w-[45%] md:w-auto max-w-xs md:[&:nth-child(n+6)]:hidden";
+    "mx-auto snap-start flex-shrink-0 w-[78%] sm:w-[75%] md:w-auto max-w-xs md:[&:nth-child(n+6)]:hidden";
 
   card.innerHTML = `
     <div class="w-full">
-      <a href="/products/${sku}.html" class="block w-full" data-sku="${sku}">
+      <a href="/pages/product.html?sku=${sku}" class="block w-full" data-sku="${sku}">
         <div class="relative w-full aspect-square bg-gray-100 overflow-hidden group image-hover-group">
           <img src="${imageUrl}" alt="${product.name}" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0 product-img" />
           <img src="${hoverImage}" alt="${product.name}" class="w-full h-full object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -30,7 +30,7 @@ export function createFeaturedCard(sku, product, currentQuery = "") {
       </a>
 
       <div class="flex flex-col items-left text-left mt-3 space-y-1 px-2">
-        <div class="flex justify-between items-center w-full text-sm sm:text-base font-semibold text-black uppercase tracking-tight">
+        <div class="flex justify-between items-center w-full text-md sm:text-base font-bold text-black uppercase tracking-tight">
   <div class="text-left break-words flex-1">
     ${highlightMatch(product.name, currentQuery)}
   </div>
