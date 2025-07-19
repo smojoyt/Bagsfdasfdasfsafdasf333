@@ -1,33 +1,49 @@
-import { getCart, saveCart } from "../Navbar/cart.js";
+import { updateCartCount } from "../Navbar/cart.js";
 
 export function setupAddToCart(product) {
   const addBtn = document.getElementById("add-to-cart-btn");
   const swatchContainer = document.getElementById("variant-swatch-container");
 
-  if (!addBtn) return;
+  if (!addBtn || !product?.product_id) {
+    console.warn("❌ Missing addBtn or product_id");
+    return;
+  }
 
   addBtn.addEventListener("click", () => {
+    const sku = product.sku;
     const variant = swatchContainer?.dataset.selectedVariant || "Default";
 
-const item = {
-  sku: product.product_id || product.sku,
-  name: product.name,
-  price: product.price,
-  image: product.variantImages?.[variant] || product.image || product.catalogImage,
-  quantity: 1,
-  variant: variant
-};
+    console.log("🛒 Adding to cart:", { sku, variant });
 
-    const cart = getCart();
-    const existing = cart.find(i => i.sku === item.sku && i.variant === item.variant);
+    const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+    const found = cart.find(item => item.sku === sku && item.variant === variant);
 
-    if (existing) {
-      existing.quantity += 1;
+    if (found) {
+      found.quantity += 1;
     } else {
-      cart.push(item);
+      cart.push({
+        sku,
+        variant,
+        name: product.name,
+        price: product.price,
+        image: product.variantImages?.[variant] || product.image || product.catalogImage,
+        quantity: 1,
+      });
     }
 
-    saveCart(cart);
-    console.log("✅ Added to cart:", item);
+    localStorage.setItem("savedCart", JSON.stringify(cart));
+    updateCartCount();
+
+    addBtn.textContent = "Added!";
+    addBtn.classList.add("text-green-600");
+    addBtn.style.opacity = "0.5";
+    addBtn.style.transform = "scale(1.05)";
+
+    setTimeout(() => {
+      addBtn.textContent = "Add to Cart";
+      addBtn.classList.remove("text-green-600");
+      addBtn.style.opacity = "1";
+      addBtn.style.transform = "scale(1)";
+    }, 1000);
   });
 }

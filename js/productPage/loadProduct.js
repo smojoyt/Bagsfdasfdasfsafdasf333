@@ -14,6 +14,9 @@ export async function loadProduct() {
     const product = products[sku];
     if (!product) return null;
 
+    // ✅ Attach the correct SKU key from the product map
+    product.sku = sku;
+
     const now = new Date();
 
     const activePromo = promotions.find(promo => {
