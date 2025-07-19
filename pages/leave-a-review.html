@@ -17,111 +17,52 @@
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
 
-    <!-- Your JS Files -->
-    <script src="/js/helpers.js"></script>
-    <script src="/js/cartUtils.js"></script>
-    <script src="/js/bundleEngine.js"></script>
-    <script src="/js/cartRenderer.js"></script>
-    <script src="/js/checkout.js"></script>
-    <script src="/js/uni_navbar.js"></script>
-    <script src="/js/moreItemsCarousel.js"></script>
-    <script src="/js/loadProductData.js"></script>
-
-    <style>
-        .quality-btn.selected {
-            background-color: black;
-            color: white;
-        }
-
-        mark.bg-yellow-200 {
-            padding: 0 2px;
-            border-radius: 0.25rem;
-        }
-    </style>
-
 </head>
-<body class="relative bg-[#fef1e7]">
-
-    <!-- 🌸 Background Blob -->
-    <div class="absolute -z-10 top-0 left-0 w-full h-full overflow-hidden">
-        <svg viewBox="0 0 800 800" class="w-[120%] h-[80%] md:h-[120%] opacity-20 animate-blobMotion">
-            <!-- Main Blob -->
-            <path fill="#f88379">
-                <animate attributeName="d" dur="10s" repeatCount="indefinite"
-                         values="
-M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170,437,296Z;
-M417,300Q383,420,280,429Q177,438,164,369Q151,300,199,228Q247,156,344,166Q441,176,417,300Z;
-M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170,437,296Z" />
-            </path>
-
-            <!-- 🎈 Bubble 1: Up-right -->
-            <circle cx="400" cy="300" r="8" fill="#f88379">
-                <animate attributeName="cx" values="300; 310" dur="6s" repeatCount="indefinite" />
-                <animate attributeName="cy" values="300; 900" dur="6s" repeatCount="indefinite" />
-                <animate attributeName="r" values="50; 25; 10" dur="6s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1; 0.5; 0" dur="6s" repeatCount="indefinite" />
-            </circle>
-
-            <!-- 🎈 Bubble 2: Up-left -->
-            <circle cx="400" cy="300" r="7" fill="#f88379">
-                <animate attributeName="cx" values="300; 330" dur="5s" begin="1s" repeatCount="indefinite" />
-                <animate attributeName="cy" values="300; -200" dur="5s" begin="1s" repeatCount="indefinite" />
-                <animate attributeName="r" values="80; 40; 10" dur="5s" begin="1s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1; 0.5; 0" dur="5s" begin="1s" repeatCount="indefinite" />
-            </circle>
-
-            <!-- 🎈 Bubble 3: Up-right-far -->
-            <circle cx="400" cy="300" r="6" fill="#f88379">
-                <animate attributeName="cx" values="300; 800" dur="7s" begin="2s" repeatCount="indefinite" />
-                <animate attributeName="cy" values="300; 220" dur="7s" begin="2s" repeatCount="indefinite" />
-                <animate attributeName="r" values="70; 35; 10" dur="7s" begin="2s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1; 0.5; 0" dur="7s" begin="2s" repeatCount="indefinite" />
-            </circle>
+<body class="bg-white text-black font-sans">
+    <main class="px-6 py-36">
+        <div class="max-w-[108rem] mx-auto ">
 
 
+            <!-- 🏷️ Banner Section with Title -->
+            <section id="signup-banner"
+                class="w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center relative">
+                <img src="/imgs/Banner/KK_01.jpg" alt="Signup Banner"
+                    class="absolute inset-0 w-full h-full object-cover" />
+                <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%] text-white">
+                    <h1
+                        class="text-black font-bold text-2xl sm:text-1xl tracking-wider uppercase bg-white m-4 px-3 py-2 sm:px-6 sm:py-3">
+                        $7 Off Your Next Order
+                    </h1>
 
-        </svg>
-    </div>
-
-
-    <!-- 🔥 Banner with overlayed title -->
-    <div class="mt-[2rem] md:mt-16 relative w-full h-40 md:h-60 sm:h-72 md:h-80 lg:h-[28rem] overflow-hidden shadow-md">
-        <img src="/imgs/Banner/KK_01.jpg" alt="Signup Banner" class="absolute inset-0 w-full h-full object-cover" />
-
-        <!-- Title Overlay -->
-        <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 text-white drop-shadow-md max-w-[90%] sm:max-w-[75%]">
-            <h1 class="text-2xl md:text-8xl font-extrabold leading-tight text-white drop-shadow-lg">
-                $7 off your next order
-            </h1>
-            <p class="mt-4 text-l md:text-2xl font-medium text-white drop-shadow">
-                Leave a review below and your exclusive coupon will be emailed instantly.
-            </p>
-        </div>
-    </div>
+                </div>
+            </section>
 
 
     <!-- 💌 Signup Section -->
 
-    <section class="relative text-gray-800 font-sans px-4 py-5 md:py-10 max-w-3xl mx-auto animate-fadeInUp">
+    <section class="relative text-gray-800 font-sans px-4 py-10 max-w-3xl mx-auto animate-fadeInUp">
 
 
-        <form id="reviewForm" class="space-y-3 font-sans">
+        <form id="reviewForm" class="space-y-4">
+                                <p class="text-center my-3 text-sm md:text-xl font-medium">
+                        Leave a review and your exclusive coupon will be emailed instantly.
+                    </p>
             <!-- Product Dropdown -->
             <div>
                 <input type="hidden" name="product" id="selectedProduct" required />
                 <div class="relative">
                     <button id="dropdownToggle" type="button"
-                            class="w-full border border-gray-300 p-3 rounded-2xl bg-white shadow-sm flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-[#f88379]">
+                            class="w-full border-2 border-gray-300 p-3  bg-white shadow-sm flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-[#f88379]">
                         <span id="selectedText" class="text-gray-500">Select a product</span>
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <div id="dropdownList"
-                         class="absolute z-10 w-full mt-2 bg-white border rounded-2xl shadow hidden overflow-hidden">
+                         class="absolute z-10 w-full mt-2 bg-white  border-2 shadow hidden overflow-hidden">
                         <div class="p-2">
                             <input type="text" id="productSearch" placeholder="Search products..."
-                                   class="w-full p-2 border border-gray-300 rounded-xl text-sm" />
+                                   class="w-full p-2  border-2 border-gray-300  text-sm" />
                         </div>
                         <div id="productItems" class="max-h-60 overflow-y-auto"></div>
                     </div>
@@ -145,28 +86,28 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
 
             <!-- Headline -->
             <input name="reviewHeadline" placeholder="Add a headline *" required
-                   class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+                   class="w-full p-3  border-2 border-gray-300  focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
 
             <!-- Review Text -->
             <textarea name="reviewText" rows="5" placeholder="Write a review *" required
-                      class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]"></textarea>
+                      class="w-full p-3  border-2 border-gray-300  focus:outline-none focus:ring-2 focus:ring-[#f88379]"></textarea>
 
             <!-- Name, Email, Phone -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <input name="firstName" placeholder="First Name *" required
-                       class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+                       class="w-full p-3  border-2 border-gray-300  focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
                 <input name="lastName" placeholder="Last Name *" required
-                       class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+                       class="w-full p-3  border-2 border-gray-300  focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
                 <input name="phone" placeholder="Phone Number *" required type="tel"
-                       class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+                       class="w-full p-3  border-2 border-gray-300  focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
             </div>
 
             <input name="email" type="email" placeholder="Email Address *" required
-                   class="w-full p-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+                   class="w-full p-3  border-2 border-gray-300  focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
 
             <!-- Media Upload -->
             <div>
-                <label class="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-xl shadow cursor-pointer w-fit text-sm">
+                <label class="flex items-center gap-2 px-3 py-2 bg-white  border-2 border-gray-300  shadow cursor-pointer w-fit text-sm">
                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 8L12 4M12 4L16 8M12 4V16M4 20H20" stroke="#000000" stroke-width="2" stroke-linecap="round"
                               stroke-linejoin="round" />
@@ -175,30 +116,30 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
                     <input type="file" name="image" id="imageInput" accept="image/*" class="hidden" />
                 </label>
                 <p class="text-xs text-gray-500 mt-1">Upload 1 photo (max 2 MB)</p>
-                <img id="previewImage" class="w-40 mt-4 rounded-xl shadow hidden" alt="Preview" />
+                <img id="previewImage" class="w-40 mt-4  shadow hidden" alt="Preview" />
             </div>
 
             <!-- Quality Buttons -->
             <div>
                 <div id="qualityOptions" class="flex flex-wrap gap-3">
                     <button type="button" data-quality="Exceptional"
-                            class="quality-btn px-4 py-2 bg-gray-200 rounded-2xl text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
+                            class="quality-btn px-4 py-2 bg-gray-200  text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
                         Exceptional
                     </button>
                     <button type="button" data-quality="High"
-                            class="quality-btn px-4 py-2 bg-gray-200 rounded-2xl text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
+                            class="quality-btn px-4 py-2 bg-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
                         High
                     </button>
                     <button type="button" data-quality="Average"
-                            class="quality-btn px-4 py-2 bg-gray-200 rounded-2xl text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
+                            class="quality-btn px-4 py-2 bg-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
                         Average
                     </button>
                     <button type="button" data-quality="Below Average"
-                            class="quality-btn px-4 py-2 bg-gray-200 rounded-2xl text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
+                            class="quality-btn px-4 py-2 bg-gray-200  text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
                         Below Average
                     </button>
                     <button type="button" data-quality="Poor"
-                            class="quality-btn px-4 py-2 bg-gray-200 rounded-2xl text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
+                            class="quality-btn px-4 py-2 bg-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200 ease-in-out">
                         Poor
                     </button>
                 </div>
@@ -223,7 +164,7 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
 
             <!-- Submit Button -->
             <button type="submit"
-                    class="bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 px-6 rounded-2xl font-semibold transition duration-200 w-full">
+                    class="bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 px-6  font-semibold transition duration-200 w-full">
                 Submit Review
             </button>
         </form>
@@ -234,8 +175,10 @@ M437,296Q400,392,308,443Q216,494,165,397Q114,300,168,208Q222,116,314,143Q406,170
 
     <!-- Footer -->
     <div id="footer"></div>
-    <div id="navbar-container"></div>
+    <div id="navbar"></div>
 
     <script type="module" src="/js/leaveAReview/index.js"></script>
+        <script type="module" src="/js/Navbar/navbar.js"></script>
+    <script type="module" src="/js/Footer/footer.js"></script>
 </body>
 </html>

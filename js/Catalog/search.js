@@ -22,8 +22,8 @@ export function setupSearch() {
 }
 
 export function applySearchAndSort() {
-  // 🔥 Always start fresh from original unfiltered order
-  let entries = [...currentState.originalEntries];
+  // ✅ Start from category-filtered entries
+  let entries = [...currentState.filteredEntries];
 
   // 🔍 Apply search filter (if any)
   const query = currentState.currentSearchQuery.toLowerCase();
@@ -46,10 +46,9 @@ export function applySearchAndSort() {
       break;
     case "default":
     default:
-      // ✅ no sort — keep original order
+      // No sort needed — keep original category-filtered order
       break;
   }
 
-  currentState.filteredEntries = entries;
   renderSortedCatalog(entries);
 }

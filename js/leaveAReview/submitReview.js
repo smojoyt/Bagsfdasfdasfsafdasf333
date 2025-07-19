@@ -24,7 +24,8 @@ export function setupFormSubmit(storage) {
 
     const payload = {
       productId: formData.get("product"),
-      name: `${formData.get("firstName").trim()} ${formData.get("lastName").trim()}`,
+      firstName: formData.get("firstName").trim(),
+      lastName: formData.get("lastName").trim(),
       email: formData.get("email").trim(),
       rating: formData.get("rating"),
       quality: formData.get("quality"),
