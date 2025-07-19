@@ -9,14 +9,14 @@ export function renderColorDotsWithLabel(options, variantStock, variantImages, p
 
     return `
       <div class="flex flex-col items-center text-xs">
-<button
-  class="color-dot w-8 h-8 rounded-full border hover:border-2 hover:border-black transition  ${getColorClass(color)} ${inStock ? "" : "opacity-40 cursor-not-allowed"}"
-  data-variant="${color}"
-  data-image="${image}"
-  data-sku="${productId}"
-  title="${color}"
-></button>
-
+        <button
+          class="color-dot w-8 h-8 rounded-full border hover:border-2 hover:border-black transition ${colorClass} ${inStock ? "" : "opacity-40 cursor-not-allowed"}"
+          data-variant="${color}"
+          data-image="${image}"
+          data-sku="${productId}"
+          title="${color}${inStock ? "" : " - Out of Stock"}"
+          ${inStock ? "" : "disabled"}
+        ></button>
         <span class="mt-1 text-gray-600">${color}</span>
       </div>
     `;

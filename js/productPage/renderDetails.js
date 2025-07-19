@@ -102,21 +102,22 @@ extraSections.querySelectorAll("button[data-toggle]").forEach(btn => {
   swatchContainer.dataset.selectedVariant = firstAvailable;
 
   swatchContainer.addEventListener("click", (e) => {
-    const btn = e.target.closest("button.color-dot");
-    if (!btn) return;
+  const btn = e.target.closest("button.color-dot");
+  if (!btn || btn.disabled) return; // ⛔ ignore disabled swatches
 
-    const variant = btn.dataset.variant;
-    const image = btn.dataset.image;
+  const variant = btn.dataset.variant;
+  const image = btn.dataset.image;
 
-    swatchContainer.querySelectorAll("button.color-dot").forEach(dot =>
-      dot.classList.remove("ring-4", "ring-black", "ring-offset-2")
-    );
-    btn.classList.add("ring-4", "ring-black", "ring-offset-2");
-    swatchContainer.dataset.selectedVariant = variant;
+  swatchContainer.querySelectorAll("button.color-dot").forEach(dot =>
+    dot.classList.remove("ring-4", "ring-black", "ring-offset-2")
+  );
+  btn.classList.add("ring-4", "ring-black", "ring-offset-2");
+  swatchContainer.dataset.selectedVariant = variant;
 
-    const preview = document.getElementById("product-img");
-    if (preview && image) preview.src = image;
-  });
+  const preview = document.getElementById("product-img");
+  if (preview && image) preview.src = image;
+});
+
 
   setupAddToCart(product);
 }
