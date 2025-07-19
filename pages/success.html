@@ -1,346 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Thank you for shopping with Karry Kraze. View your order summary and track your purchase.">
-    <meta property="og:title" content="Order Confirmation — Karry Kraze">
-    <meta property="og:description" content="Check your order details and discover exclusive deals.">
-    <meta property="og:image" content="/imgs/Logo/OG.jpg">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmation – Karry Kraze</title>
+  <link rel="icon" href="/imgs/Logo/Short/SL_0603.png" type="image/png" />
 
-    <title>Order Confirmation — Karry Kraze</title>
-    <!-- Tailwind (not recommended for production, but fine for dev) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Thank you for your order! View your summary and next steps." />
+  <meta property="og:title" content="Order Confirmation – Karry Kraze" />
+  <meta property="og:description" content="Check your order details and discover exclusive deals." />
+  <meta property="og:image" content="/imgs/Logo/OG.jpg" />
 
-    <!-- Flickity + ImagesLoaded -->
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
-
-    <!-- Your JS Files -->
-    <script src="/js/helpers.js"></script>
-    <script src="/js/cartUtils.js"></script>
-    <script src="/js/bundleEngine.js"></script>
-    <script src="/js/cartRenderer.js"></script>
-    <script src="/js/checkout.js"></script>
-    <script src="/js/uni_navbar.js"></script>
-    <script src="/js/moreItemsCarousel.js"></script>
-    <script src="/js/loadProductData.js"></script>
-
-    <!-- Favicon -->
-    <link rel="icon" href="/imgs/Logo/Short/SL_0603.png" type="image/png" />
-    <style>
-        @keyframes fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fade-in-up 0.3s ease-out;
-        }
-    </style>
-
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#fef1e7] text-gray-800 font-sans">
 
-    <div class="max-w-3xl mx-auto px-4 md:px-8 mt-20 mb-10 space-y-10">
-        <div class="text-left">
-            <h1 class="text-4xl font-extrabold text-gray-800 uppercase mb-2" id="thankYouMessage">Thank you!</h1>
-            <div class="flex justify-start">
-                <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
-            </div>
-            <p class="text-lg text-gray-600" id="emailMessage">Processing your order...</p>
+<body class="bg-white text-black font-sans">
+    <main class="px-6 py-36">
+        <div class="max-w-[108rem] mx-auto ">
+
+      <!-- ✅ Banner Section -->
+            <section id="signup-banner"
+                class="w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center relative">
+                <img src="/imgs/Banner/KK_01.jpg" alt="Signup Banner"
+                    class="absolute inset-0 w-full h-full object-cover" />
+                <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%] text-white">
+                    <h1
+                        class="text-black font-bold text-2xl sm:text-1xl tracking-wider uppercase bg-white m-4 px-3 py-2 sm:px-6 sm:py-3">
+                        Thank you for your order
+                    </h1>
+
+                </div>
+            </section>
+
+      <!-- ✅ Order Message -->
+      <section class="relative px-4 py-12 max-w-3xl mx-auto text-center space-y-6 animate-fadeInUp">
+        <h2 class="text-xl font-semibold" id="thankYouMessage">Thanks again!</h2>
+        <p class="text-gray-700 text-base" id="emailMessage">Processing your order...</p>
+      </section>
+
+      <!-- ✅ Order Summary -->
+      <section class="max-w-3xl mx-auto px-4 pb-12 space-y-6">
+        <h3 class="text-lg font-bold border-b pb-2 text-left">Order Summary</h3>
+        <div id="orderItems" class="space-y-4 text-sm">
+          <p class="text-gray-500">Loading...</p>
         </div>
+        <div id="orderTotalContainer" class="hidden pt-6 border-t"></div>
+      </section>
 
-        <div>
-            <h2 class="text-2xl font-bold mb-4 border-b pb-2">Order Summary</h2>
-            <div id="orderItems" class="space-y-4 text-sm">
-                <p class="text-gray-500">Loading...</p>
-            </div>
+      <!-- ✅ Progress Bar -->
+      <section class="max-w-3xl mx-auto px-4 pb-12 space-y-4">
+        <h4 class="text-sm font-semibold uppercase tracking-wide">Order Progress</h4>
+        <div class="flex justify-between text-xs text-gray-600">
+          <span>Order Placed</span>
+          <span>Processing</span>
+          <span>Shipped</span>
+          <span>Delivered</span>
         </div>
-        
-
-
-
-
-        <div id="orderTotalContainer" class="pt-4 border-t hidden"></div>
-        <!-- Impact Section -->
-        <div class="mt-16 bg-white p-4 rounded shadow text-center text-sm text-gray-600">
-            With this order, you supported a Black-owned small business. We appreciate you! ❤️
+        <div class="w-full bg-gray-200 h-1 rounded mt-1">
+          <div class="w-1/4 h-1 bg-black rounded"></div>
         </div>
-        <div class="mt-8">
-            <h3 class="text-lg font-bold mb-2">Order Progress</h3>
-            <div class="flex justify-between text-xs text-gray-600">
-                <span>Order Placed</span>
-                <span>Processing</span>
-                <span>Shipped</span>
-                <span>Delivered</span>
-            </div>
-            <div class="w-full bg-gray-200 h-1 rounded mt-2">
-                <div class="w-1/4 h-1 bg-black rounded"></div>
-            </div>
-        </div>
+      </section>
 
-        <a href="/" class="block mt-6 bg-black text-white text-center py-3 rounded hover:bg-gray-800 transition">
-            Continue Shopping
+      <!-- ✅ Continue Button -->
+      <div class="max-w-3xl mx-auto px-4 pb-12">
+        <a href="/pages/catalog.html" class="block w-full bg-black hover:bg-gray-800 text-white py-3 text-center transition">
+          Continue Shopping
         </a>
+      </div>
 
-        <!-- Review Promo Section -->
-        <div class="mt-12 bg-white border border-dashed border-black p-6 rounded shadow text-center">
-            <h3 class="text-2xl font-bold uppercase mb-2">Get $5 Off Your Next Order!</h3>
-            <p class="text-sm text-gray-700 mb-4">Leave a review for a product you purchased and receive a $5 coupon code for your next order. It only takes a minute and helps our small business grow!</p>
-            <a href="/pages/leave-a-review.html" class="inline-block bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition">Leave a Review</a>
-        </div>
+      <!-- ✅ Appreciation Message -->
+      <section class="bg-[#fef1e7] text-center text-sm text-gray-800 py-4 px-6 max-w-3xl mx-auto rounded shadow">
+        With this order, you supported a Black-owned small business. We appreciate you! ❤️
+      </section>
 
-        <!-- Promo Product Section -->
-        <div class="mt-16">
-            <h2 class="uppercase text-1xl md:text-2xl font-bold mb-4" id="featured-title">Hot Picks</h2>
-            <div class="flex justify-start">
-                <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
-            </div>
-            <div id="featured-products" class="min-h-[200px]"></div>
-        </div>
+      <!-- ✅ Leave Review Promo -->
+      <section
+        class="mt-12 max-w-3xl mx-auto bg-white border border-black border-dashed p-6 rounded shadow text-center">
+        <h3 class="text-2xl font-bold uppercase mb-2">Get $7 Off Your Next Order!</h3>
+        <p class="text-sm text-gray-700 mb-4">Leave a review and get a coupon for next time. It only takes a minute and helps us grow!</p>
+        <a href="/pages/leave-a-review.html"
+          class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 transition">Leave a Review</a>
+      </section>
 
+      <!-- ✅ Featured Products -->
+      <section class="mt-16 max-w-5xl mx-auto px-4">
+        <h2 class="uppercase text-xl sm:text-2xl font-bold mb-2 text-center" id="featured-title">Hot Picks</h2>
+        <div class="w-24 h-1 bg-gray-300 mx-auto mb-6"></div>
+        <div id="featured-products" class="min-h-[200px]"></div>
+      </section>
 
     </div>
+  </main>
 
-    <!-- Toast Container -->
-    <div id="toastContainer" class="fixed top-5 right-5 z-50 space-y-2"></div>
-    <!-- Footer -->
-    <div id="footer"></div>
-    <div id="navbar-container"></div>
-    <script>
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            toast.className = `px-4 py-2 rounded shadow text-white text-sm animate-fade-in-up ${type === 'error' ? 'bg-red-600' : 'bg-green-600'}`;
-            toast.textContent = message;
-            document.getElementById('toastContainer').appendChild(toast);
-            setTimeout(() => toast.remove(), 4000);
-        }
+  <!-- ✅ Navbar & Footer Mounts -->
+  <div id="navbar"></div>
+  <div id="footer"></div>
 
-        let reviews = []; // 👈 global reviews array
+  <!-- ✅ Toasts -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-50 space-y-2"></div>
 
-        window.addEventListener('DOMContentLoaded', () => {
-            // 🔁 Load reviews first
-            fetch("https://api.jsonbin.io/v3/b/6842b73d8561e97a50204314/latest")
-                .then(res => res.json())
-                .then(reviewData => {
-                    reviews = reviewData.record.reviews || [];
-                })
-                .catch(err => {
-                    console.error("Error loading reviews:", err);
-                });
-
-            const params = new URLSearchParams(window.location.search);
-            const sessionId = params.get("session_id") || localStorage.getItem("last_session_id");
-
-            if (!sessionId) {
-                showToast("Missing session ID.", "error");
-                document.getElementById("orderItems").innerHTML = `<p class="text-red-500 text-sm">Missing session ID.</p>`;
-                return;
-            }
-
-            localStorage.setItem("last_session_id", sessionId);
-            const API_BASE = "https://buy.karrykraze.com";
-
-            fetch(`${API_BASE}/api/get-order?session_id=${sessionId}`)
-                .then(res => {
-                    if (!res.ok) throw new Error("Network response was not ok");
-                    return res.json();
-                })
-                .then(data => {
-                    if (!data || !data.line_items || !Array.isArray(data.line_items)) throw new Error("Invalid data format");
-
-                    showToast("Order loaded successfully!");
-                    const fullName = data.customer_details?.name || "Customer";
-                    document.getElementById("thankYouMessage").textContent = `Thank you, ${fullName.split(" ")[0]}!`;
-                    document.getElementById("emailMessage").innerHTML =
-                        `A receipt has been sent to <strong>${data.customer_details?.email}</strong>`;
-
-                    const itemsContainer = document.getElementById("orderItems");
-                    itemsContainer.innerHTML = "";
-                    let subtotal = 0;
-
-                    data.line_items.forEach(item => {
-                        const div = document.createElement("div");
-                        div.className = "flex justify-between items-start border-b pb-4";
-
-                        const itemTotal = (item.unit_amount * item.quantity) / 100;
-                        subtotal += itemTotal;
-
-                        const thisProductId = item.metadata?.product_id;
-                        const slug = item.metadata?.slug || "";
-                        const productReviews = reviews.filter(r => r.productId === thisProductId);
-                        let ratingHTML = "";
-
-                        if (productReviews.length > 0) {
-                            const avg = (
-                                productReviews.reduce((sum, r) => sum + Number(r.rating || 0), 0) /
-                                productReviews.length
-                            ).toFixed(1);
-
-                            const viewLink = slug
-                                ? `<a href="/products/${slug}.html" class="text-blue-600 text-xs underline">View all reviews</a>`
-                                : "";
-
-                            ratingHTML = `
-                                <p class="text-yellow-600 text-xs">⭐ ${avg} from ${productReviews.length} review${productReviews.length > 1 ? "s" : ""}</p>
-                                ${viewLink}
-                            `;
-                        }
-
-                        div.innerHTML = `
-                            <div class="flex items-start gap-3">
-                                <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 object-cover rounded border" />
-                                <div>
-                                    <p class="font-medium">${item.description}</p>
-                                    <p class="text-gray-500 text-xs">Qty: ${item.quantity}</p>
-                                    ${ratingHTML}
-                                </div>
-                            </div>
-                            <div class="text-right font-semibold whitespace-nowrap">$${itemTotal.toFixed(2)}</div>
-                        `;
-
-                        itemsContainer.appendChild(div);
-                    });
-
-                    // 🟨 Optional: Summary Section
-                    
-                    
-                    const shipping = data.shipping?.amount_total ? data.shipping.amount_total / 100 : 0;
-                    const discount = data.total_details?.amount_discount ? data.total_details.amount_discount / 100 : 0;
-                    const tax = data.total_details?.amount_tax ? data.total_details.amount_tax / 100 : 0;
-                    const grandTotal = subtotal + shipping + tax - discount;
-
-                    const totalsContainer = document.getElementById("orderTotalContainer");
-                    totalsContainer.innerHTML = `
-                        <div class="flex justify-between text-sm py-1">
-                            <span class="text-gray-700">Subtotal</span>
-                            <span>$${subtotal.toFixed(2)}</span>
-                        </div>
-                        <div class="flex justify-between text-sm py-1">
-                            <span class="text-gray-700">Shipping</span>
-                            <span>$${shipping.toFixed(2)}</span>
-                        </div>
-                        <div class="flex justify-between text-sm py-1">
-                            <span class="text-gray-700">Tax</span>
-                            <span>$${tax.toFixed(2)}</span>
-                        </div>
-                        <div class="flex justify-between text-sm py-1">
-                            <span class="text-gray-700">Discount</span>
-                            <span class="text-green-700">−$${discount.toFixed(2)}</span>
-                        </div>
-                        <div class="flex justify-between text-base font-bold border-t pt-2 mt-2">
-                            <span>Total Paid</span>
-                            <span>$${grandTotal.toFixed(2)}</span>
-                        </div>
-                    `;
-                    totalsContainer.classList.remove("hidden");
-                })
-                .catch(err => {
-                    console.error("Error loading order:", err);
-                    showToast("There was an issue retrieving your order. Please contact support.", "error");
-                    document.getElementById("orderItems").innerHTML = `<p class="text-red-500 text-sm">Unable to load order summary.</p>`;
-                });
-
-            localStorage.removeItem("cart");
-            localStorage.removeItem("savedCart");
-            if (typeof updateCartCount === "function") updateCartCount();
-            if (typeof renderCart === "function") renderCart();
-            if (typeof toggleCart === "function" && document.getElementById("cartSidebar")) {
-                toggleCart(false);
-            }
-        });
-    </script>
-
-
-    <script src="/js/productinsert.js"></script>
-    <script src="/js/helpers.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", loadFeaturedProducts);
-    </script>
-    <script>
-        fetch("/products/promotion.json")
-            .then(res => res.json())
-            .then(promoData => {
-                const now = new Date();
-                const promo = promoData.promotions?.find(p => {
-                    const startOk = !p.startDate || new Date(p.startDate) <= now;
-                    const endOk = !p.endDate || new Date(p.endDate) >= now;
-                    return p.featured && startOk && endOk;
-                });
-                if (promo?.category) {
-                    const cap = promo.category.charAt(0).toUpperCase() + promo.category.slice(1);
-                    const interval = setInterval(() => {
-                        const title = document.getElementById("featured-title");
-                        if (title) {
-                            title.textContent = `🔥 All ${cap} items are on sale!!`;
-                            clearInterval(interval);
-                        }
-                    }, 100);
-                }
-            });
-
-        function initNavbar() {
-            const toggleBtn = document.getElementById("mobile-menu-button");
-            const menu = document.getElementById("mobile-menu");
-            if (toggleBtn && menu) toggleBtn.addEventListener("click", () => menu.classList.toggle("hidden"));
-
-            const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
-            const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-            const countElem = document.getElementById("cart-count");
-            if (countElem) countElem.textContent = totalQty;
-
-            const navbar = document.getElementById('mainNavbar');
-            let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                if (!navbar) return;
-                if (window.scrollY > lastScrollY && window.scrollY > 50) {
-                    navbar.classList.replace('navbar-show', 'navbar-hide');
-                } else {
-                    navbar.classList.replace('navbar-hide', 'navbar-show');
-                }
-                lastScrollY = window.scrollY;
-            });
-        }
-
-        // 🔁 Main Load Flow
-        function includeHTML(id, file, callback) {
-            const elem = document.getElementById(id);
-            if (!elem) return;
-            fetch(file)
-                .then(res => res.text())
-                .then(html => {
-                    elem.innerHTML = html;
-                    if (typeof callback === "function") callback();
-                })
-                .catch(err => {
-                    console.error("Include HTML error:", err);
-                });
-        }
-
-        includeHTML("navbar-container", "/page_inserts/uni_navbar.html", () => {
-            initNavbar();
-
-            const addToCartBtn = document.getElementById("add-to-cart-btn");
-            if (addToCartBtn) {
-                addToCartBtn.addEventListener("click", () => {
-                    const variant = document.getElementById("variantSelector")?.value || null;
-                    addToCart(activeProduct, variant);
-                });
-            }
-
-            includeHTML("footer", "/page_inserts/footer.html");
-        });
-    </script>
-
-
+  <!-- ✅ Scripts -->
+  <script type="module" src="/js/success/index.js"></script>
+  <script type="module" src="/js/Navbar/navbar.js"></script>
+  <script type="module" src="/js/Footer/footer.js"></script>
 </body>
+
 </html>
