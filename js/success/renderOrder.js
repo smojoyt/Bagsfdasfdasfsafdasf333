@@ -20,7 +20,7 @@ export function renderOrder(data) {
 
     div.innerHTML = `
       <div class="flex gap-4">
-        <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 rounded border object-cover">
+        <img src="${item.image || '/imgs/fallback.png'}" alt="${item.description}" class="w-16 h-16 border object-cover">
         <div>
           <p class="font-semibold">${item.description}</p>
           <p class="text-sm text-gray-600">Qty: ${item.quantity}</p>

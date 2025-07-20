@@ -9,7 +9,7 @@ if (!window.allProducts) {
 }
 
 import { setupHeroBanner } from "./heroBanner.js";
-import { setupFeaturedProducts } from "./featuredProducts.js";
+import { setupFeaturedProducts } from './setupFeaturedProducts.js';
 import { loadDynamicFeatureSection } from "./featuredHighlight.js";
 import { loadBestsellerProducts } from "./bestsellerCarousel.js";
 
