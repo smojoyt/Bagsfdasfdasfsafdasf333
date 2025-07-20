@@ -418,7 +418,7 @@
 		"category": "lv",
 		"product_id": "KK-1010",
 		"checkout_product_id": "LKK001",
-		"price": 80,
+		"price": 80.00,
 		"weight_oz": 16.58,
 		"tags": [
 			"Bags",
@@ -455,6 +455,9 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Black",
+				"variantStock": {
+			"Black": 2
+		},
 		"variantImages": {
 			"Black": "https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
 		},
@@ -494,6 +497,9 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Black",
+				"variantStock": {
+			"Black": 0
+		},
 		"variantImages": {
 			"Black": "https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg"
 		},
