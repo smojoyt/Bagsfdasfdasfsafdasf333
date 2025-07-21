@@ -4,7 +4,7 @@ export function initAnnouncementBar() {
   const container = document.getElementById("announcement-container");
   if (!container) return;
 
-  fetch("/page_inserts/announcementBar.html")
+  fetch("/page_inserts/announcementbar.html")
     .then(res => {
       if (!res.ok) throw new Error("Failed to load announcement bar");
       return res.text();

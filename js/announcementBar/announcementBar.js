@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!container) return;
 
   try {
-    const res = await fetch("/page_inserts/announcementBar.html");
+    const res = await fetch("/page_inserts/announcementbar.html");
     if (!res.ok) throw new Error("Failed to load announcement bar");
     container.innerHTML = await res.text();
     requestAnimationFrame(initAnnouncementBar);
