@@ -26,14 +26,21 @@ export function renderColorDots(options = [], stock = {}, images = {}, sku = "")
     const image = images[color] || "/imgs/placeholder.jpg";
     const colorClass = getColorClass(color);
 
+    const cursorClass = inStock ? "cursor-pointer" : "cursor-not-allowed";
+    const opacityClass = inStock ? "" : "opacity-30";
+    const tooltip = inStock ? "" : `title="Out of Stock"`;
+    const disabledAttr = inStock ? "" : "disabled";
+
     return `
       <button
-        class="color-dot w-5 h-5 rounded-full border border-gray-300 ${colorClass} ${!inStock ? 'opacity-30' : ''}"
+        class="color-dot w-5 h-5 rounded-full border border-gray-300 ${colorClass} ${opacityClass} ${cursorClass}"
         data-sku="${sku}"
         data-variant="${color}"
         data-image="${image}"
-        ${!inStock ? "disabled" : ""}
+        ${disabledAttr}
+        ${tooltip}
       ></button>
     `;
   }).join("");
 }
+

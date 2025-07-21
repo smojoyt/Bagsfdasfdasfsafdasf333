@@ -1,6 +1,6 @@
 import { currentState } from "./state.js";
 import { createProductCard } from "../utils/createProductCard.js";
-import { attachCatalogCardHandlers } from "../utils/attachCatalogCardHandlers.js"; // ✅ ADD THIS
+import { initUniversalCartHandler } from "../Cart/addToCart.js";
 
 export function renderSortedCatalog(entries) {
   const grid = document.getElementById("product-grid");
@@ -18,5 +18,6 @@ export function renderSortedCatalog(entries) {
 
   grid.appendChild(fragment);
 
-  attachCatalogCardHandlers(grid); // ✅ ONE listener for swatches + cart
+  // ✅ One universal listener for swatches + cart
+  initUniversalCartHandler({ root: grid });
 }

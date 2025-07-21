@@ -1,6 +1,7 @@
 // renderProductDetails.js
 import { renderColorDotsWithLabel } from "./renderColorDotsWithLabel.js";
-import { setupAddToCart } from "./setupAddToCart.js";
+import { initUniversalCartHandler } from "../Cart/addToCart.js";
+
 
 export function renderProductDetails(product, promo = null) {
   const nameEl = document.getElementById("product-name");
@@ -101,28 +102,29 @@ extraSections.querySelectorAll("button[data-toggle]").forEach(btn => {
   if (firstDot) firstDot.classList.add("ring-4", "ring-black", "ring-offset-2");
   swatchContainer.dataset.selectedVariant = firstAvailable;
 
+    // Swatch click logic...
   swatchContainer.addEventListener("click", (e) => {
-  const btn = e.target.closest("button.color-dot");
-  if (!btn || btn.disabled) return;
+    const btn = e.target.closest("button.color-dot");
+    if (!btn || btn.disabled) return;
 
-  const variant = btn.dataset.variant;
-  const image = btn.dataset.image;
+    const variant = btn.dataset.variant;
+    const image = btn.dataset.image;
 
-  swatchContainer.querySelectorAll("button.color-dot").forEach(dot =>
-    dot.classList.remove("ring-4", "ring-black", "ring-offset-2")
-  );
-  btn.classList.add("ring-4", "ring-black", "ring-offset-2");
-  swatchContainer.dataset.selectedVariant = variant;
+    swatchContainer.querySelectorAll("button.color-dot").forEach(dot =>
+      dot.classList.remove("ring-4", "ring-black", "ring-offset-2")
+    );
+    btn.classList.add("ring-4", "ring-black", "ring-offset-2");
+    swatchContainer.dataset.selectedVariant = variant;
 
-  const preview = document.getElementById("product-img");
-  if (preview && image) preview.src = image;
+    const preview = document.getElementById("product-img");
+    if (preview && image) preview.src = image;
 
-  // ✅ Also update the first mobile image
-  const mobileFirstImg = document.querySelector("#carousel-track img");
-  if (mobileFirstImg && image) mobileFirstImg.src = image;
-});
+    const mobileFirstImg = document.querySelector("#carousel-track img");
+    if (mobileFirstImg && image) mobileFirstImg.src = image;
+  });
+
+  // ✅ NEW: Universal cart button logic
+  initUniversalCartHandler({ root: document, productData: product });
 
 
-
-  setupAddToCart(product);
 }
