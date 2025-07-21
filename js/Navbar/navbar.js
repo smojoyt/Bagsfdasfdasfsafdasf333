@@ -2,11 +2,21 @@
 import { initNavbar } from "./index.js";
 import { updateCartCount, observeCart } from "./cart.js";
 
-// ✅ Expose globally for debugging or external calls
+// ✅ Immediately make buttons interactive before DOM loads (fallback)
+const navEl = document.getElementById("main-nav");
+const menuBtn = document.getElementById("menu-toggle");
+const cartBtn = document.getElementById("cart-toggle");
+
+navEl?.classList.remove("pointer-events-none");
+menuBtn?.removeAttribute("disabled");
+cartBtn?.removeAttribute("disabled");
+
+// ✅ Expose for console testing
 window.initNavbar = initNavbar;
 window.updateCartCount = updateCartCount;
 window.observeCart = observeCart;
 
+// ✅ Utility to wait for a selector
 function waitForEl(selector, maxRetries = 10, interval = 50) {
   return new Promise((resolve, reject) => {
     let retries = 0;
@@ -23,7 +33,7 @@ function waitForEl(selector, maxRetries = 10, interval = 50) {
   });
 }
 
-
+// ✅ Load and inject navbar
 document.addEventListener("DOMContentLoaded", async () => {
   const navContainer = document.getElementById("navbar");
   if (!navContainer) return;
@@ -34,21 +44,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     navContainer.innerHTML = await res.text();
 
-    // 🛠 Ensures new DOM is fully parsed before attaching listeners
-requestAnimationFrame(() => {
-  setTimeout(async () => {
-    try {
-      await waitForEl("#menu-toggle"); // or any reliably late-loading element
-      initNavbar();
-      updateCartCount();
-      observeCart();
-    } catch (err) {
-      console.warn(err);
-    }
-  }, 0);
-});
+    // ✅ Now wait for the dynamic content to render
+    requestAnimationFrame(() => {
+      setTimeout(async () => {
+        try {
+          await waitForEl("#menu-toggle");
+          // 🔧 After navbar is loaded and parsed
+          document.getElementById("main-nav")?.classList.remove("pointer-events-none");
+          document.getElementById("menu-toggle")?.removeAttribute("disabled");
+          document.getElementById("cart-toggle")?.removeAttribute("disabled");
 
-
+          initNavbar();
+          updateCartCount();
+          observeCart();
+        } catch (err) {
+          console.warn(err);
+        }
+      }, 0);
+    });
   } catch (err) {
     navContainer.innerHTML = `<div class="bg-red-100 text-red-800 p-4 text-center">Navbar failed to load.</div>`;
     console.error("❌ Navbar load failed:", err);

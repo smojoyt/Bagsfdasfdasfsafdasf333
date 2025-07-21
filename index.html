@@ -12,10 +12,18 @@
 <!-- Flickity + imagesLoaded JS -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+   <link rel="modulepreload" href="/js/main.js">
+  <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/Home/index.js"></script>
+  <script type="module" src="/js/Cards/homePromo/homePromoSection.js"></script>
+
 
 </head>
-  <div id="navbar"></div>
+
+
 <body class="bg-white text-black font-sans">
+    <div id="navbar" class="min-h-[4rem]"></div>
+
 
   <!-- Hero Banner -->
 <main class="px-6 py-36">
@@ -223,9 +231,7 @@
 
 
   <!-- Inject Navbar & Footer -->
-  <script type="module" src="/js/main.js"></script>
-  <script type="module" src="/js/Home/index.js"></script>
-  <script type="module" src="/js/Cards/homePromo/homePromoSection.js"></script>
+
 
 </body>
 </html>
