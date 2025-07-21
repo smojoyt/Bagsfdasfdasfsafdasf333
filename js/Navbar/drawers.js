@@ -4,7 +4,8 @@ let lastScrollY = 0;
 let lastOpened = null;
 
 export function initDrawers() {
-    console.log("🚪 initDrawers() called"); // ✅ Add this line for visibility
+  console.log("🚪 initDrawers() called");
+
   const overlay = document.getElementById("drawer-overlay");
   const menuDrawer = document.getElementById("menu-drawer");
   const cartDrawer = document.getElementById("cart-drawer");
@@ -16,11 +17,11 @@ export function initDrawers() {
     lastOpened = type;
     const isMenu = type === "menu";
 
-    // Hide both drawers first
+    // Reset transforms (hide both)
     menuDrawer.classList.add("-translate-x-full");
     cartDrawer.classList.add("translate-x-full");
 
-    // Lock body scroll
+    // Lock scroll
     lastScrollY = window.scrollY;
     document.body.style.position = "fixed";
     document.body.style.top = `-${lastScrollY}px`;
@@ -29,7 +30,7 @@ export function initDrawers() {
     // Show overlay
     overlay.classList.remove("opacity-0", "pointer-events-none");
 
-    // Animate open
+    // Animate in
     requestAnimationFrame(() => {
       if (isMenu) {
         menuDrawer.classList.remove("-translate-x-full");
@@ -41,8 +42,11 @@ export function initDrawers() {
   };
 
   const closeAll = () => {
+    // Slide both drawers out
     menuDrawer.classList.add("-translate-x-full");
     cartDrawer.classList.add("translate-x-full");
+
+    // Hide overlay
     overlay.classList.add("opacity-0", "pointer-events-none");
 
     // Restore scroll
@@ -52,21 +56,24 @@ export function initDrawers() {
     window.scrollTo(0, lastScrollY);
   };
 
-  // Button bindings
+  // Attach click handlers
   openMenuBtn?.addEventListener("click", () => openDrawer("menu"));
   openCartBtn?.addEventListener("click", () => openDrawer("cart"));
   overlay?.addEventListener("click", closeAll);
   closeBtns.forEach((btn) => btn.addEventListener("click", closeAll));
-  document.addEventListener("keydown", (e) => e.key === "Escape" && closeAll());
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeAll();
+  });
 
   // Touch swipe to close
-  [menuDrawer, cartDrawer].forEach(drawer => {
+  [menuDrawer, cartDrawer].forEach((drawer) => {
     let startX = 0;
-    drawer.addEventListener("touchstart", (e) => startX = e.touches[0].clientX);
+    drawer.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+    });
     drawer.addEventListener("touchend", (e) => {
       const delta = e.changedTouches[0].clientX - startX;
       if (Math.abs(delta) > 100) closeAll();
     });
   });
 }
-window.initDrawers = initDrawers;

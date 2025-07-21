@@ -22,11 +22,9 @@ export async function initNavbar() {
   if (initialized) return;
   initialized = true;
 
-
-
   try {
-  console.log("⚙️ Calling initDrawers()");
-initDrawers();
+    console.log("⚙️ Calling initDrawers()");
+    initDrawers();
 
     // ✅ Initialize cart state + observers
     observeCart();
@@ -38,10 +36,10 @@ initDrawers();
       setupMenuSearch();
     }
 
-    // ✅ Animate menu links if they exist
-    if (document.getElementById("menu-links")) {
-      animateMenuLinks();
-    }
+
+     if (document.getElementById("menu-links")) {
+       animateMenuLinks();
+     }
 
     // ✅ Dynamically load checkout logic if the checkout button exists
     const checkoutBtn = document.getElementById("checkoutBtn");
@@ -70,9 +68,3 @@ initDrawers();
     console.error("❌ Navbar initialization failed:", err);
   }
 }
-
-loadNavbarHTML().then(() => {
-  requestAnimationFrame(() => initNavbar());
-});
-
-
