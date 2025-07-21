@@ -39,7 +39,7 @@ export default async function handler(req, res) {
 
       const variant = item.variant;
       const variantLabel = variant ? ` - ${variant}` : "";
-      const quantity = item.qty || 1;
+      const quantity = item.quantity || 1;
       const price = typeof item.price === "number" ? item.price : product.price;
 
       let variantImage = product.image;

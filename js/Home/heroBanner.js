@@ -9,6 +9,12 @@ export async function setupHeroBanner() {
     }
   };
 
+  const videoEl = document.getElementById("hero-video");
+  const imageEl = document.getElementById("hero-image");
+  const headlineEl = document.getElementById("hero-headline");
+  const captionEl = document.getElementById("hero-caption");
+  const button = document.getElementById("hero-button");
+
   try {
     const res = await fetch("/products/promotion.json");
     const { promotions } = await res.json();
@@ -23,29 +29,39 @@ export async function setupHeroBanner() {
 
     const bannerData = activeFeatured?.media || defaultBanner;
 
-    // Update image/video
-    const videoEl = document.getElementById("hero-video");
-    const imageEl = document.getElementById("hero-image");
-
-    if (bannerData.video) {
+    // Update media
+    if (bannerData.video && videoEl) {
       videoEl.src = bannerData.video;
       videoEl.classList.remove("hidden");
-    } else {
+      if (imageEl) imageEl.classList.add("hidden");
+    } else if (imageEl) {
       imageEl.src = bannerData.image || defaultBanner.image;
       imageEl.classList.remove("hidden");
-      videoEl.classList.add("hidden");
+      if (videoEl) videoEl.classList.add("hidden");
     }
 
-    // Update text
-    document.getElementById("hero-headline").textContent = bannerData.headline || defaultBanner.headline;
-    document.getElementById("hero-caption").textContent = bannerData.caption || defaultBanner.caption;
-
-    // Update button
-    const button = document.getElementById("hero-button");
-    button.textContent = bannerData.button?.label || defaultBanner.button.label;
-    button.href = bannerData.button?.url || defaultBanner.button.url;
+    // Update text and button
+    if (headlineEl) headlineEl.textContent = bannerData.headline || defaultBanner.headline;
+    if (captionEl) captionEl.textContent = bannerData.caption || defaultBanner.caption;
+    if (button) {
+      button.textContent = bannerData.button?.label || defaultBanner.button.label;
+      button.href = bannerData.button?.url || defaultBanner.button.url;
+    }
 
   } catch (err) {
     console.warn("🔧 Failed to load promotions or apply banner:", err);
+
+    // Fallback in case JSON fails or fetch is blocked
+    if (imageEl) {
+      imageEl.src = defaultBanner.image;
+      imageEl.classList.remove("hidden");
+    }
+    if (videoEl) videoEl.classList.add("hidden");
+    if (headlineEl) headlineEl.textContent = defaultBanner.headline;
+    if (captionEl) captionEl.textContent = defaultBanner.caption;
+    if (button) {
+      button.textContent = defaultBanner.button.label;
+      button.href = defaultBanner.button.url;
+    }
   }
 }

@@ -1,13 +1,8 @@
-// helpers should be early if used globally
-import '/js/helpers.js';
+// Inject announcements first
+import "/js/announcementBar/index.js";
 
-// Cart logic
-import '/js/cartUtils.js';
-import '/js/bundleEngine.js';
-import '/js/cartRenderer.js';
-import '/js/checkout.js';
+// Inject navbar
+import "/js/Navbar/navbar.js";
 
-// UI and nav
-import '/js/uni_navbar.js';
-import '/js/moreItemsCarousel.js';
-import '/js/loadProductData.js';
+// Inject footer
+import "/js/Footer/footer.js";
