@@ -113,7 +113,14 @@ export default async function handler(req, res) {
       shipping_address_collection: { allowed_countries: ["US", "CA"] },
       shipping_options,
       success_url: "https://karrykraze.com/pages/success.html?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "https://karrykraze.com/pages/cancel.html"
+      cancel_url: "https://karrykraze.com/pages/cancel.html",
+
+
+  metadata: {
+    cartSummary: cart.map(item => `${item.sku}:${item.quantity}`).join(","),
+    source: "karrykraze-site",
+    estimatedShipping: cartTotalCents >= 2000 ? "free" : "standard",
+  }
     });
 
     return res.status(200).json({ url: session.url });
