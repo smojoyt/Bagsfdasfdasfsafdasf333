@@ -455,7 +455,7 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Black",
-				"variantStock": {
+		"variantStock": {
 			"Black": 2
 		},
 		"variantImages": {
@@ -487,7 +487,7 @@
 		],
 		"custom1Name": "Color",
 		"custom1Options": "Black",
-				"variantStock": {
+		"variantStock": {
 			"Black": 0
 		},
 		"variantImages": {
@@ -902,6 +902,84 @@
 			"https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_02_01.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_03_01.jpg",
 			"https://www.karrykraze.com/imgs/Products/Pendants/MiniCrocs/MC_01_01.jpg"
+		]
+	},
+	"Bag_LV_Noir_Legacy_V1": {
+		"name": "LV Noir Legacy Vol. I",
+		"category": "lv",
+		"product_id": "KK-1021",
+		"price": 150,
+		"weight_oz": 64.2,
+		"tags": [
+			"Bags",
+			"Designer",
+			"Sets"
+		],
+		"catalogImage":"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg",
+		"catalogImageHover":"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_11.jpg",
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg",
+		"url": "https://www.karrykraze.com/pages/product.html?sku=Bag_LVTote",
+		"descriptionList": [
+			""
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Black",
+		"variantStock": {
+			"Black": 0
+		},
+		"variantImages": {
+			"Black": "https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_04.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_07.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_08.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_10.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_11.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_18.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_19.jpg"
+		]
+	},
+	"Bag_LV_Noir_Legacy_V2": {
+		"name": "LV Noir Legacy Vol. II",
+		"category": "lv",
+		"product_id": "KK-1021",
+		"price": 150,
+		"weight_oz": 64.2,
+		"tags": [
+			"Bags",
+			"Designer",
+			"Sets"
+		],
+		"catalogImage":"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg",
+		"catalogImageHover":"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_11.jpg",
+		"image": "https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg",
+		"url": "https://www.karrykraze.com/pages/product.html?sku=Bag_LVTote",
+		"descriptionList": [
+			""
+		],
+		"custom1Name": "Color",
+		"custom1Options": "Black",
+		"variantStock": {
+			"Black": 0
+		},
+		"variantImages": {
+			"Black": "https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg"
+		},
+		"thumbnails": [
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_01.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_02.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_04.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_07.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_08.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_10.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_11.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_18.jpg",
+			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_19.jpg"
 		]
 	}
 }
