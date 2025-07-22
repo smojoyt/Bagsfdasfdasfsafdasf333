@@ -54,7 +54,8 @@ line_items.push({
       name: `${product.name}${variantLabel}`,
       images: [variantImage || product.image || ""],
       metadata: {
-        product_id: product.product_id  // Add SKU or ID for Make
+        product_id: product.product_id ,
+        variant: variant || "default"
       }
     },
     unit_amount: Math.round(price * 100)
