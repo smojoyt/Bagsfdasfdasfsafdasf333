@@ -93,7 +93,7 @@ export default async function handler(req, res) {
         shipping_rate_data: {
           display_name: "Standard Shipping",
           type: "fixed_amount",
-          fixed_amount: { amount: 499, currency: "usd" },
+          fixed_amount: { amount: 899, currency: "usd" },
           delivery_estimate: {
             minimum: { unit: "business_day", value: 3 },
             maximum: { unit: "business_day", value: 7 }

@@ -76,12 +76,18 @@ export function renderCartItems() {
   const cart = getCart();
   container.innerHTML = "";
 
-  if (cart.length === 0) {
-    emptyMsg.classList.remove("hidden");
-    footer.classList.add("hidden");
-    subtotalEl.textContent = "$0.00";
-    return;
-  }
+if (cart.length === 0) {
+  emptyMsg.classList.remove("hidden");
+  footer.classList.add("hidden");
+  subtotalEl.textContent = "$0.00";
+
+  // 🛑 Hide free shipping bar when cart is empty
+  const progressContainer = document.getElementById("free-shipping-progress");
+  if (progressContainer) progressContainer.classList.add("hidden");
+
+  return;
+}
+
 
   emptyMsg.classList.add("hidden");
   footer.classList.remove("hidden");
@@ -139,6 +145,27 @@ export function renderCartItems() {
 
   container.appendChild(frag);
   subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+  // 🚚 Update Free Shipping Progress
+const progressContainer = document.getElementById("free-shipping-progress");
+const progressBar = document.getElementById("progress-bar");
+const progressMsg = document.getElementById("progress-msg");
+
+const threshold = 20;
+if (progressContainer && progressBar && progressMsg) {
+  if (subtotal >= threshold) {
+    progressContainer.classList.remove("hidden");
+    progressBar.style.width = "100%";
+    progressBar.classList.add("bg-green-600");
+    progressMsg.textContent = "You’ve unlocked FREE shipping!";
+  } else {
+    const percent = Math.min(100, (subtotal / threshold) * 100);
+    progressContainer.classList.remove("hidden");
+    progressBar.style.width = `${percent}%`;
+    progressBar.classList.remove("bg-green-600");
+    progressMsg.textContent = `Spend $${(threshold - subtotal).toFixed(2)} more to unlock FREE shipping`;
+  }
+}
+
 
   setupCartInteractionHandlers();
 }
