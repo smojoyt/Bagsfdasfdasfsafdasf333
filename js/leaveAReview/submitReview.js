@@ -40,28 +40,38 @@ export function setupFormSubmit(storage) {
       body: JSON.stringify(payload)
     });
 
-    let result;
-    try {
-      result = await res.json();
-    } catch {
-      status.innerHTML = `We couldn't find a matching order or you’ve already submitted a review. <a href="/pages/contact" class="underline text-blue-600">Contact us</a>`;
-      status.classList.replace("text-green-600", "text-red-600");
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Submit Review";
-      return;
-    }
+let result;
+try {
+  const text = await res.text();
+  result = JSON.parse(text);
+} catch (err) {
+  console.error("❌ Failed to parse response from webhook:", err);
+  const raw = await res.text();
+  console.warn("📦 Raw response text:", raw);
+
+  status.innerHTML = `We couldn't fwind a matching order or you’ve already submitted a review. <a href="/pages/contact" class="underline text-blue-600">Contact us</a>`;
+  status.classList.replace("text-green-600", "text-red-600");
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Submit Review";
+  return;
+}
+
 
     if (result.success) {
-      form.reset();
-      preview.src = "";
-      preview.classList.add("hidden");
-      qualityButtons.forEach(b => b.classList.remove("selected"));
-      stars.forEach(s => s.classList.remove("text-yellow-500"));
-      document.getElementById("ratingInput").value = "";
-      document.getElementById("starLabel").textContent = "";
-      status.textContent = `Thank you! Your review was submitted. Coupon sent to ${payload.email}`;
-      status.classList.replace("text-red-600", "text-green-600");
-    } else {
+  form.reset();
+  preview.src = "";
+  preview.classList.add("hidden");
+  qualityButtons.forEach(b => b.classList.remove("selected"));
+  stars.forEach(s => s.classList.remove("text-yellow-500"));
+  document.getElementById("ratingInput").value = "";
+  document.getElementById("starLabel").textContent = "";
+
+  // 🟢 Include coupon code and expiry if provided
+  const coupon = result.code ? `Coupon: ${result.code} <br> (expires ${result.expires || "soon"})` : "";
+  status.innerHTML = `Thank you! Your review was submitted.<br>${coupon}`;
+  status.classList.replace("text-red-600", "text-green-600");
+}
+ else {
       let msg = result.error || "Something went wrong.";
       if (msg.includes("already submitted")) {
         msg = "You’ve already submitted a review for this item.";
