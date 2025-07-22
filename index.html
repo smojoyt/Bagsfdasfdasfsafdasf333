@@ -15,19 +15,20 @@
    <body class="bg-white text-black font-sans">
       <div id="navbar" class="min-h-[4rem]"></div>
       <!-- Hero Banner -->
-      <main class="px-6 py-36">
+      <main class="px-6 py-14 md:py-36">
          <div class="max-w-[108rem] mx-auto">
             <!-- 🏷️ Catalog Banner -->
-            <section id="catalog-banner" class="relative w-full overflow-hidden bg-center bg-cover bg-no-repeat flex items-center justify-center h-[120px] sm:h-[160px] lg:h-[200px] py-4">
+            <section id="catalog-banner" class="relative w-full overflow-hidden bg-center bg-cover bg-no-repeat flex items-center justify-center h-[200px] sm:h-[160px] lg:h-[400px] py-4">
                <!-- 🎥 Background Video -->
                <video id="hero-video" autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none">
                   <source src="" type="video/mp4" />
                </video>
                <!-- 🖼️ Fallback Image -->
                <img id="hero-image" src="/imgs/Banner/KK_01.jpg" alt="Hero Fallback" class="absolute inset-0 w-full h-full object-cover z-0 hidden" />
-               <!-- 🛍️ Banner Content -->
-               <div class="relative z-10 flex flex-col items-center justify-center text-center space-y-2 sm:space-y-3 px-4">
-                  <h1 id="hero-headline" class="bg-white text-black font-bold uppercase tracking-wide text-lg sm:text-2xl lg:text-3xl px-4 py-2 shadow">
+<!-- 🛍️ Banner Content -->
+<div class="absolute bottom-4 left-4 z-10 flex flex-col items-start text-left space-y-2 sm:space-y-3">
+
+                  <h1 id="hero-headline" class=" text-white font-extrabold uppercase tracking-tight text-2xl lg:text-5xl ">
                      Shop All
                   </h1>
                   <p id="hero-caption" class="text-white font-semibold uppercase text-xs sm:text-sm md:text-base px-3 py-1 bg-black/40">
@@ -38,8 +39,9 @@
          </div>
          <!-- Featured Categories -->
          <section id="featured-products-section" class="max-w-[108rem] mx-auto py-8">
+            
             <!-- Header row -->
-            <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center justify-between mb-2">
                <h2 id="featured-title" class="text-2xl md:text-4xl font-extrabold text-gray-900 uppercase tracking-wide">
                   Featured Picks
                </h2>
@@ -50,8 +52,8 @@
             <!-- Accent divider -->
             <div class="w-24 h-1 bg-gray-300 mb-6"></div>
             <!-- Scrollable product row -->
-            <div id="featured-products-wrapper" class="pb-4 overflow-x-auto scroll-smooth snap-x snap-mandatory mx-0">
-               <div id="homePromoSection" class="flex gap-4 w-max md:w-fit">
+            <div id="featured-products-wrapper" class="pb-4 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide">
+               <div id="homePromoSection" class="flex gap-4 max-w-[80rem]  w-max md:max-w-full md:w-fit">
                   <!-- Injected cards go here -->
                </div>
             </div>
@@ -85,25 +87,25 @@
                </h2>
             </div>
             <div class="flex">
-               <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
+               <div class="w-24 h-1 bg-gray-300  mb-6"></div>
             </div>
             <!-- 🧩 Scrollable Category Cards -->
             <div id="category-grid" class="pb-4 flex overflow-x-auto gap-6 snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-8 md:overflow-visible">
                <!-- 🔹 Category Card Template -->
                <a href="/pages/catalog.html?category=bags" class="snap-start flex-shrink-0 w-[75%] sm:w-[60%] md:w-auto text-center group">
-                  <div class="w-full h-[22rem] md:h-[35rem] overflow-hidden rounded bg-white shadow-sm">
+                  <div class="w-full h-[22rem] md:h-[35rem] overflow-hidden  bg-white shadow-sm">
                      <img src="/imgs/Products/Pouches/0011_HeartBag/CatIMG_01.jpg" alt="Bags" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                   <div class="mt-4 text-2xl md:text-3xl font-extrabold text-gray-800 uppercase underline">Bags</div>
                </a>
                <a href="/pages/catalog.html?category=headwear" class="snap-start flex-shrink-0 w-[75%] sm:w-[60%] md:w-auto text-center group">
-                  <div class="w-full h-[22rem] md:h-[35rem] overflow-hidden rounded bg-white shadow-sm">
+                  <div class="w-full h-[22rem] md:h-[35rem] overflow-hidden  bg-white shadow-sm">
                      <img src="/imgs/Products/Hats/BunnyEarsRat/CatIMG_01.jpg" alt="Hats" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                   <div class="mt-4 text-2xl md:text-3xl font-extrabold text-gray-800 uppercase underline">Hats</div>
                </a>
                <a href="/pages/catalog.html?category=charms" class="snap-start flex-shrink-0 w-[75%] sm:w-[60%] md:w-auto text-center group">
-                  <div class="w-full h-[22rem] md:h-[35rem] overflow-hidden rounded bg-white shadow-sm">
+                  <div class="w-full h-[22rem] md:h-[35rem] overflow-hidden  bg-white shadow-sm">
                      <img src="/imgs/Products/Pendants/Cherry/CatIMG_01.jpg" alt="Charms" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                   <div class="mt-4 text-2xl md:text-3xl font-extrabold text-gray-800 uppercase underline">Charms</div>
@@ -111,9 +113,9 @@
             </div>
          </section>
          <!-- 🛍️ Responsive Promo Banner Section -->
-         <section class="max-w-[108rem] mx-auto px-4 md:px-0 py-6 md:py-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+         <section class="max-w-[108rem] mx-auto py-6 md:py-12 grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- 🔸 Block 1 -->
-            <div class="relative h-[28rem] md:h-[46rem] overflow-hidden group rounded shadow-sm">
+            <div class="relative h-[28rem] md:h-[46rem] overflow-hidden group  shadow-sm">
                <img src="/imgs/Products/Pouches/0011_HeartBag/02_04.jpg" alt="Heart Embossed Mini Purse" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                <!-- Gradient Overlay (optional for better contrast) -->
                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent transition duration-300"></div>
@@ -127,7 +129,7 @@
                </div>
             </div>
             <!-- 🔸 Block 2 -->
-            <div class="relative h-[28rem] md:h-[46rem] overflow-hidden group rounded shadow-sm">
+            <div class="relative h-[28rem] md:h-[46rem] overflow-hidden group  shadow-sm">
                <img src="/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_01_03.jpg" alt="Velvet Cherry Puff Purse" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent transition duration-300"></div>
                <div class="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 text-white z-10 max-w-[80%]">
@@ -146,7 +148,7 @@
                <a href="/pages/catalog.html" class="shrink-0 font-bold text-base uppercase underline underline-offset-4 decoration-2">Shop all</a>
             </div>
             <div class="mx-auto flex md:px-0">
-               <div class="w-24 h-1 bg-gray-300 rounded mb-6"></div>
+               <div class="w-24 h-1 bg-gray-300  mb-6"></div>
             </div>
             <div id="bestseller-products" class="pl-4 md:pl-0 carousel">
             </div>

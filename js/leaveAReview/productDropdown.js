@@ -19,30 +19,30 @@ export function setupProductDropdown(products) {
   });
 
   Object.entries(products).forEach(([_, p]) => {
-    const hasStock = Object.values(p.variantStock || {}).some(qty => qty > 0);
-    if (!hasStock) return;
+  // ✅ Removed stock check — show all items regardless of variant stock
 
-    const item = document.createElement("div");
-    item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer bg-white shadow hover:shadow-md";
-    item.dataset.name = p.name.toLowerCase();
-    item.dataset.id = p.product_id.toLowerCase();
-    item.innerHTML = `
-      <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
-      <div class="flex flex-col w-full">
-        <p class="text-sm font-medium product-name" data-original="${p.name}">${p.name}</p>
-        <p class="text-xs text-gray-400 text-right product-id" data-original="${p.product_id}">${p.product_id}</p>
-      </div>
-    `;
-    item.addEventListener("click", () => {
-      selectedText.textContent = `${p.name} (${p.product_id})`;
-      selectedInput.value = p.product_id;
-      searchInput.value = "";
-      dropdownList.classList.add("hidden");
-    });
-
-    allProducts.push(item);
-    productItemsContainer.appendChild(item);
+  const item = document.createElement("div");
+  item.className = "product-item flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer bg-white shadow hover:shadow-md";
+  item.dataset.name = p.name.toLowerCase();
+  item.dataset.id = p.product_id.toLowerCase();
+  item.innerHTML = `
+    <img src="${p.image}" alt="${p.name}" class="w-10 h-10 object-cover rounded" />
+    <div class="flex flex-col w-full">
+      <p class="text-sm font-medium product-name" data-original="${p.name}">${p.name}</p>
+      <p class="text-xs text-gray-400 text-right product-id" data-original="${p.product_id}">${p.product_id}</p>
+    </div>
+  `;
+  item.addEventListener("click", () => {
+    selectedText.textContent = `${p.name} (${p.product_id})`;
+    selectedInput.value = p.product_id;
+    searchInput.value = "";
+    dropdownList.classList.add("hidden");
   });
+
+  allProducts.push(item);
+  productItemsContainer.appendChild(item);
+});
+
 
   searchInput.addEventListener("input", (e) => {
     const term = e.target.value.toLowerCase();

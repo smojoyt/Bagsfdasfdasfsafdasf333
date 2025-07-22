@@ -465,16 +465,6 @@
 			"https://www.karrykraze.com/imgs/Products/Pouches/LV/001_OGShoulder/42.jpg"
 		]
 	},
-	"LKK001": {
-		"product_id": "LKK-001",
-		"name": "LKK001",
-		"price": 125,
-		"tags": [
-			"Discontinued"
-		],
-		"custom1Options": "Black",
-		"image": "https://www.karrykraze.com/imgs/Logo/Short/702.jpg"
-	},
 
 	"Bag_LVTote": {
 		"name": "LV Tote Set",
@@ -516,49 +506,6 @@
 			"https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_19.jpg"
 		]
 	},
-	"LKK002": {
-		"product_id": "LKK-002",
-		"name": "LKK002",
-		"price": 150,
-		"tags": [
-			"Discontinued"
-		],
-		"custom1Options": "Black",
-		"image": "https://www.karrykraze.com/imgs/Logo/Short/702.jpg"
-	},
-
-
-	"Bag_ToteBagGradient": {
-		"name": "The Tote Bag Gradient",
-		"category": [
-			"bags",
-			"Tote"
-		],
-		"product_id": "KK-1012",
-		"price": 60,
-		"weight_oz": 28.22,
-		"tags": [
-			"Discontinued",
-			"Designer",
-			"Bags"
-
-		],
-		"catalogImage":"",
-		"image": "",
-		"url": "",
-		"descriptionList": [
-			""
-		],
-		"custom1Name": "Color",
-		"custom1Options": "Pink",
-		"variantImages": {
-			"Black": ""
-		},
-		"thumbnails": [
-			""
-		]
-	},
-
 	"Charms_CherryChain": {
 		"name": "Cherry Bag Charm",
 		"category": "charms",
@@ -625,42 +572,6 @@
 		"thumbnails": [
 			"https://karrykraze.com/imgs/Products/Pouches/LV/003_WalletSet/Brown/01_01.jpg"
 		]
-	},
-	"LKK004": {
-		"product_id": "LKK-004",
-		"name": "LKK004",
-		"price": 120,
-		"tags": [
-			"Discontinued"
-		],
-		"custom1Options": "Brown",
-		"image": "https://www.karrykraze.com/imgs/Logo/Short/702.jpg"
-	},
-
-
-	"Bag_DiorTote": {
-		"name": "Dior Tote Bag",
-		"category": [
-			"bags",
-			"Dior"
-		],
-		"product_id": "KK-1015",
-		"price": 300,
-		"weight_oz": 21.16,
-		"tags": [
-			"Discontinued",
-			"Designer",
-			"Bags"
-		],
-		"image": "",
-		"url": "",
-		"descriptionList": [
-			""
-		],
-		"custom1Name": "Color",
-		"custom1Options": "",
-		"variantImages": {},
-		"thumbnails": []
 	},
 	"Headwear_FuzzyBeanie": {
 		"name": "Fuzzy Beanie",

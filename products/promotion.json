@@ -10,26 +10,25 @@
       },
       "active": false
     },
-    {
-      "name": "30% Off All Charms",
-      "category": "charms",
-      "type": "percent",
-      "amount": 30,
-      "condition": { "minPrice": 0 },
-      "startDate": "2025-06-28T00:00:00Z",
-      "endDate": "2025-10-20T23:59:59Z",
-      "active": false,
-      "media": {
-        "headline": "30% Off All Charms!",
-        "caption": "Limited time only. Grab your favorite styles today!",
-        "video": "https://www.karrykraze.com/imgs/Promo/30Charms/30CharmsBanner_01.mp4",
-        "image": "https://www.karrykraze.com/imgs/Promo/30Charms/Banner.jpg",
-        "button": {
-          "label": "Shop Now",
-          "url": "https://www.karrykraze.com/pages/promo"
-        }
-      }
-    },
+{
+  "name": "30% Off All Charms",
+  "category": "charms",
+  "type": "percent",
+  "amount": 30,
+  "condition": { "minPrice": 0 },
+  "startDate": "2025-06-28T00:00:00Z",
+  "endDate": "2025-10-20T23:59:59Z",
+  "active": false,
+  "featured": false,
+  "media": {
+    "headline": "30% Off All Charms!",
+    "caption": "Limited time only. Grab your favorite styles today!",
+    "video": "https://www.karrykraze.com/imgs/Promo/30Charms/30CharmsBanner_01.mp4",
+    "image": "https://www.karrykraze.com/imgs/Promo/30Charms/Banner.jpg"
+  }
+},
+
+
     {
       "name": "20% Off All Beanies",
       "category": "headwear",
@@ -37,17 +36,14 @@
       "amount": 20,
       "condition": { "minPrice": 0 },
       "startDate": "2025-06-14T00:00:00Z",
-      "endDate": "2025-06-28T23:59:59Z",
-      "active": false,
+      "endDate": "2025-10-28T23:59:59Z",
+      "active": true,
+      "featured": true,
       "media": {
         "headline": "20% Off All Beanies",
         "caption": "Limited time only. Grab your favorite styles today!",
         "video": "https://www.karrykraze.com/imgs/Promo/U_Hats/Hats_Banner.mp4",
-        "image": "https://www.karrykraze.com/imgs/Promo/U_Hats/Hats_Banner.jpg",
-        "button": {
-          "label": "Shop Now",
-          "url": "https://www.karrykraze.com/pages/promo"
-        }
+        "image": "https://www.karrykraze.com/imgs/Promo/U_Hats/Hats_Banner.jpg"
       }
     }
   ]

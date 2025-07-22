@@ -50,3 +50,40 @@ export function slideDownOut(el, {
     el.style.display = "none";
   }, duration);
 }
+
+
+/** Typewriter effect for text */
+export function typeWriter(el, text, speed = 50) {
+  if (!el || !text) return;
+  el.textContent = "";
+  let i = 0;
+
+  // Create span for blinking cursor
+  const cursor = document.createElement("span");
+  cursor.textContent = "!";
+  cursor.style.marginLeft = "4px";
+  cursor.style.animation = "blink 1s step-start infinite";
+  el.appendChild(cursor);
+
+  const interval = setInterval(() => {
+    if (i < text.length) {
+      el.insertBefore(document.createTextNode(text.charAt(i)), cursor);
+      i++;
+    } else {
+      clearInterval(interval);
+    }
+  }, speed);
+
+  // Inject blink animation if not already present
+  if (!document.getElementById("typewriter-blink-style")) {
+    const style = document.createElement("style");
+    style.id = "typewriter-blink-style";
+    style.textContent = `
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+}

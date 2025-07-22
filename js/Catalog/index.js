@@ -3,7 +3,6 @@ import { currentState } from './state.js'; // ✅ CORRECT
 import { getCategoryFromURL, filterByCategory } from "./filters.js";
 import { setupSearch } from "./search.js";
 import { setupSort } from "./sort.js";
-import { renderSortedCatalog } from "./render.js";
 import { applySearchAndSort } from "./search.js";
 
 

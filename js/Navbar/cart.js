@@ -1,3 +1,5 @@
+///js/Navbar/cart.js
+
 const checkoutBtn = document.getElementById("checkoutBtn");
 
 checkoutBtn?.addEventListener("click", async () => {
@@ -120,8 +122,14 @@ export function renderCartItems() {
             <button class="qty-btn px-3 py-1 bg-gray-100 hover:bg-gray-200" data-action="increase" data-index="${index}">+</button>
           </div>
           <div class="text-base font-bold text-right ml-4 whitespace-nowrap">
-            $${total.toFixed(2)}
-          </div>
+  ${
+    item.originalPrice && item.originalPrice > item.price
+      ? `<span class="text-red-600">$${item.price.toFixed(2)}</span>
+         <span class="line-through text-gray-400 text-xs ml-1">$${item.originalPrice.toFixed(2)}</span>`
+      : `$${item.price.toFixed(2)}`
+  }
+</div>
+
         </div>
       </div>
     `;

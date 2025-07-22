@@ -22,7 +22,7 @@ export function saveCart(cart) {
  * Adds or updates an item in the cart
  * @returns {"added" | "updated" | "invalid"} action status
  */
-export function addToCart({ sku, variant, name, price, image, quantity = 1 }) {
+export function addToCart({ sku, variant, name, price, originalPrice, image, quantity = 1 }) {
   if (!sku || !variant || quantity <= 0) {
     console.warn("❌ Invalid cart item:", { sku, variant, quantity });
     return "invalid";
@@ -45,6 +45,7 @@ export function addToCart({ sku, variant, name, price, image, quantity = 1 }) {
     variant: cleanVariant,
     name,
     price,
+    originalPrice, // ✅ now stored!
     image,
     quantity,
   });

@@ -28,7 +28,14 @@ export async function renderHomePromoSection(container, maxToShow = 6) {
     promoCategories = [activePromo.category.toLowerCase()];
   } else {
     console.warn("⚠️ No active promo. Using fallback categories.");
-    promoCategories = ["headwear", "charms", "bags"]; // 🔄 Your fallback categories
+    promoCategories = ["headwear", "charms", "bags"];
+  }
+
+  // ✅ Update title AFTER we have a promo category
+  const titleEl = document.getElementById("featured-title");
+  if (titleEl && promoCategories.length > 0) {
+    const formatted = promoCategories[0].charAt(0).toUpperCase() + promoCategories[0].slice(1);
+    titleEl.textContent = `${formatted} on sale`;
   }
 
   // 🎯 Filter products by category AND exclude discontinued

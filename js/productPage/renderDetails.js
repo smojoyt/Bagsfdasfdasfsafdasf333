@@ -126,5 +126,23 @@ extraSections.querySelectorAll("button[data-toggle]").forEach(btn => {
   // ✅ NEW: Universal cart button logic
   initUniversalCartHandler({ root: document, productData: product });
 
+  
+// 📏 Sync info height to match image section
+setTimeout(() => {
+  const infoWrapper = document.getElementById("product-info-wrapper");
+  const desktopImages = document.getElementById("desktop-images");
+  const mobileCarousel = document.getElementById("mobile-carousel");
+
+  if (!infoWrapper) return;
+
+  const isMobile = window.innerWidth < 1024;
+  const imageSection = isMobile ? mobileCarousel : desktopImages;
+
+  if (imageSection) {
+    const height = imageSection.offsetHeight;
+    infoWrapper.style.minHeight = `${height}px`;
+  }
+}, 50); // slight delay to ensure DOM is ready
+
 
 }
