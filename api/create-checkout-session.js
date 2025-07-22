@@ -47,17 +47,21 @@ export default async function handler(req, res) {
         variantImage = product.variantImages[variant];
       }
 
-      line_items.push({
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: `${product.name}${variantLabel}`,
-            images: [variantImage || product.image || ""]
-          },
-          unit_amount: Math.round(price * 100)
-        },
-        quantity
-      });
+line_items.push({
+  price_data: {
+    currency: "usd",
+    product_data: {
+      name: `${product.name}${variantLabel}`,
+      images: [variantImage || product.image || ""],
+      metadata: {
+        product_id: item.sku  // Add SKU or ID for Make
+      }
+    },
+    unit_amount: Math.round(price * 100)
+  },
+  quantity
+});
+
     }
 
     if (line_items.length === 0) {
