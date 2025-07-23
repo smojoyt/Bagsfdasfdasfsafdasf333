@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/imgs/Logo/Short/SL_0603.png" type="image/png" />
+    <title>Reviews – Karry Kraze</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+
+    <!-- Website Description -->
+    <meta name="description" content="All Customer Reviews" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.karrykraze.com/" />
+    <meta property="og:title" content="Reviews – Karry Kraze" />
+    <meta property="og:description" content="All Customer Reviews" />
+    <meta property="og:image" content="https://www.karrykraze.com/imgs/Pages/SignUp_01.jpg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Reviews – Karry Kraze" />
+    <meta name="twitter:description" content="All Customer Reviews" />
+    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Pages/SignUp_01.jpg" />
+
+    <!-- Tailwind (not recommended for production, but fine for dev) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-black font-sans">
+<main class="px-6 py-36">
+    <div class="max-w-[108rem] mx-auto ">
+                    <!-- 🏷️ Banner Section with Title -->
+            <section id="signup-banner"
+                class="w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center relative">
+                <img src="/imgs/Banner/KK_01.jpg" alt="Signup Banner"
+                    class="absolute inset-0 w-full h-full object-cover" />
+                <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%] text-white">
+                    <h1
+                        class="text-black font-bold text-2xl sm:text-1xl tracking-wider uppercase bg-white m-4 px-3 py-2 sm:px-6 sm:py-3">
+                        All Customer Reviews
+                    </h1>
+
+                </div>
+            </section>
+  <!-- Navbar -->
+  <div id="navbar"></div>
+
+  <!-- Page Title
+  <section class="max-w-[108rem] mx-auto px-6 py-12">
+    <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 uppercase tracking-wide mb-2">
+      All Customer Reviews
+    </h1>
+    <p class="text-base text-gray-600">Read what our customers are saying about their favorite items.</p>
+    <div class="w-24 h-1 bg-gray-300 mt-6"></div>
+  </section> -->
+
+<!-- Reviews Container -->
+<section class="max-w-[108rem] mx-auto px-6 pb-24">
+  <!-- Summary + Product Picker -->
+  <div class="grid md:grid-cols-2 gap-10 my-10 items-start">
+    <!-- 📊 Summary -->
+    <div id="reviewSummarySection" class="space-y-4"></div>
+
+<!-- 🔍 Product Picker -->
+<div id="review-sort-container" class="relative w-full max-w-none">
+  <!-- JS will inject full custom dropdown -->
+</div>
+
+</div>
+  <!-- 📝 All Reviews -->
+  <div id="allReviewSection" class="grid gap-6 md:gap-10">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+
+
+
+  <!-- Footer -->
+
+  </div>
+</main>
+      <div id="footer"></div>
+      <div id="navbar"></div>
+      <div id="announcement-container"></div>
+      <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/allReview/index.js"></script>
+
+</body>
+</html>
