@@ -1354,7 +1354,77 @@
   "thumbnails": [
     "https://karrykraze.com/imgs/Products/Pouches/LV/008_ShoulderSet/01_01.jpg"
   ]
+},
+"Charm_Kawaii_Labubu_Munch_Keychain": {
+  "name": "Kawaii Labubu Munch Keychain",
+  "category": "charms",
+  "product_id": "KK-1030",
+  "price": 14.99,
+  "weight_oz": 3.2,
+  "tags": ["Charms", "Keychain", "Kawaii", "Labubu", "Beaded", "Pastel"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/BlueT01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/All01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/All01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Kawaii_Labubu_Munch_Keychain",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/All01.jpg",
+  "descriptionList": [
+    "Adorable Labubu character charm in soft lilac tones",
+    "Hand-beaded with glossy pastels and kawaii bear beadwork",
+    "Clip + keyring combo for bags, keys, or decor",
+    "Lightweight and fun for adding a playful vibe to any item"
+  ],
+  "sizingList": [
+    "Total Length: Approx. 6.5 inches",
+    "Character Size: Approx. 1.5 inches",
+    "Bead Diameter: Approx. 0.5 inches",
+    "Weight: Approx. 3.2 oz"
+  ],
+  "keyDetails": [
+    "Fluffy plush Labubu head with stitched grin",
+    "Durable elastic cord with acrylic and resin beads",
+    "Includes frosted cupcake and paw motif beads",
+    "Secure lobster clasp and keyring for multiple attachment options",
+    "Each piece is slightly unique due to handcrafted assembly"
+  ],
+  "careInstructions": [
+    "Avoid exposure to water or perfume",
+    "Store in a dry, cool place to preserve fluff and beads",
+    "Gently wipe beads with dry microfiber cloth if needed",
+    "Do not overstretch elastic band to maintain shape",
+    "Not intended for small children due to bead size"
+  ],
+  "custom1Name": "Color",
+  "custom1Options":  "Blue | Brown | Orange | Pink | Yellow | Purple",
+  "variantStock": {
+    "Blue": 12,
+    "Brown": 0,
+    "Orange": 0,
+    "Pink": 0,
+    "Yellow": 0,
+    "Purple": 0
+  },
+  "variantImages": {
+    "Blue": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Blue01.jpg",
+    "Brown": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Brown01.jpg",
+    "Orange": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Orange01.jpg",
+    "Pink": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Pink01.jpg",
+    "Yellow": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Yellow01.jpg",
+    "Purple": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Purple01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/All01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Blue01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Brown01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Orange01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Pink01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Purple01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Yellow01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Yellow02.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Blue02.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Blue03.jpg"
+  ]
 }
+
 
 
 
