@@ -67,11 +67,11 @@ function renderStars(rating) {
 
   for (let i = 0; i < 5; i++) {
     if (i < full)
-      stars += `<span class="text-yellow-400 text-lg">★</span>`;
+      stars += `<span class="text-yellow-400 text-3xl">★</span>`;
     else if (i === full && half)
-      stars += `<span class="text-yellow-400 text-lg">⯪</span>`;
+      stars += `<span class="text-yellow-400 text-3xl">⯪</span>`;
     else
-      stars += `<span class="text-gray-300 text-lg">★</span>`;
+      stars += `<span class="text-gray-300 text-3xl">★</span>`;
   }
 
   return stars;

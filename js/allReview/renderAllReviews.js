@@ -30,7 +30,7 @@ export async function renderAllReviews(productId = null) {
       const rating = parseInt(review.rating) || 0;
 
       const card = document.createElement("div");
-      card.className = "flex gap-4 p-4 border-b";
+      card.className = "flex gap-4 border-b";
 
       card.innerHTML = `
         <div class="w-16 h-16 flex-shrink-0">
@@ -63,8 +63,8 @@ function renderStars(rating) {
   let stars = "";
   for (let i = 0; i < 5; i++) {
     stars += i < rating
-      ? `<span class="text-yellow-400 text-sm">★</span>`
-      : `<span class="text-gray-300 text-sm">★</span>`;
+      ? `<span class="text-yellow-400 text-3xl">★</span>`
+      : `<span class="text-gray-300 text-3xl">★</span>`;
   }
   return stars;
 }
