@@ -1396,12 +1396,12 @@
   "custom1Name": "Color",
   "custom1Options":  "Blue | Brown | Orange | Pink | Yellow | Purple",
   "variantStock": {
-    "Blue": 12,
+    "Blue": 3,
+    "Pink": 3,
+    "Yellow": 3,
+    "Purple": 3,
     "Brown": 0,
-    "Orange": 0,
-    "Pink": 0,
-    "Yellow": 0,
-    "Purple": 0
+    "Orange": 0
   },
   "variantImages": {
     "Blue": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Blue01.jpg",
@@ -1423,7 +1423,158 @@
     "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Blue02.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Labubu/Kawaii_Labubu_Munch_Keychain/Blue03.jpg"
   ]
+},
+"Charm_Fluffy_Labubu_Bunnies": {
+  "name": "Fluffy Labubu Bunnies",
+  "category": "charms",
+  "product_id": "KK-1031",
+  "price": 12.99,
+  "weight_oz": 2.8,
+  "tags": ["Charms", "Keychain", "Kawaii", "Labubu", "Plush", "Bunny", "Pastel"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Purple01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/All01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/All01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Fluffy_Labubu_Bunnies",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/All03.jpg",
+  "descriptionList": [
+    "Soft and squishy pastel Labubu plush bunny charm",
+    "Perfect for bags, keys, or aesthetic room decor",
+    "Cute stitched face with floppy ears and soft fur",
+    "Great gift or collectible for kawaii lovers"
+  ],
+  "sizingList": [
+    "Bunny Size: Approx. 4.7 inches tall",
+    "Chain Length: Approx. 2 inches",
+    "Total Height with Chain: Approx. 6.7 inches",
+    "Weight: Approx. 2.8 oz"
+  ],
+  "keyDetails": [
+    "Super fluffy plush exterior with embroidered face",
+    "Available in 6 dreamy pastel colors",
+    "Includes a matching plastic ball chain for easy clip-on",
+    "Durable stitching for long-lasting cuteness",
+    "Each bunny has slight handmade charm variation"
+  ],
+  "careInstructions": [
+    "Spot clean only with damp cloth",
+    "Avoid soaking in water or washing machine",
+    "Do not pull chain or limbs excessively",
+    "Keep away from sharp objects to preserve fluff",
+    "Not recommended for children under 3"
+  ],
+  "custom1Name": "Color",
+  "custom1Options": "Blue | Green | Purple | Pink | White | Brown",
+  "variantStock": {
+    "Blue": 5,
+    "Green": 5,
+    "Purple": 5,
+    "Pink": 5,
+    "White": 5,
+    "Brown": 5
+  },
+  "variantImages": {
+    "Blue": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Blue01.jpg",
+    "Green": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Green01.jpg",
+    "Purple": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Purple01.jpg",
+    "Pink": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Pink01.jpg",
+    "White": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/White01.jpg",
+    "Brown": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Brown01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/All01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/All02.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/All03.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/All04.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Blue01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Green01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Purple01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Pink01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/White01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Brown01.jpg"
+  ]
+},
+"Charm_Labubu_Galaxy_Growlies": {
+  "name": "Labubu Galaxy Growlies",
+  "category": "charms",
+  "product_id": "KK-1032",
+  "price": 12.99,
+  "weight_oz": 2.1,
+  "tags": ["Charms", "Keychain", "Labubu", "Jelly", "Galaxy", "Cute", "Kawaii"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Red01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/All05.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/All01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Labubu_Galaxy_Growlies",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/All05.jpg",
+  "descriptionList": [
+    "Transparent jelly-style Labubu with floating galaxy glitter",
+    "Each charm has star confetti, gold bell, and a bold Labubu grin",
+    "Comes with secure keyring and lobster clasp combo",
+    "Perfect accessory for keys, backpacks, or cosmic vibes"
+  ],
+  "sizingList": [
+    "Height: Approx. 2.5 inches",
+    "Width: Approx. 1.8 inches",
+    "Depth: Approx. 1.2 inches",
+    "Weight: Approx. 2.1 oz"
+  ],
+  "keyDetails": [
+    "Hard resin outer with encapsulated glitter",
+    "Bold facial detail with signature Labubu look",
+    "Includes golden jingle bell and hook for easy attachment",
+    "Durable enough for everyday use",
+    "Bright and bouncy — shake to swirl the glitter"
+  ],
+  "careInstructions": [
+    "Avoid dropping on hard surfaces",
+    "Do not expose to extreme heat",
+    "Wipe with dry microfiber cloth to clean",
+    "Keep away from small children due to small parts",
+    "Store away from direct sunlight to prevent fading"
+  ],
+  "custom1Name": "Color",
+  "custom1Options": "Red | Green | White | Blue | Purple | Darkgreen | Orange | Pink | Yellow",
+  "variantStock": {
+    "Red": 0,
+    "Green": 4,
+    "White": 0,
+    "Blue": 5,
+    "Purple": 0,
+    "Darkgreen": 0,
+    "Orange": 4,
+    "Pink": 4,
+    "Yellow": 5
+  },
+  "variantImages": {
+    "Red": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Red01.jpg",
+    "Green": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Green01.jpg",
+    "White": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/White01.jpg",
+    "Blue": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Blue01.jpg",
+    "Purple": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Purple01.jpg",
+    "Darkgreen": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/DarkGreen01.jpg",
+    "Orange": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Orange01.jpg",
+    "Pink": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Pink01.jpg",
+    "Yellow": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Yellow01.jpg",
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/All01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/All02.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/All03.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/All04.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/All05.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Blue01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Red01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Green01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/White01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/DarkGreen01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Orange01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Pink01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Purple01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Red01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Yellow01.jpg"
+  ]
 }
+
+
 
 
 
