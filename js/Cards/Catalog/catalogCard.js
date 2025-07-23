@@ -20,7 +20,7 @@ export async function createCatalogCard(sku, product) {
       : [];
 
   const card = document.createElement("div");
-  card.className = "home-promo-card flex flex-col gap-2 w-full max-w-[22rem] text-center items-center";
+  card.className = "home-promo-card flex flex-col gap-2 w-full max-w-[30rem] text-center items-center";
 
   card.innerHTML = `
 <div class="w-full">
