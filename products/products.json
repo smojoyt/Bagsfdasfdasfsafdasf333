@@ -1572,6 +1572,168 @@
     "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Red01.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Yellow01.jpg"
   ]
+},
+"Labubu_Outfit_Chanel": {
+  "name": "Labubu Chanel Outfit",
+  "category": "charms",
+  "product_id": "KK-1033",
+  "price": 19.99,
+  "weight_oz": 2.1,
+  "tags": ["Labubu"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Chanel/Chanel01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Chanel/Chanel01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Chanel/Chanel01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Labubu_Galaxy_Growlies",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Chanel/Chanel01.jpg",
+"descriptionList": [
+    "Designer-inspired pink knit outfit for Labubu charms",
+    "Includes cropped sweater and matching stretchy headband",
+    "Ribbed texture with soft, flexible fit",
+    "Perfect for photoshoots, display setups, or themed accessorizing"
+  ],
+  "sizingList": [
+    "Sweater Width: Approx. 2.5 inches flat",
+    "Sweater Height: Approx. 1.5 inches",
+    "Headband Width: Approx. 2.75 inches (unstretched)",
+    "Fits standard Labubu charms ~3 inches tall"
+  ],
+  "keyDetails": [
+    "Soft ribbed knit fabric with stretch",
+    "Bold faux designer logo on both top and headband",
+    "Sized for standard Labubu figures (not intended for dolls)",
+    "Easy to slip on and off without damaging charm",
+    "Great for collectors and charm customizers"
+  ],
+  "careInstructions": [
+    "Hand wash cold and air dry flat",
+    "Do not bleach or wring",
+    "Avoid sharp objects that may snag knit fabric",
+    "Keep away from fire or heat sources",
+    "Not recommended for children under 12"
+  ],
+  "custom1Name": "Color",
+  "custom1Options": "White",
+  "variantStock": {
+    "White": 3
+  },
+  "variantImages": {
+    "White": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Chanel/Chanel01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Chanel/Chanel01.jpg"
+  ]
+},
+"Labubu_Outfit_Cool": {
+  "name": "Labubu Cool Outfit",
+  "category": "charms",
+  "product_id": "KK-1034",
+  "price": 19.99,
+  "weight_oz": 2.1,
+  "tags": ["Labubu"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Cool/Cool01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Cool/Cool01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Cool/Cool01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Labubu_Galaxy_Growlies",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Cool/Cool01.jpg",
+"descriptionList": [
+    "Stylish urban-inspired outfit for Labubu charms",
+    "Includes beanie hat with pins, faux glasses, sweater, and overalls",
+    "Detailed LV-style patterning on black denim overalls",
+    "Great for collectors who love city vibes and fashion-forward styles"
+  ],
+  "sizingList": [
+    "Overall Height: Fits charms approx. 3 inches tall",
+    "Overalls Waist: Approx. 2.2 inches flat",
+    "Sweater Sleeve Length: Approx. 1.2 inches",
+    "Weight: Approx. 1.8 oz (complete set)"
+  ],
+  "keyDetails": [
+    "Layered look includes 4-piece outfit: beanie, glasses, top, and pants",
+    "Soft-touch knit sweater and flexible beanie with star pins",
+    "Decorative clear-lens glasses included (non-removable arms)",
+    "Buttoned overalls made with printed denim-style fabric",
+    "Fits snugly on standard Labubu figures — not for plush or dolls"
+  ],
+  "careInstructions": [
+    "Spot clean with gentle soap and cool water",
+    "Air dry flat — do not machine wash or tumble dry",
+    "Avoid excessive stretching of beanie or straps",
+    "Keep away from fire or heat sources",
+    "Contains small parts — not suitable for children under 12"
+  ],
+  "custom1Name": "Color",
+  "custom1Options": "Default",
+  "variantStock": {
+    "Default": 3
+  },
+  "variantImages": {
+    "Default": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Cool/Cool01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Cool/Cool01.jpg"
+  ]
+},
+"Labubu_Outfit_HarryPotter": {
+  "name": "Labubu HarryPotter Outfit",
+  "category": "charms",
+  "product_id": "KK-1035",
+  "price": 19.99,
+  "weight_oz": 2.1,
+  "tags": ["Labubu"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Lion01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/All01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Lion01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Labubu_Galaxy_Growlies",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/All02.jpg",
+"descriptionList": [
+    "Stylish urban-inspired outfit for Labubu charms",
+    "Includes beanie hat with pins, faux glasses, sweater, and overalls",
+    "Detailed LV-style patterning on black denim overalls",
+    "Great for collectors who love city vibes and fashion-forward styles"
+  ],
+  "sizingList": [
+    "Overall Height: Fits charms approx. 3 inches tall",
+    "Overalls Waist: Approx. 2.2 inches flat",
+    "Sweater Sleeve Length: Approx. 1.2 inches",
+    "Weight: Approx. 1.8 oz (complete set)"
+  ],
+  "keyDetails": [
+    "Layered look includes 4-piece outfit: beanie, glasses, top, and pants",
+    "Soft-touch knit sweater and flexible beanie with star pins",
+    "Decorative clear-lens glasses included (non-removable arms)",
+    "Buttoned overalls made with printed denim-style fabric",
+    "Fits snugly on standard Labubu figures — not for plush or dolls"
+  ],
+  "careInstructions": [
+    "Spot clean with gentle soap and cool water",
+    "Air dry flat — do not machine wash or tumble dry",
+    "Avoid excessive stretching of beanie or straps",
+    "Keep away from fire or heat sources",
+    "Contains small parts — not suitable for children under 12"
+  ],
+  "custom1Name": "Color",
+  "custom1Options": "Yellow | Blue | Green | Red",
+  "variantStock": {
+    "Yellow": 1,
+    "Red": 1,
+    "Blue": 0,
+    "Green": 0
+
+  },
+  "variantImages": {
+    "Yellow": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Badger01.jpg",
+    "Red": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Lion01.jpg",
+    "Blue": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Griffon01.jpg",
+    "Green": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Snake01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/All01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/All02.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Snake01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Griffon01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Lion01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Badger01.jpg",
+  ]
 }
 
 
