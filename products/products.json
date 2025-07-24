@@ -1787,7 +1787,7 @@
 "Labubu_Outfit_Mini": {
   "name": "Labubu Mario Mini",
   "category": "charms",
-  "product_id": "KK-1036",
+  "product_id": "KK-1037",
   "price": 19.99,
   "weight_oz": 2.1,
   "tags": ["Labubu"],
@@ -1833,7 +1833,67 @@
   "thumbnails": [
     "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mini/Mini01.jpg"
   ]
+},
+"Labubu_Shoes_Jordans": {
+  "name": "Labubu Jordans",
+  "category": "charms",
+  "product_id": "KK-1038",
+  "price": 19.99,
+  "weight_oz": 2.1,
+  "tags": ["Labubu"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/Pink01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/Red01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/Black01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Labubu_Galaxy_Growlies",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/WhiteRed01.jpg",
+  "descriptionList": [
+    "Tweed-style pastel top and bright yellow bow set for Labubu charms",
+    "Features heart gem with 'min min' engraving on the front",
+    "Top has subtle shimmer threads and multi-color stitching",
+    "A sweet and soft look for fashion-forward Labubu displays"
+  ],
+  "sizingList": [
+    "Top Width: Approx. 2.4 inches flat",
+    "Bow Width: Approx. 2.5 inches",
+    "Fits Labubu figures approx. 3 inches tall",
+    "Weight: Approx. 1.2 oz total"
+  ],
+  "keyDetails": [
+    "2-piece outfit: pastel top + yellow bow hairpiece",
+    "Stretchy elastic top with secure shoulder straps",
+    "Signature 'min min' badge in heart-shaped gem",
+    "Bow includes mini pink 'min' tag and soft texture",
+    "Designed for collectors and Labubu stylists"
+  ],
+  "careInstructions": [
+    "Spot clean gently with damp cloth",
+    "Avoid pulling on stitched threads",
+    "Keep away from high heat or open flame",
+    "Not intended for rough play or washing",
+    "Recommended for ages 12 and up"
+  ],
+  "custom1Name": "Color",
+  "custom1Options": "Black | White | White/Red | Pink",
+  "variantStock": {
+    "Black": 1,
+    "White": 1,
+    "White/Red": 1,
+    "Pink": 1
+  },
+  "variantImages": {
+    "Black": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/Black01.jpg",
+    "White": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/White01.jpg",
+    "White/Red": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/WhiteRed01.jpg",
+    "Pink": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/Pink01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/Black01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/White01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/WhiteRed01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/Pink01.jpg"
+  ]
 }
+
 
 
 
