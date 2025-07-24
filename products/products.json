@@ -1686,30 +1686,30 @@
   "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Labubu_Galaxy_Growlies",
   "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/All02.jpg",
 "descriptionList": [
-    "Stylish urban-inspired outfit for Labubu charms",
-    "Includes beanie hat with pins, faux glasses, sweater, and overalls",
-    "Detailed LV-style patterning on black denim overalls",
-    "Great for collectors who love city vibes and fashion-forward styles"
+    "Magical 4-piece house-inspired outfit collection for Labubu figures",
+    "Includes hooded cloaks with matching ties and sweaters for each house",
+    "Rep your house: Red (brave), Blue (wise), Green (cunning), Yellow (loyal)",
+    "Perfect for fantasy fans and charm collectors alike"
   ],
   "sizingList": [
-    "Overall Height: Fits charms approx. 3 inches tall",
-    "Overalls Waist: Approx. 2.2 inches flat",
-    "Sweater Sleeve Length: Approx. 1.2 inches",
-    "Weight: Approx. 1.8 oz (complete set)"
+    "Cloak Height: Approx. 3.5 inches",
+    "Outfit Width: Approx. 2.5 inches",
+    "Fits Labubu figures around 3 inches tall",
+    "Weight (full set): Approx. 2.6 oz"
   ],
   "keyDetails": [
-    "Layered look includes 4-piece outfit: beanie, glasses, top, and pants",
-    "Soft-touch knit sweater and flexible beanie with star pins",
-    "Decorative clear-lens glasses included (non-removable arms)",
-    "Buttoned overalls made with printed denim-style fabric",
-    "Fits snugly on standard Labubu figures — not for plush or dolls"
+    "Set includes 4 complete outfits — one for each house color",
+    "Detailed inner lining, house-color scarves, ties, and badges",
+    "Cloaks made of soft matte fabric with pointed hoods",
+    "Each outfit easy to slip on/off while staying snug",
+    "Can be used for display scenes, cosplay, or gifting"
   ],
   "careInstructions": [
-    "Spot clean with gentle soap and cool water",
-    "Air dry flat — do not machine wash or tumble dry",
-    "Avoid excessive stretching of beanie or straps",
-    "Keep away from fire or heat sources",
-    "Contains small parts — not suitable for children under 12"
+    "Gently hand wash if needed, air dry only",
+    "Avoid high heat, ironing, or machine drying",
+    "Keep accessories like scarves and ties away from pets",
+    "Store folded or hung to avoid wrinkling",
+    "Not a toy — intended for display and light styling only"
   ],
   "custom1Name": "Color",
   "custom1Options": "Yellow | Blue | Green | Red",
@@ -1733,6 +1733,105 @@
     "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Griffon01.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Lion01.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Badger01.jpg"
+  ]
+},
+"Labubu_Outfit_Mario": {
+  "name": "Labubu Mario Outfit",
+  "category": "charms",
+  "product_id": "KK-1036",
+  "price": 19.99,
+  "weight_oz": 2.1,
+  "tags": ["Labubu"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mario/Mario01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mario/Mario01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mario/Mario01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Labubu_Galaxy_Growlies",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mario/Mario01.jpg",
+"descriptionList": [
+    "Fuzzy Mario-style cosplay outfit for Labubu charms",
+    "Features iconic red-and-blue plush overalls with yellow button accents",
+    "Includes matching red hood with embroidered face and bunny ears",
+    "Perfect for gaming fans, plush lovers, and playful collectors"
+  ],
+  "sizingList": [
+    "Overall Height: Fits 3-inch Labubu figures",
+    "Outfit Width: Approx. 2.5 inches flat",
+    "Weight: Approx. 2.3 oz total"
+  ],
+  "keyDetails": [
+    "2-piece set: fluffy suit + character hood",
+    "Red, blue, and yellow high-pile plush fabric",
+    "Stretches to fit snugly without damaging the charm",
+    "Bunny-ear hood adds whimsical Nintendo-style twist",
+    "Easy on/off — designed for display or light play"
+  ],
+  "careInstructions": [
+    "Spot clean only — do not machine wash",
+    "Avoid heat or flame exposure",
+    "Do not iron or bleach",
+    "Store in cool, dry place to preserve fluffiness",
+    "Keep away from pets or small children"
+  ],
+  "custom1Name": "Color",
+  "custom1Options": "Default",
+  "variantStock": {
+    "Default": 1
+  },
+  "variantImages": {
+    "Default": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mario/Mario01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mario/Mario01.jpg"
+  ]
+},
+"Labubu_Outfit_Mini": {
+  "name": "Labubu Mario Mini",
+  "category": "charms",
+  "product_id": "KK-1036",
+  "price": 19.99,
+  "weight_oz": 2.1,
+  "tags": ["Labubu"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mini/Mini01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mini/Mini01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mini/Mini01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Labubu_Galaxy_Growlies",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mini/Mini01.jpg",
+  "descriptionList": [
+    "Tweed-style pastel top and bright yellow bow set for Labubu charms",
+    "Features heart gem with 'min min' engraving on the front",
+    "Top has subtle shimmer threads and multi-color stitching",
+    "A sweet and soft look for fashion-forward Labubu displays"
+  ],
+  "sizingList": [
+    "Top Width: Approx. 2.4 inches flat",
+    "Bow Width: Approx. 2.5 inches",
+    "Fits Labubu figures approx. 3 inches tall",
+    "Weight: Approx. 1.2 oz total"
+  ],
+  "keyDetails": [
+    "2-piece outfit: pastel top + yellow bow hairpiece",
+    "Stretchy elastic top with secure shoulder straps",
+    "Signature 'min min' badge in heart-shaped gem",
+    "Bow includes mini pink 'min' tag and soft texture",
+    "Designed for collectors and Labubu stylists"
+  ],
+  "careInstructions": [
+    "Spot clean gently with damp cloth",
+    "Avoid pulling on stitched threads",
+    "Keep away from high heat or open flame",
+    "Not intended for rough play or washing",
+    "Recommended for ages 12 and up"
+  ],
+  "custom1Name": "Color",
+  "custom1Options": "Default",
+  "variantStock": {
+    "Default": 1
+  },
+  "variantImages": {
+    "Default": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mini/Mini01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mini/Mini01.jpg"
   ]
 }
 
