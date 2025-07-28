@@ -184,7 +184,7 @@
     "price": 34.97,
     "weight_oz": 17.64,
     "tags": [
-      "Discontinued",
+      "",
       "Bags"
     ],
     "catalogImage": "https://www.karrykraze.com/imgs/Products/Pouches/009_ShirtPouch/01_01.jpg",
@@ -233,7 +233,7 @@
     "price": 34.95,
     "weight_oz": 21.16,
     "tags": [
-      "Discontinued",
+      "",
       "Bags"
     ],
     "catalogImage": "https://www.karrykraze.com/imgs/Products/Pouches/005_StarsPouch/02_01.jpg",
@@ -249,7 +249,7 @@
     "custom1Name": "Color",
     "custom1Options": "White | Black | Blue",
     "variantStock": {
-      "White": 0,
+      "White": 1,
       "Black": 0,
       "Blue": 0
     },
