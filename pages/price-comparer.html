@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Price Comparison | Karry Kraze</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media print {
+      body * {
+        visibility: hidden;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      #printOverlay, #printOverlay * {
+        visibility: visible;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white text-black font-sans px-4 py-10">
+  <main class="max-w-5xl mx-auto text-center">
+    <h1 class="text-4xl font-extrabold mb-2 tracking-tight">💸 Compare & Save</h1>
+    <p class="text-sm text-gray-600 mb-6 max-w-xl mx-auto">
+      See how much you save by shopping <span class="text-pink-600 font-semibold">Karry Kraze</span> direct.
+    </p>
+
+    <!-- Searchable Dropdown -->
+    <div class="relative max-w-xl mx-auto mb-10">
+      <input id="searchDropdown" placeholder="Search for a product..." class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-pink-500 focus:border-pink-500" autocomplete="off" />
+      <ul id="dropdownResults" class="absolute left-0 right-0 bg-white border border-gray-300 rounded-md shadow-md max-h-60 overflow-auto z-10 hidden"></ul>
+    </div>
+
+    <!-- Product Preview Image -->
+    <div id="productImageContainer" class="mb-6 hidden">
+      <img id="productImage" src="" alt="Product Image" class="mx-auto max-h-64 object-contain rounded-lg shadow" />
+    </div>
+
+    <!-- Fullscreen Print Overlay -->
+    <div id="printOverlay" class="fixed inset-0 bg-white text-white z-[9999] hidden p-4 flex items-center justify-center">
+      <div id="printCard" class="bg-[#151515] text-white rounded-lg relative flex flex-col items-center justify-start" style="width: 5in; height: 7in; padding: 0.25in;">
+        <!-- Close Button -->
+        <button onclick="document.getElementById('printOverlay').classList.add('hidden')" class="absolute top-2 right-2 text-white text-xl no-print">&times;</button>
+
+        <!-- Product Info -->
+        <div class="flex items-start gap-4 w-full mb-2">
+          <img id="overlayProductImage" src="" alt="Product Image" class="w-20 h-20 object-cover rounded" />
+          <div class="text-left">
+            <h2 id="overlayProductName" class="text-2xl font-extrabold leading-tight uppercase">Product Name</h2>
+            <p id="overlayProductId" class="text-sm text-gray-300">SKU</p>
+          </div>
+        </div>
+
+        <!-- Logos -->
+        <div class="mt-5 grid grid-cols-3 gap-4 items-center w-full mb-1">
+          <img src="/imgs/Logo/Short/SL_0608.png" class="h-14 mx-auto" alt="Karry Kraze" />
+          <img src="/imgs/Logo/Brands/Etsy.png" class="h-10 mx-auto" alt="Etsy" />
+          <img src="/imgs/Logo/Brands/Depop.png" class="h-7 mx-auto" alt="Depop" />
+        </div>
+
+        <!-- Price Bars -->
+        <div class="relative flex justify-between gap-6 mt-1 grow items-end w-full h-[230px]">
+<div id="overlayBarSite"
+     class="relative flex-1 self-end bg-pink-500 rounded-t flex items-end justify-center border-[3px] border-yellow-300">
+
+  <div id="bestDealBadge"
+       class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-300 text-black px-4 py-1 text-[11px] font-bold rounded w-max min-w-[90px] text-center">
+    BEST DEAL
+  </div>
+
+  <span id="overlaySitePrice"
+        class="mb-[6rem] text-xl font-bold text-center">
+    $0.00
+  </span>
+</div>
+
+          <div id="overlayBarEtsy" class="flex-1 self-end bg-orange-500 rounded-t flex items-end justify-center">
+            <span id="overlayEtsyPrice" class="mb-[6rem] text-sm font-semibold text-center">$0.00</span>
+          </div>
+          <div id="overlayBarDepop" class="flex-1 self-end bg-red-600 rounded-t flex items-end justify-center">
+            <span id="overlayDepopPrice" class="mb-[6rem] text-sm font-semibold text-center">$0.00</span>
+          </div>
+        </div>
+
+<!-- Promo Block: QR Left (60%), Savings Message Right (40%) -->
+<div class="mt-4 w-full flex justify-between items-start gap-1">
+  <!-- Left Side: QR + $7 OFF + Label -->
+  <div class="w-[80%] flex flex-col items-start">
+    <!-- QR and $7 OFF in grid -->
+    <div class="grid grid-cols-[auto_1fr] items-center gap-4">
+      <!-- QR Code -->
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://karrykraze.com/pages/sign-up"
+           alt="QR Code"
+           class="w-16 h-16 rounded bg-white p-1" />
+
+      <!-- $7 OFF Text -->
+      <div class="text-5xl tracking-tight font-extrabold leading-none">
+        <span class="text-white">$5</span>
+        <span class="text-pink-400">OFF</span>
+      </div>
+    </div>
+
+    <!-- Label under QR -->
+    <div class="tracking-widest mt-1 text-[21px] font-bold text-yellow-300 tracking-wide">
+      YOUR NEXT ORDER
+    </div>
+  </div>
+
+<!-- Right Side: Savings Message with placeholder -->
+<div id="overlaySavingsMessage" class="w-[60%] text-xs font-semibold text-right leading-snug">
+  <p class="text-2xl font-bold uppercase tracking-widest">NEXT TIME</p>
+  <p class="text-yellow-300 text-3xl font-extrabold uppercase">
+    Save <span id="savingsAmount">$0</span>
+  </p>
+  <p>by ordering directly from us</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+              <!-- Footer URL -->
+        <div class="mt-2 text-center text-[10px] text-gray-300">
+          Visit us at <span class="text-white font-semibold">www.karrykraze.com</span>
+        </div>
+
+        <!-- Manual Print Button -->
+        <button onclick="printOverlay()" class="mt-2 bg-white text-black text-xs font-semibold px-3 py-1 rounded no-print">
+          🖨️ Print This Card
+        </button>
+    </div>
+
+    <!-- Print Button for testing -->
+  </main>
+
+  <!-- JS -->
+  <script type="module" src="/js/price-comparer/index.js"></script>
+  <script>
+    function printOverlay() {
+      window.print();
+      document.getElementById('printOverlay').classList.add('hidden');
+    }
+    function triggerPrintFromSelection() {
+      alert("Hook this to dropdown selection.");
+    }
+  </script>
+</body>
+</html>
