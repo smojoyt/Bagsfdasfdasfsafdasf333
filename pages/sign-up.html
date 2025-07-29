@@ -55,38 +55,58 @@
             <section class="relative text-gray-800 font-sans px-4 py-10 max-w-3xl mx-auto animate-fadeInUp">
 
                 <form id="couponForm" class="space-y-6">
-                    <p class="text-center my-3 text-sm md:text-xl font-medium">
-                        Sign up below and your exclusive coupon will be emailed instantly.
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" name="firstName" placeholder="First Name" required
-                            class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
-                        <input type="text" name="lastName" placeholder="Last Name" required
-                            class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
-                    </div>
+  <p class="text-center my-3 text-sm md:text-xl font-medium">
+    Sign up below and your exclusive coupon will be emailed instantly.
+  </p>
 
-                    <input type="email" name="email" placeholder="Email" required
-                        class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
-                    <input type="tel" name="phone" placeholder="Phone Number" required
-                        class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <input type="text" name="firstName" placeholder="First Name" required
+      class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+    <input type="text" name="lastName" placeholder="Last Name" required
+      class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+  </div>
 
-                    <div class="text-left space-y-3 text-sm text-gray-700">
-                        <label class="flex items-start gap-2">
-                            <input type="checkbox" name="smsConsent" required class="accent-[#f88379] mt-1" />
-                            <span>I agree to get recurring texts from Karry Kraze. Msg & data rates may apply. Reply
-                                STOP to unsubscribe.</span>
-                        </label>
-                        <label class="flex items-start gap-2">
-                            <input type="checkbox" name="emailConsent" required class="accent-[#f88379] mt-1" />
-                            <span>I agree to receive marketing emails from Karry Kraze.</span>
-                        </label>
-                    </div>
+  <input type="email" name="email" placeholder="Email" required
+    class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
+  <input type="tel" name="phone" placeholder="Phone Number" required
+    class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
 
-                    <button type="submit"
-                        class="w-full bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 font-semibold transition duration-200">
-                        Claim My Coupon
-                    </button>
-                </form>
+  <div class="text-left space-y-3 text-sm text-gray-700">
+    <label class="flex items-start gap-2">
+      <input type="checkbox" name="smsConsent" required class="accent-[#f88379] mt-1" />
+      <span>I agree to get recurring texts from Karry Kraze. Msg & data rates may apply. Reply STOP to unsubscribe.</span>
+    </label>
+    <label class="flex items-start gap-2">
+      <input type="checkbox" name="emailConsent" required class="accent-[#f88379] mt-1" />
+      <span>I agree to receive marketing emails from Karry Kraze.</span>
+    </label>
+  </div>
+
+  <button type="submit" id="submitBtn"
+    class="w-full bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 font-semibold transition duration-200 flex items-center justify-center gap-2">
+    <span id="btnText">Claim My Coupon</span>
+    <svg id="btnSpinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none"
+      viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor"
+        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+    </svg>
+  </button>
+</form>
+
+<!-- ✅ Fullscreen Loading Overlay -->
+<div id="loadingOverlay" class="fixed inset-0 bg-white/80 z-50 flex items-center justify-center hidden">
+  <div class="flex flex-col items-center">
+    <svg class="animate-spin h-10 w-10 text-[#f88379]" xmlns="http://www.w3.org/2000/svg" fill="none"
+      viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor"
+        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+    </svg>
+    <p class="mt-4 text-sm font-medium text-gray-600">Processing your request...</p>
+  </div>
+</div>
+
 
                 <div id="couponMessage" class="hidden mt-10 text-center">
                     <p class="text-green-700 font-semibold text-lg mb-4">🎉 Your coupon is on the way! Check your inbox.
@@ -100,10 +120,10 @@
 
         </div>
     </main>
-      <div id="footer"></div>
-      <div id="navbar"></div>
-      <div id="announcement-container"></div>
-      <script type="module" src="/js/main.js"></script>
+    <div id="footer"></div>
+    <div id="navbar"></div>
+    <div id="announcement-container"></div>
+    <script type="module" src="/js/main.js"></script>
 
 
 

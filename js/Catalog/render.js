@@ -1,6 +1,6 @@
 import { getPromotions } from "../Promotions/promotions.js";
-import { createCatalogCard } from "../Cards/Catalog/catalogCard.js"; // updated import
-
+import { createCatalogCard } from "../Cards/Catalog/catalogCard.js";
+import { loadLikeData, initLikeListeners } from "../Shared/itemLikes.js"; // ✅ Add this
 
 export async function renderSortedCatalog(entries) {
   const grid = document.getElementById("product-grid");
@@ -24,6 +24,9 @@ export async function renderSortedCatalog(entries) {
 
   grid.appendChild(fragment);
 
-
+  // ✅ Add this to initialize likes after rendering cards
+loadLikeData("https://api.jsonbin.io/v3/b/688826337b4b8670d8a8f0aa/latest")
+  .then(() => {
+    initLikeListeners("https://hook.us2.make.com/k0uy3qgmij94koufp7enklxc5ejiby2x");
+  });
 }
-
