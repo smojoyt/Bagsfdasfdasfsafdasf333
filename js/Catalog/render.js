@@ -1,6 +1,14 @@
 import { getPromotions } from "../Promotions/promotions.js";
 import { createCatalogCard } from "../Cards/Catalog/catalogCard.js";
-import { loadLikeData, initLikeListeners } from "../Shared/itemLikes.js"; // ✅ Add this
+import { loadLikeData, initLikeListeners } from "../Shared/itemLikes.js";
+
+// Simple shuffle function
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
 
 export async function renderSortedCatalog(entries) {
   const grid = document.getElementById("product-grid");
@@ -9,12 +17,16 @@ export async function renderSortedCatalog(entries) {
   grid.innerHTML = "";
   const fragment = document.createDocumentFragment();
 
-  const promoList = await getPromotions(); // ✅ Fetch once
+  const promoList = await getPromotions();
 
-  for (const [sku, product] of entries) {
+  // 🔀 Shuffle entries
+  const shuffledEntries = Array.from(entries);
+  shuffleArray(shuffledEntries);
+
+  for (const [sku, product] of shuffledEntries) {
     if (product.tags?.includes("Discontinued")) continue;
 
-    const card = await createCatalogCard(sku, product, promoList); // ✅ Await here!
+    const card = await createCatalogCard(sku, product, promoList);
     if (card instanceof Node) {
       fragment.appendChild(card);
     } else {
@@ -24,9 +36,8 @@ export async function renderSortedCatalog(entries) {
 
   grid.appendChild(fragment);
 
-  // ✅ Add this to initialize likes after rendering cards
-loadLikeData("https://api.jsonbin.io/v3/b/688826337b4b8670d8a8f0aa/latest")
-  .then(() => {
-    initLikeListeners("https://hook.us2.make.com/k0uy3qgmij94koufp7enklxc5ejiby2x");
-  });
+  loadLikeData("https://api.jsonbin.io/v3/b/688826337b4b8670d8a8f0aa/latest")
+    .then(() => {
+      initLikeListeners("https://hook.us2.make.com/k0uy3qgmij94koufp7enklxc5ejiby2x");
+    });
 }

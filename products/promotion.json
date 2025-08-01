@@ -33,6 +33,23 @@
         "video": "https://www.karrykraze.com/imgs/Promo/U_Hats/Hats_Banner.mp4",
         "image": "https://www.karrykraze.com/imgs/Promo/U_Hats/Hats_Banner.jpg"
       }
+    },
+    {
+      "name": "10% Off All Bags",
+      "category": "bags",
+      "type": "percent",
+      "amount": 10,
+      "condition": { "minPrice": 0 },
+      "startDate": "2025-06-14T00:00:00Z",
+      "endDate": "2025-10-28T23:59:59Z",
+      "active": false,
+      "featured": false,
+      "media": {
+        "headline": "10% Off All Bags",
+        "caption": "Limited time only. Grab your favorite styles today!",
+        "video": "https://www.karrykraze.com/imgs/Promo/U_Hats/Hats_Banner.mp4",
+        "image": "https://www.karrykraze.com/imgs/Promo/U_Hats/Hats_Banner.jpg"
+      }
     }
   ]
 }
