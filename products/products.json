@@ -1834,6 +1834,64 @@
     "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Mini/Mini01.jpg"
   ]
 },
+"Jewlery_Necklace_Cherry": {
+  "name": "Cherry Necklace",
+  "category": "jewlery",
+  "product_id": "KK-1039",
+  "price": 14.99,
+  "weight_oz": 2.1,
+  "tags": ["Necklace"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/All01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/Red01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/All01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Jewlery_Necklace_Cherry",
+  "banner": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/All01.jpg",
+  "descriptionList": [
+  "Sparkling double cherry pendant with red rhinestone detail",
+  "Gold-tone chain with a vibrant fruit-inspired design",
+  "Green enamel leaves add a playful and natural touch",
+  "Perfect accessory for summer, kawaii outfits, or gifts"
+],
+"sizingList": [
+  "Pendant Size: Approx. 1 inch (2.5 cm)",
+  "Chain Length: Approx. 17.7 inches (45 cm) + 2 inch extender",
+  "Total Weight: Approx. 0.8 oz (22 g)",
+  "Adjustable fit for most neck sizes"
+],
+"keyDetails": [
+  "Cherry pendant with two rhinestone fruits and gold stems",
+  "Green enamel leaves for added color contrast",
+  "Lobster clasp closure on a lightweight gold-tone chain",
+  "Comes gift-ready in a pouch or display card",
+  "Trendy and affordable accessory for teens and women"
+],
+"careInstructions": [
+  "Avoid contact with water, perfumes, and lotions",
+  "Store in a cool, dry place to prevent tarnish",
+  "Clean gently with soft cloth if needed",
+  "Not intended for children under 12",
+  "Remove before bathing or swimming"
+],
+  "custom1Name": "Color",
+  "custom1Options": "Red | Green | Blue",
+  "variantStock": {
+    "Red": 3,
+    "Green": 0,
+    "Blue": 0
+  },
+  "variantImages": {
+    "Red": "hhttps://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/Red01.jpg",
+    "Green": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/Green01.jpg",
+    "Blue": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/Blue01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/All01.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/Red01.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/Red02.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/Green01.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/Blue01.jpg"
+  ]
+},
 "Labubu_Shoes_Jordans": {
   "name": "Labubu Jordans",
   "category": "charms",
@@ -1892,8 +1950,59 @@
     "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/WhiteRed01.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Labubu/Jordans/Pink01.jpg"
   ]
+},
+"Jewelry_Necklace_Sunflower": {
+  "name": "Sunflower Pendant Necklace",
+  "category": "jewelry",
+  "product_id": "KK-1040",
+  "price": 13.99,
+  "weight_oz": 1.0,
+  "tags": ["sunflower", "good vibes", "positivity", "gift-ready", "necklace"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/SunFlower/Flower01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/SunFlower/Flower02.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/SunFlower/Flower01.jpg",
+  "url": "https://karrykraze.com/pages/product.html?sku=Jewelry_Necklace_Sunflower",
+  "banner": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/SunFlower/Flower03.jpg",
+  "descriptionList": [
+    "Sunflower pendant necklace with sparkling rhinestone center",
+    "Gold-tone chain and floral charm designed to uplift any outfit",
+    "Includes kraft message card: 'GOOD VIBES ONLY'",
+    "Perfect for gifting, self-love, or daily inspiration"
+  ],
+  "sizingList": [
+    "Pendant Size: Approx. 1 inch (2.5 cm)",
+    "Chain Length: Approx. 17.7 inches (45 cm) + 2 inch extender",
+    "Card Size: 3.5 x 2.75 inches (9 x 7 cm)",
+    "Weight: Approx. 1.0 oz total"
+  ],
+  "keyDetails": [
+    "Includes motivational message card: 'Good Vibes Only'",
+    "Sunflower charm with gold-tone finish and crystal center",
+    "Lobster clasp closure and adjustable chain extender",
+    "Ships in clear protective sleeve or optional gift box",
+    "Perfect for birthdays, self-care, and positivity lovers"
+  ],
+  "careInstructions": [
+    "Avoid contact with water, perfumes, and lotions",
+    "Store in a cool, dry place to prevent tarnish",
+    "Clean gently with soft cloth if needed",
+    "Not intended for children under 12",
+    "Remove before bathing or swimming"
+  ],
+  "custom1Name": "color",
+  "custom1Options": "Gold",
+  "variantStock": {
+    "Gold": 3
+  },
+  "variantImages": {
+    "Gold": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/SunFlower/Flower01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Jewlery/Necklace/SunFlower/Flower01.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Necklace/SunFlower/Flower02.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Necklace/SunFlower/Flower03.jpg"
+  ]
 }
-
 
 
 
