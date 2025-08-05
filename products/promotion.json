@@ -1,17 +1,17 @@
 {
   "promotions": [
 {
-  "name": "30% Off All Charms",
+  "name": "20% Off All Charms",
   "category": "charms",
   "type": "percent",
-  "amount": 30,
+  "amount": 20,
   "condition": { "minPrice": 0 },
   "startDate": "2025-06-28T00:00:00Z",
   "endDate": "2025-11-20T23:59:59Z",
-  "active": false,
-  "featured": false,
+  "active": true,
+  "featured": true,
   "media": {
-    "headline": "30% Off All Charms!",
+    "headline": "20% Off All Charms!",
     "caption": "Limited time only. Grab your favorite styles today!",
     "video": "https://www.karrykraze.com/imgs/Promo/30Charms/30CharmsBanner_01.mp4",
     "image": "https://www.karrykraze.com/imgs/Promo/30Charms/Banner.jpg"
@@ -25,8 +25,8 @@
       "condition": { "minPrice": 0 },
       "startDate": "2025-06-14T00:00:00Z",
       "endDate": "2025-10-28T23:59:59Z",
-      "active": true,
-      "featured": true,
+      "active": false,
+      "featured": false,
       "media": {
         "headline": "20% Off All Beanies",
         "caption": "Limited time only. Grab your favorite styles today!",
