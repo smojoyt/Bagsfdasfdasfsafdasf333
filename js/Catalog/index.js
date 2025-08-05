@@ -1,23 +1,32 @@
-// ✅ index.js
-import { currentState } from './state.js'; // ✅ CORRECT
+import { currentState } from './state.js';
 import { getCategoryFromURL, filterByCategory } from "./filters.js";
 import { setupSearch } from "./search.js";
 import { setupSort } from "./sort.js";
 import { applySearchAndSort } from "./search.js";
-
 
 document.addEventListener("DOMContentLoaded", async () => {
   const grid = document.getElementById("product-grid");
   if (!grid) return;
 
   try {
-const res = await fetch("/products/products.json");
-const products = await res.json();
-const entries = Object.entries(products);
+    // 🔃 Load product catalog
+    const res = await fetch("/products/products.json");
+    const products = await res.json();
+    const entries = Object.entries(products);
+    window.allProducts = products;
 
-window.allProducts = products; // ✅ ADD THIS
+    // 👍 Load likes JSON from JSONBin
+    const likeRes = await fetch('https://api.jsonbin.io/v3/b/688826337b4b8670d8a8f0aa/latest');
+    const likeData = await likeRes.json();
 
+    // 🔃 Convert likes array to { "KK-####": likes }
+    const likeMap = {};
+    for (const entry of likeData.record.products) {
+      likeMap[entry.key] = entry.value.likes;
+    }
+    currentState.likeMap = likeMap;
 
+    // 🧠 Store product and filtered state
     currentState.products = products;
     currentState.originalEntries = entries;
 
@@ -25,12 +34,13 @@ window.allProducts = products; // ✅ ADD THIS
     const filtered = filterByCategory(entries, category);
     currentState.filteredEntries = filtered;
 
+    // 🖼️ UI updates + default sort
     updateBannerAndTitle(category, filtered);
     currentState.currentSort = "default";
-currentState.currentSearchQuery = "";
-applySearchAndSort();
+    currentState.currentSearchQuery = "";
+    applySearchAndSort();
 
-
+    // 🔍 Setup handlers
     setupSearch();
     setupSort();
   } catch (err) {

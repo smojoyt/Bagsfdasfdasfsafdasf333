@@ -1,8 +1,9 @@
 // js/Shared/itemLikes.js
 
 const LIKED_SESSION_KEY = "likedProducts";
-const likeCache = {};
+export const likeCache = {}; // Export likeCache so it can be accessed in other files
 const COOLDOWN_MS = 5000;
+
 export async function loadLikeData(jsonUrl) {
   try {
     const res = await fetch(jsonUrl);
@@ -23,7 +24,7 @@ export async function loadLikeData(jsonUrl) {
   }
 }
 
-
+// Function to update the display of likes on the page
 function updateAllLikeDisplays() {
   document.querySelectorAll(".like-wrapper").forEach(wrapper => {
     const sku = wrapper.dataset.sku;
@@ -40,7 +41,7 @@ function updateAllLikeDisplays() {
   });
 }
 
-
+// Function to initialize the like button listeners
 export function initLikeListeners(webhookUrl) {
   const likeCooldowns = JSON.parse(localStorage.getItem(LIKED_SESSION_KEY)) || {};
 
@@ -49,87 +50,66 @@ export function initLikeListeners(webhookUrl) {
     const count = wrapper.querySelector(".like-count");
     const sku = wrapper.dataset.sku;
 
-// Block click-through from like-wrapper area (heart + number)
-wrapper.addEventListener("click", (e) => {
-  e.stopPropagation();
-  e.preventDefault();
-});
-
-// Handle the heart button specifically
-btn.addEventListener("click", async (e) => {
-  e.stopPropagation();
-  e.preventDefault();
-
-
-
-
-  const now = Date.now();
-  const lastLiked = likeCooldowns[sku] || 0;
-
-  if (now - lastLiked < COOLDOWN_MS) {
-    console.log(`⏳ Cooldown: Wait before liking ${sku} again.`);
-    return;
-  }
-
-  likeCooldowns[sku] = now;
-  localStorage.setItem(LIKED_SESSION_KEY, JSON.stringify(likeCooldowns));
-
-  // Lookup product_id from window.allProducts
-  const productData = window.allProducts?.[sku];
-  const product_id = productData?.product_id;
-
-  if (!product_id) {
-    console.warn(`⚠️ Could not find product_id for ${sku}`);
-    return;
-  }
-
-  // update visually
-  const current = parseInt(count.textContent, 10) || 0;
-  count.textContent = current + 1;
-
-  // Animate heart icon to red fill
-btn.classList.remove("border", "border-gray-300", "bg-white");
-
-const svg = btn.querySelector("svg");
-const path = svg?.querySelector("path");
-
-if (path) {
-  path.setAttribute("fill", "#ef4444");
-  path.setAttribute("stroke", "none");
-
-  // Add animation class
-  svg.classList.add("heart-pop");
-
-  // Remove it after animation completes to allow future re-triggers
-  setTimeout(() => {
-    svg.classList.remove("heart-pop");
-  }, 400); // Match your animation duration
-}
-
-
-
-
-  // fire webhook to Make with correct field name
-  try {
-    await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ product_id }),
+    // Block click-through from like-wrapper area (heart + number)
+    wrapper.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
     });
-    console.log(`✅ Sent product_id: ${product_id} to Make`);
-  } catch (err) {
-    console.error("Error sending like webhook:", err);
-  }
 
+    // Handle the heart button specifically
+    btn.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      e.preventDefault();
 
+      const now = Date.now();
+      const lastLiked = likeCooldowns[sku] || 0;
 
+      if (now - lastLiked < COOLDOWN_MS) {
+        console.log(`⏳ Cooldown: Wait before liking ${sku} again.`);
+        return;
+      }
 
-      // fire webhook to Make with correct field name
+      likeCooldowns[sku] = now;
+      localStorage.setItem(LIKED_SESSION_KEY, JSON.stringify(likeCooldowns));
+
+      // Lookup product_id from window.allProducts
+      const productData = window.allProducts?.[sku];
+      const product_id = productData?.product_id;
+
+      if (!product_id) {
+        console.warn(`⚠️ Could not find product_id for ${sku}`);
+        return;
+      }
+
+      // update visually
+      const current = parseInt(count.textContent, 10) || 0;
+      count.textContent = current + 1;
+
+      // Animate heart icon to red fill
+      btn.classList.remove("border", "border-gray-300", "bg-white");
+
+      const svg = btn.querySelector("svg");
+      const path = svg?.querySelector("path");
+
+      if (path) {
+        path.setAttribute("fill", "#ef4444");
+        path.setAttribute("stroke", "none");
+
+        // Add animation class
+        svg.classList.add("heart-pop");
+
+        // Remove it after animation completes to allow future re-triggers
+        setTimeout(() => {
+          svg.classList.remove("heart-pop");
+        }, 400); // Match your animation duration
+      }
+
+      // Fire webhook to Make with correct field name
       try {
         await fetch(webhookUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ product_id }), // ✅ correct field name
+          body: JSON.stringify({ product_id }),
         });
         console.log(`✅ Sent product_id: ${product_id} to Make`);
       } catch (err) {

@@ -1,8 +1,9 @@
 import { getPromotions } from "../Promotions/promotions.js";
 import { createCatalogCard } from "../Cards/Catalog/catalogCard.js";
 import { loadLikeData, initLikeListeners } from "../Shared/itemLikes.js";
+import { currentState } from "../Catalog/state.js"; // ✅ make sure this path is correct
 
-// Simple shuffle function
+// Shuffle helper
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -19,11 +20,14 @@ export async function renderSortedCatalog(entries) {
 
   const promoList = await getPromotions();
 
-  // 🔀 Shuffle entries
-  const shuffledEntries = Array.from(entries);
-  shuffleArray(shuffledEntries);
+  let toRender = [...entries];
 
-  for (const [sku, product] of shuffledEntries) {
+  // Only shuffle if using default sort
+  if (currentState.currentSort === "default") {
+    shuffleArray(toRender);
+  }
+
+  for (const [sku, product] of toRender) {
     if (product.tags?.includes("Discontinued")) continue;
 
     const card = await createCatalogCard(sku, product, promoList);

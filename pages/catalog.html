@@ -87,15 +87,21 @@
             class="text-sm font-medium text-black uppercase px-4 py-2 rounded hover:bg-gray-100 transition cursor-pointer inline-block">
             Sort: <span id="sortLabel">Default</span>
           </div>
-          <div id="sortOptions" class="absolute right-0 mt-1 w-40 bg-white shadow-md hidden z-10">
-            <ul class="text-sm text-gray-700 divide-y">
-              <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="default">Default</button></li>
-              <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-low">$ → $$$</button>
-              </li>
-              <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-high">$$$ → $</button>
-              </li>
-            </ul>
-          </div>
+<div id="sortOptions" class="absolute right-0 mt-1 w-40 bg-white shadow-md hidden z-10">
+  <ul class="text-sm text-gray-700 divide-y">
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="default">Default</button></li>
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-low">$ → $$$</button></li>
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-high">$$$ → $</button></li>
+    <!-- New Heart Sort Options -->
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="likes-low">
+      <span class="text-red-500">♡ → ♡♡♡</span> 
+    </button></li>
+    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="likes-high">
+      <span class="text-red-500">♡♡♡ → ♡</span> 
+    </button></li>
+  </ul>
+</div>
+
         </div>
 
 

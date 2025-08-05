@@ -42,8 +42,8 @@
     "custom1Name": "Color",
     "custom1Options": "Black | Cream | Pink",
     "variantStock": {
-      "Black": 1,
-      "Cream": 3,
+      "Black": 0,
+      "Cream": 2,
       "Pink": 2
     },
     "variantImages": {
@@ -1838,7 +1838,7 @@
   "name": "Cherry Necklace",
   "category": "jewlery",
   "product_id": "KK-1039",
-  "price": 14.99,
+  "price": 9.99,
   "weight_oz": 2.1,
   "tags": ["Necklace"],
   "catalogImage": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/Cherry/All01.jpg",
@@ -1955,7 +1955,7 @@
   "name": "Sunflower Pendant Necklace",
   "category": "jewelry",
   "product_id": "KK-1040",
-  "price": 13.99,
+  "price": 9.99,
   "weight_oz": 1.0,
   "tags": ["sunflower", "good vibes", "positivity", "gift-ready", "necklace"],
   "catalogImage": "https://karrykraze.com/imgs/Products/Jewlery/Necklace/SunFlower/Flower01.jpg",
