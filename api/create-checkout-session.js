@@ -79,8 +79,8 @@ line_items.push({
     // 📦 Define shipping options
     const shipping_options = [];
 
-    if (cartTotalCents >= 2000) {
-      // ✅ Free shipping for orders $20+
+    if (cartTotalCents >= 2500) {
+      // ✅ Free shipping for orders $25+
       shipping_options.push({
         shipping_rate_data: {
           display_name: "Free Shipping",
@@ -93,7 +93,7 @@ line_items.push({
         }
       });
     } else {
-      // 🟠 Fallback shipping under $20
+      // 🟠 Fallback shipping under $25
       shipping_options.push({
         shipping_rate_data: {
           display_name: "Standard Shipping",
@@ -124,7 +124,7 @@ line_items.push({
   metadata: {
     cartSummary: cart.map(item => `${item.sku}:${item.quantity}`).join(","),
     source: "karrykraze-site",
-    estimatedShipping: cartTotalCents >= 2000 ? "free" : "standard",
+    estimatedShipping: cartTotalCents >= 2500 ? "free" : "standard",
   }
     });
 

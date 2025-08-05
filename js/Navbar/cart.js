@@ -150,7 +150,7 @@ const progressContainer = document.getElementById("free-shipping-progress");
 const progressBar = document.getElementById("progress-bar");
 const progressMsg = document.getElementById("progress-msg");
 
-const threshold = 20;
+const threshold = 25;
 if (progressContainer && progressBar && progressMsg) {
   if (subtotal >= threshold) {
     progressContainer.classList.remove("hidden");
