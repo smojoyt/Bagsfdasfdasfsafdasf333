@@ -80,35 +80,42 @@
           </button>
         </div>
 
-        <!-- Sort (right) -->
-        <!-- Sort dropdown -->
-        <div class="relative">
-          <div id="sortToggle"
-            class="text-sm font-medium text-black uppercase px-4 py-2 rounded hover:bg-gray-100 transition cursor-pointer inline-block">
-            Sort: <span id="sortLabel">Default</span>
-          </div>
-<div id="sortOptions" class="absolute right-0 mt-1 w-40 bg-white shadow-md hidden z-10">
-  <ul class="text-sm text-gray-700 divide-y">
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="default">Default</button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-low">$ → $$$</button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-high">$$$ → $</button></li>
+<!-- Sort (right) -->
+<div id="sortControl" class="relative z-40">
+  <button id="sortToggle" type="button"
+    class="text-sm font-medium text-black uppercase px-4 py-2 rounded hover:bg-gray-100 transition cursor-pointer inline-flex items-center gap-2"
+    aria-haspopup="menu" aria-expanded="false">
+    Sort: <span id="sortLabel">Default</span>
+  </button>
 
-    <!-- Heart Sort Options -->
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="likes-low">
-      <span class="text-red-500">♡ → ♡♡♡</span>
-    </button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="likes-high">
-      <span class="text-red-500">♡♡♡ → ♡</span>
-    </button></li>
+  <!-- Sort dropdown -->
+  <div id="sortOptions"
+       class="absolute -right-5 mt-1 w-44 bg-white border shadow-lg rounded hidden z-50"
+       role="menu" aria-labelledby="sortToggle">
+    <ul class="text-sm text-gray-700 divide-y">
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="default">Default</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-low">$ → $$$</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="price-high">$$$ → $</button></li>
 
-    <!-- ⭐ NEW Rating Sort Options -->
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="rating-high">★★★ → ☆</button></li>
-    <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="rating-low">☆ → ★★★</button></li>
-  </ul>
+      <!-- Heart Sort Options -->
+      <li>
+        <button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="likes-low">
+          <span class="text-red-500">♡ → ♡♡♡</span>
+        </button>
+      </li>
+      <li>
+        <button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="likes-high">
+          <span class="text-red-500">♡♡♡ → ♡</span>
+        </button>
+      </li>
+
+      <!-- ⭐ Rating Sort Options -->
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="rating-high">★★★ → ☆</button></li>
+      <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100" data-sort="rating-low">☆ → ★★★</button></li>
+    </ul>
+  </div>
 </div>
 
-
-        </div>
 
 
       </div>

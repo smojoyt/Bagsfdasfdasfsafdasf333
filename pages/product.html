@@ -1,126 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Product Page</title>
-  
-    <!-- Tailwind (not recommended for production, but fine for dev) -->
-    <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Flickity + ImagesLoaded -->
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
-  
-  <!-- Page Script -->
+  <!-- Tailwind (dev only; use CLI/PostCSS for prod) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Flickity + ImagesLoaded -->
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+  <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css"/>
+
   <!-- Pinterest Tag -->
-<script>
-!function(e){if(!window.pintrk){window.pintrk = function () {
-window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
-  n=window.pintrk;n.queue=[],n.version="3.0";var
-  t=document.createElement("script");t.async=!0,t.src=e;var
-  r=document.getElementsByTagName("script")[0];
-  r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
-pintrk('load', '2613854872892');
-pintrk('page');
-</script>
-<noscript>
-<img height="1" width="1" style="display:none;" alt=""
-  src="https://ct.pinterest.com/v3/?event=init&tid=2613854872892&noscript=1" />
-</noscript>
-<!-- end Pinterest Tag -->
+  <script>
+    !function(e){if(!window.pintrk){window.pintrk=function(){window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var n=window.pintrk;n.queue=[],n.version="3.0";var t=document.createElement("script");t.async=!0;t.src=e;var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
+    pintrk('load','2613854872892'); pintrk('page');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none;" alt=""
+         src="https://ct.pinterest.com/v3/?event=init&tid=2613854872892&noscript=1"/>
+  </noscript>
+<style>
+  /* Default: not sticky (mobile/tablet) */
+  #product-info { position: static; top: auto; }
+
+  /* Desktop+: make it sticky with a header offset (6rem ≈ top-24) */
+  @media (min-width: 1024px) {
+    #product-info { position: sticky; top: 6rem; }
+  }
+</style>
+
+</head>
 
 <body class="bg-white text-gray-900">
-    <main class="px-6 py-10 md:py-36">
+  <main class="min-h-screen">
+    <div class="max-w-6xl mx-auto px-6 pt-24 md:pt-28 pb-16">
 
-  <!-- 🔼 Navbar -->
-
-
-  <!-- 📦 Product Content -->
-<div class="max-w-6xl mx-auto pt-[5rem] md:pt-[2rem]">
-
-<section id="product-banner"
-  class="w-full mb-4 sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center">
-  <div class="text-center bg-white px-3 py-2 sm:px-6 sm:py-3 m-4">
-    <h1 id="product-title" class="text-black font-bold text-2xl sm:text-xl tracking-wider uppercase"></h1>
-    <p id="product-sku" class="text-gray-600 text-sm tracking-widest mt-1"></p> <!-- Required for product_id -->
-  </div>
-</section>
-
-
-
-  <div class="grid grid-cols-1 lg:grid-cols-[1fr_30rem] gap-10 items-start relative">
-    
-<!-- 📸 Image Section -->
-<div>
-  <!-- 🖼️ Mobile Carousel -->
-  <div id="mobile-carousel" class="block lg:hidden overflow-hidden relative">
-    <div id="carousel-track" class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-2">
-      <!-- JS will inject images here -->
-    </div>
-  </div>
-
-  <!-- 🖼️ Desktop Static -->
-  <div id="desktop-images" class="hidden lg:block">
-    <img
-      id="product-img"
-      src="/imgs/placeholder.jpg"
-      alt="Product Image"
-      class="w-full aspect-square object-cover"
-    />
-    <div id="thumbnail-row" class="grid grid-cols-2 gap-4 mt-4"></div>
-  </div>
-</div>
-
-
-<!-- 📝 Info Section -->
-<div class="relative">
-<div id="product-info-wrapper" class="relative lg:min-h-[112vh]">
-  <div id="product-info"
-       class="space-y-2 lg:sticky lg:top-[10rem] lg:right-[calc((110vw-72rem)/2)] lg:w-[30rem]">
-
-
-        <h1 id="product-name" class="hidden text-3xl md:text-4xl font-extrabold uppercase">Loading...</h1>
-        <p id="product-id" class="hidden  text-sm text-gray-600"></p>
-
-        <!-- 💰 Price -->
-        <div id="price-section" class="text-xl font-semibold text-red-600"></div>
-
-        <!-- 🎨 Variant Swatches -->
-        <div>
-          <p class="text-lg uppercase font-extrabold block text-gray-600 mb-2 tracking-wider pt-2">choose a Color</p>
-          <div id="variant-swatch-container" class="flex gap-2 flex-wrap"></div>
+      <!-- Banner (title + sku) -->
+      <section id="product-banner"
+        class="w-full mb-6 sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center">
+        <div class="text-center bg-white/90 px-3 py-2 sm:px-6 sm:py-3 m-4 rounded">
+          <h1 id="product-title" class="text-black font-bold text-2xl sm:text-xl tracking-wider uppercase"></h1>
+          <p id="product-sku" class="text-gray-600 text-sm tracking-widest mt-1"></p>
         </div>
+      </section>
 
-        <!-- 🛒 Add to Cart -->
-        <button
-          id="add-to-cart-btn"
-          class="w-full bg-black text-white py-3 px-6 hover:bg-gray-800 transition"
-        >
-          Add to Cart
-        </button>
+      <!-- Two-column layout -->
+      <section id="product-layout" class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_30rem] items-start">
 
-        <!-- 🔽 Expandable Sections -->
-        <div class="mt-6">
-          <div id="extra-sections" class="space-y-4">
-            <!-- JS will inject the sections here -->
+        <!-- LEFT: Images / Gallery -->
+        <div id="product-media-col" class="space-y-4">
+          <!-- Mobile Carousel -->
+          <div id="mobile-carousel" class="block lg:hidden overflow-hidden relative">
+            <div id="carousel-track" class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-2">
+              <!-- JS injects <img> slides here -->
+            </div>
+          </div>
+
+          <!-- Desktop Images -->
+          <div id="desktop-images" class="hidden lg:block">
+            <img
+              id="product-img"
+              src="/imgs/placeholder.jpg"
+              alt="Product Image"
+              class="w-full aspect-[4/5] md:aspect-square object-cover rounded-lg bg-gray-100"
+            />
+            <div id="thumbnail-row" class="grid grid-cols-2 gap-4 mt-4"></div>
           </div>
         </div>
-      </div>
+
+        <!-- RIGHT: Sticky Info Panel -->
+<aside id="product-info-wrapper" class="self-start">
+  <div id="product-info" class="w-full space-y-6">
+            <!-- Name + Internal ID (populated by JS) -->
+            <h1 id="product-name" class="hidden text-2xl md:text-4xl font-extrabold uppercase">Loading...</h1>
+            <p id="product-id" class="hidden text-sm text-gray-600"></p>
+
+            <!-- Price -->
+            <div id="price-section" class="text-2xl font-semibold text-red-600" aria-live="polite"></div>
+
+            <!-- Swatches -->
+            <section aria-labelledby="choose-color">
+              <p id="choose-color"
+                 class="text-base md:text-lg uppercase font-extrabold text-gray-600 mb-2 tracking-wider pt-2">
+                Choose a Color
+              </p>
+              <div id="variant-swatch-container" class="flex flex-wrap gap-2"></div>
+            </section>
+
+            <!-- Add to Cart -->
+            <button
+              id="add-to-cart-btn"
+              class="w-full bg-black text-white py-3 px-6 rounded-md shadow-sm hover:bg-gray-800 transition
+                     disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Add to Cart
+            </button>
+
+            <!-- Divider -->
+            <hr class="border-gray-200"/>
+
+            <!-- Expandable Sections (Description, Details, Care, etc.) -->
+            <div class="mt-2">
+              <div id="extra-sections" class="space-y-4">
+                <!-- JS injects sections here -->
+              </div>
+            </div>
+
+            <!-- Reviews mount (rendered by renderReviews.js) -->
+            <div id="reviews-root" class="mt-6"></div>
+          </div>
+        </aside>
+
+      </section>
     </div>
+  </main>
 
-  </div>
-</div>
-</div>
+  <!-- Global placeholders if your app scripts target them -->
+  <div id="footer"></div>
+  <div id="navbar"></div>
+  <div id="announcement-container"></div>
 
-
-
-  <!-- 🔽 Footer -->
-      <div id="footer"></div>
-      <div id="navbar"></div>
-      <div id="announcement-container"></div>
-      <script type="module" src="/js/main.js"></script>
-      <script type="module" src="/js/productPage/index.js"></script>
+  <!-- App scripts -->
+  <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/productPage/index.js"></script>
 </body>
 </html>

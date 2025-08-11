@@ -1,134 +1,212 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Sign Up – Karry Kraze</title>
 
-    <!-- Favicon -->
-    <link rel="icon" href="/imgs/Logo/Short/SL_0603.png" type="image/png" />
-    <title>Sign Up – Karry Kraze</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+  <!-- Meta / SEO -->
+  <meta name="description" content="$5 Off Your Next Order — claim your coupon instantly."/>
+  <link rel="canonical" href="https://www.karrykraze.com/pages/signup.html"/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="theme-color" content="#000000"/>
 
-    <!-- Website Description -->
-    <meta name="description" content="$5 Off Your Next Order, Claim Now!" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.karrykraze.com/pages/signup.html"/>
+  <meta property="og:title" content="Sign Up – Karry Kraze"/>
+  <meta property="og:description" content="$5 Off Your Next Order — claim your coupon instantly."/>
+  <meta property="og:image" content="https://www.karrykraze.com/imgs/Pages/SignUp_01.jpg"/>
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.karrykraze.com/" />
-    <meta property="og:title" content="Sign Up – Karry Kraze" />
-    <meta property="og:description" content="$5 Off Your Next Order, Claim Now!" />
-    <meta property="og:image" content="https://www.karrykraze.com/imgs/Pages/SignUp_01.jpg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Sign Up – Karry Kraze"/>
+  <meta name="twitter:description" content="$5 Off Your Next Order — claim your coupon instantly."/>
+  <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Pages/SignUp_01.jpg"/>
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sign Up – Karry Kraze" />
-    <meta name="twitter:description" content="$5 Off Your Next Order, Claim Now!" />
-    <meta name="twitter:image" content="https://www.karrykraze.com/imgs/Pages/SignUp_01.jpg" />
+  <!-- Favicon -->
+  <link rel="icon" href="/imgs/Logo/Short/SL_0603.png" type="image/png"/>
 
-    <!-- Tailwind (not recommended for production, but fine for dev) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind (dev). For production, install via CLI/PostCSS. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Firebase (deferred so it doesn't block paint) -->
+  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+
+  <style>
+    /* Skip link */
+    .skip-link {
+      position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+    }
+    .skip-link:focus { position:static; width:auto; height:auto; padding:0.5rem 1rem; background:#000; color:#fff; }
+
+    /* Honeypot — visually hidden but accessible to AT if focused */
+    .hp-field {
+      position: absolute !important;
+      left: -10000px !important;
+      top: auto !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+    }
+
+    /* Respect prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .motion-safe\:animate-spin { animation: none !important; }
+    }
+  </style>
 </head>
-<!-- NAVBAR MOUNT -->
 
 <body class="bg-white text-black font-sans">
-    <main class="px-6 py-36">
-        <div class="max-w-[108rem] mx-auto ">
+  <a href="#couponForm" class="skip-link">Skip to form</a>
 
-            <!-- 🏷️ Banner Section with Title -->
-            <section id="signup-banner"
-                class="w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center relative">
-                <img src="/imgs/Banner/KK_01.jpg" alt="Signup Banner"
-                    class="absolute inset-0 w-full h-full object-cover" />
-                <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%] text-white">
-                    <h1
-                        class="text-black font-bold text-2xl sm:text-1xl tracking-wider uppercase bg-white m-4 px-3 py-2 sm:px-6 sm:py-3">
-                        $5 Off Your Next Order
-                    </h1>
+  <main id="main" class="px-6 py-24 md:py-32">
+    <div class="max-w-[108rem] mx-auto">
 
-                </div>
-            </section>
-
-            <!-- 📨 Signup Form Section -->
-            <section class="relative text-gray-800 font-sans px-4 py-10 max-w-3xl mx-auto animate-fadeInUp">
-
-                <form id="couponForm" class="space-y-6">
-  <p class="text-center my-3 text-sm md:text-xl font-medium">
-    Sign up below and your exclusive coupon will be emailed instantly.
-  </p>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <input type="text" name="firstName" placeholder="First Name" required
-      class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
-    <input type="text" name="lastName" placeholder="Last Name" required
-      class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
-  </div>
-
-  <input type="email" name="email" placeholder="Email" required
-    class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
-  <input type="tel" name="phone" placeholder="Phone Number" required
-    class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]" />
-
-  <div class="text-left space-y-3 text-sm text-gray-700">
-    <label class="flex items-start gap-2">
-      <input type="checkbox" name="smsConsent" required class="accent-[#f88379] mt-1" />
-      <span>I agree to get recurring texts from Karry Kraze. Msg & data rates may apply. Reply STOP to unsubscribe.</span>
-    </label>
-    <label class="flex items-start gap-2">
-      <input type="checkbox" name="emailConsent" required class="accent-[#f88379] mt-1" />
-      <span>I agree to receive marketing emails from Karry Kraze.</span>
-    </label>
-  </div>
-
-  <button type="submit" id="submitBtn"
-    class="w-full bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 font-semibold transition duration-200 flex items-center justify-center gap-2">
-    <span id="btnText">Claim My Coupon</span>
-    <svg id="btnSpinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none"
-      viewBox="0 0 24 24">
-      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-      <path class="opacity-75" fill="currentColor"
-        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-    </svg>
-  </button>
-</form>
-
-<!-- ✅ Fullscreen Loading Overlay -->
-<div id="loadingOverlay" class="fixed inset-0 bg-white/80 z-50 flex items-center justify-center hidden">
-  <div class="flex flex-col items-center">
-    <svg class="animate-spin h-10 w-10 text-[#f88379]" xmlns="http://www.w3.org/2000/svg" fill="none"
-      viewBox="0 0 24 24">
-      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-      <path class="opacity-75" fill="currentColor"
-        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-    </svg>
-    <p class="mt-4 text-sm font-medium text-gray-600">Processing your request...</p>
-  </div>
-</div>
-
-
-                <div id="couponMessage" class="hidden mt-10 text-center">
-                    <p class="text-green-700 font-semibold text-lg mb-4">🎉 Your coupon is on the way! Check your inbox.
-                    </p>
-                    <a href="/pages/catalog.html"
-                        class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 font-medium transition duration-200">
-                        Browse the Shop
-                    </a>
-                </div>
-            </section>
-
+      <!-- Banner -->
+      <header id="signup-banner"
+              class="relative w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center">
+        <picture class="absolute inset-0 w-full h-full">
+          <source media="(min-width:1024px)" srcset="/imgs/Banner/KK_01.jpg">
+          <img src="/imgs/Banner/KK_01.jpg" alt="" class="w-full h-full object-cover" decoding="async" loading="lazy">
+        </picture>
+        <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%]">
+          <h1 class="text-black bg-white m-4 px-3 py-2 sm:px-6 sm:py-3 font-bold tracking-wider uppercase text-2xl">
+            $5 Off Your Next Order
+          </h1>
         </div>
-    </main>
-    <div id="footer"></div>
-    <div id="navbar"></div>
-    <div id="announcement-container"></div>
-    <script type="module" src="/js/main.js"></script>
+      </header>
 
+      <!-- Signup Form -->
+      <section class="relative px-4 py-10 max-w-xl mx-auto">
+        <!-- Live error/success region -->
+        <div id="formStatus" class="sr-only" aria-live="assertive" tabindex="-1"></div>
 
+        <form id="couponForm" name="signup" class="space-y-6" action="#" method="post" novalidate data-busy-target="#loadingOverlay">
+          <p class="text-center my-3 text-sm md:text-base font-medium">
+            Sign up below and we’ll email your exclusive coupon instantly.
+          </p>
 
-    <script src="/js/Signup/signup.js"></script>
+          <!-- Name -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="firstName" class="sr-only">First Name</label>
+              <input id="firstName" name="firstName" type="text" placeholder="First Name" required
+                     autocomplete="given-name" autocapitalize="words" aria-invalid="false" enterkeyhint="next" maxlength="50"
+                     class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]"/>
+              <p class="mt-1 text-xs text-red-600 hidden" data-error-for="firstName"></p>
+            </div>
+            <div>
+              <label for="lastName" class="sr-only">Last Name</label>
+              <input id="lastName" name="lastName" type="text" placeholder="Last Name" required
+                     autocomplete="family-name" autocapitalize="words" aria-invalid="false" enterkeyhint="next" maxlength="50"
+                     class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]"/>
+              <p class="mt-1 text-xs text-red-600 hidden" data-error-for="lastName"></p>
+            </div>
+          </div>
 
+          <!-- Email -->
+          <div>
+            <label for="email" class="sr-only">Email</label>
+            <input id="email" name="email" type="email" placeholder="Email" required
+                   autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false"
+                   aria-invalid="false" enterkeyhint="next" maxlength="254"
+                   class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]"/>
+            <p class="mt-1 text-xs text-red-600 hidden" data-error-for="email"></p>
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <label for="phone" class="sr-only">Phone Number</label>
+            <input id="phone" name="phone" type="tel" placeholder="Phone Number" required
+                   autocomplete="tel" inputmode="tel"
+                   pattern="^\+?1?\s?\(?\d{3}\)?[\s\.-]?\d{3}[\s\.-]?\d{4}$"
+                   title="Use a US number like 555-555-5555"
+                   aria-describedby="phoneHelp" aria-invalid="false" enterkeyhint="done" maxlength="17"
+                   class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]"/>
+            <p id="phoneHelp" class="mt-1 text-xs text-gray-500">Format: 555-555-5555</p>
+            <p class="mt-1 text-xs text-red-600 hidden" data-error-for="phone"></p>
+          </div>
+
+          <!-- Honeypot (anti-bot) -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" tabindex="-1" autocomplete="organization"/>
+          </div>
+
+          <!-- Consent -->
+          <fieldset class="text-left space-y-3 text-sm text-gray-700">
+            <legend class="sr-only">Marketing consent</legend>
+
+            <label for="smsConsent" class="flex items-start gap-2 leading-5">
+              <input id="smsConsent" type="checkbox" name="smsConsent" required class="accent-[#f88379] mt-1"/>
+              <span>I agree to get recurring texts from Karry Kraze. Msg &amp; data rates may apply. Reply STOP to unsubscribe.</span>
+            </label>
+
+            <label for="emailConsent" class="flex items-start gap-2 leading-5">
+              <input id="emailConsent" type="checkbox" name="emailConsent" required class="accent-[#f88379] mt-1"/>
+              <span>I agree to receive marketing emails from Karry Kraze.</span>
+            </label>
+          </fieldset>
+
+          <!-- Submit -->
+          <button type="submit" id="submitBtn"
+                  class="w-full bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 font-semibold
+                         transition duration-200 inline-flex items-center justify-center gap-2
+                         focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#f88379]">
+            <span id="btnText">Claim My Coupon</span>
+            <!-- keep spinner space stable: use visibility toggling in JS -->
+            <svg id="btnSpinner" class="motion-safe:animate-spin h-5 w-5 text-white invisible"
+                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+          </button>
+        </form>
+
+        <!-- Fullscreen Loading Overlay -->
+        <div id="loadingOverlay"
+             class="fixed inset-0 bg-white/80 z-50 hidden flex items-center justify-center"
+             role="status" aria-live="polite" aria-label="Processing your request">
+          <div class="flex flex-col items-center">
+            <svg class="motion-safe:animate-spin h-10 w-10 text-[#f88379]"
+                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+            <p class="mt-4 text-sm font-medium text-gray-600">Processing your request...</p>
+          </div>
+        </div>
+
+        <!-- Success message -->
+        <div id="couponMessage" class="hidden mt-10 text-center" aria-live="polite">
+          <p class="text-green-700 font-semibold text-lg mb-4">
+            🎉 Your coupon is on the way! Check your inbox.
+          </p>
+          <a href="/pages/catalog.html"
+             class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 font-medium transition">
+            Browse the Shop
+          </a>
+        </div>
+
+        <!-- No-JS notice -->
+        <noscript>
+          <p class="mt-6 text-center text-sm text-red-700">
+            JavaScript is required to submit this form. Please enable JavaScript and reload the page.
+          </p>
+        </noscript>
+      </section>
+    </div>
+  </main>
+
+  <!-- Global mounts -->
+  <div id="footer"></div>
+  <div id="navbar"></div>
+  <div id="announcement-container"></div>
+
+  <!-- App scripts (deferred) -->
+  <script type="module" defer src="/js/main.js"></script>
+  <script defer src="/js/Signup/signup.js"></script>
 </body>
-
 </html>

@@ -7,38 +7,41 @@ export async function loadReviewStats(url) {
     const reviews = json?.record?.reviews || json?.reviews || [];
     if (!Array.isArray(reviews)) throw new Error("Invalid reviews payload");
 
-    // Aggregate ratings by productId
+    // Aggregate by productId
     const agg = reviews.reduce((acc, r) => {
       const pid = (r?.productId || r?.product_id || "").trim();
-      if (!pid) return acc;
-      const rating = Number(r?.rating);
-      if (!Number.isFinite(rating)) return acc;
-      const o = acc[pid] || (acc[pid] = { count: 0, sum: 0 });
-      o.count += 1;
-      o.sum += rating;
+      const rate = Number(r?.rating);
+      if (!pid || !Number.isFinite(rate)) return acc;
+      const a = acc[pid] || (acc[pid] = { count: 0, sum: 0 });
+      a.count += 1;
+      a.sum += rate;
       return acc;
     }, {});
 
-    // Update DOM: avg text, (count), and star fill width
+    // Update each card pill
     document.querySelectorAll(".review-wrapper").forEach(wrap => {
       const pid = (wrap.dataset.productid || wrap.dataset.sku || "").trim();
       const stats = agg[pid];
-      const avgEl = wrap.querySelector(".review-avg");
-      const cntEl = wrap.querySelector(".review-count");
-      const fillEl = wrap.querySelector(".rating-fill");
+
+      const avgEl  = wrap.querySelector(".review-avg");
+      const cntEl  = wrap.querySelector(".review-count");
+      const clipEl = wrap.querySelector(".rating-clip"); // <rect> inside <clipPath>
 
       let avg = 0, cnt = 0;
       if (stats) {
         cnt = stats.count;
-        avg = stats.count ? Math.round((stats.sum / stats.count) * 10) / 10 : 0;
+        avg = cnt ? Math.round((stats.sum / cnt) * 10) / 10 : 0;
       }
 
       if (avgEl) avgEl.textContent = avg.toFixed(1);
       if (cntEl) cntEl.textContent = `(${cnt})`;
 
-      // star fill percentage: 0–100 based on avg/5
-      const percent = Math.max(0, Math.min(100, (avg / 5) * 100));
-      if (fillEl) fillEl.style.width = `${percent}%`;
+      // star clip width: viewBox is 24, so width = 24 * (avg/5)
+      if (clipEl) {
+const w = Math.max(0, Math.min(24, (avg / 5) * 24));
+clipEl.setAttribute("width", w.toFixed(2));
+
+      }
     });
   } catch (err) {
     console.error("Review stats load failed:", err);

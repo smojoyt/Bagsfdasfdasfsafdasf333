@@ -68,27 +68,34 @@ export async function createCatalogCard(sku, product) {
 
 
 <!-- Reviews Pill -->
-<div class="review-wrapper ml-auto flex items-center gap-1 px-2 py-1 bg-white rounded-full text-black
-     data-sku="${sku}" data-productid="${productId}">
-  <!-- Star with partial fill based on avg -->
-  <span class="rating-star relative inline-block w-4 h-4" aria-hidden="true">
-    <!-- outline star -->
-    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"></polygon>
-    </svg>
-    <!-- filled star, clipped by width -->
-    <span class="rating-fill absolute inset-0 overflow-hidden" style="width: 0%;">
-      <svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor"
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"></polygon>
-      </svg>
-    </span>
-  </span>
+<div class="review-wrapper flex items-center gap-1 px-2 py-1 bg-white rounded-full text-black"
+     data-sku="${sku}"
+     data-productid="${product.product_id || product.productId || sku}">
+  <svg class="rating-star w-4 h-4 text-yellow-500" viewBox="0 0 24 24" aria-hidden="true">
+    <defs>
+      <!-- ✅ use userSpaceOnUse so width is in viewBox units (0–24) -->
+      <clipPath id="clip-${sku}" clipPathUnits="userSpaceOnUse">
+        <rect class="rating-clip" x="0" y="0" width="0" height="24"></rect>
+      </clipPath>
+    </defs>
+
+    <!-- filled area (clipped) -->
+    <polygon clip-path="url(#clip-${sku})"
+             points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"
+             fill="currentColor"></polygon>
+
+    <!-- outline on top -->
+    <polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"
+             fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round"></polygon>
+  </svg>
 
   <span class="review-avg text-sm font-medium leading-none">0.0</span>
   <span class="review-count text-sm leading-none opacity-80">(0)</span>
 </div>
+
+
+
 
 
 
