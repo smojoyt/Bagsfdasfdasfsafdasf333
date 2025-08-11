@@ -1,7 +1,6 @@
 // ✅ sort.js
 import { currentState } from './state.js';
 import { applySearchAndSort } from "./search.js";
-import { likeCache } from '../Shared/itemLikes.js';
 
 export function setupSort() {
   const sortToggle = document.getElementById("sortToggle");
@@ -20,9 +19,11 @@ export function setupSort() {
 
     const sortType = btn.dataset.sort;
     currentState.currentSort = sortType;
-    sortLabel.textContent = btn.textContent;
+    sortLabel.textContent = btn.textContent.trim();
     sortOptions.classList.add("hidden");
 
+    // Price + Likes handled here (custom functions).
+    // Rating sorts are handled in applySearchAndSort via compareByRating.
     if (sortType === "likes-low") {
       sortByLikes("low");
     } else if (sortType === "likes-high") {
@@ -32,7 +33,7 @@ export function setupSort() {
     } else if (sortType === "price-high") {
       sortByPrice("high");
     } else {
-      applySearchAndSort(); // fallback for default/alphabetical
+      applySearchAndSort(); // default, alphabetical, rating-high/low, etc.
     }
   });
 }
@@ -44,6 +45,7 @@ function sortByLikes(order) {
     const productA = a[1];
     const productB = b[1];
 
+    // Your likeMap is keyed by product_id (KK-####)
     const likesA = likeMap[productA.product_id] || 0;
     const likesB = likeMap[productB.product_id] || 0;
 
@@ -54,13 +56,10 @@ function sortByLikes(order) {
   applySearchAndSort();
 }
 
-
-
 function sortByPrice(order) {
   const sortedItems = [...currentState.filteredEntries].sort((a, b) => {
-    const priceA = a[1].price || 0; // a[1] = product
+    const priceA = a[1].price || 0;
     const priceB = b[1].price || 0;
-
     return order === "low" ? priceA - priceB : priceB - priceA;
   });
 

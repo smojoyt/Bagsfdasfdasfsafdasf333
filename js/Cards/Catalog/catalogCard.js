@@ -13,6 +13,14 @@ export async function createCatalogCard(sku, product) {
   const imageUrl = product.catalogImage || product.image || "/imgs/placeholder.jpg";
   const hoverImage = product.catalogImageHover || imageUrl;
 
+  // ✅ Normalize to the real product id used by reviews JSON (e.g., "KK-1001")
+  const productId =
+    product.product_id ||
+    product.productId ||
+    product.productID ||
+    product.productid ||
+    "";
+
   const colorOptions = Array.isArray(product.custom1Options)
     ? product.custom1Options
     : typeof product.custom1Options === "string"
@@ -25,30 +33,67 @@ export async function createCatalogCard(sku, product) {
   card.innerHTML = `
 <div class="w-full">
   <a href="/pages/product.html?sku=${sku}" class="block w-full" data-sku="${sku}">
-<div class="relative w-full aspect-square bg-gray-100 overflow-hidden group image-hover-group">
-  <img src="${imageUrl}" ... />
-  <img src="${hoverImage}" ... />
-
-  <!-- Like Button Over Image -->
-<!-- Like Button -->
-<div class="like-wrapper absolute bottom-2 left-2 z-10 flex items-center gap-1 px-2 py-1 bg-white rounded-full shadow-sm" data-sku="${sku}" data-productid="${product.productId || sku}">
-<button class="like-btn flex items-center justify-center w-3 h-3 md:w-7 md:h-7 rounded-full transition-all" aria-label="Like">
-<svg class="w-5 h-5" viewBox="-1.6 -1.6 19.20 19.20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="1.5">
-  <path
-    d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z"
-    fill="none"
-    stroke="#000000"
-    stroke-width="1.5"
+<div class="relative w-full aspect-[4/5] md:aspect-square bg-gray-100 overflow-hidden group image-hover-group">
+  <!-- Base image -->
+  <img
+    src="${imageUrl}"
+    alt="${product.name || ''}"
+    class="absolute inset-0 w-full h-full object-cover block transition-opacity duration-300 ease-out group-hover:opacity-0"
+    loading="lazy" decoding="async"
   />
-</svg>
-</button>
+  <!-- Hover image -->
+  <img
+    src="${hoverImage}"
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover block opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100"
+    loading="lazy" decoding="async"
+  />
 
 
-  <span class="like-count text-sm text-black font-medium leading-none">0</span>
+
+      <!-- Social/Meta Pills -->
+      <div class="absolute bottom-2 left-2 right-2 z-10 flex items-center gap-2">
+
+        <!-- Like Pill -->
+        <div class="like-wrapper flex items-center gap-1 px-2 py-1 bg-white rounded-full shadow-sm"
+             data-sku="${sku}" data-productid="${productId}">
+          <button class="like-btn flex items-center justify-center w-3 h-3 md:w-7 md:h-7 rounded-full transition-all" aria-label="Like">
+            <svg class="w-5 h-5" viewBox="-1.6 -1.6 19.20 19.20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="1.5">
+              <path d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z"
+                    fill="none" stroke="#000000" stroke-width="1.5" />
+            </svg>
+          </button>
+          <span class="like-count text-sm text-black font-medium leading-none">0</span>
+        </div>
+
+
+<!-- Reviews Pill -->
+<div class="review-wrapper ml-auto flex items-center gap-1 px-2 py-1 bg-white rounded-full text-black
+     data-sku="${sku}" data-productid="${productId}">
+  <!-- Star with partial fill based on avg -->
+  <span class="rating-star relative inline-block w-4 h-4" aria-hidden="true">
+    <!-- outline star -->
+    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"></polygon>
+    </svg>
+    <!-- filled star, clipped by width -->
+    <span class="rating-fill absolute inset-0 overflow-hidden" style="width: 0%;">
+      <svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"></polygon>
+      </svg>
+    </span>
+  </span>
+
+  <span class="review-avg text-sm font-medium leading-none">0.0</span>
+  <span class="review-count text-sm leading-none opacity-80">(0)</span>
 </div>
 
-</div>
 
+
+      </div>
+    </div>
   </a>
 
   <div class="px-5 flex flex-col gap-2 mt-4 text-sm w-full items-center md:items-start text-center md:text-left">
@@ -57,9 +102,6 @@ export async function createCatalogCard(sku, product) {
     <div class="font-medium text-black uppercase w-full">
       ${product.name}
     </div>
-
-
-
 
     <!-- Price -->
     <div class="text-black font-semibold w-full">
@@ -89,8 +131,6 @@ export async function createCatalogCard(sku, product) {
 
   </div>
 </div>
-
-
 `;
 
   // ✅ Swatches and button

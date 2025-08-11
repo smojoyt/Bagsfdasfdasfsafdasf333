@@ -1,10 +1,13 @@
+// ✅ state.js
 export const currentState = {
   products: {},
   originalEntries: [],
   filteredEntries: [],
   currentSort: "default",
   currentSearchQuery: "",
-  likeMap: {} // ✅ Make sure this is here
+  likeMap: {},          // existing
+  reviewCountMap: {},   // ⬅️ NEW
+  reviewAvgMap: {}      // ⬅️ NEW
 };
 
 // ✅ Allow debugging from DevTools
