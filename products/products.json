@@ -2002,7 +2002,395 @@
     "https://karrykraze.com/imgs/Products/Jewlery/Necklace/SunFlower/Flower02.jpg",
     "https://karrykraze.com/imgs/Products/Jewlery/Necklace/SunFlower/Flower03.jpg"
   ]
+},
+"Charms_Keychain_ScrunchieWristlet": {
+  "name": "Satin Scrunchie Wristlet Keychain",
+  "category": "accessories",
+  "product_id": "KK-1041",
+  "price": 9.97,
+  "weight_oz": 1.6,
+  "tags": ["keychain", "wristlet", "scrunchie", "satin", "gift-ready", "bracelet keychain"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Red.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Blue.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Red.jpg",
+  "url": "https://karrykraze.com/pages/product.html?sku=Charms_Keychain_ScrunchieWristlet",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Flowers.jpg",
+  "descriptionList": [
+    "Soft satin scrunchie-style wristlet that’s comfy to carry and easy to spot in a bag",
+    "Antique-brass hardware with key ring and D-ring; lightweight but sturdy",
+    "Protective fabric sleeve helps prevent wrist irritation from keys",
+    "Great everyday accessory or quick gift/stocking stuffer"
+  ],
+  "sizingList": [
+    "Length (fabric section): ~4.5–5.5 in (11.5–14 cm)",
+    "Width: ~1 in (2.5 cm)",
+    "Key ring diameter: ~1 in (2.5 cm)",
+    "Weight: ~1.6 oz"
+  ],
+  "keyDetails": [
+    "Multiple color/pattern options",
+    "Antique-brass hardware; lobster clasp on select styles",
+    "Handmade; slight variations add unique character",
+    "Pairs well with totes, backpacks, and lanyards"
+  ],
+  "careInstructions": [
+    "Spot clean only; do not machine wash",
+    "Keep away from sharp objects to avoid snags",
+    "Avoid prolonged moisture or oils to preserve hardware finish"
+  ],
+  "custom1Name": "color",
+  "custom1Options": "Black | Blue | Flowers | Pink | Polka | Red",
+  "variantStock": {
+    "Black": 0,
+    "Blue": 0,
+    "Flowers": 0,
+    "Pink": 0,
+    "Polka": 0,
+    "Red": 0
+  },
+  "variantImages": {
+    "Black": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Black.jpg",
+    "Blue": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Blue.jpg",
+    "Flowers": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Flowers.jpg",
+    "Pink": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Pink.jpg",
+    "Polka": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Polka.jpg",
+    "Red": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Red.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Black.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Blue.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Flowers.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Pink.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Polka.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Red.jpg"
+  ]
+},
+
+"Charms_Keychain_AldiQuarterHolder": {
+  "name": "ALDI Quarter Holder Keychain",
+  "category": "charms",
+  "product_id": "KK-1042",
+  "price": 6.97,
+  "weight_oz": 0.7,
+  "tags": ["ALDI", "quarter holder", "shopping cart coin", "keychain", "grocery", "snap tab"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg",
+  "url": "https://karrykraze.com/pages/product.html?sku=Charms_Keychain_AldiQuarterHolder",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg",
+  "descriptionList": [
+    "Keep a quarter ready for ALDI shopping carts with this handy pocket keychain",
+    "Blue faux-leather snap tab with embroidered cart and ALDI lettering",
+    "Snug front pocket fits a US quarter (25¢) or most cart tokens",
+    "Includes standard split key ring to attach to keys, bags, or lanyards"
+  ],
+  "sizingList": [
+    "Overall size: approx. 3.75 x 2.0 in (9.5 x 5 cm)",
+    "Quarter pocket sized for standard US quarter",
+    "Key ring: ~1 in (2.5 cm) diameter",
+    "Weight: ~0.7 oz"
+  ],
+  "keyDetails": [
+    "Durable PU leather with satin stitching",
+    "Secure snap tab loop for the key ring",
+    "Handmade—slight variations add character",
+    "Not affiliated with or endorsed by ALDI"
+  ],
+  "careInstructions": [
+    "Wipe clean with a damp cloth",
+    "Do not machine wash or tumble dry",
+    "Avoid prolonged soaking and excessive heat"
+  ],
+  "custom1Name": "color",
+  "custom1Options": "Blue",
+  "variantStock": {
+    "Blue": 0
+  },
+  "variantImages": {
+    "Blue": "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg"
+  ]
+},
+
+"Charm_Flower_Wristlet": {
+  "name": "Floral Wristlet Keychain",
+  "category": "charms",
+  "product_id": "KK-1043",
+  "price": 8.97,
+  "weight_oz": 1.2,
+  "tags": ["Charms", "Keychain", "Wristlet", "Floral", "Daisy", "Gift-ready"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Flower/01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Flower/02.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Flower/01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Flower_Wristlet",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Flower/03.jpg",
+  "descriptionList": [
+    "Soft fabric wristlet strap with floral print and antique-brass hardware",
+    "Includes split keyring and lobster clasp for easy attachment",
+    "Comfortable on the wrist and easy to spot in your bag",
+    "Perfect everyday charm for keys, totes, or backpacks"
+  ],
+  "sizingList": [
+    "Strap length: ~6.5–7.0 in (16.5–18 cm)",
+    "Strap width: ~1.0 in (2.5 cm)",
+    "Key ring diameter: ~1.0 in (2.5 cm)",
+    "Weight: ~1.2 oz"
+  ],
+  "keyDetails": [
+    "Durable woven strap with printed florals",
+    "Antique-brass end clamp, D-ring, and lobster clasp",
+    "Handmade; pattern placement may vary slightly",
+    "Great small gift or add-on item"
+  ],
+  "careInstructions": [
+    "Spot clean with mild soap and water",
+    "Do not machine wash or tumble dry",
+    "Avoid prolonged moisture to preserve hardware finish"
+  ],
+  "custom1Name": "Style",
+  "custom1Options": "Black Daisy, Peach Floral, Sage Daisy",
+  "variantStock": {
+    "Black Daisy": 0,
+    "Peach Floral": 0,
+    "Sage Daisy": 0
+  },
+  "variantImages": {
+    "Black Daisy": "https://karrykraze.com/imgs/Products/Pendants/Flower/01.jpg",
+    "Peach Floral": "https://karrykraze.com/imgs/Products/Pendants/Flower/02.jpg",
+    "Sage Daisy": "https://karrykraze.com/imgs/Products/Pendants/Flower/03.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Flower/01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Flower/02.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Flower/03.jpg"
+  ]
+},
+
+"Plush_Flower_Bouquet": {
+  "name": "Smiley Plush Flower Bouquet",
+  "category": "plushy",
+  "product_id": "KK-1044",
+  "price": 14.97,
+  "weight_oz": 5.5,
+  "tags": ["Plush", "Bouquet", "Flowers", "Roses", "Kawaii", "Gift-ready", "Home decor"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Plushy/Flower/02.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Plushy/Flower/06.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Plushy/Flower/02.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Plush_Flower_Bouquet",
+  "banner": "https://karrykraze.com/imgs/Products/Plushy/Flower/09.jpg",
+  "descriptionList": [
+    "Adorable plush bouquet with a smiling wrap and soft velvety petals",
+    "Choose from a pastel mix or classic red roses—both super cuddly",
+    "Perfect gift substitute for real flowers that lasts forever",
+    "Cute desk, shelf, or bed accent; great for birthdays and Valentine’s Day"
+  ],
+  "sizingList": [
+    "Height: ~11–12 in (28–30 cm)",
+    "Width (top of bouquet): ~6–7 in (15–18 cm)",
+    "Stem/handle diameter: ~2 in (5 cm)",
+    "Weight: ~5.5 oz"
+  ],
+  "keyDetails": [
+    "Ultra-soft plush fabric with embroidered smile",
+    "Stuffed petals and leaves hold their shape",
+    "Stands upright when leaned or placed in a small vase",
+    "Handmade look—slight variations add charm"
+  ],
+  "careInstructions": [
+    "Spot clean with mild soap and water",
+    "Air dry only; do not machine wash or tumble dry",
+    "Keep away from open flames and high heat"
+  ],
+  "custom1Name": "Style",
+  "custom1Options": "Pastel Bouquet | Red Roses",
+  "variantStock": {
+    "Pastel Bouquet": 0,
+    "Red Roses": 0
+  },
+  "variantImages": {
+    "Pastel Bouquet": "https://karrykraze.com/imgs/Products/Plushy/Flower/02.jpg",
+    "Red Roses": "https://karrykraze.com/imgs/Products/Plushy/Flower/06.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/01.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/02.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/03.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/04.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/05.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/06.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/07.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/08.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/09.jpg"
+  ]
+},
+
+"Plush_Positive_Poo": {
+  "name": "Positive Poo – Tiny Motivator Plush",
+  "category": "plushy",
+  "product_id": "KK-1046",
+  "price": 9.97,
+  "weight_oz": 1.8,
+  "tags": ["Plush", "Amigurumi", "Crochet", "Desk buddy", "Gag gift", "Motivation"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Plush_Positive_Poo",
+  "banner": "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg",
+  "descriptionList": [
+    "Adorable crochet-style poo plush holding a tiny encouragement sign",
+    "Big googly eyes and a friendly smile—instant mood booster for your desk",
+    "Small, lightweight, and gift-ready for friends who need a laugh",
+    "Great for study spaces, office shelves, and care packages"
+  ],
+  "sizingList": [
+    "Height: ~3.5–4.0 in (9–10 cm)",
+    "Width: ~3.0 in (7.5 cm)",
+    "Depth: ~2.5 in (6.5 cm)",
+    "Weight: ~1.8 oz"
+  ],
+  "keyDetails": [
+    "Soft yarn exterior with plush stuffing",
+    "Includes a mini message card it can hold",
+    "Freestanding design sits flat on most surfaces",
+    "Handmade look—each piece may vary slightly"
+  ],
+  "careInstructions": [
+    "Spot clean only with a damp cloth",
+    "Do not machine wash or tumble dry",
+    "Keep away from open flames and high heat",
+    "Not for children under 3 due to small parts"
+  ],
+  "custom1Name": "Color",
+  "custom1Options": "Brown",
+  "variantStock": {
+    "Brown": 0
+  },
+  "variantImages": {
+    "Brown": "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg"
+  ]
+},
+
+"Jewelry_Bracelet_LabubuCharms": {
+  "name": "Labubu Charm Bracelet",
+  "category": "jewelry",
+  "product_id": "KK-1047",
+  "price": 12.99,
+  "weight_oz": 1.6,
+  "tags": ["bracelet", "charms", "Labubu", "kawaii", "gift-ready", "gold-tone"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/02.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/03.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/04.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Jewelry_Bracelet_LabubuCharms",
+  "banner": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/02.jpg",
+  "descriptionList": [
+    "Gold-tone charm bracelet featuring Labubu icons and enamel dangles",
+    "Mix of beads, mini pendants, and character charms for a playful stacked look",
+    "Comfy flexible band that’s easy to slip on and off",
+    "Cute everyday accessory and an easy gift for Labubu fans"
+  ],
+  "sizingList": [
+    "Inner circumference: ~6.7–7.5 in (17–19 cm) flexible fit",
+    "Charm sizes: ~0.4–0.8 in (1–2 cm)",
+    "Band thickness: ~0.16 in (4 mm)",
+    "Weight: ~1.6 oz"
+  ],
+  "keyDetails": [
+    "Gold-tone metal with enamel detail",
+    "Assorted Labubu motifs and bead spacers",
+    "Lightweight, comfortable daily wear",
+    "Hand-assembled; minor variations may occur"
+  ],
+  "careInstructions": [
+    "Avoid contact with water, lotions, and perfumes",
+    "Wipe with a soft dry cloth after wear",
+    "Store in a pouch to prevent scratches",
+    "Not intended for children under 12"
+  ],
+  "custom1Name": "Finish",
+  "custom1Options": "Gold-Tone",
+  "variantStock": {
+    "Gold-Tone": 0
+  },
+  "variantImages": {
+    "Gold-Tone": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/02.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/01.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/02.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/03.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/04.jpg"
+  ]
+},
+
+"Jewelry_Ring_FloralBloom": {
+  "name": "Floral Bloom Adjustable Rings (Gold-Tone)",
+  "category": "jewelry",
+  "product_id": "KK-1048",
+  "price": 19.99,
+  "weight_oz": 0.4,
+  "tags": ["ring", "adjustable", "gold-tone", "floral", "butterfly", "dainty", "gift-ready"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/02.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Jewelry_Ring_FloralBloom",
+  "banner": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/03.jpg",
+  "descriptionList": [
+    "Delicate, adjustable rings with pastel stones and floral motifs",
+    "Gold-tone finish for a dainty, stackable look",
+    "Choose from four designs: pink blossom trio, butterfly garland, crystal vine, or heart charm",
+    "Perfect for everyday wear, gifts, or ring stacks"
+  ],
+  "sizingList": [
+    "Adjustable fit: roughly US size 6–8",
+    "Band width: ~1.5–2 mm (varies by style)",
+    "Center motif: ~6–12 mm",
+    "Weight: ~0.4 oz each"
+  ],
+  "keyDetails": [
+    "Gold-tone alloy with glass/acrylic stones",
+    "Open-back designs allow gentle size adjustment",
+    "Smooth interior band for comfortable wear",
+    "Hand-assembled; minor variations may occur"
+  ],
+  "careInstructions": [
+    "Avoid water, lotions, and perfumes",
+    "Remove before bathing, swimming, or heavy activity",
+    "Store in a dry pouch to reduce tarnish",
+    "Wipe with a soft cloth after wear"
+  ],
+  "custom1Name": "Style",
+  "custom1Options": "Pink Blossom Trio | Butterfly Garland | Crystal Vine | Heart Charm",
+  "variantStock": {
+    "Pink Blossom Trio": 0,
+    "Butterfly Garland": 0,
+    "Crystal Vine": 0,
+    "Heart Charm": 0
+  },
+  "variantImages": {
+    "Pink Blossom Trio": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/01.jpg",
+    "Butterfly Garland": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/02.jpg",
+    "Crystal Vine": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/03.jpg",
+    "Heart Charm": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/04.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/01.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/02.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/03.jpg",
+    "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/04.jpg"
+  ]
 }
+
+
+
+
+
+
+
 
 
 
