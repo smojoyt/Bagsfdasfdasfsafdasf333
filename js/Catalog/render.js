@@ -19,7 +19,6 @@ export async function renderSortedCatalog(entries) {
     }
 
     for (const [sku, product] of toRender) {
-      if (product.tags?.includes("Discontinued")) continue;
       const card = await createCatalogCard(sku, product, promoList);
       if (card instanceof Node) fragment.appendChild(card);
     }
