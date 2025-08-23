@@ -17,6 +17,26 @@
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
 
+    <style>
+  /* soft motion for bg/ring/transform */
+  .order-src-btn{
+    transition: background-color .25s ease, box-shadow .25s ease, transform .18s ease, border-color .25s ease;
+  }
+  .order-src-btn.active{
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  }
+
+  /* logo fade cross-dissolve */
+  .logo-img{
+    transition: opacity .18s ease;
+    opacity: 1;
+  }
+  .logo-img.fade-out{ opacity: 0; }
+  .logo-img.fade-in{ opacity: 1; }
+</style>
+
+
 </head>
 <body class="bg-white text-black font-sans">
     <main class="px-6 py-36">
@@ -47,6 +67,49 @@
                                 <p class="text-center my-3 text-sm md:text-xl font-medium">
                         Leave a review and your exclusive coupon will be emailed instantly.
                     </p>
+
+<!-- Order Source + Order/Receipt ID -->
+<div class="space-y-3">
+  <p class="text-sm font-medium">Where was your order placed?</p>
+
+  <!-- Logo buttons: stack on mobile, side-by-side on >= sm -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+<!-- Website -->
+<button type="button" id="btnWebsite"
+  class="order-src-btn flex items-center justify-center border-2 border-gray-300 p-2 h-14 w-full sm:h-16"
+  aria-pressed="true" aria-label="Website order (Karry Kraze)">
+  <img id="websiteLogo" src="/imgs/Logo/Short/SL_0607.png" alt="Karry Kraze" class="h-8 sm:h-9 w-auto" loading="lazy" />
+</button>
+
+<!-- Etsy -->
+<button type="button" id="btnEtsy"
+  class="order-src-btn flex items-center justify-center border-2 border-gray-300 p-2 h-14 w-full sm:h-16"
+  aria-pressed="false" aria-label="Etsy order">
+  <img id="etsyLogo" src="/imgs/Logo/Brands/Etsy.png" alt="Etsy" class="h-7 sm:h-8 w-auto" loading="lazy" />
+</button>
+
+  </div>
+
+<!-- Order/Receipt ID input -->
+<div class="space-y-1">
+  <input
+    id="orderIdInput"
+    name="orderId"
+    required
+    placeholder="Enter your Order Number  EX: XXXX-XXXX"
+    class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]"
+    autocomplete="off" spellcheck="false"
+  />
+  <input type="hidden" id="orderSource" name="orderSource" value="website" />
+  <p id="orderHelp" class="text-xs text-gray-500">
+    Tip: For website orders, use the Order Number shown in your confirmation email.
+  </p>
+</div>
+
+</div>
+
+
+
             <!-- Product Dropdown -->
             <div>
                 <input type="hidden" name="product" id="selectedProduct" required />
@@ -58,8 +121,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div id="dropdownList"
-                         class="absolute z-10 w-full mt-2 bg-white  border-2 shadow hidden overflow-hidden">
+<div id="dropdownList"
+     class="absolute z-50 w-full mt-2 bg-white border-2 shadow hidden overflow-hidden">
+
                         <div class="p-2">
                             <input type="text" id="productSearch" placeholder="Search products..."
                                    class="w-full p-2  border-2 border-gray-300  text-sm" />
@@ -163,14 +227,28 @@
             </label>
 
             <!-- Submit Button -->
-            <button type="submit"
-                    class="bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 px-6  font-semibold transition duration-200 w-full">
-                Submit Review
-            </button>
+<button type="submit"
+        class="bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 px-6 font-semibold transition duration-200 w-full">
+  Submit Review
+</button>
+
+<!-- Help / Contact -->
+<div class="text-center mt-4">
+  <p class="text-sm text-gray-600">
+    Having trouble submitting your review?
+  </p>
+  <a href="/pages/contact.html"
+     class="inline-block mt-2 px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 transition">
+    Contact Us
+  </a>
+</div>
+
         </form>
 
     </section>
     <p id="formStatus" class="text-sm mt-2 font-semibold text-center"></p>
+
+    
 
 
     <!-- Footer -->
