@@ -43,7 +43,7 @@ export async function renderAllReviews(productId = null) {
       },
       KarryKraze: {
         key: "KarryKraze",
-        logo: "/imgs/Logo/short/SL_0607.png",
+        logo: "/imgs/Logo/Short/SL_0607.png",
         badgeBg: "#fedcc1",
         borderColor: "#fedcc1",
         textOnBadge: "#000000"

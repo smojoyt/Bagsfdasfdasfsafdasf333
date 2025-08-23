@@ -55,7 +55,7 @@ export function createReviewCard(review, products) {
       borderColor: "#FF7313"
     },
     KarryKraze: {
-      img: "imgs/Logo/short/SL_0607.png",
+      img: "imgs/Logo/Short/SL_0607.png",
       // badge bg cream (#fedcc1) per your request
       badgeClasses: "bg-[#fedcc1] rounded-tr-md border flex items-center",
       borderColor: "#fedcc1"
