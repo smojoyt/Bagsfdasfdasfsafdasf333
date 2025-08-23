@@ -141,18 +141,28 @@ function setupOrderSourceUI() {
     });
   });
 
-  // validity on blur
-  input.addEventListener("blur", () => {
-    const val = input.value.trim();
-    if (source.value === "KK") {
-      const ok = /^[A-Za-z0-9]{8}$/.test(val);
-      input.setCustomValidity(ok ? "" : "Please enter exactly 8 letters/numbers.");
-      return;
-    }
-    // Etsy
+input.addEventListener("blur", () => {
+  console.log("Current orderSource:", source.value);  // 👈 debug check
+
+  const val = input.value.trim();
+
+  if (source.value === "KarryKraze" || source.value === "KK") {
+    const ok = /^[A-Za-z0-9]{8}$/.test(val);
+    input.setCustomValidity(ok ? "" : "Please enter exactly 8 letters/numbers.");
+    return;
+  }
+
+  if (source.value === "Etsy") {
     const ok = /^[0-9]{10}$/.test(val);
     input.setCustomValidity(ok ? "" : "Please enter exactly 10 digits.");
-  });
+    return;
+  }
+
+  // fallback (optional)
+  input.setCustomValidity("");
+});
+
+
 }
 
 /* ---------------------------
