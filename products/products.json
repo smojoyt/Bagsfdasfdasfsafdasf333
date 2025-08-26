@@ -1465,12 +1465,12 @@
   "custom1Name": "Color",
   "custom1Options": "Blue | Green | Purple | Pink | White | Brown",
   "variantStock": {
-    "Blue": 5,
-    "Green": 5,
-    "Purple": 5,
-    "Pink": 5,
-    "White": 5,
-    "Brown": 5
+    "Blue": 0,
+    "Green": 0,
+    "Purple": 0,
+    "Pink": 0,
+    "White": 0,
+    "Brown": 0
   },
   "variantImages": {
     "Blue": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Fluffy_Labubu_Bunnies/Blue01.jpg",
@@ -1661,10 +1661,10 @@
     "Keep away from fire or heat sources",
     "Contains small parts — not suitable for children under 12"
   ],
-  "custom1Name": "Color",
+  "custom1Name": "Style",
   "custom1Options": "Default",
   "variantStock": {
-    "Default": 3
+    "Default": 1
   },
   "variantImages": {
     "Default": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Cool/Cool01.jpg"
@@ -2309,9 +2309,9 @@
   "price": 7.99,
   "weight_oz": 0.6,
   "tags": ["aldi", "charms", "quarter holder", "shopping cart", "fob", "embroidered", "handmade"],
-  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Aldi/02.jpg",
-  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Aldi/03.jpg",
-  "image": "https://karrykraze.com/imgs/Products/Pendants/Aldi/02.jpg",
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Aldi/03.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Aldi/04.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Aldi/03.jpg",
   "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Aldi_Pendant_KeyFob",
   "banner": "https://karrykraze.com/imgs/Products/Pendants/Aldi/04.jpg",
   "descriptionList": [
