@@ -2138,63 +2138,6 @@
   ]
 },
 
-"Plush_Flower_Bouquet": {
-  "name": "Smiley Plush Flower Bouquet",
-  "category": "plushy",
-  "product_id": "KK-1044",
-  "price": 14.97,
-  "weight_oz": 5.5,
-  "tags": ["Plush", "Bouquet", "Flowers", "Roses", "Kawaii", "Gift-ready", "Home decor"],
-  "catalogImage": "https://karrykraze.com/imgs/Products/Plushy/Flower/02.jpg",
-  "catalogImageHover": "https://karrykraze.com/imgs/Products/Plushy/Flower/06.jpg",
-  "image": "https://karrykraze.com/imgs/Products/Plushy/Flower/02.jpg",
-  "url": "https://www.karrykraze.com/pages/product.html?sku=Plush_Flower_Bouquet",
-  "banner": "https://karrykraze.com/imgs/Products/Plushy/Flower/09.jpg",
-  "descriptionList": [
-    "Adorable plush bouquet with a smiling wrap and soft velvety petals",
-    "Choose from a pastel mix or classic red roses—both super cuddly",
-    "Perfect gift substitute for real flowers that lasts forever",
-    "Cute desk, shelf, or bed accent; great for birthdays and Valentine’s Day"
-  ],
-  "sizingList": [
-    "Height: ~11–12 in (28–30 cm)",
-    "Width (top of bouquet): ~6–7 in (15–18 cm)",
-    "Stem/handle diameter: ~2 in (5 cm)",
-    "Weight: ~5.5 oz"
-  ],
-  "keyDetails": [
-    "Ultra-soft plush fabric with embroidered smile",
-    "Stuffed petals and leaves hold their shape",
-    "Stands upright when leaned or placed in a small vase",
-    "Handmade look—slight variations add charm"
-  ],
-  "careInstructions": [
-    "Spot clean with mild soap and water",
-    "Air dry only; do not machine wash or tumble dry",
-    "Keep away from open flames and high heat"
-  ],
-  "custom1Name": "Style",
-  "custom1Options": "Pastel Bouquet | Red Roses",
-  "variantStock": {
-    "Pastel Bouquet": 0,
-    "Red Roses": 0
-  },
-  "variantImages": {
-    "Pastel Bouquet": "https://karrykraze.com/imgs/Products/Plushy/Flower/02.jpg",
-    "Red Roses": "https://karrykraze.com/imgs/Products/Plushy/Flower/06.jpg"
-  },
-  "thumbnails": [
-    "https://karrykraze.com/imgs/Products/Plushy/Flower/01.jpg",
-    "https://karrykraze.com/imgs/Products/Plushy/Flower/02.jpg",
-    "https://karrykraze.com/imgs/Products/Plushy/Flower/03.jpg",
-    "https://karrykraze.com/imgs/Products/Plushy/Flower/04.jpg",
-    "https://karrykraze.com/imgs/Products/Plushy/Flower/05.jpg",
-    "https://karrykraze.com/imgs/Products/Plushy/Flower/06.jpg",
-    "https://karrykraze.com/imgs/Products/Plushy/Flower/07.jpg",
-    "https://karrykraze.com/imgs/Products/Plushy/Flower/08.jpg",
-    "https://karrykraze.com/imgs/Products/Plushy/Flower/09.jpg"
-  ]
-},
 
 "Plush_Positive_Poo": {
   "name": "Positive Poo – Tiny Motivator Plush",
@@ -2235,7 +2178,7 @@
   "custom1Name": "Color",
   "custom1Options": "Brown",
   "variantStock": {
-    "Brown": 0
+    "Brown": 5
   },
   "variantImages": {
     "Brown": "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg"
