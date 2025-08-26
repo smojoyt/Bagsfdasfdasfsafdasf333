@@ -2066,53 +2066,23 @@
   ]
 },
 
-"Charms_Keychain_AldiQuarterHolder": {
-  "name": "ALDI Quarter Holder Keychain",
-  "category": "charms",
-  "product_id": "KK-1042",
-  "price": 6.97,
-  "weight_oz": 0.7,
-  "tags": ["ALDI", "quarter holder", "shopping cart coin", "keychain", "grocery", "snap tab"],
-  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg",
-  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg",
-  "image": "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg",
-  "url": "https://karrykraze.com/pages/product.html?sku=Charms_Keychain_AldiQuarterHolder",
-  "banner": "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg",
-  "descriptionList": [
-    "Keep a quarter ready for ALDI shopping carts with this handy pocket keychain",
-    "Blue faux-leather snap tab with embroidered cart and ALDI lettering",
-    "Snug front pocket fits a US quarter (25¢) or most cart tokens",
-    "Includes standard split key ring to attach to keys, bags, or lanyards"
-  ],
-  "sizingList": [
-    "Overall size: approx. 3.75 x 2.0 in (9.5 x 5 cm)",
-    "Quarter pocket sized for standard US quarter",
-    "Key ring: ~1 in (2.5 cm) diameter",
-    "Weight: ~0.7 oz"
-  ],
-  "keyDetails": [
-    "Durable PU leather with satin stitching",
-    "Secure snap tab loop for the key ring",
-    "Handmade—slight variations add character",
-    "Not affiliated with or endorsed by ALDI"
-  ],
-  "careInstructions": [
-    "Wipe clean with a damp cloth",
-    "Do not machine wash or tumble dry",
-    "Avoid prolonged soaking and excessive heat"
-  ],
-  "custom1Name": "color",
-  "custom1Options": "Blue",
-  "variantStock": {
-    "Blue": 0
-  },
-  "variantImages": {
-    "Blue": "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg"
-  },
-  "thumbnails": [
-    "https://karrykraze.com/imgs/Products/Pendants/Aldi/01.jpg"
-  ]
-},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 "Charm_Flower_Wristlet": {
   "name": "Floral Wristlet Keychain",
@@ -2234,10 +2204,10 @@
   "weight_oz": 1.8,
   "tags": ["Plush", "Amigurumi", "Crochet", "Desk buddy", "Gag gift", "Motivation"],
   "catalogImage": "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg",
-  "catalogImageHover": "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Plushy/Poop/02.jpg",
   "image": "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg",
   "url": "https://www.karrykraze.com/pages/product.html?sku=Plush_Positive_Poo",
-  "banner": "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg",
+  "banner": "https://karrykraze.com/imgs/Products/Plushy/Poop/03.jpg",
   "descriptionList": [
     "Adorable crochet-style poo plush holding a tiny encouragement sign",
     "Big googly eyes and a friendly smile—instant mood booster for your desk",
@@ -2271,15 +2241,20 @@
     "Brown": "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg"
   },
   "thumbnails": [
-    "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg"
+    "https://karrykraze.com/imgs/Products/Plushy/Poop/01.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Poop/02.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Poop/03.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Poop/04.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Poop/05.jpg"
   ]
 },
+
 
 "Jewelry_Bracelet_LabubuCharms": {
   "name": "Labubu Charm Bracelet",
   "category": "jewelry",
   "product_id": "KK-1047",
-  "price": 12.99,
+  "price": 16.99,
   "weight_oz": 1.6,
   "tags": ["bracelet", "charms", "Labubu", "kawaii", "gift-ready", "gold-tone"],
   "catalogImage": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/02.jpg",
@@ -2383,7 +2358,168 @@
     "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/03.jpg",
     "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/04.jpg"
   ]
+},
+"Charm_Aldi_Pendant_KeyFob": {
+  "name": "Aldi Quarter Holder Keychain",
+  "category": "charms",
+  "product_id": "KK-1049",
+  "price": 7.99,
+  "weight_oz": 0.6,
+  "tags": ["aldi", "charms", "quarter holder", "shopping cart", "fob", "embroidered", "handmade"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Aldi/02.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Aldi/03.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Aldi/02.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Aldi_Pendant_KeyFob",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Aldi/04.jpg",
+  "descriptionList": [
+    "Handmade keychain with Aldi-inspired embroidered design",
+    "Built-in slot to securely hold a quarter for shopping carts",
+    "Durable faux-leather base with stitched edges",
+    "Convenient snap closure and keyring attachment"
+  ],
+  "sizingList": [
+    "Dimensions: ~2 x 3 in (excluding keyring)",
+    "Fits U.S. quarter or similar sized coin",
+    "Weight: ~0.6 oz"
+  ],
+  "keyDetails": [
+    "Embroidered fabric with faux leather backing",
+    "Metal keyring included",
+    "Snap button for easy closure",
+    "Handmade; slight variations may occur"
+  ],
+  "careInstructions": [
+    "Spot clean with damp cloth",
+    "Avoid machine washing or soaking",
+    "Do not iron directly on embroidery",
+    "Keep away from sharp objects to prevent snagging"
+  ],
+  "custom1Name": "Color",
+  "custom1Options": "Blue",
+  "variantStock": {
+    "Blue": 10
+  },
+  "variantImages": {
+    "Blue": "https://karrykraze.com/imgs/Products/Pendants/Aldi/05.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Aldi/02.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Aldi/03.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Aldi/04.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Aldi/05.jpg"
+  ]
+},
+"Plushy_Flower_Bouquet": {
+  "name": "Plush Flower Bouquet",
+  "category": "plushy",
+  "product_id": "KK-1050",
+  "price": 24.99,
+  "weight_oz": 4.0,
+  "tags": ["plush", "bouquet", "flowers", "gift", "valentine", "anniversary", "cute", "decor"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Plushy/Flower/01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Plushy/Flower/02.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Plushy/Flower/01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Plushy_Flower_Bouquet",
+  "banner": "https://karrykraze.com/imgs/Products/Plushy/Flower/03.jpg",
+  "descriptionList": [
+    "Adorable plush bouquet with smiling flower wraps",
+    "Soft, huggable fabric with embroidered details",
+    "Perfect for birthdays, anniversaries, Valentine’s Day, or just because",
+    "Unique alternative to real flowers that last forever"
+  ],
+  "sizingList": [
+    "Bouquet height: ~8–10 in",
+    "Bouquet width: ~4–6 in",
+    "Weight: ~4 oz"
+  ],
+  "keyDetails": [
+    "Made from soft plush fabric with stitched faces",
+    "Comes pre-wrapped in a smiling brown wrap",
+    "Durable stitching ensures long-lasting keepsake",
+    "Each bouquet may vary slightly in flower arrangement"
+  ],
+  "careInstructions": [
+    "Spot clean only",
+    "Do not machine wash or tumble dry",
+    "Keep away from open flames",
+    "Air dry if fabric becomes damp"
+  ],
+  "custom1Name": "Style",
+  "custom1Options": "Red Roses | Mixed Flowers",
+  "variantStock": {
+    "Red Roses": 0,
+    "Mixed Flowers": 10
+  },
+  "variantImages": {
+    "Red Roses": "https://karrykraze.com/imgs/Products/Plushy/Flower/04.jpg",
+    "Mixed Flowers": "https://karrykraze.com/imgs/Products/Plushy/Flower/05.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/01.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/02.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/03.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/04.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/05.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/06.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/07.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/08.jpg",
+    "https://karrykraze.com/imgs/Products/Plushy/Flower/09.jpg"
+  ]
+},
+
+"Charms_Shark_Constellation": {
+  "name": "Constellation Shark Pendant Keychain",
+  "category": "charms",
+  "product_id": "KK-1051",
+  "price": 3.99,
+  "weight_oz": 1.2,
+  "tags": ["shark", "keychain", "pendant", "charm", "constellation", "ocean", "stars", "cute", "gift"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Shark/01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Shark/02.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Shark/01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charms_Shark_Constellation",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Shark/03.jpg",
+  "descriptionList": [
+    "Adorable shark pendant keychain with constellation design",
+    "Shiny deep-blue finish with white star patterns",
+    "Durable keyring and lobster clasp for easy attachment",
+    "Perfect for ocean lovers, stargazers, or unique gift giving"
+  ],
+  "sizingList": [
+    "Pendant length: ~3 in",
+    "Pendant width: ~1.5 in",
+    "Weight: ~1.2 oz"
+  ],
+  "keyDetails": [
+    "Made of high-quality resin with metallic sheen",
+    "Printed constellation patterns on body",
+    "Attached to sturdy chain and keyring",
+    "Lightweight yet durable for everyday use"
+  ],
+  "careInstructions": [
+    "Wipe clean with soft cloth",
+    "Avoid harsh chemicals or solvents",
+    "Keep away from extreme heat to prevent warping",
+    "Store in a cool, dry place when not in use"
+  ],
+  "custom1Name": "Color",
+  "custom1Options": "Constellation Blue",
+  "variantStock": {
+    "Constellation Blue": 15
+  },
+  "variantImages": {
+    "Constellation Blue": "https://karrykraze.com/imgs/Products/Pendants/Shark/04.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Shark/01.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Shark/02.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Shark/03.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Shark/04.jpg"
+  ]
 }
+
+
+
 
 
 
