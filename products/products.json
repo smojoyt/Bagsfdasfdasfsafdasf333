@@ -2152,12 +2152,12 @@
   "name": "Floral Wristlet Keychain",
   "category": "charms",
   "product_id": "KK-1043",
-  "price": 8.97,
+  "price": 7.99,
   "weight_oz": 1.2,
   "tags": ["Charms", "Keychain", "Wristlet", "Floral", "Daisy", "Gift-ready"],
-  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Flower/01.jpg",
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Flower/All.jpg",
   "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Flower/02.jpg",
-  "image": "https://karrykraze.com/imgs/Products/Pendants/Flower/01.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Flower/All.jpg",
   "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Flower_Wristlet",
   "banner": "https://karrykraze.com/imgs/Products/Pendants/Flower/03.jpg",
   "descriptionList": [
@@ -2184,11 +2184,11 @@
     "Avoid prolonged moisture to preserve hardware finish"
   ],
   "custom1Name": "Style",
-  "custom1Options": "Black Daisy, Peach Floral, Sage Daisy",
+  "custom1Options": "Black Daisy | Peach Floral | Sage Daisy",
   "variantStock": {
-    "Black Daisy": 0,
-    "Peach Floral": 0,
-    "Sage Daisy": 0
+    "Black Daisy": 3,
+    "Peach Floral": 3,
+    "Sage Daisy": 3
   },
   "variantImages": {
     "Black Daisy": "https://karrykraze.com/imgs/Products/Pendants/Flower/01.jpg",
@@ -2196,6 +2196,7 @@
     "Sage Daisy": "https://karrykraze.com/imgs/Products/Pendants/Flower/03.jpg"
   },
   "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Flower/All.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Flower/01.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Flower/02.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Flower/03.jpg"
@@ -2309,61 +2310,64 @@
   ]
 },
 
-"Jewelry_Ring_FloralBloom": {
-  "name": "Floral Bloom Adjustable Rings (Gold-Tone)",
+"Jewelry_Rings_Floral": {
+  "name": "Dainty Floral & Butterfly Adjustable Rings",
   "category": "jewelry",
-  "product_id": "KK-1048",
-  "price": 19.99,
-  "weight_oz": 0.4,
-  "tags": ["ring", "adjustable", "gold-tone", "floral", "butterfly", "dainty", "gift-ready"],
-  "catalogImage": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/01.jpg",
-  "catalogImageHover": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/02.jpg",
-  "image": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/01.jpg",
-  "url": "https://www.karrykraze.com/pages/product.html?sku=Jewelry_Ring_FloralBloom",
-  "banner": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/03.jpg",
+  "product_id": "KK-1060",
+  "price": 9.99,
+  "weight_oz": 0.2,
+  "tags": [
+    "gold ring", "adjustable ring", "butterfly ring", "floral ring",
+    "pastel jewelry", "kawaii", "fairycore", "stacking ring",
+    "gift for her", "pink purple ring"
+  ],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/01.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/02.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/01.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Jewelry_Rings_Floral",
+  "banner": "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/05.jpg",
   "descriptionList": [
-    "Delicate, adjustable rings with pastel stones and floral motifs",
-    "Gold-tone finish for a dainty, stackable look",
-    "Choose from four designs: pink blossom trio, butterfly garland, crystal vine, or heart charm",
-    "Perfect for everyday wear, gifts, or ring stacks"
+    "Delicate gold-tone adjustable rings with pastel stones",
+    "Mix of butterfly, floral, and heart-accent designs",
+    "Lightweight and comfy—perfect for stacking or gifting"
   ],
   "sizingList": [
-    "Adjustable fit: roughly US size 6–8",
-    "Band width: ~1.5–2 mm (varies by style)",
-    "Center motif: ~6–12 mm",
-    "Weight: ~0.4 oz each"
+    "Adjustable fit: approx. US 6–9",
+    "Band width: ~2 mm",
+    "Material: gold-plated alloy, cubic zirconia/resin stones"
   ],
   "keyDetails": [
-    "Gold-tone alloy with glass/acrylic stones",
-    "Open-back designs allow gentle size adjustment",
-    "Smooth interior band for comfortable wear",
-    "Hand-assembled; minor variations may occur"
+    "Five dreamy designs to choose from",
+    "Smooth finish with secure prong settings",
+    "Nickel-free plating; comfy daily wear"
   ],
   "careInstructions": [
-    "Avoid water, lotions, and perfumes",
-    "Remove before bathing, swimming, or heavy activity",
-    "Store in a dry pouch to reduce tarnish",
-    "Wipe with a soft cloth after wear"
+    "Avoid water, perfumes, lotions, and harsh cleaners",
+    "Store in a dry pouch when not in use",
+    "Polish gently with a soft jewelry cloth"
   ],
   "custom1Name": "Style",
-  "custom1Options": "Pink Blossom Trio | Butterfly Garland | Crystal Vine | Heart Charm",
+  "custom1Options": "Pink Blossom Cluster, Butterfly Garden Band, Twilight Vine Wrap, Sweetheart Charm Band, Lavender Dream Butterfly",
   "variantStock": {
-    "Pink Blossom Trio": 0,
-    "Butterfly Garland": 0,
-    "Crystal Vine": 0,
-    "Heart Charm": 0
+    "Pink Blossom Cluster": 1,
+    "Butterfly Garden Band": 1,
+    "Twilight Vine Wrap": 1,
+    "Sweetheart Charm Band": 1,
+    "Lavender Dream Butterfly": 1
   },
   "variantImages": {
-    "Pink Blossom Trio": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/01.jpg",
-    "Butterfly Garland": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/02.jpg",
-    "Crystal Vine": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/03.jpg",
-    "Heart Charm": "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/04.jpg"
+    "Pink Blossom Cluster": "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/01.jpg",
+    "Butterfly Garden Band": "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/02.jpg",
+    "Twilight Vine Wrap": "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/03.jpg",
+    "Sweetheart Charm Band": "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/04.jpg",
+    "Lavender Dream Butterfly": "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/05.jpg"
   },
   "thumbnails": [
-    "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/01.jpg",
-    "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/02.jpg",
-    "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/03.jpg",
-    "https://karrykraze.com/imgs/Products/Jewlery/Rings/Floral/04.jpg"
+    "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/01.jpg",
+    "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/02.jpg",
+    "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/03.jpg",
+    "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/04.jpg",
+    "https://karrykraze.com/imgs/Products/Jewelry/Rings/Floral/05.jpg"
   ]
 },
 "Charm_Aldi_Pendant_KeyFob": {
@@ -2523,7 +2527,69 @@
     "https://karrykraze.com/imgs/Products/Pendants/Shark/03.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Shark/04.jpg"
   ]
+},
+
+"Charms_GlossCap": {
+  "name": "Gloss Cap Pendant Keychain",
+  "category": "charms",
+  "product_id": "KK-1052",
+  "price": 3.99,
+  "weight_oz": 1.5,
+  "tags": ["lip gloss", "cap", "keychain", "pendant", "charm", "fashion", "bubble", "checker", "cute", "gift"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All1.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All2.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All1.jpg",
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charms_GlossCap",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All3.jpg",
+  "descriptionList": [
+    "Trendy lip gloss cap pendant keychain",
+    "Available in fun bubble and checker styles",
+    "Durable keyring and clasp for everyday use",
+    "Perfect as a stylish accessory or small gift"
+  ],
+  "sizingList": [
+    "Pendant length: ~2.5 in",
+    "Pendant width: ~0.8 in",
+    "Weight: ~1.5 oz"
+  ],
+  "keyDetails": [
+    "Made of high-quality resin and metal",
+    "Glossy finish with unique bubble and checker textures",
+    "Attached to sturdy chain and keyring",
+    "Lightweight yet durable"
+  ],
+  "careInstructions": [
+    "Wipe clean with soft cloth",
+    "Avoid harsh chemicals or solvents",
+    "Store in a cool, dry place when not in use"
+  ],
+  "custom1Name": "Style",
+  "custom1Options": "Pink Bubble, Purple Bubble, Checker Pink, Checker Purple",
+  "variantStock": {
+    "Pink Bubble": 10,
+    "Purple Bubble": 12,
+    "Checker Pink": 8,
+    "Checker Purple": 14
+  },
+  "variantImages": {
+    "Pink Bubble": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/PinkBubble.jpg",
+    "Purple Bubble": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All6.jpg",
+    "Checker Pink": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All5.JPG",
+    "Checker Purple": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All5.JPG"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All1.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All2.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All3.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All4.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All5.JPG",
+    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All6.JPG",
+    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/PinkBubble.jpg"
+  ]
 }
+
+
+
 
 
 
