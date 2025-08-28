@@ -2005,16 +2005,17 @@
 },
 "Charms_Keychain_ScrunchieWristlet": {
   "name": "Satin Scrunchie Wristlet Keychain",
-  "category": "accessories",
+  "category": "charms",
   "product_id": "KK-1041",
-  "price": 9.97,
+  "price": 7.99,
   "weight_oz": 1.6,
   "tags": ["keychain", "wristlet", "scrunchie", "satin", "gift-ready", "bracelet keychain"],
-  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Red.jpg",
-  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Blue.jpg",
-  "image": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Red.jpg",
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/All.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/All2.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/All.jpg",
   "url": "https://karrykraze.com/pages/product.html?sku=Charms_Keychain_ScrunchieWristlet",
-  "banner": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Flowers.jpg",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/All2.jpg",
+
   "descriptionList": [
     "Soft satin scrunchie-style wristlet that’s comfy to carry and easy to spot in a bag",
     "Antique-brass hardware with key ring and D-ring; lightweight but sturdy",
@@ -2028,8 +2029,8 @@
     "Weight: ~1.6 oz"
   ],
   "keyDetails": [
-    "Multiple color/pattern options",
-    "Antique-brass hardware; lobster clasp on select styles",
+    "Multiple color options",
+    "Antique-brass hardware",
     "Handmade; slight variations add unique character",
     "Pairs well with totes, backpacks, and lanyards"
   ],
@@ -2038,35 +2039,98 @@
     "Keep away from sharp objects to avoid snags",
     "Avoid prolonged moisture or oils to preserve hardware finish"
   ],
+
   "custom1Name": "color",
-  "custom1Options": "Black | Blue | Flowers | Pink | Polka | Red",
+  "custom1Options": "Black | Blue | Green | Pink | Red | Tan",
+
   "variantStock": {
-    "Black": 0,
-    "Blue": 0,
-    "Flowers": 0,
+    "Black": 3,
+    "Blue": 3,
+    "Green": 0,
     "Pink": 0,
-    "Polka": 0,
-    "Red": 0
+    "Red": 3,
+    "Tan": 3
   },
+
   "variantImages": {
-    "Black": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Black.jpg",
-    "Blue": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Blue.jpg",
-    "Flowers": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Flowers.jpg",
-    "Pink": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Pink.jpg",
-    "Polka": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Polka.jpg",
-    "Red": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Red.jpg"
+    "Black": "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Black.jpg",
+    "Blue": "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Blue.jpg",
+    "Green": "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Green.JPG",
+    "Pink": "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Pink.JPG",
+    "Red": "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Red.jpg",
+    "Tan": "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Tan.JPG"
   },
+
   "thumbnails": [
-    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Black.jpg",
-    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Blue.jpg",
-    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Flowers.jpg",
-    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Pink.jpg",
-    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Polka.jpg",
-    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Red.jpg"
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Black.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Blue.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Green.JPG",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Pink.JPG",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Red.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie2/Tan.JPG"
   ]
 },
 
 
+"Charms_Keychain_ScrunchieWristlet_2": {
+  "name": "Patterned Scrunchie Wristlet Keychain",
+  "category": "charms",
+  "product_id": "KK-1042",
+  "price": 7.99,
+  "weight_oz": 1.6,
+  "tags": ["keychain", "wristlet", "scrunchie", "fabric keychain", "bracelet keychain", "gift-ready"],
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/All.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/All2.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/All.jpg",
+  "url": "https://karrykraze.com/pages/product.html?sku=Charms_Keychain_ScrunchieWristlet_2",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/All3.jpg",
+  "descriptionList": [
+    "Trendy scrunchie-style wristlet keychain in multiple fabric patterns",
+    "Antique-brass hardware with key ring and swivel clasp; durable yet lightweight",
+    "Comfortable scrunchie fabric makes it easy to wear on your wrist",
+    "Perfect everyday accessory or quick gift"
+  ],
+  "sizingList": [
+    "Length (fabric section): ~4.5–5.5 in (11.5–14 cm)",
+    "Width: ~1 in (2.5 cm)",
+    "Key ring diameter: ~1 in (2.5 cm)",
+    "Weight: ~1.6 oz"
+  ],
+  "keyDetails": [
+    "5 unique pattern options",
+    "Antique-brass hardware with swivel clasp",
+    "Handmade; each piece may vary slightly",
+    "Pairs well with purses, backpacks, and totes"
+  ],
+  "careInstructions": [
+    "Spot clean only; do not machine wash",
+    "Keep away from sharp objects to avoid snags",
+    "Avoid prolonged moisture or oils to preserve hardware finish"
+  ],
+  "custom1Name": "style",
+  "custom1Options": "Polka Dot | Checkerboard | Green Stripe | Leopard | Gingham Daisy",
+  "variantStock": {
+    "Polka Dot": 5,
+    "Checkerboard": 0,
+    "Green Stripe": 0,
+    "Leopard": 0,
+    "Gingham Daisy": 5
+  },
+  "variantImages": {
+    "Polka Dot": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Polka.jpg",
+    "Checkerboard": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Checker.jpg",
+    "Green Stripe": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Stripe.jpg",
+    "Leopard": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Cheetah.jpg",
+    "Gingham Daisy": "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Flowers.jpg"
+  },
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Polka.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Checker.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Stripe.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Cheetah.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Scruchie/Flowers.jpg"
+  ]
+},
 
 
 
@@ -2232,7 +2296,7 @@
   "custom1Name": "Finish",
   "custom1Options": "Gold-Tone",
   "variantStock": {
-    "Gold-Tone": 5
+    "Gold-Tone": 4
   },
   "variantImages": {
     "Gold-Tone": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/02.jpg"
