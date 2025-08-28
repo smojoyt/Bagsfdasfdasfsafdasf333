@@ -2155,11 +2155,11 @@
   "price": 7.99,
   "weight_oz": 1.2,
   "tags": ["Charms", "Keychain", "Wristlet", "Floral", "Daisy", "Gift-ready"],
-  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Flower/All.jpg",
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Flower/All1.jpg",
   "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Flower/02.jpg",
-  "image": "https://karrykraze.com/imgs/Products/Pendants/Flower/All.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pendants/Flower/All1.jpg",
   "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_Flower_Wristlet",
-  "banner": "https://karrykraze.com/imgs/Products/Pendants/Flower/03.jpg",
+  "banner": "https://karrykraze.com/imgs/Products/Pendants/Flower/All2.jpg",
   "descriptionList": [
     "Soft fabric wristlet strap with floral print and antique-brass hardware",
     "Includes split keyring and lobster clasp for easy attachment",
@@ -2196,7 +2196,8 @@
     "Sage Daisy": "https://karrykraze.com/imgs/Products/Pendants/Flower/03.jpg"
   },
   "thumbnails": [
-    "https://karrykraze.com/imgs/Products/Pendants/Flower/All.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Flower/All1.jpg",
+    "https://karrykraze.com/imgs/Products/Pendants/Flower/All2.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Flower/01.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Flower/02.jpg",
     "https://karrykraze.com/imgs/Products/Pendants/Flower/03.jpg"
@@ -2313,7 +2314,7 @@
 "Jewelry_Rings_Floral": {
   "name": "Dainty Floral & Butterfly Adjustable Rings",
   "category": "jewelry",
-  "product_id": "KK-1060",
+  "product_id": "KK-1048",
   "price": 9.99,
   "weight_oz": 0.2,
   "tags": [
