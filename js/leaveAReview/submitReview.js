@@ -28,6 +28,30 @@ export function setupFormSubmit(storage) {
       return;
     }
 
+    // ⭐ Require star rating
+    if (!formData.get("rating")) {
+      showStatus(`Please choose a star rating.`, "error");
+      const wrap = document.getElementById("starRating");
+      wrap?.scrollIntoView({ behavior: "smooth", block: "center" });
+      wrap?.classList.add("ring-2","ring-red-500","rounded-md");
+      setTimeout(() => wrap?.classList.remove("ring-2","ring-red-500","rounded-md"), 1200);
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Review";
+      return;
+    }
+
+    // 🎯 Require quality selection
+    if (!formData.get("quality")) {
+      showStatus(`Please select a quality option.`, "error");
+      const qWrap = document.getElementById("qualityOptions");
+      qWrap?.scrollIntoView({ behavior: "smooth", block: "center" });
+      qWrap?.classList.add("ring-2","ring-red-500","rounded-md","p-1");
+      setTimeout(() => qWrap?.classList.remove("ring-2","ring-red-500","rounded-md","p-1"), 1200);
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Review";
+      return;
+    }
+
     // Normalize orderSource to a canonical key
     const rawSource = (formData.get("orderSource") || "").trim();
     const sourceKey = /etsy/i.test(rawSource)
@@ -41,7 +65,6 @@ export function setupFormSubmit(storage) {
     // --- Normalize & VALIDATE by source (NO TRUNCATION) ---
     let orderIdPlain = "";
     if (sourceKey === "Etsy") {
-      // Etsy Receipt ID: digits only, exactly 10
       const cleaned = rawOrderId.replace(/\D/g, "");
       if (cleaned.length !== 10) {
         showStatus(`Etsy Receipt ID must be exactly 10 digits.`, "error");
@@ -51,7 +74,6 @@ export function setupFormSubmit(storage) {
       }
       orderIdPlain = cleaned;
     } else if (sourceKey === "KarryKraze") {
-      // KK/KarryKraze Order ID: alphanumeric, exactly 8
       const cleaned = rawOrderId.replace(/[^A-Za-z0-9]/g, "");
       if (cleaned.length !== 8) {
         showStatus(`KarryKraze Order ID must be exactly 8 letters/numbers.`, "error");
@@ -61,7 +83,6 @@ export function setupFormSubmit(storage) {
       }
       orderIdPlain = cleaned;
     } else {
-      // Fallback (if you add more sources later)
       const cleaned = rawOrderId.replace(/[^A-Za-z0-9]/g, "");
       if (!cleaned) {
         showStatus(`Please enter a valid Order ID.`, "error");
@@ -130,8 +151,8 @@ export function setupFormSubmit(storage) {
       reviewHeadline: formData.get("reviewHeadline"),
       reviewText: formData.get("reviewText"),
       imageUrl,
-      orderSource: sourceKey,   // normalized
-      orderIdPlain              // full string; no truncation
+      orderSource: sourceKey,
+      orderIdPlain
     };
 
     // --- Send to Make webhook ---
