@@ -2624,10 +2624,9 @@
       "Store flat to prevent creases"
     ],
     "custom1Name": "Style",
-    "custom1Options": "Classic Black, Pink Bunny Ears",
+    "custom1Options": "Classic Black",
     "variantStock": {
-      "Classic Black": 15,
-      "Pink Bunny Ears": 12
+      "Classic Black": 15
     },
     "variantImages": {
       "Classic Black": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_02.jpg",
@@ -2677,11 +2676,10 @@
       "Spot clean fabric; air dry",
       "Keep away from solvents/heat"
     ],
-    "custom1Name": "Version",
-    "custom1Options": "Classic, Pink Beanie",
+    "custom1Name": "Style",
+    "custom1Options": "Classic",
     "variantStock": {
-      "Classic": 14,
-      "Pink Beanie": 10
+      "Classic": 14
     },
     "variantImages": {
       "Classic": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/j_03.jpg",
@@ -2739,8 +2737,7 @@
       "Pumpkin Cloak": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/p_01.jpg"
     },
     "thumbnails": [
-      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/p_01.jpg",
-      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_01.jpg"
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/p_01.jpg"
     ]
   },
 
