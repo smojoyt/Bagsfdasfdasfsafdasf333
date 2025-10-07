@@ -2788,5 +2788,111 @@
     "thumbnails": [
       "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/n_01.jpg"
     ]
+  },
+  "Jewelry_Bracelet_Halloween_Gold": {
+    "name": "Halloween Bracelet — Gold",
+    "category": "Jewlery",
+    "product_id": "KK-1057",
+    "price": 18.99,
+    "weight_oz": 0.9,
+    "tags": ["bracelet", "halloween", "gold", "Jewlery", "gift", "fashion", "spooky", "pumpkin", "ghost"],
+    "catalogImage": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_05.jpg",
+    "catalogImageHover": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_02.jpg",
+    "image": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_05.jpg",
+    "url": "https://karrykraze.com/pages/product.html?sku=Bracelet_Halloween_Gold",
+    "banner": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_04.jpg",
+    "descriptionList": [
+      "Gold-tone Halloween charm bracelet",
+      "Lightweight, comfy fit for everyday wear",
+      "Seasonal charms with detailed finishes",
+      "Great as a spooky-season gift or add-on"
+    ],
+    "sizingList": [
+      "Adjustable length: ~6.5–8.0 in",
+      "Charm size: ~0.5–0.8 in",
+      "Weight: ~0.9 oz"
+    ],
+    "keyDetails": [
+      "Gold-tone alloy with enamel accents",
+      "Lobster clasp with extender chain",
+      "Nickel-free hardware",
+      "Packed in protective pouch"
+    ],
+    "careInstructions": [
+      "Avoid water, perfumes, lotions",
+      "Wipe with soft dry cloth after wear",
+      "Store in pouch to prevent scratches"
+    ],
+    "custom1Name": "Color",
+    "custom1Options": "Gold",
+    "variantStock": {
+      "Gold": 20
+    },
+    "variantImages": {
+      "Gold": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_05.jpg"
+    },
+    "thumbnails": [
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_01.jpg",
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_02.jpg",
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_03.jpg",
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_04.jpg",
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_05.jpg",
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_06.jpg",
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Gold/g_07.jpg"
+    ]
+  },
+
+  "Jewelry_Bracelet_Halloween_Silver": {
+    "name": "Halloween Bracelet — Silver",
+    "category": "Jewlery",
+    "product_id": "KK-1058",
+    "price": 16.99,
+    "weight_oz": 0.9,
+    "tags": ["Braclet", "halloween", "silver", "Jewlery", "gift", "fashion", "spooky", "pumpkin", "ghost"],
+    "catalogImage": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_01.jpg",
+    "catalogImageHover": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_02.jpg",
+    "image": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_01.jpg",
+    "url": "https://karrykraze.com/pages/product.html?sku=Bracelet_Halloween_Silver",
+    "banner": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_04.jpg",
+    "descriptionList": [
+      "Silver-tone Halloween charm bracelet",
+      "Lightweight, comfy fit for everyday wear",
+      "Seasonal charms with detailed finishes",
+      "Perfect spooky-season gift or add-on"
+    ],
+    "sizingList": [
+      "Adjustable length: ~6.5–8.0 in",
+      "Charm size: ~0.5–0.8 in",
+      "Weight: ~0.9 oz"
+    ],
+    "keyDetails": [
+      "Silver-tone alloy with enamel accents",
+      "Lobster clasp with extender chain",
+      "Nickel-free hardware",
+      "Packed in protective pouch"
+    ],
+    "careInstructions": [
+      "Avoid water, perfumes, lotions",
+      "Wipe with soft dry cloth after wear",
+      "Store in pouch to prevent scratches"
+    ],
+    "custom1Name": "Color",
+    "custom1Options": "Silver",
+    "variantStock": {
+      "Silver": 20
+    },
+    "variantImages": {
+      "Silver": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_01.jpg"
+    },
+    "thumbnails": [
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_01.jpg",
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_02.jpg",
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_03.jpg",
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_04.jpg",
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_05.jpg",
+      "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_06.jpg"
+    ]
   }
+
+
 }
