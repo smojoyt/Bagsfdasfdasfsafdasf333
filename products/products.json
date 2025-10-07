@@ -2589,82 +2589,204 @@
   ]
 },
   "Outfit_Scream": {
-  "name": "Gloss Cap Pendant Keychain",
-  "category": "charms",
-  "product_id": "KK-1053",
-  "price": 3.99,
-  "weight_oz": 1.5,
-  "tags": ["lip gloss", "cap", "keychain", "pendant", "charm", "fashion", "bubble", "checker", "cute", "gift"],
-  "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All1.jpg",
-  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All2.jpg",
-  "image": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All1.jpg",
-  "url": "https://www.karrykraze.com/pages/product.html?sku=Charms_GlossCap",
-  "banner": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All3.jpg",
-  "descriptionList": [
-    "Trendy lip gloss cap pendant keychain",
-    "Available in fun bubble and checker styles",
-    "Durable keyring and clasp for everyday use",
-    "Perfect as a stylish accessory or small gift"
-  ],
-  "sizingList": [
-    "Pendant length: ~2.5 in",
-    "Pendant width: ~0.8 in",
-    "Weight: ~1.5 oz"
-  ],
-  "keyDetails": [
-    "Made of high-quality resin and metal",
-    "Glossy finish with unique bubble and checker textures",
-    "Attached to sturdy chain and keyring",
-    "Lightweight yet durable"
-  ],
-  "careInstructions": [
-    "Wipe clean with soft cloth",
-    "Avoid harsh chemicals or solvents",
-    "Store in a cool, dry place when not in use"
-  ],
-  "custom1Name": "Style",
-  "custom1Options": "Pink Bubble, Purple Bubble, Checker Pink, Checker Purple",
-  "variantStock": {
-    "Pink Bubble": 10,
-    "Purple Bubble": 12,
-    "Checker Pink": 8,
-    "Checker Purple": 14
+    "name": "Labubu Halloween Outfit — Scream Set",
+    "category": "outfits",
+    "product_id": "KK-1053",
+    "price": 13.99,
+    "weight_oz": 1.2,
+    "tags": ["labubu", "outfit", "halloween", "ghostface", "scream", "mask", "cloak", "pendant", "keychain", "cute", "gift"],
+    "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_02.jpg",
+    "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_03.png",
+    "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_02.jpg",
+    "url": "https://karrykraze.com/pages/product.html?sku=OutFit_Scream",
+    "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/a_01.jpg",
+    "descriptionList": [
+      "Scream-style mask cloak set sized for Labubu pendant/figure",
+      "Includes hooded cloak, mask and accessory pegs",
+      "Easy on/off design to change looks in seconds",
+      "Perfect spooky upgrade for display or keychain"
+    ],
+    "sizingList": [
+      "Fits standard Labubu pendant/body",
+      "Cloak length: ~2.7 in",
+      "Mask height: ~1.1 in",
+      "Weight: ~1.2 oz"
+    ],
+    "keyDetails": [
+      "Soft felt cloak with stitched hem",
+      "Lightweight molded mask with elastic/loop",
+      "Durable hardware for frequent swaps",
+      "Packed in small zip pouch"
+    ],
+    "careInstructions": [
+      "Spot clean; do not bleach",
+      "Air dry only",
+      "Store flat to prevent creases"
+    ],
+    "custom1Name": "Style",
+    "custom1Options": "Classic Black, Pink Bunny Ears",
+    "variantStock": {
+      "Classic Black": 15,
+      "Pink Bunny Ears": 12
+    },
+    "variantImages": {
+      "Classic Black": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_02.jpg",
+      "Pink Bunny Ears": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_03.png"
+    },
+    "thumbnails": [
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/a_01.jpg",
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/a_02.png",
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_01.jpg",
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_02.jpg",
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_03.png"
+    ]
   },
-  "variantImages": {
-    "Pink Bubble": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/PinkBubble.jpg",
-    "Purple Bubble": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All6.jpg",
-    "Checker Pink": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All5.JPG",
-    "Checker Purple": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All5.JPG"
+
+  "Outfit_Jason": {
+    "name": "Labubu Halloween Outfit — Jason Set",
+    "category": "outfits",
+    "product_id": "KK-1054",
+    "price": 13.99,
+    "weight_oz": 1.2,
+    "tags": ["labubu", "outfit", "halloween", "jason", "hockey mask", "slasher", "pendant", "keychain", "cute", "gift"],
+    "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/j_04.jpg",
+    "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/j_03.jpg",
+    "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/j_04.jpg",
+    "url": "https://karrykraze.com/pages/product.html?sku=OutFit_Jason",
+    "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/j_02.jpg",
+    "descriptionList": [
+      "Hockey-mask and workwear style outfit sized for Labubu",
+      "Mask, jacket, and prop accessory included (where shown)",
+      "Snug fit with easy swap design",
+      "Great for horror-themed displays or photos"
+    ],
+    "sizingList": [
+      "Fits standard Labubu pendant/body",
+      "Mask height: ~1.1 in",
+      "Jacket length: ~2.6 in",
+      "Weight: ~1.2 oz"
+    ],
+    "keyDetails": [
+      "Molded mask with strap/loop",
+      "Soft fabric clothing pieces",
+      "Painted details for weathered look",
+      "Small-parts friendly packaging"
+    ],
+    "careInstructions": [
+      "Wipe mask with soft cloth",
+      "Spot clean fabric; air dry",
+      "Keep away from solvents/heat"
+    ],
+    "custom1Name": "Version",
+    "custom1Options": "Classic, Pink Beanie",
+    "variantStock": {
+      "Classic": 14,
+      "Pink Beanie": 10
+    },
+    "variantImages": {
+      "Classic": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/j_03.jpg",
+      "Pink Beanie": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/j_10.jpg"
+    },
+    "thumbnails": [
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/j_02.jpg",
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/j_03.jpg",
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/j_04.jpg",
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/j_10.jpg"
+    ]
   },
-  "thumbnails": [
-    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All1.jpg",
-    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All2.jpg",
-    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All3.jpg",
-    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All4.jpg",
-    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All5.JPG",
-    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All6.JPG",
-    "https://karrykraze.com/imgs/Products/Pendants/GlossCap/PinkBubble.jpg"
-  ]
-}
 
+  "Outfit_Pumpkin": {
+    "name": "Labubu Halloween Outfit — Pumpkin Set",
+    "category": "outfits",
+    "product_id": "KK-1055",
+    "price": 11.99,
+    "weight_oz": 1.0,
+    "tags": ["labubu", "outfit", "halloween", "pumpkin", "jack-o-lantern", "cape", "pendant", "keychain", "cute", "gift"],
+    "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/p_01.jpg",
+    "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_01.jpg",
+    "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/p_01.jpg",
+    "url": "https://karrykraze.com/pages/product.html?sku=OutFit_Pumpkin",
+    "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/a_01.jpg",
+    "descriptionList": [
+      "Jack-o’-lantern themed mini cloak with button eyes and accessories",
+      "Lightweight parts sized for Labubu pendant/figure",
+      "Easy to assemble and remove",
+      "Perfect for fall photos and gifts"
+    ],
+    "sizingList": [
+      "Fits standard Labubu pendant/body",
+      "Cloak length: ~2.5 in",
+      "Pumpkin accessory diameter: ~1.2 in",
+      "Weight: ~1.0 oz"
+    ],
+    "keyDetails": [
+      "Soft felt fabric with cutout edge",
+      "Snap/loop accessories for secure fit",
+      "Kid-friendly rounded parts",
+      "Ships with small parts bag"
+    ],
+    "careInstructions": [
+      "Spot clean fabric",
+      "Do not machine wash",
+      "Store flat when not in use"
+    ],
+    "custom1Name": "Style",
+    "custom1Options": "Pumpkin Cloak",
+    "variantStock": {
+      "Pumpkin Cloak": 18
+    },
+    "variantImages": {
+      "Pumpkin Cloak": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/p_01.jpg"
+    },
+    "thumbnails": [
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/p_01.jpg",
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/s_01.jpg"
+    ]
+  },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  "Outfit_NarutoHat": {
+    "name": "Labubu Outfit — Naruto Mask",
+    "category": "outfits",
+    "product_id": "KK-1056",
+    "price": 7.99,
+    "weight_oz": 0.8,
+    "tags": ["labubu", "outfit", "naruto", "beanie", "hat", "anime", "pendant", "keychain", "cosplay", "cute", "gift"],
+    "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/n_01.jpg",
+    "catalogImageHover": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/n_01.jpg",
+    "image": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/n_01.jpg",
+    "url": "https://karrykraze.com/pages/product.html?sku=OutFit_NarutoHat",
+    "banner": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/a_02.png",
+    "descriptionList": [
+      "Orange ninja-style mask sized for Labubu",
+      "Soft, stretchy fabric for a snug, secure fit",
+      "Quick swap accessory for daily display changes",
+      "Pairs great with Halloween or anime themes"
+    ],
+    "sizingList": [
+      "Fits standard Labubu pendant/body",
+      "Hat height: ~1.2 in (unstretched)",
+      "Weight: ~0.8 oz"
+    ],
+    "keyDetails": [
+      "Elastic knit material",
+      "Finished edge to reduce fray",
+      "Lightweight for keychain or shelf display"
+    ],
+    "careInstructions": [
+      "Hand wash cold if needed",
+      "Lay flat to dry",
+      "Avoid heat or bleach"
+    ],
+    "custom1Name": "Color",
+    "custom1Options": "Orange",
+    "variantStock": {
+      "Orange": 20
+    },
+    "variantImages": {
+      "Orange": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/n_01.jpg"
+    },
+    "thumbnails": [
+      "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/Halloween/n_01.jpg"
+    ]
+  }
 }
