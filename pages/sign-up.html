@@ -7,13 +7,13 @@
 
   <!-- Meta / SEO -->
   <meta name="description" content="$5 Off Your Next Order — claim your coupon instantly."/>
-  <link rel="canonical" href="https://www.karrykraze.com/pages/signup.html"/>
+  <link rel="canonical" href="https://www.karrykraze.com/pages/sign-up.html"/>
   <meta name="robots" content="index,follow"/>
   <meta name="theme-color" content="#000000"/>
 
   <!-- Open Graph -->
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://www.karrykraze.com/pages/signup.html"/>
+  <meta property="og:url" content="https://www.karrykraze.com/pages/sign-up.html"/>
   <meta property="og:title" content="Sign Up – Karry Kraze"/>
   <meta property="og:description" content="$5 Off Your Next Order — claim your coupon instantly."/>
   <meta property="og:image" content="https://www.karrykraze.com/imgs/Pages/SignUp_01.jpg"/>
@@ -36,166 +36,241 @@
 
   <style>
     /* Skip link */
-    .skip-link {
-      position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
-    }
-    .skip-link:focus { position:static; width:auto; height:auto; padding:0.5rem 1rem; background:#000; color:#fff; }
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
+    .skip-link:focus{position:static;width:auto;height:auto;padding:.5rem 1rem;background:#000;color:#fff;}
 
-    /* Honeypot — visually hidden but accessible to AT if focused */
-    .hp-field {
-      position: absolute !important;
-      left: -10000px !important;
-      top: auto !important;
-      width: 1px !important;
-      height: 1px !important;
-      overflow: hidden !important;
-    }
+    /* Honeypot */
+    .hp-field{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important;}
 
-    /* Respect prefers-reduced-motion */
-    @media (prefers-reduced-motion: reduce) {
-      .motion-safe\:animate-spin { animation: none !important; }
-    }
+    /* Motion */
+    @media (prefers-reduced-motion: reduce){.motion-safe\:animate-spin{animation:none!important}}
+
+    /* Accent focus ring */
+    .kk-focus{outline:none;box-shadow:0 0 0 2px rgba(0,0,0,0),0 0 0 4px rgba(248,131,121,.35)}
   </style>
 </head>
 
-<body class="bg-white text-black font-sans">
+<body class="bg-white text-black font-sans antialiased">
   <a href="#couponForm" class="skip-link">Skip to form</a>
 
-  <main id="main" class="px-6 py-24 md:py-32">
+  <!-- Background -->
+  <div class="fixed inset-0 -z-10">
+    <div class="absolute inset-0 bg-gradient-to-b from-white via-[#fff8f3] to-white"></div>
+    <div class="absolute inset-x-0 top-0 h-64 opacity-40"
+         style="background: radial-gradient(600px 160px at 50% 0%, rgba(248,131,121,.20), transparent 70%);"></div>
+  </div>
+
+  <main id="main" class="px-6 py-20 md:py-28">
     <div class="max-w-[108rem] mx-auto">
 
       <!-- Banner -->
-      <header id="signup-banner"
-              class="relative w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center">
-        <picture class="absolute inset-0 w-full h-full">
-          <source media="(min-width:1024px)" srcset="/imgs/Banner/KK_01.jpg">
-          <img src="/imgs/Banner/KK_01.jpg" alt="" class="w-full h-full object-cover" decoding="async" loading="lazy">
-        </picture>
+      <header class="relative w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center rounded-md overflow-hidden shadow-[0_1px_0_#000]">
+        <img src="/imgs/Banner/KK_01.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" decoding="async" loading="lazy">
         <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%]">
-          <h1 class="text-black bg-white m-4 px-3 py-2 sm:px-6 sm:py-3 font-bold tracking-wider uppercase text-2xl">
+          <h1 class="text-black bg-white/95 px-4 py-2 sm:px-6 sm:py-3 font-bold tracking-wider uppercase text-2xl shadow">
             $5 Off Your Next Order
           </h1>
         </div>
       </header>
 
-      <!-- Signup Form -->
-      <section class="relative px-4 py-10 max-w-xl mx-auto">
-        <!-- Live error/success region -->
-        <div id="formStatus" class="sr-only" aria-live="assertive" tabindex="-1"></div>
+      <!-- Content -->
+      <section class="relative mt-10 grid lg:grid-cols-2 gap-10 items-stretch">
+        <!-- Left: Form Card -->
+        <div class="backdrop-blur-sm bg-white/90 border border-black rounded-xl shadow-[0_2px_0_#000]">
+          <div class="p-6 md:p-8">
+            <!-- Live status region -->
+            <div id="formStatus" class="sr-only" aria-live="assertive" tabindex="-1"></div>
 
-        <form id="couponForm" name="signup" class="space-y-6" action="#" method="post" novalidate data-busy-target="#loadingOverlay">
-          <p class="text-center my-3 text-sm md:text-base font-medium">
-            Sign up below and we’ll email your exclusive coupon instantly.
-          </p>
+            <h2 class="text-xl md:text-2xl font-extrabold uppercase tracking-wide">Claim Your Coupon</h2>
+            <p class="text-gray-700 mt-2 text-sm md:text-base">
+              Join the list and we’ll email your <strong>$5 coupon</strong> instantly. Be first to know about drops & deals.
+            </p>
 
-          <!-- Name -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label for="firstName" class="sr-only">First Name</label>
-              <input id="firstName" name="firstName" type="text" placeholder="First Name" required
-                     autocomplete="given-name" autocapitalize="words" aria-invalid="false" enterkeyhint="next" maxlength="50"
-                     class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]"/>
-              <p class="mt-1 text-xs text-red-600 hidden" data-error-for="firstName"></p>
+            <form id="couponForm" name="signup" class="mt-6 space-y-5" action="#" method="post" novalidate data-busy-target="#loadingOverlay">
+              <!-- Name -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="firstName" class="sr-only">First Name</label>
+                  <input id="firstName" name="firstName" type="text" placeholder="First Name" required
+                         autocomplete="given-name" autocapitalize="words" aria-invalid="false" enterkeyhint="next" maxlength="50"
+                         class="w-full p-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-[#f88379] kk-focus"/>
+                  <p class="mt-1 text-xs text-red-600 hidden" data-error-for="firstName"></p>
+                </div>
+                <div>
+                  <label for="lastName" class="sr-only">Last Name</label>
+                  <input id="lastName" name="lastName" type="text" placeholder="Last Name" required
+                         autocomplete="family-name" autocapitalize="words" aria-invalid="false" enterkeyhint="next" maxlength="50"
+                         class="w-full p-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-[#f88379] kk-focus"/>
+                  <p class="mt-1 text-xs text-red-600 hidden" data-error-for="lastName"></p>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="email" class="sr-only">Email</label>
+                <input id="email" name="email" type="email" placeholder="Email" required
+                       autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false"
+                       aria-invalid="false" enterkeyhint="next" maxlength="254"
+                       class="w-full p-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-[#f88379] kk-focus"/>
+                <p class="mt-1 text-xs text-red-600 hidden" data-error-for="email"></p>
+              </div>
+
+              <!-- Phone -->
+              <div>
+                <label for="phone" class="sr-only">Phone Number</label>
+                <input id="phone" name="phone" type="tel" placeholder="Phone Number" required
+                       autocomplete="tel" inputmode="tel"
+                       pattern="^\\+?1?\\s?\\(?\\d{3}\\)?[\\s\\.-]?\\d{3}[\\s\\.-]?\\d{4}$"
+                       title="Use a US number like 555-555-5555"
+                       aria-describedby="phoneHelp" aria-invalid="false" enterkeyhint="done" maxlength="17"
+                       class="w-full p-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-[#f88379] kk-focus"/>
+                <p id="phoneHelp" class="mt-1 text-xs text-gray-500">Format: 555-555-5555</p>
+                <p class="mt-1 text-xs text-red-600 hidden" data-error-for="phone"></p>
+              </div>
+
+              <!-- Honeypot -->
+              <div class="hp-field" aria-hidden="true">
+                <label for="company">Company</label>
+                <input id="company" name="company" type="text" tabindex="-1" autocomplete="organization"/>
+              </div>
+
+              <!-- Consent -->
+              <fieldset class="text-left space-y-3 text-sm text-gray-700">
+                <legend class="sr-only">Marketing consent</legend>
+
+                <label for="smsConsent" class="flex items-start gap-2 leading-5">
+                  <input id="smsConsent" type="checkbox" name="smsConsent" required class="accent-[#f88379] mt-1"/>
+                  <span>I agree to get recurring texts from Karry Kraze. Msg &amp; data rates may apply. Reply STOP to unsubscribe.</span>
+                </label>
+
+                <label for="emailConsent" class="flex items-start gap-2 leading-5">
+                  <input id="emailConsent" type="checkbox" name="emailConsent" required class="accent-[#f88379] mt-1"/>
+                  <span>I agree to receive marketing emails from Karry Kraze.</span>
+                </label>
+              </fieldset>
+
+              <!-- Submit -->
+              <button type="submit" id="submitBtn"
+                      class="w-full bg-black hover:bg-gray-800 text-white py-3 font-semibold rounded-md
+                             transition duration-200 inline-flex items-center justify-center gap-2
+                             focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black">
+                <span id="btnText">Claim My Coupon</span>
+                <svg id="btnSpinner" class="motion-safe:animate-spin h-5 w-5 text-white invisible"
+                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                </svg>
+              </button>
+
+              <!-- Micro trust + privacy -->
+              <p class="text-xs text-gray-600 text-center">
+                We’ll only use your info for Karry Kraze updates and your coupon. No spam. Unsubscribe anytime.
+              </p>
+            </form>
+          </div>
+
+          <!-- Inline “Why Sign Up” -->
+          <div class="px-6 md:px-8 pb-6">
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-gray-700">
+              <div class="flex items-center gap-2">
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full border">🎁</span>
+                $5 instant coupon
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full border">⚡</span>
+                Early drop alerts
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full border">💬</span>
+                Occasional VIP deals
+              </div>
             </div>
-            <div>
-              <label for="lastName" class="sr-only">Last Name</label>
-              <input id="lastName" name="lastName" type="text" placeholder="Last Name" required
-                     autocomplete="family-name" autocapitalize="words" aria-invalid="false" enterkeyhint="next" maxlength="50"
-                     class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]"/>
-              <p class="mt-1 text-xs text-red-600 hidden" data-error-for="lastName"></p>
-            </div>
-          </div>
-
-          <!-- Email -->
-          <div>
-            <label for="email" class="sr-only">Email</label>
-            <input id="email" name="email" type="email" placeholder="Email" required
-                   autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false"
-                   aria-invalid="false" enterkeyhint="next" maxlength="254"
-                   class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]"/>
-            <p class="mt-1 text-xs text-red-600 hidden" data-error-for="email"></p>
-          </div>
-
-          <!-- Phone -->
-          <div>
-            <label for="phone" class="sr-only">Phone Number</label>
-            <input id="phone" name="phone" type="tel" placeholder="Phone Number" required
-                   autocomplete="tel" inputmode="tel"
-                   pattern="^\+?1?\s?\(?\d{3}\)?[\s\.-]?\d{3}[\s\.-]?\d{4}$"
-                   title="Use a US number like 555-555-5555"
-                   aria-describedby="phoneHelp" aria-invalid="false" enterkeyhint="done" maxlength="17"
-                   class="w-full p-3 border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f88379]"/>
-            <p id="phoneHelp" class="mt-1 text-xs text-gray-500">Format: 555-555-5555</p>
-            <p class="mt-1 text-xs text-red-600 hidden" data-error-for="phone"></p>
-          </div>
-
-          <!-- Honeypot (anti-bot) -->
-          <div class="hp-field" aria-hidden="true">
-            <label for="company">Company</label>
-            <input id="company" name="company" type="text" tabindex="-1" autocomplete="organization"/>
-          </div>
-
-          <!-- Consent -->
-          <fieldset class="text-left space-y-3 text-sm text-gray-700">
-            <legend class="sr-only">Marketing consent</legend>
-
-            <label for="smsConsent" class="flex items-start gap-2 leading-5">
-              <input id="smsConsent" type="checkbox" name="smsConsent" required class="accent-[#f88379] mt-1"/>
-              <span>I agree to get recurring texts from Karry Kraze. Msg &amp; data rates may apply. Reply STOP to unsubscribe.</span>
-            </label>
-
-            <label for="emailConsent" class="flex items-start gap-2 leading-5">
-              <input id="emailConsent" type="checkbox" name="emailConsent" required class="accent-[#f88379] mt-1"/>
-              <span>I agree to receive marketing emails from Karry Kraze.</span>
-            </label>
-          </fieldset>
-
-          <!-- Submit -->
-          <button type="submit" id="submitBtn"
-                  class="w-full bg-[#f88379] hover:bg-[#f56a5d] text-white py-3 font-semibold
-                         transition duration-200 inline-flex items-center justify-center gap-2
-                         focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#f88379]">
-            <span id="btnText">Claim My Coupon</span>
-            <!-- keep spinner space stable: use visibility toggling in JS -->
-            <svg id="btnSpinner" class="motion-safe:animate-spin h-5 w-5 text-white invisible"
-                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-            </svg>
-          </button>
-        </form>
-
-        <!-- Fullscreen Loading Overlay -->
-        <div id="loadingOverlay"
-             class="fixed inset-0 bg-white/80 z-50 hidden flex items-center justify-center"
-             role="status" aria-live="polite" aria-label="Processing your request">
-          <div class="flex flex-col items-center">
-            <svg class="motion-safe:animate-spin h-10 w-10 text-[#f88379]"
-                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-            </svg>
-            <p class="mt-4 text-sm font-medium text-gray-600">Processing your request...</p>
           </div>
         </div>
 
-        <!-- Success message -->
-        <div id="couponMessage" class="hidden mt-10 text-center" aria-live="polite">
-          <p class="text-green-700 font-semibold text-lg mb-4">
-            🎉 Your coupon is on the way! Check your inbox.
-          </p>
-          <a href="/pages/catalog.html"
-             class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 font-medium transition">
-            Browse the Shop
-          </a>
-        </div>
+        <!-- Right: Visual / Social / FAQ -->
+        <aside class="flex flex-col gap-6">
+          <!-- Image panel -->
+          <div class="relative rounded-xl overflow-hidden border border-black shadow-[0_2px_0_#000] min-h-[260px]">
+            <img src="/imgs/Products/Hats/FuzzyBeanie/FB_7_2.jpg" alt="Karry Kraze styles and accessories"
+                 class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-transparent"></div>
+            <div class="relative p-5 text-white mt-auto">
+              <h3 class="text-lg font-bold uppercase tracking-wide">Join the Kraze</h3>
+              <p class="text-sm text-white/90">Fresh drops, limited runs, and seasonal collabs.</p>
+            </div>
+          </div>
 
-        <!-- No-JS notice -->
-        <noscript>
-          <p class="mt-6 text-center text-sm text-red-700">
-            JavaScript is required to submit this form. Please enable JavaScript and reload the page.
-          </p>
-        </noscript>
+          <!-- Trust badges -->
+          <div class="border border-gray-200 rounded-xl p-5">
+            <h4 class="text-sm font-semibold uppercase tracking-wide mb-3">Why shop with us</h4>
+            <div class="grid grid-cols-3 gap-4 text-xs text-gray-700">
+              <div class="flex flex-col items-center gap-2">
+                <svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="9"></circle>
+                </svg>
+                Quality Checked
+              </div>
+              <div class="flex flex-col items-center gap-2">
+                <svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 1L3 5v6c0 5.25 3.438 10.125 9 12 5.563-1.875 9-6.75 9-12V5l-9-4z"></path>
+                  <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Secure Checkout
+              </div>
+              <div class="flex flex-col items-center gap-2">
+                <svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"/>
+                </svg>
+                Transparent Pricing
+              </div>
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div class="border border-gray-200 rounded-xl p-5">
+            <h4 class="text-sm font-semibold uppercase tracking-wide mb-3">Follow for drops & deals</h4>
+            <div class="flex flex-wrap items-center gap-3 text-sm">
+              <a href="https://instagram.com/karrykraze" target="_blank" class="underline hover:no-underline">Instagram</a>
+              <span class="text-gray-300">•</span>
+              <a href="https://tiktok.com/@karrykraze" target="_blank" class="underline hover:no-underline">TikTok</a>
+              <span class="text-gray-300">•</span>
+              <a href="https://pinterest.com/karrykraze" target="_blank" class="underline hover:no-underline">Pinterest</a>
+            </div>
+          </div>
+
+          <!-- FAQ -->
+          <div class="border border-gray-200 rounded-xl p-5">
+            <h4 class="text-sm font-semibold uppercase tracking-wide mb-3">FAQ</h4>
+            <details class="group">
+              <summary class="cursor-pointer list-none flex items-center justify-between py-2 text-sm">
+                When will I get my coupon?
+                <span class="transition group-open:rotate-45">＋</span>
+              </summary>
+              <p class="text-sm text-gray-600 pb-3">Right after you submit the form. Check your inbox (and spam just in case).</p>
+            </details>
+            <hr class="my-2">
+            <details class="group">
+              <summary class="cursor-pointer list-none flex items-center justify-between py-2 text-sm">
+                Can I unsubscribe later?
+                <span class="transition group-open:rotate-45">＋</span>
+              </summary>
+              <p class="text-sm text-gray-600 pb-3">Absolutely. Every message includes an unsubscribe link or STOP instructions.</p>
+            </details>
+          </div>
+        </aside>
+      </section>
+
+      <!-- Success message -->
+      <section id="couponMessage" class="hidden mt-10 text-center" aria-live="polite">
+        <p class="text-green-700 font-semibold text-lg mb-4">
+          🎉 Your coupon is on the way! Check your inbox.
+        </p>
+        <a href="/pages/catalog.html"
+           class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 font-medium transition">
+          Browse the Shop
+        </a>
       </section>
     </div>
   </main>
@@ -204,6 +279,20 @@
   <div id="footer"></div>
   <div id="navbar"></div>
   <div id="announcement-container"></div>
+
+  <!-- Fullscreen Loading Overlay -->
+  <div id="loadingOverlay"
+       class="fixed inset-0 bg-white/80 z-50 hidden flex items-center justify-center"
+       role="status" aria-live="polite" aria-label="Processing your request">
+    <div class="flex flex-col items-center">
+      <svg class="motion-safe:animate-spin h-10 w-10 text-[#f88379]"
+           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+      </svg>
+      <p class="mt-4 text-sm font-medium text-gray-600">Processing your request...</p>
+    </div>
+  </div>
 
   <!-- App scripts (deferred) -->
   <script type="module" defer src="/js/main.js"></script>

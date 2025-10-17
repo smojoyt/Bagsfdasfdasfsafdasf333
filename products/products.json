@@ -145,7 +145,7 @@
     "name": "Mini Tote - B!TCH#S IS WEIRD",
     "category": "bags",
     "product_id": "KK-1004",
-    "price": 34.74,
+    "price": 28.74,
     "weight_oz": 19.4,
     "tags": [
       "Bags",
@@ -357,7 +357,7 @@
     "category": "charms",
     "subCategory": "largeCharms",
     "product_id": "KK-1009",
-    "price": 14.97,
+    "price": 9.97,
     "weight_oz": 1.34,
     "tags": [
       "Charms"
@@ -1397,9 +1397,9 @@
   "custom1Options":  "Blue | Brown | Orange | Pink | Yellow | Purple",
   "variantStock": {
     "Blue": 0,
-    "Pink": 0,
-    "Yellow": 0,
-    "Purple": 0,
+    "Pink": 10,
+    "Yellow": 10,
+    "Purple": 10,
     "Brown": 0,
     "Orange": 0
   },
@@ -1534,15 +1534,15 @@
   "custom1Name": "Color",
   "custom1Options": "Red | Green | White | Blue | Purple | Darkgreen | Orange | Pink | Yellow",
   "variantStock": {
-    "Red": 0,
+    "Red": 10,
     "Green": 0,
     "White": 0,
-    "Blue": 0,
-    "Purple": 0,
+    "Blue": 10,
+    "Purple": 10,
     "Darkgreen": 0,
     "Orange": 0,
-    "Pink": 0,
-    "Yellow": 0
+    "Pink": 10,
+    "Yellow": 10
   },
   "variantImages": {
     "Red": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Red01.jpg",
@@ -1677,7 +1677,7 @@
   "name": "Labubu HarryPotter Outfit",
   "category": "charms",
   "product_id": "KK-1035",
-  "price": 44.99,
+  "price": 24.99,
   "weight_oz": 2.1,
   "tags": ["Labubu"],
   "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/OutFits/HarryPotter/Lion01.jpg",
