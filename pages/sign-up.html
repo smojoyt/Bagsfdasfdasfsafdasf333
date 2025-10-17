@@ -30,6 +30,13 @@
   <!-- Tailwind (dev). For production, install via CLI/PostCSS. -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- GSAP for advanced animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Vanilla-tilt.js for 3D card effects -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+
   <!-- Firebase (deferred so it doesn't block paint) -->
   <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
@@ -47,6 +54,56 @@
 
     /* Accent focus ring */
     .kk-focus{outline:none;box-shadow:0 0 0 2px rgba(0,0,0,0),0 0 0 4px rgba(248,131,121,.35)}
+
+    /* Custom Animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes shine {
+      to {
+        background-position: 200% center;
+      }
+    }
+
+    .floating { animation: float 3s ease-in-out infinite; }
+    
+    .gradient-text {
+      background: linear-gradient(to right, #f88379 20%, #ff6b6b 40%, #f88379 60%, #ff6b6b 80%);
+      background-size: 200% auto;
+      background-clip: text;
+      -webkit-background-clip: text;
+      animation: shine 3s linear infinite;
+    }
+
+    /* Glass Effect */
+    .glass-effect {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #f88379;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ff6b6b;
+    }
   </style>
 </head>
 
@@ -54,20 +111,25 @@
   <a href="#couponForm" class="skip-link">Skip to form</a>
 
   <!-- Background -->
-  <div class="fixed inset-0 -z-10">
-    <div class="absolute inset-0 bg-gradient-to-b from-white via-[#fff8f3] to-white"></div>
-    <div class="absolute inset-x-0 top-0 h-64 opacity-40"
-         style="background: radial-gradient(600px 160px at 50% 0%, rgba(248,131,121,.20), transparent 70%);"></div>
+  <div class="fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-white via-[#fff8f3] to-[#ffe9e7]"></div>
+    <div class="absolute inset-x-0 top-0 h-96 opacity-30"
+         style="background: radial-gradient(800px 400px at 50% 0%, rgba(248,131,121,.30), transparent 70%);"></div>
+    <!-- Animated Background Elements -->
+    <div class="absolute top-20 left-10 w-64 h-64 bg-[#f88379] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-[float_8s_ease-in-out_infinite]"></div>
+    <div class="absolute top-40 right-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-[float_10s_ease-in-out_infinite_1s]"></div>
+    <div class="absolute bottom-20 left-1/4 w-96 h-96 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-[float_12s_ease-in-out_infinite_2s]"></div>
   </div>
 
   <main id="main" class="px-6 py-20 md:py-28">
     <div class="max-w-[108rem] mx-auto">
 
       <!-- Banner -->
-      <header class="relative w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center rounded-md overflow-hidden shadow-[0_1px_0_#000]">
-        <img src="/imgs/Banner/KK_01.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" decoding="async" loading="lazy">
-        <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%]">
-          <h1 class="text-black bg-white/95 px-4 py-2 sm:px-6 sm:py-3 font-bold tracking-wider uppercase text-2xl shadow">
+      <header class="relative w-full sm:h-[120px] lg:h-[240px] bg-center bg-cover bg-no-repeat flex items-center justify-center rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.1)] glass-effect">
+        <img src="/imgs/Banner/KK_01.jpg" alt="" class="absolute inset-0 w-full h-full object-cover transform scale-105 hover:scale-100 transition-transform duration-700" decoding="async" loading="lazy">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
+        <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%] floating">
+          <h1 class="gradient-text px-6 py-4 sm:px-8 sm:py-5 font-black tracking-wider uppercase text-3xl lg:text-4xl glass-effect rounded-xl border border-white/20">
             $5 Off Your Next Order
           </h1>
         </div>
@@ -76,7 +138,7 @@
       <!-- Content -->
       <section class="relative mt-10 grid lg:grid-cols-2 gap-10 items-stretch">
         <!-- Left: Form Card -->
-        <div class="backdrop-blur-sm bg-white/90 border border-black rounded-xl shadow-[0_2px_0_#000]">
+        <div class="glass-effect rounded-2xl transform hover:scale-[1.01] transition-all duration-300">
           <div class="p-6 md:p-8">
             <!-- Live status region -->
             <div id="formStatus" class="sr-only" aria-live="assertive" tabindex="-1"></div>
@@ -151,11 +213,12 @@
 
               <!-- Submit -->
               <button type="submit" id="submitBtn"
-                      class="w-full bg-black hover:bg-gray-800 text-white py-3 font-semibold rounded-md
-                             transition duration-200 inline-flex items-center justify-center gap-2
-                             focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black">
+                      class="w-full bg-gradient-to-r from-[#f88379] to-[#ff6b6b] hover:from-[#ff6b6b] hover:to-[#f88379] text-white py-4 font-bold rounded-xl
+                             transition duration-300 inline-flex items-center justify-center gap-3 text-lg
+                             focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#f88379]
+                             transform hover:-translate-y-0.5 active:translate-y-0 shadow-lg hover:shadow-xl">
                 <span id="btnText">Claim My Coupon</span>
-                <svg id="btnSpinner" class="motion-safe:animate-spin h-5 w-5 text-white invisible"
+                <svg id="btnSpinner" class="motion-safe:animate-spin h-6 w-6 text-white invisible"
                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
@@ -191,7 +254,7 @@
         <!-- Right: Visual / Social / FAQ -->
         <aside class="flex flex-col gap-6">
           <!-- Image panel -->
-          <div class="relative rounded-xl overflow-hidden border border-black shadow-[0_2px_0_#000] min-h-[260px]">
+          <div class="relative rounded-2xl overflow-hidden glass-effect min-h-[300px] group transform hover:scale-[1.02] transition-all duration-300">
             <img src="/imgs/Products/Hats/FuzzyBeanie/FB_7_2.jpg" alt="Karry Kraze styles and accessories"
                  class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async">
             <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-transparent"></div>
@@ -202,9 +265,9 @@
           </div>
 
           <!-- Trust badges -->
-          <div class="border border-gray-200 rounded-xl p-5">
-            <h4 class="text-sm font-semibold uppercase tracking-wide mb-3">Why shop with us</h4>
-            <div class="grid grid-cols-3 gap-4 text-xs text-gray-700">
+          <div class="glass-effect rounded-2xl p-6 transform hover:scale-[1.02] transition-all duration-300">
+            <h4 class="text-sm font-bold uppercase tracking-wide mb-4 gradient-text">Why shop with us</h4>
+            <div class="grid grid-cols-3 gap-6 text-sm text-gray-700">
               <div class="flex flex-col items-center gap-2">
                 <svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5">
                   <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -229,20 +292,27 @@
           </div>
 
           <!-- Social -->
-          <div class="border border-gray-200 rounded-xl p-5">
-            <h4 class="text-sm font-semibold uppercase tracking-wide mb-3">Follow for drops & deals</h4>
-            <div class="flex flex-wrap items-center gap-3 text-sm">
-              <a href="https://instagram.com/karrykraze" target="_blank" class="underline hover:no-underline">Instagram</a>
-              <span class="text-gray-300">•</span>
-              <a href="https://tiktok.com/@karrykraze" target="_blank" class="underline hover:no-underline">TikTok</a>
-              <span class="text-gray-300">•</span>
-              <a href="https://pinterest.com/karrykraze" target="_blank" class="underline hover:no-underline">Pinterest</a>
+          <div class="glass-effect rounded-2xl p-6 transform hover:scale-[1.02] transition-all duration-300">
+            <h4 class="text-sm font-bold uppercase tracking-wide mb-4 gradient-text">Follow for drops & deals</h4>
+            <div class="flex flex-wrap items-center gap-4 text-sm">
+              <a href="https://instagram.com/karrykraze" target="_blank" 
+                 class="px-4 py-2 rounded-lg bg-gradient-to-r from-[#f88379] to-[#ff6b6b] text-white font-medium hover:from-[#ff6b6b] hover:to-[#f88379] transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                Instagram
+              </a>
+              <a href="https://tiktok.com/@karrykraze" target="_blank"
+                 class="px-4 py-2 rounded-lg bg-gradient-to-r from-[#f88379] to-[#ff6b6b] text-white font-medium hover:from-[#ff6b6b] hover:to-[#f88379] transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                TikTok
+              </a>
+              <a href="https://pinterest.com/karrykraze" target="_blank"
+                 class="px-4 py-2 rounded-lg bg-gradient-to-r from-[#f88379] to-[#ff6b6b] text-white font-medium hover:from-[#ff6b6b] hover:to-[#f88379] transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                Pinterest
+              </a>
             </div>
           </div>
 
           <!-- FAQ -->
-          <div class="border border-gray-200 rounded-xl p-5">
-            <h4 class="text-sm font-semibold uppercase tracking-wide mb-3">FAQ</h4>
+          <div class="glass-effect rounded-2xl p-6 transform hover:scale-[1.02] transition-all duration-300">
+            <h4 class="text-sm font-bold uppercase tracking-wide mb-4 gradient-text">FAQ</h4>
             <details class="group">
               <summary class="cursor-pointer list-none flex items-center justify-between py-2 text-sm">
                 When will I get my coupon?

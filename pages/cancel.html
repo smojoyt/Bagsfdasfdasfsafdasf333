@@ -3,277 +3,311 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Checkout Canceled – Karry Kraze</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CONNECTION INTERRUPTED /// Checkout Canceled – Karry Kraze</title>
   <link rel="icon" href="/imgs/Logo/Short/SL_0603.png" type="image/png" />
 
-  <!-- SEO & Social Meta -->
   <meta name="description" content="Your checkout was canceled. Your cart is saved—pick up where you left off or keep shopping." />
   <meta property="og:title" content="Checkout Canceled – Karry Kraze" />
   <meta property="og:description" content="Your cart is saved. Resume checkout or continue shopping." />
   <meta property="og:image" content="/imgs/Logo/OG.jpg" />
 
-  <!-- Tailwind CSS (CDN ok for dev; use CLI/PostCSS in prod) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+
   <style>
-    @keyframes kkFadeUp { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: translateY(0) } }
-    .animate-kk { animation: kkFadeUp .35s ease-out both; }
+    :root {
+      --glow-cyan: #00f6ff;
+      --glow-pink: #ff00a0;
+      --bg-dark: #0d041a;
+      --bg-mid: #1f0b3e;
+      --text-color: #d1d5db;
+    }
+    
+    .font-display { font-family: 'VT323', monospace; }
+    .font-body { font-family: 'Roboto Mono', monospace; }
+
+    /* --- Animated Scanlines Background --- */
+    body {
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(var(--bg-mid) 1px, transparent 1px);
+      background-size: 15px 15px;
+      color: var(--text-color);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: ' ';
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      background-size: 100% 4px, 6px 100%;
+      z-index: 100;
+      pointer-events: none;
+      animation: scanlines 5s linear infinite;
+    }
+
+    @keyframes scanlines {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 100vh; }
+    }
+
+    /* --- Glitch Text Effect --- */
+    .glitch {
+      animation: glitch 1.5s linear infinite;
+      text-shadow: 
+        0 0 10px var(--glow-cyan), 
+        0 0 20px var(--glow-cyan), 
+        0 0 40px var(--glow-cyan),
+        0 0 5px var(--glow-pink),
+        -2px 0 var(--glow-pink), 
+        2px 0 var(--glow-cyan);
+    }
+
+    @keyframes glitch {
+      2%, 64% { transform: translate(2px, 0) skew(0deg); }
+      4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+      62% { transform: translate(0, 0) skew(5deg); }
+    }
+    
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+    }
+    .glitch::before {
+      animation: glitch-top 1.5s linear infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    }
+    .glitch::after {
+      animation: glitch-bottom 1.5s linear infinite;
+      clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+    }
+
+    @keyframes glitch-top {
+      2%, 64% { transform: translate(2px, -2px); }
+      4%, 60% { transform: translate(-2px, 2px); }
+      62% { transform: translate(13px, -1px) skew(-13deg); }
+    }
+
+    @keyframes glitch-bottom {
+      2%, 64% { transform: translate(-2px, 0); }
+      4%, 60% { transform: translate(-2px, 0); }
+      62% { transform: translate(-22px, 5px) skew(21deg); }
+    }
+
+    /* --- Interactive Holographic Card --- */
+    .holo-card {
+      background: linear-gradient(105deg,
+          rgba(255, 255, 255, 0.05) 0%,
+          rgba(255, 255, 255, 0.1) 40%,
+          rgba(255, 255, 255, 0.05) 60%,
+          rgba(255, 255, 255, 0.05) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      transition: background 0.3s ease, border 0.3s ease;
+    }
+    .holo-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: conic-gradient(from 180deg at 50% 50%, 
+        var(--glow-pink), 
+        var(--glow-cyan), 
+        var(--glow-pink));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      mask: radial-gradient(
+        400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        black 5%,
+        transparent 60%
+      );
+      -webkit-mask: radial-gradient(
+        400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        black 5%,
+        transparent 60%
+      );
+    }
+    .holo-card:hover::before { opacity: 0.15; }
+
+    /* --- Cyber UI Buttons & Elements --- */
+    .cyber-btn {
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+      transition: all 0.2s ease;
+      text-shadow: 0 0 5px currentColor;
+    }
+    .cyber-btn:hover { transform: translateY(-2px); text-shadow: 0 0 15px currentColor; }
   </style>
 </head>
 
-<body class="bg-white text-black font-sans">
+<body class="font-body">
 
-  <main class="px-6 py-36">
-    <div class="max-w-[108rem] mx-auto">
+  <main class="px-4 py-24 sm:px-6 sm:py-32">
+    <div class="max-w-7xl mx-auto">
 
-      <!-- Banner -->
-      <header id="signup-banner"
-              class="relative w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center">
-        <picture class="absolute inset-0 w-full h-full">
-          <source media="(min-width:1024px)" srcset="/imgs/Banner/KK_01.jpg">
-          <img src="/imgs/Banner/KK_01.jpg" alt="" class="w-full h-full object-cover" decoding="async" loading="lazy">
-        </picture>
-        <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%]">
-          <h1 class="text-black bg-white m-4 px-3 py-2 sm:px-6 sm:py-3 font-bold tracking-wider uppercase text-2xl">
-            Checkout Canceled
-          </h1>
-        </div>
+      <header id="signup-banner" class="relative text-center py-20">
+        <h1 data-text="CONNECTION INTERRUPTED" class="glitch relative inline-block text-5xl sm:text-7xl font-display text-white">
+          CONNECTION INTERRUPTED
+        </h1>
+        <p class="mt-4 text-lg text-gray-400 font-display">
+          // CHECKOUT PROTOCOL CANCELED //
+        </p>
       </header>
 
-      <!-- Message + Signup Promo -->
-      <section class="relative px-4 py-10 max-w-3xl mx-auto space-y-5 animate-kk">
-        <p class="text-gray-700 text-base">
-          No worries—nothing was charged and your cart is still saved on this device.
-          You can resume checkout anytime or keep shopping.
+      <section class="relative px-4 py-12 max-w-4xl mx-auto text-center">
+        <p class="text-gray-300 text-lg leading-relaxed">
+          SESSION TERMINATED. NO CHARGE WAS PROCESSED. YOUR CART DATA IS CACHED LOCALLY.
         </p>
-
-        <div class="bg-[#fef1e7] border border-black border-dashed px-5 py-5">
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <p class="text-sm text-gray-900">
-              🎁 <strong>Get $5 off</strong> your next order by signing up—your code will be emailed instantly.
-            </p>
-            <a id="kk-signup-link"
-               class="inline-block bg-black hover:bg-gray-800 text-white px-5 py-2 text-sm text-center transition"
-               href="#" rel="noopener">Get $5 Coupon</a>
+        <div class="mt-8 holo-card p-1 rounded-md">
+            <div class="bg-black/80 backdrop-blur-sm p-6">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <p class="text-cyan-300">
+                  <span class="font-bold text-white">REWARD_MODULE.EXE:</span> GET $5 OFF. AUTHENTICATE VIA NEWSLETTER FOR INSTANT CODE DEPLOYMENT.
+                </p>
+                <a id="kk-signup-link" href="#" rel="noopener" class="cyber-btn flex-shrink-0 inline-block bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-2.5 text-sm text-center">
+                  EXECUTE
+                </a>
+              </div>
           </div>
         </div>
       </section>
 
-      <!-- Content Grid -->
       <section class="max-w-6xl mx-auto grid lg:grid-cols-3 gap-8 px-4 pb-12">
 
-        <!-- Left: CTAs & Trust -->
         <div class="lg:col-span-1 space-y-6">
-
           <div class="space-y-3">
-            <a href="/pages/catalog.html"
-               class="block w-full bg-black hover:bg-gray-800 text-white py-3 text-center transition">
-              Continue Shopping
+            <a href="/pages/catalog.html" class="cyber-btn block w-full bg-pink-500 hover:bg-pink-400 text-white font-bold py-3 text-center text-lg">
+              CONTINUE BROWSING
             </a>
-
-            <button id="kk-resume"
-                    class="w-full border border-black py-3 text-center hover:bg-black hover:text-white transition">
-              Resume Checkout
+            <button id="kk-resume" class="cyber-btn block w-full border-2 border-pink-500 py-3 text-center font-bold text-pink-500 hover:bg-pink-500 hover:text-white transition-colors duration-200">
+              RESUME CHECKOUT
             </button>
-
-            <a href="mailto:support@karrykraze.com"
-               class="block text-center text-sm underline text-gray-700 hover:text-black">
-              Need help? Email support@karrykraze.com
+            <a href="mailto:support@karrykraze.com" class="block text-center text-sm text-gray-400 hover:text-white underline">
+              [Contact Support Subroutine]
             </a>
           </div>
 
-          <div class="border border-gray-200 p-4">
-            <h4 class="text-sm font-semibold uppercase tracking-wide mb-3">Shop With Confidence</h4>
-            <div class="grid grid-cols-3 gap-3 text-xs text-gray-700">
-              <div class="flex flex-col items-center gap-2">
-                <svg viewBox="0 0 24 24" class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="12" cy="12" r="9"></circle>
-                </svg>
-                Quality Checked
-              </div>
-              <div class="flex flex-col items-center gap-2">
-                <svg viewBox="0 0 24 24" class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M12 1L3 5v6c0 5.25 3.438 10.125 9 12 5.563-1.875 9-6.75 9-12V5l-9-4z"></path>
-                  <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Secure Checkout
-              </div>
-              <div class="flex flex-col items-center gap-2">
-                <svg viewBox="0 0 24 24" class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"/>
-                </svg>
-                Transparent Pricing
-              </div>
+          <div class="holo-card p-5 space-y-4">
+            <h4 class="font-display text-xl text-cyan-300">// SECURITY PROTOCOLS</h4>
+            <div class="grid grid-cols-3 gap-4 text-xs text-center text-gray-300">
+                <div class="flex flex-col items-center gap-2"><svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg><span>QUALITY VERIFIED</span></div>
+                <div class="flex flex-col items-center gap-2"><svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg><span>ENCRYPTED</span></div>
+                <div class="flex flex-col items-center gap-2"><svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h6m3-5.25h6m-6 2.25h6m3-5.25h6m-6 2.25h6" /></svg><span>TRANSPARENT</span></div>
             </div>
           </div>
-
-          <div class="border border-gray-200 p-4">
-            <h4 class="text-sm font-semibold uppercase tracking-wide mb-3">Follow for Drops & Deals</h4>
-            <div class="flex flex-wrap items-center gap-3 text-sm">
-              <a href="https://instagram.com/karrykraze" target="_blank"
-                 class="underline hover:no-underline">Instagram</a>
-              <span class="text-gray-300">•</span>
-              <a href="https://tiktok.com/@karrykraze" target="_blank"
-                 class="underline hover:no-underline">TikTok</a>
-              <span class="text-gray-300">•</span>
-              <a href="https://pinterest.com/karrykraze" target="_blank"
-                 class="underline hover:no-underline">Pinterest</a>
+          
+          <div class="holo-card p-5 text-center">
+            <h4 class="font-display text-xl text-pink-400 mb-3">// BROADCAST CHANNELS</h4>
+            <div class="flex justify-center items-center gap-4 text-sm font-bold">
+              <a href="#" class="text-gray-300 hover:text-pink-400 transition">INSTA</a><span class="text-gray-600">•</span>
+              <a href="#" class="text-gray-300 hover:text-pink-400 transition">TIKTOK</a><span class="text-gray-600">•</span>
+              <a href="#" class="text-gray-300 hover:text-pink-400 transition">PINTEREST</a>
             </div>
           </div>
         </div>
 
-        <!-- Right: Order Summary -->
         <div class="lg:col-span-2">
-          <div class="border border-black">
-            <div class="flex items-center justify-between px-4 py-3 bg-[#fff8f0]">
-              <h3 class="text-base font-bold uppercase">Your Saved Cart</h3>
-              <span id="kk-itemCount" class="text-sm text-gray-600">0 items</span>
+          <div class="holo-card">
+            <div class="flex items-center justify-between px-5 py-4 border-b-2 border-cyan-500/50">
+              <h3 class="text-lg font-display text-white">CACHED_INVENTORY.LOG</h3>
+              <span id="kk-itemCount" class="text-sm font-body text-gray-400">0 items</span>
             </div>
 
-            <div id="kk-orderItems" class="divide-y">
-              <div class="p-4 text-sm text-gray-500">Loading your items…</div>
+            <div id="kk-orderItems" class="divide-y divide-gray-700/50">
+              <div class="p-5 text-sm text-gray-500">LOADING DATA...</div>
             </div>
 
-            <div id="kk-orderTotals" class="px-4 py-4 border-t hidden">
-              <div class="flex justify-between text-sm">
-                <span class="text-gray-600">Subtotal</span>
-                <span id="kk-subtotal" class="font-medium">$0.00</span>
+            <div id="kk-orderTotals" class="px-5 py-4 border-t-2 border-cyan-500/50 hidden">
+              <div class="space-y-2 font-body">
+                <div class="flex justify-between text-sm"><span class="text-gray-400">Subtotal</span><span id="kk-subtotal" class="font-semibold text-white">$0.00</span></div>
+                <div id="kk-potentialLine" class="flex justify-between text-sm text-cyan-400 hidden"><span>Potential Reward</span><span id="kk-potential" class="font-semibold">-$0.00</span></div>
+                <div class="flex justify-between text-base font-bold pt-2 border-t border-dashed border-gray-700 mt-2"><span class="text-white">TOTAL (EST.)</span><span id="kk-total" class="text-cyan-300">$0.00</span></div>
               </div>
-
-              <!-- Informational potential discount line (not applied automatically) -->
-              <div id="kk-potentialLine" class="flex justify-between text-sm hidden">
-                <span class="text-gray-600">Potential $5 off (after email signup)</span>
-                <span id="kk-potential" class="font-medium">-$0.00</span>
-              </div>
-
-              <div class="flex justify-between text-base font-bold mt-2">
-                <span>Total (est.)</span>
-                <span id="kk-total">$0.00</span>
-              </div>
-              <p class="text-xs text-gray-500 mt-2">
-                Taxes & shipping calculated at checkout. Coupon will be applied at checkout after signup.
-              </p>
+              <p class="text-xs text-gray-500 mt-3">Tax & shipping calculated at next checkpoint. Reward applied upon authentication.</p>
             </div>
           </div>
-
-          <p id="kk-reminder" class="text-xs text-gray-500 mt-3">
-            Cart items are saved on this device for 7 days.
+          <p id="kk-reminder" class="text-xs text-gray-500 mt-3 text-center lg:text-left">
+            > Cache expires in 7 days.
           </p>
         </div>
-      </section>
 
-      <!-- Contact Prompt -->
-      <section class="mt-4 max-w-3xl mx-auto bg-white border border-black border-dashed p-6 shadow text-center">
-        <h3 class="text-xl font-bold uppercase mb-2">Questions or feedback?</h3>
-        <p class="text-sm text-gray-700 mb-4">
-          We’re here to help—and we love hearing from you!
-        </p>
-        <a href="mailto:support@karrykraze.com"
-           class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-2 transition">
-          Contact Support
-        </a>
       </section>
-
     </div>
   </main>
 
-  <!-- Mounts -->
   <div id="footer"></div>
   <div id="navbar"></div>
   <div id="announcement-container"></div>
 
-  <!-- Your main bundle (for navbar/footer, etc.) -->
   <script type="module" src="/js/main.js"></script>
 
   <script>
-    /**
-     * Cancel Page Logic (signup-based $5 coupon)
-     * - Uses a dev link you provided for signup when running on localhost/127.0.0.1
-     * - Uses /pages/sign-up.html in production
-     * - Shows a potential $5 off line (informational only)
-     */
-
-    // 1) Signup link routing
-    const SIGNUP_URL =
-      (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
-        ? 'http://127.0.0.1:5500/pages/sign-up.html'
-        : '/pages/sign-up.html';
-
+    const SIGNUP_URL = (location.hostname === '127.0.0.1' || location.hostname === 'localhost') ? 'http://127.0.0.1:5500/pages/sign-up.html' : '/pages/sign-up.html';
     document.getElementById('kk-signup-link')?.setAttribute('href', SIGNUP_URL);
-
-    // 2) Cart rendering
-    const ITEMS_CONTAINER = document.getElementById('kk-orderItems');
-    const TOTALS = document.getElementById('kk-orderTotals');
-    const SUBTOTAL_EL = document.getElementById('kk-subtotal');
-    const TOTAL_EL = document.getElementById('kk-total');
-    const COUNT_EL = document.getElementById('kk-itemCount');
-
-    const POTENTIAL_LINE = document.getElementById('kk-potentialLine');
-    const POTENTIAL_EL = document.getElementById('kk-potential');
-
-    const cart = JSON.parse(localStorage.getItem('savedCart')) ||
-                 JSON.parse(localStorage.getItem('cart')) || [];
-
+    const ITEMS_CONTAINER = document.getElementById('kk-orderItems'), TOTALS = document.getElementById('kk-orderTotals'), SUBTOTAL_EL = document.getElementById('kk-subtotal'), TOTAL_EL = document.getElementById('kk-total'), COUNT_EL = document.getElementById('kk-itemCount'), POTENTIAL_LINE = document.getElementById('kk-potentialLine'), POTENTIAL_EL = document.getElementById('kk-potential');
+    const cart = JSON.parse(localStorage.getItem('savedCart')) || JSON.parse(localStorage.getItem('cart')) || [];
     const money = n => `$${(Math.round(n * 100) / 100).toFixed(2)}`;
-
     function render() {
       ITEMS_CONTAINER.innerHTML = '';
       if (!Array.isArray(cart) || cart.length === 0) {
         COUNT_EL.textContent = '0 items';
-        ITEMS_CONTAINER.innerHTML = '<div class="p-4 text-sm text-gray-500">Your cart is empty.</div>';
+        ITEMS_CONTAINER.innerHTML = '<div class="p-5 text-sm text-gray-500">CACHE EMPTY.</div>';
         return;
       }
-
       let subtotal = 0;
       cart.forEach((item) => {
-        const qty = Number(item.qty || 1);
-        const price = Number(item.price || 0);
-        const lineTotal = price * qty;
+        const qty = Number(item.qty || 1), price = Number(item.price || 0), lineTotal = price * qty;
         subtotal += lineTotal;
-
         const row = document.createElement('div');
-        row.className = 'p-4 flex items-center gap-4';
+        row.className = 'p-4 flex items-center gap-4 bg-black/20';
         row.innerHTML = `
-          <img src="${item.image || item.catalogImage || '/imgs/Logo/Short/4.jpg'}"
-               alt="${item.name || 'Item'}"
-               class="w-14 h-14 rounded object-cover border" />
-          <div class="min-w-0">
-            <p class="text-sm font-medium truncate">${item.name || 'Item'} ${item.variant ? `– ${item.variant}` : ''}</p>
-            <p class="text-xs text-gray-500">Qty: ${qty}</p>
-          </div>
-          <div class="ml-auto text-sm font-semibold">${money(lineTotal)}</div>
-        `;
+          <img src="${item.image || item.catalogImage || '/imgs/Logo/Short/4.jpg'}" alt="${item.name || 'Item'}" class="w-16 h-16 object-cover border-2 border-gray-700" style="clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);" />
+          <div class="flex-grow min-w-0 font-body"><p class="text-sm font-semibold truncate text-white">${item.name || 'Item'} ${item.variant ? `– ${item.variant}` : ''}</p><p class="text-xs text-gray-400">QTY: ${qty}</p></div>
+          <div class="ml-auto text-sm font-bold font-body text-cyan-300">${money(lineTotal)}</div>`;
         ITEMS_CONTAINER.appendChild(row);
       });
-
       COUNT_EL.textContent = `${cart.length} ${cart.length === 1 ? 'item' : 'items'}`;
       SUBTOTAL_EL.textContent = money(subtotal);
-
-      // Show potential $5 coupon line only if subtotal >= $5
       if (subtotal >= 5) {
         POTENTIAL_EL.textContent = `-${money(5)}`;
         POTENTIAL_LINE.classList.remove('hidden');
-        TOTAL_EL.textContent = money(subtotal); // Not applying it—just showing normal subtotal
+        TOTAL_EL.textContent = money(subtotal);
       } else {
         POTENTIAL_LINE.classList.add('hidden');
         TOTAL_EL.textContent = money(subtotal);
       }
-
       TOTALS.classList.remove('hidden');
     }
-
     render();
+    document.getElementById('kk-resume')?.addEventListener('click', () => { window.location.href = '/pages/catalog.html'; });
+  </script>
 
-    // 3) Resume Checkout (wire to your cart or Stripe flow)
-    document.getElementById('kk-resume')?.addEventListener('click', () => {
-      // Example fallback; replace with your cart drawer event or checkout flow:
-      // window.dispatchEvent(new CustomEvent('kk:openCart'));
-      // or e.g. window.location.href = '/pages/cart.html';
-      window.location.href = '/pages/catalog.html';
+  <script>
+    // --- Interactive Holographic Card Effect ---
+    document.querySelectorAll('.holo-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.removeProperty('--mouse-x');
+            card.style.removeProperty('--mouse-y');
+        });
     });
   </script>
 
 </body>
+
 </html>

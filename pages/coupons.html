@@ -1,70 +1,796 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Meta -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Explore explosive, creative coupons at Karry Kraze — save on orders, sign up for instant deals, and earn rewards with reviews." />
   <title>Coupons – Karry Kraze</title>
+
+  <!-- Favicon -->
   <link rel="icon" href="/imgs/Logo/Short/SL_0603.png" type="image/png" />
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom CSS for extreme artistry -->
+  <style>
+    html, body { height: 100%; }
+    html { scroll-behavior: smooth; }
+
+    /* Aurora gradient background animation */
+    @keyframes auroraShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Gentle float */
+    @keyframes float {
+      0%   { transform: translateY(0px); }
+      50%  { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Fade up */
+    @keyframes fadeUp {
+      0%   { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0px); }
+    }
+
+    /* Shine sweep */
+    @keyframes shine {
+      0%   { background-position: -300px 0; }
+      100% { background-position: 300px 0; }
+    }
+
+    /* Pulse glow */
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 rgba(248, 131, 121, 0); }
+      50%      { box-shadow: 0 0 36px rgba(248, 131, 121, 0.45); }
+    }
+
+    /* Zigzag sparkle line */
+    @keyframes sparkleLine {
+      0%   { transform: translateX(-10%) }
+      50%  { transform: translateX(10%) }
+      100% { transform: translateX(-10%) }
+    }
+
+    /* Aurora canvas overlay gradient */
+    .aurora-bg {
+      background: linear-gradient(125deg,
+        rgba(248, 131, 121, 0.20),
+        rgba(245, 106, 93, 0.22),
+        rgba(255, 200, 130, 0.20),
+        rgba(255, 234, 170, 0.22),
+        rgba(236, 72, 153, 0.20));
+      background-size: 300% 300%;
+      animation: auroraShift 18s ease infinite;
+    }
+
+    /* Glass and backdrops */
+    .glass {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .glass-dark {
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    /* Neon glow ring for hoverable items */
+    .neon-ring {
+      position: relative;
+    }
+    .neon-ring::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 22px;
+      padding: 2px;
+      background: conic-gradient(from 180deg at 50% 50%, #f88379, #f59e0b, #ec4899, #f88379);
+      -webkit-mask:
+        linear-gradient(#000, #000) content-box,
+        linear-gradient(#000, #000);
+      mask:
+        linear-gradient(#000, #000) content-box,
+        linear-gradient(#000, #000);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      filter: blur(8px) saturate(1.3);
+      opacity: 0.75;
+      transition: opacity 300ms ease, filter 300ms ease;
+      pointer-events: none;
+    }
+    .neon-ring:hover::before {
+      opacity: 1;
+      filter: blur(10px) saturate(1.5);
+    }
+
+    /* Coupon perforation strip */
+    .perforated {
+      background-image: radial-gradient(circle, rgba(0,0,0,0.15) 2px, transparent 2.5px);
+      background-size: 12px 12px;
+      background-position: -6px center;
+      mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+    }
+
+    /* Tooltip */
+    .tooltip::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111827;
+      color: #fff;
+      font-size: 12px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms ease, transform 220ms ease;
+      transform-origin: bottom center;
+    }
+    .tooltip:hover::after,
+    .tooltip:focus::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-3px);
+    }
+
+    /* Gradient shimmering text */
+    .gradient-text {
+      background: linear-gradient(90deg, #111827, #f88379, #f59e0b, #ec4899, #111827);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shine 7s linear infinite;
+    }
+
+    /* Star field background for banner */
+    .star-field {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1.8px 1.8px at 20% 30%, rgba(255,255,255,0.9), transparent 40%),
+        radial-gradient(1.6px 1.6px at 70% 20%, rgba(255,255,255,0.7), transparent 40%),
+        radial-gradient(2.1px 2.1px at 40% 70%, rgba(255,255,255,0.85), transparent 40%),
+        radial-gradient(1.5px 1.5px at 80% 60%, rgba(255,255,255,0.8), transparent 40%),
+        radial-gradient(1.3px 1.3px at 30% 80%, rgba(255,255,255,0.75), transparent 40%);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* Floating emoji drift animation via CSS only (minor) */
+    @keyframes emojiDrift {
+      0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.0; }
+      10%  { opacity: 0.8; }
+      50%  { transform: translateY(-30px) translateX(20px) rotate(6deg); }
+      90%  { opacity: 0.8; }
+      100% { transform: translateY(-60px) translateX(-10px) rotate(-8deg); opacity: 0; }
+    }
+    .emoji-float {
+      animation: emojiDrift 6.5s ease-in-out infinite;
+    }
+
+    /* Magnetic hover area */
+    .magnetic {
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 300ms ease, box-shadow 300ms ease;
+    }
+
+    /* 3D tilt depth */
+    .tilt-3d:hover {
+      transform: perspective(900px) rotateX(2deg) rotateY(-2deg) translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+
+    /* Section load animation hook */
+    .animate-fadeUp {
+      animation: fadeUp 800ms ease 1 both;
+    }
+
+    /* Confetti canvas layering */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      pointer-events: none;
+    }
+
+    /* Sparkle divider */
+    .sparkle-divider {
+      position: relative;
+      height: 2px;
+      background: linear-gradient(to right, rgba(248,131,121,0.2), rgba(245,106,93,0.4), rgba(248,131,121,0.2));
+      overflow: hidden;
+    }
+    .sparkle-divider::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -10%;
+      width: 20%;
+      height: 6px;
+      background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 60%);
+      animation: sparkleLine 4.5s ease-in-out infinite;
+      filter: blur(1px);
+    }
+
+    /* Ribbon badges */
+    .ribbon {
+      position: absolute;
+      top: -12px;
+      left: -10px;
+      background: #111827; /* Gray-900 */
+      color: #ffffff;
+      padding: 8px 14px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 10px;
+      transform: rotate(-8deg);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+    .ribbon.gold   { background: #f59e0b; } /* Amber-500 */
+    .ribbon.pink   { background: #ec4899; } /* Pink-500 */
+    .ribbon.silver { background: #374151; } /* Gray-700 */
+
+    /* Accessibility focus ring */
+    .focus-ring:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(248, 131, 121, 0.35);
+      border-color: #f88379;
+    }
+
+    /* Banner parallax softness */
+    .banner-layers > img {
+      transition: transform 1000ms cubic-bezier(.2,.8,.2,1);
+    }
+  </style>
 </head>
-<body class="bg-white text-black font-sans">
-  <main class="px-6 py-36">
+
+<body class="aurora-bg text-black font-sans relative overflow-x-hidden">
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Floating emoji layer (decorative) -->
+  <div aria-hidden="true" class="pointer-events-none fixed inset-0 z-0">
+    <div class="absolute left-[8%] top-[75%] text-4xl opacity-70 emoji-float">✨</div>
+    <div class="absolute left-[22%] top-[18%] text-5xl opacity-70 emoji-float" style="animation-delay: 0.8s">🎁</div>
+    <div class="absolute left-[70%] top-[30%] text-4xl opacity-70 emoji-float" style="animation-delay: 1.6s">★</div>
+    <div class="absolute left-[85%] top-[65%] text-5xl opacity-70 emoji-float" style="animation-delay: 2.3s">💖</div>
+  </div>
+
+  <!-- Main -->
+  <main id="page-main" class="px-6 py-36 relative z-10">
     <div class="max-w-[108rem] mx-auto">
 
-      <!-- 🏷️ Banner -->
+      <!-- Banner -->
       <section id="coupons-banner"
-        class="w-full sm:h-[100px] lg:h-[200px] bg-center bg-cover bg-no-repeat flex items-center justify-center relative">
-        <img src="/imgs/Banner/KK_01.jpg" alt="Coupons Banner"
-          class="absolute inset-0 w-full h-full object-cover" />
-        <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%] text-white">
-          <h1 class="text-black font-bold text-2xl sm:text-1xl tracking-wider uppercase bg-white m-4 px-3 py-2 sm:px-6 sm:py-3">
+               class="w-full sm:h-[220px] lg:h-[340px] bg-center bg-cover bg-no-repeat flex items-center justify-center relative overflow-hidden rounded-[28px] shadow-2xl animate-fadeUp">
+        <!-- Parallax layer container -->
+        <div class="banner-layers absolute inset-0">
+          <!-- Background image (original content unchanged) -->
+          <img src="/imgs/Banner/KK_01.jpg"
+               alt="Coupons Banner"
+               class="absolute inset-0 w-full h-full object-cover opacity-85 scale-[1.06]" />
+          <!-- Gradient wash -->
+          <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/25 to-transparent"></div>
+          <!-- Stars -->
+          <div class="star-field"></div>
+        </div>
+
+        <!-- Title block -->
+        <div class="relative z-10 text-center max-w-[90%] sm:max-w-[75%]">
+          <h1 class="text-black font-extrabold text-3xl sm:text-5xl tracking-[0.35em] uppercase glass m-4 px-6 py-4 sm:px-10 sm:py-6 rounded-xl shadow-xl">
             Available Coupons
           </h1>
+          <p class="text-white text-base sm:text-xl mt-3 sm:mt-4 drop-shadow-xl">
+            Exclusive deals just for you ✨
+          </p>
+
+          <!-- Floating badges -->
+          <div class="mt-6 flex items-center justify-center gap-4">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/70 backdrop-blur text-[#f88379] text-xl shadow-md animate-float">% </span>
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/70 backdrop-blur text-yellow-500 text-xl shadow-md animate-float">★</span>
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/70 backdrop-blur text-pink-500 text-xl shadow-md animate-float">🎁</span>
+          </div>
+        </div>
+
+        <!-- Ambient glow at bottom -->
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/35 to-transparent"></div>
+      </section>
+
+      <!-- Coupon Cards -->
+      <section class="relative text-gray-800 font-sans px-4 py-16 md:py-20 max-w-7xl mx-auto animate-fadeUp">
+        <!-- Section header -->
+        <header class="mb-10 md:mb-12 text-center">
+          <h2 class="text-2xl md:text-3xl font-bold gradient-text">Grab Your Savings</h2>
+          <p class="mt-3 text-gray-700">
+            Same perks. Wild new looks. Pick your favorite flavor of savings.
+          </p>
+        </header>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+
+          <!-- Coupon 1: $3 off (Normal) -->
+          <article
+            class="relative group border-2 border-dashed border-gray-300 p-6 md:p-8 text-center flex flex-col justify-between bg-white rounded-2xl shadow-md hover:shadow-2xl transition duration-500 transform tilt-3d magnetic ne on-ring"
+            aria-label="$3 off coupon">
+            <!-- Ribbon -->
+            <span class="ribbon pink">Hot</span>
+
+            <!-- Decorative perforation strip -->
+            <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-44 h-8 perforated opacity-30"></div>
+
+            <!-- Content -->
+            <div class="space-y-3 md:space-y-4">
+              <h3 class="text-2xl md:text-3xl font-extrabold uppercase text-black tracking-[0.25em] group-hover:text-pink-600 transition">
+                $3 Off
+              </h3>
+              <p class="text-sm md:text-base text-gray-600">
+                Get $3 off any order — no strings attached.
+              </p>
+            </div>
+
+            <!-- Code display -->
+            <div class="mt-5 md:mt-6 bg-gray-100 px-5 py-3 md:px-6 md:py-3 text-base font-mono rounded-lg text-gray-700 border border-gray-200 shadow-inner group-hover:bg-pink-50 transition relative">
+              Use code: <strong class="text-pink-600 select-all tooltip focus-ring" tabindex="0" data-tip="Click to copy">KRAZE3</strong>
+              <div class="absolute inset-y-0 right-0 w-10 opacity-50 pointer-events-none"
+                   style="background: linear-gradient(90deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.0) 100%); background-size: 240px 100%; animation: shine 2s linear infinite;">
+              </div>
+            </div>
+
+            <!-- Copy button -->
+            <button
+              type="button"
+              class="mt-4 md:mt-5 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md border border-pink-400 text-pink-700 hover:text-white hover:bg-pink-500 hover:border-pink-500 transition focus-ring text-sm md:text-base"
+              data-copy="KRAZE3"
+              aria-label="Copy code KRAZE3">
+              <span>Copy code</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+                <rect x="3" y="3" width="13" height="13" rx="2"></rect>
+              </svg>
+            </button>
+
+            <!-- Micro note -->
+            <div class="mt-6 text-[11px] uppercase tracking-widest text-gray-400">
+              No minimums. Limit one per order.
+            </div>
+          </article>
+
+          <!-- Coupon 2: $5 off (Slightly Larger, Silver Border) -->
+          <article
+            class="relative group border-4 border-dashed border-[#c0c0c0] p-8 md:p-10 text-center flex flex-col justify-between bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-2xl transition duration-500 transform hover:-translate-y-1 hover:scale-[1.04] tilt-3d magnetic neon-ring"
+            aria-label="$5 off coupon">
+            <!-- Ribbon -->
+            <span class="ribbon silver">Popular</span>
+
+            <!-- Twinkle -->
+            <div class="absolute -top-3 right-6 text-yellow-500 text-2xl animate-pulse">✦</div>
+
+            <!-- Content -->
+            <div class="space-y-3 md:space-y-4">
+              <h3 class="text-3xl md:text-4xl font-extrabold uppercase text-black tracking-[0.25em] group-hover:text-gray-700 transition">
+                $5 Off
+              </h3>
+              <p class="text-base md:text-lg text-gray-700">
+                Sign up and we’ll send you $5 off instantly.
+              </p>
+            </div>
+
+            <!-- CTA -->
+            <a href="/pages/sign-up.html"
+               class="relative inline-flex items-center justify-center gap-3 bg-[#f88379] hover:bg-[#f56a5d] text-white px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold rounded-lg shadow-md overflow-hidden transition duration-300 focus-ring"
+               aria-label="Sign up to receive $5 off">
+              <span class="absolute inset-0"
+                    style="background: linear-gradient(90deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.0) 100%); background-size: 240px 100%; animation: shine 1.8s linear infinite;">
+              </span>
+              <span class="relative">Sign Up</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="relative h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+
+            <!-- Micro note -->
+            <div class="mt-6 text-[11px] uppercase tracking-widest text-gray-400">
+              New subscribers only. Delivered by email.
+            </div>
+          </article>
+
+          <!-- Coupon 3: $7 off (Largest, Gold Border) -->
+          <article
+            class="relative group border-[5px] border-dashed border-yellow-500 p-10 md:p-12 text-center flex flex-col justify-between bg-gradient-to-br from-white via-yellow-50 to-yellow-100 rounded-2xl shadow-xl hover:shadow-2xl transition duration-500 transform hover:-translate-y-1 hover:scale-[1.06] tilt-3d magnetic neon-ring"
+            aria-label="$7 off coupon">
+            <!-- Ribbon -->
+            <span class="ribbon gold">Premium</span>
+
+            <!-- Content -->
+            <div class="space-y-3 md:space-y-4">
+              <h3 class="text-4xl md:text-5xl font-extrabold uppercase text-black tracking-[0.25em] group-hover:text-yellow-600 transition">
+                $7 Off
+              </h3>
+              <p class="text-base md:text-lg text-gray-700">
+                Leave a review and get $7 off your next order.
+              </p>
+            </div>
+
+            <!-- CTA -->
+            <a href="/pages/leave-a-review.html"
+               class="relative inline-flex items-center justify-center gap-3 bg-[#f88379] hover:bg-[#f56a5d] text-white px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-semibold rounded-lg shadow-md transition duration-300 focus-ring"
+               aria-label="Leave a review to get $7 off">
+              <span class="relative">Leave a Review</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="relative h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 20l-7 3 2-7-5-5 7-1 3-7 3 7 7 1-5 5 2 7-7-3z"></path>
+              </svg>
+            </a>
+
+            <!-- Micro note -->
+            <div class="mt-6 text-[11px] uppercase tracking-widest text-gray-500">
+              After moderation. One reward per review.
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Micro legend -->
+        <div class="mt-10 text-xs tracking-wide text-center text-gray-600">
+          Savings apply at checkout. See terms for details.
         </div>
       </section>
 
-      <!-- 🧾 Coupon Cards -->
-<section class="relative text-gray-800 font-sans px-4 py-10 max-w-5xl mx-auto animate-fadeInUp">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-x-16">
+      <!-- Sparkle Divider -->
+      <div class="relative py-10">
+        <div class="sparkle-divider"></div>
+        <div class="relative flex justify-center mt-6">
+          <span class="glass px-6 py-2 rounded-lg text-gray-700 uppercase tracking-widest text-sm shadow">
+            More perks coming soon
+          </span>
+        </div>
+      </div>
 
-    <!-- Coupon 1: $3 off (Normal) -->
-    <div class="border-2 border-dashed border-gray-300 p-6 text-center flex flex-col justify-between bg-white hover:shadow-md transition duration-200">
-      <h2 class="text-2xl font-extrabold uppercase text-black mb-2 tracking-wide">$3 off</h2>
-      <p class="text-sm text-gray-600 mb-4">Get $3 off any order — no strings attached.</p>
-      <div class="bg-gray-100 px-4 py-2 text-sm font-mono rounded text-gray-700">Use code: <strong>KRAZE3</strong></div>
-    </div>
+      <!-- Why shop with us -->
+      <section class="px-4 py-16 md:py-20 max-w-6xl mx-auto text-center animate-fadeUp">
+        <h2 class="text-2xl md:text-4xl font-extrabold text-gray-800 mb-4">
+          Why shop with us?
+        </h2>
+        <p class="text-base md:text-lg text-gray-700 mb-10 md:mb-12">
+          We love spoiling our customers with deals, rewards, and surprises 🎁
+        </p>
 
-    <!-- Coupon 2: $5 off (Slightly Larger, Silver Border) -->
-    <div class="border-4 border-dashed border-[#c0c0c0] p-8 text-center flex flex-col justify-between bg-white  hover:shadow-lg transition duration-200 scale-[1.05]">
-      <h2 class="text-3xl font-extrabold uppercase text-black mb-2 tracking-wide">$5 Off</h2>
-      <p class="text-base text-gray-600 mb-4">Sign up and we’ll send you $5 off instantly.</p>
-      <a href="/sign-up.html"
-        class="bg-[#f88379] hover:bg-[#f56a5d] text-white px-6 py-2 text-sm font-semibold transition duration-200">
-        Sign Up
-      </a>
-    </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <!-- Card 1 -->
+          <div class="p-6 bg-white rounded-xl shadow-md hover:shadow-2xl transition tilt-3d relative overflow-hidden neon-ring">
+            <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-pink-500 via-yellow-500 to-pink-500 opacity-60"></div>
+            <div class="text-pink-500 text-5xl mb-4">💎</div>
+            <h3 class="font-bold text-lg mb-1">Exclusive deals</h3>
+            <p class="text-gray-600">Hand-picked offers you won’t find anywhere else.</p>
+          </div>
 
-    <!-- Coupon 3: $7 off (Largest, Gold Border) -->
-    <div class="border-[5px] border-dashed border-yellow-500 p-10 text-center flex flex-col justify-between bg-white hover:shadow-xl transition duration-200 scale-[1.1]">
-      <h2 class="text-4xl font-extrabold uppercase text-black mb-2 tracking-wide">$7 Off</h2>
-      <p class="text-base text-gray-600 mb-4">Leave a review and get $7 off your next order.</p>
-      <a href="/leave-a-review.html"
-        class="bg-[#f88379] hover:bg-[#f56a5d] text-white px-6 py-2 text-sm font-semibold transition duration-200">
-        Leave a Review
-      </a>
-    </div>
+          <!-- Card 2 -->
+          <div class="p-6 bg-white rounded-xl shadow-md hover:shadow-2xl transition tilt-3d relative overflow-hidden neon-ring">
+            <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-yellow-500 via-pink-500 to-yellow-500 opacity-60"></div>
+            <div class="text-yellow-500 text-5xl mb-4">🚀</div>
+            <h3 class="font-bold text-lg mb-1">Fast rewards</h3>
+            <p class="text-gray-600">Sign up and earn discounts in minutes.</p>
+          </div>
 
-  </div>
-</section>
+          <!-- Card 3 -->
+          <div class="p-6 bg-white rounded-xl shadow-md hover:shadow-2xl transition tilt-3d relative overflow-hidden neon-ring">
+            <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-pink-500 via-yellow-500 to-pink-500 opacity-60"></div>
+            <div class="text-pink-500 text-5xl mb-4">🔒</div>
+            <h3 class="font-bold text-lg mb-1">Trusted store</h3>
+            <p class="text-gray-600">Secure checkout and reliable support.</p>
+          </div>
 
+          <!-- Card 4 -->
+          <div class="p-6 bg-white rounded-xl shadow-md hover:shadow-2xl transition tilt-3d relative overflow-hidden neon-ring">
+            <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-yellow-500 via-pink-500 to-yellow-500 opacity-60"></div>
+            <div class="text-yellow-500 text-5xl mb-4">🎉</div>
+            <h3 class="font-bold text-lg mb-1">Community love</h3>
+            <p class="text-gray-600">Earn perks when you share reviews and feedback.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="px-4 py-14 md:py-16 max-w-5xl mx-auto animate-fadeUp">
+        <div class="rounded-2xl bg-white shadow-lg p-6 md:p-8 neon-ring">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-800">Common questions</h3>
+          <div class="mt-6 space-y-6">
+            <details class="group">
+              <summary class="cursor-pointer flex items-center justify-between py-2 px-2 rounded-md hover:bg-gray-50">
+                <span class="text-gray-800 font-semibold">How do I use a coupon?</span>
+                <span class="text-gray-400 group-open:rotate-180 transition">▼</span>
+              </summary>
+              <div class="pl-2 pt-3 text-gray-600">
+                Apply the code on the checkout page — you’ll see the discount reflected instantly.
+              </div>
+            </details>
+
+            <details class="group">
+              <summary class="cursor-pointer flex items-center justify-between py-2 px-2 rounded-md hover:bg-gray-50">
+                <span class="text-gray-800 font-semibold">Can I stack multiple coupons?</span>
+                <span class="text-gray-400 group-open:rotate-180 transition">▼</span>
+              </summary>
+              <div class="pl-2 pt-3 text-gray-600">
+                Coupons generally cannot be combined; the best eligible discount will be applied.
+              </div>
+            </details>
+
+            <details class="group">
+              <summary class="cursor-pointer flex items-center justify-between py-2 px-2 rounded-md hover:bg-gray-50">
+                <span class="text-gray-800 font-semibold">Why didn’t my code work?</span>
+                <span class="text-gray-400 group-open:rotate-180 transition">▼</span>
+              </summary>
+              <div class="pl-2 pt-3 text-gray-600">
+                Double-check spelling, expiration, and minimum requirements. If you need help, reach out to support.
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Callout -->
+      <section class="px-4 py-12 md:py-16 max-w-6xl mx-auto animate-fadeUp">
+        <div class="relative overflow-hidden rounded-2xl p-6 md:p-10 bg-gradient-to-br from-pink-100 via-white to-yellow-100 shadow-xl">
+          <div class="absolute inset-0 pointer-events-none opacity-20">
+            <div class="star-field"></div>
+          </div>
+          <div class="relative flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="max-w-xl">
+              <h4 class="text-xl md:text-2xl font-extrabold text-gray-800">
+                New drops, better deals
+              </h4>
+              <p class="mt-2 text-gray-700">
+                Sign up to be the first to hear about fresh releases and surprise coupons.
+              </p>
+            </div>
+            <a href="/sign-up.html"
+               class="inline-flex items-center justify-center gap-3 bg-[#f88379] hover:bg-[#f56a5d] text-white px-5 md:px-6 py-2.5 md:py-3 text-sm md:text-base font-semibold rounded-lg shadow-md transition focus-ring">
+              <span>Get updates</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
 
     </div>
   </main>
 
-  <!-- Navbar + Footer -->
-      <div id="footer"></div>
-      <div id="navbar"></div>
-      <div id="announcement-container"></div>
-      <script type="module" src="/js/main.js"></script>
+  <!-- Navbar + Footer (unchanged hooks) -->
+  <div id="footer"></div>
+  <div id="navbar"></div>
+  <div id="announcement-container"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="/js/main.js"></script>
+
+  <!-- Creative Interactivity Script -->
+  <script>
+    // Copy-to-clipboard & confetti
+    document.querySelectorAll('[data-copy]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const code = btn.getAttribute('data-copy');
+        navigator.clipboard.writeText(code).then(() => {
+          const prevHTML = btn.innerHTML;
+          btn.classList.add('bg-pink-500', 'text-white');
+          btn.innerHTML = '<span>Copied!</span>' +
+            '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+            '<path d="M20 6L9 17l-5-5"></path>' +
+            '</svg>';
+          setTimeout(() => {
+            btn.classList.remove('bg-pink-500', 'text-white');
+            btn.innerHTML = prevHTML;
+          }, 1200);
+          fireConfetti(24 + Math.floor(Math.random() * 24));
+          burstParticles(btn, ['#f88379', '#f59e0b', '#ec4899']);
+        }).catch(() => {});
+      });
+    });
+
+    // Banner parallax (mouse-based)
+    const banner = document.getElementById('coupons-banner');
+    const bannerImg = banner.querySelector('img');
+    banner.addEventListener('mousemove', (e) => {
+      const rect = banner.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const dx = (x - 0.5) * 14;
+      const dy = (y - 0.5) * 10;
+      bannerImg.style.transform = `scale(1.06) translate(${dx}px, ${dy}px)`;
+    });
+    banner.addEventListener('mouseleave', () => {
+      bannerImg.style.transform = 'scale(1.06) translate(0px, 0px)';
+    });
+
+    // Intersection fade-ups
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('section').forEach((sec) => {
+      sec.classList.add('opacity-0', 'translate-y-6', 'transition', 'duration-700', 'ease-out');
+      fadeObserver.observe(sec);
+    });
+
+    // Magnetic hover (mouse attraction) for cards
+    document.querySelectorAll('.magnetic').forEach((card) => {
+      let rafId = null;
+      const strength = 10;
+      const handleMove = (e) => {
+        const rect = card.getBoundingClientRect();
+        const cx = e.clientX - rect.left;
+        const cy = e.clientY - rect.top;
+        const px = (cx / rect.width - 0.5) * 2;
+        const py = (cy / rect.height - 0.5) * 2;
+        const tx = px * strength;
+        const ty = py * strength;
+        if (!rafId) {
+          rafId = requestAnimationFrame(() => {
+            card.style.transform = `translate(${tx}px, ${ty}px)`;
+            rafId = null;
+          });
+        }
+      };
+      const handleLeave = () => {
+        card.style.transform = '';
+      };
+      card.addEventListener('mousemove', handleMove);
+      card.addEventListener('mouseleave', handleLeave);
+    });
+
+    // Confetti engine
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    let confettiPieces = [];
+    let running = false;
+
+    function sizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    sizeCanvas();
+    window.addEventListener('resize', sizeCanvas);
+
+    function makeConfettiPiece(x, y) {
+      const colors = ['#f88379', '#f59e0b', '#fde68a', '#ec4899'];
+      return {
+        x: x ?? Math.random() * canvas.width,
+        y: y ?? -10,
+        w: 6 + Math.random() * 8,
+        h: 3 + Math.random() * 6,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vy: 2 + Math.random() * 3,
+        vx: -1 + Math.random() * 2,
+        rot: Math.random() * Math.PI * 2,
+        vr: -0.05 + Math.random() * 0.1,
+        life: 60 + Math.random() * 80,
+      };
+    }
+
+    function fireConfetti(amount = 20, origin = null) {
+      for (let i = 0; i < amount; i++) {
+        const p = origin
+          ? makeConfettiPiece(origin.x + (Math.random() * 60 - 30), origin.y + (Math.random() * 60 - 32))
+          : makeConfettiPiece();
+        confettiPieces.push(p);
+      }
+      if (!running) {
+        running = true;
+        requestAnimationFrame(loopConfetti);
+      }
+    }
+
+    function loopConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      confettiPieces.forEach((p) => {
+        p.y += p.vy;
+        p.x += p.vx;
+        p.rot += p.vr;
+        p.life -= 1;
+      });
+
+      confettiPieces = confettiPieces.filter((p) => p.life > 0 && p.y < canvas.height + 20);
+
+      confettiPieces.forEach((p) => {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
+
+      if (confettiPieces.length > 0) {
+        requestAnimationFrame(loopConfetti);
+      } else {
+        running = false;
+      }
+    }
+
+    // Particle burst (small circles) around element
+    function burstParticles(el, colors = ['#f88379', '#f59e0b', '#ec4899']) {
+      const rect = el.getBoundingClientRect();
+      const origin = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+      fireConfetti(18, origin);
+    }
+
+    // Accessibility: keyboard visual feedback
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          el.classList.add('ring-2', 'ring-pink-400');
+          setTimeout(() => el.classList.remove('ring-2', 'ring-pink-400'), 600);
+        }
+      });
+    });
+
+    // Ambient cursor trail (emoji sparkles)
+    const trailLayer = document.createElement('div');
+    trailLayer.style.position = 'fixed';
+    trailLayer.style.inset = '0';
+    trailLayer.style.zIndex = '30';
+    trailLayer.style.pointerEvents = 'none';
+    document.body.appendChild(trailLayer);
+
+    const trailEmojis = ['✨','★','🎉','💫','🌟'];
+    const trails = [];
+    let trailRaf = null;
+
+    function spawnTrail(x, y) {
+      const span = document.createElement('span');
+      span.textContent = trailEmojis[Math.floor(Math.random() * trailEmojis.length)];
+      span.style.position = 'absolute';
+      span.style.left = x + 'px';
+      span.style.top = y + 'px';
+      span.style.fontSize = (14 + Math.random() * 10) + 'px';
+      span.style.opacity = '0.0';
+      span.style.transition = 'transform 700ms ease, opacity 700ms ease';
+      trailLayer.appendChild(span);
+      const dx = (Math.random() * 20 - 10);
+      const dy = (Math.random() * 24 - 12);
+      requestAnimationFrame(() => {
+        span.style.opacity = '1';
+        span.style.transform = `translate(${dx}px, ${dy}px)`;
+      });
+      setTimeout(() => {
+        span.style.opacity = '0';
+        span.style.transform = `translate(${dx*2}px, ${dy*2}px)`;
+        setTimeout(() => span.remove(), 400);
+      }, 350);
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      if (Math.random() < 0.20) spawnTrail(e.clientX, e.clientY);
+    });
+
+    // Easter egg: press "C" to celebrate confetti
+    window.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'c') {
+        fireConfetti(80);
+      }
+    });
+  </script>
 </body>
 </html>
