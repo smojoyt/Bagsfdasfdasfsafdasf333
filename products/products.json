@@ -2565,7 +2565,7 @@
     "Store in a cool, dry place when not in use"
   ],
   "custom1Name": "Style",
-  "custom1Options": "Pink Bubble, Purple Bubble, Checker Pink, Checker Purple",
+  "custom1Options": "Pink Bubble | Purple Bubble | Checker Pink | Checker Purple",
   "variantStock": {
     "Pink Bubble": 10,
     "Purple Bubble": 12,
@@ -2574,9 +2574,9 @@
   },
   "variantImages": {
     "Pink Bubble": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/PinkBubble.jpg",
-    "Purple Bubble": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All6.jpg",
-    "Checker Pink": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All5.JPG",
-    "Checker Purple": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All5.JPG"
+    "Purple Bubble": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All4.jpg",
+    "Checker Pink": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All2.jpg",
+    "Checker Purple": "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All3.jpg"
   },
   "thumbnails": [
     "https://karrykraze.com/imgs/Products/Pendants/GlossCap/All1.jpg",
