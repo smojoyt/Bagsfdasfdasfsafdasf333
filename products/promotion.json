@@ -24,7 +24,7 @@
       "amount": 20,
       "condition": { "minPrice": 0 },
       "startDate": "2025-06-14T00:00:00Z",
-      "endDate": "2025-10-28T23:59:59Z",
+      "endDate": "2026-10-28T23:59:59Z",
       "active": true,
       "featured": true,
       "media": {
