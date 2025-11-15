@@ -583,10 +583,10 @@
     "custom1Name": "Color",
     "custom1Options": "Black/Red | Black | Black/White | Pink/White",
     "variantStock": {
-      "Black/Red": 2,
-      "Black": 4,
-      "Black/White": 2,
-      "Pink/White": 2
+      "Black/Red": 0,
+      "Black": 1,
+      "Black/White": 0,
+      "Pink/White": 3
     },
     "variantImages": {
       "Black/Red": "https://www.karrykraze.com/imgs/Products/Hats/FuzzyBeanie/FB_2_1.jpg",
@@ -658,10 +658,10 @@
     "custom1Options": "Black | Black/White | Pink | Blue | Pink/Cream | Red/Blue/Cream",
     "variantStock": {
       "Black": 2,
-      "Black/White": 4,
-      "Pink": 3,
+      "Black/White": 0,
+      "Pink": 1,
       "Blue": 3,
-      "Pink/Cream": 2,
+      "Pink/Cream": 0,
       "Red/Blue/Cream": 2
     },
     "variantImages": {
