@@ -1,6 +1,11 @@
 // renderProductDetails.js
 import { renderColorDotsWithLabel } from "./renderColorDotsWithLabel.js";
 import { initUniversalCartHandler } from "../Cart/addToCart.js";
+import {
+  getPromotions,
+  matchPromotion,
+  calculateDiscountedPrice,
+} from "../Promotions/promotions.js";
 
 export function renderProductDetails(product, promo = null) {
   const nameEl = document.getElementById("product-name");
@@ -8,7 +13,8 @@ export function renderProductDetails(product, promo = null) {
   const priceEl = document.getElementById("price-section");
   const extraSections = document.getElementById("extra-sections");
   const swatchContainer = document.getElementById("variant-swatch-container");
-  const addBtn = document.getElementById("add-to-cart-btn"); // ⬅️ your button
+  const addBtn = document.getElementById("add-to-cart-btn");
+  const amazonBtn = document.getElementById("amazon-btn");
 
   if (!nameEl || !idEl || !priceEl || !extraSections || !swatchContainer) {
     console.warn("❌ Missing product detail DOM elements");
@@ -19,28 +25,65 @@ export function renderProductDetails(product, promo = null) {
   nameEl.textContent = product.name;
   idEl.textContent = product.product_id || product.sku;
 
-  // 💰 Price + Promotion
-  const original = product.price;
-  let finalPrice = original;
-
-  if (promo) {
-    if (promo.type === "percent") {
-      finalPrice = original * (1 - promo.amount / 100);
-    } else if (promo.type === "fixed") {
-      finalPrice = original - promo.amount;
+  // 🛒 Amazon button (only if product.amazon exists)
+  if (amazonBtn) {
+    const url = typeof product.amazon === "string" ? product.amazon.trim() : "";
+    if (url) {
+      amazonBtn.href = url;
+      amazonBtn.classList.remove("hidden");
+    } else {
+      amazonBtn.classList.add("hidden");
+      amazonBtn.removeAttribute("href");
     }
+  }
 
-    priceEl.innerHTML = `
-      <p class="italic text-green-700 text-xl font-bold">
-        <span class="text-3xl">$${finalPrice.toFixed(2)}</span>
-        <span class="text-gray-500 line-through text-base ml-2">$${original.toFixed(2)}</span>
-      </p>
-      <span class="mr-2 text-sm bg-red-100 text-red-600 font-semibold px-2 py-1 rounded">
-        -${promo.type === "percent" ? promo.amount + "%" : "$" + promo.amount} off
-      </span>
-    `;
-  } else {
-    priceEl.innerHTML = `<span class="italic text-green-700 text-2xl font-bold">$${original.toFixed(2)}</span>`;
+  const original = product.price;
+
+  // 🔢 helper to render price section based on promo
+  function renderPriceSection(activePromo) {
+    const finalPrice = calculateDiscountedPrice(product, activePromo);
+    const isDiscounted = finalPrice < original;
+
+    if (isDiscounted && activePromo) {
+      const badgeText =
+        activePromo.type === "percent"
+          ? `-${activePromo.amount}% off`
+          : `-$${activePromo.amount} off`;
+
+      priceEl.innerHTML = `
+        <div class="flex flex-col gap-1">
+          <p class="italic text-green-700 text-xl font-bold">
+            <span class="text-3xl">$${finalPrice.toFixed(2)}</span>
+            <span class="text-gray-500 line-through text-base ml-2">$${original.toFixed(2)}</span>
+          </p>
+          <span class="inline-block mr-2 text-sm bg-red-100 text-red-600 font-semibold px-2 py-1 rounded">
+            ${badgeText}
+          </span>
+        </div>
+      `;
+    } else {
+      priceEl.innerHTML = `
+        <span class="italic text-green-700 text-2xl font-bold">
+          $${original.toFixed(2)}
+        </span>
+      `;
+    }
+  }
+
+  // 👉 Initial render with any passed-in promo
+  renderPriceSection(promo || null);
+
+  // 👉 If no promo passed, resolve via shared promo logic
+  if (!promo) {
+    getPromotions()
+      .then((promoList) => {
+        const matched = matchPromotion(product, promoList);
+        if (!matched) return;
+        renderPriceSection(matched);
+      })
+      .catch((err) => {
+        console.warn("⚠️ Failed to resolve promotions for product detail:", err);
+      });
   }
 
   // 🔽 Expandable Sections
@@ -61,13 +104,17 @@ export function renderProductDetails(product, promo = null) {
         <div>
           <button data-toggle="${id}" class="w-full flex items-center justify-between px-4 text-sm uppercase font-bold text-gray-700 hover:bg-gray-50 transition">
             <span class="flex items-center gap-2">
-              <span class="toggle-icon ${isDefaultOpen ? "text-red-500" : "text-gray-500"} transition-all">
+              <span class="toggle-icon ${
+                isDefaultOpen ? "text-red-500" : "text-gray-500"
+              } transition-all">
                 ${isDefaultOpen ? "−" : "+"}
               </span>
               ${s.title}
             </span>
           </button>
-          <div id="${id}" class="toggle-content px-6 text-sm text-gray-700 ${isDefaultOpen ? "" : "hidden"}">
+          <div id="${id}" class="toggle-content px-6 text-sm text-gray-700 ${
+            isDefaultOpen ? "" : "hidden"
+          }">
             <ul class="list-disc list-inside space-y-2">
               ${s.list.map((item) => `<li>${item}</li>`).join("")}
             </ul>
@@ -128,7 +175,7 @@ export function renderProductDetails(product, promo = null) {
     // If product uses variants
     if (options.length > 0 && Object.keys(stock).length > 0) {
       const sel = swatchContainer.dataset.selectedVariant;
-      if (!sel) return sumVariantStock(); // before first selection, fall back to total available
+      if (!sel) return sumVariantStock(); // before first selection, fall back to total
       return numeric(stock?.[sel]);
     }
     // No variants — product-level quantity fallbacks
@@ -151,9 +198,11 @@ export function renderProductDetails(product, promo = null) {
     swatchContainer.dataset.selectedVariant = variant;
 
     // Clear previous selection styles
-    swatchContainer.querySelectorAll("button.color-dot").forEach((dot) =>
-      dot.classList.remove("ring-4", "ring-black", "ring-offset-2")
-    );
+    swatchContainer
+      .querySelectorAll("button.color-dot")
+      .forEach((dot) =>
+        dot.classList.remove("ring-4", "ring-black", "ring-offset-2")
+      );
     swatchContainer.querySelectorAll("button.style-btn").forEach((b) => {
       b.classList.remove("bg-black", "text-white", "border-black");
       b.setAttribute("aria-pressed", "false");
@@ -197,7 +246,9 @@ export function renderProductDetails(product, promo = null) {
         const img = vImgs[opt] || "";
         return `
           <button
-            class="style-btn px-3 py-2 border rounded-md text-xs font-medium uppercase tracking-wide ${inStock ? "hover:bg-gray-50" : "opacity-40 cursor-not-allowed"}"
+            class="style-btn px-3 py-2 border rounded-md text-xs font-medium uppercase tracking-wide ${
+              inStock ? "hover:bg-gray-50" : "opacity-40 cursor-not-allowed"
+            }"
             data-variant="${opt}"
             data-image="${img}"
             data-sku="${product.product_id}"

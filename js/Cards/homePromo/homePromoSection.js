@@ -39,15 +39,37 @@ export async function renderHomePromoSection(container, maxToShow = 6) {
   }
 
   // 🎯 Filter products by category AND exclude discontinued
-  const matchedEntries = Object.entries(products).filter(([_, product]) => {
-    const category = Array.isArray(product.category) ? product.category[0] : product.category;
-    const tags = product.tags?.map(t => t.toLowerCase()) || [];
+const matchedEntries = Object.entries(products).filter(([_, product]) => {
+  const rawCategories = product.category
+    ? (Array.isArray(product.category) ? product.category : [product.category])
+    : [];
+  const categories = rawCategories.map(c => c.toLowerCase());
 
-    return (
-      promoCategories.includes(category?.toLowerCase()) &&
-      !tags.includes("discontinued")
-    );
-  });
+  const tags = product.tags?.map(t => t.toLowerCase()) || [];
+
+  const matchesPromo =
+    categories.some(cat => promoCategories.includes(cat)) ||
+    tags.some(tag => promoCategories.includes(tag));
+
+  // 🧮 stock check
+  let hasStock = true;
+  if (product.variantStock && typeof product.variantStock === "object") {
+    const stockValues = Object.values(product.variantStock).map(Number);
+    const totalStock = stockValues.reduce((sum, qty) => {
+      if (Number.isNaN(qty)) return sum;
+      return sum + qty;
+    }, 0);
+    hasStock = totalStock > 0;
+  }
+
+  return (
+    matchesPromo &&
+    !tags.includes("discontinued") &&
+    hasStock
+  );
+});
+
+
 
   if (matchedEntries.length === 0) {
     console.warn("⚠️ No products found for selected categories:", promoCategories);

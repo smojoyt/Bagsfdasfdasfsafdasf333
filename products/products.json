@@ -230,7 +230,7 @@
     "name": "Celestial Round Bag",
     "category": "bags",
     "product_id": "KK-1006",
-    "price": 34.95,
+    "price": 24.95,
     "weight_oz": 21.16,
     "tags": [
       "",
@@ -323,6 +323,7 @@
     "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/04_01.jpg",
     "image": "https://www.karrykraze.com/imgs/Products/Pendants/Pear/02_01.jpg",
     "url": "https://www.karrykraze.com/pages/product.html?sku=Charms_PearChain",
+    "amazon": "https://www.amazon.com/dp/B0G324Z8SZ",
     "descriptionList": [
       "Elegant pear-shaped charm with glitter red finish",
       "Gold-tone hardware with secure lobster clasp",
@@ -485,6 +486,7 @@
     "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_03_03.jpg",
     "image": "https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg",
     "url": "https://www.karrykraze.com/pages/product.html?sku=Charms_CherryChain",
+    "amazon": "https://www.amazon.com/dp/B0G2T4CCDV",
     "descriptionList": [
       "A stylish and playful cherry keychain featuring",
       "glossy red cherries, a pearl heart charm,",
@@ -759,7 +761,7 @@
     "name": "Velvet Cherry Puff Purse",
     "category": "bags",
     "product_id": "KK-1020",
-    "price": 27.97,
+    "price": 23.97,
     "weight_oz": 17.64,
     "tags": [
       "New Arrival",

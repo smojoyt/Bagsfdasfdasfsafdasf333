@@ -18,27 +18,44 @@ export function matchPromotion(product, promoList) {
   if (!Array.isArray(promoList)) return null;
   const now = new Date();
 
-  const productCategory = Array.isArray(product.category)
-    ? product.category[0].toLowerCase()
-    : (product.category || "").toLowerCase();
+  // Normalize categories to an array of lowercase strings
+  const rawCategories = product.category
+    ? (Array.isArray(product.category) ? product.category : [product.category])
+    : [];
+  const categories = rawCategories.map(c => c.toLowerCase());
 
-  return promoList.find(promo => {
+  // Normalize tags to lowercase
+  const tags = (product.tags || []).map(t => t.toLowerCase());
+
+  const price = product.price ?? 0;
+
+  const promo = promoList.find(promo => {
     const start = new Date(promo.startDate || "2000-01-01");
     const end = new Date(promo.endDate || "9999-12-31");
+
+    if (promo.active === false) return false;
+    if (now < start || now > end) return false;
 
     const promoCat = (promo.category || "").toLowerCase();
     const min = promo.condition?.minPrice ?? -Infinity;
     const max = promo.condition?.maxPrice ?? Infinity;
 
-    return (
-      promo.active !== false &&
-      productCategory === promoCat &&
-      product.price >= min &&
-      product.price <= max &&
-      now >= start && now <= end
-    );
-  }) || null;
+    // 🧩 Category / tag match:
+    // - if promo.category is blank, treat it as "match all"
+    // - otherwise match against categories OR tags
+    const matchesCategory =
+      !promoCat ||
+      categories.includes(promoCat) ||
+      tags.includes(promoCat);
+
+    const matchesPrice = price >= min && price <= max;
+
+    return matchesCategory && matchesPrice;
+  });
+
+  return promo || null;
 }
+
 
 export function calculateDiscountedPrice(product, promo) {
   if (!promo) return product.price;
