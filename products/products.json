@@ -294,7 +294,7 @@
     "custom1Name": "Color",
     "custom1Options": "Pink",
     "variantStock": {
-      "Pink": 20
+      "Pink": 0
     },
     "variantImages": {
       "Pink": "https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_04.jpg"
@@ -314,7 +314,7 @@
     "category": "charms",
     "subCategory": "largeCharms",
     "product_id": "KK-1008",
-    "price": 12.97,
+    "price": 7.97,
     "weight_oz": 1.34,
     "tags": [
       "Charms"
@@ -475,7 +475,7 @@
     "category": "charms",
     "subCategory": "largeCharms",
     "product_id": "KK-1013",
-    "price": 12.97,
+    "price": 7.97,
     "weight_oz": 2.12,
     "tags": [
       "Bestseller",
@@ -584,7 +584,7 @@
     "custom1Options": "Black/Red | Black | Black/White | Pink/White",
     "variantStock": {
       "Black/Red": 0,
-      "Black": 1,
+      "Black": 0,
       "Black/White": 0,
       "Pink/White": 3
     },
@@ -1575,7 +1575,7 @@
 },
 "Labubu_Outfit_Chanel": {
   "name": "Labubu Chanel Outfit",
-  "category": "charms",
+  "category": "Labubu",
   "product_id": "KK-1033",
   "price": 19.99,
   "weight_oz": 2.1,
@@ -1625,7 +1625,7 @@
 },
 "Labubu_Outfit_Cool": {
   "name": "Labubu Cool Outfit",
-  "category": "charms",
+  "category": "Labubu",
   "product_id": "KK-1034",
   "price": 22.99,
   "weight_oz": 2.1,
@@ -1675,7 +1675,7 @@
 },
 "Labubu_Outfit_HarryPotter": {
   "name": "Labubu HarryPotter Outfit",
-  "category": "charms",
+  "category": "Labubu",
   "product_id": "KK-1035",
   "price": 24.99,
   "weight_oz": 2.1,
@@ -1737,7 +1737,7 @@
 },
 "Labubu_Outfit_Mario": {
   "name": "Labubu Mario Outfit",
-  "category": "charms",
+  "category": "Labubu",
   "product_id": "KK-1036",
   "price": 19.99,
   "weight_oz": 2.1,
@@ -1786,7 +1786,7 @@
 },
 "Labubu_Outfit_Mini": {
   "name": "Labubu Mini Outfit",
-  "category": "charms",
+  "category": "Labubu",
   "product_id": "KK-1037",
   "price": 19.99,
   "weight_oz": 2.1,
@@ -1894,7 +1894,7 @@
 },
 "Labubu_Shoes_Jordans": {
   "name": "Labubu Jordans",
-  "category": "charms",
+  "category": "Labubu",
   "product_id": "KK-1038",
   "price": 14.99,
   "weight_oz": 2.1,
@@ -2265,7 +2265,7 @@
   "product_id": "KK-1047",
   "price": 16.99,
   "weight_oz": 1.6,
-  "tags": ["bracelet", "charms", "Labubu", "kawaii", "gift-ready", "gold-tone"],
+  "tags": ["bracelet", "Labubu", "kawaii", "gift-ready", "gold-tone"],
   "catalogImage": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/02.jpg",
   "catalogImageHover": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/03.jpg",
   "image": "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Labubu/04.jpg",
