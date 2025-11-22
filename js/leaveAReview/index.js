@@ -7,11 +7,11 @@ import { setupProductDropdown } from "./productDropdown.js";
 // ✅ Firebase config (fill these in)
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  authDomain: "karrykraze-refiews.firebaseapp.com",
+  projectId: "karrykraze-refiews",
+  storageBucket: "karrykraze-refiews.appspot.com",
+  messagingSenderId: "207129112203",
+  appId: "1:207129112203:web:910e834e7c1bbe9158ae8e"
 };
 firebase.initializeApp(firebaseConfig);
 
