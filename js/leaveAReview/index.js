@@ -9,7 +9,7 @@ const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "karrykraze-refiews.firebaseapp.com",
   projectId: "karrykraze-refiews",
-  storageBucket: "gs://karrykraze-refiews.firebasestorage.app",
+  storageBucket: "karrykraze-refiews.firebasestorage.app",
   messagingSenderId: "207129112203",
   appId: "1:207129112203:web:910e834e7c1bbe9158ae8e"
 };
