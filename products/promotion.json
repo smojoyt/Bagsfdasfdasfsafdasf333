@@ -35,17 +35,17 @@
       }
     },
     {
-      "name": "10% Off All Bags",
+      "name": "15% Off All Bags",
       "category": "bags",
       "type": "percent",
-      "amount": 10,
+      "amount": 15,
       "condition": { "minPrice": 0 },
       "startDate": "2025-06-14T00:00:00Z",
       "endDate": "2026-10-28T23:59:59Z",
       "active": true,
       "featured": true,
       "media": {
-        "headline": "10% Off All Bags",
+        "headline": "15% Off All Bags",
         "caption": "Limited time only. Grab your favorite styles today!",
         "video": "",
         "image": "https://www.karrykraze.com/imgs/Promo/20Bags/promoBags.jpg"
