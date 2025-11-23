@@ -99,7 +99,7 @@ export function createReviewCard(review, products) {
 
   // Review card (border color matches source)
   const card = document.createElement("div");
-  card.className = "w-[21rem] h-[20rem] flex flex-col bg-white shadow-sm overflow-hidden border-4";
+  card.className = "w-[21rem] h-[30rem] flex flex-col bg-white shadow-sm overflow-hidden border-4";
   card.style.borderColor = style.borderColor;
 
   card.innerHTML = `
@@ -128,17 +128,19 @@ export function createReviewCard(review, products) {
 
       <!-- Headline -->
       <div class="text-xl font-bold text-gray-900 mb-1 uppercase">${escapeHTML(headline)}</div>
+      
+      ${customerImg ? `
+        <div class="mt-3">
+          <img src="${customerImg}" alt="Customer photo" class="w-full max-h-56 object-cover border border-gray-300" />
+        </div>
+      ` : ""}
 
       <!-- Review Body Text -->
       <p class="text-sm text-gray-700 mb-3 whitespace-pre-line" data-full="${escapeHTML(text)}">
         ${previewText}
       </p>
 
-      ${customerImg ? `
-        <div class="mt-3">
-          <img src="${customerImg}" alt="Customer photo" class="w-full max-h-40 object-cover border border-gray-300" />
-        </div>
-      ` : ""}
+
 
     </div>
 

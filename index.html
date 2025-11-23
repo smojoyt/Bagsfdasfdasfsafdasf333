@@ -31,7 +31,12 @@
    <meta name="twitter:image" content="https://karrykraze.com/imgs/Products/Hats/BunnyEarsRat/CatIMG_01.jpg">
 
    <!-- Tailwind -->
-   <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="/js/tailwind/config.js"></script>
+
+
+
+
 
    <!-- Flickity CSS -->
    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
@@ -48,7 +53,15 @@
 </head>
 
 
-<body class="bg-white text-black font-sans">
+<body class="bg-transparent text-black">
+   <script type="module">
+     import { injectBackgroundBlobs } from "/js/utils/background/index.js";
+     injectBackgroundBlobs();
+   </script>
+
+   <!-- now navbar + announcement load -->
+
+
    <!-- Navbar injected via JS -->
    <div id="navbar" class="min-h-[4rem]"></div>
 
