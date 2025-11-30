@@ -1,84 +1,129 @@
 import { renderColorDots } from "../../utils/variantHelpers.js";
 import { initUniversalCartHandler } from "../../Cart/addToCart.js";
-import { getPromotions, matchPromotion, calculateDiscountedPrice } from "../../Promotions/promotions.js";
+import {
+  getPromotions,
+  matchPromotion,
+  calculateDiscountedPrice,
+} from "../../Promotions/index.js";
+
 
 export async function createHomePromoCard(sku, product) {
-  const promoList = await getPromotions();
+  const allPromos = await getPromotions();
+
+  // 🔹 Only use item-level promos (ignore cart_bogo)
+  const promoList = allPromos.filter(
+    (p) => p.type === "fixed" || p.type === "percent" || !p.type
+  );
+
   const activePromo = matchPromotion(product, promoList);
   const finalPrice = calculateDiscountedPrice(product, activePromo);
   const isDiscounted = finalPrice < product.price;
 
-  const imageUrl = product.catalogImage || product.image || "/imgs/placeholder.jpg";
+  const imageUrl =
+    product.catalogImage || product.image || "/imgs/placeholder.jpg";
   const hoverImage = product.catalogImageHover || imageUrl;
 
   const colorOptions = Array.isArray(product.custom1Options)
     ? product.custom1Options
     : typeof product.custom1Options === "string"
-      ? product.custom1Options.split(" | ")
-      : [];
+    ? product.custom1Options.split(" | ")
+    : [];
 
   // ---------- Total stock detection ----------
-  const totalStock = (() => {
-    for (const k of ["stock", "inventory", "quantity", "inStockCount"]) {
-      if (typeof product[k] === "number" && isFinite(product[k])) return product[k];
+  // ---------- Total stock detection ----------
+const { totalStock } = (() => {
+  let total = 0;
+
+  // 1) Simple numeric stock fields
+  for (const k of ["stock", "inventory", "quantity", "inStockCount"]) {
+    if (typeof product[k] === "number" && Number.isFinite(product[k])) {
+      total = product[k];
+      return { totalStock: total };
     }
-    if (product.variantStock) {
-      if (Array.isArray(product.variantStock)) {
-        return product.variantStock.reduce((sum, n) => sum + (Number.isFinite(+n) ? +n : 0), 0);
+  }
+
+  // 2) variantStock: array or object
+  if (product.variantStock) {
+    if (Array.isArray(product.variantStock)) {
+      for (const val of product.variantStock) {
+        const n = Number(val);
+        if (Number.isFinite(n)) total += n;
       }
-      if (typeof product.variantStock === "object") {
-        return Object.values(product.variantStock).reduce(
-          (sum, n) => sum + (Number.isFinite(+n) ? +n : 0),
-          0
-        );
+      return { totalStock: total };
+    }
+
+    if (typeof product.variantStock === "object") {
+      for (const val of Object.values(product.variantStock)) {
+        const n = Number(val);
+        if (Number.isFinite(n)) total += n;
       }
+      return { totalStock: total };
     }
-    if (Array.isArray(product.variants)) {
-      return product.variants.reduce(
-        (sum, v) => sum + (Number.isFinite(+v?.stock) ? +v.stock : 0),
-        0
-      );
+  }
+
+  // 3) variants array with .stock
+  if (Array.isArray(product.variants)) {
+    for (const v of product.variants) {
+      const n = Number(v?.stock);
+      if (Number.isFinite(n)) total += n;
     }
-    return Infinity; // unknown => don't show any ribbon
-  })();
+    return { totalStock: total };
+  }
 
-  const isOut = Number.isFinite(totalStock) && totalStock <= 0;
-  const showLimited = !isOut && Number.isFinite(totalStock) && totalStock <= 3;
+  // Unknown → no badge
+  return { totalStock: Infinity };
+})();
 
-  // one-line mobile label, auto-shortens on very small screens
-  const limitedLabel =
-    (typeof window !== "undefined" &&
-      window.matchMedia &&
-      window.matchMedia("(max-width: 360px)").matches)
-      ? "Limited Qty"
-      : "Limited Quantity";
+// 🚩 Stock flags
+const isOut =
+  Number.isFinite(totalStock) && totalStock <= 0;
 
-  const badgeHTML = isOut
+const isLastOne =
+  Number.isFinite(totalStock) &&
+  !isOut &&
+  totalStock === 1;
+
+const showLimited =
+  Number.isFinite(totalStock) &&
+  !isOut &&
+  !isLastOne &&
+  totalStock > 0 &&
+  totalStock <= 3;
+
+// Labels
+const limitedLabel =
+  typeof window !== "undefined" &&
+  window.matchMedia &&
+  window.matchMedia("(max-width: 360px)").matches
+    ? "Limited Qty"
+    : "Limited Quantity";
+
+const lastOneLabel = "LAST ONE LEFT!!";
+
+const badgeHTML =
+  isOut || isLastOne || showLimited
     ? `
       <div class="absolute top-1 sm:top-2 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center pointer-events-none select-none">
         <div class="bg-black text-white uppercase whitespace-nowrap leading-none tracking-[.02em] text-[9px] sm:text-[10px] md:text-xs font-semibold px-2.5 py-0.5 rounded-[3px]">
-          Out of Stock
+          ${
+            isOut
+              ? "Out of Stock"
+              : isLastOne
+              ? lastOneLabel
+              : limitedLabel
+          }
         </div>
         <svg class="-mt-[1px] sm:-mt-[2px]" width="20" height="10" viewBox="0 0 22 10" aria-hidden="true">
           <path d="M0 0 L11 10 L22 0 Z" fill="black"></path>
         </svg>
       </div>
     `
-    : showLimited
-      ? `
-      <div class="absolute top-1 sm:top-2 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center pointer-events-none select-none">
-        <div class="bg-black text-white uppercase whitespace-nowrap leading-none tracking-[.02em] text-[9px] sm:text-[10px] md:text-xs font-semibold px-2.5 py-0.5 rounded-[3px]">
-          ${limitedLabel}
-        </div>
-        <svg class="-mt-[1px] sm:-mt-[2px]" width="20" height="10" viewBox="0 0 22 10" aria-hidden="true">
-          <path d="M0 0 L11 10 L22 0 Z" fill="black"></path>
-        </svg>
-      </div>
-    `
-      : "";
+    : "";
+
 
   const card = document.createElement("div");
-  card.className = "home-promo-card flex flex-col gap-2 w-full max-w-[22rem] text-center items-center";
+  card.className =
+    "home-promo-card flex flex-col gap-2 w-full max-w-[22rem] text-center items-center";
 
   card.innerHTML = `
 <div class="w-full">
@@ -87,14 +132,18 @@ export async function createHomePromoCard(sku, product) {
       ${badgeHTML}
       <img
         src="${imageUrl}"
-        alt="${product.name || ''}"
-        class="w-full h-full object-cover transition-opacity duration-300 ${isOut ? 'opacity-60' : 'group-hover:opacity-0'} product-img"
+        alt="${product.name || ""}"
+        class="w-full h-full object-cover transition-opacity duration-300 ${
+          isOut ? "opacity-60" : "group-hover:opacity-0"
+        } product-img"
         loading="lazy" decoding="async"
       />
       <img
         src="${hoverImage}"
         alt=""
-        class="w-full h-full object-cover absolute inset-0 ${isOut ? 'hidden' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-300"
+        class="w-full h-full object-cover absolute inset-0 ${
+          isOut ? "hidden" : "opacity-0 group-hover:opacity-100"
+        } transition-opacity duration-300"
         loading="lazy" decoding="async"
       />
     </div>
@@ -107,8 +156,12 @@ export async function createHomePromoCard(sku, product) {
       <div class="text-black font-semibold text-right">
         ${
           isDiscounted
-            ? `<span class="text-red-600 text-base">$${finalPrice.toFixed(2)}</span>
-               <span class="text-gray-400 line-through text-xs ml-1">$${product.price.toFixed(2)}</span>`
+            ? `<span class="text-red-600 text-base">$${finalPrice.toFixed(
+                2
+              )}</span>
+               <span class="text-gray-400 line-through text-xs ml-1">
+                 $${product.price.toFixed(2)}
+               </span>`
             : `$${product.price.toFixed(2)}`
         }
       </div>
@@ -116,15 +169,24 @@ export async function createHomePromoCard(sku, product) {
 
     <!-- Swatches + CTA Button Row -->
     <div class="flex justify-between items-center w-full">
-      <div class="flex flex-wrap gap-x-1 gap-y-1.5 swatch-group ${isOut ? 'pointer-events-none opacity-60' : ''}">
-        ${renderColorDots(colorOptions, product.variantStock, product.variantImages, sku)}
+      <div class="flex flex-wrap gap-x-1 gap-y-1.5 swatch-group ${
+        isOut ? "pointer-events-none opacity-60" : ""
+      }">
+        ${renderColorDots(
+          colorOptions,
+          product.variantStock,
+          product.variantImages,
+          sku
+        )}
       </div>
       <button
-        class="text-xs select-color-text uppercase transition-all duration-300 ml-2 shrink-0 ${isOut ? 'text-gray-400 cursor-not-allowed' : 'text-gray-500 cursor-not-allowed'}"
+        class="text-xs select-color-text uppercase transition-all duration-300 ml-2 shrink-0 ${
+          isOut ? "text-gray-400 cursor-not-allowed" : "text-gray-500 cursor-not-allowed"
+        }"
         data-sku="${sku}"
-        ${isOut ? 'disabled aria-disabled="true"' : 'disabled'}
+        ${isOut ? 'disabled aria-disabled="true"' : "disabled"}
       >
-        ${isOut ? 'Out of Stock' : 'Select Color'}
+        ${isOut ? "Out of Stock" : "Select Color"}
       </button>
     </div>
   </div>
@@ -144,9 +206,9 @@ export async function createHomePromoCard(sku, product) {
       const image = btn.dataset.image;
 
       // highlight swatch
-      swatchContainer.querySelectorAll("button.color-dot").forEach(dot =>
-        dot.classList.remove("ring-2", "ring-black")
-      );
+      swatchContainer
+        .querySelectorAll("button.color-dot")
+        .forEach((dot) => dot.classList.remove("ring-2", "ring-black"));
       btn.classList.add("ring-2", "ring-black");
 
       // update CTA button

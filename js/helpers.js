@@ -84,22 +84,27 @@ window.applyPromotionsToProducts = function (products, promotions) {
     for (const key in updated) {
         const product = updated[key];
 
-        for (const promo of promotions) {
-            const matchesCategory = product.category === promo.category;
-            const matchesPrice = promo.condition?.maxPrice ? product.price <= promo.condition.maxPrice : true;
-            const matchesID = promo.condition?.product_ids ? promo.condition.product_ids.includes(product.product_id) : true;
-            const isWithinDateRange = (!promo.startDate || now >= new Date(promo.startDate)) &&
-                (!promo.endDate || now <= new Date(promo.endDate));
-            const alreadyDiscounted = product.sale_price !== undefined && product.sale_price < product.price;
+            for (const promo of promotions) {
+      // ❗ Only item-level promos should change product.sale_price
+      if (promo.type !== "fixed" && promo.type !== "percent") continue;
 
-            if (matchesCategory && matchesPrice && matchesID && isWithinDateRange) {
-                if (!promo.stackable && alreadyDiscounted) continue;
+      const matchesCategory = product.category === promo.category;
+      const matchesPrice = promo.condition?.maxPrice ? product.price <= promo.condition.maxPrice : true;
+      const matchesID = promo.condition?.product_ids ? promo.condition.product_ids.includes(product.product_id) : true;
+      const isWithinDateRange = (!promo.startDate || now >= new Date(promo.startDate)) &&
+        (!promo.endDate || now <= new Date(promo.endDate));
+      const alreadyDiscounted = product.sale_price !== undefined && product.sale_price < product.price;
 
-                product.sale_price = promo.type === "fixed"
-                    ? Math.max(0, product.price - promo.amount)
-                    : +(product.price * (1 - promo.amount / 100)).toFixed(2);
-            }
-        }
+      if (matchesCategory && matchesPrice && matchesID && isWithinDateRange) {
+        if (!promo.stackable && alreadyDiscounted) continue;
+
+        product.sale_price = promo.type === "fixed"
+          ? Math.max(0, product.price - promo.amount)
+          : +(product.price * (1 - promo.amount / 100)).toFixed(2);
+      }
+    }
+
+
 
         // ✅ Tag product as "onsale" if sale_price exists and is lower than base price
         if (product.sale_price && product.sale_price < product.price) {

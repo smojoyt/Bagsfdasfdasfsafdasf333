@@ -1,0 +1,96 @@
+<!-- hero-percent.html -->
+<div
+  class="relative w-full max-w-[480px] sm:max-w-[520px] lg:max-w-[640px]
+         h-auto flex flex-col items-center gap-4 sm:gap-5"
+>
+  <!-- Main percent card -->
+  <div
+    id="hero-main-card"
+    class="w-full hero-card-hover"
+  >
+    <div
+      class="rounded-[1.75rem] bg-white shadow-xl shadow-black/10
+             border border-white/70 overflow-hidden"
+    >
+      <div class="relative w-full bg-slate-50">
+        <img
+          id="hero-main-image"
+          src="/imgs/hero/main-placeholder.png"
+          alt="Featured Product"
+          class="w-full h-[190px] sm:h-[210px] lg:h-[240px] object-cover"
+        />
+        <!-- generic percent pill, JS can keep or replace -->
+        <span
+          class="absolute top-3 left-3 inline-flex items-center px-3 py-1
+                 rounded-full bg-emerald-500 text-white text-[0.7rem]
+                 font-semibold shadow"
+        >
+          Limited Offer
+        </span>
+      </div>
+      <div
+        id="hero-main-title"
+        class="px-4 py-3 text-sm sm:text-base font-semibold text-gray-800 truncate"
+      >
+        Featured Product
+      </div>
+    </div>
+  </div>
+
+  <!-- Two supporting cards -->
+  <div
+    class="w-full flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch"
+  >
+    <!-- Support card 1 -->
+    <div
+      id="hero-card-1"
+      class="flex-1 hero-card-hover"
+    >
+      <div
+        class="rounded-3xl bg-white shadow-lg shadow-black/10
+               border border-white/70 overflow-hidden"
+      >
+        <div class="bg-slate-50">
+          <img
+            id="hero-card-1-image"
+            src="/imgs/hero/keychain-placeholder.png"
+            alt="Featured Product"
+            class="w-full h-[130px] sm:h-[140px] lg:h-[180px] object-cover"
+          />
+        </div>
+        <div
+          id="hero-card-1-title"
+          class="px-3 py-2 text-xs sm:text-sm font-semibold text-gray-800 truncate"
+        >
+          Featured Product
+        </div>
+      </div>
+    </div>
+
+    <!-- Support card 2 -->
+    <div
+      id="hero-card-2"
+      class="flex-1 hero-card-hover"
+    >
+      <div
+        class="rounded-3xl bg-white shadow-lg shadow-black/10
+               border border-white/70 overflow-hidden"
+      >
+        <div class="bg-slate-50 relative">
+          <img
+            id="hero-card-2-image"
+            src="/imgs/hero/main-placeholder.png"
+            alt="Featured Product"
+            class="w-full h-[130px] sm:h-[140px] lg:h-[180px] object-cover"
+          />
+        </div>
+        <div
+          id="hero-card-2-title"
+          class="px-3 py-2 text-xs sm:text-sm font-semibold text-gray-800 truncate"
+        >
+          Featured Product
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

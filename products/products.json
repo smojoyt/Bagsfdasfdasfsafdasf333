@@ -181,7 +181,7 @@
     "name": "Moto Jacket Crossbody",
     "category": "bags",
     "product_id": "KK-1005",
-    "price": 34.97,
+    "price": 24.97,
     "weight_oz": 17.64,
     "tags": [
       "",
@@ -878,7 +878,8 @@
     "tags": [
       "Bags",
       "Designer",
-      "Sets"
+      "Sets",
+      "Discontinued"
     ],
     "catalogImage": "https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01.jpg",
     "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/001_Set/01_11.jpg",
@@ -941,7 +942,8 @@
     "tags": [
       "Bags",
       "Designer",
-      "Sets"
+      "Sets",
+      "Discontinued"
     ],
     "catalogImage": "https://karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/002_Set/01_03.jpg",
     "catalogImageHover": "https://karrykraze.com/imgs/Products/Pouches/LV/002_PurseSet/002_Set/01_01.jpg",
@@ -999,7 +1001,7 @@
   "product_id": "KK-1023",
   "price": 130,
   "weight_oz": 64.2,
-  "tags": ["Bags", "Designer", "Sets"],
+  "tags": ["Bags", "Designer", "Sets", "Discontinued"],
   "catalogImage": "https://karrykraze.com/imgs/Products/Pouches/LV/003_WalletSet/Brown/01_01.jpg",
   "catalogImageHover": "https://karrykraze.com/imgs/Products/Pouches/LV/003_WalletSet/Brown/01_01.jpg",
   "image": "https://karrykraze.com/imgs/Products/Pouches/LV/003_WalletSet/Brown/01_01.jpg",
@@ -1499,7 +1501,7 @@
   "name": "Labubu Galaxy Growlies",
   "category": "charms",
   "product_id": "KK-1032",
-  "price": 12.99,
+  "price": 7.99,
   "weight_oz": 2.1,
   "tags": ["Charms", "Keychain", "Labubu", "Jelly", "Galaxy", "Cute", "Kawaii"],
   "catalogImage": "https://karrykraze.com/imgs/Products/Pendants/Labubu/Labubu_Galaxy_Growlies/Red01.jpg",

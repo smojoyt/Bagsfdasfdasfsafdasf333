@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CONNECTION INTERRUPTED /// Checkout Canceled – Karry Kraze</title>
+  <title>Checkout Canceled – Karry Kraze</title>
   <link rel="icon" href="/imgs/Logo/Short/SL_0603.png" type="image/png" />
 
   <meta name="description" content="Your checkout was canceled. Your cart is saved—pick up where you left off or keep shopping." />
@@ -12,302 +12,388 @@
   <meta property="og:description" content="Your cart is saved. Resume checkout or continue shopping." />
   <meta property="og:image" content="/imgs/Logo/OG.jpg" />
 
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FEF6F0',
+            'accent-pink': '#F9A8D4',
+            'accent-tan': '#F5E4D0',
+            'accent-gray': '#E5E7EB',
+          }
+        }
+      }
+    }
+  </script>
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
-      --glow-cyan: #00f6ff;
-      --glow-pink: #ff00a0;
-      --bg-dark: #0d041a;
-      --bg-mid: #1f0b3e;
-      --text-color: #d1d5db;
+      --kk-ink: #111827;
     }
-    
-    .font-display { font-family: 'VT323', monospace; }
-    .font-body { font-family: 'Roboto Mono', monospace; }
 
-    /* --- Animated Scanlines Background --- */
     body {
-      background-color: var(--bg-dark);
-      background-image: radial-gradient(var(--bg-mid) 1px, transparent 1px);
-      background-size: 15px 15px;
-      color: var(--text-color);
-      position: relative;
-      overflow-x: hidden;
+      font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--kk-ink);
     }
 
-    body::after {
-      content: ' ';
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-      background-size: 100% 4px, 6px 100%;
-      z-index: 100;
-      pointer-events: none;
-      animation: scanlines 5s linear infinite;
+    .font-mono {
+      font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
-    @keyframes scanlines {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 100vh; }
+    .kk-card {
+      box-shadow:
+        0 18px 45px rgba(15, 23, 42, 0.08),
+        0 0 0 1px rgba(15, 23, 42, 0.04);
     }
 
-    /* --- Glitch Text Effect --- */
-    .glitch {
-      animation: glitch 1.5s linear infinite;
-      text-shadow: 
-        0 0 10px var(--glow-cyan), 
-        0 0 20px var(--glow-cyan), 
-        0 0 40px var(--glow-cyan),
-        0 0 5px var(--glow-pink),
-        -2px 0 var(--glow-pink), 
-        2px 0 var(--glow-cyan);
+    .kk-pill {
+      background: linear-gradient(90deg, rgba(236, 72, 153, 0.15), rgba(59, 130, 246, 0.12));
     }
 
-    @keyframes glitch {
-      2%, 64% { transform: translate(2px, 0) skew(0deg); }
-      4%, 60% { transform: translate(-2px, 0) skew(0deg); }
-      62% { transform: translate(0, 0) skew(5deg); }
-    }
-    
-    .glitch::before, .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-    }
-    .glitch::before {
-      animation: glitch-top 1.5s linear infinite;
-      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-    }
-    .glitch::after {
-      animation: glitch-bottom 1.5s linear infinite;
-      clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+    /* Blob animations */
+    @keyframes kk-blob-1 {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      33% {
+        transform: translate(20px, -30px) scale(1.05);
+      }
+      66% {
+        transform: translate(-25px, 15px) scale(0.98);
+      }
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
     }
 
-    @keyframes glitch-top {
-      2%, 64% { transform: translate(2px, -2px); }
-      4%, 60% { transform: translate(-2px, 2px); }
-      62% { transform: translate(13px, -1px) skew(-13deg); }
+    @keyframes kk-blob-2 {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      33% {
+        transform: translate(-15px, 25px) scale(1.08);
+      }
+      66% {
+        transform: translate(25px, -20px) scale(0.96);
+      }
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
     }
 
-    @keyframes glitch-bottom {
-      2%, 64% { transform: translate(-2px, 0); }
-      4%, 60% { transform: translate(-2px, 0); }
-      62% { transform: translate(-22px, 5px) skew(21deg); }
+    .animate-blob-1 {
+      animation: kk-blob-1 18s ease-in-out infinite;
     }
 
-    /* --- Interactive Holographic Card --- */
-    .holo-card {
-      background: linear-gradient(105deg,
-          rgba(255, 255, 255, 0.05) 0%,
-          rgba(255, 255, 255, 0.1) 40%,
-          rgba(255, 255, 255, 0.05) 60%,
-          rgba(255, 255, 255, 0.05) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      transition: background 0.3s ease, border 0.3s ease;
+    .animate-blob-2 {
+      animation: kk-blob-2 22s ease-in-out infinite;
     }
-    .holo-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: conic-gradient(from 180deg at 50% 50%, 
-        var(--glow-pink), 
-        var(--glow-cyan), 
-        var(--glow-pink));
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      mask: radial-gradient(
-        400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        black 5%,
-        transparent 60%
-      );
-      -webkit-mask: radial-gradient(
-        400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        black 5%,
-        transparent 60%
-      );
-    }
-    .holo-card:hover::before { opacity: 0.15; }
-
-    /* --- Cyber UI Buttons & Elements --- */
-    .cyber-btn {
-      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
-      transition: all 0.2s ease;
-      text-shadow: 0 0 5px currentColor;
-    }
-    .cyber-btn:hover { transform: translateY(-2px); text-shadow: 0 0 15px currentColor; }
   </style>
 </head>
 
-<body class="font-body">
+<body class="min-h-screen flex flex-col bg-cream relative overflow-hidden">
 
-  <main class="px-4 py-24 sm:px-6 sm:py-32">
-    <div class="max-w-7xl mx-auto">
+  <!-- Background blobs (injected via JS) -->
 
-      <header id="signup-banner" class="relative text-center py-20">
-        <h1 data-text="CONNECTION INTERRUPTED" class="glitch relative inline-block text-5xl sm:text-7xl font-display text-white">
-          CONNECTION INTERRUPTED
-        </h1>
-        <p class="mt-4 text-lg text-gray-400 font-display">
-          // CHECKOUT PROTOCOL CANCELED //
-        </p>
-      </header>
+  <!-- These get filled by /js/main.js -->
+  <div id="announcement-container"></div>
+  <div id="navbar"></div>
 
-      <section class="relative px-4 py-12 max-w-4xl mx-auto text-center">
-        <p class="text-gray-300 text-lg leading-relaxed">
-          SESSION TERMINATED. NO CHARGE WAS PROCESSED. YOUR CART DATA IS CACHED LOCALLY.
-        </p>
-        <div class="mt-8 holo-card p-1 rounded-md">
-            <div class="bg-black/80 backdrop-blur-sm p-6">
-              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <p class="text-cyan-300">
-                  <span class="font-bold text-white">REWARD_MODULE.EXE:</span> GET $5 OFF. AUTHENTICATE VIA NEWSLETTER FOR INSTANT CODE DEPLOYMENT.
-                </p>
-                <a id="kk-signup-link" href="#" rel="noopener" class="cyber-btn flex-shrink-0 inline-block bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-2.5 text-sm text-center">
-                  EXECUTE
-                </a>
-              </div>
+  <main class="flex-1 px-4 py-32 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto relative">
+      <!-- Top Section -->
+      <section class="mb-10 sm:mb-12">
+        <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium kk-pill text-rose-700 border border-rose-100">
+          <span class="inline-flex h-1.5 w-1.5 rounded-full bg-rose-500"></span>
+          Checkout canceled – no payment was processed
+        </div>
+
+        <div class="mt-4 flex flex-col lg:flex-row lg:items-end gap-4 lg:justify-between">
+          <div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-slate-900">
+              We saved your cart for later
+            </h1>
+            <p class="mt-3 max-w-xl text-sm sm:text-base text-slate-600">
+              Your checkout was interrupted before completing payment. You can safely close this page,
+              keep browsing, or pick up where you left off when you’re ready.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <button
+              id="kk-resume"
+              class="inline-flex items-center justify-center rounded-full bg-rose-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-rose-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2">
+              Resume checkout
+            </button>
+            <a
+              href="/pages/catalog.html"
+              class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 shadow-sm hover:bg-slate-50">
+              Continue browsing
+            </a>
           </div>
         </div>
+
+        <p class="mt-3 text-xs text-slate-500 font-mono">
+          CART STATUS: <span class="font-semibold text-emerald-600">LOCALLY SAVED</span> ·
+          cache may clear if you clear browser data.
+        </p>
       </section>
 
-      <section class="max-w-6xl mx-auto grid lg:grid-cols-3 gap-8 px-4 pb-12">
-
-        <div class="lg:col-span-1 space-y-6">
-          <div class="space-y-3">
-            <a href="/pages/catalog.html" class="cyber-btn block w-full bg-pink-500 hover:bg-pink-400 text-white font-bold py-3 text-center text-lg">
-              CONTINUE BROWSING
-            </a>
-            <button id="kk-resume" class="cyber-btn block w-full border-2 border-pink-500 py-3 text-center font-bold text-pink-500 hover:bg-pink-500 hover:text-white transition-colors duration-200">
-              RESUME CHECKOUT
-            </button>
-            <a href="mailto:support@karrykraze.com" class="block text-center text-sm text-gray-400 hover:text-white underline">
-              [Contact Support Subroutine]
-            </a>
-          </div>
-
-          <div class="holo-card p-5 space-y-4">
-            <h4 class="font-display text-xl text-cyan-300">// SECURITY PROTOCOLS</h4>
-            <div class="grid grid-cols-3 gap-4 text-xs text-center text-gray-300">
-                <div class="flex flex-col items-center gap-2"><svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg><span>QUALITY VERIFIED</span></div>
-                <div class="flex flex-col items-center gap-2"><svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg><span>ENCRYPTED</span></div>
-                <div class="flex flex-col items-center gap-2"><svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h6m3-5.25h6m-6 2.25h6m3-5.25h6m-6 2.25h6" /></svg><span>TRANSPARENT</span></div>
+      <!-- Content Grid -->
+      <section class="grid gap-8 lg:grid-cols-3 items-start">
+        <!-- Left column: help + signup -->
+        <div class="space-y-6">
+          <!-- Newsletter / $5 off -->
+          <div class="rounded-2xl bg-white/80 kk-card border border-rose-100 p-5 sm:p-6">
+            <div class="flex items-start gap-3">
+              <div
+                class="mt-0.5 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-600">
+                $
+              </div>
+              <div class="space-y-2">
+                <h2 class="text-sm font-semibold text-slate-900">
+                  Get $5 off your next order
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600">
+                  Sign up for Karry Kraze updates and we’ll send a unique <span class="font-semibold">7-day coupon</span>
+                  straight to your inbox.
+                </p>
+                <a
+                  id="kk-signup-link"
+                  href="#"
+                  class="inline-flex items-center justify-center rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold text-white mt-2 hover:bg-slate-800">
+                  Claim my $5 code
+                </a>
+              </div>
             </div>
           </div>
-          
-          <div class="holo-card p-5 text-center">
-            <h4 class="font-display text-xl text-pink-400 mb-3">// BROADCAST CHANNELS</h4>
-            <div class="flex justify-center items-center gap-4 text-sm font-bold">
-              <a href="#" class="text-gray-300 hover:text-pink-400 transition">INSTA</a><span class="text-gray-600">•</span>
-              <a href="#" class="text-gray-300 hover:text-pink-400 transition">TIKTOK</a><span class="text-gray-600">•</span>
-              <a href="#" class="text-gray-300 hover:text-pink-400 transition">PINTEREST</a>
+
+          <!-- Reassurance & Support -->
+          <div class="rounded-2xl bg-white/80 kk-card border border-slate-100 p-5 sm:p-6 space-y-4">
+            <h3 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
+              <span class="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+              No charge. No worries.
+            </h3>
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-600">
+              <li>• Your card or payment method was <span class="font-semibold">not charged</span>.</li>
+              <li>• Your cart is stored in this browser so you can come back anytime.</li>
+              <li>• You can safely restart checkout from the button above.</li>
+            </ul>
+            <div class="pt-3 border-t border-dashed border-slate-200">
+              <p class="text-xs text-slate-500 mb-2">
+                Need help or see something odd with your cart or charges?
+              </p>
+              <a
+                href="mailto:support@karrykraze.com"
+                class="inline-flex items-center gap-1 text-xs font-medium text-slate-800 hover:text-rose-500 underline underline-offset-2">
+                Contact Karry Kraze Support
+              </a>
+            </div>
+          </div>
+
+          <!-- Socials -->
+          <div class="rounded-2xl bg-white/70 kk-card border border-slate-100 p-5 sm:p-6 text-center">
+            <h4 class="text-sm font-semibold text-slate-900 mb-2">
+              Stay in the loop
+            </h4>
+            <p class="text-xs text-slate-500 mb-3">
+              See new drops, styling inspo, and behind-the-scenes sneak peeks.
+            </p>
+            <div class="flex flex-wrap justify-center gap-3 text-xs font-semibold">
+              <a href="#" class="px-3 py-1.5 rounded-full bg-slate-900 text-white hover:bg-slate-800">
+                Instagram
+              </a>
+              <a href="#" class="px-3 py-1.5 rounded-full bg-slate-900 text-white hover:bg-slate-800">
+                TikTok
+              </a>
+              <a href="#" class="px-3 py-1.5 rounded-full bg-slate-900 text-white hover:bg-slate-800">
+                Pinterest
+              </a>
             </div>
           </div>
         </div>
 
+        <!-- Right column: cart preview -->
         <div class="lg:col-span-2">
-          <div class="holo-card">
-            <div class="flex items-center justify-between px-5 py-4 border-b-2 border-cyan-500/50">
-              <h3 class="text-lg font-display text-white">CACHED_INVENTORY.LOG</h3>
-              <span id="kk-itemCount" class="text-sm font-body text-gray-400">0 items</span>
-            </div>
-
-            <div id="kk-orderItems" class="divide-y divide-gray-700/50">
-              <div class="p-5 text-sm text-gray-500">LOADING DATA...</div>
-            </div>
-
-            <div id="kk-orderTotals" class="px-5 py-4 border-t-2 border-cyan-500/50 hidden">
-              <div class="space-y-2 font-body">
-                <div class="flex justify-between text-sm"><span class="text-gray-400">Subtotal</span><span id="kk-subtotal" class="font-semibold text-white">$0.00</span></div>
-                <div id="kk-potentialLine" class="flex justify-between text-sm text-cyan-400 hidden"><span>Potential Reward</span><span id="kk-potential" class="font-semibold">-$0.00</span></div>
-                <div class="flex justify-between text-base font-bold pt-2 border-t border-dashed border-gray-700 mt-2"><span class="text-white">TOTAL (EST.)</span><span id="kk-total" class="text-cyan-300">$0.00</span></div>
+          <div class="rounded-2xl bg-white/90 kk-card border border-slate-100 overflow-hidden">
+            <div class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-slate-100">
+              <div>
+                <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
+                  Items saved in your cart
+                </h2>
+                <p class="text-xs text-slate-500">
+                  This view is based on your most recent cart in this browser.
+                </p>
               </div>
-              <p class="text-xs text-gray-500 mt-3">Tax & shipping calculated at next checkpoint. Reward applied upon authentication.</p>
+              <span id="kk-itemCount" class="text-xs font-medium text-slate-500">
+                0 items
+              </span>
+            </div>
+
+            <div id="kk-orderItems" class="divide-y divide-slate-100 max-h-[420px] overflow-y-auto">
+              <div class="p-5 sm:p-6 text-xs sm:text-sm text-slate-500">
+                Loading your items…
+              </div>
+            </div>
+
+            <div
+              id="kk-orderTotals"
+              class="px-5 sm:px-6 py-4 border-t border-slate-100 hidden bg-slate-50/80">
+              <div class="space-y-2 text-xs sm:text-sm font-mono text-slate-800">
+                <div class="flex justify-between">
+                  <span class="text-slate-500">Subtotal</span>
+                  <span id="kk-subtotal" class="font-semibold">$0.00</span>
+                </div>
+
+                <div
+                  id="kk-potentialLine"
+                  class="flex justify-between text-emerald-600 items-center hidden">
+                  <span class="text-[11px] sm:text-xs font-medium">
+                    Potential $5 coupon (via email signup)
+                  </span>
+                  <span id="kk-potential" class="font-semibold">-$0.00</span>
+                </div>
+
+                <div class="pt-2 mt-1 border-t border-dashed border-slate-200 flex justify-between text-sm font-semibold">
+                  <span class="text-slate-800">Estimated total</span>
+                  <span id="kk-total" class="text-slate-900">$0.00</span>
+                </div>
+              </div>
+              <p class="mt-2 text-[11px] text-slate-500">
+                Taxes & shipping are calculated at checkout. Coupon is applied once your code is entered on the checkout
+                page.
+              </p>
             </div>
           </div>
-          <p id="kk-reminder" class="text-xs text-gray-500 mt-3 text-center lg:text-left">
-            > Cache expires in 7 days.
+
+          <p id="kk-reminder" class="mt-3 text-[11px] text-slate-500 text-center lg:text-left font-mono">
+            Cart data is stored locally in this browser and may clear if you switch devices or clear browsing data.
           </p>
         </div>
-
       </section>
     </div>
   </main>
 
   <div id="footer"></div>
-  <div id="navbar"></div>
-  <div id="announcement-container"></div>
 
+  <!-- Global site scripts -->
   <script type="module" src="/js/main.js"></script>
 
-  <script>
-    const SIGNUP_URL = (location.hostname === '127.0.0.1' || location.hostname === 'localhost') ? 'http://127.0.0.1:5500/pages/sign-up.html' : '/pages/sign-up.html';
-    document.getElementById('kk-signup-link')?.setAttribute('href', SIGNUP_URL);
-    const ITEMS_CONTAINER = document.getElementById('kk-orderItems'), TOTALS = document.getElementById('kk-orderTotals'), SUBTOTAL_EL = document.getElementById('kk-subtotal'), TOTAL_EL = document.getElementById('kk-total'), COUNT_EL = document.getElementById('kk-itemCount'), POTENTIAL_LINE = document.getElementById('kk-potentialLine'), POTENTIAL_EL = document.getElementById('kk-potential');
-    const cart = JSON.parse(localStorage.getItem('savedCart')) || JSON.parse(localStorage.getItem('cart')) || [];
-    const money = n => `$${(Math.round(n * 100) / 100).toFixed(2)}`;
-    function render() {
+  <!-- Background blobs + page-specific logic -->
+  <script type="module">
+    import { injectBackgroundBlobs } from '/js/utils/background/index.js';
+
+    // Inject animated blobs
+    injectBackgroundBlobs();
+
+    // Dynamic signup URL (local vs live)
+    const SIGNUP_URL =
+      (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
+        ? 'http://127.0.0.1:5500/pages/sign-up.html'
+        : '/pages/sign-up.html';
+
+    const signupLink = document.getElementById('kk-signup-link');
+    if (signupLink) signupLink.setAttribute('href', SIGNUP_URL);
+
+    const ITEMS_CONTAINER = document.getElementById('kk-orderItems');
+    const TOTALS = document.getElementById('kk-orderTotals');
+    const SUBTOTAL_EL = document.getElementById('kk-subtotal');
+    const TOTAL_EL = document.getElementById('kk-total');
+    const COUNT_EL = document.getElementById('kk-itemCount');
+    const POTENTIAL_LINE = document.getElementById('kk-potentialLine');
+    const POTENTIAL_EL = document.getElementById('kk-potential');
+
+    const cart =
+      JSON.parse(localStorage.getItem('savedCart') || 'null') ||
+      JSON.parse(localStorage.getItem('cart') || '[]') ||
+      [];
+
+    const money = (n) => `$${(Math.round(n * 100) / 100).toFixed(2)}`;
+
+    function renderCancelCart() {
       ITEMS_CONTAINER.innerHTML = '';
+
       if (!Array.isArray(cart) || cart.length === 0) {
         COUNT_EL.textContent = '0 items';
-        ITEMS_CONTAINER.innerHTML = '<div class="p-5 text-sm text-gray-500">CACHE EMPTY.</div>';
+        ITEMS_CONTAINER.innerHTML = `
+          <div class="p-6 text-xs sm:text-sm text-slate-500">
+            Your cart looks empty right now. Head back to the shop and add a few favorites to try again ✨
+          </div>
+        `;
+        TOTALS.classList.add('hidden');
         return;
       }
+
       let subtotal = 0;
+
       cart.forEach((item) => {
-        const qty = Number(item.qty || 1), price = Number(item.price || 0), lineTotal = price * qty;
+        const qty = Number(item.qty || item.quantity || 1);
+        const price = Number(item.price || 0);
+        const lineTotal = price * qty;
         subtotal += lineTotal;
+
         const row = document.createElement('div');
-        row.className = 'p-4 flex items-center gap-4 bg-black/20';
+        row.className = 'p-4 sm:p-5 flex items-center gap-3 sm:gap-4 bg-white/60';
+
+        const imageSrc =
+          item.image ||
+          item.catalogImage ||
+          '/imgs/Logo/Short/4.jpg';
+
         row.innerHTML = `
-          <img src="${item.image || item.catalogImage || '/imgs/Logo/Short/4.jpg'}" alt="${item.name || 'Item'}" class="w-16 h-16 object-cover border-2 border-gray-700" style="clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);" />
-          <div class="flex-grow min-w-0 font-body"><p class="text-sm font-semibold truncate text-white">${item.name || 'Item'} ${item.variant ? `– ${item.variant}` : ''}</p><p class="text-xs text-gray-400">QTY: ${qty}</p></div>
-          <div class="ml-auto text-sm font-bold font-body text-cyan-300">${money(lineTotal)}</div>`;
+          <div class="flex-shrink-0">
+            <img
+              src="${imageSrc}"
+              alt="${(item.name || 'Item').replace(/"/g, '&quot;')}"
+              class="h-16 w-16 sm:h-18 sm:w-18 rounded-xl object-cover border border-slate-200"
+            />
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-xs sm:text-sm font-semibold text-slate-900 truncate">
+              ${item.name || 'Item'}${item.variant ? ` – ${item.variant}` : ''}
+            </p>
+            <p class="mt-1 text-[11px] sm:text-xs text-slate-500">
+              Qty: ${qty}
+            </p>
+          </div>
+          <div class="ml-2 text-xs sm:text-sm font-mono font-semibold text-slate-900">
+            ${money(lineTotal)}
+          </div>
+        `;
+
         ITEMS_CONTAINER.appendChild(row);
       });
+
       COUNT_EL.textContent = `${cart.length} ${cart.length === 1 ? 'item' : 'items'}`;
       SUBTOTAL_EL.textContent = money(subtotal);
+
       if (subtotal >= 5) {
         POTENTIAL_EL.textContent = `-${money(5)}`;
         POTENTIAL_LINE.classList.remove('hidden');
-        TOTAL_EL.textContent = money(subtotal);
       } else {
         POTENTIAL_LINE.classList.add('hidden');
-        TOTAL_EL.textContent = money(subtotal);
       }
+
+      TOTAL_EL.textContent = money(subtotal);
       TOTALS.classList.remove('hidden');
     }
-    render();
-    document.getElementById('kk-resume')?.addEventListener('click', () => { window.location.href = '/pages/catalog.html'; });
-  </script>
 
-  <script>
-    // --- Interactive Holographic Card Effect ---
-    document.querySelectorAll('.holo-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.removeProperty('--mouse-x');
-            card.style.removeProperty('--mouse-y');
-        });
+    renderCancelCart();
+
+    document.getElementById('kk-resume')?.addEventListener('click', () => {
+      window.location.href = '/pages/catalog.html';
     });
   </script>
-
 </body>
 
 </html>

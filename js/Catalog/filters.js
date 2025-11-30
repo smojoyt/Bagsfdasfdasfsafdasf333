@@ -5,8 +5,18 @@ export function getCategoryFromURL() {
 }
 
 export function filterByCategory(entries, category) {
-  if (!category || category === "all") return entries;
-  return entries.filter(([_, p]) =>
-    (p.tags || []).map(tag => tag.toLowerCase()).includes(category.toLowerCase())
-  );
+  const normalizedCategory = (category || "all").toLowerCase();
+
+  return entries.filter(([_, p]) => {
+    const tags = (p.tags || []).map(tag => tag.toLowerCase());
+
+    // 🚫 Never show discontinued items
+    if (tags.includes("discontinued")) return false;
+
+    // 🛍️ "all" category → show everything that's not discontinued
+    if (normalizedCategory === "all") return true;
+
+    // 🎯 Specific category → tag must match
+    return tags.includes(normalizedCategory);
+  });
 }

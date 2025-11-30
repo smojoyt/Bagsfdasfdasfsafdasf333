@@ -1,29 +1,8 @@
-import products from "../../products/products.json" assert { type: "json" };
-import { createTestCard } from "../testcard.js";
+// js/Promotions/index.js
+// Central hub for ALL promo-related helpers.
 
-/**
- * Initializes a card for a given SKU into the provided DOM container.
- * @param {HTMLElement} container - DOM element to insert the card into
- * @param {string} sku - Product SKU
- */
-export async function initProductCard(container, sku) {
-  if (!container || !sku) {
-    console.warn("❌ Missing container or SKU");
-    return;
-  }
+// Item-level promos (percent / fixed, etc.)
+export * from "./promotions.js";
 
-  const product = products[sku];
-  if (!product) {
-    console.warn("❌ Product not found for SKU:", sku);
-    return;
-  }
-
-  // 🚫 Skip discontinued products
-  if (product.tags?.map(t => t.toLowerCase()).includes("discontinued")) {
-    console.warn(`⚠️ Skipping discontinued product: ${sku}`);
-    return;
-  }
-
-  const card = await createTestCard(sku, product);
-  container.appendChild(card);
-}
+// Cart-level / BOGO promos, summaries for hero/banner, etc.
+export * from "./cartPromotions.js";

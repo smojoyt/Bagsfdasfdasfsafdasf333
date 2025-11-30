@@ -1,18 +1,31 @@
-﻿window.triggerStripeCheckout = async function () {
-  const cart = JSON.parse(localStorage.getItem("savedCart")) || [];
+﻿// js/checkout.js
 
-  console.log("🛒 Sending cart to checkout:", cart);
+import { getCartWithPromos } from "./Promotions/cartPromotions.js";
 
-  if (!Array.isArray(cart) || cart.length === 0) {
+window.triggerStripeCheckout = async function () {
+  const rawCart = JSON.parse(localStorage.getItem("savedCart")) || [];
+
+  if (!Array.isArray(rawCart) || rawCart.length === 0) {
     alert("Your cart is empty or invalid.");
     return;
   }
+
+  // Apply cart-level promotions before sending to backend
+  let cartToSend = rawCart;
+  try {
+    const { cart } = await getCartWithPromos(rawCart);
+    cartToSend = cart;
+  } catch (err) {
+    console.error("⚠️ Failed to apply cart promotions, falling back to raw cart:", err);
+  }
+
+  console.log("🛒 Sending cart to checkout:", cartToSend);
 
   try {
     const res = await fetch("https://buy.karrykraze.com/api/create-checkout-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cart })
+      body: JSON.stringify({ cart: cartToSend }),
     });
 
     const data = await res.json();
@@ -25,6 +38,8 @@
     }
   } catch (err) {
     console.error("❌ Network or server error during checkout:", err);
-    alert("Checkout could not be completed. Please check your connection or try again later.");
+    alert(
+      "Checkout could not be completed. Please check your connection or try again later."
+    );
   }
 };
