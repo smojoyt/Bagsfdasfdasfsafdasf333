@@ -3010,16 +3010,16 @@
   },
 
   "variantImages": {
-    "Black": "/imgs/Products/Pouches/002_HelloKittyJean/kitty_001.jpg"
+    "Black": "/imgs/Products/Pouches/002_HelloKittyJean/001.jpg"
   },
 
   "thumbnails": [
-    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_001.jpg",
-    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_002.jpg",
-    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_003.jpg",
-    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_004.jpg",
-    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_005.jpg",
-    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_006.jpg"
+    "/imgs/Products/Pouches/002_HelloKittyJean/001.jpg",
+    "/imgs/Products/Pouches/002_HelloKittyJean/002.jpg",
+    "/imgs/Products/Pouches/002_HelloKittyJean/003.jpg",
+    "/imgs/Products/Pouches/002_HelloKittyJean/004.jpg",
+    "/imgs/Products/Pouches/002_HelloKittyJean/005.jpg",
+    "/imgs/Products/Pouches/002_HelloKittyJean/006.jpg"
   ]
 }
 }
