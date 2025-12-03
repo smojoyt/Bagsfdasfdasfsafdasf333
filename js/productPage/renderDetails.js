@@ -15,6 +15,8 @@ export function renderProductDetails(product, promo = null) {
   const swatchContainer = document.getElementById("variant-swatch-container");
   const addBtn = document.getElementById("add-to-cart-btn");
   const amazonBtn = document.getElementById("amazon-btn");
+  const shippingTimeEl = document.getElementById("shipping-time");
+
 
   if (!nameEl || !idEl || !priceEl || !extraSections || !swatchContainer) {
     console.warn("❌ Missing product detail DOM elements");
@@ -38,6 +40,19 @@ export function renderProductDetails(product, promo = null) {
   }
 
   const original = product.price;
+  // 🕒 Shipping time based on shipping_status
+  function getShippingText(product) {
+    const status = (product.shipping_status || "").toLowerCase();
+
+    if (status === "mto") {
+      // Made to order
+      return "Made to order • Ships in 3–5 weeks";
+    }
+
+    // Default: in-stock quick ship
+    return "Ships in 1–3 business days";
+  }
+
 
   // 🔢 helper to render price section based on promo
   function renderPriceSection(activePromo) {
@@ -72,6 +87,11 @@ export function renderProductDetails(product, promo = null) {
 
   // 👉 Initial render with any passed-in promo
   renderPriceSection(promo || null);
+  // 📦 Shipping Time
+  if (shippingTimeEl) {
+    shippingTimeEl.textContent = getShippingText(product);
+  }
+
 
   // 👉 If no promo passed, resolve via shared promo logic
   if (!promo) {
@@ -104,17 +124,15 @@ export function renderProductDetails(product, promo = null) {
         <div>
           <button data-toggle="${id}" class="w-full flex items-center justify-between px-4 text-sm uppercase font-bold text-gray-700 hover:bg-gray-50 transition">
             <span class="flex items-center gap-2">
-              <span class="toggle-icon ${
-                isDefaultOpen ? "text-red-500" : "text-gray-500"
-              } transition-all">
+              <span class="toggle-icon ${isDefaultOpen ? "text-red-500" : "text-gray-500"
+        } transition-all">
                 ${isDefaultOpen ? "−" : "+"}
               </span>
               ${s.title}
             </span>
           </button>
-          <div id="${id}" class="toggle-content px-6 text-sm text-gray-700 ${
-            isDefaultOpen ? "" : "hidden"
-          }">
+          <div id="${id}" class="toggle-content px-6 text-sm text-gray-700 ${isDefaultOpen ? "" : "hidden"
+        }">
             <ul class="list-disc list-inside space-y-2">
               ${s.list.map((item) => `<li>${item}</li>`).join("")}
             </ul>
@@ -150,8 +168,8 @@ export function renderProductDetails(product, promo = null) {
   const labelText = isColorish
     ? `Choose a ${nameRaw}`
     : /\bstyle\b/i.test(nameRaw)
-    ? "Select Style"
-    : `Choose a ${nameRaw}`;
+      ? "Select Style"
+      : `Choose a ${nameRaw}`;
 
   // 🔒 Add-to-Cart enable/disable helpers
   function setAddEnabled(enabled) {
@@ -246,9 +264,8 @@ export function renderProductDetails(product, promo = null) {
         const img = vImgs[opt] || "";
         return `
           <button
-            class="style-btn px-3 py-2 border rounded-md text-xs font-medium uppercase tracking-wide ${
-              inStock ? "hover:bg-gray-50" : "opacity-40 cursor-not-allowed"
-            }"
+            class="style-btn px-3 py-2 border rounded-md text-xs font-medium uppercase tracking-wide ${inStock ? "hover:bg-gray-50" : "opacity-40 cursor-not-allowed"
+          }"
             data-variant="${opt}"
             data-image="${img}"
             data-sku="${product.product_id}"

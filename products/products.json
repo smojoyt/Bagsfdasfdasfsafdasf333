@@ -44,7 +44,7 @@
     "variantStock": {
       "Black": 0,
       "Cream": 2,
-      "Pink": 2
+      "Pink": 0
     },
     "variantImages": {
       "Black": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_05.jpg",
@@ -2893,7 +2893,133 @@
       "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_05.jpg",
       "https://karrykraze.com/imgs/Products/Jewlery/Braclet/Halloween/Silver/s_06.jpg"
     ]
-  }
+  },
+  "Charm_Yogurt": {
+  "name": "Yogurt Cup Charm Keychain",
+  "category": "Charms",
+  "product_id": "KK-1059",
+  "price": 11.99,
+  "weight_oz": 0.8,
+  "tags": ["charm", "keychain", "kawaii", "pink", "yellow", "strawberry", "cute", "accessory", "gift"],
+  
+  "catalogImage": "/imgs/Products/Pendants/Yogurt/all_001.jpg",
+  "catalogImageHover": "/imgs/Products/Pendants/Yogurt/pink_001.jpg",
+  "image": "/imgs/Products/Pendants/Yogurt/pink_001.jpg",
+  
+  "url": "https://karrykraze.com/pages/product.html?sku=Charm_Yogurt",
+  "banner": "/imgs/Products/Charms/Yogurt/Pink/banner.jpg",
 
+  "descriptionList": [
+    "Adorable yogurt cup keychain with matching kawaii charms",
+    "Includes star clip, spoon charm, flower bead, and strawberry charm",
+    "Lightweight and perfect for bags, keys, backpacks, or zipper pulls",
+    "Aesthetic color themes: soft pink or bright yellow"
+  ],
 
+  "sizingList": [
+    "Total length: ~4.5–5.0 in",
+    "Yogurt charm size: ~1.5 in tall",
+    "Lightweight: ~0.8 oz"
+  ],
+
+  "keyDetails": [
+    "Acrylic yogurt cup charm",
+    "Mixed-resin beads and metal star clip",
+    "Durable chain and secure clasp",
+    "Packaged in a protective bag"
+  ],
+
+  "careInstructions": [
+    "Wipe gently with a soft dry cloth",
+    "Avoid crushing or heavy pressure",
+    "Keep away from water and chemical cleaners"
+  ],
+
+  "custom1Name": "Color",
+  "custom1Options": "Pink | Yellow",
+
+  "variantStock": {
+    "Pink": 2,
+    "Yellow": 3
+  },
+
+  "variantImages": {
+    "Pink": "/imgs/Products/Pendants/Yogurt/pink_001.jpg",
+    "Yellow": "/imgs/Products/Pendants/Yogurt/yellow_001.jpg"
+  },
+
+  "thumbnails": [
+    "/imgs/Products/Pendants/Yogurt/pink_001.jpg",
+    "/imgs/Products/Pendants/Yogurt/pink_002.jpg",
+    "/imgs/Products/Pendants/Yogurt/pink_003.jpg",
+    "/imgs/Products/Pendants/Yogurt/yellow_001.jpg",
+    "/imgs/Products/Pendants/Yogurt/yellow_002.jpg",
+    "/imgs/Products/Pendants/Yogurt/yellow_003.jpg"
+]
+  },
+  "Bag_HelloKittyJean": {
+  "name": "Hello Kitty Jean Shoulder Bag",
+  "shipping_status":"mto",
+  "category": "Bags",
+  "product_id": "KK-1060",
+  "price": 54.99,
+  "weight_oz": 12.0,
+  "tags": ["bag", "shoulder bag", "denim", "hello kitty", "kawaii", "cute", "fashion", "streetwear", "accessory"],
+
+  "catalogImage": "/imgs/Products/Pouches/002_HelloKittyJean/02.jpg",
+  "catalogImageHover": "/imgs/Products/Pouches/002_HelloKittyJean/01.jpg",
+  "image": "/imgs/Products/Pouches/002_HelloKittyJean/03.jpg",
+
+  "url": "https://karrykraze.com/pages/product.html?sku=Bag_HelloKittyJean",
+  "banner": "/imgs/Products/Bags/HelloKittyJean/banner.jpg",
+
+  "descriptionList": [
+    "Adorable denim shoulder bag featuring a cute Hello Kitty–style embroidered graphic",
+    "Frayed-edge denim body with star accents and mixed-text print background",
+    "Spacious interior perfect for everyday essentials",
+    "Adjustable shoulder strap for a comfortable fit"
+  ],
+
+  "sizingList": [
+    "Bag width: ~13–14 in",
+    "Bag height: ~12–13 in",
+    "Strap length: Adjustable (approx. 22–40 in)",
+    "Weight: ~12 oz"
+  ],
+
+  "keyDetails": [
+    "High-quality embroidered character patch",
+    "Durable washed-denim fabric",
+    "Frayed edge detailing all around the trim",
+    "Soft inner lining with open pocket",
+    "Strong adjustable shoulder strap"
+  ],
+
+  "careInstructions": [
+    "Spot clean with mild soap and cold water",
+    "Avoid machine washing",
+    "Air dry only — do not tumble dry",
+    "Keep sharp objects away from embroidered panel"
+  ],
+
+  "custom1Name": "Style",
+  "custom1Options": "Black",
+
+  "variantStock": {
+    "Black": 5
+  },
+
+  "variantImages": {
+    "Black": "/imgs/Products/Pouches/002_HelloKittyJean/kitty_001.jpg"
+  },
+
+  "thumbnails": [
+    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_001.jpg",
+    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_002.jpg",
+    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_003.jpg",
+    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_004.jpg",
+    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_005.jpg",
+    "/imgs/Products/Pouches/002_HelloKittyJean/kitty_006.jpg"
+  ]
+}
 }
