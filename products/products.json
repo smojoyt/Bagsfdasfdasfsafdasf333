@@ -3026,7 +3026,7 @@
   ]
 },
 "Bag_LV_CrossbodySling": {
-  "name": "LV Style Compact Sling Bag",
+  "name": "LV Cross Body Bag",
   "shipping_status":"mto",
   "category": "lv",
   "product_id": "KK-1061",
@@ -3040,9 +3040,9 @@
     "Unisex"
   ],
 
-  "catalogImage": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b101.jpg",
-  "catalogImageHover": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b102.jpg",
-  "image": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b103.jpg",
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b101.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b102.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b103.jpg",
 
   "url": "https://karrykraze.com/pages/product.html?sku=Bag_LV_CrossbodySling",
 
@@ -3084,37 +3084,37 @@
   },
 
   "variantImages": {
-    "Grey": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b101.jpg",
-    "Black": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b301.jpg",
-    "Brown": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b201.jpg"
+    "Grey": "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b101.jpg",
+    "Black": "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b301.jpg",
+    "Brown": "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b201.jpg"
   },
 
   "thumbnails": [
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b101.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b102.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b103.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b104.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b105.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b106.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b107.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b108.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b109.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b201.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b202.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b203.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b204.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b205.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b206.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b207.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b301.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b302.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b303.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b304.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b305.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b306.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b307.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b308.jpg",
-    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b309.jpg"
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b101.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b102.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b103.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b104.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b105.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b106.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b107.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b108.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b109.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b201.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b202.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b203.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b204.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b205.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b206.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b207.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b301.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b302.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b303.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b304.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b305.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b306.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b307.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b308.jpg",
+    "https://karrykraze.com/imgs/Products/Pouches/LV/009_CrossBody/b309.jpg"
   ]
 },
 "Bag_lv_wallet": {
