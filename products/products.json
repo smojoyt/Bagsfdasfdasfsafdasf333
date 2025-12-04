@@ -45,7 +45,7 @@
     "variantStock": {
       "Black": 5,
       "Cream": 2,
-      "Pink": 0
+      "Pink": 8
     },
     "variantImages": {
       "Black": "https://www.karrykraze.com/imgs/Products/Hats/BunnyEarsRat/02_05.jpg",
@@ -588,9 +588,9 @@
     "custom1Name": "Color",
     "custom1Options": "Black/Red | Black | Black/White | Pink/White",
     "variantStock": {
-      "Black/Red": 0,
-      "Black": 0,
-      "Black/White": 0,
+      "Black/Red": 1,
+      "Black": 1,
+      "Black/White": 1,
       "Pink/White": 3
     },
     "variantImages": {
@@ -663,10 +663,10 @@
     "custom1Options": "Black | Black/White | Pink | Blue | Pink/Cream | Red/Blue/Cream",
     "variantStock": {
       "Black": 2,
-      "Black/White": 0,
+      "Black/White": 1,
       "Pink": 1,
       "Blue": 3,
-      "Pink/Cream": 0,
+      "Pink/Cream": 1,
       "Red/Blue/Cream": 2
     },
     "variantImages": {
@@ -785,9 +785,9 @@
     "custom1Options": "Ivory | Black | Purple | Pink",
     "variantStock": {
       "Ivory": 5,
-      "Black": 0,
-      "Purple": 0,
-      "Pink": 0
+      "Black": 1,
+      "Purple": 1,
+      "Pink": 1
     },
     "variantImages": {
       "Ivory": "https://www.karrykraze.com/imgs/Products/Pouches/0013_VelvetCherryPuff/VCP_02_01.jpg",
@@ -3075,7 +3075,7 @@
   ],
 
   "custom1Name": "Color",
-  "custom1Options": "Grey, Black, Brown",
+  "custom1Options": "Grey | Black | Brown",
 
   "variantStock": {
     "Grey": 3,
