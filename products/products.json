@@ -1,6 +1,7 @@
 {
   "Headwear_EarflapBeanie": {
     "name": "Ribbed Knit Earflap Beanie",
+    "shipping_status":"mto",
     "category": "headwear",
     "product_id": "KK-1001",
     "price": 24.97,
@@ -42,7 +43,7 @@
     "custom1Name": "Color",
     "custom1Options": "Black | Cream | Pink",
     "variantStock": {
-      "Black": 0,
+      "Black": 5,
       "Cream": 2,
       "Pink": 0
     },
@@ -145,7 +146,7 @@
     "name": "Mini Tote - B!TCH#S IS WEIRD",
     "category": "bags",
     "product_id": "KK-1004",
-    "price": 28.74,
+    "price": 19.99,
     "weight_oz": 19.4,
     "tags": [
       "Bags",
@@ -162,9 +163,10 @@
       "One size, Compact yet spacious for essentials"
     ],
     "custom1Name": "Color",
-    "custom1Options": "Pink",
+    "custom1Options": "Pink | Green",
     "variantStock": {
-      "Pink": 1
+      "Pink": 1,
+      "Green": 1
     },
     "variantImages": {
       "Pink": "https://www.karrykraze.com/imgs/Products/Pouches/0010_BitchesisWeird/01_05.jpg"
@@ -273,12 +275,12 @@
   },
   "Bag_HelloKittyDuffel": {
     "name": "Mini Duffel - Hello Kitty Pink",
+    "shipping_status":"mto",
     "category": "bags",
     "product_id": "KK-1007",
-    "price": 24.97,
+    "price": 19.97,
     "weight_oz": 10.58,
     "tags": [
-      "Discontinued",
       "Bags"
     ],
     "catalogImage": "https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_04.jpg",
@@ -294,7 +296,7 @@
     "custom1Name": "Color",
     "custom1Options": "Pink",
     "variantStock": {
-      "Pink": 0
+      "Pink": 10
     },
     "variantImages": {
       "Pink": "https://www.karrykraze.com/imgs/Products/Pouches/003_HelloKittyPurse/01_04.jpg"
@@ -416,10 +418,11 @@
   },
   "Bag_LV_Obsidian_Edge_Duo": {
     "name": "LV Obsidian Edge Duo",
+    "shipping_status":"mto",
     "category": "lv",
     "product_id": "KK-1010",
     "checkout_product_id": "LKK001",
-    "price": 120,
+    "price": 59.97,
     "weight_oz": 16.58,
     "tags": [
       "Bags",
@@ -495,7 +498,7 @@
     "custom1Name": "Color",
     "custom1Options": "Red",
     "variantStock": {
-      "Red": 0
+      "Red": 10
     },
     "variantImages": {
       "Red": "https://www.karrykraze.com/imgs/Products/Pendants/Cherry/CC_01_01.jpg"
@@ -690,7 +693,7 @@
     "category": "charms",
     "subCategory": "smallCharms",
     "product_id": "KK-1018",
-    "price": 5.47,
+    "price": 0.49,
     "weight_oz": 0.18,
     "tags": [
       "Charms"
@@ -727,7 +730,7 @@
     "category": "charms",
     "subCategory": "smallCharms",
     "product_id": "KK-1019",
-    "price": 7.47,
+    "price": 1.49,
     "weight_oz": 2.75,
     "tags": [
       "Charms"
@@ -1312,7 +1315,7 @@
   "name": "LV Noir Trio Shoulder Set",
   "category": "lv",
   "product_id": "KK-1029",
-  "price": 165,
+  "price": 99.99,
   "weight_oz": 67.3,
   "tags": ["Bags", "Designer", "Shoulder Bag", "Set"],
   "catalogImage": "https://karrykraze.com/imgs/Products/Pouches/LV/008_ShoulderSet/01_01.jpg",
@@ -3021,5 +3024,168 @@
     "/imgs/Products/Pouches/002_HelloKittyJean/05.jpg",
     "/imgs/Products/Pouches/002_HelloKittyJean/06.jpg"
   ]
+},
+"Bag_LV_CrossbodySling": {
+  "name": "LV Style Compact Sling Bag",
+  "shipping_status":"mto",
+  "category": "lv",
+  "product_id": "KK-1061",
+  "checkout_product_id": "LKK005",
+  "price": 99.99,
+  "weight_oz": 11.2,
+  "tags": [
+    "Bags",
+    "Crossbody",
+    "Designer",
+    "Unisex"
+  ],
+
+  "catalogImage": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b101.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b102.jpg",
+  "image": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b103.jpg",
+
+  "url": "https://karrykraze.com/pages/product.html?sku=Bag_LV_CrossbodySling",
+
+  "banner": "https://karrykraze.com/imgs/Products/Bags/LVSling/banner.jpg",
+
+  "descriptionList": [
+    "Compact luxury-style sling bag perfect for everyday carry",
+    "Premium vegan leather with detailed monogram patterns",
+    "Includes multiple zip compartments for organized storage",
+    "Lightweight and comfortable for daily use or travel"
+  ],
+
+  "sizingList": [
+    "Approx. 6.5\" L x 3\" W x 11\" H",
+    "Adjustable strap: 18\"–39\""
+  ],
+
+  "keyDetails": [
+    "Smooth zipper closure with metal hardware",
+    "Fits phones, wallets, chargers, and small essentials",
+    "Three premium pattern options",
+    "Unisex design suitable for men & women"
+  ],
+
+  "careInstructions": [
+    "Wipe clean with soft damp cloth",
+    "Avoid harsh chemicals or soaking",
+    "Store upright to maintain structure",
+    "Keep away from prolonged heat or sun exposure"
+  ],
+
+  "custom1Name": "Color",
+  "custom1Options": "Grey, Black, Brown",
+
+  "variantStock": {
+    "Grey": 3,
+    "Black": 5,
+    "Brown": 4
+  },
+
+  "variantImages": {
+    "Grey": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b101.jpg",
+    "Black": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b301.jpg",
+    "Brown": "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b201.jpg"
+  },
+
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b101.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b102.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b103.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b104.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b105.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b106.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b107.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b108.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b109.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b201.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b202.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b203.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b204.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b205.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b206.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b207.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b301.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b302.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b303.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b304.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b305.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b306.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b307.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b308.jpg",
+    "https://karrykraze.com/imgs/Products/LV/009_CrossBody/b309.jpg"
+  ]
+},
+"Bag_lv_wallet": {
+  "name": "LV Style Black Embossed Wallet",
+  "shipping_status":"mto",
+  "category": "lv",
+  "product_id": "KK-1062",
+  "checkout_product_id": "LKK006",
+  "price": 24.99,
+  "weight_oz": 4.2,
+  "tags": [
+    "Wallet",
+    "Accessories",
+    "Designer",
+    "LV Style",
+    "Men",
+    "Unisex"
+  ],
+
+  "catalogImage": "https://karrykraze.com/imgs/Products/Pouches/LV/010_Wallet/b101.jpg",
+  "catalogImageHover": "https://karrykraze.com/imgs/Products/Pouches/LV/010_Wallet/b102.jpg",
+  "image": "https://karrykraze.com/imgs/Products/Pouches/LV/010_Wallet/b101.jpg",
+
+  "url": "https://karrykraze.com/pages/product.html?sku=Bag_lv_wallet",
+
+  "banner": "https://karrykraze.com/imgs/Products/Pouches/LV/010_Wallet/banner.jpg",
+  "descriptionList": [
+    "Premium black embossed wallet with luxury-style detailing",
+    "Features LV-inspired diamond pattern for a bold designer look",
+    "Slim bifold design that fits comfortably in pockets",
+    "Multiple card slots and cash compartments for everyday use",
+    "Made from durable vegan leather with a soft-touch finish"
+  ],
+
+  "sizingList": [
+    "Closed: Approx. 4.5\" L x 3.7\" H",
+    "Open: Approx. 9\" L x 3.7\" H",
+    "Slim profile for easy carry"
+  ],
+
+  "keyDetails": [
+    "Embossed monogram-style pattern",
+    "High-quality stitching for durability",
+    "Six card slots + cash pocket",
+    "Soft interior lining to protect your essentials",
+    "Classic unisex design suitable for men and women"
+  ],
+
+  "careInstructions": [
+    "Wipe clean with a soft, damp cloth",
+    "Avoid overstuffing to maintain shape",
+    "Keep away from harsh chemicals",
+    "Do not wash or soak",
+    "Store flat when not in use"
+  ],
+
+  "custom1Name": "Color",
+  "custom1Options": "Black",
+
+  "variantStock": {
+    "Black": 10
+  },
+
+  "variantImages": {
+    "Black": "https://karrykraze.com/imgs/Products/Pouches/LV/010_Wallet/b101.jpg"
+  },
+
+  "thumbnails": [
+    "https://karrykraze.com/imgs/Products/Pouches/LV/010_Wallet/b101.jpg"
+  ]
 }
+
+
 }
