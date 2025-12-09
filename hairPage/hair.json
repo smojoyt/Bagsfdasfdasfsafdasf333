@@ -1,0 +1,214 @@
+{
+  "months": [
+    {
+      "name": "Month 1",
+      "phase": "Foundation",
+      "lengthNote": "TWA stage · about 0.5–1.5 inches.",
+      "focus": "Learn the routine, keep scalp clean, avoid over-manipulation.",
+      "extras": [
+        "Take clear starting photos from front, side, and back.",
+        "Stick tightly to weekly wash day and bonnet use every night.",
+        "On the last Sunday: spend 5 extra minutes massaging scalp with Grapeseed & Avocado Oil."
+      ]
+    },
+    {
+      "name": "Month 2",
+      "phase": "Foundation",
+      "lengthNote": "Still short, coils close to the scalp.",
+      "focus": "Moisture consistency + scalp health.",
+      "extras": [
+        "Aim for scalp massages with oil at least 3 nights each week.",
+        "Last Sunday of the month: keep conditioner on for the full 15 minutes.",
+        "Compare new photos to Month 1 and notice thickness, not just length."
+      ]
+    },
+    {
+      "name": "Month 3",
+      "phase": "Foundation",
+      "lengthNote": "More defined coils and a little lift.",
+      "focus": "Strengthen ends and avoid breakage.",
+      "extras": [
+        "Focus conditioner on your ends on wash day.",
+        "If you see tiny single-strand knots at the very tips, carefully snip just those ends (optional).",
+        "End of Month 3: photo check-in + quick note on how your hair feels (dry/soft/itchy/etc.)."
+      ]
+    },
+    {
+      "name": "Month 4",
+      "phase": "Early Growth",
+      "lengthNote": "May approach 2+ inches with good retention.",
+      "focus": "Introduce slightly longer-lasting coils/twists.",
+      "extras": [
+        "After wash day, try small twists/coils and keep them in for 4–7 days.",
+        "Avoid picking your hair out daily; let the style sit and protect your ends.",
+        "If scalp feels product-heavy, rinse well and massage longer with shampoo on wash day."
+      ]
+    },
+    {
+      "name": "Month 5",
+      "phase": "Early Growth",
+      "lengthNote": "Coils have more movement; twist outs may start to show.",
+      "focus": "Prep for mini twists and longer protective styles.",
+      "extras": [
+        "Once this month, on wash day, finger-detangle thoroughly with conditioner.",
+        "End of the month: plan for your first mini-twist attempt in Month 6.",
+        "Adjust product amounts if hair feels weighed down (especially DoubleButter Cream)."
+      ]
+    },
+    {
+      "name": "Month 6",
+      "phase": "Growth",
+      "lengthNote": "Possibly 3+ inches with good retention.",
+      "focus": "First mini-twist set (if length allows).",
+      "extras": [
+        "Pick one wash day to install mini twists and keep them in 1–2 weeks.",
+        "Follow the weekly moisture schedule on top of twists instead of loose hair.",
+        "Take a side photo of your twists to compare with future months."
+      ]
+    },
+    {
+      "name": "Month 7",
+      "phase": "Growth",
+      "lengthNote": "Twists look fuller and hang a bit more.",
+      "focus": "Length retention and gentle handling.",
+      "extras": [
+        "Be extra patient taking down twists to avoid snapping ends.",
+        "Add 5 extra minutes to conditioner time on the last Saturday.",
+        "If you feel buildup on scalp, gently scrub with fingertip pads while shampooing."
+      ]
+    },
+    {
+      "name": "Month 8",
+      "phase": "Growth",
+      "lengthNote": "Hair may stretch to 4–5 inches in some areas.",
+      "focus": "Low manipulation + healthy ends.",
+      "extras": [
+        "Keep a protective style in for 7–10 days when possible.",
+        "Check for rough, crunchy ends; add a tiny bit more DoubleButter Cream on wash day if needed.",
+        "End-of-month photo: gently stretch a small section in the front and back for a length check."
+      ]
+    },
+    {
+      "name": "Month 9",
+      "phase": "Refinement",
+      "lengthNote": "Noticeable volume; twist outs show more shape.",
+      "focus": "Refine product amounts and keep scalp happy.",
+      "extras": [
+        "If hair feels greasy or heavy, reduce Leave-In or DoubleButter amounts slightly.",
+        "Once this month, do a 10-minute oil scalp massage before wash.",
+        "Write down what product combo your hair liked best this month."
+      ]
+    },
+    {
+      "name": "Month 10",
+      "phase": "Length Retention",
+      "lengthNote": "Stretched length may be 5–6 inches or more.",
+      "focus": "Protect ends & avoid unnecessary trims.",
+      "extras": [
+        "Keep twists or braids in for up to 2 weeks if they still look neat.",
+        "On the last wash day, examine ends and only snip obvious single-strand knots (optional).",
+        "Take photos in the same style as Month 1 to see progress clearly."
+      ]
+    },
+    {
+      "name": "Month 11",
+      "phase": "Length Retention",
+      "lengthNote": "Twists now look longer & fuller; almost ‘medium’ length.",
+      "focus": "Stay consistent — don’t change what works.",
+      "extras": [
+        "Choose one “spa” wash day with 15-minute conditioner time and extra gentle detangling.",
+        "If your hairline feels stressed, avoid tight styles this entire month.",
+        "End-of-month: write a quick journal note about what your hair likes best."
+      ]
+    },
+    {
+      "name": "Month 12",
+      "phase": "Year Check-In",
+      "lengthNote": "With good retention, you may have 6–7+ inches stretched.",
+      "focus": "Celebrate growth & decide next-year goals.",
+      "extras": [
+        "Do a careful wash day with plenty of conditioner and patience with tangles.",
+        "Optional: tiny dusting trim of very ends if they look frayed (or see a professional).",
+        "Take comparison photos with Month 1 and note your progress.",
+        "Decide if you want to keep this routine or adjust for Year 2."
+      ]
+    }
+  ],
+  "weeklyRoutine": [
+    {
+      "day": "Monday",
+      "title": "Moisture Day",
+      "tasks": [
+        "Lightly mist hair with water if dry.",
+        "Apply As I Am Leave-In and smooth through, focusing on ends.",
+        "Seal with a small amount of DoubleButter Cream.",
+        "If long enough, gently coil or twist small sections (no tight pulling).",
+        "Sleep with satin bonnet / scarf."
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "title": "Scalp Care Day",
+      "tasks": [
+        "Part gently with fingers and apply a few drops of Grapeseed & Avocado Oil to scalp.",
+        "Massage with fingertips for 3–5 minutes (no nails).",
+        "Don’t re-twist or comb. Let style rest.",
+        "Bonnet / scarf at night."
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "title": "Mid-Week Moisture",
+      "tasks": [
+        "Lightly mist with water and separate sections with fingers.",
+        "Add a bit of Leave-In, then a small amount of DoubleButter Cream to ends.",
+        "Finger detangle only. No brush or comb.",
+        "Bonnet / scarf at night."
+      ]
+    },
+    {
+      "day": "Thursday",
+      "title": "Low-Manipulation Day",
+      "tasks": [
+        "No new products unless hair feels dry.",
+        "If needed, smooth 1–2 drops of Grapeseed & Avocado Oil over top and ends.",
+        "Do not comb, brush, or restyle.",
+        "Bonnet / scarf at night."
+      ]
+    },
+    {
+      "day": "Friday",
+      "title": "Pre-Wash Prep + Scalp Massage",
+      "tasks": [
+        "If hair feels dry, add a small amount of Leave-In and DoubleButter Cream to ends.",
+        "Apply a few drops of Grapeseed & Avocado Oil to scalp and massage.",
+        "Keep style loose, no tight ponytails or braids.",
+        "Bonnet / scarf at night."
+      ]
+    },
+    {
+      "day": "Saturday",
+      "title": "Wash Day",
+      "highlight": true,
+      "tasks": [
+        "Fully wet hair with warm water, gently stretch with fingers.",
+        "Shampoo with Honey Creme Shampoo, focusing on scalp. Rinse thoroughly.",
+        "Apply SheaMoisture Low Porosity Conditioner from roots to ends and finger-detangle.",
+        "Leave conditioner on 10–15 minutes, then rinse with cool/lukewarm water.",
+        "On damp hair, apply Leave-In, then DoubleButter Cream to seal.",
+        "Add a few drops of Grapeseed & Avocado Oil to scalp and ends. Massage gently.",
+        "Style into coils or twists you can keep for several days (as length allows)."
+      ]
+    },
+    {
+      "day": "Sunday",
+      "title": "Rest Day",
+      "tasks": [
+        "Do nothing to your hair unless it feels dry or tight.",
+        "If needed, smooth a tiny bit of DoubleButter Cream on ends.",
+        "Once a month (see month tabs), use Sunday for pictures and quick check-in.",
+        "Bonnet / scarf at night."
+      ]
+    }
+  ]
+}
