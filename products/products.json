@@ -3185,7 +3185,285 @@
   "thumbnails": [
     "https://karrykraze.com/imgs/Products/Pouches/LV/010_Wallet/b101.jpg"
   ]
+},
+"Bracelet_BlackFloral": {
+  "name": "Black Floral Beaded Keychain Bracelet",
+  "category": "Bracelets",
+  "product_id": "KK_1063",
+  "checkout_product_id": "LKK063",
+  "price": 7.99,
+  "weight_oz": 1.2,
+  "tags": [
+    "bracelet",
+    "keychain",
+    "accessory",
+    "tassel",
+    "black",
+    "floral",
+    "gift"
+  ],
+
+  "catalogImage": "https://www.karrykraze.com/imgs/Products/Braclet/ballFlower/01.jpg",
+  "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Braclet/ballFlower/01.jpg",
+  "image": "https://www.karrykraze.com/imgs/Products/Braclet/ballFlower/01.jpg",
+
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Bracelet_BlackFloral",
+
+  "banner": "https://www.karrykraze.com/imgs/Products/Braclet/ballFlower/01.jpg",
+
+  "descriptionList": [
+    "Elegant matte black bead bracelet with floral accent beads",
+    "Doubles as a wristlet keychain for hands-free carrying",
+    "Gold-tone hardware adds a stylish, polished finish",
+    "Includes a soft tassel charm for added flair",
+    "Durable stretch design fits most wrist sizes"
+  ],
+
+  "sizingList": [
+    "Bracelet Diameter: Approx. 3\" (stretches to fit)",
+    "Bead Size: 15–18mm",
+    "Keychain Drop Length: Approx. 2\""
+  ],
+
+  "keyDetails": [
+    "Matte black beads with white floral detailing",
+    "Gold-tone clasp and keyring",
+    "Soft faux-suede tassel charm",
+    "Lightweight and comfortable for everyday wear",
+    "Perfect for keys, fobs, or bag accessories"
+  ],
+
+  "careInstructions": [
+    "Avoid submerging in water",
+    "Wipe beads gently with a soft cloth",
+    "Keep tassel dry to maintain shape",
+    "Store away from sharp objects"
+  ],
+
+  "custom1Name": "Color",
+  "custom1Options": "Black",
+
+  "variantStock": {
+    "Black": 15
+  },
+
+  "variantImages": {
+    "Black": "https://www.karrykraze.com/imgs/Products/Braclet/ballFlower/01.jpg"
+  },
+
+  "thumbnails": [
+    "https://www.karrykraze.com/imgs/Products/Braclet/ballFlower/01.jpg"
+  ]
+},
+"Charm_BlueBell": {
+  "name": "Blue Bell Flower Charm Keychain",
+  "category": "Charms",
+  "product_id": "KK_1064",
+  "checkout_product_id": "LKK064",
+  "price": 4.99,
+  "weight_oz": 0.6,
+  "tags": [
+    "charm",
+    "keychain",
+    "flower",
+    "aesthetic",
+    "cute",
+    "pastel",
+    "accessory"
+  ],
+
+  "catalogImage": "https://www.karrykraze.com/imgs/Products/Pendants/blueBell/01.jpg",
+  "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Pendants/blueBell/01.jpg",
+  "image": "https://www.karrykraze.com/imgs/Products/Pendants/blueBell/01.jpg",
+
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_BlueBell",
+
+  "banner": "https://www.karrykraze.com/imgs/Products/Pendants/blueBell/banner.jpg",
+  "descriptionList": [
+    "Soft pastel blue bell-shaped flowers on a cascading gold chain",
+    "Lightweight charm perfect for keys, bags, or phone cases",
+    "Delicate green leaf accents add a cute spring aesthetic",
+    "Premium metal clasp provides secure and easy attachment"
+  ],
+
+  "sizingList": [
+    "Full Length: Approx. 3.5\"",
+    "Flower Size: Approx. 0.5\" each",
+    "Lightweight and easy to carry"
+  ],
+
+  "keyDetails": [
+    "Gold-tone hardware for a polished look",
+    "Five dangling bell flowers with leaf details",
+    "Durable metal chain for long-lasting use",
+    "Perfect as a gift or stylish everyday accessory"
+  ],
+
+  "careInstructions": [
+    "Avoid pulling or snagging on sharp objects",
+    "Wipe gently with a soft cloth to clean",
+    "Keep dry to prevent tarnishing",
+    "Store separately to prevent tangling"
+  ],
+
+  "custom1Name": "Color",
+  "custom1Options": "Blue",
+
+  "variantStock": {
+    "Blue": 20
+  },
+
+  "variantImages": {
+    "Blue": "https://www.karrykraze.com/imgs/Products/Pendants/blueBell/01.jpg"
+  },
+
+  "thumbnails": [
+    "https://www.karrykraze.com/imgs/Products/Pendants/blueBell/01.jpg"
+  ]
+},
+"Sword_BlueSwirl": {
+  "name": "Blue Swirl Sword Keychain",
+  "category": "Charms",
+  "product_id": "KK_1065",
+  "checkout_product_id": "LKK065",
+  "price": 8.99,
+  "weight_oz": 0.8,
+  "tags": [
+    "charm",
+    "keychain",
+    "sword",
+    "anime",
+    "blue",
+    "fantasy",
+    "accessory",
+    "gift"
+  ],
+
+  "catalogImage": "https://www.karrykraze.com/imgs/Products/Pendants/animeSword/02.jpg",
+  "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Pendants/animeSword/01.jpg",
+  "image": "https://www.karrykraze.com/imgs/Products/Pendants/animeSword/02.jpg",
+
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Sword_BlueSwirl",
+
+  "banner": "https://www.karrykraze.com/imgs/Products/Pendants/animeSword/banner.jpg",
+
+  "descriptionList": [
+    "Elegant fantasy-style sword charm with a blue swirling design",
+    "Perfect accessory for anime lovers, gamers, and collectors",
+    "High-polish metal finish for a premium look",
+    "Lightweight design great for keys, backpacks, and bags"
+  ],
+
+  "sizingList": [
+    "Charm Length: Approx. 3\"",
+    "Keyring Diameter: 1\"",
+    "Lightweight for everyday carry"
+  ],
+
+  "keyDetails": [
+    "Intricate blue swirl detailing",
+    "Premium metal construction",
+    "Smooth reflective finish",
+    "Durable chain and keyring loop",
+    "Perfect as a collectible or aesthetic accessory"
+  ],
+
+  "careInstructions": [
+    "Avoid scratching against hard surfaces",
+    "Wipe clean with a soft cloth",
+    "Keep dry to prevent tarnishing",
+    "Store separately to avoid dings"
+  ],
+
+  "custom1Name": "Style",
+  "custom1Options": "Blue Swirl Sword",
+
+  "variantStock": {
+    "Blue Swirl Sword": 20
+  },
+
+  "variantImages": {
+    "Blue Swirl Sword": "https://www.karrykraze.com/imgs/Products/Pendants/animeSword/01.jpg"
+  },
+
+  "thumbnails": [
+    "https://www.karrykraze.com/imgs/Products/Pendants/animeSword/01.jpg",
+    "https://www.karrykraze.com/imgs/Products/Pendants/animeSword/02.jpg"
+  ]
+},
+"Charm_EightBallSet": {
+  "name": "8-Ball Dice Charm Keychain",
+  "category": "Charms",
+  "product_id": "KK_1066",
+  "checkout_product_id": "LKK066",
+  "price": 7.99,
+  "weight_oz": 1.0,
+  "tags": [
+    "charm",
+    "keychain",
+    "8-ball",
+    "dice",
+    "retro",
+    "gaming",
+    "accessory",
+    "gift"
+  ],
+
+  "catalogImage": "https://www.karrykraze.com/imgs/Products/Pendants/dice/01.jpg",
+  "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Pendants/dice/01.jpg",
+  "image": "https://www.karrykraze.com/imgs/Products/Pendants/dice/01.jpg",
+
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Charm_EightBallSet",
+
+  "banner": "https://www.karrykraze.com/imgs/Products/Charms/EightBallSet/banner.jpg",
+
+  "descriptionList": [
+    "Fun retro-themed keychain featuring an 8-ball charm, mini dice, and metallic star",
+    "Perfect accessory for gamers, collectors, or anyone who loves unique keychains",
+    "High-gloss finish on the 8-ball for a realistic look",
+    "Sturdy metal chain and keyring for everyday use"
+  ],
+
+  "sizingList": [
+    "8-Ball Size: Approx. 1\"",
+    "Dice Size: Approx. 0.5\"",
+    "Full Length: Approx. 4\""
+  ],
+
+  "keyDetails": [
+    "Durable and lightweight",
+    "Smooth polished surface on the 8-ball charm",
+    "Bright metallic star detail",
+    "Secure keyring attachment",
+    "Ideal for bags, backpacks, keys, and gifts"
+  ],
+
+  "careInstructions": [
+    "Wipe clean with a dry cloth",
+    "Avoid sharp impacts to prevent scratches",
+    "Keep away from water to maintain shine",
+    "Store separately to avoid tangles"
+  ],
+
+  "custom1Name": "Style",
+  "custom1Options": "8-Ball Charm",
+
+  "variantStock": {
+    "8-Ball Charm": 20
+  },
+
+  "variantImages": {
+    "8-Ball Charm": "https://www.karrykraze.com/imgs/Products/Pendants/dice/01.jpg"
+  },
+
+  "thumbnails": [
+    "https://www.karrykraze.com/imgs/Products/Pendants/dice/01.jpg"
+  ]
 }
+
+
+
+
 
 
 }

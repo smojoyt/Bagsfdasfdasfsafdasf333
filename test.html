@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Product JSON Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-4">
+  <div class="w-full max-w-5xl bg-slate-900/80 border border-slate-700 rounded-2xl shadow-xl p-6 md:p-8">
+    <h1 class="text-2xl md:text-3xl font-bold mb-2 text-center">
+      Product JSON Generator
+    </h1>
+    <p class="text-sm text-slate-300 mb-4 text-center">
+      Option A: Upload an image and type details. &nbsp;Option B: Paste a JSON preset from ChatGPT and auto-fill everything.
+    </p>
+
+    <!-- PRESET AREA -->
+    <div class="mb-6 grid md:grid-cols-[3fr,1fr] gap-3 items-start">
+      <div>
+        <label class="block text-sm font-semibold mb-1">
+          Preset JSON from ChatGPT (optional)
+        </label>
+        <textarea id="presetInput" rows="4"
+          placeholder='Paste the JSON object I give you here, then click "Load From Code".'
+          class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-xs font-mono leading-relaxed"></textarea>
+        <p class="text-xs text-slate-400 mt-1">
+          Example format:
+          <code>{"key":"Charm_EightBallSet","name":"8-Ball Dice Charm Keychain", ...}</code>
+        </p>
+      </div>
+      <div class="flex md:flex-col gap-3 md:justify-start justify-center mt-2">
+        <button id="loadPresetBtn"
+          class="w-full px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs md:text-sm font-semibold shadow-lg shadow-emerald-600/30">
+          Load From Code
+        </button>
+        <button id="clearPresetBtn"
+          class="w-full px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-xs md:text-sm font-semibold">
+          Clear Form
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN FORM -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1">Product Key (JSON object name)</label>
+          <input id="productKey" type="text" placeholder="Charm_BlueBell"
+            class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Display Name</label>
+          <input id="displayName" type="text" placeholder="Blue Bell Flower Charm Keychain"
+            class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-sm font-semibold mb-1">Category</label>
+            <input id="category" type="text" placeholder="Charms"
+              class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold mb-1">Price</label>
+            <input id="price" type="number" step="0.01" placeholder="7.99"
+              class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-sm font-semibold mb-1">Product ID</label>
+            <input id="productId" type="text" placeholder="KK_1064"
+              class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold mb-1">Checkout Product ID</label>
+            <input id="checkoutProductId" type="text" placeholder="LKK064"
+              class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Base URL for images</label>
+          <input id="baseUrl" type="text" value="https://www.karrykraze.com"
+            class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60">
+          <p class="text-xs text-slate-400 mt-1">
+            URLs will look like <code>{baseUrl}{imgFolder}{fileName}</code>.
+          </p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Image folder path (after domain)</label>
+          <input id="imgFolder" type="text" placeholder="/imgs/Products/Charms/BlueBell/"
+            class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60">
+          <p class="text-xs text-slate-400 mt-1">
+            Example: <code>/imgs/Products/Charms/BlueBell/</code>
+          </p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Variant Name</label>
+          <input id="variantName" type="text" placeholder="Blue Bell"
+            class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Variant Stock</label>
+          <input id="variantStock" type="number" placeholder="20"
+            class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Tags (comma separated)</label>
+          <input id="tags" type="text" placeholder="charm, keychain, cute, gift"
+            class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60">
+        </div>
+      </div>
+
+      <!-- IMAGE + DESCRIPTION -->
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1">Product Image</label>
+          <input id="imageInput" type="file" accept="image/*"
+            class="block w-full text-sm text-slate-200 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500">
+          <p class="text-xs text-slate-400 mt-1">
+            Local preview only — you’ll still upload the image to your <code>/imgs/</code> folder.
+          </p>
+        </div>
+
+        <div id="imagePreview" class="hidden">
+          <p class="text-xs text-slate-400 mb-1">Preview:</p>
+          <img id="previewImg" src="" alt="Preview"
+            class="w-32 h-32 object-cover rounded-lg border border-slate-700">
+          <p class="text-xs text-slate-400 mt-1">
+            File name: <span id="fileNameText" class="font-mono"></span>
+          </p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1">Short Description (for descriptionList)</label>
+          <textarea id="shortDesc" rows="6"
+            placeholder="One sentence per line.&#10;Line 2...&#10;Line 3..."
+            class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-pink-500/60"></textarea>
+          <p class="text-xs text-slate-400 mt-1">
+            Each line becomes one bullet in <code>descriptionList</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="mt-6 flex flex-wrap gap-3 justify-center">
+      <button id="generateBtn"
+        class="px-6 py-2 rounded-lg bg-pink-600 hover:bg-pink-500 text-sm font-semibold shadow-lg shadow-pink-600/30">
+        Generate JSON
+      </button>
+    </div>
+
+    <!-- OUTPUT -->
+    <div class="mt-6">
+      <label class="block text-sm font-semibold mb-2">Generated JSON</label>
+      <textarea id="output"
+        class="w-full h-64 bg-slate-950 border border-slate-700 rounded-lg p-3 text-xs font-mono leading-relaxed"
+        readonly></textarea>
+      <p class="text-xs text-slate-400 mt-2">
+        Copy this object (including the outer key) into your <code>products.json</code>.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const imageInput = document.getElementById('imageInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    const fileNameText = document.getElementById('fileNameText');
+    const presetInput = document.getElementById('presetInput');
+
+    const productKeyInput = document.getElementById('productKey');
+    const displayNameInput = document.getElementById('displayName');
+    const categoryInput = document.getElementById('category');
+    const priceInput = document.getElementById('price');
+    const productIdInput = document.getElementById('productId');
+    const checkoutProductIdInput = document.getElementById('checkoutProductId');
+    const variantNameInput = document.getElementById('variantName');
+    const variantStockInput = document.getElementById('variantStock');
+    const tagsInput = document.getElementById('tags');
+    const shortDescInput = document.getElementById('shortDesc');
+
+    let currentFileName = "";
+
+    imageInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      currentFileName = file.name;
+      const reader = new FileReader();
+      reader.onload = () => {
+        previewImg.src = reader.result;
+        imagePreview.classList.remove('hidden');
+        fileNameText.textContent = file.name;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function clearForm() {
+      [
+        productKeyInput, displayNameInput, categoryInput, priceInput,
+        productIdInput, checkoutProductIdInput, variantNameInput,
+        variantStockInput, tagsInput, shortDescInput
+      ].forEach(el => el.value = "");
+    }
+
+    document.getElementById('clearPresetBtn').addEventListener('click', () => {
+      clearForm();
+      presetInput.value = "";
+    });
+
+    // Load preset JSON from ChatGPT
+    document.getElementById('loadPresetBtn').addEventListener('click', () => {
+      const raw = presetInput.value.trim();
+      if (!raw) {
+        alert("Paste a JSON object from ChatGPT first.");
+        return;
+      }
+      try {
+        const preset = JSON.parse(raw);
+
+        if (preset.key) productKeyInput.value = preset.key;
+        if (preset.name) displayNameInput.value = preset.name;
+        if (preset.category) categoryInput.value = preset.category;
+        if (preset.price) priceInput.value = preset.price;
+        if (preset.product_id) productIdInput.value = preset.product_id;
+        if (preset.checkout_product_id) checkoutProductIdInput.value = preset.checkout_product_id;
+        if (preset.variantName) variantNameInput.value = preset.variantName;
+        if (preset.variantStock !== undefined) variantStockInput.value = preset.variantStock;
+        if (preset.tags) tagsInput.value = preset.tags;
+        if (preset.shortDesc) shortDescInput.value = preset.shortDesc;
+
+      } catch (err) {
+        console.error(err);
+        alert("Invalid JSON. Make sure you copied the object exactly.");
+      }
+    });
+
+    // Generate JSON for products.json
+    document.getElementById('generateBtn').addEventListener('click', () => {
+      const baseUrl = document.getElementById('baseUrl').value.trim().replace(/\/$/, '');
+      const imgFolder = document.getElementById('imgFolder').value.trim();
+      const price = parseFloat(priceInput.value || "0").toFixed(2);
+
+      const descLines = shortDescInput.value
+        .split("\n")
+        .map(line => line.trim())
+        .filter(Boolean);
+
+      const imgPath = currentFileName
+        ? `${baseUrl}${imgFolder}${currentFileName}`
+        : `${baseUrl}${imgFolder}01.jpg`;
+
+      const tags = tagsInput.value
+        .split(",")
+        .map(t => t.trim())
+        .filter(Boolean);
+
+      const variantName = (variantNameInput.value || "Default").trim();
+      const variantStock = parseInt(variantStockInput.value || "0", 10);
+
+      const obj = {
+        name: displayNameInput.value.trim() || "New Product",
+        category: categoryInput.value.trim() || "Charms",
+        product_id: productIdInput.value.trim() || "KK_0000",
+        checkout_product_id: checkoutProductIdInput.value.trim() || "LKK000",
+        price: Number(price),
+        weight_oz: 0.8,
+        tags: tags.length ? tags : ["charm", "keychain", "accessory"],
+        catalogImage: imgPath,
+        catalogImageHover: imgPath,
+        image: imgPath,
+        url: `https://www.karrykraze.com/pages/product.html?sku=${productKeyInput.value.trim() || "SKU_HERE"}`,
+        banner: imgPath,
+        descriptionList: descLines.length ? descLines : [
+          "Short description line 1",
+          "Short description line 2"
+        ],
+        sizingList: [
+          "Size details go here",
+          "Update this text as needed"
+        ],
+        keyDetails: [
+          "Key feature 1",
+          "Key feature 2",
+          "Key feature 3"
+        ],
+        careInstructions: [
+          "Care instruction 1",
+          "Care instruction 2"
+        ],
+        custom1Name: "Style",
+        custom1Options: variantName,
+        variantStock: { [variantName]: variantStock },
+        variantImages: { [variantName]: imgPath },
+        thumbnails: [imgPath]
+      };
+
+      const key = productKeyInput.value.trim() || "Your_Product_Key";
+      const wrapped = `"${key}": ` + JSON.stringify(obj, null, 2);
+      document.getElementById('output').value = wrapped;
+    });
+  </script>
+</body>
+</html>
