@@ -6,48 +6,60 @@ let globalWeeklyRoutine = [];
 let viewMode = "detailed"; // "simple" or "detailed"
 
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
 const todayIndex = new Date().getDay();
 const todayName = DAY_NAMES[todayIndex];
 
 /* ---------- Load Data ---------- */
 
 async function loadHairData() {
-  try {
-    const res = await fetch("./hair.json");
-    if (!res.ok) {
-      throw new Error("Failed to load hair.json");
-    }
-    return await res.json();
-  } catch (err) {
-    console.error(err);
+  const res = await fetch("./hair.json");
+  if (!res.ok) {
     const monthContent = document.getElementById("monthContent");
     if (monthContent) {
       monthContent.innerHTML =
-        '<p class="text-sm text-rose-400">Could not load hair data. Please check <span class="font-semibold">hair.json</span>.</p>';
+        '<p class="text-sm text-rose-400">Could not load <span class="font-semibold">hair.json</span>. Check the file path.</p>';
     }
-    throw err;
+    throw new Error("Failed to load hair.json");
   }
+  return await res.json();
 }
 
-/* ---------- Month Tabs & Progress ---------- */
+/* ---------- Month Tabs, Progress, & Mobile Select ---------- */
 
 function renderMonthTabs(months) {
-  const container = document.getElementById("monthTabs");
-  if (!container) return;
+  const tabsContainer = document.getElementById("monthTabs");
+  const select = document.getElementById("monthSelectMobile");
 
-  container.innerHTML = "";
+  if (tabsContainer) {
+    tabsContainer.innerHTML = "";
+    months.forEach((month, index) => {
+      const btn = document.createElement("button");
+      btn.textContent = month.name;
+      btn.type = "button";
+      btn.dataset.index = index;
+      btn.className =
+        "whitespace-nowrap px-3 py-1.5 rounded-full text-[11px] font-semibold border border-slate-700 text-slate-200 bg-slate-900/70 hover:bg-slate-800/90 hover:border-hairPrimary/70 hover:text-hairSoft transition";
+      btn.addEventListener("click", () => setActiveMonth(months, index));
+      tabsContainer.appendChild(btn);
+    });
+  }
 
-  months.forEach((month, index) => {
-    const btn = document.createElement("button");
-    btn.textContent = month.name;
-    btn.type = "button";
-    btn.dataset.index = index;
-    btn.className =
-      "whitespace-nowrap px-3 py-1.5 rounded-full text-[11px] font-semibold border border-slate-700 text-slate-200 bg-slate-900/70 hover:bg-slate-800/90 hover:border-hairPrimary/70 hover:text-hairSoft transition";
-    btn.addEventListener("click", () => setActiveMonth(months, index));
-    container.appendChild(btn);
-  });
+  if (select) {
+    select.innerHTML = "";
+    months.forEach((month, index) => {
+      const opt = document.createElement("option");
+      opt.value = index;
+      opt.textContent = month.name;
+      select.appendChild(opt);
+    });
+
+    select.addEventListener("change", (e) => {
+      const idx = parseInt(e.target.value, 10);
+      if (!Number.isNaN(idx)) {
+        setActiveMonth(months, idx);
+      }
+    });
+  }
 }
 
 function updateMonthProgress(index) {
@@ -57,29 +69,33 @@ function updateMonthProgress(index) {
   const total = 12;
   const percent = Math.min(100, (monthNumber / total) * 100);
 
-  if (label) {
-    label.textContent = `Month ${monthNumber} of ${total}`;
-  }
-  if (fill) {
-    fill.style.width = `${percent}%`;
-  }
+  if (label) label.textContent = `Month ${monthNumber} of ${total}`;
+  if (fill) fill.style.width = `${percent}%`;
 }
 
 function setActiveMonth(months, index) {
   const tabs = document.getElementById("monthTabs");
   const content = document.getElementById("monthContent");
-  if (!tabs || !content) return;
+  const select = document.getElementById("monthSelectMobile");
+  if (!content) return;
 
-  // Update tab styles
-  [...tabs.children].forEach((btn, i) => {
-    if (i === index) {
-      btn.className =
-        "whitespace-nowrap px-3 py-1.5 rounded-full text-[11px] font-semibold border border-hairPrimary text-hairSoft bg-gradient-to-r from-hairPink/60 via-hairPurple/60 to-hairPrimary/70 shadow-glow";
-    } else {
-      btn.className =
-        "whitespace-nowrap px-3 py-1.5 rounded-full text-[11px] font-semibold border border-slate-700 text-slate-200 bg-slate-900/70 hover:bg-slate-800/90 hover:border-hairPrimary/70 hover:text-hairSoft transition";
-    }
-  });
+  // Update tab styles (desktop/tablet)
+  if (tabs) {
+    [...tabs.children].forEach((btn, i) => {
+      if (i === index) {
+        btn.className =
+          "whitespace-nowrap px-3 py-1.5 rounded-full text-[11px] font-semibold border border-hairPrimary text-hairSoft bg-gradient-to-r from-hairPink/60 via-hairPurple/60 to-hairPrimary/70 shadow-glow";
+      } else {
+        btn.className =
+          "whitespace-nowrap px-3 py-1.5 rounded-full text-[11px] font-semibold border border-slate-700 text-slate-200 bg-slate-900/70 hover:bg-slate-800/90 hover:border-hairPrimary/70 hover:text-hairSoft transition";
+      }
+    });
+  }
+
+  // Sync mobile select
+  if (select && select.value !== String(index)) {
+    select.value = String(index);
+  }
 
   const m = months[index];
 
@@ -87,7 +103,7 @@ function setActiveMonth(months, index) {
     <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
       <div>
         <p class="text-[11px] uppercase tracking-wide text-slate-400">${m.phase}</p>
-        <h3 class="text-lg font-semibold text-slate-50">${m.name}</h3>
+        <h3 class="text-base sm:text-lg font-semibold text-slate-50">${m.name}</h3>
         <p class="text-[11px] text-slate-300 mt-1">
           <span class="font-semibold text-hairSoft">Approx. length:</span> ${m.lengthNote}
         </p>
@@ -101,7 +117,7 @@ function setActiveMonth(months, index) {
       <h4 class="text-sm font-semibold mb-2 flex items-center gap-2 text-slate-50">
         <span class="text-base">📌</span> Monthly Tasks (Once per Month)
       </h4>
-      <ul class="list-disc list-inside text-sm text-slate-200 space-y-1">
+      <ul class="list-disc list-inside text-xs sm:text-sm text-slate-200 space-y-1">
         ${m.extras.map((item) => `<li>${item}</li>`).join("")}
       </ul>
     </div>
@@ -128,9 +144,9 @@ function renderTodayBadge(weeklyRoutine) {
   }
 
   badge.innerHTML = `
-    <div class="inline-flex items-center gap-2 rounded-full bg-slate-900/80 border border-hairPrimary/60 px-3 py-1">
+    <div class="inline-flex items-center gap-2 rounded-full bg-slate-900/80 border border-hairPrimary/60 px-3 py-1.5">
       <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="text-slate-200">
+      <span class="text-slate-200 text-xs">
         Today is <span class="font-semibold text-hairSoft">${todayEntry.day}</span> —
         <span class="font-semibold">${todayEntry.title}</span>
       </span>
@@ -262,6 +278,11 @@ loadHairData().then((data) => {
 
   globalMonths = Array.isArray(months) ? months : [];
   globalWeeklyRoutine = Array.isArray(weeklyRoutine) ? weeklyRoutine : [];
+
+  // Default to "simple" view on small screens so it feels lighter on phones
+  if (window.innerWidth < 640) {
+    viewMode = "simple";
+  }
 
   if (globalMonths.length) {
     renderMonthTabs(globalMonths);

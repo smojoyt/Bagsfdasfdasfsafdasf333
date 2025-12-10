@@ -29,7 +29,7 @@
               sans: ["Poppins", "system-ui", "sans-serif"],
             },
             colors: {
-              hairPrimary: "#f97316", // warm orange
+              hairPrimary: "#f97316",
               hairPink: "#ec4899",
               hairPurple: "#8b5cf6",
               hairSoft: "#fef3c7",
@@ -41,62 +41,64 @@
         },
       };
     </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body
-    class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50"
+    class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 font-sans"
   >
-    <div class="max-w-5xl mx-auto px-4 py-6 sm:py-8">
+    <!-- MAIN WRAPPER -->
+    <div class="w-full max-w-full lg:max-w-4xl mx-auto px-3 sm:px-4 py-5 sm:py-8 space-y-8">
       <!-- Top bar -->
-      <header class="mb-6 sm:mb-8">
+      <header class="space-y-4">
         <div
-          class="inline-flex items-center gap-2 rounded-full bg-slate-900/70 border border-slate-700 px-3 py-1 text-[11px] text-slate-300 backdrop-blur"
+          class="inline-flex items-center gap-2 rounded-full bg-slate-900/70 border border-slate-700 px-3 py-1.5 text-[11px] sm:text-xs text-slate-200 backdrop-blur"
         >
           <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span>Hair Growth Journey · 4C · Low Porosity</span>
         </div>
 
         <div
-          class="mt-4 rounded-3xl bg-gradient-to-br from-hairPink/25 via-hairPurple/25 to-hairPrimary/25 border border-slate-700/60 p-4 sm:p-6 shadow-glow"
+          class="rounded-3xl bg-gradient-to-br from-hairPink/25 via-hairPurple/25 to-hairPrimary/25 border border-slate-700/60 p-4 sm:p-6 shadow-glow"
         >
           <h1 class="text-2xl sm:text-3xl font-bold leading-tight">
             12-Month 4C Growth Plan
           </h1>
-          <p class="mt-2 text-sm text-slate-200/90">
+          <p class="mt-2 text-sm sm:text-base text-slate-200/90">
             Current length:
             <span class="font-semibold text-hairSoft">0.5–1 inch</span> · Goal:
             <span class="font-semibold text-hairSoft">long, healthy twists</span>.
           </p>
-          <p class="mt-1 text-xs text-slate-300/90">
+          <p class="mt-1 text-xs sm:text-sm text-slate-300/90">
             Follow the
             <span class="font-semibold text-hairSoft">same weekly routine all year</span>.
-            Month tabs add small once-a-month extras and growth check-ins.
+            Month tabs / dropdown add small once-a-month extras and growth check-ins.
           </p>
 
           <!-- Quick stats pills -->
-          <div class="mt-4 flex flex-wrap gap-2 text-[11px]">
+          <div class="mt-4 flex flex-wrap gap-2 text-xs sm:text-[11px]">
             <span
               class="inline-flex items-center gap-1 rounded-full bg-slate-900/80 px-3 py-1 border border-slate-700/70"
             >
-              <span class="text-xs">🧴</span> 1× wash per week
+              <span class="text-base">🧴</span> 1× wash per week
             </span>
             <span
               class="inline-flex items-center gap-1 rounded-full bg-slate-900/80 px-3 py-1 border border-slate-700/70"
             >
-              <span class="text-xs">💆🏽‍♀️</span> 2–3× scalp oil days
+              <span class="text-base">💆🏽‍♀️</span> 2–3× scalp oil days
             </span>
             <span
               class="inline-flex items-center gap-1 rounded-full bg-slate-900/80 px-3 py-1 border border-slate-700/70"
             >
-              <span class="text-xs">🌙</span> nightly satin bonnet
+              <span class="text-base">🌙</span> nightly satin bonnet
             </span>
           </div>
         </div>
       </header>
 
       <!-- Products summary -->
-      <section class="mb-8 sm:mb-10">
-        <div class="flex items-center justify-between gap-2 mb-3">
-          <h2 class="text-lg sm:text-xl font-semibold">Products You’re Using</h2>
+      <section class="space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="text-base sm:text-lg font-semibold">Products You’re Using</h2>
           <span
             class="hidden sm:inline-flex items-center rounded-full bg-slate-900/60 px-3 py-1 text-[11px] text-slate-300 border border-slate-700/80"
           >
@@ -104,89 +106,102 @@
           </span>
         </div>
 
-        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-xs">
+        <div class="flex flex-col gap-3 text-xs sm:text-sm">
+          <!-- Each card full-width on mobile -->
           <div
-            class="rounded-2xl bg-slate-900/70 border border-slate-700/80 p-3 flex flex-col gap-1"
+            class="rounded-2xl bg-slate-900/70 border border-slate-700/80 p-3 flex gap-3 items-start"
           >
-            <p class="font-semibold text-hairSoft flex items-center gap-2">
-              <span class="text-sm">🧼</span> Design Essentials Honey Creme Shampoo
-            </p>
-            <p class="text-slate-300">
-              Weekly scalp cleanse. Use on <span class="font-semibold">wash day</span>.
-            </p>
+            <span class="text-xl">🧼</span>
+            <div>
+              <p class="font-semibold text-hairSoft">
+                Design Essentials Honey Creme Shampoo
+              </p>
+              <p class="text-slate-300">
+                Weekly scalp cleanse. Use on <span class="font-semibold">wash day</span>.
+              </p>
+            </div>
           </div>
 
           <div
-            class="rounded-2xl bg-slate-900/70 border border-slate-700/80 p-3 flex flex-col gap-1"
+            class="rounded-2xl bg-slate-900/70 border border-slate-700/80 p-3 flex gap-3 items-start"
           >
-            <p class="font-semibold text-hairSoft flex items-center gap-2">
-              <span class="text-sm">🫧</span> SheaMoisture Low Porosity Conditioner
-            </p>
-            <p class="text-slate-300">
-              Rinse-out after shampoo. Leave on
-              <span class="font-semibold">10–15 minutes</span>.
-            </p>
+            <span class="text-xl">🫧</span>
+            <div>
+              <p class="font-semibold text-hairSoft">
+                SheaMoisture Low Porosity Conditioner
+              </p>
+              <p class="text-slate-300">
+                Rinse-out after shampoo. Leave on
+                <span class="font-semibold">10–15 minutes</span>.
+              </p>
+            </div>
           </div>
 
           <div
-            class="rounded-2xl bg-slate-900/70 border border-slate-700/80 p-3 flex flex-col gap-1"
+            class="rounded-2xl bg-slate-900/70 border border-slate-700/80 p-3 flex gap-3 items-start"
           >
-            <p class="font-semibold text-hairSoft flex items-center gap-2">
-              <span class="text-sm">💧</span> As I Am Leave-In Conditioner
-            </p>
-            <p class="text-slate-300">
-              Lightweight moisture on wash day + mid-week refresh.
-            </p>
+            <span class="text-xl">💧</span>
+            <div>
+              <p class="font-semibold text-hairSoft">As I Am Leave-In Conditioner</p>
+              <p class="text-slate-300">
+                Lightweight moisture on wash day + mid-week refresh.
+              </p>
+            </div>
           </div>
 
           <div
-            class="rounded-2xl bg-slate-900/70 border border-slate-700/80 p-3 flex flex-col gap-1"
+            class="rounded-2xl bg-slate-900/70 border border-slate-700/80 p-3 flex gap-3 items-start"
           >
-            <p class="font-semibold text-hairSoft flex items-center gap-2">
-              <span class="text-sm">🥥</span> As I Am DoubleButter Cream
-            </p>
-            <p class="text-slate-300">
-              Seal in moisture, especially on your ends, after Leave-In.
-            </p>
+            <span class="text-xl">🥥</span>
+            <div>
+              <p class="font-semibold text-hairSoft">As I Am DoubleButter Cream</p>
+              <p class="text-slate-300">
+                Seal in moisture, especially on your ends, after Leave-In.
+              </p>
+            </div>
           </div>
 
           <div
-            class="rounded-2xl bg-slate-900/70 border border-slate-700/80 p-3 flex flex-col gap-1 sm:col-span-2 lg:col-span-1"
+            class="rounded-2xl bg-slate-900/70 border border-slate-700/80 p-3 flex gap-3 items-start"
           >
-            <p class="font-semibold text-hairSoft flex items-center gap-2">
-              <span class="text-sm">🌿</span> Aunt Jackie’s Grapeseed &amp; Avocado Oil
-            </p>
-            <p class="text-slate-300">
-              Scalp massages <span class="font-semibold">2–3 nights a week</span> +
-              light seal on ends.
-            </p>
+            <span class="text-xl">🌿</span>
+            <div>
+              <p class="font-semibold text-hairSoft">
+                Aunt Jackie’s Grapeseed &amp; Avocado Oil
+              </p>
+              <p class="text-slate-300">
+                Scalp massages <span class="font-semibold">2–3 nights a week</span> +
+                light seal on ends.
+              </p>
+            </div>
           </div>
         </div>
 
-        <p class="mt-2 text-[11px] text-slate-400">
+        <p class="mt-1 text-xs text-slate-400">
           Pro tip: A <span class="font-semibold">satin bonnet or scarf every night</span> is
           non-negotiable for growth and length retention.
         </p>
       </section>
 
       <!-- Month Tabs + Content -->
-      <section class="mb-10">
-        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-3">
+      <section class="space-y-4">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 class="text-lg sm:text-xl font-semibold">Month-by-Month Guide</h2>
-            <span class="hidden sm:inline text-[11px] text-slate-400">
-              Tap a month to see your focus & once-a-month tasks.
-            </span>
+            <h2 class="text-base sm:text-lg font-semibold">Month-by-Month Guide</h2>
+            <p class="hidden sm:block text-xs text-slate-400">
+              Use tabs or the dropdown to see your focus and monthly tasks.
+            </p>
           </div>
+
           <!-- Progress bar -->
           <div class="w-full sm:w-64">
-            <div class="flex items-center justify-between text-[11px] mb-1">
-              <span id="monthProgressLabel" class="text-slate-300">
+            <div class="flex items-center justify-between text-xs mb-1">
+              <span id="monthProgressLabel" class="text-slate-200">
                 Month 1 of 12
               </span>
-              <span class="text-slate-500">100% = full year</span>
+              <span class="text-slate-500 hidden sm:inline">100% = full year</span>
             </div>
-            <div class="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+            <div class="h-2 rounded-full bg-slate-800 overflow-hidden">
               <div
                 id="monthProgressFill"
                 class="h-full rounded-full bg-gradient-to-r from-hairPink via-hairPurple to-hairPrimary transition-all duration-300"
@@ -196,10 +211,26 @@
           </div>
         </div>
 
-        <!-- Tabs -->
+        <!-- Mobile: Month dropdown -->
+        <div class="sm:hidden">
+          <label
+            for="monthSelectMobile"
+            class="block text-xs text-slate-300 mb-1"
+          >
+            Jump to month
+          </label>
+          <select
+            id="monthSelectMobile"
+            class="w-full rounded-2xl border border-slate-700 bg-slate-900/80 text-xs text-slate-50 px-3 py-2"
+          >
+            <!-- options filled by JS -->
+          </select>
+        </div>
+
+        <!-- Tabs: only show on tablet/desktop -->
         <div
           id="monthTabs"
-          class="flex gap-2 overflow-x-auto pb-2 border-b border-slate-800 mb-4 scrollbar-thin scrollbar-thumb-slate-700/80 scrollbar-track-transparent"
+          class="hidden sm:flex gap-2 overflow-x-auto pb-2 border-b border-slate-800 mb-1 scrollbar-thin scrollbar-thumb-slate-700/80 scrollbar-track-transparent"
         >
           <!-- Filled by hair.js -->
         </div>
@@ -207,25 +238,25 @@
         <!-- Active Month Panel -->
         <div
           id="monthContent"
-          class="bg-slate-900/70 border border-slate-800 rounded-3xl shadow-glow p-4 sm:p-5 text-sm"
+          class="bg-slate-900/80 border border-slate-800 rounded-3xl shadow-glow p-4 sm:p-5 text-sm"
         >
           <!-- Filled by hair.js -->
         </div>
       </section>
 
-      <!-- Weekly Routine (cards, mobile-first) -->
-      <section class="mb-10">
-        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-2">
+      <!-- Weekly Routine -->
+      <section class="space-y-3 pb-6">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 class="text-lg sm:text-xl font-semibold">Weekly Routine</h2>
-            <p class="text-[11px] text-slate-400">
-              Same routine every week · Growth = consistency, not constant changes.
+            <h2 class="text-base sm:text-lg font-semibold">Weekly Routine</h2>
+            <p class="text-xs text-slate-400">
+              Same routine every week · growth comes from doing these small things on repeat.
             </p>
           </div>
 
           <!-- View toggle -->
           <div
-            class="inline-flex items-center rounded-full bg-slate-900/70 border border-slate-700/80 p-1 text-[11px]"
+            class="inline-flex items-center rounded-full bg-slate-900/70 border border-slate-700/80 p-1 text-xs self-start"
           >
             <button
               id="viewSimpleBtn"
@@ -245,24 +276,27 @@
         </div>
 
         <!-- Today badge -->
-        <div id="todayBadge" class="mb-3 text-[11px]"></div>
+        <div id="todayBadge" class="mb-2 text-xs"></div>
 
+        <!-- Cards: 1 column on phones, grid on bigger screens -->
         <div
           id="weeklyRoutineWrapper"
-          class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+          class="flex flex-col gap-3 md:grid md:grid-cols-2 lg:grid-cols-3"
         >
           <!-- Cards injected by hair.js -->
         </div>
       </section>
 
       <!-- Footer note -->
-      <footer class="mt-8 border-t border-slate-800 pt-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <p class="text-[11px] text-slate-400">
+      <footer class="border-t border-slate-800 pt-4 pb-3">
+        <div
+          class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+        >
+          <p class="text-xs text-slate-400 leading-snug">
             If you notice persistent itching, heavy flaking, or shedding, check in with a
             dermatologist or trichologist. This is a general care guide, not medical advice.
           </p>
-          <p class="text-[11px] text-slate-500">
+          <p class="text-xs text-slate-500">
             🌱 Consistency + low manipulation + moisture =
             <span class="font-semibold text-hairSoft">length retention</span>.
           </p>
