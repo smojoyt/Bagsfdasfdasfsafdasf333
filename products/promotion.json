@@ -22,13 +22,33 @@
   "shortLabel": "Free Charm"
 },
 {
+  "name": "100% Off",
+  "type": "home_free_promo",
+  "active": true,
+
+
+  "sectionId": "freePromo",
+
+  "productSkus": [
+    "Charms_HeartClaspHook",
+    "Labubu_Shoes_Jordans",
+    "Charms_GlossCap"
+  ],
+
+  "media": {
+    "headline": "Free Items",
+    "caption": "Hand-picked items from our current free gift promos.",
+    "linkUrl": "/pages/catalog.html#free-promos"
+  }
+},
+{
   "name": "20% Off All Charms",
   "category": "charms",
   "type": "percent",
-  "amount": 20,
+  "amount": 100,
   "condition": { "minPrice": 0 },
   "startDate": "2025-06-28T00:00:00Z",
-  "endDate": "2024-11-20T23:59:59Z",
+  "endDate": "2027-11-20T23:59:59Z",
   "active": false,
   "featured": false,
   "media": {

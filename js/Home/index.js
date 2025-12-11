@@ -2,6 +2,7 @@
 
 import { setupHeroBanner } from "./heroBanner.js";
 import { setupFeaturedProducts } from "./featuredSection.js";
+import { setupFreePromoSection } from "/js/Home/freePromoSection.js";
 import { loadDynamicFeatureSection } from "./featuredHighlight.js";
 import { loadBestsellerProducts } from "./bestsellerCarousel.js";
 import { getHomeData } from "./homeData.js";
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Normal Home setup
   setupHeroBanner();
   setupFeaturedProducts();
+  setupFreePromoSection();
   loadDynamicFeatureSection("headwear"); // or "bags", etc.
   loadBestsellerProducts();
 });
