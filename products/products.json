@@ -3203,14 +3203,13 @@
     "gift"
   ],
 
-  "catalogImage": "https://www.karrykraze.com/imgs/Products/Braclet/ballFlower/01.jpg",
-  "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Braclet/ballFlower/01.jpg",
-  "image": "https://www.karrykraze.com/imgs/Products/Braclet/ballFlower/01.jpg",
+  "catalogImage": "https://www.karrykraze.com/imgs/Products/Jewely/Braclet/ballFlower/01.jpg",
+  "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Jewely/Braclet/ballFlower/01.jpg",
+  "image": "https://www.karrykraze.com/imgs/Products/Jewely/Braclet/ballFlower/01.jpg",
 
   "url": "https://www.karrykraze.com/pages/product.html?sku=Bracelet_BlackFloral",
 
-  "banner": "https://www.karrykraze.com/imgs/Products/Braclet/ballFlower/01.jpg",
-
+  "banner": "https://www.karrykraze.com/imgs/Products/Jewely/Braclet/ballFlower/01.jpg",
   "descriptionList": [
     "Elegant matte black bead bracelet with floral accent beads",
     "Doubles as a wristlet keychain for hands-free carrying",
@@ -3248,7 +3247,7 @@
   },
 
   "variantImages": {
-    "Black": "https://www.karrykraze.com/imgs/Products/Braclet/ballFlower/01.jpg"
+    "Black": "https://www.karrykraze.com/imgs/Products/Jewely/Braclet/ballFlower/01.jpg"
   },
 
   "thumbnails": [
@@ -3459,9 +3458,348 @@
   "thumbnails": [
     "https://www.karrykraze.com/imgs/Products/Pendants/dice/01.jpg"
   ]
+},
+"Hat_AcnStudios": {
+  "name": "Acne Studios Hat",
+  "category": "headwear",
+  "product_id": "KK-1067",
+  "checkout_product_id": "LKK210",
+  "price": 24.99,
+  "weight_oz": 4.0,
+
+  "tags": [
+    "hat",
+    "baseball cap",
+    "embroidered",
+    "vintage",
+    "washed",
+    "streetwear",
+    "unisex",
+    "adjustable"
+  ],
+
+  "catalogImage": "https://www.karrykraze.com/imgs/Products/Hats/acn/03.jpg",
+  "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Hats/acn/09.jpg",
+  "image": "https://www.karrykraze.com/imgs/Products/Hats/acn/03.jpg",
+
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Hat_AcnStudios",
+
+  "banner": "https://www.karrykraze.com/imgs/Products/Hats/acn/banner.jpg",
+
+  "descriptionList": [
+    "Vintage-washed baseball cap featuring raised Acne Studios-style embroidery",
+    "Soft, comfortable cotton twill with a naturally broken-in feel",
+    "Curved brim and six-panel shape for a classic silhouette",
+    "Adjustable metal buckle strap for a customizable fit"
+  ],
+
+  "sizingList": [
+    "One size fits most (OSFM)",
+    "Head circumference: approx. 21.5\"–23.5\"",
+    "Curved brim length: approx. 2.75\"",
+    "Back metal buckle adjustment strap"
+  ],
+
+  "keyDetails": [
+    "High-quality raised embroidery",
+    "Tonal stitching along panels and brim",
+    "Six ventilation eyelets for breathability",
+    "Soft interior sweatband for comfort",
+    "Perfect everyday streetwear accessory"
+  ],
+
+  "careInstructions": [
+    "Spot clean only",
+    "Do not machine wash",
+    "Allow to air dry",
+    "Do not bleach or iron embroidery"
+  ],
+
+  "custom1Name": "Color",
+  "custom1Options": "Olive | Gray | Black | Blue | White",
+
+  "variantStock": {
+    "Olive": 20,
+    "Gray": 20,
+    "Black": 20,
+    "Blue": 20,
+    "White": 20
+  },
+
+  "variantImages": {
+    "Olive": "https://www.karrykraze.com/imgs/Products/Hats/acn/08.jpg",
+    "Gray": "https://www.karrykraze.com/imgs/Products/Hats/acn/04.jpg",
+    "Black": "https://www.karrykraze.com/imgs/Products/Hats/acn/05.jpg",
+    "Blue": "https://www.karrykraze.com/imgs/Products/Hats/acn/06.jpg",
+    "White": "https://www.karrykraze.com/imgs/Products/Hats/acn/07.jpg"
+  },
+
+  "thumbnails": [
+    "https://www.karrykraze.com/imgs/Products/Hats/acn/08.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/acn/04.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/acn/05.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/acn/06.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/acn/07.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/acn/01.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/acn/10.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/acn/11.jpg"
+  ]
+},
+"Hat_ArctPattern": {
+  "name": "Arc Pattern Beanie",
+  "category": "headwear",
+  "product_id": "KK-1068",
+  "checkout_product_id": "LKK211",
+  "price": 21.99,
+  "weight_oz": 3.5,
+
+  "tags": [
+    "hat",
+    "beanie",
+    "winter",
+    "knit",
+    "pattern",
+    "streetwear",
+    "unisex",
+    "warm"
+  ],
+
+  "catalogImage": "https://www.karrykraze.com/imgs/Products/Hats/arct/_01.jpg",
+  "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Hats/arct/_02.jpg",
+  "image": "https://www.karrykraze.com/imgs/Products/Hats/arct/_01.jpg",
+
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Hat_ArctPattern",
+
+  "banner": "https://www.karrykraze.com/imgs/Products/Hats/arct/banner.jpg",
+
+  "descriptionList": [
+    "Warm knitted beanie featuring a bold all-over abstract pattern",
+    "Soft, stretchy knit fabric that fits comfortably on most head sizes",
+    "Turn-up cuff with embroidered front logo detail",
+    "Perfect for cold weather, casual outfits, and streetwear layering"
+  ],
+
+  "sizingList": [
+    "One size fits most (OSFM)",
+    "Flexible stretch knit",
+    "Cuffed edge for adjustable depth"
+  ],
+
+  "keyDetails": [
+    "High-quality embroidery",
+    "Vibrant woven pattern design",
+    "Soft interior feel for warmth",
+    "Unisex winter essential"
+  ],
+
+  "careInstructions": [
+    "Hand wash only",
+    "Use cold water and mild detergent",
+    "Lay flat to dry",
+    "Do not bleach",
+    "Avoid machine drying to prevent shrinking"
+  ],
+
+  "custom1Name": "Color",
+  "custom1Options": "Red | Beige | Brown | Black | Pink",
+
+  "variantStock": {
+    "Red": 20,
+    "Beige": 20,
+    "Brown": 20,
+    "Black": 20,
+    "Pink": 20
+  },
+
+  "variantImages": {
+    "Red": "https://www.karrykraze.com/imgs/Products/Hats/arct/01.jpg",
+    "Beige": "https://www.karrykraze.com/imgs/Products/Hats/arct/02.jpg",
+    "Brown": "https://www.karrykraze.com/imgs/Products/Hats/arct/05.jpg",
+    "Black": "https://www.karrykraze.com/imgs/Products/Hats/arct/01.jpg",
+    "Pink": "https://www.karrykraze.com/imgs/Products/Hats/arct/05.jpg"
+  },
+
+  "thumbnails": [
+    "https://www.karrykraze.com/imgs/Products/Hats/arct/01.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/arct/02.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/arct/03.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/arct/04.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/arct/05.jpg"
+  ]
+},
+"Hat_CatEarFuzzy": {
+  "name": "Cat Ear Fuzzy Beanie",
+  "category": "headwear",
+  "product_id": "KK-2012",
+  "checkout_product_id": "LKK212",
+  "price": 19.99,
+  "weight_oz": 3.2,
+
+  "tags": [
+    "hat",
+    "beanie",
+    "cat ears",
+    "fuzzy",
+    "gradient",
+    "cute",
+    "soft",
+    "winter",
+    "unisex",
+    "kawaii"
+  ],
+
+  "catalogImage": "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/01.jpg",
+  "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/06.jpg",
+  "image": "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/01.jpg",
+
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Hat_CatEarFuzzy",
+
+  "banner": "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/banner.jpg",
+
+  "descriptionList": [
+    "Soft fuzzy beanie with adorable standing cat ear design",
+    "Gradient fade knit pattern for a unique stylish look",
+    "Ultra-plush texture provides warmth and comfort",
+    "Stretchy fit that molds comfortably to most head sizes"
+  ],
+
+  "sizingList": [
+    "One size fits most (OSFM)",
+    "Flexible stretch knit",
+    "Cat ear height: approx. 1.5–2 inches"
+  ],
+
+  "keyDetails": [
+    "Thick, cozy fuzzy material",
+    "Defined cat ears built into the knit",
+    "Gradient color blending effect",
+    "Perfect for winter outfits, cozy days, and cute fashion styles"
+  ],
+
+  "careInstructions": [
+    "Hand wash with cold water",
+    "Use mild detergent only",
+    "Lay flat to dry",
+    "Do not tumble dry",
+    "Do not iron"
+  ],
+
+  "custom1Name": "Color",
+  "custom1Options": "Beige | Pink | Gray | Red | White",
+
+  "variantStock": {
+    "Beige": 20,
+    "Pink": 20,
+    "Gray": 20,
+    "Red": 20,
+    "White": 20
+  },
+
+  "variantImages": {
+    "Beige": "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/01.jpg",
+    "Pink": "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/02.jpg",
+    "Gray": "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/05.jpg",
+    "Red": "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/04.jpg",
+    "White": "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/03.jpg"
+  },
+
+  "thumbnails": [
+    "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/01.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/02.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/03.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/04.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/05.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/catEarBeanie_2/06.jpg"
+  ]
+},
+"Hat_DemonBunnyChunky": {
+  "name": "Demon Bunny Chunky Beanie",
+  "category": "Hats",
+  "product_id": "KK-2013",
+  "checkout_product_id": "LKK213",
+  "price": 24.99,
+  "weight_oz": 4.5,
+
+  "tags": [
+    "hat",
+    "beanie",
+    "chunky knit",
+    "demon bunny",
+    "horns",
+    "kawaii",
+    "cute",
+    "winter",
+    "unisex",
+    "handmade style"
+  ],
+
+  "catalogImage": "https://www.karrykraze.com/imgs/Products/Hats/demonBunny/b01.jpg",
+  "catalogImageHover": "https://www.karrykraze.com/imgs/Products/Hats/demonBunny/w01.jpg",
+  "image": "https://www.karrykraze.com/imgs/Products/Hats/demonBunny/b01.jpg",
+
+  "url": "https://www.karrykraze.com/pages/product.html?sku=Hat_DemonBunnyChunky",
+
+  "banner": "https://www.karrykraze.com/imgs/Products/Hats/demonBunny/banner.jpg",
+
+  "descriptionList": [
+    "Chunky hand-knit style beanie featuring soft hanging bunny ears",
+    "Cute demon horns with stitched X-eye details for a playful look",
+    "Warm, plush yarn with extra thickness for winter wear",
+    "Comfort-stretch fit suitable for most head sizes"
+  ],
+
+  "sizingList": [
+    "One size fits most (OSFM)",
+    "Chunky stretch yarn fits head sizes 21\"–24\"",
+    "Hanging ear length: approx. 10–12 inches"
+  ],
+
+  "keyDetails": [
+    "Thick plush yarn for warmth",
+    "Hand-knit aesthetic",
+    "Cute demon-inspired horns",
+    "Soft oversized bunny ears",
+    "Perfect for cosplay, festivals, winter outfits, and kawaii fashion"
+  ],
+
+  "careInstructions": [
+    "Hand wash only",
+    "Use cold water and mild detergent",
+    "Lay flat to dry",
+    "Do not iron or machine dry"
+  ],
+
+  "custom1Name": "Color",
+  "custom1Options": "Black | Blue | Pink | Red | Purple | White",
+
+  "variantStock": {
+    "Black": 20,
+    "Blue": 20,
+    "Pink": 20,
+    "Red": 20,
+    "Purple": 20,
+    "White": 20
+  },
+
+  "variantImages": {
+    "Black": "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/b01.jpg",
+    "Blue": "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/bl01.jpg",
+    "Pink": "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/p01.jpg",
+    "Red": "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/p03.jpg",
+    "Purple": "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/pu01.jpg",
+    "White": "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/w01.jpg"
+  },
+
+  "thumbnails": [
+    "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/b01.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/bl01.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/p01.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/p02.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/p03.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/pu01.jpg",
+    "https://www.karrykraze.com/imgs/Products/Hats/dBunnyEars/w01.jpg"
+  ]
 }
-
-
 
 
 
